@@ -36,7 +36,7 @@ export const MAU_SAC = {
   },
 
   // --- TRẠNG THÁI LÂM SÀNG (Clinical Status Colors) ---
-  // Dùng cho cảnh báo giám định BHYT, kết quả CDSS
+  // Dùng cho cảnh báo kiểm tra BHYT, kết quả CDSS
   trang_thai: {
     hop_le:       '#388E3C',  // Xanh lá — HỢP LỆ, đã xác nhận
     canh_bao:     '#F57C00',  // Cam — CẢNH BÁO, cần kiểm tra

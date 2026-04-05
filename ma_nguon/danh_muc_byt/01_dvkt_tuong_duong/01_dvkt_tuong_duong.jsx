@@ -304,7 +304,7 @@ const PhuLuc01DVKT = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFF', padding: 10 },
-  title: { fontSize: 16, fontWeight: 'bold', color: '#1E88E5', marginBottom: 10, textTransform: 'uppercase' },
+  title: { fontSize: 16, fontWeight: 'bold', color: '#1E88E5', marginBottom: 10 },
   toolbar: { flexDirection: 'row', gap: 10, marginBottom: 10, flexWrap: 'wrap', alignItems: 'center' },
   btnPrimary: { backgroundColor: '#4CAF50', padding: 10, borderRadius: 5 },
   btnInfo: { backgroundColor: '#0288D1', padding: 10, borderRadius: 5 },

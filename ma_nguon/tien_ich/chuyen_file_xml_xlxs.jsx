@@ -10,6 +10,16 @@
 import { useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import * as XLSX from 'xlsx';
+import { xuLyFileXML130 } from './xml_helper';
+
+const normalizeXmlIdentityField = (fieldName, value) => {
+    const cleaned = String(value ?? '').trim();
+    const fieldUpper = String(fieldName || '').trim().toUpperCase();
+    if (fieldUpper === 'SO_CCCD' || fieldUpper === 'SO_DINH_DANH') {
+        return cleaned.replace(/\s+/g, '');
+    }
+    return cleaned;
+};
 
 const ChuyenDoiXmlSangExcel = () => {
     const [trangThai, setTrangThai] = useState('');
@@ -41,6 +51,51 @@ const ChuyenDoiXmlSangExcel = () => {
     // 2. HÀM BÓC TÁCH XML THÀNH JSON OBJECT (ĐÃ FIX LỖI)
     // =======================================================
     const parseXMLToJSON = (xmlString) => {
+        const laDongHopLe = (row) =>
+            !!row &&
+            typeof row === 'object' &&
+            !Array.isArray(row) &&
+            !row.parsererror &&
+            Object.keys(row).length > 0;
+
+        const themDongVaoBang = (resultMap, tenBang, duLieu) => {
+            if (!tenBang || !duLieu) return;
+
+            if (Array.isArray(duLieu)) {
+                const dsHopLe = duLieu.filter(laDongHopLe);
+                if (dsHopLe.length === 0) return;
+                if (!resultMap[tenBang]) resultMap[tenBang] = [];
+                resultMap[tenBang].push(...dsHopLe);
+                return;
+            }
+
+            if (laDongHopLe(duLieu)) {
+                if (!resultMap[tenBang]) resultMap[tenBang] = [];
+                resultMap[tenBang].push(duLieu);
+            }
+        };
+
+        const danhSachHoSo = xuLyFileXML130(xmlString);
+        if (Array.isArray(danhSachHoSo) && danhSachHoSo.length > 0) {
+            const ketQuaChuan = {};
+            danhSachHoSo.forEach((hoSo) => {
+                themDongVaoBang(ketQuaChuan, 'XML1', hoSo?.xml1 || hoSo?.XML1);
+                themDongVaoBang(ketQuaChuan, 'XML2', hoSo?.xml2 || hoSo?.XML2);
+                themDongVaoBang(ketQuaChuan, 'XML3', hoSo?.xml3 || hoSo?.XML3);
+                themDongVaoBang(ketQuaChuan, 'XML4', hoSo?.xml4 || hoSo?.XML4);
+                themDongVaoBang(ketQuaChuan, 'XML5', hoSo?.xml5 || hoSo?.XML5);
+                themDongVaoBang(ketQuaChuan, 'XML6', hoSo?.xml6 || hoSo?.XML6);
+
+                Object.entries(hoSo?._raw || {}).forEach(([tenBang, duLieu]) => {
+                    themDongVaoBang(ketQuaChuan, String(tenBang || '').toUpperCase(), duLieu);
+                });
+            });
+
+            if (Object.keys(ketQuaChuan).length > 0) {
+                return ketQuaChuan;
+            }
+        }
+
         // Hỗ trợ tự động xuất từ XML1 đến XML15 theo chuẩn QĐ 130 mở rộng
         const result = {}; 
         
@@ -68,7 +123,7 @@ const ChuyenDoiXmlSangExcel = () => {
                 let matchField;
                 // Quét toàn bộ XML1 để lấy các trường Leaf
                 while ((matchField = leafRegex.exec(cleanXML)) !== null) {
-                    record[matchField[1]] = matchField[2].trim();
+                    record[matchField[1]] = normalizeXmlIdentityField(matchField[1], matchField[2]);
                 }
                 if (Object.keys(record).length > 0) result.XML1.push(record);
                 
@@ -83,7 +138,7 @@ const ChuyenDoiXmlSangExcel = () => {
                     let matchField;
                     // Bóc tách từng trường dữ liệu bên trong khối CHI_TIET đó
                     while ((matchField = leafRegex.exec(blockContent)) !== null) {
-                        record[matchField[1]] = matchField[2].trim();
+                        record[matchField[1]] = normalizeXmlIdentityField(matchField[1], matchField[2]);
                     }
                     if (Object.keys(record).length > 0) {
                         result[loaiXML].push(record);

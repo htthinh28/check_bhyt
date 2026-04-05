@@ -41,3 +41,11 @@ app-example
 # generated native folders
 /ios
 /android
+
+# Firebase Admin SDK keys (KHÔNG bao giờ push lên git)
+tai_nguyen/*.json
+tai_nguyen/*.pdf
+.tmp_web_export/
+firebase-debug.log
+.firebaserc
+full_source_code.txt

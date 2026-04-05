@@ -17,7 +17,7 @@ export const DANH_SACH_COT_XML1 = [
   'MA_TTDV', 'DU_PHONG'
 ];
 
-// (Dự phòng mở rộng) Bộ quy tắc bắt lỗi trống, sai định dạng theo chuẩn giám định
+// (Dự phòng mở rộng) Bộ quy tắc bắt lỗi trống, sai định dạng theo chuẩn kiểm tra
 export const QUY_TAC_KIEM_TRA_XML1 = {
   MA_LK: { required: true, maxLength: 100, type: 'string' },
   HO_TEN: { required: true, maxLength: 255, type: 'string' },

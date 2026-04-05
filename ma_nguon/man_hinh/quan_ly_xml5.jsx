@@ -13,6 +13,7 @@ import { Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpac
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as XLSX from 'xlsx';
 import { CD } from '../tien_ich/chu_de_giao_dien';
+import { quayLaiAnToan } from '../tien_ich/dieu_huong_an_toan';
 
 // KẾT NỐI LÕI QUY TẮC CẤU TRÚC (ĐÃ FIX LỖI ĐƯỜNG DẪN 'TRUC')
 import { layDanhSachCot } from '../quy_tac/quyluat_cautrucdulieu/quyluat_cau_truc_du_lieu';
@@ -95,7 +96,7 @@ const ManHinhXML5 = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       {/* HEADER PINK THEME PHƯƠNG CHÂU */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.btn_back}>
+        <TouchableOpacity onPress={() => quayLaiAnToan(navigation, 'DocXML')} style={styles.btn_back}>
           <Text style={styles.txt_btn}>⬅</Text>
         </TouchableOpacity>
         <Text style={styles.title}>QUẢN LÝ DIỄN BIẾN LÂM SÀNG (XML5)</Text>
@@ -161,11 +162,11 @@ const ManHinhXML5 = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    ...Platform.select({ web: { background: CD.web.gradient_bg } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_bg } }),
     backgroundColor: CD.bg.gradient_mobile,
   },
   header: {
-    ...Platform.select({ web: { background: CD.web.gradient_header, backdropFilter: CD.web.blur_header, boxShadow: CD.web.shadow_header } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_header, backdropFilter: CD.web.blur_header, boxShadow: CD.web.shadow_header } }),
     backgroundColor: CD.brand.mauDam,
     borderBottomWidth: 1,
     borderBottomColor: CD.border.header,
@@ -179,7 +180,7 @@ const styles = StyleSheet.create({
   title: { color: CD.text.primary, fontSize: 24, fontWeight: 'bold', fontFamily: CD.font.family },
   btn_back: { padding: 10 },
   btn_export: {
-    ...Platform.select({ web: { background: CD.web.gradient_primary, boxShadow: CD.web.shadow_btn, cursor: CD.web.cursor_pointer } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_primary, boxShadow: CD.web.shadow_btn, cursor: CD.web.cursor_pointer } }),
     backgroundColor: CD.brand.mauChinh,
     borderRadius: 14,
     paddingVertical: 14,
@@ -212,7 +213,7 @@ const styles = StyleSheet.create({
   },
   group_btns: { flexDirection: 'row', gap: 10 },
   btn_add: {
-    ...Platform.select({ web: { background: CD.web.gradient_green, boxShadow: CD.web.shadow_btn_green, cursor: CD.web.cursor_pointer } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_green, boxShadow: CD.web.shadow_btn_green, cursor: CD.web.cursor_pointer } }),
     backgroundColor: '#388E3C',
     borderRadius: 14,
     paddingVertical: 14,

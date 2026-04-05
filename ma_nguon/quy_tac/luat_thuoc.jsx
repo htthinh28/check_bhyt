@@ -1,5 +1,5 @@
 /**
- * ĐỘNG CƠ QUY TẮC: LUẬT GIÁM ĐỊNH THUỐC & VẬT TƯ Y TẾ (VTYT)
+ * ĐỘNG CƠ QUY TẮC: LUẬT KIỂM TRA THUỐC & VẬT TƯ Y TẾ (VTYT)
  * Thực thi đối chiếu nghiệp vụ trên bảng XML2.
  * Các quy tắc này giúp đảm bảo việc kê đơn thuốc và VTYT tuân thủ các quy định của BHYT,
  * tối ưu hóa chi phí và đảm bảo an toàn cho người bệnh.
@@ -8,6 +8,13 @@
  * Quyết định 3455/QĐ-BYT về Danh mục thuốc BHYT
  */
 import { Alert } from 'react-native';
+
+const chuanHoaMaLoaiKcb = (value) => {
+  const raw = String(value ?? '').trim();
+  if (!raw) return '';
+  const digits = raw.replace(/\D/g, '');
+  return digits ? digits.padStart(2, '0') : raw;
+};
 
 // Giả lập danh mục thuốc được BHYT chi trả để kiểm tra
 const DANH_MUC_THUOC_BHYT = new Set([
@@ -18,10 +25,11 @@ const DANH_MUC_THUOC_BHYT = new Set([
 ]);
 
 export const KIEM_TRA_LUAT_THUOC = (xml2Data, xml1Data) => {
-  let danhSachLoi = [];
-  if (!xml2Data || !Array.isArray(xml2Data)) return danhSachLoi;
+  let danhSachLỗi = [];
+  if (!xml2Data || !Array.isArray(xml2Data)) return danhSachLỗi;
 
-  const laNoiTru = xml1Data?.MA_LOAI_KCB?.toString() === '1';
+  const maLoaiKcb = chuanHoaMaLoaiKcb(xml1Data?.MA_LOAI_KCB);
+  const laNoiTru = ['03', '04', '09'].includes(maLoaiKcb);
 
   // Duyệt qua từng dòng thuốc/vật tư trong hồ sơ
   xml2Data.forEach((thuoc, index) => {
@@ -31,7 +39,7 @@ export const KIEM_TRA_LUAT_THUOC = (xml2Data, xml1Data) => {
 
     // 1. KIỂM TRA THUỐC/VTYT NGOÀI DANH MỤC BHYT
     if (!DANH_MUC_THUOC_BHYT.has(thuoc.MA_THUOC)) {
-      danhSachLoi.push({
+      danhSachLỗi.push({
         id: `thuoc_${index}_danh_muc`,
         phan_loai: 'DANH MỤC',
         muc_do: 'Critical',
@@ -44,7 +52,7 @@ export const KIEM_TRA_LUAT_THUOC = (xml2Data, xml1Data) => {
     // 2. KIỂM TRA SỐ LƯỢNG KÊ ĐƠN BẤT THƯỜNG
     const soLuong = parseFloat(thuoc.SO_LUONG);
     if (soLuong > 50) { // Giả sử ngưỡng là 50
-      danhSachLoi.push({
+      danhSachLỗi.push({
         id: `thuoc_${index}_so_luong`,
         phan_loai: 'Dược lâm sàng',
         muc_do: 'Warning',
@@ -57,7 +65,7 @@ export const KIEM_TRA_LUAT_THUOC = (xml2Data, xml1Data) => {
     // 3. KIỂM TRA THUỐC BHYT KHÔNG THANH TOÁN (TỶ LỆ = 0)
     const tyLeTT = parseFloat(thuoc.TYLE_TT);
     if (tyLeTT === 0 && parseFloat(thuoc.THANH_TIEN) > 0) {
-      danhSachLoi.push({
+      danhSachLỗi.push({
         id: `thuoc_${index}_tyle_tt`,
         phan_loai: 'THANH TOÁN BHYT',
         muc_do: 'Warning',
@@ -69,7 +77,7 @@ export const KIEM_TRA_LUAT_THUOC = (xml2Data, xml1Data) => {
 
     // 4. KIỂM TRA LIỀU DÙNG/CÁCH DÙNG
     if (!thuoc.LIEU_DUNG || thuoc.LIEU_DUNG.trim() === '') {
-      danhSachLoi.push({
+      danhSachLỗi.push({
         id: `thuoc_${index}_lieu_dung`,
         phan_loai: 'Dược lâm sàng',
         muc_do: 'Info',
@@ -81,7 +89,7 @@ export const KIEM_TRA_LUAT_THUOC = (xml2Data, xml1Data) => {
 
     // 5. KIỂM TRA VTYT CHỈ DÙNG CHO NỘI TRÚ NHƯNG KÊ NGOẠI TRÚ
     if (thuoc.MA_THUOC === 'VTYT001' && !laNoiTru) {
-        danhSachLoi.push({
+        danhSachLỗi.push({
             id: `thuoc_${index}_vtyt_noi_tru`,
             phan_loai: 'CHỈ ĐỊNH',
             muc_do: 'Critical',
@@ -96,13 +104,13 @@ export const KIEM_TRA_LUAT_THUOC = (xml2Data, xml1Data) => {
 
   });
 
-  return danhSachLoi;
+  return danhSachLỗi;
 };
 
 // Hàm ví dụ để hiển thị cảnh báo (có thể tích hợp vào UI của bạn)
-export const HienThiCanhBaoThuoc = (danhSachLoi) => {
-    if (danhSachLoi && danhSachLoi.length > 0) {
-        const message = danhSachLoi.map(loi => `- ${loi.canh_bao}`).join('\n');
+export const HienThiCanhBaoThuoc = (danhSachLỗi) => {
+    if (danhSachLỗi && danhSachLỗi.length > 0) {
+        const message = danhSachLỗi.map(loi => `- ${loi.canh_bao}`).join('\n');
         Alert.alert('Cảnh Báo Từ Hệ Thống Giám Định Thuốc', message);
     } else {
         Alert.alert('Thông Báo', 'Không tìm thấy vấn đề nào về thuốc.');

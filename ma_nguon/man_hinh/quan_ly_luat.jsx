@@ -16,9 +16,13 @@ import { Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpac
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as XLSX from 'xlsx';
 import { CD } from '../tien_ich/chu_de_giao_dien';
+import { quayLaiAnToan } from '../tien_ich/dieu_huong_an_toan';
+import { xoaCacheBoMayGiamDinh } from '../tien_ich/dong_co_giam_dinh';
+import { phucHoiBanSaoGanNhat, taoBanSaoDuLieuHeThong } from '../tien_ich/sao_luu_du_lieu_he_thong';
+import { damBaoSeedLuatPtttMuc11 } from '../tien_ich/seed_luat_pttt_muc11';
 
-// 1. DANH SÁCH 11 TAB TƯƠNG ỨNG GIAO DIỆN
-const DANH_SACH_TAB = [
+// 1. DANH SÁCH TAB MẶC ĐỊNH + CƠ CHẾ NHẬN DIỆN TAB ĐỘNG TỪ STORAGE
+const DANH_SACH_TAB_MAC_DINH = [
   { id: 'LUAT_DU_LIEU', ten: '1. Cấu trúc XML', file: 'quyluat_cau_truc_du_lieu.jsx' },
   { id: 'LUAT_HANH_CHINH', ten: '2. Hành chính', file: 'luat_hanh_chinh.jsx' },
   { id: 'LUAT_CHUYEN_TUYEN', ten: '3. Chuyển tuyến', file: 'luat_chuyen_tuyen.jsx' },
@@ -32,94 +36,414 @@ const DANH_SACH_TAB = [
   { id: 'LUAT_PTTT', ten: '11. Phẫu/Thủ thuật', file: 'luat_pttt.jsx' }
 ];
 
+const ALIAS_TAB_ID = {
+  LUAT_DU_LIEU: 'XML_DATA',
+  XML_DATA: 'LUAT_DU_LIEU',
+  LUAT_HANH_CHINH: 'XML1',
+  XML1: 'LUAT_HANH_CHINH',
+  LUAT_CONG_KHAM: 'KHAM_BENH',
+  KHAM_BENH: 'LUAT_CONG_KHAM',
+  LUAT_CDHA: 'XML3',
+  XML3: 'LUAT_CDHA',
+  LUAT_THUOC: 'XML2',
+  XML2: 'LUAT_THUOC',
+  LUAT_CHUYEN_TUYEN: 'NHAP_VIEN',
+  NHAP_VIEN: 'LUAT_CHUYEN_TUYEN',
+  LUAT_GIUONG: 'NOI_TRU',
+  NOI_TRU: 'LUAT_GIUONG',
+  LUAT_PTTT: 'PTTT',
+  PTTT: 'LUAT_PTTT',
+  LUAT_MAU: 'GAY_ME',
+  GAY_ME: 'LUAT_MAU',
+  LUAT_NHAN_SU: 'HAU_PHAU',
+  HAU_PHAU: 'LUAT_NHAN_SU',
+  LUAT_HOP_DONG: 'XUAT_VIEN',
+  XUAT_VIEN: 'LUAT_HOP_DONG',
+};
+
+const TEN_TAB_THEO_ID = {
+  LUAT_DU_LIEU: '1. Cấu trúc XML',
+  LUAT_HANH_CHINH: '2. Hành chính',
+  LUAT_CHUYEN_TUYEN: '3. Chuyển tuyến',
+  LUAT_HOP_DONG: '4. Hợp đồng',
+  LUAT_CONG_KHAM: '5. Công khám',
+  LUAT_CDHA: '6. CĐHA',
+  LUAT_MAU: '7. Máu',
+  LUAT_THUOC: '8. Thuốc',
+  LUAT_GIUONG: '9. Giường bệnh',
+  LUAT_NHAN_SU: '10. Nhân sự',
+  LUAT_PTTT: '11. Phẫu/Thủ thuật',
+  XML_DATA: '1. Dữ liệu (XML)',
+  XML1: '2. Hành chính',
+  KHAM_BENH: '3. Khám bệnh',
+  XML3: '4. CĐ Dịch vụ',
+  XML2: '5. CĐ Thuốc',
+  NHAP_VIEN: '6. CĐ Nhập viện',
+  NOI_TRU: '7. CĐ Nội trú',
+  PTTT: '8. CĐ Phẫu/Thủ thuật',
+  GAY_ME: '9. Gây mê',
+  HAU_PHAU: '10. ĐT Hậu phẫu',
+  XUAT_VIEN: '11. Xuất viện',
+  TAI_LIEU: '12. Tài liệu/Khác',
+};
+
+const taoThongTinTab = (tabId) => {
+  const tabMacDinh = DANH_SACH_TAB_MAC_DINH.find((t) => t.id === tabId);
+  if (tabMacDinh) return tabMacDinh;
+  return { id: tabId, ten: TEN_TAB_THEO_ID[tabId] || `Khác: ${tabId}`, file: `${tabId}.jsx` };
+};
+
+const parseJSONAnToan = (raw, fallback) => {
+  try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; }
+};
+
+const chuanHoaTabId = (tabId) => String(tabId || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+
+const layTabIdTuStorageKey = (key) => {
+  if (key.includes('_CHUNK_') || key.endsWith('_CHUNKS')) return '';
+  if (key.startsWith('CDSS_DATA_')) return key.substring('CDSS_DATA_'.length);
+  if (key.startsWith('CDSS_COLS_')) return key.substring('CDSS_COLS_'.length);
+  return '';
+};
+
+const timTabUngVien = (tabId, tapTabTrongStorage) => {
+  const ungVien = new Set();
+  const aliasId = ALIAS_TAB_ID[tabId];
+  const normTab = chuanHoaTabId(tabId);
+  const normAlias = chuanHoaTabId(aliasId);
+
+  ungVien.add(tabId);
+  if (aliasId) ungVien.add(aliasId);
+
+  (tapTabTrongStorage || []).forEach((id) => {
+    const normId = chuanHoaTabId(id);
+    if (normId && (normId === normTab || (normAlias && normId === normAlias))) {
+      ungVien.add(id);
+    }
+  });
+
+  return Array.from(ungVien);
+};
+
+const chuanHoaDuLieuLuat = (raw) => {
+  if (Array.isArray(raw)) return raw;
+  if (raw && typeof raw === 'object' && Array.isArray(raw.data)) return raw.data;
+  return [];
+};
+
+const chuanHoaCotLuat = (raw) => {
+  if (Array.isArray(raw)) return raw;
+  if (raw && typeof raw === 'object' && Array.isArray(raw.fields)) return raw.fields;
+  if (raw && typeof raw === 'object' && Array.isArray(raw.columns)) return raw.columns;
+  return null;
+};
+
 const ManHinhQuanLyLuat = ({ navigation }) => {
-  const [tabHienTai, setTabHienTai] = useState(DANH_SACH_TAB[0].id);
+  const [danhSachTab, setDanhSachTab] = useState(DANH_SACH_TAB_MAC_DINH);
+  const [tabHienTai, setTabHienTai] = useState(DANH_SACH_TAB_MAC_DINH[0].id);
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
   const [newColumnName, setNewColumnName] = useState('');
+  const [daKhoiTaoSeedPttt, setDaKhoiTaoSeedPttt] = useState(false);
   
   const [sortConfig, setSortConfig] = useState({ column: null, direction: 'asc' });
   const isInitialMount = useRef(true);
+  const coDuLieuQuyTac = (arr) => Array.isArray(arr) && arr.length > 0;
+  const layDoRongCot = (col) => {
+    if (col === 'TRANG_THAI') return 170;
+    if (col === 'MA_LUAT') return 180;
+    if (col === 'TEN_QUY_TAC') return 340;
+    if (col === 'DIEU_KIEN' || col === 'CANH_BAO') return 620;
+    return 260;
+  };
 
-  // --- TẢI DỮ LIỆU VÀ CẤU TRÚC CỘT TỪ LOCAL STORAGE ---
+  const ghiAliasAnToanWeb = (aliasId, duLieu, cot) => {
+    if (!aliasId) return;
+    const duLieuMoiCoGiaTri = coDuLieuQuyTac(duLieu);
+    if (!duLieuMoiCoGiaTri) {
+      const duLieuAliasCu = chuanHoaDuLieuLuat(parseJSONAnToan(window.localStorage.getItem(`CDSS_DATA_${aliasId}`), []));
+      if (coDuLieuQuyTac(duLieuAliasCu)) return;
+    }
+    window.localStorage.setItem(`CDSS_DATA_${aliasId}`, JSON.stringify(duLieu));
+    window.localStorage.setItem(`CDSS_COLS_${aliasId}`, JSON.stringify(cot));
+  };
+
+  const ghiAliasAnToanAsync = async (aliasId, duLieu, cot) => {
+    if (!aliasId) return;
+    const duLieuMoiCoGiaTri = coDuLieuQuyTac(duLieu);
+    if (!duLieuMoiCoGiaTri) {
+      const duLieuAliasCu = chuanHoaDuLieuLuat(parseJSONAnToan(await AsyncStorage.getItem(`CDSS_DATA_${aliasId}`), []));
+      if (coDuLieuQuyTac(duLieuAliasCu)) return;
+    }
+    await AsyncStorage.setItem(`CDSS_DATA_${aliasId}`, JSON.stringify(duLieu));
+    await AsyncStorage.setItem(`CDSS_COLS_${aliasId}`, JSON.stringify(cot));
+  };
+
   useEffect(() => {
-    const taiDuLieu = async () => {
-      isInitialMount.current = true; 
+    let daHuy = false;
+    const tabMacDinhIds = DANH_SACH_TAB_MAC_DINH.map((t) => t.id);
+    const sapXepTabIds = (ids) => {
+      const idsNgoaiMacDinh = ids
+        .filter((id) => !tabMacDinhIds.includes(id))
+        .sort((a, b) => String(a).localeCompare(String(b), 'vi', { sensitivity: 'base' }));
+      return [...tabMacDinhIds, ...idsNgoaiMacDinh];
+    };
+    const capNhatDanhSachTab = (keys) => {
+      const idsDong = keys.map(layTabIdTuStorageKey).filter(Boolean);
+      const idsGop = Array.from(new Set([...tabMacDinhIds, ...idsDong]));
+      const danhSach = sapXepTabIds(idsGop).map((id) => taoThongTinTab(id));
+      if (!daHuy) setDanhSachTab(danhSach);
+    };
+
+    if (Platform.OS === 'web') {
       try {
-        const colsLuuTru = await AsyncStorage.getItem(`CDSS_COLS_${tabHienTai}`);
-        const dataLuuTru = await AsyncStorage.getItem(`CDSS_DATA_${tabHienTai}`);
-        
-        let loadedCols = colsLuuTru ? JSON.parse(colsLuuTru) : ['TRANG_THAI', 'MA_LUAT', 'TEN_QUY_TAC', 'DIEU_KIEN', 'CANH_BAO'];
-        
-        if (!loadedCols.includes('TRANG_THAI')) {
-           loadedCols = ['TRANG_THAI', ...loadedCols];
-        }
-        setColumns(loadedCols);
+        const keys = Object.keys(window.localStorage || {});
+        capNhatDanhSachTab(keys);
+      } catch {
+        if (!daHuy) setDanhSachTab(DANH_SACH_TAB_MAC_DINH);
+      }
+    } else {
+      AsyncStorage.getAllKeys()
+        .then((keys) => capNhatDanhSachTab(keys))
+        .catch(() => { if (!daHuy) setDanhSachTab(DANH_SACH_TAB_MAC_DINH); });
+    }
 
-        let loadedData = dataLuuTru ? JSON.parse(dataLuuTru) : [];
-        loadedData = loadedData.map(row => ({
-          ...row,
-          TRANG_THAI: (row.TRANG_THAI === undefined || row.TRANG_THAI === "") ? "ON" : row.TRANG_THAI
-        }));
+    return () => { daHuy = true; };
+  }, []);
 
-        setData(loadedData);
-        setSelectedRows([]); 
-        setSortConfig({ column: null, direction: 'asc' }); 
-      } catch (error) {
-        console.error("Lỗi tải dữ liệu luật:", error);
+  useEffect(() => {
+    if (!danhSachTab.some((tab) => tab.id === tabHienTai) && danhSachTab.length > 0) {
+      setTabHienTai(danhSachTab[0].id);
+    }
+  }, [danhSachTab, tabHienTai]);
+
+  // --- TẢI DỮ LIỆU TỪ LOCAL STORAGE ---
+  // Trên web: đọc SYNCHRONOUS từ window.localStorage (không async/await).
+  // Trên mobile: đọc async qua AsyncStorage.
+  useEffect(() => {
+    let daHuy = false;
+    const khoiTaoSeed = async () => {
+      try {
+        await Promise.all([
+          damBaoSeedLuatPtttMuc11(),
+        ]);
+      } catch (e) {
+        console.warn('[LUAT_SEED] Không thể nạp seed mục 11:', e);
       } finally {
-        setTimeout(() => { isInitialMount.current = false; }, 100);
+        if (!daHuy) setDaKhoiTaoSeedPttt(true);
       }
     };
-    taiDuLieu();
-  }, [tabHienTai]);
+    khoiTaoSeed();
+    return () => { daHuy = true; };
+  }, []);
 
-  // --- CƠ CHẾ AUTO-SAVE (LƯU NGẦM TỰ ĐỘNG) ---
   useEffect(() => {
-    if (isInitialMount.current) return; 
+    if (!daKhoiTaoSeedPttt) return;
+    isInitialMount.current = true;
+
+    const COT_MAC_DINH = ['TRANG_THAI', 'MA_LUAT', 'TEN_QUY_TAC', 'DIEU_KIEN', 'CANH_BAO'];
+    const chuanHoaData = (arr) => arr.map(row => ({
+      ...row,
+      TRANG_THAI: (row.TRANG_THAI === undefined || row.TRANG_THAI === '') ? 'ON' : row.TRANG_THAI,
+    }));
+
+    if (Platform.OS === 'web') {
+      try {
+        const allKeys = Object.keys(window.localStorage || {});
+        const tabIdsTrongStorage = Array.from(new Set(allKeys.map(layTabIdTuStorageKey).filter(Boolean)));
+        const dsUngVien = timTabUngVien(tabHienTai, tabIdsTrongStorage);
+
+        let loadedCols = null;
+        let loadedData = [];
+        let tabNguon = '';
+
+        for (const tabIdUngVien of dsUngVien) {
+          const colsRaw = parseJSONAnToan(window.localStorage.getItem(`CDSS_COLS_${tabIdUngVien}`), null);
+          const dataRaw = parseJSONAnToan(window.localStorage.getItem(`CDSS_DATA_${tabIdUngVien}`), []);
+          const colsTam = chuanHoaCotLuat(colsRaw);
+          const dataTam = chuanHoaDuLieuLuat(dataRaw);
+          if ((Array.isArray(dataTam) && dataTam.length > 0) || (Array.isArray(colsTam) && colsTam.length > 0)) {
+            loadedCols = colsTam;
+            loadedData = dataTam;
+            tabNguon = tabIdUngVien;
+            break;
+          }
+        }
+
+        if (tabNguon && tabNguon !== tabHienTai) {
+          try {
+            const dataHienTai = chuanHoaDuLieuLuat(parseJSONAnToan(window.localStorage.getItem(`CDSS_DATA_${tabHienTai}`), []));
+            const colsHienTai = chuanHoaCotLuat(parseJSONAnToan(window.localStorage.getItem(`CDSS_COLS_${tabHienTai}`), null));
+            if (dataHienTai.length === 0 && loadedData.length > 0) {
+              window.localStorage.setItem(`CDSS_DATA_${tabHienTai}`, JSON.stringify(loadedData));
+            }
+            if ((!Array.isArray(colsHienTai) || colsHienTai.length === 0) && Array.isArray(loadedCols) && loadedCols.length > 0) {
+              window.localStorage.setItem(`CDSS_COLS_${tabHienTai}`, JSON.stringify(loadedCols));
+            }
+          } catch {}
+        }
+
+        let colsCuoi = Array.isArray(loadedCols) && loadedCols.length > 0 ? loadedCols : COT_MAC_DINH;
+        if (!colsCuoi.includes('TRANG_THAI')) colsCuoi = ['TRANG_THAI', ...colsCuoi];
+        setColumns(colsCuoi);
+        setData(chuanHoaData(Array.isArray(loadedData) ? loadedData : []));
+        setSelectedRows([]);
+        setSortConfig({ column: null, direction: 'asc' });
+      } catch (e) {
+        console.error('[taiDuLieu] Lỗi đọc localStorage:', e);
+      }
+      setTimeout(() => { isInitialMount.current = false; }, 50);
+    } else {
+      const taiAsync = async () => {
+        try {
+          const allKeys = await AsyncStorage.getAllKeys();
+          const tabIdsTrongStorage = Array.from(new Set(allKeys.map(layTabIdTuStorageKey).filter(Boolean)));
+          const dsUngVien = timTabUngVien(tabHienTai, tabIdsTrongStorage);
+
+          let loadedCols = null;
+          let loadedData = [];
+          let tabNguon = '';
+
+          for (const tabIdUngVien of dsUngVien) {
+            const colsRaw = parseJSONAnToan(await AsyncStorage.getItem(`CDSS_COLS_${tabIdUngVien}`), null);
+            const dataRaw = parseJSONAnToan(await AsyncStorage.getItem(`CDSS_DATA_${tabIdUngVien}`), []);
+            const colsTam = chuanHoaCotLuat(colsRaw);
+            const dataTam = chuanHoaDuLieuLuat(dataRaw);
+            if ((Array.isArray(dataTam) && dataTam.length > 0) || (Array.isArray(colsTam) && colsTam.length > 0)) {
+              loadedCols = colsTam;
+              loadedData = dataTam;
+              tabNguon = tabIdUngVien;
+              break;
+            }
+          }
+
+          if (tabNguon && tabNguon !== tabHienTai) {
+            const dataHienTai = chuanHoaDuLieuLuat(parseJSONAnToan(await AsyncStorage.getItem(`CDSS_DATA_${tabHienTai}`), []));
+            const colsHienTai = chuanHoaCotLuat(parseJSONAnToan(await AsyncStorage.getItem(`CDSS_COLS_${tabHienTai}`), null));
+            if (dataHienTai.length === 0 && loadedData.length > 0) {
+              await AsyncStorage.setItem(`CDSS_DATA_${tabHienTai}`, JSON.stringify(loadedData));
+            }
+            if ((!Array.isArray(colsHienTai) || colsHienTai.length === 0) && Array.isArray(loadedCols) && loadedCols.length > 0) {
+              await AsyncStorage.setItem(`CDSS_COLS_${tabHienTai}`, JSON.stringify(loadedCols));
+            }
+          }
+
+          let colsCuoi = Array.isArray(loadedCols) && loadedCols.length > 0 ? loadedCols : COT_MAC_DINH;
+          if (!colsCuoi.includes('TRANG_THAI')) colsCuoi = ['TRANG_THAI', ...colsCuoi];
+          setColumns(colsCuoi);
+          setData(chuanHoaData(Array.isArray(loadedData) ? loadedData : []));
+          setSelectedRows([]);
+          setSortConfig({ column: null, direction: 'asc' });
+        } catch (e) {
+          console.error('[taiDuLieu] Lỗi đọc AsyncStorage:', e);
+        } finally {
+          setTimeout(() => { isInitialMount.current = false; }, 100);
+        }
+      };
+      taiAsync();
+    }
+  }, [tabHienTai, daKhoiTaoSeedPttt]);
+
+  // --- AUTO-SAVE (chỉ dùng trên mobile; web lưu synchronous trong từng hàm) ---
+  useEffect(() => {
+    if (Platform.OS === 'web') return;
+    if (isInitialMount.current) return;
 
     const timer = setTimeout(async () => {
       try {
+        const aliasId = ALIAS_TAB_ID[tabHienTai];
         await AsyncStorage.setItem(`CDSS_DATA_${tabHienTai}`, JSON.stringify(data));
         await AsyncStorage.setItem(`CDSS_COLS_${tabHienTai}`, JSON.stringify(columns));
-        console.log(`[Auto-Save] Đã tự động lưu ${data.length} luật của tab ${tabHienTai}`);
+        if (aliasId) {
+          await ghiAliasAnToanAsync(aliasId, data, columns);
+        }
+        try { xoaCacheBoMayGiamDinh(); } catch {}
       } catch (e) {
-        console.error("Lỗi Auto-Save:", e);
+        console.error('Lỗi Auto-Save:', e);
       }
-    }, 600); 
+    }, 600);
 
     return () => clearTimeout(timer);
   }, [data, columns, tabHienTai]);
 
+  // Ghi dữ liệu vào storage. Trên web dùng localStorage synchronous để đảm bảo dữ liệu
+  // được ghi TRƯỚC KHI setData() (tránh stale closure khi F5 ngay sau khi gọi hàm này).
   const luuHeThong = async (newData, newCols) => {
+    const aliasId = ALIAS_TAB_ID[tabHienTai];
+    if (Platform.OS === 'web') {
+      try {
+        window.localStorage.setItem(`CDSS_DATA_${tabHienTai}`, JSON.stringify(newData));
+        window.localStorage.setItem(`CDSS_COLS_${tabHienTai}`, JSON.stringify(newCols));
+        if (aliasId) {
+          ghiAliasAnToanWeb(aliasId, newData, newCols);
+        }
+      } catch (e) {
+        console.error('[luuHeThong] LỖI GHI localStorage:', e);
+        // Báo lỗi rõ ràng cho người dùng, KHÔNG cập nhật state (UI phải khớp với storage)
+        window.alert(
+          e.name === 'QuotaExceededError'
+            ? '⚠️ Bộ nhớ trình duyệt đã đầy!\nVui lòng vào "Kho lưu trữ" xóa bớt hồ sơ cũ rồi thử lại.\nDữ liệu CHƯA được lưu.'
+            : `⚠️ Không thể lưu dữ liệu luật!\nLỗi: ${e.message}\nDữ liệu CHƯA được lưu.`
+        );
+        return false; // Lưu thất bại
+      }
+    } else {
+      try {
+        await AsyncStorage.setItem(`CDSS_DATA_${tabHienTai}`, JSON.stringify(newData));
+        await AsyncStorage.setItem(`CDSS_COLS_${tabHienTai}`, JSON.stringify(newCols));
+        if (aliasId) {
+          await ghiAliasAnToanAsync(aliasId, newData, newCols);
+        }
+      } catch (e) {
+        console.error('[luuHeThong] Lỗi ghi AsyncStorage:', e);
+        return false;
+      }
+    }
     setData(newData);
     setColumns(newCols);
+    try { xoaCacheBoMayGiamDinh(); } catch {}
+    return true;
   };
 
   // --- TÍNH TOÁN CÁC ĐIỀU KIỆN BỊ TRÙNG LẶP ĐỂ HIỂN THỊ CẢNH BÁO ---
-  const countDuplicateConditions = () => {
+  const taoKhoaQuyTac = (row = {}) => {
+    const maLuat = String(row?.MA_LUAT || '').trim().toUpperCase();
+    if (maLuat) return `MA:${maLuat}`;
+
+    const dieuKien = String(row?.DIEU_KIEN || '').replace(/\r?\n|\r/g, ' ').replace(/\s+/g, ' ').trim();
+    const canhBao = String(row?.CANH_BAO || '').replace(/\r?\n|\r/g, ' ').replace(/\s+/g, ' ').trim();
+    const tenQuyTac = String(row?.TEN_QUY_TAC || '').replace(/\r?\n|\r/g, ' ').replace(/\s+/g, ' ').trim();
+    return `SIG:${dieuKien}|${canhBao}|${tenQuyTac}`;
+  };
+
+  const countDuplicateRules = () => {
     const counts = {};
     data.forEach(row => {
-      const dk = (row.DIEU_KIEN || '').trim();
-      if (dk) {
-        counts[dk] = (counts[dk] || 0) + 1;
-      }
+      const khoa = taoKhoaQuyTac(row);
+      if (!khoa) return;
+      counts[khoa] = (counts[khoa] || 0) + 1;
     });
     return counts;
   };
-  const dieuKienCounts = countDuplicateConditions();
+  const quyTacCounts = countDuplicateRules();
 
-  // Kiểm tra trùng lặp khi người dùng gõ xong (onBlur)
-  const kiemTraTrungLapBlur = (text, rowId) => {
-    if (!text || text.trim() === '') return;
-    const isDuplicate = data.some(row => row.id !== rowId && (row.DIEU_KIEN || '').trim() === text.trim());
+  // Kiểm tra trùng lặp theo mã luật hoặc chữ ký quy tắc khi người dùng gõ xong
+  const kiemTraTrungLapBlur = (rowId) => {
+    const dongHienTai = data.find((row) => row.id === rowId);
+    if (!dongHienTai) return;
+    const khoa = taoKhoaQuyTac(dongHienTai);
+    if (!khoa) return;
+    const isDuplicate = (quyTacCounts[khoa] || 0) > 1;
     
     if (isDuplicate) {
+      const moTa = dongHienTai.MA_LUAT
+        ? `Mã luật \"${dongHienTai.MA_LUAT}\" đã tồn tại trong tệp luật hiện tại.`
+        : 'Quy tắc này đang trùng chữ ký nhận diện với một quy tắc đã có trong tệp luật hiện tại.';
       if (Platform.OS === 'web') {
-        window.alert(`⚠️ PHÁT HIỆN TRÙNG LẶP!\n\nĐiều kiện:\n"${text}"\n\nQuy tắc này đã tồn tại trong tệp luật hiện tại. Vui lòng chỉnh sửa để tránh bị lỗi khi giám định.`);
+        window.alert(`⚠️ PHÁT HIỆN TRÙNG LẶP!\n\n${moTa}\n\nVui lòng kiểm tra lại trước khi lưu.`);
       } else {
-        Alert.alert("⚠️ TRÙNG LẶP QUY TẮC", "Điều kiện này đã tồn tại trong hệ thống. Vui lòng kiểm tra lại!");
+        Alert.alert('⚠️ TRÙNG LẶP QUY TẮC', moTa);
       }
     }
   };
@@ -145,6 +469,13 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
         : String(valB).localeCompare(String(valA), 'vi', { sensitivity: 'base' });
     });
 
+    if (Platform.OS === 'web') {
+      try {
+        const aliasId = ALIAS_TAB_ID[tabHienTai];
+        window.localStorage.setItem(`CDSS_DATA_${tabHienTai}`, JSON.stringify(sortedData));
+        if (aliasId) ghiAliasAnToanWeb(aliasId, sortedData, columns);
+      } catch (e) { /* quota */ }
+    }
     setData(sortedData);
   };
 
@@ -167,7 +498,15 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
 
   const handleCellChange = (text, rowId, colName) => {
     const newData = data.map(row => row.id === rowId ? { ...row, [colName]: text } : row);
-    setData(newData); 
+    if (Platform.OS === 'web') {
+      try {
+        const aliasId = ALIAS_TAB_ID[tabHienTai];
+        window.localStorage.setItem(`CDSS_DATA_${tabHienTai}`, JSON.stringify(newData));
+        if (aliasId) ghiAliasAnToanWeb(aliasId, newData, columns);
+        try { xoaCacheBoMayGiamDinh(); } catch {}
+      } catch (e) { /* bỏ qua lỗi quota */ }
+    }
+    setData(newData);
   };
 
   // --- CHỨC NĂNG ON/OFF VÀ SELECT ALL ---
@@ -178,7 +517,7 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
       }
       return row;
     });
-    setData(newData);
+    luuHeThong(newData, columns);
   };
 
   const toggleSelectRow = (id) => {
@@ -195,11 +534,28 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
 
   const handleXoaHangLoat = () => {
     if (selectedRows.length === 0) return alert("Vui lòng chọn ít nhất 1 dòng để xóa!");
-    if (window.confirm(`Chắc chắn xóa ${selectedRows.length} quy tắc đã chọn?`)) {
+
+    const xoaDuLieuDaChon = () => {
       const newData = data.filter(row => !selectedRows.includes(row.id));
       luuHeThong(newData, columns);
       setSelectedRows([]);
+    };
+
+    if (Platform.OS === 'web') {
+      if (window.confirm(`Chắc chắn xóa ${selectedRows.length} quy tắc đã chọn?`)) {
+        xoaDuLieuDaChon();
+      }
+      return;
     }
+
+    Alert.alert(
+      'Xác nhận xóa',
+      `Chắc chắn xóa ${selectedRows.length} quy tắc đã chọn?`,
+      [
+        { text: 'Hủy', style: 'cancel' },
+        { text: 'Xóa', style: 'destructive', onPress: xoaDuLieuDaChon },
+      ]
+    );
   };
 
   // --- SIÊU CÔNG CỤ EXCEL VÀ IMPORT LỌC TRÙNG ---
@@ -229,48 +585,85 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
     }
   };
 
+  const handleTaoSaoLuuLuat = async () => {
+    try {
+      const kq = await taoBanSaoDuLieuHeThong({
+        reason: `MANUAL_RULE_BACKUP_${tabHienTai}`,
+      });
+      alert(`✅ Đã tạo bản sao lưu: ${kq.snapshot_id}\nSố khóa lưu: ${kq.entry_count}`);
+    } catch (e) {
+      alert(`❌ Không thể sao lưu dữ liệu luật: ${e.message || e}`);
+    }
+  };
+
+  const handlePhucHoiBanGanNhat = async () => {
+    try {
+      const kq = await phucHoiBanSaoGanNhat();
+      if (!kq.ok) {
+        alert(`⚠️ ${kq.message || 'Chưa có bản sao lưu để phục hồi.'}`);
+        return;
+      }
+      alert(`✅ Đã phục hồi từ bản sao gần nhất (${kq.snapshot_id}).`);
+      navigation.replace('QuanLyLuat');
+    } catch (e) {
+      alert(`❌ Không thể phục hồi bản sao lưu: ${e.message || e}`);
+    }
+  };
+
   const xuLyImport = (e) => {
     const file = e.target.files[0];
     if (!file) return;
     const reader = new FileReader();
-    reader.onload = (evt) => {
+    reader.onload = async (evt) => {
       const bstr = evt.target.result;
       const wb = XLSX.read(bstr, { type: 'binary' });
       const ws = wb.Sheets[wb.SheetNames[0]];
       const importedData = XLSX.utils.sheet_to_json(ws, { defval: "" });
-      
+
+      try {
+        await taoBanSaoDuLieuHeThong({
+          reason: `AUTO_BEFORE_RULE_IMPORT_${tabHienTai}`,
+        });
+      } catch (errBackup) {
+        console.warn("Không tạo được auto-backup trước import luật:", errBackup);
+      }
+
       if (importedData.length > 0) {
         const excelCols = Object.keys(importedData[0]);
-        
+
         // CƠ CHẾ LỌC TRÙNG LẶP KHI IMPORT
-        const existingConditions = new Set(data.map(r => (r.DIEU_KIEN || "").trim()).filter(Boolean));
+        const existingRuleKeys = new Set(data.map((r) => taoKhoaQuyTac(r)).filter(Boolean));
         const uniqueImported = [];
         let duplicateCount = 0;
 
         importedData.forEach(row => {
-          const dk = (row.DIEU_KIEN || "").trim();
-          if (dk && existingConditions.has(dk)) {
-            duplicateCount++; // Bỏ qua dòng này nếu DIEU_KIEN đã tồn tại
+          const normalizedRow = {
+            ...row,
+            id: `RULE_IMP_${Date.now()}_${Math.random()}`,
+            TRANG_THAI: (row.TRANG_THAI === undefined || row.TRANG_THAI === '') ? 'ON' : row.TRANG_THAI,
+          };
+          const ruleKey = taoKhoaQuyTac(normalizedRow);
+          if (ruleKey && existingRuleKeys.has(ruleKey)) {
+            duplicateCount++;
           } else {
-            if (dk) existingConditions.add(dk);
-            uniqueImported.push({
-              ...row,
-              id: `RULE_IMP_${Date.now()}_${Math.random()}`,
-              TRANG_THAI: (row.TRANG_THAI === undefined || row.TRANG_THAI === "") ? "ON" : row.TRANG_THAI
-            });
+            if (ruleKey) existingRuleKeys.add(ruleKey);
+            uniqueImported.push(normalizedRow);
           }
         });
-        
+
         const mergedCols = [...new Set([...columns, ...excelCols])];
         if (!mergedCols.includes('TRANG_THAI')) mergedCols.unshift('TRANG_THAI');
 
-        luuHeThong([...uniqueImported, ...data], mergedCols);
-        
-        if (duplicateCount > 0) {
-            alert(`✅ Đã Import thành công ${uniqueImported.length} quy tắc!\n⚠️ Đã TỰ ĐỘNG BỎ QUA ${duplicateCount} quy tắc bị trùng trường DIEU_KIEN.`);
-        } else {
-            alert(`✅ Đã Import thành công ${uniqueImported.length} quy tắc mới!`);
+        const luuThanhCong = await luuHeThong([...uniqueImported, ...data], mergedCols);
+
+        if (luuThanhCong) {
+          if (duplicateCount > 0) {
+            alert(`✅ Đã Import và LƯU thành công ${uniqueImported.length} quy tắc!\n⚠️ Đã TỰ ĐỘNG BỎ QUA ${duplicateCount} quy tắc bị trùng trường DIEU_KIEN.`);
+          } else {
+            alert(`✅ Đã Import và LƯU thành công ${uniqueImported.length} quy tắc mới!`);
+          }
         }
+        // Nếu luuThanhCong === false: luuHeThong đã tự alert lỗi rồi, không cần làm gì thêm.
       }
     };
     reader.readAsBinaryString(file);
@@ -281,18 +674,23 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
     <SafeAreaView style={styles.vung_an_toan}>
       {/* HEADER */}
       <View style={styles.thanh_tieu_de}>
-        <TouchableOpacity onPress={() => navigation?.goBack()} style={styles.nut_quay_lai}>
+        <TouchableOpacity onPress={() => quayLaiAnToan(navigation, 'TongQuan')} style={styles.nut_quay_lai}>
           <Text style={styles.chu_nut_header}>⬅ TRỞ VỀ</Text>
         </TouchableOpacity>
         <Text style={styles.chu_tieu_de}>⚙️ HỆ QUẢN TRỊ QUY TẮC BHYT ĐỘNG (NO-CODE)</Text>
-        <View style={{ width: 120 }} />
+        <TouchableOpacity
+          onPress={() => navigation.navigate('QuanLyQuyTacOnOff')}
+          style={styles.nut_quy_tac_on_off}
+        >
+          <Text style={styles.chu_nut_quy_tac_on_off}>🎚 QUY TẮC ON/OFF</Text>
+        </TouchableOpacity>
       </View>
 
       <View style={styles.khung_chuc_nang}>
         {/* THANH TAB 11 TỆP LUẬT */}
         <View>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.khung_tab}>
-            {DANH_SACH_TAB.map(tab => (
+            {danhSachTab.map(tab => (
               <TouchableOpacity 
                 key={tab.id} 
                 onPress={() => setTabHienTai(tab.id)} 
@@ -334,7 +732,15 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
             <TouchableOpacity style={styles.nut_xanh_duong} onPress={xuLyExport}>
               <Text style={styles.chu_nut}>📥 EXPORT BẢNG</Text>
             </TouchableOpacity>
-            
+
+            <TouchableOpacity style={styles.btn_outline} onPress={handleTaoSaoLuuLuat}>
+              <Text style={styles.chu_btn_outline}>💾 SAO LƯU DỮ LIỆU</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.nut_phuc_hoi} onPress={handlePhucHoiBanGanNhat}>
+              <Text style={styles.chu_nut}>↩ PHỤC HỒI GẦN NHẤT</Text>
+            </TouchableOpacity>
+             
             <TouchableOpacity style={styles.nut_do} onPress={() => { alert("Dữ liệu đã được hệ thống tự động lưu!"); }}>
               <Text style={styles.chu_nut}>💾 ĐÃ TỰ ĐỘNG LƯU</Text>
             </TouchableOpacity>
@@ -343,7 +749,7 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
 
         <View style={styles.thanh_tieu_de_bang}>
           <Text style={styles.tieu_de_bang}>
-            📋 ĐANG QUẢN TRỊ TỆP: <Text style={{color: '#F48FB1'}}>{DANH_SACH_TAB.find(t => t.id === tabHienTai)?.file}</Text> ({data.length} Quy tắc)
+            📋 ĐANG QUẢN TRỊ TỆP: <Text style={{color: '#F48FB1'}}>{danhSachTab.find(t => t.id === tabHienTai)?.file}</Text> ({data.length} Quy tắc)
           </Text>
           <View style={{flexDirection: 'row', gap: 15}}>
             {selectedRows.length > 0 && (
@@ -369,19 +775,12 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
                 </TouchableOpacity>
 
                 {columns.map((col, index) => {
-                  let flexScale = 1;
-                  let minWidth = 150;
-                  
-                  if (col === 'TRANG_THAI') { flexScale = 0; minWidth = 160; }
-                  else if (col === 'MA_LUAT') { flexScale = 1; minWidth = 150; }
-                  else if (col === 'TEN_QUY_TAC') { flexScale = 2; minWidth = 250; }
-                  else if (col === 'DIEU_KIEN') { flexScale = 3; minWidth = 400; }
-                  else if (col === 'CANH_BAO') { flexScale = 3; minWidth = 400; }
+                  const rongCot = layDoRongCot(col);
 
                   return (
                     <TouchableOpacity 
                       key={index} 
-                      style={[styles.o_tieu_de, { flex: flexScale, minWidth: minWidth }]}
+                      style={[styles.o_tieu_de, { width: rongCot, flexShrink: 0 }]}
                       onPress={() => handleSort(col)}
                     >
                       <Text style={styles.chu_o_tieu_de}>
@@ -410,7 +809,7 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
                       if (col === 'TRANG_THAI') {
                         const isOn = row[col] === 'ON';
                         return (
-                          <View key={colIndex} style={[styles.o_du_lieu, { width: 160, flexShrink: 0, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }]}>
+                          <View key={colIndex} style={[styles.o_du_lieu, { width: layDoRongCot(col), flexShrink: 0, justifyContent: 'center', alignItems: 'center', backgroundColor: 'transparent' }]}>
                              <TouchableOpacity
                                style={[styles.btn_toggle, isOn
                                  ? { backgroundColor: 'rgba(76,175,80,0.2)', borderWidth: 1, borderColor: 'rgba(76,175,80,0.5)' }
@@ -424,20 +823,15 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
                         );
                       }
 
-                      let flexScale = 1;
-                      let minWidth = 150;
-                      if (col === 'MA_LUAT') { flexScale = 1; minWidth = 150; }
-                      else if (col === 'TEN_QUY_TAC') { flexScale = 2; minWidth = 250; }
-                      else if (col === 'DIEU_KIEN') { flexScale = 3; minWidth = 400; }
-                      else if (col === 'CANH_BAO') { flexScale = 3; minWidth = 400; }
+                      const rongCot = layDoRongCot(col);
 
                       // Xác định ô này có bị trùng lặp DIEU_KIEN không
-                      const isDuplicateCell = col === 'DIEU_KIEN' && row[col] && dieuKienCounts[row[col].trim()] > 1;
+                      const isDuplicateCell = col === 'DIEU_KIEN' && (quyTacCounts[taoKhoaQuyTac(row)] || 0) > 1;
 
                       return (
                         <View key={colIndex} style={[styles.o_du_lieu, {
-                            flex: flexScale,
-                            minWidth: minWidth,
+                            width: rongCot,
+                            flexShrink: 0,
                             backgroundColor: isDuplicateCell ? 'rgba(194,24,91,0.25)' : 'transparent',
                             position: 'relative'
                           }]}>
@@ -449,7 +843,7 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
                             value={String(row[col] || '')}
                             onChangeText={(text) => handleCellChange(text, row.id, col)}
                             onBlur={() => {
-                              if (col === 'DIEU_KIEN') kiemTraTrungLapBlur(row[col], row.id);
+                              if (col === 'DIEU_KIEN' || col === 'MA_LUAT') kiemTraTrungLapBlur(row.id);
                             }}
                             multiline={true}
                             outlineStyle="none"
@@ -481,7 +875,7 @@ const styles = StyleSheet.create({
   vung_an_toan: {
     flex: 1,
     backgroundColor: CD.bg.gradient_mobile,
-    ...Platform.select({ web: { background: CD.web.gradient_bg } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_bg } }),
   },
   thanh_tieu_de: {
     backgroundColor: CD.brand.mauDam,
@@ -493,7 +887,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderBottomWidth: 1,
     borderBottomColor: CD.border.header,
-    ...Platform.select({ web: { background: CD.web.gradient_header, backdropFilter: CD.web.blur_header, boxShadow: CD.web.shadow_header } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_header, backdropFilter: CD.web.blur_header, boxShadow: CD.web.shadow_header } }),
   },
   nut_quay_lai: {
     padding: 12,
@@ -502,7 +896,17 @@ const styles = StyleSheet.create({
     borderColor: CD.border.glass_md,
     borderRadius: 14,
   },
+  nut_quy_tac_on_off: {
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    backgroundColor: CD.brand.mauChinh,
+    borderWidth: 1,
+    borderColor: CD.border.glass_md,
+    borderRadius: 14,
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_primary, boxShadow: CD.web.shadow_btn, cursor: CD.web.cursor_pointer } }),
+  },
   chu_nut_header: { color: CD.text.primary, fontWeight: 'bold', fontSize: 20, fontFamily: CD.font.family },
+  chu_nut_quy_tac_on_off: { color: CD.text.primary, fontWeight: '700', fontSize: 16, fontFamily: CD.font.family },
   chu_tieu_de: { fontSize: 26, color: CD.text.primary, fontWeight: 'bold', fontFamily: CD.font.family },
   khung_chuc_nang: { padding: 15, flex: 1 },
   khung_tab: { flexDirection: 'row', marginBottom: 20 },
@@ -519,7 +923,7 @@ const styles = StyleSheet.create({
   nut_tab_active: {
     backgroundColor: CD.brand.mauChinh,
     borderWidth: 0,
-    ...Platform.select({ web: { background: CD.web.gradient_primary, boxShadow: CD.web.shadow_btn } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_primary, boxShadow: CD.web.shadow_btn } }),
   },
   chu_tab: { fontSize: 20, color: CD.text.secondary, fontWeight: 'bold', fontFamily: CD.font.family },
   chu_tab_active: { color: CD.text.primary },
@@ -548,7 +952,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     alignItems: 'center',
     justifyContent: 'center',
-    ...Platform.select({ web: { background: CD.web.gradient_primary, boxShadow: CD.web.shadow_btn, cursor: CD.web.cursor_pointer } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_primary, boxShadow: CD.web.shadow_btn, cursor: CD.web.cursor_pointer } }),
   },
   // EXPORT → secondary glass button
   nut_xanh_duong: {
@@ -560,6 +964,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     justifyContent: 'center',
   },
+  nut_phuc_hoi: {
+    backgroundColor: '#F9A825',
+    borderRadius: 14,
+    paddingVertical: 14,
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    ...Platform.select({ web: { boxShadow: CD.web.shadow_btn, cursor: CD.web.cursor_pointer } }),
+  },
   // IMPORT EXCEL → green button
   nut_cam: {
     backgroundColor: '#388E3C',
@@ -567,7 +979,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 20,
     justifyContent: 'center',
-    ...Platform.select({ web: { background: CD.web.gradient_green, boxShadow: CD.web.shadow_btn_green, cursor: CD.web.cursor_pointer } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_green, boxShadow: CD.web.shadow_btn_green, cursor: CD.web.cursor_pointer } }),
   },
   // THÊM QUY TẮC → primary button
   nut_hong: {
@@ -577,7 +989,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
     alignItems: 'center',
     justifyContent: 'center',
-    ...Platform.select({ web: { background: CD.web.gradient_primary, boxShadow: CD.web.shadow_btn, cursor: CD.web.cursor_pointer } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_primary, boxShadow: CD.web.shadow_btn, cursor: CD.web.cursor_pointer } }),
   },
   // TỰ ĐỘNG LƯU → green button
   nut_do: {
@@ -586,7 +998,7 @@ const styles = StyleSheet.create({
     paddingVertical: 14,
     paddingHorizontal: 20,
     justifyContent: 'center',
-    ...Platform.select({ web: { background: CD.web.gradient_green, boxShadow: CD.web.shadow_btn_green, cursor: CD.web.cursor_pointer } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_green, boxShadow: CD.web.shadow_btn_green, cursor: CD.web.cursor_pointer } }),
   },
   // TẢI MẪU CHUẨN EXCEL → secondary glass button
   btn_outline: {
@@ -631,11 +1043,12 @@ const styles = StyleSheet.create({
   o_du_lieu: { borderRightWidth: 1, borderColor: CD.border.divider, padding: 0, justifyContent: 'center' },
 
   input_auto_height: {
-    padding: 15,
-    fontSize: 22,
+    padding: 12,
+    fontSize: 19,
     color: CD.text.primary,
     fontFamily: CD.font.family,
-    minHeight: 60,
+    minHeight: 76,
+    lineHeight: 26,
     height: '100%',
     textAlignVertical: 'top',
     backgroundColor: CD.bg.glass_input,

@@ -7,100 +7,376 @@
  * 4. LOGIC: Tích hợp công cụ xuất thẳng XML ra Excel.
  */
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { BoChonChuDe, CD } from '../tien_ich/chu_de_giao_dien';
-import { useEffect, useState } from 'react';
-import { ActivityIndicator, Image, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { useEffect, useMemo, useState } from 'react';
+import { ActivityIndicator, Image, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as XLSX from 'xlsx';
+import { auditClaimsBangPythonService } from '../dich_vu/python_service_api';
+import { BoChonChuDe, CD } from '../tien_ich/chu_de_giao_dien';
+import {
+  CHE_DO_GIAM_DINH,
+  docCheDoGiamDinh,
+  kiemTraPythonServiceSanSang,
+  taiDanhMucRuntimeChoPython,
+} from '../tien_ich/hybrid_python_helper';
+import { docPhienDangNhap, xoaPhienDangNhap } from '../tien_ich/phien_dang_nhap';
+import { DANH_MUC_QUY_TAC_NOI_BO, khopMaLuatTheoMau, suyRaThongTinQuanTriQuyTac } from '../tien_ich/quy_tac_on_off_noi_bo';
+import { locModuleTheoRBAC, taiRBAC } from '../tien_ich/rbac_engine';
+import {
+  locDanhSachLoiChiTiet,
+  phangHoaDanhSachLoiChiTiet,
+  tongHopQuyTacTuDanhSachChiTiet,
+} from '../tien_ich/thong_ke_loi_dung_chung';
 
 // [CẬP NHẬT LÕI]: Thống nhất dùng kho_du_lieu để đồng bộ với man_hinh_kho_luu_tru
-import { layTatCaHoSoTuKho, luuHoSoVaoKho, xoaToanBoKho } from '../tien_ich/kho_du_lieu';
-import { chayBoMayGiamDinhV3 } from '../tien_ich/dong_co_giam_dinh';
+import { chayBoMayGiamDinhNhieuHoSoV3 } from '../tien_ich/dong_co_giam_dinh';
+import { layDanhSachMaLKTuKho, layTatCaHoSoTuKho, luuHoSoVaoKho, xoaToanBoKho } from '../tien_ich/kho_du_lieu';
 import NhapFileXML from '../tien_ich/nhap_file_xml';
 
 const LOGO_PC = 'https://i.ibb.co/nNr9SQYr/logo-pc.png';
+const TEN_SHEET_BAO_CAO_VI_PHAM = 'DS_Loi';
+const MAU_COT_BAO_CAO_VI_PHAM = [
+  'Mã LK',
+  'Tên bệnh nhân',
+  'Mã thẻ BHYT',
+  'Thời gian vào - ra',
+  'Mã bệnh nhân',
+  'Mã luật',
+  'Tên quy tắc',
+  'Namespace quy tắc',
+  'Nguồn quy tắc',
+  'Chi tiết XML vi phạm',
+  'Cảnh báo',
+  'Luồng giải trình',
+  'Cơ sở pháp lý',
+  'Đối chiếu chi tiết cảnh báo',
+];
+const DO_RONG_COT_BAO_CAO_VI_PHAM = [
+  { wch: 16 },
+  { wch: 28 },
+  { wch: 20 },
+  { wch: 28 },
+  { wch: 18 },
+  { wch: 14 },
+  { wch: 36 },
+  { wch: 24 },
+  { wch: 24 },
+  { wch: 34 },
+  { wch: 48 },
+  { wch: 42 },
+  { wch: 42 },
+  { wch: 72 },
+];
 
-// =======================================================
-// HÀM TIỆN ÍCH LÕI 
-// =======================================================
+const THU_TU_UU_TIEN_CANH_BAO = Object.freeze({
+  XUAT_TOAN: 0,
+  CANH_BAO: 1,
+  NHAC_NHO: 2,
+});
+
+const NHAN_UU_TIEN_CANH_BAO = Object.freeze({
+  XUAT_TOAN: 'Xuất toán',
+  CANH_BAO: 'Cảnh báo',
+  NHAC_NHO: 'Nhắc nhở',
+});
+
+const MAP_TAB_QUAN_TRI_THEO_XML = Object.freeze({
+  XML1: 'LUAT_HANH_CHINH',
+  XML2: 'LUAT_THUOC',
+  XML3: 'LUAT_CDHA',
+  XML4: 'LUAT_CDHA',
+  XML5: 'LUAT_PTTT',
+  XML6: 'LUAT_HOP_DONG',
+});
+
+const chuanHoaToken = (value) => String(value || '')
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .toUpperCase()
+  .trim();
+
+const layBangXmlTuCanhBao = (canhBao = {}) => {
+  const match = String(canhBao?.phan_he || canhBao?.phan_loai || '').toUpperCase().match(/XML\d+/);
+  return match ? match[0] : 'XML1';
+};
+
+const coMaLuatHopLe = (value) => {
+  const ma = String(value || '').trim();
+  return ma && ma !== 'N/A';
+};
+
+const suyRaLoaiCanhBaoDashboard = (canhBao = {}) => {
+  const thongTinQuanTri = suyRaThongTinQuanTriQuyTac(canhBao);
+  const noiDung = chuanHoaToken([
+    canhBao?.canh_bao,
+    canhBao?.CANH_BAO,
+    canhBao?.ten_quy_tac,
+    canhBao?.TEN_QUY_TAC,
+    canhBao?.muc_do,
+    thongTinQuanTri.nhom_canh_bao,
+    thongTinQuanTri.chi_tiet_canh_bao,
+  ].filter(Boolean).join(' | '));
+
+  if (thongTinQuanTri.nhom_canh_bao === 'XUAT_TOAN' || noiDung.includes('XUAT TOAN') || noiDung.includes('VI PHAM') || noiDung.includes('KHONG THANH TOAN')) {
+    return { id: 'XUAT_TOAN', label: NHAN_UU_TIEN_CANH_BAO.XUAT_TOAN, priority: THU_TU_UU_TIEN_CANH_BAO.XUAT_TOAN };
+  }
+  if (noiDung.includes('NHAC NHO') || noiDung.includes('GOI Y') || noiDung.includes('THONG TIN') || chuanHoaToken(canhBao?.muc_do) === 'INFO') {
+    return { id: 'NHAC_NHO', label: NHAN_UU_TIEN_CANH_BAO.NHAC_NHO, priority: THU_TU_UU_TIEN_CANH_BAO.NHAC_NHO };
+  }
+  return { id: 'CANH_BAO', label: NHAN_UU_TIEN_CANH_BAO.CANH_BAO, priority: THU_TU_UU_TIEN_CANH_BAO.CANH_BAO };
+};
+
+const suyRaTabQuanTriQuyTac = (canhBao = {}) => {
+  const tabGoiY = String(canhBao?.tab_quan_tri_goi_y || '').trim().toUpperCase();
+  if (tabGoiY) return tabGoiY;
+
+  const maLuat = String(canhBao?.ma_luat || canhBao?.MA_LUAT || '').trim();
+  if (maLuat) {
+    const match = DANH_MUC_QUY_TAC_NOI_BO.find((item) => khopMaLuatTheoMau(item.ma_luat, maLuat));
+    if (match?.tab_id) return match.tab_id;
+  }
+
+  return MAP_TAB_QUAN_TRI_THEO_XML[layBangXmlTuCanhBao(canhBao)] || 'LUAT_HANH_CHINH';
+};
+
+const taoMoTaViTriXml = ({ phanHe, truongLoi, index }) => {
+  const bang = String(phanHe || '').toUpperCase() || 'XML1';
+  const truong = String(truongLoi || '').trim();
+  const dong = Number.isFinite(Number(index)) && Number(index) >= 0 ? `Dòng ${Number(index) + 1}` : 'Hồ sơ tổng quát';
+  return [bang, dong, truong].filter(Boolean).join(' • ');
+};
+
+const taoKhoaChiTietPhatSinh = (item = {}) => [
+  String(item.khoa || ''),
+  String(item.ma_lk || ''),
+  String(item.ma_luat || ''),
+  String(item.phan_he || ''),
+  String(item.truong_loi || ''),
+  String(item.index ?? -1),
+  String(item.canh_bao || ''),
+  String(item.stt ?? item.lan_phat_sinh ?? 0),
+].join('|');
+
 const layGiaTriAnToan = (obj, tuKhoa) => {
-    if (!obj) return 'N/A';
-    const tuKhoaChuan = tuKhoa.toLowerCase().replace(/_/g, '');
-    const keyTimThay = Object.keys(obj).find(k => k.toLowerCase().replace(/_/g, '') === tuKhoaChuan);
-    return keyTimThay && obj[keyTimThay] ? obj[keyTimThay] : 'N/A';
+  if (!obj) return 'N/A';
+  const tuKhoaChuan = String(tuKhoa || '').toLowerCase().replace(/_/g, '');
+  const keyTimThay = Object.keys(obj).find((key) => key.toLowerCase().replace(/_/g, '') === tuKhoaChuan);
+  return keyTimThay && obj[keyTimThay] ? obj[keyTimThay] : 'N/A';
 };
 
 const decodeBase64UTF8 = (base64Str) => {
-    try {
-        const binaryString = window.atob(base64Str);
-        const bytes = new Uint8Array(binaryString.length);
-        for (let i = 0; i < binaryString.length; i++) bytes[i] = binaryString.charCodeAt(i);
-        return new TextDecoder('utf-8').decode(bytes);
-    } catch (e) {
-        try { return decodeURIComponent(escape(window.atob(base64Str))); } 
-        catch (err) { return window.atob(base64Str); }
+  try {
+    const binaryString = window.atob(base64Str);
+    const bytes = new Uint8Array(binaryString.length);
+    for (let index = 0; index < binaryString.length; index += 1) {
+      bytes[index] = binaryString.charCodeAt(index);
     }
+    return new TextDecoder('utf-8').decode(bytes);
+  } catch (error) {
+    try {
+      return decodeURIComponent(escape(window.atob(base64Str)));
+    } catch {
+      return window.atob(base64Str);
+    }
+  }
 };
 
 const parseXMLToJSON = (xmlString) => {
-    const result = {}; 
-    const regexHoSo = /<LOAIHOSO>(.*?)<\/LOAIHOSO>[\s\S]*?<NOIDUNGFILE>(.*?)<\/NOIDUNGFILE>/gi;
-    let matchHoSo;
-    let coDuLieuBaoLanh = false;
+  const result = {};
+  const regexHoSo = /<LOAIHOSO>(.*?)<\/LOAIHOSO>[\s\S]*?<NOIDUNGFILE>(.*?)<\/NOIDUNGFILE>/gi;
+  let matchHoSo;
+  let coDuLieuBaoLanh = false;
 
-    while ((matchHoSo = regexHoSo.exec(xmlString)) !== null) {
-        coDuLieuBaoLanh = true;
-        const loaiXML = matchHoSo[1].trim().toUpperCase(); 
-        const base64Data = matchHoSo[2].trim();
-        const innerXML = decodeBase64UTF8(base64Data);
-        
-        const cleanXML = innerXML.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1');
-        const leafRegex = /<([A-Z0-9_]+)>([^<]*)<\/\1>/g;
+  while ((matchHoSo = regexHoSo.exec(xmlString)) !== null) {
+    coDuLieuBaoLanh = true;
+    const loaiXML = matchHoSo[1].trim().toUpperCase();
+    const base64Data = matchHoSo[2].trim();
+    const innerXML = decodeBase64UTF8(base64Data);
+    const cleanXML = innerXML.replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1');
+    const leafRegex = /<([A-Z0-9_]+)>([^<]*)<\/\1>/g;
 
-        if (!result[loaiXML]) result[loaiXML] = [];
+    if (!result[loaiXML]) result[loaiXML] = [];
 
-        if (loaiXML === 'XML1') {
-            const record = {};
-            let matchField;
-            while ((matchField = leafRegex.exec(cleanXML)) !== null) record[matchField[1]] = matchField[2].trim();
-            if (Object.keys(record).length > 0) result.XML1.push(record);
-        } else {
-            const blockRegex = /<(CHI_TIET[A-Z0-9_]*|CHITIET[A-Z0-9_]*)>([\s\S]*?)<\/\1>/gi;
-            let matchBlock;
-            while ((matchBlock = blockRegex.exec(cleanXML)) !== null) {
-                const blockContent = matchBlock[2]; 
-                const record = {};
-                let matchField;
-                while ((matchField = leafRegex.exec(blockContent)) !== null) record[matchField[1]] = matchField[2].trim();
-                if (Object.keys(record).length > 0) result[loaiXML].push(record);
-            }
+    if (loaiXML === 'XML1') {
+      const record = {};
+      let matchField;
+      while ((matchField = leafRegex.exec(cleanXML)) !== null) {
+        record[matchField[1]] = matchField[2].trim();
+      }
+      if (Object.keys(record).length > 0) result.XML1.push(record);
+    } else {
+      const blockRegex = /<(CHI_TIET[A-Z0-9_]*|CHITIET[A-Z0-9_]*)>([\s\S]*?)<\/\1>/gi;
+      let matchBlock;
+      while ((matchBlock = blockRegex.exec(cleanXML)) !== null) {
+        const blockContent = matchBlock[2];
+        const record = {};
+        let matchField;
+        while ((matchField = leafRegex.exec(blockContent)) !== null) {
+          record[matchField[1]] = matchField[2].trim();
         }
+        if (Object.keys(record).length > 0) result[loaiXML].push(record);
+      }
     }
-    if (!coDuLieuBaoLanh) throw new Error("Không tìm thấy định dạng chuẩn QĐ130.");
-    return result;
+  }
+
+  if (!coDuLieuBaoLanh) throw new Error('Không tìm thấy định dạng chuẩn QĐ130.');
+  return result;
+};
+
+const chuanHoaMaLK = (giaTri) => String(giaTri || '').trim();
+
+const choUICapNhat = () => new Promise((resolve) => setTimeout(resolve, 0));
+
+const laCanhBaoPythonService = (canhBao = {}) => String(canhBao?.nguon_giam_dinh || '').trim().toUpperCase() === 'PYTHON_SERVICE';
+
+const taoKhoaCanhBao = (canhBao = {}) => [
+  String(canhBao?.ma_luat || ''),
+  String(canhBao?.phan_he || ''),
+  String(canhBao?.truong_loi || ''),
+  String(canhBao?.index ?? -1),
+  String(canhBao?.canh_bao || ''),
+].join('|');
+
+const hopNhatKetQuaGiamDinh = (danhSachJs = [], danhSachPython = []) => {
+  const mapCanhBao = new Map();
+  [...(Array.isArray(danhSachJs) ? danhSachJs : []), ...(Array.isArray(danhSachPython) ? danhSachPython : [])].forEach((item) => {
+    mapCanhBao.set(taoKhoaCanhBao(item), item);
+  });
+  return Array.from(mapCanhBao.values());
+};
+
+const layKetQuaGiamDinhCoSan = (hoSo = {}) => {
+  return Array.isArray(hoSo?.ket_qua_giam_dinh) ? hoSo.ket_qua_giam_dinh : null;
+};
+
+const taoMetaAuditPython = (hoSoPython = {}, ketQuaPython = {}) => {
+  const metaCoSan = hoSoPython?.python_service_meta || {};
+  const coverage = ketQuaPython?.coverage || {};
+  const dsCanhBao = Array.isArray(hoSoPython?.ket_qua_giam_dinh) ? hoSoPython.ket_qua_giam_dinh : [];
+
+  return {
+    engine: ketQuaPython?.engine || metaCoSan?.engine || 'python-fastapi',
+    timestamp: ketQuaPython?.timestamp || metaCoSan?.timestamp || new Date().toISOString(),
+    coverage,
+    supported_rules: coverage?.supported_rules || metaCoSan?.supported_rules || [],
+    dm_kham_runtime_count: coverage?.dm_kham_runtime_count ?? metaCoSan?.dm_kham_runtime_count ?? 0,
+    ma_khoa_kham_count: coverage?.ma_khoa_kham_count ?? metaCoSan?.ma_khoa_kham_count ?? 0,
+    python_warning_count: dsCanhBao.filter(laCanhBaoPythonService).length,
+  };
+};
+
+const ganMetaPythonServiceVaoHoSo = (danhSachHoSo = [], ketQuaPython = {}) => {
+  return (Array.isArray(danhSachHoSo) ? danhSachHoSo : []).map((hoSo) => ({
+    ...hoSo,
+    python_service_audit: taoMetaAuditPython(hoSo, ketQuaPython),
+    python_service_meta: {
+      ...(hoSo?.python_service_meta || {}),
+      ...(ketQuaPython?.coverage || {}),
+      engine: ketQuaPython?.engine || hoSo?.python_service_meta?.engine || 'python-fastapi',
+      timestamp: ketQuaPython?.timestamp || hoSo?.python_service_meta?.timestamp || new Date().toISOString(),
+      supported_rules: ketQuaPython?.coverage?.supported_rules || hoSo?.python_service_meta?.supported_rules || [],
+      python_warning_count: Array.isArray(hoSo?.ket_qua_giam_dinh)
+        ? hoSo.ket_qua_giam_dinh.filter(laCanhBaoPythonService).length
+        : 0,
+    },
+  }));
+};
+
+const layDanhSachKetQuaTuPythonService = (ketQuaPython, danhSachMacDinh = []) => {
+  const claims = Array.isArray(ketQuaPython?.claims) ? ketQuaPython.claims : [];
+  if (claims.length === 0) return null;
+
+  const mapTheoMaLK = new Map(
+    claims.map((item) => [chuanHoaMaLK(item?.ma_lk || item?.xml1?.MA_LK || item?.XML1?.MA_LK), item])
+  );
+  const tapDaGhep = new Set();
+  let soHoSoKhop = 0;
+
+  const danhSachDaGhep = (Array.isArray(danhSachMacDinh) ? danhSachMacDinh : []).map((hoSo) => {
+    const maLK = chuanHoaMaLK(hoSo?.ma_lk || hoSo?.xml1?.MA_LK || hoSo?.XML1?.MA_LK);
+    const hoSoPython = mapTheoMaLK.get(maLK);
+    if (!hoSoPython) return hoSo;
+
+    soHoSoKhop += 1;
+    tapDaGhep.add(maLK);
+    return {
+      ...hoSo,
+      ...hoSoPython,
+      ma_lk: maLK || hoSoPython?.ma_lk || hoSo?.ma_lk,
+      ket_qua_giam_dinh: Array.isArray(hoSoPython?.ket_qua_giam_dinh)
+        ? hoSoPython.ket_qua_giam_dinh
+        : (Array.isArray(hoSo?.ket_qua_giam_dinh) ? hoSo.ket_qua_giam_dinh : []),
+    };
+  });
+
+  const danhSachBoSung = claims.filter((item) => !tapDaGhep.has(chuanHoaMaLK(item?.ma_lk || item?.xml1?.MA_LK || item?.XML1?.MA_LK)));
+  const ketQua = [...danhSachDaGhep, ...danhSachBoSung];
+  return soHoSoKhop > 0 || danhSachBoSung.length > 0 ? ketQua : null;
+};
+
+const nenHopNhatThemJsSauPython = (ketQuaPython = {}) => {
+  const coverage = ketQuaPython?.coverage || {};
+  return coverage?.mode === 'partial' || coverage?.fallback_recommended === true || coverage?.compatible_claim_results !== true;
+};
+
+const hopNhatDanhSachHoSoTuJsVaPython = (danhSachJs = [], danhSachPython = []) => {
+  const mapPython = new Map(
+    (Array.isArray(danhSachPython) ? danhSachPython : []).map((item) => [chuanHoaMaLK(item?.ma_lk || item?.xml1?.MA_LK || item?.XML1?.MA_LK), item])
+  );
+  const tapDaGhep = new Set();
+
+  const danhSachHopNhat = (Array.isArray(danhSachJs) ? danhSachJs : []).map((hoSoJs) => {
+    const maLK = chuanHoaMaLK(hoSoJs?.ma_lk || hoSoJs?.xml1?.MA_LK || hoSoJs?.XML1?.MA_LK);
+    const hoSoPython = mapPython.get(maLK);
+    if (!hoSoPython) return hoSoJs;
+
+    tapDaGhep.add(maLK);
+    return {
+      ...hoSoJs,
+      ...hoSoPython,
+      ma_lk: maLK || hoSoJs?.ma_lk || hoSoPython?.ma_lk,
+      ket_qua_giam_dinh: hopNhatKetQuaGiamDinh(hoSoJs?.ket_qua_giam_dinh, hoSoPython?.ket_qua_giam_dinh),
+      python_service_audit: hoSoPython?.python_service_audit || hoSoJs?.python_service_audit,
+      python_service_meta: hoSoPython?.python_service_meta || hoSoJs?.python_service_meta,
+    };
+  });
+
+  const danhSachConLai = (Array.isArray(danhSachPython) ? danhSachPython : []).filter((hoSoPython) => {
+    const maLK = chuanHoaMaLK(hoSoPython?.ma_lk || hoSoPython?.xml1?.MA_LK || hoSoPython?.XML1?.MA_LK);
+    return !tapDaGhep.has(maLK);
+  });
+
+  return [...danhSachHopNhat, ...danhSachConLai];
 };
 
 
 const ManHinhTongQuan = ({ navigation }) => {
   const [dangTai, setDangTai] = useState(false);
+  const [thongBaoDangTai, setThongBaoDangTai] = useState('Đang giám định hồ sơ...');
   const [thongKe, setThongKe] = useState({ tong: 0, sach: 0, loi: 0, giamDinhLai: 0, danhMuc: [] });
   const [rawDanhSach, setRawDanhSach] = useState([]); 
+  const [khoaQuyTacDangChon, setKhoaQuyTacDangChon] = useState('');
+  const [boLocLoaiUuTien, setBoLocLoaiUuTien] = useState('TAT_CA');
+  const [tuKhoaLocQuyTac, setTuKhoaLocQuyTac] = useState('');
+  const [tuKhoaLocHoSo, setTuKhoaLocHoSo] = useState('');
+  const [tuKhoaTraCuuChiTiet, setTuKhoaTraCuuChiTiet] = useState('');
+  const [loaiTraCuuChiTiet, setLoaiTraCuuChiTiet] = useState('TAT_CA');
   
   const [menuHienThi, setMenuHienThi] = useState([]);
   const [vaiTroHienTai, setVaiTroHienTai] = useState('Đang tải...');
   const [tenTaiKhoan, setTenTaiKhoan] = useState('');
-
-  const [xungDotDuLieu, setXungDotDuLieu] = useState(null);
+  const [cheDoGiamDinh, setCheDoGiamDinh] = useState(CHE_DO_GIAM_DINH.LOCAL);
 
   const tatCaModules = [
-    { id: 'MOD_CONG_HIS', route: 'CongHIS', ten: '🔌 KẾT NỐI HIS' },
+    { id: 'MOD_HELPER', route: 'Helper', ten: '🧰 HELPER + FIREBASE' },
     { id: 'MOD_KHO_LUU_TRU', route: 'KhoLuuTru', ten: '🗄️ KHO LƯU TRỮ' },
-    { id: 'MOD_XML_GIAM_DINH', route: 'DocXML', ten: '🗂️ ĐỌC XML' },
+    { id: 'MOD_XML_GIAM_DINH', route: 'DocXML', ten: '🗂️ ĐỌC XML CHI TIẾT' },
     { id: 'MOD_CHUYEN_MON', route: 'QuanLyChuyenMon', ten: '🧠 CHUYÊN MÔN' },
     { id: 'MOD_DANH_MUC', route: 'QuanLyDanhMuc', ten: '📋 DM NỘI BỘ' },
     { id: 'MOD_DANH_MUC_BYT', route: 'DanhMucBYTMain', ten: '🏥 DM BỘ Y TẾ' },
-    { id: 'MOD_QUAN_LY_LUAT', route: 'QuanLyLuat', ten: '⚙️ LUẬT BHYT' },
+    { id: 'MOD_QUAN_LY_LUAT', route: 'QuanLyLuat', ten: '⚙️ QUẢN LÝ LUẬT' },
+    { id: 'MOD_QUY_TAC_ON_OFF', route: 'QuanLyQuyTacOnOff', ten: '🎚 QUY TẮC ON/OFF' },
+    { id: 'MOD_BAO_CAO_THONG_KE', route: 'BaoCaoVaThongKe', ten: '📊 BÁO CÁO' },
     { id: 'MOD_ACL', route: 'PhanQuyenTruyCap', ten: '🔐 PHÂN QUYỀN', adminOnly: true }
   ];
 
@@ -113,24 +389,20 @@ const ManHinhTongQuan = ({ navigation }) => {
         tinhToanDashboard(danhSach);
       }
 
-      const role = await AsyncStorage.getItem('USER_ROLE');
-      const account = await AsyncStorage.getItem('USER_ACCOUNT');
-      const realRole = role || 'USER'; 
-      const realAccount = account || 'Chưa xác định';
+      const session = await docPhienDangNhap();
+      const realRole = session.role || 'USER'; 
+      const realAccount = session.email || 'Chưa xác định';
       
       setVaiTroHienTai(realRole); 
       setTenTaiKhoan(realAccount);
+      setCheDoGiamDinh(await docCheDoGiamDinh());
 
-      const aclConfigRaw = await AsyncStorage.getItem(`ACL_USER_${realAccount}`);
-      let config = [];
-      if (aclConfigRaw) config = JSON.parse(aclConfigRaw);
-
-      const menuLoc = tatCaModules.filter(item => {
-        if (realRole === 'ADMIN') return true; 
-        if (item.adminOnly) return false;      
-        const ruleMatch = config.find(c => c.id === item.id);
-        if (ruleMatch) return ruleMatch.quyen === true; 
-        return false; 
+      const cfgRbac = await taiRBAC();
+      const menuLoc = locModuleTheoRBAC({
+        cfg: cfgRbac,
+        email: realAccount,
+        fallbackRole: realRole,
+        modules: tatCaModules,
       });
 
       setMenuHienThi(menuLoc);
@@ -145,76 +417,247 @@ const ManHinhTongQuan = ({ navigation }) => {
     return unsubscribe;
   }, [navigation]);
 
-  const tinhToanDashboard = (danhSachHoSo) => {
-    let tongSo = danhSachHoSo.length;
-    let soLoi = 0;
-    let tongGiamDinhLai = 0;
-    let dictLoi = {};
+  const locDanhMucQuyTac = (danhMuc = []) => {
+    const tuKhoaQuyTacChuan = chuanHoaToken(tuKhoaLocQuyTac);
+    const tuKhoaHoSoChuan = chuanHoaToken(tuKhoaLocHoSo);
 
-    danhSachHoSo.forEach(hoSo => {
-      tongGiamDinhLai += hoSo.giam_dinh_lai || 0;
+    return danhMuc.filter((item) => {
+      if (boLocLoaiUuTien !== 'TAT_CA' && item.loai_hien_thi !== boLocLoaiUuTien) return false;
 
-      const dsLoi = hoSo.ket_qua_giam_dinh || [];
-      if (dsLoi.length > 0) {
-        soLoi++;
-        dsLoi.forEach(l => {
-          const maLuat = layGiaTriAnToan(l, 'maluat');
-          const tenQuyTac = layGiaTriAnToan(l, 'tenquytac');
-          const canhBao = layGiaTriAnToan(l, 'canhbao');
-          const key = (maLuat !== 'N/A') ? maLuat : canhBao;
+      const chuoiQuyTac = chuanHoaToken([
+        item.ma_luat,
+        item.ten_quy_tac,
+        item.canh_bao,
+      ].filter(Boolean).join(' | '));
+      if (tuKhoaQuyTacChuan && !chuoiQuyTac.includes(tuKhoaQuyTacChuan)) return false;
 
-          if (!dictLoi[key]) {
-              dictLoi[key] = { ma_luat: maLuat, ten_quy_tac: tenQuyTac, dieu_kien: layGiaTriAnToan(l, 'dieukien'), canh_bao: canhBao, sl: 0 };
-          }
-          dictLoi[key].sl += 1;
+      if (tuKhoaHoSoChuan) {
+        const khopHoSo = (item.chi_tiet_phat_sinh || []).some((chiTiet) => {
+          const chuoiHoSo = chuanHoaToken([
+            chiTiet?.ma_lk,
+            chiTiet?.ten_bn,
+          ].filter(Boolean).join(' | '));
+          return chuoiHoSo.includes(tuKhoaHoSoChuan);
         });
+        if (!khopHoSo) return false;
       }
-    });
 
-    const mangLoi = Object.values(dictLoi).sort((a,b) => b.sl - a.sl);
-    setThongKe({ tong: tongSo, sach: tongSo - soLoi, loi: soLoi, giamDinhLai: tongGiamDinhLai, danhMuc: mangLoi });
+      return true;
+    });
+  };
+
+  const danhMucDaLoc = locDanhMucQuyTac(thongKe.danhMuc);
+  const coBoLocDangBat = boLocLoaiUuTien !== 'TAT_CA' || tuKhoaLocQuyTac.trim() !== '' || tuKhoaLocHoSo.trim() !== '';
+  const danhSachLoiChiTietDashboard = useMemo(() => phangHoaDanhSachLoiChiTiet(rawDanhSach), [rawDanhSach]);
+  const ketQuaTraCuuChiTiet = useMemo(() => locDanhSachLoiChiTiet(danhSachLoiChiTietDashboard, {
+    tuKhoa: tuKhoaTraCuuChiTiet,
+    loaiHienThi: loaiTraCuuChiTiet,
+  }), [danhSachLoiChiTietDashboard, loaiTraCuuChiTiet, tuKhoaTraCuuChiTiet]);
+  const ketQuaTraCuuChiTietHienThi = ketQuaTraCuuChiTiet.slice(0, 60);
+
+  useEffect(() => {
+    if (danhMucDaLoc.length === 0) {
+      if (khoaQuyTacDangChon) setKhoaQuyTacDangChon('');
+      return;
+    }
+    const daTonTai = danhMucDaLoc.some((item) => item.khoa === khoaQuyTacDangChon);
+    if (!daTonTai) {
+      setKhoaQuyTacDangChon(danhMucDaLoc[0].khoa);
+    }
+  }, [boLocLoaiUuTien, danhMucDaLoc, khoaQuyTacDangChon, tuKhoaLocHoSo, tuKhoaLocQuyTac]);
+
+  const tinhToanDashboard = (danhSachHoSo) => {
+    const tongSo = danhSachHoSo.length;
+    const tongGiamDinhLai = danhSachHoSo.reduce((tong, hoSo) => tong + (hoSo.giam_dinh_lai || 0), 0);
+    const danhSachChiTiet = phangHoaDanhSachLoiChiTiet(danhSachHoSo);
+    const mangLoi = tongHopQuyTacTuDanhSachChiTiet(danhSachChiTiet);
+    const tapHoSoLoi = new Set(danhSachChiTiet.map((item) => item.ma_lk || item.khoa).filter(Boolean));
+    const soHoSoLoi = tapHoSoLoi.size;
+    setThongKe({ tong: tongSo, sach: tongSo - soHoSoLoi, loi: soHoSoLoi, giamDinhLai: tongGiamDinhLai, danhMuc: mangLoi });
+  };
+
+  const quyTacDangChon = danhMucDaLoc.find((item) => item.khoa === khoaQuyTacDangChon) || danhMucDaLoc[0] || null;
+
+  const moChiTietXmlTheoLoi = (loiPhatSinh) => {
+    if (!loiPhatSinh?.ma_lk) return;
+    navigation.navigate('DocXML', {
+      maLK: loiPhatSinh.ma_lk,
+      loi: loiPhatSinh,
+      batLocTheoTab: true,
+      nguonDieuHuong: 'dashboard_quy_tac',
+    });
+  };
+
+  const moSuaXmlTheoLoi = (loiPhatSinh) => {
+    if (!loiPhatSinh?.ma_lk) return;
+    navigation.navigate('SuaFileXML', {
+      maLK: loiPhatSinh.ma_lk,
+      loi: loiPhatSinh,
+      moCheDoBanSao: true,
+      viTriSua: {
+        phanHe: loiPhatSinh.phan_he || layBangXmlTuCanhBao(loiPhatSinh),
+        truongLoi: loiPhatSinh.truong_loi || '',
+        index: Number.isFinite(loiPhatSinh.index) ? loiPhatSinh.index : 0,
+      },
+    });
+  };
+
+  const moQuanTriQuyTacTheoLoi = (loiPhatSinh) => {
+    const maLuat = coMaLuatHopLe(loiPhatSinh?.ma_luat) ? loiPhatSinh.ma_luat : '';
+    navigation.navigate('QuanLyQuyTacOnOff', {
+      initialTabId: suyRaTabQuanTriQuyTac(loiPhatSinh),
+      initialKeyword: maLuat || String(loiPhatSinh?.ten_quy_tac || '').trim(),
+      highlightedMaLuat: maLuat,
+      boLocLoaiQuyTac: loiPhatSinh?.loai_hien_thi === 'XUAT_TOAN' ? 'XUAT_TOAN' : 'TAT_CA',
+    });
   };
 
   const nhanDienHoSoTuFile = async (danhSachHoSoTuFile) => {
-    // [CẬP NHẬT LÕI]: Quét các mã đã có trên KHO LƯU TRỮ
-    const khoHienTai = await layTatCaHoSoTuKho();
-    const dsMaLKSanCo = new Set(khoHienTai.map(hs => hs.ma_lk));
+    const dsMaLKSanCo = new Set((await layDanhSachMaLKTuKho()).map(chuanHoaMaLK).filter(Boolean));
+    const danhSachHopLe = [];
+    let soHoSoGhiDe = 0;
 
-    const hoSoMoi = [];
-    const hoSoTrung = [];
-
-    danhSachHoSoTuFile.forEach(hs => {
-        const ma = hs.xml1?.MA_LK;
-        if (dsMaLKSanCo.has(ma)) hoSoTrung.push(hs);
-        else hoSoMoi.push(hs);
+    danhSachHoSoTuFile.forEach((hs) => {
+      const maLK = chuanHoaMaLK(hs?.ma_lk || hs?.xml1?.MA_LK || hs?.XML1?.MA_LK);
+      if (!maLK) return;
+      if (dsMaLKSanCo.has(maLK)) soHoSoGhiDe += 1;
+      danhSachHopLe.push({ ...hs, ma_lk: maLK });
     });
 
-    if (hoSoTrung.length > 0) {
-        setXungDotDuLieu({ hoSoMoi, hoSoTrung, khoHienTai });
-    } else {
-        tienHanhGiamDinh(hoSoMoi, khoHienTai);
+    if (danhSachHopLe.length === 0) {
+      alert('Không có hồ sơ hợp lệ để giám định.');
+      return;
     }
+
+    await tienHanhGiamDinh(danhSachHopLe, { soHoSoGhiDe });
   };
 
-  const tienHanhGiamDinh = async (danhSachTienHanh, khoGoc) => {
+  const tienHanhGiamDinh = async (danhSachTienHanh, thongTinThem = {}) => {
     setDangTai(true);
-    setXungDotDuLieu(null);
+    setThongBaoDangTai('Đang chuẩn bị giám định nhiều hồ sơ...');
+    await choUICapNhat();
     
     try {
-      const danhSachLuuKho = [];
+      const danhSachDaCoKetQua = danhSachTienHanh.map((hoSo) => {
+        const ketQuaCoSan = layKetQuaGiamDinhCoSan(hoSo);
+        return ketQuaCoSan ? { ...hoSo, ket_qua_giam_dinh: ketQuaCoSan } : hoSo;
+      });
 
-      for (const hoSo of danhSachTienHanh) {
-        const ketQua = await chayBoMayGiamDinhV3(hoSo);
-        
-        // Gắn kết quả giám định vào hồ sơ để truyền qua Kho Lưu Trữ
-        hoSo.ket_qua_giam_dinh = ketQua;
-        danhSachLuuKho.push(hoSo);
+      let danhSachLuuKho = null;
+      let daFallbackTuPythonSangJs = false;
+      let daHopNhatPythonVaJs = false;
+      let daDungPythonService = false;
+
+      if (cheDoGiamDinh === CHE_DO_GIAM_DINH.PYTHON) {
+        daDungPythonService = true;
+        setThongBaoDangTai('Đang kết nối Python service...');
+        await choUICapNhat();
+
+        const ketQuaKiemTraPython = await kiemTraPythonServiceSanSang();
+        if (!ketQuaKiemTraPython.ok) {
+          daFallbackTuPythonSangJs = true;
+          setThongBaoDangTai('Python service chưa sẵn sàng, đang tự fallback sang engine JS...');
+          await choUICapNhat();
+          danhSachLuuKho = await chayBoMayGiamDinhNhieuHoSoV3(danhSachDaCoKetQua, {
+            onProgress: async ({ completed, total }) => {
+              setThongBaoDangTai(`Fallback JS: đang giám định hồ sơ ${completed}/${total}...`);
+              if (completed % 2 === 0 || completed === total) {
+                await choUICapNhat();
+              }
+            },
+          });
+        } else {
+          try {
+            const { dmKhamTongHop, maKhoaKham } = await taiDanhMucRuntimeChoPython();
+
+            setThongBaoDangTai('Đang gửi batch hồ sơ sang Python service...');
+            await choUICapNhat();
+            const ketQuaPython = await auditClaimsBangPythonService({
+              claims: danhSachDaCoKetQua,
+              options: {
+                source: 'dashboard_tong_quan',
+                mode: 'batch_audit',
+                expect_compatible_claim_results: true,
+                dm_kham: dmKhamTongHop,
+                ma_khoa_kham: maKhoaKham,
+              },
+            });
+            const danhSachTuPython = layDanhSachKetQuaTuPythonService(ketQuaPython, danhSachDaCoKetQua);
+
+            if (danhSachTuPython) {
+              const danhSachPythonDaGanMeta = ganMetaPythonServiceVaoHoSo(danhSachTuPython, ketQuaPython);
+              if (nenHopNhatThemJsSauPython(ketQuaPython)) {
+                daHopNhatPythonVaJs = true;
+                setThongBaoDangTai('Python service đã trả kết quả batch, đang hợp nhất thêm engine JS để giữ đủ chức năng...');
+                await choUICapNhat();
+                const danhSachJs = await chayBoMayGiamDinhNhieuHoSoV3(danhSachDaCoKetQua, {
+                  onProgress: async ({ completed, total }) => {
+                    setThongBaoDangTai(`Hợp nhất JS: đang giám định hồ sơ ${completed}/${total}...`);
+                    if (completed % 2 === 0 || completed === total) {
+                      await choUICapNhat();
+                    }
+                  },
+                });
+                danhSachLuuKho = hopNhatDanhSachHoSoTuJsVaPython(danhSachJs, danhSachPythonDaGanMeta);
+              } else {
+                danhSachLuuKho = danhSachPythonDaGanMeta;
+              }
+            } else {
+              daFallbackTuPythonSangJs = true;
+              setThongBaoDangTai('Python service chưa trả kết quả chi tiết, đang fallback sang engine JS...');
+              await choUICapNhat();
+              const danhSachDaGanMeta = ganMetaPythonServiceVaoHoSo(danhSachDaCoKetQua, ketQuaPython);
+              danhSachLuuKho = await chayBoMayGiamDinhNhieuHoSoV3(danhSachDaGanMeta, {
+                onProgress: async ({ completed, total }) => {
+                  setThongBaoDangTai(`Fallback JS: đang giám định hồ sơ ${completed}/${total}...`);
+                  if (completed % 2 === 0 || completed === total) {
+                    await choUICapNhat();
+                  }
+                },
+              });
+            }
+          } catch (pythonError) {
+            daFallbackTuPythonSangJs = true;
+            console.warn('[TongQuan] Python service lỗi, chuyển fallback sang JS:', pythonError);
+            setThongBaoDangTai('Python service lỗi, đang fallback sang engine JS...');
+            await choUICapNhat();
+            danhSachLuuKho = await chayBoMayGiamDinhNhieuHoSoV3(danhSachDaCoKetQua, {
+              onProgress: async ({ completed, total }) => {
+                setThongBaoDangTai(`Fallback JS: đang giám định hồ sơ ${completed}/${total}...`);
+                if (completed % 2 === 0 || completed === total) {
+                  await choUICapNhat();
+                }
+              },
+            });
+          }
+        }
+      } else {
+        danhSachLuuKho = await chayBoMayGiamDinhNhieuHoSoV3(danhSachDaCoKetQua, {
+          onProgress: async ({ completed, total }) => {
+            setThongBaoDangTai(`Đang giám định hồ sơ ${completed}/${total}...`);
+            if (completed % 2 === 0 || completed === total) {
+              await choUICapNhat();
+            }
+          },
+        });
       }
 
       // [CẬP NHẬT LÕI MẠNH MẼ NHẤT]: Gửi thẳng danh sách đã giám định vào hàm luuHoSoVaoKho chuẩn
       const ketQuaLuu = await luuHoSoVaoKho(danhSachLuuKho);
       if (ketQuaLuu) {
+        const soHoSoGhiDe = Number(thongTinThem?.soHoSoGhiDe) || 0;
         fetchThongTinHeThong();
+        alert(
+          daFallbackTuPythonSangJs
+            ? `Đã gửi ${danhSachLuuKho.length} hồ sơ qua Python service và tự fallback sang engine JS để giữ kết quả giám định chi tiết.`
+            : daHopNhatPythonVaJs
+              ? `Đã giám định ${danhSachLuuKho.length} hồ sơ bằng Python service và hợp nhất thêm engine JS để giữ đủ chức năng hệ thống hiện có.`
+              : daDungPythonService
+                ? `Đã giám định và lưu ${danhSachLuuKho.length} hồ sơ bằng Python service thành công.`
+                : soHoSoGhiDe > 0
+                  ? `Đã giám định lại ${danhSachLuuKho.length} hồ sơ. Trong đó ${soHoSoGhiDe} hồ sơ trùng MA_LK đã được ghi đè.`
+                  : `Đã giám định và lưu ${danhSachLuuKho.length} hồ sơ thành công.`
+        );
       } else {
         alert("Lỗi lưu trữ: Không thể lưu hồ sơ vào kho. Vui lòng thử lại.");
       }
@@ -224,30 +667,7 @@ const ManHinhTongQuan = ({ navigation }) => {
       console.error(err);
     } finally {
       setDangTai(false);
-    }
-  };
-
-  const handleGhiDeHangLoat = () => {
-    const tatCaHoSo = [...xungDotDuLieu.hoSoMoi, ...xungDotDuLieu.hoSoTrung];
-    tienHanhGiamDinh(tatCaHoSo, xungDotDuLieu.khoHienTai);
-  };
-
-  const handleTuChoiHangLoat = () => {
-    if (xungDotDuLieu.hoSoMoi.length > 0) {
-        tienHanhGiamDinh(xungDotDuLieu.hoSoMoi, xungDotDuLieu.khoHienTai);
-    } else {
-        setXungDotDuLieu(null);
-    }
-  };
-
-  const handleXoaHangLoat = async () => {
-    setDangTai(true);
-    // Tính năng này hơi mạo hiểm, để an toàn nên nạp lại ca mới
-    if (xungDotDuLieu.hoSoMoi.length > 0) {
-        tienHanhGiamDinh(xungDotDuLieu.hoSoMoi, xungDotDuLieu.khoHienTai);
-    } else {
-        setXungDotDuLieu(null);
-        setDangTai(false);
+      setThongBaoDangTai('Đang giám định hồ sơ...');
     }
   };
 
@@ -325,28 +745,68 @@ const ManHinhTongQuan = ({ navigation }) => {
   const handleExportLoiExcel = () => {
     if (Platform.OS !== 'web') return;
     if (rawDanhSach.length === 0) return;
+
     const excelData = [];
     rawDanhSach.forEach(hs => {
       const dsLoi = hs.ket_qua_giam_dinh || [];
       dsLoi.forEach(loi => {
-        excelData.push({
-          "Mã LK": hs.ma_lk, "Tên Bệnh Nhân": hs.ten_bn || hs.ten_benh_nhan || hs.xml1?.HO_TEN,
-          "Mã Luật": layGiaTriAnToan(loi, 'maluat'),
-          "Quy Tắc": layGiaTriAnToan(loi, 'tenquytac'),
-          "Cảnh Báo": layGiaTriAnToan(loi, 'canhbao')
-        });
+        const canhBao = String(layGiaTriAnToan(loi, 'canhbao') || 'N/A');
+        const noiDungLoi = String(layGiaTriAnToan(loi, 'noi_dung') || layGiaTriAnToan(loi, 'mota') || 'N/A');
+        const phanHe = String(layGiaTriAnToan(loi, 'phan_he') || '');
+        const truongLoi = String(layGiaTriAnToan(loi, 'truong_loi') || '');
+        const namespaceQuyTac = String(layGiaTriAnToan(loi, 'namespacequytac') || 'N/A');
+        const nguonQuyTac = String(layGiaTriAnToan(loi, 'nguonquytac') || 'N/A');
+        const luongGiaiTrinh = String(layGiaTriAnToan(loi, 'luonggiaitrinh') || 'N/A');
+        const coSoPhapLy = String(layGiaTriAnToan(loi, 'cosophaply') || 'N/A');
+        const chiSoDong = Number.isFinite(Number(loi?.index)) ? `Dòng ${Number(loi.index) + 1}` : '';
+        const chiTietXMLViPham = [phanHe, truongLoi, chiSoDong].filter(Boolean).join(' | ') || 'N/A';
+        const doiChieuChiTietCanhBao = [
+          noiDungLoi !== 'N/A' ? `Lỗi chi tiết: ${noiDungLoi}` : '',
+          canhBao !== 'N/A' ? `Cảnh báo: ${canhBao}` : '',
+        ].filter(Boolean).join(' || ') || 'N/A';
+        const maThe = String(hs?.xml1?.MA_THE_BHYT || hs?.xml1?.SO_THE_BHYT || hs?.ma_the_bhyt || '');
+        const tuNgay = String(hs?.xml1?.NGAY_VAO || hs?.xml1?.TU_NGAY || '');
+        const denNgay = String(hs?.xml1?.NGAY_RA || hs?.xml1?.DEN_NGAY || '');
+        const thoiGianTuDen = (tuNgay || denNgay) ? `${tuNgay} - ${denNgay}` : 'N/A';
+        const maBenhNhan = String(hs?.xml1?.MA_BN || hs?.xml1?.MA_BENH_NHAN || hs?.ma_bn || hs?.ma_benh_nhan || '');
+
+        excelData.push([
+          String(hs.ma_lk || ''),
+          String(hs.ten_bn || hs.ten_benh_nhan || hs.xml1?.HO_TEN || ''),
+          maThe || 'N/A',
+          thoiGianTuDen,
+          maBenhNhan || 'N/A',
+          String(layGiaTriAnToan(loi, 'maluat') || 'N/A'),
+          String(layGiaTriAnToan(loi, 'tenquytac') || 'N/A'),
+          namespaceQuyTac,
+          nguonQuyTac,
+          chiTietXMLViPham,
+          canhBao,
+          luongGiaiTrinh,
+          coSoPhapLy,
+          doiChieuChiTietCanhBao,
+        ]);
       });
     });
-    if (excelData.length === 0) return;
-    const ws = XLSX.utils.json_to_sheet(excelData);
+
+    if (excelData.length === 0) {
+      alert('Không có dữ liệu vi phạm để xuất.');
+      return;
+    }
+
+    const ws = XLSX.utils.aoa_to_sheet([MAU_COT_BAO_CAO_VI_PHAM, ...excelData]);
+    ws['!cols'] = DO_RONG_COT_BAO_CAO_VI_PHAM;
+
+    const soDong = excelData.length + 1;
+    ws['!autofilter'] = { ref: `A1:N${soDong}` };
+
     const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "DS_Loi");
+    XLSX.utils.book_append_sheet(wb, ws, TEN_SHEET_BAO_CAO_VI_PHAM);
     XLSX.writeFile(wb, `Bao_Cao_Vi_Pham_${Date.now()}.xlsx`);
   };
 
   const xuLyDangXuat = async () => {
-    await AsyncStorage.removeItem('USER_ROLE');
-    await AsyncStorage.removeItem('USER_ACCOUNT');
+    await xoaPhienDangNhap();
     navigation.replace('DangNhap');
   };
 
@@ -354,17 +814,25 @@ const ManHinhTongQuan = ({ navigation }) => {
   // RENDER MODULE CARDS (lưới điều hướng)
   // ===========================================================
   const MODULE_ICONS = {
-    MOD_CONG_HIS: { icon: '🔌', mau: '#1565C0', mauNhat: '#E3F2FD' },
+    MOD_HELPER: { icon: '🧰', mau: '#1565C0', mauNhat: '#E3F2FD' },
     MOD_KHO_LUU_TRU: { icon: '🗄️', mau: '#6A1B9A', mauNhat: '#F3E5F5' },
     MOD_XML_GIAM_DINH: { icon: '🗂️', mau: '#00695C', mauNhat: '#E0F2F1' },
     MOD_CHUYEN_MON: { icon: '🧠', mau: '#E65100', mauNhat: '#FFF3E0' },
     MOD_DANH_MUC: { icon: '📋', mau: '#558B2F', mauNhat: '#F1F8E9' },
     MOD_DANH_MUC_BYT: { icon: '🏥', mau: '#0277BD', mauNhat: '#E1F5FE' },
-    MOD_QUAN_LY_LUAT: { icon: '⚙️', mau: '#AD1457', mauNhat: '#FCE4EC' },
+    MOD_QUAN_LY_LUAT: { icon: '⚙️', mau: '#8E24AA', mauNhat: '#F3E5F5' },
+    MOD_QUY_TAC_ON_OFF: { icon: '🎚️', mau: '#AD1457', mauNhat: '#FCE4EC' },
+    MOD_BAO_CAO_THONG_KE: { icon: '📊', mau: '#00838F', mauNhat: '#E0F7FA' },
     MOD_ACL: { icon: '🔐', mau: '#4E342E', mauNhat: '#EFEBE9' },
   };
 
   const phanTramLoi = thongKe.tong > 0 ? Math.round((thongKe.loi / thongKe.tong) * 100) : 0;
+  const danhSachKpi = [
+    { label: 'Tổng hồ sơ', value: thongKe.tong, icon: '📁', mau: '#1565C0', mauNhat: '#E3F2FD' },
+    { label: 'Hợp lệ', value: thongKe.sach, icon: '✅', mau: '#2E7D32', mauNhat: '#E8F5E9' },
+    { label: 'Có lỗi', value: thongKe.loi, icon: '⚠️', mau: '#C62828', mauNhat: '#FFEBEE' },
+    { label: 'Tỉ lệ lỗi', value: `${phanTramLoi}%`, icon: '📊', mau: '#E65100', mauNhat: '#FFF3E0' },
+  ];
 
   return (
     <SafeAreaView style={styles.vung_an_toan}>
@@ -379,114 +847,127 @@ const ManHinhTongQuan = ({ navigation }) => {
           </View>
         </View>
         <View style={styles.header_right}>
-          <View style={styles.user_badge}>
-            <Text style={styles.user_badge_icon}>👤</Text>
-            <View>
-              <Text style={styles.user_badge_name}>{tenTaiKhoan || 'Chưa đăng nhập'}</Text>
-              <Text style={[styles.user_badge_role, vaiTroHienTai === 'ADMIN' && { color: '#FFD54F' }]}>
-                {vaiTroHienTai}
-              </Text>
+          <View style={styles.header_account_row}>
+            <View style={styles.user_badge}>
+              <Text style={styles.user_badge_icon}>👤</Text>
+              <View>
+                <Text style={styles.user_badge_name}>{tenTaiKhoan || 'Chưa đăng nhập'}</Text>
+                <Text style={[styles.user_badge_role, vaiTroHienTai === 'ADMIN' && { color: '#FFD54F' }]}>
+                  {vaiTroHienTai}
+                </Text>
+              </View>
             </View>
+            <TouchableOpacity style={styles.btn_logout} onPress={xuLyDangXuat}>
+              <Text style={styles.btn_logout_txt}>⏻ Đăng xuất</Text>
+            </TouchableOpacity>
           </View>
-          <TouchableOpacity style={styles.btn_logout} onPress={xuLyDangXuat}>
-            <Text style={styles.btn_logout_txt}>⏻ Đăng xuất</Text>
-          </TouchableOpacity>
+          <View style={styles.kpi_row}>
+            {danhSachKpi.map((kpi, i) => (
+              <View key={i} style={[styles.kpi_card, { borderTopColor: kpi.mau }]}>
+                <View style={[styles.kpi_icon_wrap, { backgroundColor: kpi.mauNhat }]}>
+                  <Text style={styles.kpi_icon}>{kpi.icon}</Text>
+                </View>
+                <View style={styles.kpi_text_block}>
+                  <Text style={[styles.kpi_value, { color: kpi.mau }]}>{kpi.value}</Text>
+                  <Text style={styles.kpi_label}>{kpi.label}</Text>
+                </View>
+              </View>
+            ))}
+          </View>
         </View>
       </View>
 
-      <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-
-        {/* ── 2. KPI CARDS ── */}
-        <View style={styles.kpi_row}>
-          {[
-            { label: 'Tổng hồ sơ', value: thongKe.tong, icon: '📁', mau: '#1565C0', mauNhat: '#E3F2FD', mauIcon: '#1976D2' },
-            { label: 'Hợp lệ', value: thongKe.sach, icon: '✅', mau: '#2E7D32', mauNhat: '#E8F5E9', mauIcon: '#388E3C' },
-            { label: 'Có lỗi', value: thongKe.loi, icon: '⚠️', mau: '#C62828', mauNhat: '#FFEBEE', mauIcon: '#D32F2F' },
-            { label: 'Tỉ lệ lỗi', value: `${phanTramLoi}%`, icon: '📊', mau: '#E65100', mauNhat: '#FFF3E0', mauIcon: '#F57C00' },
-          ].map((kpi, i) => (
-            <View key={i} style={[styles.kpi_card, { borderTopColor: kpi.mau }]}>
-              <View style={[styles.kpi_icon_wrap, { backgroundColor: kpi.mauNhat }]}>
-                <Text style={styles.kpi_icon}>{kpi.icon}</Text>
-              </View>
-              <Text style={[styles.kpi_value, { color: kpi.mau }]}>{kpi.value}</Text>
-              <Text style={styles.kpi_label}>{kpi.label}</Text>
+      <View style={styles.dashboard_layout}>
+        <View style={styles.sidebar_dashboard}>
+          <Text style={styles.sidebar_title}>ĐIỀU HƯỚNG</Text>
+          <ScrollView style={styles.sidebar_scroll} showsVerticalScrollIndicator={false}>
+            <View style={styles.module_grid}>
+              {menuHienThi.map((item) => {
+                const cfg = MODULE_ICONS[item.id] || { icon: '📦', mau: '#607D8B', mauNhat: '#ECEFF1' };
+                return (
+                  <TouchableOpacity
+                    key={item.id}
+                    style={[styles.module_card, styles.module_card_sidebar, { borderLeftColor: cfg.mau }]}
+                    onPress={() => navigation.navigate(item.route)}
+                  >
+                    <View style={[styles.module_icon_wrap, { backgroundColor: cfg.mauNhat }]}>
+                      <Text style={styles.module_icon}>{cfg.icon}</Text>
+                    </View>
+                    <Text style={styles.module_name}>{item.ten}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+              <TouchableOpacity
+                style={[styles.module_card, styles.module_card_sidebar, { borderLeftColor: '#546E7A' }]}
+                onPress={handleResetKho}
+              >
+                <View style={[styles.module_icon_wrap, { backgroundColor: '#ECEFF1' }]}>
+                  <Text style={styles.module_icon}>🔄</Text>
+                </View>
+                <Text style={styles.module_name}>Làm mới kho</Text>
+              </TouchableOpacity>
             </View>
-          ))}
+          </ScrollView>
         </View>
 
-        {/* ── 3. LƯỚI ĐIỀU HƯỚNG MODULE ── */}
-        <View style={styles.section_block}>
-          <Text style={styles.section_title}>📌 Phân hệ chức năng</Text>
-          <View style={styles.module_grid}>
-            {menuHienThi.map((item) => {
-              const cfg = MODULE_ICONS[item.id] || { icon: '📦', mau: '#607D8B', mauNhat: '#ECEFF1' };
-              return (
-                <TouchableOpacity
-                  key={item.id}
-                  style={[styles.module_card, { borderLeftColor: cfg.mau }]}
-                  onPress={() => navigation.navigate(item.route)}
-                >
-                  <View style={[styles.module_icon_wrap, { backgroundColor: cfg.mauNhat }]}>
-                    <Text style={styles.module_icon}>{cfg.icon}</Text>
+        <ScrollView style={styles.dashboard_main} showsVerticalScrollIndicator={false}>
+
+        {/* ── 4. KHU VỰC VẬN HÀNH THỐNG NHẤT ── */}
+        <View style={[styles.section_block, styles.section_block_compact_center]}>
+          <Text style={[styles.section_title, styles.section_title_center]}>Luồng giám định tổng quát</Text>
+          <Text style={[styles.section_note, styles.section_note_center]}>Dashboard chỉ giữ luồng nạp hồ sơ, phần helper nằm riêng để tránh chiếm chỗ.</Text>
+          <View style={styles.import_zone}>
+            <View style={styles.import_zone_glow_primary} />
+            <View style={styles.import_zone_glow_secondary} />
+            <View style={styles.import_zone_sheen} />
+            {dangTai ? (
+              <View style={styles.loading_wrap}>
+                <ActivityIndicator size="large" color="#D81B60" />
+                <Text style={styles.loading_txt}>{thongBaoDangTai}</Text>
+              </View>
+            ) : (
+              <View style={styles.import_inner}>
+                <View style={styles.import_content_single}>
+                  <View style={styles.import_upload_card_single}>
+                    <Text style={styles.audit_engine_title}>Nạp hồ sơ XML</Text>
+                    <Text style={[styles.import_upload_subtitle, styles.import_upload_subtitle_center]}>
+                      Giám định nhiều hồ sơ trong cùng một luồng. Chế độ hiện hành: {cheDoGiamDinh === CHE_DO_GIAM_DINH.PYTHON ? 'Python service' : 'JS nội bộ'}.
+                    </Text>
+                    <View style={styles.import_upload_highlights_compact}>
+                      <View style={styles.import_upload_highlight_chip}>
+                        <Text style={styles.import_upload_highlight_key}>Batch nhiều hồ sơ</Text>
+                      </View>
+                      <View style={styles.import_upload_highlight_chip}>
+                        <Text style={styles.import_upload_highlight_key}>JS fallback an toàn</Text>
+                      </View>
+                      <View style={styles.import_upload_highlight_chip}>
+                        <Text style={styles.import_upload_highlight_key}>Hybrid nằm trong Helper</Text>
+                      </View>
+                    </View>
+                    <View style={styles.import_action_row}>
+                      <NhapFileXML
+                        onDuLieuSanSang={nhanDienHoSoTuFile}
+                        styleButton={styles.import_pick_btn_compact}
+                        textButton="📂 Chọn XML"
+                      />
+                      <TouchableOpacity style={styles.helper_redirect_btn} onPress={() => navigation.navigate('Helper')}>
+                        <Text style={styles.helper_redirect_txt}>🧰 Mở Helper Hybrid</Text>
+                      </TouchableOpacity>
+                    </View>
                   </View>
-                  <Text style={[styles.module_name, { color: cfg.mau }]}>{item.ten}</Text>
-                </TouchableOpacity>
-              );
-            })}
-            <TouchableOpacity
-              style={[styles.module_card, { borderLeftColor: '#546E7A' }]}
-              onPress={handleResetKho}
-            >
-              <View style={[styles.module_icon_wrap, { backgroundColor: '#ECEFF1' }]}>
-                <Text style={styles.module_icon}>🔄</Text>
+                </View>
               </View>
-              <Text style={[styles.module_name, { color: '#546E7A' }]}>Làm mới kho</Text>
-            </TouchableOpacity>
+            )}
           </View>
-        </View>
-
-        {/* ── 4. KHU VỰC IMPORT & XUNG ĐỘT ── */}
-        <View style={styles.section_block}>
-          <Text style={styles.section_title}>📥 Nạp hồ sơ XML</Text>
-          {xungDotDuLieu ? (
-            <View style={styles.conflict_card}>
-              <View style={styles.conflict_header}>
-                <Text style={styles.conflict_title}>
-                  ⚠️ {xungDotDuLieu.hoSoTrung.length} hồ sơ trùng đã được giám định trước
-                </Text>
-              </View>
-              <View style={styles.conflict_btns}>
-                <TouchableOpacity style={[styles.conflict_btn, { backgroundColor: '#0288D1' }]} onPress={handleGhiDeHangLoat}>
-                  <Text style={styles.conflict_btn_txt}>Ghi đè ({xungDotDuLieu.hoSoTrung.length})</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.conflict_btn, { backgroundColor: '#F57C00' }]} onPress={handleTuChoiHangLoat}>
-                  <Text style={styles.conflict_btn_txt}>Bỏ qua trùng</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={[styles.conflict_btn, { backgroundColor: '#D32F2F' }]} onPress={handleXoaHangLoat}>
-                  <Text style={styles.conflict_btn_txt}>Xóa ca trùng</Text>
-                </TouchableOpacity>
-              </View>
-            </View>
-          ) : (
-            <View style={styles.import_zone}>
-              {dangTai ? (
-                <View style={styles.loading_wrap}>
-                  <ActivityIndicator size="large" color="#D81B60" />
-                  <Text style={styles.loading_txt}>Đang giám định hồ sơ...</Text>
-                </View>
-              ) : (
-                <View style={styles.import_inner}>
-                  <NhapFileXML onDuLieuSanSang={nhanDienHoSoTuFile} />
-                </View>
-              )}
-            </View>
-          )}
         </View>
 
         {/* ── 5. BẢNG VI PHẠM QPS ── */}
         <View style={[styles.section_block, { marginBottom: 30 }]}>
           <View style={styles.workspace_header}>
-            <Text style={styles.section_title}>📉 Danh mục vi phạm phát hiện (QPS)</Text>
+            <View style={{ flex: 1, paddingRight: 12 }}>
+              <Text style={styles.section_title}>📉 Danh mục vi phạm phát hiện (QPS)</Text>
+              <Text style={styles.section_note}>Thứ tự ưu tiên đã chuẩn hóa theo vận hành thực tế: Xuất toán trước, cảnh báo sau, nhắc nhở cuối. Chạm từng quy tắc để mở danh sách XML phát sinh và xử lý trực tiếp.</Text>
+            </View>
             <View style={styles.export_btns}>
               <TouchableOpacity style={[styles.btn_export, { backgroundColor: '#0277BD' }]} onPress={handleConvertXmlToExcel}>
                 <Text style={styles.btn_export_txt}>🔄 XML → Excel</Text>
@@ -499,6 +980,62 @@ const ManHinhTongQuan = ({ navigation }) => {
             </View>
           </View>
 
+          <View style={styles.rule_filter_panel}>
+            <View style={styles.rule_filter_chip_row}>
+              {[
+                { id: 'TAT_CA', label: 'Tất cả' },
+                { id: 'XUAT_TOAN', label: 'Xuất toán' },
+                { id: 'CANH_BAO', label: 'Cảnh báo' },
+                { id: 'NHAC_NHO', label: 'Nhắc nhở' },
+              ].map((boLoc) => (
+                <TouchableOpacity
+                  key={boLoc.id}
+                  style={[
+                    styles.rule_filter_chip,
+                    boLocLoaiUuTien === boLoc.id && styles.rule_filter_chip_active,
+                  ]}
+                  onPress={() => setBoLocLoaiUuTien(boLoc.id)}
+                >
+                  <Text style={[
+                    styles.rule_filter_chip_txt,
+                    boLocLoaiUuTien === boLoc.id && styles.rule_filter_chip_txt_active,
+                  ]}>
+                    {boLoc.label}
+                  </Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <View style={styles.rule_filter_input_row}>
+              <TextInput
+                style={styles.rule_filter_input}
+                value={tuKhoaLocQuyTac}
+                onChangeText={setTuKhoaLocQuyTac}
+                placeholder="Lọc theo mã luật / tên quy tắc"
+                placeholderTextColor={CD.text.placeholder}
+              />
+              <TextInput
+                style={styles.rule_filter_input}
+                value={tuKhoaLocHoSo}
+                onChangeText={setTuKhoaLocHoSo}
+                placeholder="Lọc theo mã hồ sơ / bệnh nhân"
+                placeholderTextColor={CD.text.placeholder}
+              />
+              {coBoLocDangBat ? (
+                <TouchableOpacity
+                  style={styles.rule_filter_clear_btn}
+                  onPress={() => {
+                    setBoLocLoaiUuTien('TAT_CA');
+                    setTuKhoaLocQuyTac('');
+                    setTuKhoaLocHoSo('');
+                  }}
+                >
+                  <Text style={styles.rule_filter_clear_txt}>Xóa lọc</Text>
+                </TouchableOpacity>
+              ) : null}
+            </View>
+            <Text style={styles.rule_filter_status}>Hiển thị {danhMucDaLoc.length}/{thongKe.danhMuc.length} quy tắc</Text>
+          </View>
+
           <View style={styles.table_card}>
             {/* Header bảng */}
             <View style={styles.table_head_row}>
@@ -506,8 +1043,16 @@ const ManHinhTongQuan = ({ navigation }) => {
               <Text style={[styles.th, { width: 110, textAlign: 'center' }]}>SỐ CA</Text>
             </View>
             {/* Rows */}
-            {thongKe.danhMuc.length > 0 ? thongKe.danhMuc.map((item, idx) => (
-              <View key={idx} style={[styles.table_row, idx % 2 === 1 && styles.table_row_alt]}>
+            {danhMucDaLoc.length > 0 ? danhMucDaLoc.map((item, idx) => (
+              <TouchableOpacity
+                key={item.khoa || idx}
+                style={[
+                  styles.table_row,
+                  idx % 2 === 1 && styles.table_row_alt,
+                  quyTacDangChon?.khoa === item.khoa && styles.table_row_active,
+                ]}
+                onPress={() => setKhoaQuyTacDangChon(item.khoa)}
+              >
                 <View style={{ flex: 1, paddingRight: 12 }}>
                   <View style={styles.rule_tag_row}>
                     <View style={styles.rule_code_chip}>
@@ -515,7 +1060,28 @@ const ManHinhTongQuan = ({ navigation }) => {
                     </View>
                     <Text style={styles.rule_name} numberOfLines={1}>{item.ten_quy_tac}</Text>
                   </View>
+                  <View style={styles.rule_meta_chip_row}>
+                    <View style={[
+                      styles.rule_priority_chip,
+                      item.loai_hien_thi === 'XUAT_TOAN' && styles.rule_priority_chip_xuat_toan,
+                      item.loai_hien_thi === 'CANH_BAO' && styles.rule_priority_chip_canh_bao,
+                      item.loai_hien_thi === 'NHAC_NHO' && styles.rule_priority_chip_nhac_nho,
+                    ]}>
+                      <Text style={styles.rule_priority_chip_txt}>{item.nhan_loai_hien_thi}</Text>
+                    </View>
+                    <Text style={styles.rule_occurrence_meta}>Hồ sơ ảnh hưởng: {item.so_ho_so}</Text>
+                  </View>
                   <Text style={styles.rule_desc} numberOfLines={2}>{item.canh_bao}</Text>
+                  {item.namespace_quy_tac && item.namespace_quy_tac !== 'N/A' ? (
+                    <Text style={styles.rule_meta} numberOfLines={1}>Namespace: {item.namespace_quy_tac}</Text>
+                  ) : null}
+                  {item.nguon_quy_tac && item.nguon_quy_tac !== 'N/A' ? (
+                    <Text style={styles.rule_meta_subtle} numberOfLines={1}>Nguồn: {item.nguon_quy_tac}</Text>
+                  ) : null}
+                  {item.luong_giai_trinh && item.luong_giai_trinh !== 'N/A' ? (
+                    <Text style={styles.rule_flow} numberOfLines={2}>Luồng: {item.luong_giai_trinh}</Text>
+                  ) : null}
+                  <Text style={styles.rule_hint_action}>Chạm để mở danh sách XML phát sinh, sửa lỗi và đi tới rule ON/OFF.</Text>
                 </View>
                 <View style={{ width: 110, alignItems: 'center' }}>
                   <View style={[styles.count_badge, item.sl >= 10 && styles.count_badge_hot]}>
@@ -523,21 +1089,136 @@ const ManHinhTongQuan = ({ navigation }) => {
                     <Text style={styles.count_sub}>ca</Text>
                   </View>
                 </View>
-              </View>
+              </TouchableOpacity>
             )) : (
               <View style={styles.empty_state}>
                 <Text style={styles.empty_icon}>📂</Text>
-                <Text style={styles.empty_title}>Chưa có dữ liệu vi phạm</Text>
-                <Text style={styles.empty_sub}>Nạp hồ sơ XML để hệ thống tiến hành kiểm tra</Text>
+                <Text style={styles.empty_title}>{thongKe.danhMuc.length > 0 ? 'Không có quy tắc khớp bộ lọc' : 'Chưa có dữ liệu vi phạm'}</Text>
+                <Text style={styles.empty_sub}>{thongKe.danhMuc.length > 0 ? 'Điều chỉnh bộ lọc để xem lại toàn bộ danh sách cảnh báo.' : 'Nạp hồ sơ XML để hệ thống tiến hành kiểm tra'}</Text>
               </View>
+            )}
+          </View>
+
+          {quyTacDangChon ? (
+            <View style={styles.rule_detail_panel}>
+              <View style={styles.rule_detail_header}>
+                <View style={{ flex: 1, paddingRight: 12 }}>
+                  <Text style={styles.rule_detail_title}>{quyTacDangChon.ten_quy_tac || quyTacDangChon.ma_luat || 'Quy tắc đang chọn'}</Text>
+                  <Text style={styles.rule_detail_subtitle}>{quyTacDangChon.ma_luat || 'N/A'} • {quyTacDangChon.nhan_loai_hien_thi} • {quyTacDangChon.sl} phát sinh / {quyTacDangChon.so_ho_so} hồ sơ</Text>
+                </View>
+                <TouchableOpacity
+                  style={[styles.btn_export, styles.btn_rule_manage]}
+                  onPress={() => moQuanTriQuyTacTheoLoi(quyTacDangChon.chi_tiet_phat_sinh[0] || quyTacDangChon)}
+                >
+                  <Text style={styles.btn_export_txt}>🎚 Mở Rule ON/OFF</Text>
+                </TouchableOpacity>
+              </View>
+              <Text style={styles.rule_detail_note}>Mỗi dòng bên dưới liên kết trực tiếp đến XML phát sinh lỗi. Bạn có thể mở XML để rà soát, chuyển thẳng sang màn sửa để lưu bản XML hoàn chỉnh, hoặc mở đúng tab quản trị rule.</Text>
+              {quyTacDangChon.chi_tiet_phat_sinh.map((chiTiet, idx) => (
+                <View key={taoKhoaChiTietPhatSinh(chiTiet) || idx} style={styles.rule_instance_card}>
+                  <View style={styles.rule_instance_header}>
+                    <View style={{ flex: 1, paddingRight: 12 }}>
+                      <Text style={styles.rule_instance_title}>{chiTiet.ma_lk || 'N/A'} • {chiTiet.ten_bn || 'Không rõ bệnh nhân'}</Text>
+                      <Text style={styles.rule_instance_location}>{chiTiet.vi_tri_xml}</Text>
+                    </View>
+                    <Text style={styles.rule_instance_tab}>{chiTiet.tab_quan_tri_goi_y || 'LUAT_HANH_CHINH'}</Text>
+                  </View>
+                  <Text style={styles.rule_instance_desc}>{chiTiet.canh_bao}</Text>
+                  <View style={styles.rule_instance_actions}>
+                    <TouchableOpacity style={[styles.rule_action_btn, styles.rule_action_btn_xml]} onPress={() => moChiTietXmlTheoLoi(chiTiet)}>
+                      <Text style={styles.rule_action_btn_txt}>🗂 Mở XML lỗi</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.rule_action_btn, styles.rule_action_btn_edit]} onPress={() => moSuaXmlTheoLoi(chiTiet)}>
+                      <Text style={styles.rule_action_btn_txt}>📝 Sửa và lưu XML</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.rule_action_btn, styles.rule_action_btn_rule]} onPress={() => moQuanTriQuyTacTheoLoi(chiTiet)}>
+                      <Text style={styles.rule_action_btn_txt}>🎚 Đúng vị trí rule</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ))}
+            </View>
+          ) : null}
+
+          <View style={styles.rule_detail_panel}>
+            <View style={styles.rule_detail_header}>
+              <View style={{ flex: 1, paddingRight: 12 }}>
+                <Text style={styles.rule_detail_title}>Tra cứu lỗi chi tiết toàn dashboard</Text>
+                <Text style={styles.rule_detail_subtitle}>Truy vấn trực tiếp trên cùng nguồn dữ liệu lỗi đang dùng cho bảng quy tắc và báo cáo chi tiết, giúp số liệu và nội dung luôn khớp nhau.</Text>
+              </View>
+            </View>
+            <View style={styles.rule_filter_chip_row}>
+              {[
+                { id: 'TAT_CA', label: 'Tất cả' },
+                { id: 'XUAT_TOAN', label: 'Xuất toán' },
+                { id: 'CANH_BAO', label: 'Cảnh báo' },
+                { id: 'NHAC_NHO', label: 'Nhắc nhở' },
+              ].map((boLoc) => (
+                <TouchableOpacity
+                  key={`detail_${boLoc.id}`}
+                  style={[
+                    styles.rule_filter_chip,
+                    loaiTraCuuChiTiet === boLoc.id && styles.rule_filter_chip_active,
+                  ]}
+                  onPress={() => setLoaiTraCuuChiTiet(boLoc.id)}
+                >
+                  <Text style={[
+                    styles.rule_filter_chip_txt,
+                    loaiTraCuuChiTiet === boLoc.id && styles.rule_filter_chip_txt_active,
+                  ]}>{boLoc.label}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+            <View style={styles.rule_filter_input_row}>
+              <TextInput
+                style={styles.rule_filter_input}
+                value={tuKhoaTraCuuChiTiet}
+                onChangeText={setTuKhoaTraCuuChiTiet}
+                placeholder="Tra cứu theo mã hồ sơ, bệnh nhân, mã luật, nội dung lỗi"
+                placeholderTextColor={CD.text.placeholder}
+              />
+            </View>
+            <Text style={styles.rule_filter_status}>Khớp {ketQuaTraCuuChiTiet.length}/{danhSachLoiChiTietDashboard.length} lỗi chi tiết{ketQuaTraCuuChiTiet.length > ketQuaTraCuuChiTietHienThi.length ? ` • đang hiển thị ${ketQuaTraCuuChiTietHienThi.length} dòng đầu` : ''}</Text>
+
+            {ketQuaTraCuuChiTietHienThi.length === 0 ? (
+              <View style={styles.empty_state}>
+                <Text style={styles.empty_icon}>🔎</Text>
+                <Text style={styles.empty_title}>Không có lỗi khớp truy vấn</Text>
+                <Text style={styles.empty_sub}>Thử đổi từ khóa hoặc loại ưu tiên để rà lại danh sách lỗi chi tiết.</Text>
+              </View>
+            ) : (
+              ketQuaTraCuuChiTietHienThi.map((chiTiet, idx) => (
+                <View key={chiTiet.khoa || idx} style={styles.rule_instance_card}>
+                  <View style={styles.rule_instance_header}>
+                    <View style={{ flex: 1, paddingRight: 12 }}>
+                      <Text style={styles.rule_instance_title}>{chiTiet.ma_lk || 'N/A'} • {chiTiet.ten_bn || 'Không rõ bệnh nhân'}</Text>
+                      <Text style={styles.rule_instance_location}>{chiTiet.ma_luat || 'N/A'} • {chiTiet.vi_tri_xml}</Text>
+                    </View>
+                    <Text style={styles.rule_instance_tab}>{chiTiet.tab_quan_tri_goi_y || 'LUAT_HANH_CHINH'}</Text>
+                  </View>
+                  <Text style={styles.rule_instance_desc}>{chiTiet.canh_bao}</Text>
+                  <View style={styles.rule_instance_actions}>
+                    <TouchableOpacity style={[styles.rule_action_btn, styles.rule_action_btn_xml]} onPress={() => moChiTietXmlTheoLoi(chiTiet)}>
+                      <Text style={styles.rule_action_btn_txt}>🗂 Mở XML lỗi</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.rule_action_btn, styles.rule_action_btn_edit]} onPress={() => moSuaXmlTheoLoi(chiTiet)}>
+                      <Text style={styles.rule_action_btn_txt}>📝 Sửa và lưu XML</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={[styles.rule_action_btn, styles.rule_action_btn_rule]} onPress={() => moQuanTriQuyTacTheoLoi(chiTiet)}>
+                      <Text style={styles.rule_action_btn_txt}>🎚 Đúng vị trí rule</Text>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              ))
             )}
           </View>
         </View>
 
-        {/* ── 6. CHỦ ĐỀ GIAO DIỆN ── */}
-        <BoChonChuDe style={{ margin: 16, marginBottom: 32 }} />
+          {/* ── 6. CHỦ ĐỀ GIAO DIỆN ── */}
+          <BoChonChuDe style={{ margin: 16, marginBottom: 32 }} />
 
-      </ScrollView>
+        </ScrollView>
+      </View>
     </SafeAreaView>
   );
 };
@@ -545,7 +1226,7 @@ const ManHinhTongQuan = ({ navigation }) => {
 const styles = StyleSheet.create({
   vung_an_toan: {
     flex: 1,
-    ...Platform.select({ web: { background: CD.web.gradient_bg } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_bg } }),
     backgroundColor: CD.bg.gradient_mobile,
   },
 
@@ -553,7 +1234,7 @@ const styles = StyleSheet.create({
   header: {
     ...Platform.select({
       web: {
-        background: CD.web.gradient_header,
+        backgroundImage: CD.web.gradient_header,
         backdropFilter: CD.web.blur_header,
         WebkitBackdropFilter: CD.web.blur_header,
         boxShadow: CD.web.shadow_header,
@@ -562,13 +1243,29 @@ const styles = StyleSheet.create({
     backgroundColor: CD.brand.mauDam,
     borderBottomWidth: 1, borderBottomColor: CD.border.header,
     paddingHorizontal: 24, paddingVertical: 16,
-    flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
+    flexDirection: Platform.OS === 'web' ? 'row' : 'column',
+    alignItems: Platform.OS === 'web' ? 'center' : 'flex-start',
+    justifyContent: 'space-between',
+    gap: 12,
   },
   header_left: { flexDirection: 'row', alignItems: 'center', gap: 16 },
   logo: { width: 60, height: 60, borderRadius: 30, backgroundColor: '#FFF', borderWidth: 2, borderColor: 'rgba(255,255,255,0.5)' },
   header_ten_bv: { fontSize: 26, fontWeight: '900', color: '#FFF', fontFamily: CD.font.family, letterSpacing: 0.5 },
   header_sub: { fontSize: 16, color: 'rgba(255,255,255,0.75)', fontFamily: CD.font.family, marginTop: 2 },
-  header_right: { flexDirection: 'row', alignItems: 'center', gap: 16 },
+  header_right: {
+    alignItems: Platform.OS === 'web' ? 'flex-end' : 'flex-start',
+    gap: 8,
+    maxWidth: Platform.OS === 'web' ? '58%' : '100%',
+    width: Platform.OS === 'web' ? undefined : '100%',
+  },
+  header_account_row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+    flexWrap: 'wrap',
+    justifyContent: Platform.OS === 'web' ? 'flex-end' : 'flex-start',
+    width: '100%',
+  },
   user_badge: {
     flexDirection: 'row', alignItems: 'center', gap: 10,
     backgroundColor: 'rgba(255,255,255,0.15)',
@@ -586,28 +1283,77 @@ const styles = StyleSheet.create({
   },
   btn_logout_txt: { fontSize: 16, color: '#FFF', fontWeight: '600', fontFamily: CD.font.family },
 
+  // ── DASHBOARD LAYOUT ──
+  dashboard_layout: {
+    flex: 1,
+    flexDirection: Platform.OS === 'web' ? 'row' : 'column',
+    gap: 12,
+    padding: 12,
+  },
+  sidebar_dashboard: {
+    ...(Platform.OS === 'web' ? { width: 320 } : { width: '100%', maxHeight: 280 }),
+    backgroundColor: '#F7FAFC',
+    borderWidth: 1,
+    borderColor: '#D8E2EE',
+    borderRadius: 16,
+    padding: 12,
+    ...Platform.select({ web: { boxShadow: CD.web.shadow_card } }),
+  },
+  sidebar_title: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#111827',
+    marginBottom: 10,
+    fontFamily: CD.font.family,
+  },
+  sidebar_scroll: { flex: 1 },
+  dashboard_main: { flex: 1 },
+
   // ── KPI CARDS ──
   kpi_row: {
-    flexDirection: 'row', gap: 16,
-    paddingHorizontal: 20, paddingTop: 20, paddingBottom: 8,
+    flexDirection: 'row', gap: 8,
+    flexWrap: Platform.OS === 'web' ? 'nowrap' : 'wrap',
+    paddingHorizontal: 0, paddingTop: 0, paddingBottom: 0,
+    width: '100%',
+    justifyContent: Platform.OS === 'web' ? 'flex-end' : 'space-between',
   },
   kpi_card: {
-    flex: 1,
-    backgroundColor: CD.bg.glass_card,
-    borderRadius: 20,
-    padding: 20, alignItems: 'center',
-    borderTopWidth: 4,
-    borderWidth: 1, borderColor: CD.border.glass,
-    ...Platform.select({ web: { backdropFilter: CD.web.blur_card, WebkitBackdropFilter: CD.web.blur_card, boxShadow: CD.web.shadow_card } }),
+    ...(Platform.OS === 'web' ? { flex: 1, minWidth: 104, maxWidth: 126 } : { flexGrow: 1, flexBasis: '47%' }),
+    backgroundColor: 'rgba(15, 23, 42, 0.42)',
+    borderRadius: 14,
+    paddingVertical: 6,
+    paddingHorizontal: 7,
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderTopWidth: 3,
+    borderWidth: 1, borderColor: 'rgba(255,255,255,0.08)',
+    ...Platform.select({ web: { backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', boxShadow: '0 8px 18px rgba(15,23,42,0.16)' } }),
   },
-  kpi_icon_wrap: { width: 52, height: 52, borderRadius: 14, justifyContent: 'center', alignItems: 'center', marginBottom: 12 },
-  kpi_icon: { fontSize: 26 },
-  kpi_value: { fontSize: 32, fontWeight: '900', fontFamily: CD.font.family },
-  kpi_label: { fontSize: 16, color: CD.text.secondary, marginTop: 4, fontFamily: CD.font.family, textAlign: 'center' },
+  kpi_icon_wrap: { width: 24, height: 24, borderRadius: 8, justifyContent: 'center', alignItems: 'center', marginRight: 7 },
+  kpi_icon: { fontSize: 13 },
+  kpi_text_block: { flex: 1, alignItems: 'flex-start' },
+  kpi_value: { fontSize: 15, fontWeight: '900', fontFamily: CD.font.family, lineHeight: 16 },
+  kpi_label: { fontSize: 9, color: 'rgba(255,255,255,0.72)', marginTop: 1, fontFamily: CD.font.family, textAlign: 'left' },
 
   // ── SECTIONS ──
-  section_block: { marginHorizontal: 20, marginTop: 20 },
+  section_block: { marginHorizontal: 8, marginTop: 14 },
+  section_block_compact_center: { alignItems: 'center', marginTop: 10 },
   section_title: { fontSize: 20, fontWeight: '800', color: CD.text.primary, fontFamily: CD.font.family, marginBottom: 14 },
+  section_title_center: { textAlign: 'center', marginBottom: 8 },
+  section_note: {
+    fontSize: 12,
+    lineHeight: 16,
+    color: '#64748B',
+    fontFamily: CD.font.family,
+    marginTop: -6,
+    marginBottom: 10,
+  },
+  section_note_center: {
+    textAlign: 'center',
+    maxWidth: 620,
+    marginTop: 0,
+    marginBottom: 8,
+  },
 
   // ── MODULE GRID ──
   module_grid: { flexDirection: 'row', flexWrap: 'wrap', gap: 12 },
@@ -621,22 +1367,412 @@ const styles = StyleSheet.create({
     minWidth: 200, flex: 1,
     ...Platform.select({ web: { backdropFilter: CD.web.blur_card, WebkitBackdropFilter: CD.web.blur_card, boxShadow: CD.web.shadow_card, cursor: 'pointer' } }),
   },
+  module_card_sidebar: {
+    minWidth: '100%',
+    flex: 0,
+    backgroundColor: '#FFFFFF',
+  },
   module_icon_wrap: { width: 42, height: 42, borderRadius: 10, justifyContent: 'center', alignItems: 'center' },
   module_icon: { fontSize: 22 },
-  module_name: { fontSize: 18, fontWeight: '700', fontFamily: CD.font.family, flex: 1, color: CD.text.secondary },
+  module_name: { fontSize: 17, fontWeight: '700', fontFamily: CD.font.family, flex: 1, color: '#111827' },
 
   // ── IMPORT ZONE ──
   import_zone: {
-    backgroundColor: CD.bg.glass_card,
-    borderRadius: 20,
-    padding: 24, alignItems: 'center',
-    borderWidth: 1, borderColor: CD.border.glass,
-    ...Platform.select({ web: { backdropFilter: CD.web.blur_card, WebkitBackdropFilter: CD.web.blur_card, boxShadow: CD.web.shadow_card } }),
+    backgroundColor: 'rgba(214,235,255,0.16)',
+    borderRadius: 24,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderWidth: 1, borderColor: 'rgba(255,255,255,0.30)',
+    width: '100%',
+    maxWidth: Platform.OS === 'web' ? 640 : '100%',
+    alignSelf: 'center',
+    position: 'relative',
+    overflow: 'hidden',
+    shadowColor: '#0F172A',
+    shadowOpacity: 0.14,
+    shadowRadius: 22,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 7,
+    ...Platform.select({
+      web: {
+        backdropFilter: 'blur(20px) saturate(150%)',
+        WebkitBackdropFilter: 'blur(20px) saturate(150%)',
+        boxShadow: '0 28px 54px rgba(15,23,42,0.15), 0 10px 22px rgba(56,189,248,0.12), inset 0 1px 0 rgba(255,255,255,0.34)',
+      },
+    }),
   },
-  import_inner: { width: '50%', alignSelf: 'center' },
+  import_zone_glow_primary: {
+    position: 'absolute',
+    width: 220,
+    height: 220,
+    borderRadius: 999,
+    top: -120,
+    right: -50,
+    backgroundColor: 'rgba(125,211,252,0.22)',
+    ...Platform.select({ web: { filter: 'blur(8px)' } }),
+  },
+  import_zone_glow_secondary: {
+    position: 'absolute',
+    width: 180,
+    height: 180,
+    borderRadius: 999,
+    bottom: -90,
+    left: -40,
+    backgroundColor: 'rgba(191,219,254,0.18)',
+    ...Platform.select({ web: { filter: 'blur(10px)' } }),
+  },
+  import_zone_sheen: {
+    position: 'absolute',
+    top: 10,
+    left: 18,
+    right: 18,
+    height: 46,
+    borderRadius: 999,
+    backgroundColor: 'rgba(255,255,255,0.16)',
+    transform: [{ rotate: '-2deg' }],
+  },
+  import_inner: { width: '100%', position: 'relative', zIndex: 1 },
+  import_content_single: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  import_content_grid: {
+    flexDirection: Platform.OS === 'web' ? 'row' : 'column',
+    gap: 10,
+    alignItems: 'stretch',
+  },
+  import_upload_card_single: {
+    backgroundColor: 'rgba(245,251,255,0.34)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.48)',
+    borderRadius: 20,
+    paddingVertical: 14,
+    paddingHorizontal: 14,
+    width: '100%',
+    maxWidth: Platform.OS === 'web' ? 540 : '100%',
+    alignItems: 'center',
+    position: 'relative',
+    overflow: 'hidden',
+    shadowColor: '#1E293B',
+    shadowOpacity: 0.12,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 5,
+    ...Platform.select({
+      web: {
+        backdropFilter: 'blur(16px) saturate(150%)',
+        WebkitBackdropFilter: 'blur(16px) saturate(150%)',
+        boxShadow: '0 18px 34px rgba(15,23,42,0.11), 0 6px 18px rgba(14,165,233,0.08), inset 0 1px 0 rgba(255,255,255,0.40)',
+      },
+    }),
+  },
+  import_upload_column: {
+    flexGrow: 1,
+    flexBasis: Platform.OS === 'web' ? '28%' : '100%',
+  },
+  import_status_column: {
+    flexGrow: 1,
+    flexBasis: Platform.OS === 'web' ? '34%' : '100%',
+  },
+  import_summary_column: {
+    flexGrow: 1,
+    flexBasis: Platform.OS === 'web' ? '34%' : '100%',
+  },
+  import_upload_card: {
+    backgroundColor: 'rgba(244,250,255,0.32)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.42)',
+    borderRadius: 18,
+    padding: 14,
+    ...Platform.select({
+      web: {
+        backdropFilter: 'blur(14px) saturate(145%)',
+        WebkitBackdropFilter: 'blur(14px) saturate(145%)',
+        boxShadow: '0 14px 28px rgba(15,23,42,0.08), inset 0 1px 0 rgba(255,255,255,0.30)',
+      },
+    }),
+  },
+  compact_equal_card: {
+    minHeight: Platform.OS === 'web' ? 148 : undefined,
+    height: Platform.OS === 'web' ? 148 : undefined,
+    justifyContent: 'flex-start',
+  },
+  import_upload_subtitle: {
+    fontSize: 12,
+    lineHeight: 15,
+    color: '#46607E',
+    fontFamily: CD.font.family,
+    marginTop: 2,
+    marginBottom: 8,
+  },
+  import_upload_subtitle_center: {
+    textAlign: 'center',
+    maxWidth: 460,
+  },
+  import_upload_highlights_compact: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    marginBottom: 8,
+    justifyContent: 'center',
+  },
+  import_upload_highlight_chip: {
+    paddingVertical: 5,
+    paddingHorizontal: 9,
+    backgroundColor: 'rgba(236,253,255,0.56)',
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: 'rgba(125,211,252,0.58)',
+    ...Platform.select({
+      web: {
+        backdropFilter: 'blur(10px)',
+        WebkitBackdropFilter: 'blur(10px)',
+        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.28)',
+      },
+    }),
+  },
+  import_upload_highlight_key: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: '#0D5D86',
+    fontFamily: CD.font.family,
+  },
+  import_pick_btn_compact: {
+    alignSelf: 'center',
+    backgroundColor: '#2B82E8',
+    borderRadius: 999,
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    borderWidth: 1,
+    borderColor: '#1B5EB4',
+    minWidth: 122,
+    alignItems: 'center',
+    shadowColor: '#2563EB',
+    shadowOpacity: 0.32,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 6,
+    ...Platform.select({
+      web: {
+        boxShadow: '0 16px 30px rgba(37,99,235,0.34), inset 0 1px 0 rgba(255,255,255,0.30), inset 0 -2px 0 rgba(15,23,42,0.10)',
+      },
+    }),
+  },
+  import_action_row: {
+    flexDirection: 'row',
+    gap: 8,
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  helper_redirect_btn: {
+    alignSelf: 'center',
+    backgroundColor: 'rgba(232,244,255,0.38)',
+    borderRadius: 999,
+    paddingVertical: 7,
+    paddingHorizontal: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(147,197,253,0.46)',
+    ...Platform.select({
+      web: {
+        cursor: 'pointer',
+        backdropFilter: 'blur(12px)',
+        WebkitBackdropFilter: 'blur(12px)',
+        boxShadow: '0 12px 24px rgba(14,165,233,0.10), inset 0 1px 0 rgba(255,255,255,0.28)',
+      },
+    }),
+  },
+  helper_redirect_txt: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: '#245D96',
+    fontFamily: CD.font.family,
+  },
   loading_wrap: { alignItems: 'center', gap: 12 },
   loading_txt: { fontSize: 20, color: CD.brand.mauChinh, fontWeight: '600', fontFamily: CD.font.family },
-
+  audit_engine_panel: {
+    width: '100%',
+    padding: 14,
+    borderRadius: 16,
+    backgroundColor: '#FBFDFF',
+    borderWidth: 1,
+    borderColor: '#D9E4F1',
+  },
+  audit_engine_header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  python_action_group: {
+    flexDirection: 'row',
+    gap: 6,
+    flexWrap: 'wrap',
+  },
+  audit_engine_title: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#0F172A',
+    fontFamily: CD.font.family,
+  },
+  python_refresh_btn: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    backgroundColor: '#EEF2FF',
+    borderWidth: 1,
+    borderColor: '#C7D2FE',
+    ...Platform.select({ web: { cursor: 'pointer' } }),
+  },
+  python_refresh_txt: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#3730A3',
+    fontFamily: CD.font.family,
+  },
+  python_action_btn_busy: {
+    opacity: 0.65,
+  },
+  audit_engine_switch_row: {
+    flexDirection: 'row',
+    gap: 8,
+    marginBottom: 10,
+    flexWrap: 'wrap',
+  },
+  audit_engine_chip: {
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    borderRadius: 999,
+    backgroundColor: '#F8FAFC',
+    borderWidth: 1,
+    borderColor: '#CBD5E1',
+    ...Platform.select({ web: { cursor: 'pointer' } }),
+  },
+  audit_engine_chip_active: {
+    backgroundColor: '#0F766E',
+    borderColor: '#0F766E',
+  },
+  audit_engine_chip_txt: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#334155',
+    fontFamily: CD.font.family,
+  },
+  audit_engine_chip_txt_active: {
+    color: '#FFFFFF',
+  },
+  python_status_card: {
+    backgroundColor: '#F8FAFC',
+    borderRadius: 14,
+    padding: 8,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  python_status_row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 6,
+  },
+  python_status_dot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    backgroundColor: '#EF4444',
+  },
+  python_status_dot_online: {
+    backgroundColor: '#22C55E',
+  },
+  python_status_dot_checking: {
+    backgroundColor: '#F59E0B',
+  },
+  python_status_title: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: '#0F172A',
+    fontFamily: CD.font.family,
+    flex: 1,
+  },
+  python_status_meta: {
+    fontSize: 11,
+    color: '#475569',
+    fontFamily: CD.font.family,
+    marginBottom: 4,
+  },
+  python_smoke_badge: {
+    paddingVertical: 3,
+    paddingHorizontal: 8,
+    borderRadius: 999,
+    backgroundColor: '#CBD5E1',
+  },
+  python_smoke_badge_pass: {
+    backgroundColor: '#16A34A',
+  },
+  python_smoke_badge_fail: {
+    backgroundColor: '#DC2626',
+  },
+  python_smoke_badge_running: {
+    backgroundColor: '#D97706',
+  },
+  python_smoke_badge_txt: {
+    fontSize: 10,
+    fontWeight: '800',
+    color: '#FFFFFF',
+    fontFamily: CD.font.family,
+    letterSpacing: 0.4,
+  },
+  python_status_sub: {
+    fontSize: 11,
+    color: '#334155',
+    lineHeight: 16,
+    fontFamily: CD.font.family,
+  },
+  python_status_smoke: {
+    fontSize: 11,
+    color: '#1D4ED8',
+    lineHeight: 16,
+    fontFamily: CD.font.family,
+    marginTop: 4,
+  },
+  python_status_hint: {
+    fontSize: 11,
+    color: '#0F766E',
+    lineHeight: 16,
+    fontFamily: CD.font.family,
+    marginTop: 4,
+  },
+  unified_ops_card: {
+    backgroundColor: '#FFFFFF',
+    borderRadius: 14,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: '#E2E8F0',
+  },
+  unified_ops_header: {
+    marginBottom: 4,
+  },
+  unified_ops_title: {
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#0F172A',
+    fontFamily: CD.font.family,
+    marginBottom: 0,
+  },
+  unified_ops_compact_line: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#0F766E',
+    lineHeight: 18,
+    fontFamily: CD.font.family,
+    marginTop: 2,
+  },
+  unified_ops_meta: {
+    fontSize: 11,
+    color: '#334155',
+    lineHeight: 16,
+    fontFamily: CD.font.family,
+    marginTop: 4,
+  },
   // ── CONFLICT CARD ──
   conflict_card: {
     backgroundColor: CD.severity.error.bg,
@@ -656,6 +1792,117 @@ const styles = StyleSheet.create({
   btn_export: { paddingVertical: 10, paddingHorizontal: 16, borderRadius: 10 },
   btn_export_txt: { color: '#FFF', fontWeight: '700', fontSize: 16, fontFamily: CD.font.family },
 
+  rule_filter_panel: {
+    marginBottom: 12,
+    padding: 14,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.14)',
+    borderTopColor: 'rgba(255,255,255,0.22)',
+    borderLeftColor: 'rgba(255,255,255,0.18)',
+    gap: 10,
+    shadowColor: '#020617',
+    shadowOpacity: 0.18,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 10 },
+    elevation: 8,
+    ...Platform.select({
+      web: {
+        backdropFilter: CD.web.blur_card,
+        WebkitBackdropFilter: CD.web.blur_card,
+        boxShadow: '0 18px 38px rgba(2,6,23,0.20), inset 0 1px 0 rgba(255,255,255,0.16)',
+      },
+    }),
+  },
+  rule_filter_chip_row: {
+    flexDirection: 'row',
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  rule_filter_chip: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    shadowColor: '#020617',
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    ...Platform.select({ web: { cursor: 'pointer', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.12)' } }),
+  },
+  rule_filter_chip_active: {
+    backgroundColor: '#0F766E',
+    borderColor: 'rgba(153,246,228,0.55)',
+  },
+  rule_filter_chip_txt: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: CD.text.primary,
+    fontFamily: CD.font.family,
+  },
+  rule_filter_chip_txt_active: {
+    color: '#FFFFFF',
+  },
+  rule_filter_input_row: {
+    flexDirection: Platform.OS === 'web' ? 'row' : 'column',
+    gap: 8,
+    alignItems: Platform.OS === 'web' ? 'center' : 'stretch',
+  },
+  rule_filter_input: {
+    flex: 1,
+    minHeight: 44,
+    backgroundColor: 'rgba(255,255,255,0.07)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.14)',
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    color: CD.text.primary,
+    fontSize: 14,
+    fontFamily: CD.font.family,
+    shadowColor: '#020617',
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    ...Platform.select({
+      web: {
+        outlineStyle: 'none',
+        backdropFilter: CD.web.blur_input,
+        WebkitBackdropFilter: CD.web.blur_input,
+        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.10)',
+      },
+    }),
+  },
+  rule_filter_clear_btn: {
+    minHeight: 44,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(96,165,250,0.35)',
+    backgroundColor: 'rgba(59,130,246,0.14)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    shadowColor: '#0F172A',
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    ...Platform.select({ web: { cursor: 'pointer', boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.10)' } }),
+  },
+  rule_filter_clear_txt: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: '#BFDBFE',
+    fontFamily: CD.font.family,
+  },
+  rule_filter_status: {
+    fontSize: 12,
+    color: CD.text.secondary,
+    fontFamily: CD.font.family,
+  },
+
   // ── BẢNG VI PHẠM ──
   table_card: {
     backgroundColor: CD.bg.glass_card,
@@ -670,15 +1917,59 @@ const styles = StyleSheet.create({
   th: { fontSize: 20, fontWeight: '700', color: '#FFFFFF', fontFamily: CD.font.family },
   table_row: { flexDirection: 'row', alignItems: 'center', paddingVertical: 16, paddingHorizontal: 20, borderBottomWidth: 1, borderBottomColor: CD.border.divider },
   table_row_alt: { backgroundColor: CD.bg.table_row_even },
+  table_row_active: {
+    backgroundColor: 'rgba(14, 116, 144, 0.10)',
+    borderLeftWidth: 4,
+    borderLeftColor: '#0EA5E9',
+  },
   rule_tag_row: { flexDirection: 'row', alignItems: 'center', gap: 10, marginBottom: 6 },
+  rule_meta_chip_row: { flexDirection: 'row', alignItems: 'center', gap: 10, flexWrap: 'wrap', marginBottom: 6 },
   rule_code_chip: {
     backgroundColor: CD.severity.info.bg,
     borderWidth: 1, borderColor: CD.severity.info.border,
     borderRadius: 8, paddingVertical: 3, paddingHorizontal: 10,
   },
   rule_code_txt: { fontSize: 14, fontWeight: '800', color: CD.text.link, fontFamily: CD.font.family },
+  rule_priority_chip: {
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    borderRadius: 999,
+    borderWidth: 1,
+  },
+  rule_priority_chip_xuat_toan: {
+    backgroundColor: 'rgba(127, 29, 29, 0.12)',
+    borderColor: 'rgba(185, 28, 28, 0.35)',
+  },
+  rule_priority_chip_canh_bao: {
+    backgroundColor: 'rgba(154, 52, 18, 0.10)',
+    borderColor: 'rgba(234, 88, 12, 0.28)',
+  },
+  rule_priority_chip_nhac_nho: {
+    backgroundColor: 'rgba(15, 118, 110, 0.10)',
+    borderColor: 'rgba(13, 148, 136, 0.28)',
+  },
+  rule_priority_chip_txt: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#0F172A',
+    fontFamily: CD.font.family,
+  },
+  rule_occurrence_meta: {
+    fontSize: 12,
+    color: '#475569',
+    fontFamily: CD.font.family,
+  },
   rule_name: { fontSize: 17, fontWeight: '700', color: CD.text.table_cell, fontFamily: CD.font.family, flex: 1 },
   rule_desc: { fontSize: 15, color: CD.text.secondary, fontFamily: CD.font.family, lineHeight: 22 },
+  rule_meta: { fontSize: 13, color: CD.text.link, fontFamily: CD.font.family, marginTop: 4 },
+  rule_meta_subtle: { fontSize: 12, color: CD.text.muted, fontFamily: CD.font.family, marginTop: 2 },
+  rule_flow: { fontSize: 13, color: '#546E7A', fontFamily: CD.font.family, lineHeight: 19, marginTop: 2 },
+  rule_hint_action: {
+    fontSize: 12,
+    color: '#0369A1',
+    fontFamily: CD.font.family,
+    marginTop: 6,
+  },
   count_badge: {
     width: 60, height: 60, borderRadius: 30,
     backgroundColor: CD.severity.critical.bg, justifyContent: 'center', alignItems: 'center',
@@ -687,6 +1978,136 @@ const styles = StyleSheet.create({
   count_badge_hot: { backgroundColor: 'rgba(211,47,47,0.4)', borderColor: 'rgba(244,67,54,0.7)' },
   count_txt: { fontSize: 22, fontWeight: '900', color: CD.severity.critical.text, fontFamily: CD.font.family, lineHeight: 24 },
   count_sub: { fontSize: 12, color: CD.severity.critical.text, fontFamily: CD.font.family },
+
+  rule_detail_panel: {
+    marginTop: 14,
+    backgroundColor: CD.bg.glass_card,
+    borderRadius: 20,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: CD.border.glass,
+    ...Platform.select({ web: { backdropFilter: CD.web.blur_card, WebkitBackdropFilter: CD.web.blur_card, boxShadow: CD.web.shadow_card } }),
+  },
+  rule_detail_header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+    marginBottom: 8,
+  },
+  rule_detail_title: {
+    fontSize: 18,
+    fontWeight: '800',
+    color: CD.text.primary,
+    fontFamily: CD.font.family,
+  },
+  rule_detail_subtitle: {
+    fontSize: 13,
+    color: CD.text.secondary,
+    fontFamily: CD.font.family,
+    marginTop: 4,
+  },
+  rule_detail_note: {
+    fontSize: 13,
+    lineHeight: 20,
+    color: CD.text.secondary,
+    fontFamily: CD.font.family,
+    marginBottom: 12,
+  },
+  btn_rule_manage: {
+    backgroundColor: '#7C3AED',
+  },
+  rule_instance_card: {
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.14)',
+    borderTopColor: 'rgba(255,255,255,0.20)',
+    borderLeftColor: 'rgba(255,255,255,0.16)',
+    borderRadius: 16,
+    padding: 14,
+    marginBottom: 10,
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    shadowColor: '#020617',
+    shadowOpacity: 0.16,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 6,
+    ...Platform.select({
+      web: {
+        backdropFilter: 'blur(16px) saturate(140%)',
+        WebkitBackdropFilter: 'blur(16px) saturate(140%)',
+        boxShadow: '0 14px 28px rgba(2,6,23,0.18), inset 0 1px 0 rgba(255,255,255,0.14)',
+      },
+    }),
+  },
+  rule_instance_header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    gap: 10,
+    marginBottom: 8,
+  },
+  rule_instance_title: {
+    fontSize: 16,
+    fontWeight: '800',
+    color: CD.text.primary,
+    fontFamily: CD.font.family,
+  },
+  rule_instance_location: {
+    fontSize: 12,
+    color: '#7DD3FC',
+    fontFamily: CD.font.family,
+    marginTop: 3,
+  },
+  rule_instance_tab: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: CD.text.primary,
+    backgroundColor: 'rgba(148,163,184,0.16)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.12)',
+    borderRadius: 999,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    overflow: 'hidden',
+    fontFamily: CD.font.family,
+  },
+  rule_instance_desc: {
+    fontSize: 14,
+    lineHeight: 21,
+    color: CD.text.secondary,
+    fontFamily: CD.font.family,
+    marginBottom: 10,
+  },
+  rule_instance_actions: {
+    flexDirection: 'row',
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  rule_action_btn: {
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    borderWidth: 1,
+    ...Platform.select({ web: { cursor: 'pointer' } }),
+  },
+  rule_action_btn_xml: {
+    backgroundColor: 'rgba(14,165,233,0.14)',
+    borderColor: 'rgba(125,211,252,0.35)',
+  },
+  rule_action_btn_edit: {
+    backgroundColor: 'rgba(236,72,153,0.14)',
+    borderColor: 'rgba(244,114,182,0.35)',
+  },
+  rule_action_btn_rule: {
+    backgroundColor: 'rgba(124,58,237,0.16)',
+    borderColor: 'rgba(196,181,253,0.38)',
+  },
+  rule_action_btn_txt: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: CD.text.primary,
+    fontFamily: CD.font.family,
+  },
 
   empty_state: {
     padding: 50, alignItems: 'center',

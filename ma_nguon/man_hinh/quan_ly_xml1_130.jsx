@@ -13,6 +13,7 @@ import { Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpac
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as XLSX from 'xlsx';
 import { CD } from '../tien_ich/chu_de_giao_dien';
+import { quayLaiAnToan } from '../tien_ich/dieu_huong_an_toan';
 
 // KẾT NỐI LÕI QUY TẮC CẤU TRÚC (SỬA LỖI ĐƯỜNG DẪN 'TRUC')
 import { layDanhSachCot } from '../quy_tac/quyluat_cautrucdulieu/quyluat_cau_truc_du_lieu';
@@ -94,7 +95,7 @@ const ManHinhXML1 = ({ navigation }) => {
     <SafeAreaView style={styles.container}>
       {/* HEADER GLASSMORPHISM */}
       <View style={styles.header}>
-        <TouchableOpacity onPress={() => navigation.goBack()} style={styles.btn_back}>
+        <TouchableOpacity onPress={() => quayLaiAnToan(navigation, 'DocXML')} style={styles.btn_back}>
           <Text style={styles.txt_btn}>⬅</Text>
         </TouchableOpacity>
         <Text style={styles.title}>QUẢN LÝ TỔNG HỢP HỒ SƠ (XML1)</Text>
@@ -161,7 +162,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: CD.bg.gradient_mobile,
-    ...Platform.select({ web: { background: CD.web.gradient_bg } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_bg } }),
   },
   header: {
     backgroundColor: CD.brand.mauDam,
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
     borderBottomColor: CD.border.header,
     ...Platform.select({
       web: {
-        background: CD.web.gradient_header,
+        backgroundImage: CD.web.gradient_header,
         backdropFilter: CD.web.blur_header,
         boxShadow: CD.web.shadow_header,
       },
@@ -190,7 +191,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...Platform.select({
       web: {
-        background: CD.web.gradient_primary,
+        backgroundImage: CD.web.gradient_primary,
         boxShadow: CD.web.shadow_btn,
         cursor: CD.web.cursor_pointer,
       },
@@ -229,7 +230,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     ...Platform.select({
       web: {
-        background: CD.web.gradient_green,
+        backgroundImage: CD.web.gradient_green,
         boxShadow: CD.web.shadow_btn_green,
         cursor: CD.web.cursor_pointer,
       },

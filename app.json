@@ -19,6 +19,35 @@
     },
     "web": {
       "favicon": "./tai_nguyen/icon.png"
+    },
+    "extra": {
+      "firebase": {
+        "enabled": true,
+        "orgId": "phuongchau",
+        "authMode": "email_password",
+        "authEmail": "bshotanthinh@gmail.com",
+        "apiKey": "AIzaSyCXgRo5bFMMeArMZP3wNJRmhrA3BpY38QI",
+        "authDomain": "bhyt-cdss.firebaseapp.com",
+        "projectId": "bhyt-cdss",
+        "storageBucket": "bhyt-cdss.firebasestorage.app",
+        "messagingSenderId": "338989428470",
+        "appId": "1:338989428470:web:a1e7b8da884c34bcfac6d7",
+        "measurementId": "G-ZN1E3NNVP3"
+      },
+      "his": {
+        "enabled": true,
+        "orgCode": "phuongchau",
+        "restBaseUrl": "http://10.10.1.250:8081/api/v1",
+        "soapWsdlUrl": "",
+        "websocketUrl": "ws://10.10.1.250:8081/api/v1/realtime/his",
+        "timeoutMs": 15000,
+        "reconnectDelayMs": 5000
+      },
+      "pythonService": {
+        "enabled": true,
+        "baseUrl": "",
+        "timeoutMs": 20000
+      }
     }
   }
 }

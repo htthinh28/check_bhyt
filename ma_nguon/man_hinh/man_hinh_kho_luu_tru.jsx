@@ -1,7 +1,7 @@
 /**
  * MODULE: KHO LƯU TRỮ HỒ SƠ LÂM SÀNG & NHẬT KÝ TRUY VẾT (EMR & AUDIT TRAIL)
  * Chức năng:
- * 1. Truy xuất hồ sơ: Đọc chuẩn xác dữ liệu các ca bệnh đã giám định từ kho lưu trữ.
+ * 1. Truy xuất hồ sơ: Đọc chuẩn xác dữ liệu các ca bệnh đã kiểm tra từ kho lưu trữ.
  * 2. Nhật ký truy vết: Hiển thị chi tiết lịch sử thay đổi hồ sơ (Audit Trail).
  * 3. Giao diện tối ưu: Bảng bung rộng đúng 1 màn hình (không kéo ngang), thu hẹp cột Chẩn đoán.
  * 4. Xuất dữ liệu: Xuất hàng loạt file XML và báo cáo Excel.
@@ -37,10 +37,114 @@ const safeAlert = (title, message) => {
   else Alert.alert(title, message);
 };
 
+const DANH_SACH_XML_HO_SO = ['XML1', 'XML2', 'XML3', 'XML4', 'XML5', 'XML6'];
+
+const TEN_HIEN_THI_XML = {
+  XML1: 'Thông tin hành chính',
+  XML2: 'Thuốc điều trị',
+  XML3: 'DVKT và vật tư',
+  XML4: 'Cận lâm sàng',
+  XML5: 'Diễn biến điều trị',
+  XML6: 'Thanh toán tổng hợp',
+};
+
+const layDuLieuGocHoSo = (hs) => {
+  if (!hs) return {};
+  let raw = hs.du_lieu_goc || hs;
+  if (typeof raw === 'string') {
+    try {
+      raw = JSON.parse(raw);
+    } catch (error) {
+      raw = {};
+    }
+  }
+  return raw && typeof raw === 'object' ? raw : {};
+};
+
+const chuanHoaDanhSachBanGhi = (duLieu) => {
+  if (Array.isArray(duLieu)) return duLieu.filter((item) => item && typeof item === 'object' && Object.keys(item).length > 0);
+  if (duLieu && typeof duLieu === 'object' && Object.keys(duLieu).length > 0) return [duLieu];
+  return [];
+};
+
+const dinhDangGiaTriChiTiet = (giaTri) => {
+  if (giaTri === null || giaTri === undefined || giaTri === '') return '---';
+  if (typeof giaTri === 'object') {
+    try {
+      return JSON.stringify(giaTri, null, 2);
+    } catch (error) {
+      return String(giaTri);
+    }
+  }
+  return String(giaTri);
+};
+
+const chuanHoaChuoiTimKiem = (giaTri) => String(giaTri || '')
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g, '')
+  .toLowerCase()
+  .trim();
+
+const chuanHoaTenTruongLoi = (giaTri) => String(giaTri || '')
+  .toUpperCase()
+  .replace(/[^A-Z0-9]/g, '');
+
+const layXmlKeyTuLoi = (loi = {}) => {
+  const match = String(loi?.phan_he || loi?.phan_loai || '').toUpperCase().match(/XML\d/);
+  return match ? match[0] : 'XML1';
+};
+
+const taoChiMucLoiTheoXml = (danhSachLoi = []) => {
+  return (Array.isArray(danhSachLoi) ? danhSachLoi : []).reduce((acc, loi) => {
+    const xmlKey = layXmlKeyTuLoi(loi);
+    if (!acc[xmlKey]) acc[xmlKey] = [];
+    acc[xmlKey].push(loi);
+    return acc;
+  }, {});
+};
+
+const locTheoTuKhoaChiTiet = (tuKhoa, ...danhSachGiaTri) => {
+  const key = chuanHoaChuoiTimKiem(tuKhoa);
+  if (!key) return true;
+  return chuanHoaChuoiTimKiem(danhSachGiaTri.join(' ')).includes(key);
+};
+
+const laTruongBiLoi = (danhSachLoiXml = [], tenTruong = '', dongIndex = null) => {
+  const tenTruongChuan = chuanHoaTenTruongLoi(tenTruong);
+  if (!tenTruongChuan) return false;
+
+  return (Array.isArray(danhSachLoiXml) ? danhSachLoiXml : []).some((loi) => {
+    const truongLoiChuan = chuanHoaTenTruongLoi(loi?.truong_loi || '');
+    if (!truongLoiChuan || truongLoiChuan === 'UNKNOWN') return false;
+    const coKhopDong = dongIndex === null || !Number.isFinite(loi?.index) || Number(loi.index) === Number(dongIndex);
+    return coKhopDong && truongLoiChuan === tenTruongChuan;
+  });
+};
+
+const laDongBiLoi = (danhSachLoiXml = [], dongIndex = null) => {
+  if (!Number.isFinite(dongIndex)) return false;
+  return (Array.isArray(danhSachLoiXml) ? danhSachLoiXml : []).some((loi) => Number.isFinite(loi?.index) && Number(loi.index) === Number(dongIndex));
+};
+
+const layDuLieuXmlChiTiet = (hs) => {
+  const raw = layDuLieuGocHoSo(hs);
+  const x1Data = raw.xml1 || raw.XML1 || {};
+  return {
+    raw,
+    x1: Array.isArray(x1Data) ? (x1Data[0] || {}) : x1Data,
+    x2: chuanHoaDanhSachBanGhi(raw.xml2 || raw.XML2 || []),
+    x3: chuanHoaDanhSachBanGhi(raw.xml3 || raw.XML3 || []),
+    x4: chuanHoaDanhSachBanGhi(raw.xml4 || raw.XML4 || []),
+    x5: chuanHoaDanhSachBanGhi(raw.xml5 || raw.XML5 || []),
+    x6: chuanHoaDanhSachBanGhi(raw.xml6 || raw.XML6 || []),
+  };
+};
+
 const ManHinhKhoLuuTru = ({ navigation }) => {
   const [danhSachKho, setDanhSachKho] = useState([]);
   const [tuKhoa, setTuKhoa] = useState('');
   const [hoSoDangXem, setHoSoDangXem] = useState(null);
+  const [tuKhoaChiTietXml, setTuKhoaChiTietXml] = useState('');
 
   // --- STATE MỚI CHO CRUD VÀ SORT ---
   const [selectedIds, setSelectedIds] = useState([]);
@@ -68,24 +172,27 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
 
   // --- BỘ BÓC TÁCH DỮ LIỆU XML SIÊU AN TOÀN (CHỐNG UNDEFINED) ---
   const getSafeXML = (hs) => {
-    if (!hs) return { x1: {}, x2: [], x3: [], x4: [] };
-    let raw = hs.du_lieu_goc || hs;
-    if (typeof raw === 'string') {
-        try { raw = JSON.parse(raw); } catch(e) { raw = {}; }
-    }
+    if (!hs) return { raw: {}, x1: {}, x2: [], x3: [], x4: [], x5: [], x6: [] };
+    return layDuLieuXmlChiTiet(hs);
+  };
 
-    let x1Data = raw.xml1 || raw.XML1 || {};
-    let x1 = Array.isArray(x1Data) ? (x1Data[0] || {}) : x1Data;
-    let x2 = raw.xml2 || raw.XML2 || [];
-    let x3 = raw.xml3 || raw.XML3 || [];
-    let x4 = raw.xml4 || raw.XML4 || [];
-
-    return {
-      x1,
-      x2: Array.isArray(x2) ? x2 : [x2],
-      x3: Array.isArray(x3) ? x3 : [x3],
-      x4: Array.isArray(x4) ? x4 : [x4]
-    };
+  const handleMoSuaTheoXml = (maLK, xmlKey, dongIndex = 0, truongLoi = '') => {
+    setHoSoDangXem(null);
+    setTuKhoaChiTietXml('');
+    navigation.navigate('SuaFileXML', {
+      maLK,
+      loi: {
+        phan_he: xmlKey,
+        truong_loi: truongLoi || 'UNKNOWN',
+        index: Number.isFinite(dongIndex) ? dongIndex : 0,
+        canh_bao: `Mở nhanh ${xmlKey}`,
+      },
+      viTriSua: {
+        phanHe: xmlKey,
+        truongLoi: truongLoi || '',
+        index: Number.isFinite(dongIndex) ? dongIndex : 0,
+      },
+    });
   };
 
   // --- CHỨC NĂNG SORT HỒ SƠ ---
@@ -325,16 +432,27 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
   const renderChiTietHoSo = () => {
     if (!hoSoDangXem) return null;
 
-    const { x1, x2: xml2, x3: xml3 } = getSafeXML(hoSoDangXem);
+    const { x1, x2: xml2, x3: xml3, x4: xml4, x5: xml5, x6: xml6 } = getSafeXML(hoSoDangXem);
     const maLK = hoSoDangXem.ma_lk || x1.MA_LK;
     const tenBN = hoSoDangXem.ten_benh_nhan || hoSoDangXem.ten_bn || x1.HO_TEN || 'N/A';
     const nhatKyTruyVet = hoSoDangXem.lich_su_audit || hoSoDangXem.nhat_ky || [];
+    const danhSachLoi = Array.isArray(hoSoDangXem.ket_qua_giam_dinh) ? hoSoDangXem.ket_qua_giam_dinh : [];
+    const chiMucLoiTheoXml = taoChiMucLoiTheoXml(danhSachLoi);
+    const tuKhoaChiTietDaNhap = String(tuKhoaChiTietXml || '').trim();
+    const thongTinXml = [
+      { key: 'XML1', duLieu: x1, danhSach: [], loai: 'single' },
+      { key: 'XML2', duLieu: null, danhSach: xml2, loai: 'list' },
+      { key: 'XML3', duLieu: null, danhSach: xml3, loai: 'list' },
+      { key: 'XML4', duLieu: null, danhSach: xml4, loai: 'list' },
+      { key: 'XML5', duLieu: null, danhSach: xml5, loai: 'list' },
+      { key: 'XML6', duLieu: null, danhSach: xml6, loai: 'list' },
+    ];
 
     return (
       <View style={styles.khung_modal}>
         <View style={styles.header_modal}>
           <Text style={styles.tieu_de_modal}>HỒ SƠ: {String(tenBN).toUpperCase()}</Text>
-          <TouchableOpacity onPress={() => setHoSoDangXem(null)} style={styles.btn_dong_modal}>
+          <TouchableOpacity onPress={() => { setHoSoDangXem(null); setTuKhoaChiTietXml(''); }} style={styles.btn_dong_modal}>
             <Text style={styles.txt_btn_dong}>ĐÓNG [X]</Text>
           </TouchableOpacity>
         </View>
@@ -350,6 +468,131 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
           </View>
 
           <View style={styles.phan_muc}>
+            <Text style={[styles.tieu_de_muc, { color: '#B3E5FC', borderColor: 'rgba(179,229,252,0.35)' }]}>🔎 TÌM NHANH TRONG HỒ SƠ XML</Text>
+            <TextInput
+              style={styles.o_tim_chi_tiet_xml}
+              placeholder="Tìm theo tên trường, giá trị, mã XML..."
+              placeholderTextColor="rgba(255,255,255,0.42)"
+              value={tuKhoaChiTietXml}
+              onChangeText={setTuKhoaChiTietXml}
+              outlineStyle="none"
+            />
+            <Text style={styles.txt_goi_y_tim_xml}>Ví dụ: `MA_THE_BHYT`, `K59.0`, `XML3`, `NGAY_RA`, `T_BHTT`.</Text>
+          </View>
+
+          <View style={styles.phan_muc}>
+            <Text style={[styles.tieu_de_muc, { color: '#A5D6FF', borderColor: 'rgba(165,214,255,0.35)' }]}>🧭 LIÊN KẾT SỬA NHANH THEO XML</Text>
+            <View style={styles.chi_tiet_toolbar}>
+              {DANH_SACH_XML_HO_SO.map((xmlKey) => (
+                <TouchableOpacity key={xmlKey} style={styles.btn_lien_ket_xml} onPress={() => handleMoSuaTheoXml(maLK, xmlKey)}>
+                  <Text style={styles.txt_btn_lien_ket_xml}>{xmlKey}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+          </View>
+
+          <View style={styles.phan_muc}>
+            <Text style={[styles.tieu_de_muc, { color: '#FFE082', borderColor: 'rgba(255,224,130,0.35)' }]}>⚠️ KẾT QUẢ GIÁM ĐỊNH HIỆN TẠI</Text>
+            {danhSachLoi.length > 0 ? danhSachLoi.map((loi, idx) => {
+              const phanHe = String(loi?.phan_he || 'XML1').toUpperCase().match(/XML\d/);
+              const xmlKey = phanHe ? phanHe[0] : 'XML1';
+              return (
+                <View key={`loi_${idx}`} style={styles.the_loi_hien_tai}>
+                  <Text style={styles.chu_thuong}><Text style={styles.chu_dam}>[{xmlKey}]</Text> {loi?.canh_bao || loi?.noi_dung || 'Cảnh báo chưa có mô tả'}</Text>
+                  <Text style={styles.chu_nho}>Trường lỗi: {loi?.truong_loi || 'UNKNOWN'}{Number.isFinite(loi?.index) ? ` | Dòng: ${Number(loi.index) + 1}` : ''}</Text>
+                  <TouchableOpacity
+                    style={styles.btn_sua_loi_truc_tiep}
+                    onPress={() => handleMoSuaTheoXml(maLK, xmlKey, Number.isFinite(loi?.index) ? Number(loi.index) : 0, loi?.truong_loi || '')}
+                  >
+                    <Text style={styles.txt_btn_lien_ket_xml}>Mở sửa lỗi này</Text>
+                  </TouchableOpacity>
+                </View>
+              );
+            }) : <Text style={styles.chu_nho}>Chưa ghi nhận lỗi giám định trên hồ sơ này.</Text>}
+          </View>
+
+          {thongTinXml.map((xmlItem) => {
+            const { key, duLieu, danhSach, loai } = xmlItem;
+            const danhSachLoiXml = chiMucLoiTheoXml[key] || [];
+            const soDong = loai === 'single' ? Object.keys(duLieu || {}).length : danhSach.length;
+            const danhSachTruongXml1 = Object.entries(duLieu || {}).filter(([tenTruong, giaTri]) => (
+              locTheoTuKhoaChiTiet(tuKhoaChiTietDaNhap, key, TEN_HIEN_THI_XML[key], tenTruong, dinhDangGiaTriChiTiet(giaTri))
+            ));
+
+            const danhSachDongDaLoc = (Array.isArray(danhSach) ? danhSach : []).map((dong, idx) => {
+              const truongDaLoc = Object.entries(dong || {})
+                .filter(([tenTruong]) => tenTruong !== 'id')
+                .filter(([tenTruong, giaTri]) => locTheoTuKhoaChiTiet(tuKhoaChiTietDaNhap, key, TEN_HIEN_THI_XML[key], tenTruong, dinhDangGiaTriChiTiet(giaTri), `Dòng ${idx + 1}`));
+              return {
+                dong,
+                idx,
+                truongDaLoc,
+              };
+            }).filter((item) => !tuKhoaChiTietDaNhap || item.truongDaLoc.length > 0);
+
+            const coKetQuaHienThi = loai === 'single' ? danhSachTruongXml1.length > 0 : danhSachDongDaLoc.length > 0;
+            return (
+              <View key={key} style={styles.phan_muc}>
+                <View style={styles.xml_header_row}>
+                  <View>
+                    <Text style={styles.tieu_de_muc}>{`${key} · ${TEN_HIEN_THI_XML[key] || key}`}</Text>
+                    <Text style={styles.xml_meta_text}>{loai === 'single' ? `${soDong} trường dữ liệu` : `${soDong} dòng dữ liệu`}{danhSachLoiXml.length > 0 ? ` • ${danhSachLoiXml.length} lỗi liên quan` : ''}</Text>
+                  </View>
+                  <TouchableOpacity style={styles.btn_lien_ket_xml} onPress={() => handleMoSuaTheoXml(maLK, key)}>
+                    <Text style={styles.txt_btn_lien_ket_xml}>Mở cửa sổ sửa {key}</Text>
+                  </TouchableOpacity>
+                </View>
+
+                {loai === 'single' ? (
+                  Object.keys(duLieu || {}).length > 0 ? (
+                    <View style={styles.khoi_xml_chi_tiet}>
+                      <View style={styles.luoi_truong_xml}>
+                        {danhSachTruongXml1.map(([tenTruong, giaTri]) => {
+                          const biLoi = laTruongBiLoi(danhSachLoiXml, tenTruong);
+                          return (
+                          <View key={`${key}_${tenTruong}`} style={[styles.o_truong_xml, biLoi && styles.o_truong_xml_loi]}>
+                            <Text style={[styles.nhan_truong_xml, biLoi && styles.nhan_truong_xml_loi]}>{tenTruong}</Text>
+                            <Text style={[styles.gia_tri_truong_xml, biLoi && styles.gia_tri_truong_xml_loi]}>{dinhDangGiaTriChiTiet(giaTri)}</Text>
+                          </View>
+                        );})}
+                      </View>
+                    </View>
+                  ) : (
+                    <Text style={styles.chu_nho}>Không có dữ liệu trong {key}.</Text>
+                  )
+                ) : (
+                  danhSach.length > 0 ? (
+                    coKetQuaHienThi ? danhSachDongDaLoc.map(({ dong, idx, truongDaLoc }) => {
+                      const dongCoLoi = laDongBiLoi(danhSachLoiXml, idx);
+                      return (
+                      <View key={`${key}_${idx}`} style={[styles.khoi_xml_dong, dongCoLoi && styles.khoi_xml_dong_loi]}>
+                        <View style={styles.khoi_xml_dong_header}>
+                          <Text style={styles.khoi_xml_dong_title}>{`${key} · Dòng ${idx + 1}`}</Text>
+                          <TouchableOpacity style={styles.btn_sua_dong_xml} onPress={() => handleMoSuaTheoXml(maLK, key, idx)}>
+                            <Text style={styles.txt_btn_sua_dong_xml}>Sửa dòng này</Text>
+                          </TouchableOpacity>
+                        </View>
+                        <View style={styles.luoi_truong_xml}>
+                          {truongDaLoc.map(([tenTruong, giaTri]) => {
+                            const biLoi = laTruongBiLoi(danhSachLoiXml, tenTruong, idx);
+                            return (
+                            <View key={`${key}_${idx}_${tenTruong}`} style={[styles.o_truong_xml, biLoi && styles.o_truong_xml_loi]}>
+                              <Text style={[styles.nhan_truong_xml, biLoi && styles.nhan_truong_xml_loi]}>{tenTruong}</Text>
+                              <Text style={[styles.gia_tri_truong_xml, biLoi && styles.gia_tri_truong_xml_loi]}>{dinhDangGiaTriChiTiet(giaTri)}</Text>
+                            </View>
+                          );})}
+                        </View>
+                      </View>
+                    );}) : <Text style={styles.chu_nho}>Không có trường nào khớp với từ khóa tìm kiếm trong {key}.</Text>
+                  ) : (
+                    <Text style={styles.chu_nho}>Không có dữ liệu trong {key}.</Text>
+                  )
+                )}
+              </View>
+            );
+          })}
+
+          <View style={styles.phan_muc}>
             <Text style={[styles.tieu_de_muc, { color: '#90CAF9', borderColor: 'rgba(144,202,249,0.3)' }]}>📋 NHẬT KÝ TRUY VẾT & THAY ĐỔI (AUDIT TRAIL)</Text>
             {nhatKyTruyVet.length > 0 ? nhatKyTruyVet.map((log, idx) => (
               <View key={idx} style={styles.dong_nhat_ky}>
@@ -358,30 +601,10 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
               </View>
             )) : (
               <View style={styles.dong_nhat_ky}>
-                <Text style={styles.chu_thuong}>• <Text style={styles.chu_dam}>{hoSoDangXem.thoi_gian}:</Text> Nạp hồ sơ gốc và Giám định lần đầu.</Text>
+                <Text style={styles.chu_thuong}>• <Text style={styles.chu_dam}>{hoSoDangXem.thoi_gian}:</Text> Nạp hồ sơ gốc và Kiểm tra lần đầu.</Text>
                 <Text style={styles.chu_nho}>- Ghi chú: Hồ sơ được khởi tạo tự động từ file XML.</Text>
               </View>
             )}
-          </View>
-
-          <View style={styles.phan_muc}>
-            <Text style={styles.tieu_de_muc}>💊 CHI TIẾT THUỐC (XML2)</Text>
-            {xml2.length > 0 ? xml2.map((thuoc, idx) => (
-              <View key={idx} style={styles.dong_chi_tiet}>
-                <Text style={styles.chu_thuong}>{idx + 1}. {thuoc.TEN_THUOC}</Text>
-                <Text style={styles.chu_nho}>- SL: {thuoc.SO_LUONG} {thuoc.DON_V_TINH} | Đơn giá: {Number(thuoc.DON_GIA).toLocaleString()} VNĐ</Text>
-              </View>
-            )) : <Text style={styles.chu_nho}>Không có dữ liệu thuốc.</Text>}
-          </View>
-
-          <View style={styles.phan_muc}>
-            <Text style={styles.tieu_de_muc}>⚙️ DỊCH VỤ KỸ THUẬT & VẬT TƯ (XML3)</Text>
-            {xml3.length > 0 ? xml3.map((dv, idx) => (
-              <View key={idx} style={styles.dong_chi_tiet}>
-                <Text style={styles.chu_thuong}>{idx + 1}. {dv.TEN_DICH_VU || dv.TEN_VAT_TU}</Text>
-                <Text style={styles.chu_nho}>- Thành tiền: {Number(dv.THANH_TIEN_BV).toLocaleString()} VNĐ</Text>
-              </View>
-            )) : <Text style={styles.chu_nho}>Không có dữ liệu dịch vụ.</Text>}
           </View>
 
           <View style={{ height: 50 }} />
@@ -453,7 +676,7 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
 
               <ScrollView style={{ flex: 1 }}>
                 {danhSachLoc.map((hs, idx) => {
-                  const checkLoi = hs.ket_qua_giam_dinh?.length > 0;
+                  const checkLỗi = hs.ket_qua_giam_dinh?.length > 0;
                   const { x1 } = getSafeXML(hs);
                   const maLK = hs.ma_lk || x1.MA_LK || `ERR_${idx}`;
                   const tenBN = hs.ten_benh_nhan || hs.ten_bn || x1.HO_TEN || "Chưa cập nhật";
@@ -470,8 +693,8 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
                       <Text style={[styles.o_cell, { width: 150, color: '#81C784', fontWeight: 'bold' }]} numberOfLines={1}>{Number(x1.T_BHTT || 0).toLocaleString()}</Text>
                       <Text style={[styles.o_cell, { width: 150, color: '#FFB74D', fontWeight: 'bold' }]} numberOfLines={1}>{Number(x1.T_BNTT || 0).toLocaleString()}</Text>
                       <Text style={[styles.o_cell, { width: 180 }]} numberOfLines={2}>{hs.thoi_gian}</Text>
-                      <Text style={[styles.o_cell, { width: 220, color: checkLoi ? '#FF6B6B' : '#81C784', fontWeight: 'bold' }]} numberOfLines={1}>
-                        {checkLoi ? `⚠️ Vi phạm (${hs.ket_qua_giam_dinh.length})` : '✅ Hợp lệ'}
+                      <Text style={[styles.o_cell, { width: 220, color: checkLỗi ? '#FF6B6B' : '#81C784', fontWeight: 'bold' }]} numberOfLines={1}>
+                        {checkLỗi ? `⚠️ Vi phạm (${hs.ket_qua_giam_dinh.length})` : '✅ Hợp lệ'}
                       </Text>
 
                       <View style={[styles.o_cell, { width: 280, flexDirection: 'row', justifyContent: 'center', gap: 10 }]}>
@@ -509,12 +732,12 @@ const styles = StyleSheet.create({
   vung_an_toan: {
     flex: 1,
     backgroundColor: CD.bg.gradient_mobile,
-    ...Platform.select({ web: { background: CD.web.gradient_bg } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_bg } }),
   },
 
   // ── HEADER ──
   thanh_tieu_de: {
-    ...Platform.select({ web: { background: CD.web.gradient_header, backdropFilter: CD.web.blur_header, boxShadow: CD.web.shadow_header } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_header, backdropFilter: CD.web.blur_header, boxShadow: CD.web.shadow_header } }),
     backgroundColor: CD.brand.mauDam,
     borderBottomWidth: 1, borderBottomColor: CD.border.header,
     paddingHorizontal: 24, paddingVertical: 16, paddingTop: 40,
@@ -601,7 +824,7 @@ const styles = StyleSheet.create({
     ...Platform.select({ web: { backdropFilter: CD.web.blur_modal, boxShadow: CD.web.shadow_modal } }),
   },
   header_modal: {
-    ...Platform.select({ web: { background: CD.web.gradient_header, backdropFilter: CD.web.blur_header, boxShadow: CD.web.shadow_header } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_header, backdropFilter: CD.web.blur_header, boxShadow: CD.web.shadow_header } }),
     backgroundColor: CD.brand.mauDam,
     borderBottomWidth: 1, borderBottomColor: CD.border.header,
     paddingHorizontal: 24, paddingVertical: 22,
@@ -614,6 +837,25 @@ const styles = StyleSheet.create({
   },
   txt_btn_dong: { color: CD.text.primary, fontWeight: '700', fontSize: 18, fontFamily: CD.font.family },
   noi_dung_modal: { padding: 28 },
+  o_tim_chi_tiet_xml: {
+    backgroundColor: CD.bg.glass_input,
+    borderWidth: 1,
+    borderColor: 'rgba(179,229,252,0.28)',
+    borderRadius: 12,
+    color: CD.text.primary,
+    fontSize: 18,
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    fontFamily: CD.font.family,
+    ...Platform.select({ web: { backdropFilter: CD.web.blur_input, outlineStyle: 'none' } }),
+  },
+  txt_goi_y_tim_xml: {
+    fontFamily: CD.font.family,
+    fontSize: 15,
+    color: CD.text.muted,
+    marginTop: 8,
+    fontStyle: 'italic',
+  },
   thong_tin_hanh_chinh: {
     backgroundColor: CD.bg.glass_card, padding: 22, borderRadius: 14, marginBottom: 24,
     borderLeftWidth: 4, borderLeftColor: CD.brand.mauChinh,
@@ -625,6 +867,147 @@ const styles = StyleSheet.create({
     fontFamily: CD.font.family, fontSize: 22, fontWeight: '800', color: CD.brand.mauNhat,
     paddingBottom: 10, marginBottom: 16,
     borderBottomWidth: 1, borderColor: CD.border.glass,
+  },
+  chi_tiet_toolbar: {
+    flexDirection: 'row',
+    gap: 10,
+    flexWrap: 'wrap',
+  },
+  btn_lien_ket_xml: {
+    backgroundColor: 'rgba(2,136,209,0.18)',
+    borderWidth: 1,
+    borderColor: 'rgba(2,136,209,0.38)',
+    borderRadius: 999,
+    paddingVertical: 8,
+    paddingHorizontal: 14,
+    ...Platform.select({ web: { cursor: CD.web.cursor_pointer } }),
+  },
+  txt_btn_lien_ket_xml: {
+    color: '#A5D6FF',
+    fontSize: 16,
+    fontWeight: '700',
+    fontFamily: CD.font.family,
+  },
+  the_loi_hien_tai: {
+    backgroundColor: 'rgba(255,193,7,0.10)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,193,7,0.24)',
+    borderRadius: 12,
+    padding: 14,
+    marginBottom: 12,
+  },
+  btn_sua_loi_truc_tiep: {
+    alignSelf: 'flex-start',
+    marginTop: 10,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.18)',
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    ...Platform.select({ web: { cursor: CD.web.cursor_pointer } }),
+  },
+  xml_header_row: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'flex-start',
+    gap: 12,
+    marginBottom: 12,
+    flexWrap: 'wrap',
+  },
+  xml_meta_text: {
+    fontFamily: CD.font.family,
+    fontSize: 16,
+    color: CD.text.muted,
+    marginTop: -6,
+  },
+  khoi_xml_chi_tiet: {
+    backgroundColor: CD.bg.glass_card,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: CD.border.glass,
+    padding: 14,
+    ...Platform.select({ web: { backdropFilter: CD.web.blur_card, WebkitBackdropFilter: CD.web.blur_card, boxShadow: CD.web.shadow_card } }),
+  },
+  khoi_xml_dong: {
+    backgroundColor: CD.bg.glass_card,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: CD.border.glass,
+    padding: 14,
+    marginBottom: 14,
+    ...Platform.select({ web: { backdropFilter: CD.web.blur_card, WebkitBackdropFilter: CD.web.blur_card, boxShadow: CD.web.shadow_card } }),
+  },
+  khoi_xml_dong_header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 10,
+    marginBottom: 12,
+    flexWrap: 'wrap',
+  },
+  khoi_xml_dong_title: {
+    fontFamily: CD.font.family,
+    fontSize: 18,
+    fontWeight: '800',
+    color: CD.text.primary,
+  },
+  btn_sua_dong_xml: {
+    backgroundColor: 'rgba(233,30,99,0.14)',
+    borderWidth: 1,
+    borderColor: 'rgba(233,30,99,0.28)',
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    ...Platform.select({ web: { cursor: CD.web.cursor_pointer } }),
+  },
+  txt_btn_sua_dong_xml: {
+    color: '#F8BBD0',
+    fontFamily: CD.font.family,
+    fontSize: 15,
+    fontWeight: '700',
+  },
+  luoi_truong_xml: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 12,
+  },
+  o_truong_xml: {
+    flexGrow: 1,
+    flexBasis: Platform.OS === 'web' ? 320 : '100%',
+    maxWidth: Platform.OS === 'web' ? '49%' : '100%',
+    backgroundColor: 'rgba(255,255,255,0.04)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.08)',
+    borderRadius: 12,
+    padding: 12,
+  },
+  o_truong_xml_loi: {
+    backgroundColor: 'rgba(255,107,107,0.10)',
+    borderColor: 'rgba(255,107,107,0.42)',
+  },
+  nhan_truong_xml: {
+    fontFamily: CD.font.family,
+    fontSize: 15,
+    fontWeight: '800',
+    color: '#90CAF9',
+    marginBottom: 6,
+  },
+  nhan_truong_xml_loi: {
+    color: '#FFCDD2',
+  },
+  gia_tri_truong_xml: {
+    fontFamily: CD.font.family,
+    fontSize: 17,
+    color: CD.text.table_cell,
+    lineHeight: 24,
+  },
+  gia_tri_truong_xml_loi: {
+    color: '#FFF5F5',
+  },
+  khoi_xml_dong_loi: {
+    borderColor: 'rgba(255,107,107,0.36)',
+    backgroundColor: 'rgba(255,107,107,0.06)',
   },
   dong_chi_tiet: { marginBottom: 12, paddingLeft: 8 },
   dong_nhat_ky: {

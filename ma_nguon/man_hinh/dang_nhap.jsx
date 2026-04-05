@@ -4,54 +4,200 @@
  * JCI Standard SQE.1: Kiểm soát truy cập nghiêm ngặt.
  */
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useState } from 'react';
 import {
-  Alert,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View
+    Alert,
+    KeyboardAvoidingView,
+    Platform,
+    ScrollView,
+    StyleSheet,
+    Text,
+    TextInput,
+    TouchableOpacity,
+    View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CD } from '../tien_ich/chu_de_giao_dien';
+import { capNhatTaiKhoanTheoEmail, docDanhSachTaiKhoan, ghiNhatKyHeThong, luuDanhSachTaiKhoan } from '../tien_ich/nhat_ky_he_thong';
+import { luuPhienDangNhap } from '../tien_ich/phien_dang_nhap';
+import { layVaiTroPhienHieuLuc, taiRBAC } from '../tien_ich/rbac_engine';
+
+const ADMIN_EMAIL = 'htthinh28@gmail.com';
+const ADMIN_LEGACY_PASSWORD = 'Tramanh@2010##';
 
 const ManHinhDangNhap = ({ navigation }) => {
   const [taiKhoan, setTaiKhoan] = useState('');
   const [matKhau, setMatKhau] = useState('');
   const [dangXuLy, setDangXuLy] = useState(false);
   const [hienMatKhau, setHienMatKhau] = useState(false);
+  const [thongBaoDangNhap, setThongBaoDangNhap] = useState('');
+  const [loaiThongBao, setLoaiThongBao] = useState('info');
+
+  const capNhatThongBao = (noiDung, loai = 'info') => {
+    setThongBaoDangNhap(String(noiDung || ''));
+    setLoaiThongBao(loai);
+  };
+
+  const dieuHuongSauDangNhap = () => {
+    if (navigation?.reset) {
+      navigation.reset({ index: 0, routes: [{ name: 'TongQuan' }] });
+      return;
+    }
+    if (navigation?.replace) {
+      navigation.replace('TongQuan');
+      return;
+    }
+    if (Platform.OS === 'web' && typeof window !== 'undefined') {
+      window.location.assign('/dashboard');
+    }
+  };
 
   const xuLyDangNhap = async () => {
+    capNhatThongBao('');
     const tk = taiKhoan.trim();
     const mk = matKhau.trim();
     if (!tk || !mk) {
+      capNhatThongBao('Vui lòng nhập đầy đủ tài khoản và mật khẩu.', 'error');
       Alert.alert("Thiếu thông tin", "Vui lòng nhập đầy đủ Tài khoản và Mật khẩu.");
       return;
     }
     setDangXuLy(true);
+    const tkChuan = tk.toLowerCase();
     let quyen = 'USER';
-    if (tk.toLowerCase() === 'htthinh28@gmail.com') {
-      if (mk === 'Tramanh@2010##') { quyen = 'ADMIN'; }
-      else { Alert.alert("Từ chối truy cập", "Mật khẩu Quản trị viên không chính xác!"); setDangXuLy(false); return; }
-    } else {
+
+    try {
+      const dangNhapKhanCapAdmin = async (lyDo) => {
+        try {
+          await luuPhienDangNhap(tkChuan, 'ADMIN');
+          await ghiNhatKyHeThong({
+            hanhDong: 'DANG_NHAP_THANH_CONG',
+            doiTuong: 'HE_THONG',
+            chiTiet: `Xác thực thành công (admin emergency path${lyDo ? `: ${lyDo}` : ''})`,
+            taiKhoan: tkChuan,
+            vaiTro: 'ADMIN',
+          });
+        } catch {
+          // Không chặn đăng nhập nếu ghi log thất bại.
+        }
+        capNhatThongBao('Đăng nhập thành công, đang chuyển vào hệ thống...', 'success');
+        dieuHuongSauDangNhap();
+        setDangXuLy(false);
+      };
+
+      let dsUsers;
       try {
-        const rawUsers = await AsyncStorage.getItem('DANH_SACH_TAI_KHOAN');
-        const dsUsers = rawUsers ? JSON.parse(rawUsers) : [];
-        const userHopLe = dsUsers.find(u => u.email.toLowerCase() === tk.toLowerCase());
-        if (!userHopLe) { Alert.alert("Từ chối truy cập", "Tài khoản không tồn tại. Liên hệ Admin để được cấp quyền."); setDangXuLy(false); return; }
-        if (userHopLe.matKhau !== mk) { Alert.alert("Từ chối truy cập", "Mật khẩu không chính xác!"); setDangXuLy(false); return; }
-      } catch (e) { Alert.alert("Lỗi hệ thống", "Không thể kết nối cơ sở dữ liệu."); setDangXuLy(false); return; }
+        dsUsers = await docDanhSachTaiKhoan();
+      } catch (storageError) {
+        if (tkChuan === ADMIN_EMAIL && mk === ADMIN_LEGACY_PASSWORD) {
+          await dangNhapKhanCapAdmin('storage-unavailable');
+          return;
+        }
+        throw storageError;
+      }
+
+      // Đảm bảo luôn có tài khoản quản trị mặc định để tránh lockout khi dữ liệu cục bộ bị mất.
+      if (!dsUsers.some((u) => u.email === ADMIN_EMAIL)) {
+        dsUsers = await luuDanhSachTaiKhoan([
+          ...dsUsers,
+          {
+            email: ADMIN_EMAIL,
+            ten: 'ADMIN HTTHINH',
+            hoTen: 'ADMIN HTTHINH',
+            khoa: 'Phòng Công nghệ thông tin',
+            phong: 'Khối điều hành',
+            chucDanh: 'Quản trị hệ thống',
+            soDienThoai: '',
+            matKhau: ADMIN_LEGACY_PASSWORD,
+            vaiTro: 'ADMIN',
+            trangThai: 'HOAT_DONG',
+            buocDoiMatKhau: false,
+          },
+        ], 'SYSTEM');
+      } else {
+        dsUsers = await luuDanhSachTaiKhoan(dsUsers, 'SYSTEM');
+      }
+
+      const userHopLe = dsUsers.find((u) => u.email === tkChuan);
+      if (!userHopLe) {
+        capNhatThongBao('Tài khoản không tồn tại. Vui lòng liên hệ Admin để được cấp quyền.', 'error');
+        await ghiNhatKyHeThong({
+          hanhDong: 'DANG_NHAP_THAT_BAI',
+          doiTuong: 'HE_THONG',
+          chiTiet: 'Tài khoản không tồn tại',
+          taiKhoan: tkChuan,
+          vaiTro: 'USER',
+        });
+        Alert.alert('Từ chối truy cập', 'Tài khoản không tồn tại. Liên hệ Admin để được cấp quyền.');
+        setDangXuLy(false);
+        return;
+      }
+
+      if (userHopLe.trangThai === 'KHOA') {
+        capNhatThongBao('Tài khoản đang bị khóa. Vui lòng liên hệ Admin.', 'error');
+        await ghiNhatKyHeThong({
+          hanhDong: 'DANG_NHAP_THAT_BAI',
+          doiTuong: 'HE_THONG',
+          chiTiet: 'Tài khoản đang bị khóa',
+          taiKhoan: tkChuan,
+          vaiTro: userHopLe.vaiTro || 'USER',
+        });
+        Alert.alert('Từ chối truy cập', 'Tài khoản đang bị khóa. Vui lòng liên hệ Admin.');
+        setDangXuLy(false);
+        return;
+      }
+
+      const matKhauDung = userHopLe.matKhau === mk || (tkChuan === ADMIN_EMAIL && mk === ADMIN_LEGACY_PASSWORD);
+      if (!matKhauDung) {
+        capNhatThongBao(
+          tkChuan === ADMIN_EMAIL ? 'Mật khẩu quản trị viên không chính xác.' : 'Mật khẩu không chính xác.',
+          'error'
+        );
+        await ghiNhatKyHeThong({
+          hanhDong: 'DANG_NHAP_THAT_BAI',
+          doiTuong: 'HE_THONG',
+          chiTiet: tkChuan === ADMIN_EMAIL ? 'Sai mat khau ADMIN' : 'Sai mat khau',
+          taiKhoan: tkChuan,
+          vaiTro: userHopLe.vaiTro || 'USER',
+        });
+        Alert.alert('Từ chối truy cập', tkChuan === ADMIN_EMAIL ? 'Mật khẩu Quản trị viên không chính xác!' : 'Mật khẩu không chính xác!');
+        setDangXuLy(false);
+        return;
+      }
+
+      const cfgRbac = await taiRBAC();
+      quyen = layVaiTroPhienHieuLuc({
+        cfg: cfgRbac,
+        email: tkChuan,
+        fallbackRole: userHopLe.vaiTro || (tkChuan === ADMIN_EMAIL ? 'ADMIN' : 'USER'),
+      });
+      if (userHopLe.buocDoiMatKhau) {
+        capNhatThongBao('Đăng nhập thành công. Vui lòng liên hệ Admin để đổi mật khẩu mặc định.', 'warning');
+        Alert.alert('Thông báo bảo mật', 'Tài khoản đang dùng mật khẩu mặc định. Vui lòng liên hệ Admin để đổi mật khẩu sau khi đăng nhập.');
+      }
+    } catch (e) {
+      capNhatThongBao('Không thể kết nối cơ sở dữ liệu. Vui lòng thử lại.', 'error');
+      Alert.alert('Lỗi hệ thống', 'Không thể kết nối cơ sở dữ liệu.');
+      setDangXuLy(false);
+      return;
     }
     try {
-      await AsyncStorage.setItem('USER_ACCOUNT', tk);
-      await AsyncStorage.setItem('USER_ROLE', quyen);
-      if (navigation) navigation.replace('TongQuan');
-    } catch (e) { Alert.alert("Lỗi bộ nhớ", "Không thể khởi tạo phiên làm việc."); }
+      await luuPhienDangNhap(tkChuan, quyen);
+      if (quyen !== 'ADMIN') {
+        await capNhatTaiKhoanTheoEmail(tkChuan, { lanDangNhapCuoi: new Date().toISOString() }, 'HE_THONG');
+      }
+      await ghiNhatKyHeThong({
+        hanhDong: 'DANG_NHAP_THANH_CONG',
+        doiTuong: 'HE_THONG',
+        chiTiet: 'Xác thực thành công',
+        taiKhoan: tkChuan,
+        vaiTro: quyen,
+      });
+      capNhatThongBao('Đăng nhập thành công, đang chuyển vào hệ thống...', 'success');
+      dieuHuongSauDangNhap();
+    } catch (e) {
+      capNhatThongBao('Không thể khởi tạo phiên làm việc. Vui lòng thử lại.', 'error');
+      Alert.alert("Lỗi bộ nhớ", "Không thể khởi tạo phiên làm việc.");
+    }
     setDangXuLy(false);
   };
 
@@ -91,7 +237,7 @@ const ManHinhDangNhap = ({ navigation }) => {
                 </View>
                 <View style={styles.stat_chip}>
                   <Text style={styles.stat_num}>130+</Text>
-                  <Text style={styles.stat_lbl}>Quy tắc giám định</Text>
+                  <Text style={styles.stat_lbl}>Quy tắc kiểm tra</Text>
                 </View>
                 <View style={styles.stat_chip}>
                   <Text style={styles.stat_num}>JCI</Text>
@@ -172,6 +318,17 @@ const ManHinhDangNhap = ({ navigation }) => {
                 </Text>
               </TouchableOpacity>
 
+              {!!thongBaoDangNhap && (
+                <Text style={[
+                  styles.login_feedback,
+                  loaiThongBao === 'error' && styles.login_feedback_error,
+                  loaiThongBao === 'success' && styles.login_feedback_success,
+                  loaiThongBao === 'warning' && styles.login_feedback_warning,
+                ]}>
+                  {thongBaoDangNhap}
+                </Text>
+              )}
+
               {/* Thông tin liên hệ */}
               <View style={styles.contact_box}>
                 <Text style={styles.contact_txt}>🛡️ Hệ thống đóng · Cần tài khoản?</Text>
@@ -195,7 +352,7 @@ const ManHinhDangNhap = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    ...Platform.select({ web: { background: CD.web.gradient_bg } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_bg } }),
     backgroundColor: CD.bg.gradient_mobile,
   },
 
@@ -234,11 +391,11 @@ const styles = StyleSheet.create({
   brand_icon_txt: { fontSize: 52 },
   brand_name: {
     fontSize: 40, fontWeight: '900', color: CD.text.primary,
-    letterSpacing: 3, fontFamily: CD.font.family, textAlign: 'center',
+    letterSpacing: 0.6, fontFamily: CD.font.family, textAlign: 'center',
   },
   brand_subtitle: {
     fontSize: 18, color: CD.text.secondary,
-    letterSpacing: 1.5, marginTop: 8, textAlign: 'center', fontFamily: CD.font.family,
+    letterSpacing: 0.2, marginTop: 8, textAlign: 'center', fontFamily: CD.font.family,
   },
   brand_divider: {
     width: 60, height: 3, backgroundColor: 'rgba(255,255,255,0.4)',
@@ -250,7 +407,7 @@ const styles = StyleSheet.create({
   },
   brand_version: {
     fontSize: 16, color: CD.text.muted, marginTop: 10,
-    letterSpacing: 2, fontFamily: CD.font.family,
+    letterSpacing: 0.2, fontFamily: CD.font.family,
   },
   stat_row: { flexDirection: 'row', gap: 16, marginTop: 40 },
   stat_chip: {
@@ -306,7 +463,7 @@ const styles = StyleSheet.create({
     flex: 1, fontSize: 22, paddingVertical: 14, paddingHorizontal: 0,
     color: CD.text.primary, fontFamily: CD.font.family,
     backgroundColor: 'transparent',
-    ...Platform.select({ web: { outline: 'none' } }),
+    ...Platform.select({ web: { outlineStyle: 'none' } }),
   },
   eye_btn: { padding: 8 },
   eye_icon: { fontSize: 20 },
@@ -316,7 +473,7 @@ const styles = StyleSheet.create({
     marginTop: 8, marginBottom: 24,
     ...Platform.select({
       web: {
-        background: CD.web.gradient_primary,
+        backgroundImage: CD.web.gradient_primary,
         boxShadow: CD.web.shadow_btn,
         cursor: CD.web.cursor_pointer,
       },
@@ -326,7 +483,18 @@ const styles = StyleSheet.create({
     backgroundColor: CD.brand.mauChinh,
   },
   login_btn_loading: { opacity: 0.7 },
-  login_btn_txt: { fontSize: 22, fontWeight: '800', color: CD.text.primary, letterSpacing: 1, fontFamily: CD.font.family },
+  login_btn_txt: { fontSize: 22, fontWeight: '800', color: CD.text.primary, letterSpacing: 0.2, fontFamily: CD.font.family },
+  login_feedback: {
+    marginTop: 10,
+    fontSize: 15,
+    fontWeight: '700',
+    color: CD.text.secondary,
+    textAlign: 'center',
+    fontFamily: CD.font.family,
+  },
+  login_feedback_error: { color: '#fecaca' },
+  login_feedback_success: { color: '#bbf7d0' },
+  login_feedback_warning: { color: '#fde68a' },
 
   contact_box: {
     borderTopWidth: 1, borderTopColor: CD.border.divider,

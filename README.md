@@ -16,6 +16,137 @@ This is an [Expo](https://expo.dev) project created with [`create-expo-app`](htt
    npx expo start
    ```
 
+## Firebase cloud persistence (production)
+
+This project now has real Firebase functions for:
+
+- Uploading imported XML documents to Cloud Storage + Firestore metadata
+- Syncing DVKT Rule Engine datasets to Firebase
+- Restoring DVKT datasets from Firebase back to local storage
+- Uploading claim verification results to Firebase
+
+### 1. Fill Firebase config in `app.json`
+
+Update:
+
+```json
+"expo": {
+  "extra": {
+    "firebase": {
+      "enabled": true,
+      "orgId": "phuongchau",
+      "apiKey": "...",
+      "authDomain": "...",
+      "projectId": "...",
+      "storageBucket": "...",
+      "messagingSenderId": "...",
+      "appId": "..."
+    }
+  }
+}
+```
+
+### 2. Use implemented functions
+
+- File: `ma_nguon/tien_ich/firebase_cloud_bhyt.jsx`
+- Rule engine sync:
+  - `dongBoDuLieuRuleEngineLenFirebase(...)`
+  - `taiDuLieuRuleEngineTuFirebase(...)`
+- XML upload is called automatically inside `ma_nguon/tien_ich/nhap_file_xml.jsx` when a valid claim is imported.
+
+### 3. Deploy Firestore/Storage security rules in Firebase
+
+Do not use public rules in production. Limit access by authenticated user/org and audit all writes.
+
+Deploy rules:
+
+```bash
+npm run firebase:deploy-rules
+```
+
+Run local emulators:
+
+```bash
+npm run firebase:emulators
+```
+
+The rules require Firebase Auth custom claims:
+
+- `org_id`: organization id (must match `orgId` in app config)
+- `role`: one of `ADMIN`, `AUDITOR`, `OPERATOR`, `REVIEWER`, `USER`
+
+Example (Node Admin SDK):
+
+```js
+await admin.auth().setCustomUserClaims(uid, {
+  org_id: 'phuongchau',
+  role: 'ADMIN',
+});
+```
+
+## Python service (hybrid mode)
+
+The app can now run in a hybrid model:
+
+- React Native / Expo keeps the UI and local workflow
+- A separate Python FastAPI service handles heavy processing or AI features
+
+Files added for this mode:
+
+- `python_service/app/main.py`
+- `python_service/requirements.txt`
+- `ma_nguon/dich_vu/python_service_api.jsx`
+
+### 1. Install Python dependencies
+
+```bash
+npm run py:install
+```
+
+### 2. Start the Python service
+
+```bash
+npm run py:start
+```
+
+### 2.1. Smoke test the Python service
+
+```bash
+npm run qa:python-service
+```
+
+Default URL is `http://127.0.0.1:8000`.
+
+The CLI smoke test now verifies three scenarios in one run:
+
+- inpatient exam warnings (`CK_55`, `CK_57`)
+- outpatient long-stay warning (`CK_42`)
+- day-case duplicate exam warning (`CK_09`)
+
+For Expo native development, the client can auto-resolve the machine IP from Expo host metadata. If you need to pin a fixed URL, update `expo.extra.pythonService.baseUrl` in `app.json`.
+
+### 3. Use the React Native client
+
+Use `ma_nguon/dich_vu/python_service_api.jsx`:
+
+- `healthCheckPythonService()`
+- `auditClaimsBangPythonService({ claims, options })`
+
+### 4. Current sample endpoints
+
+- `GET /health`
+- `POST /api/v1/audit/claims`
+
+On the dashboard, you can also use the `Smoke test` button in the Python service card to verify that the React Native client can call the service with the same request path used by hybrid audit mode. The card now shows a small PASS/FAIL badge for the latest dashboard smoke test run.
+
+The sample audit endpoint currently returns:
+
+- total claims in batch
+- duplicate `MA_LK` inside the payload
+- service timestamp
+
+This is a safe scaffold to start moving selected processing from the app into Python without breaking the current local audit flow.
+
 In the output, you'll find options to open the app in a
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)

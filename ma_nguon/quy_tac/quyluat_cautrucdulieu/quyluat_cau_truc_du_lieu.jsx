@@ -77,15 +77,15 @@ export const layDanhSachCot = (tenBang) => {
  * Hàm kiểm tra cấu trúc dữ liệu và logic theo QĐ 130
  */
 export const KIEM_TRA_CAU_TRUC_DU_LIEU = (hoSo) => {
-  let danhSachLoi = [];
+  let danhSachLỗi = [];
   
   if (!hoSo || !hoSo.xml1) {
-    danhSachLoi.push({ 
+    danhSachLỗi.push({ 
         phan_loai: 'CẤU TRÚC', 
         muc_do: 'Error', 
         noi_dung: 'Hồ sơ rỗng hoặc thiếu bảng XML1 (Bảng tổng hợp).' 
     });
-    return danhSachLoi;
+    return danhSachLỗi;
   }
 
   // Quét các cột bắt buộc của XML1 theo chuẩn JCI & QĐ 130
@@ -93,7 +93,7 @@ export const KIEM_TRA_CAU_TRUC_DU_LIEU = (hoSo) => {
   
   cotBatBuoc.forEach(col => {
     if (!hoSo.xml1[col] || hoSo.xml1[col].toString().trim() === "") {
-      danhSachLoi.push({
+      danhSachLỗi.push({
         phan_loai: 'DỮ LIỆU (XML1)',
         muc_do: 'Critical',
         noi_dung: `Trường [${col}] không được để trống theo quy định.`
@@ -101,5 +101,5 @@ export const KIEM_TRA_CAU_TRUC_DU_LIEU = (hoSo) => {
     }
   });
 
-  return danhSachLoi;
+  return danhSachLỗi;
 };

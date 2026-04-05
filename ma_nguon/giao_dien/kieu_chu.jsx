@@ -11,15 +11,19 @@
  *   style={{ fontFamily: KIEU_CHU.font_chinh, fontSize: KIEU_CHU.kich_co.than_chinh }}
  */
 
+import { Platform } from 'react-native';
+
 // ============================================================
 // 1. FONT FAMILY
 // ============================================================
 export const KIEU_CHU = {
   // Font mặc định toàn app — Arial sẵn có trên mọi nền tảng Web/Mobile
-  font_chinh: 'Arial',
+  font_chinh: Platform.OS === 'web'
+    ? "'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif"
+    : 'Arial',
 
-  // Font mono cho mã ICD-10, mã BHYT, mã DVKT, mã bệnh viện
-  font_ma: 'Courier New',
+  // Chuẩn hóa theo yêu cầu hệ thống: dùng Arial cho toàn bộ văn bản/mã.
+  font_ma: 'Arial',
 
   // ============================================================
   // 2. CỠ CHỮ (đơn vị px)
@@ -38,7 +42,7 @@ export const KIEU_CHU = {
     chu_nho:          20,  // Phụ đề, ghi chú, mô tả bổ sung — vẫn >= 20px
     tag_trang_thai:   20,  // Badge: HỢP LỆ / TRÙNG LẶP / LỖI
     ma_icd:           22,  // Mã ICD-10, mã BHYT (dùng font_ma)
-    canh_bao:         20,  // Thông báo lỗi giám định, cảnh báo CDSS
+    canh_bao:         20,  // Thông báo lỗi kiểm tra, cảnh báo CDSS
     bang_tieu_de:     20,  // Header hàng/cột trong bảng dữ liệu
     bang_noi_dung:    22,  // Nội dung ô bảng (TextInput trong bảng)
     trich_dan:        18,  // Trích dẫn pháp lý cuối trang (ngoại lệ < 20px)
@@ -67,8 +71,8 @@ export const KIEU_CHU = {
   // 5. KHOẢNG CÁCH KÝ TỰ (letterSpacing)
   // ============================================================
   gian_chu: {
-    tieu_de: 1.0,  // Tiêu đề màn hình — thoáng, dễ đọc từ xa
-    nut:     0.8,  // Nút CTA (VD: "XÁC THỰC HỆ THỐNG", "GIÁM ĐỊNH")
+    tieu_de: 0.3,  // Tránh giãn chữ quá mức gây vỡ dấu tiếng Việt
+    nut:     0.2,  // Giữ nhịp chữ ổn định cho cụm có dấu
     thuong:  0,    // Văn bản thông thường
   },
 };
@@ -103,7 +107,7 @@ export const stylesTieuDePanel = (mauChu = '#1976D2') => ({
 
 /**
  * Style cho nội dung văn bản chính (đoạn văn, mô tả)
- * Dùng tại: nội dung phác đồ, hướng dẫn điều trị, kết quả giám định
+ * Dùng tại: nội dung phác đồ, hướng dẫn điều trị, kết quả kiểm tra
  */
 export const stylesNhanVanBan = (mauChu = '#333333') => ({
   fontFamily:  KIEU_CHU.font_chinh,
@@ -127,7 +131,7 @@ export const stylesChuNut = (mauChu = '#FFFFFF') => ({
 
 /**
  * Style cho mã ICD-10, mã BHYT, mã dịch vụ kỹ thuật
- * Dùng tại: bảng dữ liệu, kết quả giám định, chi tiết hồ sơ
+ * Dùng tại: bảng dữ liệu, kết quả kiểm tra, chi tiết hồ sơ
  */
 export const stylesMaCode = (mauChu = '#1976D2') => ({
   fontFamily: KIEU_CHU.font_ma,

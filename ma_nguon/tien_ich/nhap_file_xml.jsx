@@ -14,6 +14,7 @@ import { ActivityIndicator, Alert, Modal, Platform, ScrollView, StyleSheet, Text
 
 import { xuLyFileXML130 } from '../dich_vu/his_api';
 import { chayBoMayGiamDinhV3 } from './dong_co_giam_dinh';
+import { layDanhSachMaLKTuKho } from './kho_du_lieu';
 import { kiemTraDinhDangXML } from './kiem_tra_xml';
 
 const TRANG_THAI_FILE = {
@@ -25,21 +26,164 @@ const TRANG_THAI_FILE = {
   CANH_BAO: 'CANH_BAO', 
 };
 
-const NhapFileXML = ({ onDuLieuSanSang }) => {
+const chuanHoaMaLK = (giaTri) => String(giaTri || '').trim().toUpperCase();
+
+const laHoSoCoTheChuyenTiep = (file) => {
+  if (!file) return false;
+  if (typeof file.coTheChuyenTiep === 'boolean') return file.coTheChuyenTiep;
+  if ([TRANG_THAI_FILE.HOP_LE, TRANG_THAI_FILE.THAY_THE, TRANG_THAI_FILE.CANH_BAO].includes(file.trangThai)) {
+    return true;
+  }
+  return Array.isArray(file.duLieu) && file.duLieu.length > 0;
+};
+
+const laHoSoTrungLap = (file) => Boolean(file?.coTrungLap || [TRANG_THAI_FILE.TRUNG_LAP, TRANG_THAI_FILE.THAY_THE].includes(file?.trangThai));
+
+const layNhanTrangThaiHienThi = (file) => {
+  if (file?.trangThai === TRANG_THAI_FILE.THAY_THE) return 'SẼ GHI ĐÈ';
+  if (laHoSoTrungLap(file)) return 'TRÙNG LẶP';
+  if (laHoSoCoTheChuyenTiep(file) && (file?.coCanhBao || (file?.dsLoi?.length || 0) > 0)) return 'CÓ LỖI';
+  if (laHoSoCoTheChuyenTiep(file)) return 'SẴN SÀNG';
+  return 'LỖI';
+};
+
+const layMauTrangThai = (file) => {
+  if (file?.trangThai === TRANG_THAI_FILE.THAY_THE) return { color: '#1565C0' };
+  if (laHoSoTrungLap(file)) return { color: '#F57C00' };
+  if (laHoSoCoTheChuyenTiep(file) && (file?.coCanhBao || (file?.dsLoi?.length || 0) > 0)) return { color: '#FF9800' };
+  if (laHoSoCoTheChuyenTiep(file)) return { color: '#4CAF50' };
+  return { color: '#F44336' };
+};
+
+const layMaLKTuHoSo = (hoSo = {}, maLKMacDinh = '') => {
+  return chuanHoaMaLK(
+    hoSo?.ma_lk
+    || hoSo?.xml1?.MA_LK
+    || hoSo?.XML1?.MA_LK
+    || maLKMacDinh
+  );
+};
+
+const hienThongBao = (tieuDe, noiDung) => {
+  if (Platform.OS === 'web' && typeof window !== 'undefined' && typeof window.alert === 'function') {
+    window.alert(`${tieuDe}\n\n${noiDung}`);
+    return;
+  }
+  Alert.alert(tieuDe, noiDung);
+};
+
+const gioiHanLichSuGiamDinh = (danhSach = [], gioiHan = 300) => {
+  if (!Array.isArray(danhSach) || danhSach.length <= gioiHan) return Array.isArray(danhSach) ? danhSach : [];
+  return danhSach.slice(danhSach.length - gioiHan);
+};
+
+const rutGonMucLichSuGiamDinh = (item = {}) => ({
+  ma_lk: chuanHoaMaLK(item?.ma_lk),
+  tenFile: String(item?.tenFile || '').slice(0, 160),
+  ngay_giam_dinh: String(item?.ngay_giam_dinh || ''),
+});
+
+const laLoiVuotQuotaLuuTru = (error) => {
+  const thongDiep = String(error?.message || error || '').trim().toLowerCase();
+  return thongDiep.includes('quota') || thongDiep.includes('storage full');
+};
+
+const luuLichSuGiamDinhAnToan = async (danhSach = []) => {
+  const cacMocThuGon = [120, 60, 20, 10];
+
+  for (const gioiHan of cacMocThuGon) {
+    const duLieuThu = gioiHanLichSuGiamDinh(danhSach, gioiHan).map(rutGonMucLichSuGiamDinh);
+    try {
+      await AsyncStorage.setItem('CDSS_LICH_SU_XML', JSON.stringify(duLieuThu));
+      return duLieuThu;
+    } catch (storageError) {
+      if (!laLoiVuotQuotaLuuTru(storageError)) {
+        throw storageError;
+      }
+    }
+  }
+
+  try {
+    await AsyncStorage.removeItem('CDSS_LICH_SU_XML');
+  } catch (_) {
+    // Bỏ qua vì mục tiêu là không làm gián đoạn luồng nhập hồ sơ.
+  }
+
+  return [];
+};
+
+const DEFAULT_TEXT_BUTTON = '📂 CHỌN HỒ SƠ XML ĐỂ GIÁM ĐỊNH';
+
+const taoKhoaGopFile = (file = {}) => {
+  const maLK = chuanHoaMaLK(file?.ma_lk);
+  if (maLK) return `MA_LK:${maLK}`;
+  const tenFile = String(file?.tenFile || '').trim().toLowerCase();
+  if (tenFile) return `FILE:${tenFile}`;
+  return `ID:${String(file?.id || '')}`;
+};
+
+const dongBoDanhSachFile = (danhSach = []) => {
+  const mapTrungLap = new Map();
+  danhSach.forEach((file) => {
+    const maLK = chuanHoaMaLK(file?.ma_lk);
+    if (!maLK) return;
+    mapTrungLap.set(maLK, (mapTrungLap.get(maLK) || 0) + 1);
+  });
+
+  return danhSach.map((file) => {
+    const maLK = chuanHoaMaLK(file?.ma_lk);
+    const trungLapNoiBo = Boolean(maLK && (mapTrungLap.get(maLK) || 0) > 1);
+    const coTrungLap = Boolean(file?.coTrungLap || trungLapNoiBo);
+    let trangThai = file?.trangThai;
+
+    if (coTrungLap && trangThai === TRANG_THAI_FILE.HOP_LE) {
+      trangThai = TRANG_THAI_FILE.TRUNG_LAP;
+    }
+
+    return {
+      ...file,
+      coTrungLap,
+      trangThai,
+    };
+  });
+};
+
+const hopNhatDanhSachFile = (danhSachCu = [], danhSachMoi = [], { multiple = true } = {}) => {
+  const nguon = multiple ? [...danhSachCu, ...danhSachMoi] : [...danhSachMoi];
+  const mapFile = new Map();
+  nguon.forEach((file) => {
+    mapFile.set(taoKhoaGopFile(file), file);
+  });
+  return dongBoDanhSachFile(Array.from(mapFile.values()));
+};
+
+const NhapFileXML = ({ onDuLieuSanSang, multiple = true, styleButton, textButton = DEFAULT_TEXT_BUTTON }) => {
   const [dangXuLy, setDangXuLy] = useState(false);
   const [dangGuiDuLieu, setDangGuiDuLieu] = useState(false);
   const [thongBaoTienDo, setThongBaoTienDo] = useState('');
   const [danhSachFile, setDanhSachFile] = useState([]);
   const [lichSuGiamDinh, setLichSuGiamDinh] = useState([]);
+  const [danhSachMaLKDaCo, setDanhSachMaLKDaCo] = useState([]);
+  const [hienThiBangNhap, setHienThiBangNhap] = useState(false);
+  const [inputId] = useState(() => `import-xml-${Math.random().toString(36).slice(2, 11)}`);
   
   const [hienThiModal, setHienThiModal] = useState(false);
   const [fileChiTiet, setFileChiTiet] = useState(null);
+  const laCheDoNutNho = Boolean(styleButton || textButton !== DEFAULT_TEXT_BUTTON);
 
   useEffect(() => {
     const taiLichSu = async () => {
       try {
         const stored = await AsyncStorage.getItem('CDSS_LICH_SU_XML');
-        if (stored) setLichSuGiamDinh(JSON.parse(stored));
+        const lichSuDaLuu = stored ? JSON.parse(stored) : [];
+        setLichSuGiamDinh(lichSuDaLuu);
+
+        const dsMaLKTrongKho = await layDanhSachMaLKTuKho();
+        const tapMaLKDaCo = new Set([
+          ...lichSuDaLuu.map((hs) => chuanHoaMaLK(hs?.ma_lk)),
+          ...((Array.isArray(dsMaLKTrongKho) ? dsMaLKTrongKho : []).map((maLK) => chuanHoaMaLK(maLK))),
+        ].filter(Boolean));
+        setDanhSachMaLKDaCo(Array.from(tapMaLKDaCo));
       } catch (err) { console.error('[NhapFileXML] Lỗi tải lịch sử:', err); }
     };
     taiLichSu();
@@ -48,14 +192,32 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
   const processSingleFile = (file) => {
     return new Promise((resolve) => {
       if (file.size > 10 * 1024 * 1024) {
-        resolve({ id: Math.random().toString(36), tenFile: file.name, ma_lk: 'LOI_DUNG_LUONG', trangThai: TRANG_THAI_FILE.LOI, lyDoLoi: 'File vượt quá 10MB, nguy cơ tràn bộ nhớ.' });
+        resolve({
+          id: Math.random().toString(36),
+          tenFile: file.name,
+          ma_lk: 'LOI_DUNG_LUONG',
+          trangThai: TRANG_THAI_FILE.LOI,
+          lyDoLoi: 'File vượt quá 10MB, nguy cơ tràn bộ nhớ.',
+          coTrungLap: false,
+          coCanhBao: false,
+          coTheChuyenTiep: false,
+        });
         return;
       }
 
       const reader = new FileReader();
       
       reader.onerror = () => {
-        resolve({ id: Math.random().toString(36), tenFile: file.name, ma_lk: 'LOI', trangThai: TRANG_THAI_FILE.LOI, lyDoLoi: 'File bị hỏng hoặc lỗi phân mảnh (Chunk Error).' });
+        resolve({
+          id: Math.random().toString(36),
+          tenFile: file.name,
+          ma_lk: 'LOI',
+          trangThai: TRANG_THAI_FILE.LOI,
+          lyDoLoi: 'File bị hỏng hoặc lỗi phân mảnh (Chunk Error).',
+          coTrungLap: false,
+          coCanhBao: false,
+          coTheChuyenTiep: false,
+        });
       };
 
       reader.onload = async (e) => {
@@ -67,19 +229,25 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
           const hsDauTien = arr[0] || {};
           const xml1 = hsDauTien.xml1 || hsDauTien.XML1 || {};
           
-          const maLK = xml1.MA_LK || 'KHONG_XAC_DINH';
+          const maLKGoc = String(xml1.MA_LK || '').trim();
+          const maLK = maLKGoc || 'KHONG_XAC_DINH';
+          const maLKChuan = chuanHoaMaLK(maLKGoc);
           const maBN = xml1.MA_BN || 'KHONG_XAC_DINH';
-          const hoSoCu = lichSuGiamDinh.find((hs) => hs.ma_lk === maLK);
+          const hoSoCu = lichSuGiamDinh.find((hs) => chuanHoaMaLK(hs?.ma_lk) === maLKChuan);
+          const coTrungLap = Boolean(maLKChuan && danhSachMaLKDaCo.includes(maLKChuan));
 
-          let trangThai = hoSoCu ? TRANG_THAI_FILE.TRUNG_LAP : TRANG_THAI_FILE.HOP_LE;
+          let trangThai = coTrungLap ? TRANG_THAI_FILE.TRUNG_LAP : TRANG_THAI_FILE.HOP_LE;
           let dsLoi = [];
           let lyDoLoi = '';
-          let chiTietLoiCDSS = []; 
+          let chiTietLoiCDSS = [];
+          let coCanhBao = false;
+          let coTheChuyenTiep = false;
 
           if (maLK === 'KHONG_XAC_DINH') {
             trangThai = TRANG_THAI_FILE.LOI;
             lyDoLoi = 'Không tìm thấy thẻ <MA_LK> (Mã liên kết).';
           } else if (arr.length > 0) {
+            coTheChuyenTiep = true;
             const ketQuaValidate = kiemTraDinhDangXML(hsDauTien);
             const rawChiTietLoi = await chayBoMayGiamDinhV3(hsDauTien);
             
@@ -90,7 +258,8 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
             }));
 
             if (!ketQuaValidate.hop_le || chiTietLoiCDSS.length > 0) {
-              if (trangThai === TRANG_THAI_FILE.HOP_LE) trangThai = TRANG_THAI_FILE.CANH_BAO;
+              coCanhBao = true;
+              if (!coTrungLap && trangThai === TRANG_THAI_FILE.HOP_LE) trangThai = TRANG_THAI_FILE.CANH_BAO;
               dsLoi = [
                 ...ketQuaValidate.danh_sach_loi,
                 // Hiển thị thêm MA_BN và DIEU_KIEN trên chuỗi cảnh báo UI
@@ -106,7 +275,10 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
             ma_lk: maLK,
             duLieu: arr.map(hs => ({ ...hs, _ten_file: file.name, _ds_loi: dsLoi })), 
             ngayGiamDinhCu: hoSoCu?.ngay_giam_dinh || null,
-            trangThai, 
+            trangThai,
+            coTrungLap,
+            coCanhBao,
+            coTheChuyenTiep,
             lyDoLoi, 
             dsLoi,
             chiTietLoi: chiTietLoiCDSS, 
@@ -121,7 +293,16 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
             }
           });
         } catch (err) {
-          resolve({ id: Math.random().toString(36), tenFile: file.name, ma_lk: 'LOI', trangThai: TRANG_THAI_FILE.LOI, lyDoLoi: `Lỗi parser: ${err.message}` });
+          resolve({
+            id: Math.random().toString(36),
+            tenFile: file.name,
+            ma_lk: 'LOI',
+            trangThai: TRANG_THAI_FILE.LOI,
+            lyDoLoi: `Lỗi parser: ${err.message}`,
+            coTrungLap: false,
+            coCanhBao: false,
+            coTheChuyenTiep: false,
+          });
         }
       };
       reader.readAsText(file, 'UTF-8');
@@ -151,7 +332,8 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
         
         await new Promise(resolve => setTimeout(resolve, 150)); 
       }
-      setDanhSachFile(ketQuaTong);
+      setDanhSachFile((prev) => hopNhatDanhSachFile(prev, ketQuaTong, { multiple }));
+      if (laCheDoNutNho) setHienThiBangNhap(true);
     } finally {
       setDangXuLy(false);
       setThongBaoTienDo('');
@@ -163,9 +345,25 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
     const input = document.createElement('input');
     input.type = 'file';
     input.accept = '.xml';
-    input.multiple = true;
+    input.multiple = multiple;
     input.onchange = (e) => xuLyChonFileWeb(e);
     input.click();
+  };
+
+  const moTrinhChonFile = () => {
+    if (Platform.OS === 'web') {
+      const input = document.getElementById(inputId);
+      if (input) {
+        input.click();
+        return;
+      }
+    }
+    bamChonFile();
+  };
+
+  const lamMoiDanhSach = () => {
+    setDanhSachFile([]);
+    if (laCheDoNutNho) setHienThiBangNhap(false);
   };
 
   const capNhatTrangThai = (id, trangThaiMoi) => {
@@ -182,16 +380,11 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
   };
 
   const xuLyGuiDuLieu = async () => {
-    const dsDuocDuyet = danhSachFile.filter(f => 
-      [TRANG_THAI_FILE.HOP_LE, TRANG_THAI_FILE.THAY_THE, TRANG_THAI_FILE.CANH_BAO].includes(f.trangThai)
-    );
+    const dsDuocDuyet = danhSachFile.filter((f) => laHoSoCoTheChuyenTiep(f));
+    const dsKhongChuyenDuoc = danhSachFile.filter((f) => !laHoSoCoTheChuyenTiep(f));
 
     if (dsDuocDuyet.length === 0) {
-      const coTrungLap = danhSachFile.some(f => f.trangThai === TRANG_THAI_FILE.TRUNG_LAP);
-      if (coTrungLap) {
-        return Alert.alert('Hồ sơ trùng lặp', 'Hồ sơ này đã được giám định trước đây. Bấm nút "Ghi đè" bên cạnh hồ sơ để cập nhật lại.');
-      }
-      return Alert.alert('Thông báo', 'Không có hồ sơ hợp lệ để chuyển đến bàn làm việc.');
+      return hienThongBao('Thông báo', 'Không có hồ sơ hợp lệ để chuyển đến bàn làm việc.');
     }
 
     setDangGuiDuLieu(true);
@@ -199,33 +392,64 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
       const thoiGian = new Date().toLocaleString('vi-VN');
       let lichSuMoi = [...lichSuGiamDinh];
       dsDuocDuyet.forEach(f => {
-        lichSuMoi = lichSuMoi.filter(hs => hs.ma_lk !== f.ma_lk);
+        const maLKChuan = chuanHoaMaLK(f.ma_lk);
+        lichSuMoi = lichSuMoi.filter(hs => chuanHoaMaLK(hs?.ma_lk) !== maLKChuan);
         lichSuMoi.push({ ma_lk: f.ma_lk, tenFile: f.tenFile, ngay_giam_dinh: thoiGian });
       });
-      await AsyncStorage.setItem('CDSS_LICH_SU_XML', JSON.stringify(lichSuMoi));
+      const lichSuRutGon = gioiHanLichSuGiamDinh(lichSuMoi);
+      try {
+        const lichSuDaLuu = await luuLichSuGiamDinhAnToan(lichSuRutGon);
+        setLichSuGiamDinh(lichSuDaLuu);
+      } catch (storageError) {
+        console.warn('[NhapFileXML] Không thể lưu lịch sử giám định, tiếp tục chuyển dữ liệu:', storageError);
+        setLichSuGiamDinh([]);
+      }
+      setDanhSachMaLKDaCo((prev) => Array.from(new Set([
+        ...prev,
+        ...dsDuocDuyet.map((f) => chuanHoaMaLK(f.ma_lk)),
+      ].filter(Boolean))));
 
       const tatCaDuLieu = dsDuocDuyet.flatMap(f => {
-        return f.duLieu.map(hoSo => ({
-          ...hoSo,
-          ma_lk: hoSo.xml1?.MA_LK,
-          ket_qua_giam_dinh: f.chiTietLoi || [] 
-        }));
+        return (Array.isArray(f.duLieu) ? f.duLieu : []).map((hoSo) => {
+          const maLKHoSo = layMaLKTuHoSo(hoSo, f.ma_lk);
+          return {
+            ...hoSo,
+            ma_lk: maLKHoSo,
+            _tu_dong_ghi_de: laHoSoTrungLap(f),
+            _trang_thai_nhap: f.trangThai,
+            _co_canh_bao_nhap: Boolean(f.coCanhBao),
+            ket_qua_giam_dinh: f.chiTietLoi || [],
+          };
+        }).filter((hoSo) => Boolean(hoSo.ma_lk));
       });
+
+      if (tatCaDuLieu.length === 0) {
+        throw new Error('Không suy ra được MA_LK hợp lệ để chuyển sang bàn giám định.');
+      }
       
       // TRUYỀN DỮ LIỆU ĐÃ DUYỆT LÊN TỔNG QUAN, KHÔNG TỰ LƯU KHO
       if (onDuLieuSanSang) {
-          onDuLieuSanSang(tatCaDuLieu); 
+          await onDuLieuSanSang(tatCaDuLieu);
+      }
+
+      if (dsKhongChuyenDuoc.length > 0) {
+        hienThongBao(
+          'Một số file không chuyển được',
+          `${dsKhongChuyenDuoc.length} file không có dữ liệu XML hợp lệ nên chưa thể đưa sang bàn giám định.`
+        );
       }
 
       setDanhSachFile([]); 
+      if (laCheDoNutNho) setHienThiBangNhap(false);
     } catch (err) {
-      Alert.alert('Lỗi xử lý', err.message);
+      console.error('[NhapFileXML] Lỗi chuyển dữ liệu:', err);
+      hienThongBao('Lỗi xử lý', err?.message || 'Không xác định được lỗi khi chuyển dữ liệu.');
     } finally {
       setDangGuiDuLieu(false);
     }
   };
 
-  return (
+  const noiDungNhapLieu = (
     <View style={{ flex: 1, width: '100%' }}>
       {danhSachFile.length > 0 ? (
         <View style={styles.khung_danh_sach}>
@@ -234,9 +458,14 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
               <Text style={styles.chu_tieu_de_ds}>📋 KẾT QUẢ GIÁM ĐỊNH XML ({danhSachFile.length} FILE)</Text>
               <Text style={styles.tom_tat}>Đối soát cấu trúc QĐ 130 & Quy tắc y khoa.</Text>
             </View>
-            <TouchableOpacity style={styles.nut_huy} onPress={() => setDanhSachFile([])}>
-              <Text style={styles.chu_nut_huy}>🔄 Làm mới</Text>
-            </TouchableOpacity>
+            <View style={styles.nhom_nut_tieu_de_ds}>
+              <TouchableOpacity style={styles.nut_them_file} onPress={moTrinhChonFile} disabled={dangXuLy}>
+                <Text style={styles.chu_nut_them_file}>{multiple ? '➕ Thêm file' : '🔄 Chọn lại file'}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.nut_huy} onPress={lamMoiDanhSach}>
+                <Text style={styles.chu_nut_huy}>🔄 Làm mới</Text>
+              </TouchableOpacity>
+            </View>
           </View>
 
           <TouchableOpacity style={styles.nut_giam_dinh_all} onPress={xuLyGuiDuLieu} disabled={dangGuiDuLieu}>
@@ -249,8 +478,8 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
                 key={file.id} 
                 style={[
                   styles.dong_file, 
-                  file.trangThai === TRANG_THAI_FILE.TRUNG_LAP && {backgroundColor: '#FFF8E1'}, 
-                  file.trangThai === TRANG_THAI_FILE.LOI && {backgroundColor: '#FFEBEE'} 
+                  laHoSoTrungLap(file) && {backgroundColor: '#FFF8E1'}, 
+                  !laHoSoCoTheChuyenTiep(file) && {backgroundColor: '#FFEBEE'} 
                 ]}
               >
                 <View style={styles.thong_tin_file}>
@@ -270,29 +499,42 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
                       </View>
                     )}
                     
-                    {file.trangThai === TRANG_THAI_FILE.TRUNG_LAP && (
-                      <Text style={styles.chu_canh_bao}>⚠ Hồ sơ này đã được duyệt trước đây.</Text>
+                    {laHoSoTrungLap(file) && (
+                      <Text style={styles.chu_canh_bao}>⚠ Hồ sơ đã có trước đó, hệ thống sẽ giám định lại và ghi đè khi chuyển tiếp.</Text>
                     )}
+
+                    {laHoSoCoTheChuyenTiep(file) && (file.coCanhBao || (file.dsLoi?.length || 0) > 0) && (
+                      <Text style={[styles.chu_canh_bao, { color: '#E65100' }]}>⚠ Hồ sơ có lỗi/cảnh báo nhưng vẫn được chuyển sang bàn giám định để sửa và giám định lại.</Text>
+                    )}
+
+                    {!laHoSoCoTheChuyenTiep(file) && file.lyDoLoi ? (
+                      <Text style={[styles.chu_canh_bao, { color: '#C62828' }]}>{file.lyDoLoi}</Text>
+                    ) : null}
                   </View>
                 </View>
 
                 <View style={styles.cot_phai}>
                   <Text style={[
-                    styles.txt_tag, 
-                    file.trangThai === TRANG_THAI_FILE.HOP_LE ? {color: '#4CAF50'} :
-                    file.trangThai === TRANG_THAI_FILE.CANH_BAO ? {color: '#FF9800'} : {color: '#F44336'}
+                    styles.txt_tag,
+                    layMauTrangThai(file)
                   ]}>
-                    {file.trangThai === TRANG_THAI_FILE.CANH_BAO ? 'CÓ LỖI' : file.trangThai}
+                    {layNhanTrangThaiHienThi(file)}
                   </Text>
                   
                   <TouchableOpacity style={styles.btn_chi_tiet} onPress={() => moChiTietFile(file)}>
                     <Text style={styles.txt_btn_chi_tiet}>🔍 Xem nhanh</Text>
                   </TouchableOpacity>
 
-                  {file.trangThai === TRANG_THAI_FILE.TRUNG_LAP && (
+                  {laHoSoTrungLap(file) && file.trangThai !== TRANG_THAI_FILE.THAY_THE && (
                     <TouchableOpacity style={styles.btn_thay_the} onPress={() => capNhatTrangThai(file.id, TRANG_THAI_FILE.THAY_THE)}>
-                        <Text style={styles.txt_btn_nho}>Ghi đè</Text>
+                        <Text style={styles.txt_btn_nho}>Đánh dấu ghi đè</Text>
                     </TouchableOpacity>
+                  )}
+
+                  {file.trangThai === TRANG_THAI_FILE.THAY_THE && (
+                    <View style={[styles.btn_thay_the, { backgroundColor: '#1565C0' }]}>
+                      <Text style={styles.txt_btn_nho}>Sẽ ghi đè khi chuyển</Text>
+                    </View>
                   )}
 
                   <TouchableOpacity style={styles.btn_xoa} onPress={() => loaiBoFile(file.id)}>
@@ -309,10 +551,10 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
              <input 
                 type="file" 
                 accept=".xml" 
-                multiple={true}
+             multiple={multiple}
                 onChange={xuLyChonFileWeb} 
                 style={{ display: 'none' }} 
-                id="import-xml-dashboard" 
+             id={inputId} 
              />
           )}
 
@@ -324,11 +566,11 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
           )}
 
           <TouchableOpacity 
-             style={styles.nut_import_mini} 
-             onPress={() => Platform.OS === 'web' ? document.getElementById('import-xml-dashboard').click() : bamChonFile()} 
+             style={laCheDoNutNho ? styleButton : styles.nut_import_mini} 
+             onPress={moTrinhChonFile} 
              disabled={dangXuLy}
           >
-            <Text style={styles.chu_nut_mini}>📂 CHỌN HỒ SƠ XML ĐỂ GIÁM ĐỊNH</Text>
+            <Text style={styles.chu_nut_mini}>{textButton}</Text>
           </TouchableOpacity>
         </View>
       )}
@@ -390,6 +632,66 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
       )}
     </View>
   );
+
+  if (!laCheDoNutNho) return noiDungNhapLieu;
+
+  return (
+    <View style={{ width: '100%' }}>
+      {Platform.OS === 'web' && (
+        <input
+          type="file"
+          accept=".xml"
+          multiple={multiple}
+          onChange={xuLyChonFileWeb}
+          style={{ display: 'none' }}
+          id={inputId}
+        />
+      )}
+
+      <TouchableOpacity
+        style={styleButton || styles.nut_import_mini}
+        onPress={() => {
+          if (danhSachFile.length > 0) {
+            setHienThiBangNhap(true);
+            return;
+          }
+          moTrinhChonFile();
+        }}
+        disabled={dangXuLy}
+      >
+        <Text style={styles.chu_nut_mini}>{textButton}</Text>
+      </TouchableOpacity>
+
+      <Modal
+        visible={hienThiBangNhap || dangXuLy}
+        animationType="fade"
+        transparent={true}
+        onRequestClose={() => {
+          if (!dangXuLy) setHienThiBangNhap(false);
+        }}
+      >
+        <View style={styles.modal_nhap_overlay}>
+          <View style={styles.modal_nhap_container}>
+            <View style={styles.modal_header}>
+              <Text style={styles.modal_title}>Nhập nhiều hồ sơ XML</Text>
+              <TouchableOpacity
+                onPress={() => {
+                  if (!dangXuLy) setHienThiBangNhap(false);
+                }}
+                style={styles.modal_btn_close}
+                disabled={dangXuLy}
+              >
+                <Text style={styles.modal_txt_close}>Đóng</Text>
+              </TouchableOpacity>
+            </View>
+            <ScrollView style={{ maxHeight: '80%' }} contentContainerStyle={{ paddingBottom: 12 }}>
+              {noiDungNhapLieu}
+            </ScrollView>
+          </View>
+        </View>
+      </Modal>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -400,8 +702,11 @@ const styles = StyleSheet.create({
   chu_nut_mini: { color: '#FFF', fontWeight: 'bold', fontSize: 18, fontFamily: 'Arial', textAlign: 'center' },
   khung_danh_sach: { width: '95%', alignSelf: 'center', backgroundColor: '#FFF', borderRadius: 15, padding: 25, elevation: 5, marginTop: 20 },
   thanh_tieu_de_ds: { flexDirection: 'row', justifyContent: 'space-between', borderBottomWidth: 2, borderColor: '#FCE4EC', paddingBottom: 15, marginBottom: 20 },
+  nhom_nut_tieu_de_ds: { flexDirection: 'row', alignItems: 'center', gap: 10 },
   chu_tieu_de_ds: { fontSize: 24, fontWeight: 'bold', color: '#D81B60', fontFamily: 'Arial' },
   tom_tat: { fontSize: 18, color: '#666', marginTop: 5 },
+  nut_them_file: { backgroundColor: '#E3F2FD', paddingVertical: 12, paddingHorizontal: 14, borderRadius: 8, borderWidth: 1, borderColor: '#90CAF9' },
+  chu_nut_them_file: { fontSize: 16, color: '#1565C0', fontWeight: 'bold' },
   nut_huy: { backgroundColor: '#F5F5F5', padding: 12, borderRadius: 8 },
   chu_nut_huy: { fontSize: 16, color: '#333', fontWeight: 'bold' },
   nut_giam_dinh_all: { backgroundColor: '#4CAF50', padding: 20, borderRadius: 12, alignItems: 'center', marginBottom: 20, elevation: 3 },
@@ -423,6 +728,8 @@ const styles = StyleSheet.create({
   btn_xoa: { backgroundColor: '#FAFAFA', padding: 8, borderRadius: 6, marginTop: 10, minWidth: 100, alignItems: 'center', borderWidth: 1, borderColor: '#DDD' },
   txt_btn_nho: { color: '#FFF', fontWeight: 'bold' },
   txt_btn_xoa: { color: '#555', fontWeight: 'bold' },
+  modal_nhap_overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.35)', justifyContent: 'center', alignItems: 'center', padding: 20 },
+  modal_nhap_container: { width: '92%', maxWidth: 1180, maxHeight: '92%', backgroundColor: '#FFF', borderRadius: 16, overflow: 'hidden' },
   modal_overlay: { flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center', padding: 20 },
   modal_container: { width: '80%', maxWidth: 800, backgroundColor: '#FFF', borderRadius: 12, elevation: 10, overflow: 'hidden', maxHeight: '90%' },
   modal_header: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', backgroundColor: '#FCE4EC', padding: 20, borderBottomWidth: 1, borderColor: '#F8BBD0' },

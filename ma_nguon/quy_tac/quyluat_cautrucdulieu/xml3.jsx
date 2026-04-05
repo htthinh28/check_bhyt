@@ -70,6 +70,6 @@ export const QUY_TAC_KIEM_TRA_XML3 = {
 
 /**
  * TÀI LIỆU THAM KHẢO
- * [1] Bộ Y tế (2024), Quyết định 3176/QĐ-BYT về chuẩn định dạng dữ liệu đầu ra phục vụ quản lý, giám định, thanh toán BHYT.
+ * [1] Bộ Y tế (2024), Quyết định 3176/QĐ-BYT về chuẩn định dạng dữ liệu đầu ra phục vụ quản lý, kiểm tra, thanh toán BHYT.
  * [2] Joint Commission International (JCI), Chương COP & ASC - Đối chiếu thực hiện Y lệnh Lâm sàng.
  */

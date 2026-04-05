@@ -15,9 +15,8 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { Platform } from 'react-native';
-import { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import React from 'react';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // [1] TOKEN GENERATORS
@@ -31,7 +30,9 @@ const _rgb = hex => [
 
 // Các giá trị font/radius/spacing dùng chung (không đổi theo chế độ)
 const _font = {
-    family: Platform.OS === 'web' ? "'Arial', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
+    family: Platform.OS === 'web'
+        ? "'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif"
+        : 'Arial',
     size: { xs:14, sm:16, md:18, base:20, lg:22, xl:26, xxl:30, xxxl:36, hero:44 },
     weight: { regular:'400', medium:'500', semibold:'600', bold:'700', heavy:'800', black:'900' },
     lineHeight: { tight:1.2, normal:1.5, loose:1.8 },
@@ -364,7 +365,7 @@ export const CD = layTokensChuDe(_tenChuDeKhoiDong, _cheDoSangKhoiDong);
 // ─────────────────────────────────────────────────────────────────────────────
 
 export const bgContainer = () => Platform.select({
-    web: { background: CD.web.gradient_bg },
+    web: { backgroundImage: CD.web.gradient_bg },
     default: {},
 });
 
@@ -394,7 +395,7 @@ export const glassHeader = (extra = {}) => ({
     justifyContent: 'space-between',
     ...Platform.select({
         web: {
-            background: CD.web.gradient_header,
+            backgroundImage: CD.web.gradient_header,
             backdropFilter: CD.web.blur_header,
             boxShadow: CD.web.shadow_header,
         },
@@ -425,7 +426,7 @@ export const btnPrimary = (extra = {}) => ({
     justifyContent: 'center',
     ...Platform.select({
         web: {
-            background: CD.web.gradient_primary,
+            backgroundImage: CD.web.gradient_primary,
             boxShadow: CD.web.shadow_btn,
             cursor: CD.web.cursor_pointer,
         },
@@ -573,7 +574,7 @@ const st_picker = StyleSheet.create({
         fontWeight: '700',
         color: '#FFFFFF',
         fontFamily: Platform.OS === 'web'
-            ? "'Arial', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
+            ? "'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
     },
     tieu_de_sang: { color: '#1A1A2E' },
     toggle_btn: {
@@ -598,7 +599,7 @@ const st_picker = StyleSheet.create({
         fontWeight: '600',
         color: 'rgba(255,255,255,0.90)',
         fontFamily: Platform.OS === 'web'
-            ? "'Arial', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
+            ? "'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
     },
     toggle_text_sang: { color: 'rgba(0,0,0,0.65)' },
     hang: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
@@ -629,7 +630,7 @@ const st_picker = StyleSheet.create({
         fontSize: 18,
         color: 'rgba(255,255,255,0.70)',
         fontFamily: Platform.OS === 'web'
-            ? "'Arial', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
+            ? "'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
     },
     ten_sang:        { color: 'rgba(0,0,0,0.60)' },
     ten_active:      { color: '#FFFFFF', fontWeight: '700' },
@@ -640,7 +641,7 @@ const st_picker = StyleSheet.create({
         fontSize: 15,
         color: 'rgba(255,255,255,0.35)',
         fontFamily: Platform.OS === 'web'
-            ? "'Arial', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
+            ? "'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
         marginTop: 14,
         textAlign: 'center',
         fontStyle: 'italic',

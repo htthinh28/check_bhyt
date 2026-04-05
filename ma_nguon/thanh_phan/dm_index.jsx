@@ -1,7 +1,7 @@
 /**
  * FILE ĐIỀU HƯỚNG CHUNG - DANH MỤC PHÁP LÝ BHYT (MASTER DATA INDEX)
  * Quản lý tập trung các danh mục theo chuẩn Thông tư 12/2026/TT-BTC
- * Đảm bảo liên thông dữ liệu cho Động cơ Giám định CDSS
+ * Đảm bảo liên thông dữ liệu cho Động cơ Kiểm tra CDSS
  */
 
 // 1. Nhập (Import) các danh mục từ các file thành phần hiện có trong hệ thống
@@ -15,7 +15,7 @@ import { DANH_MUC_VAT_TU_M04 } from './vat_tu_y_te';
 
 // (Ghi chú: File danh_muc_phap_ly.jsx cũ không được import vào đây để hệ thống chạy nhẹ hơn và tránh xung đột dữ liệu)
 
-// 2. Xuất (Export) để màn hình Quản lý Danh mục và Động cơ Giám định sử dụng
+// 2. Xuất (Export) để màn hình Quản lý Danh mục và Động cơ Kiểm tra sử dụng
 export {
     DANH_MUC_DVKT_M05 as DANH_MUC_CHAN_DOAN_HINH_ANH, DANH_MUC_DVKT_M05 as DANH_MUC_DVKT, DANH_MUC_DVKT_M05, DANH_MUC_KHOA_LS_M01 as DANH_MUC_GIUONG_BENH,
     // --- ALIAS (BÍ DANH) BẢO TOÀN TÍNH TƯƠNG THÍCH NGƯỢC ---

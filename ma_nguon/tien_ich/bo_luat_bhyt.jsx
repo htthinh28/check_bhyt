@@ -10,6 +10,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
 import { Alert, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import * as XLSX from 'xlsx';
+import { quayLaiAnToan } from './dieu_huong_an_toan';
+import { xoaCacheBoMayGiamDinh } from './dong_co_giam_dinh';
 
 // 1. DANH SÁCH 12 TAB CHUẨN ĐÃ ĐỒNG BỘ THEO THỰC TẾ GIAO DIỆN
 export const DANH_SACH_TAB_CHUAN = [
@@ -27,6 +29,68 @@ export const DANH_SACH_TAB_CHUAN = [
   { id: 'TAI_LIEU',  ten: '12. Tài liệu/Khác', file: 'xml4.jsx' }
 ];
 
+const ALIAS_TAB_ID = {
+  XML_DATA: 'LUAT_DU_LIEU',
+  XML1: 'LUAT_HANH_CHINH',
+  KHAM_BENH: 'LUAT_CONG_KHAM',
+  XML3: 'LUAT_CDHA',
+  XML2: 'LUAT_THUOC',
+  NHAP_VIEN: 'LUAT_CHUYEN_TUYEN',
+  NOI_TRU: 'LUAT_GIUONG',
+  PTTT: 'LUAT_PTTT',
+  GAY_ME: 'LUAT_MAU',
+  HAU_PHAU: 'LUAT_NHAN_SU',
+  XUAT_VIEN: 'LUAT_HOP_DONG',
+  LUAT_DU_LIEU: 'XML_DATA',
+  LUAT_HANH_CHINH: 'XML1',
+  LUAT_CONG_KHAM: 'KHAM_BENH',
+  LUAT_CDHA: 'XML3',
+  LUAT_THUOC: 'XML2',
+  LUAT_CHUYEN_TUYEN: 'NHAP_VIEN',
+  LUAT_GIUONG: 'NOI_TRU',
+  LUAT_PTTT: 'PTTT',
+  LUAT_MAU: 'GAY_ME',
+  LUAT_NHAN_SU: 'HAU_PHAU',
+  LUAT_HOP_DONG: 'XUAT_VIEN',
+};
+
+const parseJSONAnToan = (raw, fallback) => {
+  try { return raw ? JSON.parse(raw) : fallback; } catch { return fallback; }
+};
+const chuanHoaTabId = (tabId) => String(tabId || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
+const layTabIdTuStorageKey = (key) => {
+  if (key.includes('_CHUNK_') || key.endsWith('_CHUNKS')) return '';
+  if (key.startsWith('CDSS_DATA_')) return key.substring('CDSS_DATA_'.length);
+  if (key.startsWith('CDSS_COLS_')) return key.substring('CDSS_COLS_'.length);
+  return '';
+};
+const chuanHoaDuLieuLuat = (raw) => {
+  if (Array.isArray(raw)) return raw;
+  if (raw && typeof raw === 'object' && Array.isArray(raw.data)) return raw.data;
+  return [];
+};
+const chuanHoaCotLuat = (raw) => {
+  if (Array.isArray(raw)) return raw;
+  if (raw && typeof raw === 'object' && Array.isArray(raw.fields)) return raw.fields;
+  if (raw && typeof raw === 'object' && Array.isArray(raw.columns)) return raw.columns;
+  return null;
+};
+const timTabUngVien = (tabId, tapTabTrongStorage) => {
+  const ungVien = new Set();
+  const aliasId = ALIAS_TAB_ID[tabId];
+  const normTab = chuanHoaTabId(tabId);
+  const normAlias = chuanHoaTabId(aliasId);
+  ungVien.add(tabId);
+  if (aliasId) ungVien.add(aliasId);
+  (tapTabTrongStorage || []).forEach((id) => {
+    const normId = chuanHoaTabId(id);
+    if (normId && (normId === normTab || (normAlias && normId === normAlias))) {
+      ungVien.add(id);
+    }
+  });
+  return Array.from(ungVien);
+};
+
 const BoLuatBHYT = ({ navigation }) => {
   const [tabHienTai, setTabHienTai] = useState(DANH_SACH_TAB_CHUAN[0].id);
   const [columns, setColumns] = useState([]);
@@ -38,29 +102,58 @@ const BoLuatBHYT = ({ navigation }) => {
   useEffect(() => {
     const taiDuLieu = async () => {
       try {
-        const colsLuuTru = await AsyncStorage.getItem(`CDSS_COLS_${tabHienTai}`);
-        const dataLuuTru = await AsyncStorage.getItem(`CDSS_DATA_${tabHienTai}`);
+        const allKeys = await AsyncStorage.getAllKeys();
+        const tabIdsTrongStorage = Array.from(new Set(allKeys.map(layTabIdTuStorageKey).filter(Boolean)));
+        const dsUngVien = timTabUngVien(tabHienTai, tabIdsTrongStorage);
+
+        let loadedCols = null;
+        let loadedData = [];
+        let tabNguon = '';
+
+        for (const tabIdUngVien of dsUngVien) {
+          const colsRaw = parseJSONAnToan(await AsyncStorage.getItem(`CDSS_COLS_${tabIdUngVien}`), null);
+          const dataRaw = parseJSONAnToan(await AsyncStorage.getItem(`CDSS_DATA_${tabIdUngVien}`), []);
+          const colsTam = chuanHoaCotLuat(colsRaw);
+          const dataTam = chuanHoaDuLieuLuat(dataRaw);
+          if ((Array.isArray(dataTam) && dataTam.length > 0) || (Array.isArray(colsTam) && colsTam.length > 0)) {
+            loadedCols = colsTam;
+            loadedData = dataTam;
+            tabNguon = tabIdUngVien;
+            break;
+          }
+        }
+
+        if (tabNguon && tabNguon !== tabHienTai) {
+          const dataHienTai = chuanHoaDuLieuLuat(parseJSONAnToan(await AsyncStorage.getItem(`CDSS_DATA_${tabHienTai}`), []));
+          const colsHienTai = chuanHoaCotLuat(parseJSONAnToan(await AsyncStorage.getItem(`CDSS_COLS_${tabHienTai}`), null));
+          if (dataHienTai.length === 0 && loadedData.length > 0) {
+            await AsyncStorage.setItem(`CDSS_DATA_${tabHienTai}`, JSON.stringify(loadedData));
+          }
+          if ((!Array.isArray(colsHienTai) || colsHienTai.length === 0) && Array.isArray(loadedCols) && loadedCols.length > 0) {
+            await AsyncStorage.setItem(`CDSS_COLS_${tabHienTai}`, JSON.stringify(loadedCols));
+          }
+        }
         
         // Mặc định khởi tạo các cột quan trọng, BỔ SUNG CỘT TRẠNG THÁI (TRANG_THAI)
         const defaultCols = ['TRANG_THAI', 'MA_LUAT', 'TEN_QUY_TAC', 'DIEU_KIEN', 'CANH_BAO'];
         
-        let loadedCols = colsLuuTru ? JSON.parse(colsLuuTru) : defaultCols;
+        let colsSuDung = Array.isArray(loadedCols) && loadedCols.length > 0 ? loadedCols : defaultCols;
         
         // Auto migrate: Tự động thêm cột TRANG_THAI nếu dữ liệu cũ chưa có
-        if (!loadedCols.includes('TRANG_THAI')) {
-           loadedCols = ['TRANG_THAI', ...loadedCols];
+        if (!colsSuDung.includes('TRANG_THAI')) {
+           colsSuDung = ['TRANG_THAI', ...colsSuDung];
         }
         
-        setColumns(loadedCols);
+        setColumns(colsSuDung);
         
-        let loadedData = dataLuuTru ? JSON.parse(dataLuuTru) : [];
+        let duLieuSuDung = Array.isArray(loadedData) ? loadedData : [];
         // Auto set mặc định TRẠNG THÁI = ON cho các luật cũ
-        loadedData = loadedData.map(row => ({
+        duLieuSuDung = duLieuSuDung.map(row => ({
           ...row, 
           TRANG_THAI: (row.TRANG_THAI === undefined || row.TRANG_THAI === "") ? "ON" : row.TRANG_THAI
         }));
         
-        setData(loadedData);
+        setData(duLieuSuDung);
         setSelectedRows([]); 
       } catch (error) {
         console.error("Lỗi tải dữ liệu luật:", error);
@@ -74,6 +167,15 @@ const BoLuatBHYT = ({ navigation }) => {
     setColumns(newCols);
     await AsyncStorage.setItem(`CDSS_DATA_${tabHienTai}`, JSON.stringify(newData));
     await AsyncStorage.setItem(`CDSS_COLS_${tabHienTai}`, JSON.stringify(newCols));
+    const aliasId = ALIAS_TAB_ID[tabHienTai];
+    if (aliasId) {
+      const duLieuAliasCu = chuanHoaDuLieuLuat(parseJSONAnToan(await AsyncStorage.getItem(`CDSS_DATA_${aliasId}`), []));
+      if (newData.length > 0 || duLieuAliasCu.length === 0) {
+        await AsyncStorage.setItem(`CDSS_DATA_${aliasId}`, JSON.stringify(newData));
+        await AsyncStorage.setItem(`CDSS_COLS_${aliasId}`, JSON.stringify(newCols));
+      }
+    }
+    try { xoaCacheBoMayGiamDinh(); } catch {}
     if (Platform.OS !== 'web') Alert.alert("Thành công", "Đã lưu bộ luật vào hệ thống.");
   };
 
@@ -170,7 +272,7 @@ const BoLuatBHYT = ({ navigation }) => {
   return (
     <SafeAreaView style={styles.vung_an_toan}>
       <View style={styles.thanh_tieu_de}>
-        <TouchableOpacity onPress={() => navigation?.goBack()} style={styles.nut_quay_lai}>
+        <TouchableOpacity onPress={() => quayLaiAnToan(navigation, 'TongQuan')} style={styles.nut_quay_lai}>
           <Text style={styles.chu_nut_header}>⬅ TRỞ VỀ</Text>
         </TouchableOpacity>
         <Text style={styles.chu_tieu_de}>⚙️ QUẢN TRỊ QUY TẮC BHYT ĐỘNG (12 TRẠM LÂM SÀNG)</Text>

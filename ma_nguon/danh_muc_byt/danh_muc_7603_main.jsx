@@ -13,53 +13,21 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Image, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import * as XLSX from 'xlsx';
+import { xoaCacheBoMayGiamDinh } from '../tien_ich/dong_co_giam_dinh';
+import {
+    flushFirebaseDanhMucQueue,
+    luuBoDuLieuDanhMuc,
+    taiBoDuLieuDanhMuc,
+} from '../tien_ich/luu_tru_danh_muc';
 
 const LOGO_PC = 'https://i.ibb.co/nNr9SQYr/logo-pc.png';
 
 // ============================================================
 // HỆ THỐNG LƯU TRỮ BIG DATA CHỐNG TRÀN BỘ NHỚ WEB (CHUNKING)
 // ============================================================
-const CHUNK_SIZE = 1500; 
-const safeSetStorage = async (key, dataArray) => {
-  try {
-    if (!Array.isArray(dataArray)) {
-      await AsyncStorage.setItem(key, JSON.stringify(dataArray));
-      return;
-    }
-    const oldChunksStr = await AsyncStorage.getItem(`${key}_CHUNKS`);
-    if (oldChunksStr) {
-      const oldChunks = parseInt(oldChunksStr, 10);
-      for (let i = 0; i < oldChunks; i++) await AsyncStorage.removeItem(`${key}_CHUNK_${i}`);
-    }
-    const totalChunks = Math.ceil(dataArray.length / CHUNK_SIZE);
-    await AsyncStorage.setItem(`${key}_CHUNKS`, String(totalChunks));
-    for (let i = 0; i < totalChunks; i++) {
-      const chunk = dataArray.slice(i * CHUNK_SIZE, (i + 1) * CHUNK_SIZE);
-      await AsyncStorage.setItem(`${key}_CHUNK_${i}`, JSON.stringify(chunk));
-    }
-  } catch (e) { console.error("Lỗi Chunking Set Storage:", e); }
-};
+const ACTIVE_TAB_STORAGE_KEY = 'BYT_7603_ACTIVE_TAB';
+const SO_DONG_MOI_TRANG_BYT = 160;
 
-const safeGetStorage = async (key) => {
-  try {
-    const chunksStr = await AsyncStorage.getItem(`${key}_CHUNKS`);
-    if (chunksStr) {
-      const totalChunks = parseInt(chunksStr, 10);
-      let fullData = [];
-      for (let i = 0; i < totalChunks; i++) {
-        const chunkStr = await AsyncStorage.getItem(`${key}_CHUNK_${i}`);
-        if (chunkStr) fullData = fullData.concat(JSON.parse(chunkStr));
-      }
-      return fullData;
-    }
-    const raw = await AsyncStorage.getItem(key);
-    return raw ? JSON.parse(raw) : null;
-  } catch (e) { return null; }
-};
-
-// ============================================================
-// CẤU HÌNH 13 MODULE PHỤ LỤC & CỘT MẪU
-// ============================================================
 const MODULES_CONFIG = [
   { id: 'PL1_DVKT', title: 'PL1: DVKT Tương Đương', desc: 'Mã giá, TT23, TT39', cols: ['MÃ CỘNG GỘP', 'MÃ BỘ Y TẾ', 'TÊN DỊCH VỤ', 'MÃ BẢO HIỂM', 'TÊN BẢO HIỂM', 'GIÁ TIỀN', 'GHI CHÚ'] },
   { id: 'PL2_KHAM', title: 'PL2: Mã Khám Bệnh', desc: 'Theo hạng BV', cols: ['MÃ KHÁM', 'TÊN KHÁM', 'HẠNG BV', 'ĐƠN GIÁ', 'GHI CHÚ'] },
@@ -70,7 +38,7 @@ const MODULES_CONFIG = [
   { id: 'PL7_BENH_YHCT', title: 'PL7: Mã Bệnh YHCT', desc: 'Mã chương U', cols: ['MÃ BỆNH', 'TÊN BỆNH', 'CHƯƠNG BỆNH', 'MÔ TẢ'] },
   { id: 'PL8_VTYT', title: 'PL8: Vật Tư Y Tế', desc: 'Mã VTYT, Hãng SX', cols: ['MÃ VẬT TƯ', 'TÊN VẬT TƯ', 'QUY CÁCH', 'HÃNG SX', 'NƯỚC SX', 'ĐƠN GIÁ', 'GIA_BH_TT'] },
   { id: 'PL9_MAU', title: 'PL9: Máu & Chế Phẩm', desc: 'Thể tích, Mã máu', cols: ['MÃ MÁU', 'TÊN CHẾ PHẨM', 'THỂ TÍCH', 'ĐƠN GIÁ', 'GHI CHÚ'] },
-  { id: 'PL10_DOI_TUONG', title: 'PL10: Đối Tượng KCB', desc: 'Mức hưởng', cols: ['MÃ ĐỐI TƯỢNG', 'TÊN ĐỐI TƯỢNG', 'MỨC HƯỞNG (%)', 'GHI CHÚ'] },
+  { id: 'PL10_DOI_TUONG', title: 'PL10: Đối Tượng KCB', desc: 'Mức hưởng', cols: ['MÃ ĐỐI TƯỢNG', 'TÊN ĐỐI TƯỢNG', 'MỨC HƯỞNG (%)', 'GHI CHÚ', 'Quy định'] },
   { id: 'PL11_CLS', title: 'PL11: CLS, CĐHA', desc: 'Chỉ số bình thường', cols: ['MÃ DỊCH VỤ', 'TÊN XÉT NGHIỆM', 'CHỈ SỐ BÌNH THƯỜNG', 'ĐƠN VỊ ĐO'] },
   { id: 'PL12_NHIEN_LIEU', title: 'PL12: Mã Nhiên Liệu', desc: 'Xăng dầu, Xe điện', cols: ['MÃ NHIÊN LIỆU', 'LOẠI', 'ĐƠN VỊ TÍNH', 'GHI CHÚ'] },
   { id: 'PL13_DUONG_DUNG', title: 'PL13: Đường Dùng', desc: 'Mã, Đường dùng', cols: ['MA_DUONG_DUNG', 'DUONG_DUNG_DANG_DUNG'] }
@@ -81,7 +49,48 @@ const DanhMucBYTMain = () => {
   const [data, setData] = useState([]);
   const [columns, setColumns] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
   const isReadyToSave = useRef(false);
+  const dirtyRef = useRef(false);
+  const dataRef = useRef([]);
+  const columnsRef = useRef([]);
+  const activeTabRef = useRef(MODULES_CONFIG[0].id);
+
+  useEffect(() => { dataRef.current = data; }, [data]);
+  useEffect(() => { columnsRef.current = columns; }, [columns]);
+  useEffect(() => { activeTabRef.current = activeTab; }, [activeTab]);
+  useEffect(() => {
+    const totalPages = Math.max(1, Math.ceil(data.length / SO_DONG_MOI_TRANG_BYT));
+    if (currentPage > totalPages) {
+      setCurrentPage(totalPages);
+    }
+  }, [data.length, currentPage]);
+  useEffect(() => { setCurrentPage(1); }, [activeTab]);
+
+  const layKhoaDuLieu = (tabId) => `BYT_7603_${tabId}`;
+  const layKhoaCot = (tabId) => `BYT_7603_COLS_${tabId}`;
+  const danhDauDaSua = () => { dirtyRef.current = true; };
+  const luuNgayDanhMuc = async ({ localOnly = false, source = 'byt_manual_save' } = {}) => {
+    if (!isReadyToSave.current || !dirtyRef.current) return false;
+    const currentTab = activeTabRef.current;
+    await luuBoDuLieuDanhMuc({
+      dataKey: layKhoaDuLieu(currentTab),
+      columnsKey: layKhoaCot(currentTab),
+      data: dataRef.current,
+      columns: columnsRef.current,
+      source,
+      syncRemote: !localOnly,
+    });
+    try { xoaCacheBoMayGiamDinh(); } catch {}
+    dirtyRef.current = false;
+    return true;
+  };
+
+  const chuyenTab = async (tabId) => {
+    await luuNgayDanhMuc({ source: 'byt_switch_tab' }).catch(() => {});
+    setActiveTab(tabId);
+    await AsyncStorage.setItem(ACTIVE_TAB_STORAGE_KEY, tabId);
+  };
 
   // STATE QUẢN LÝ KÍCH THƯỚC (RESIZE) & XÓA HÀNG LOẠT
   const [selectedIndexes, setSelectedIndexes] = useState([]);
@@ -94,30 +103,30 @@ const DanhMucBYTMain = () => {
     const fetchTabDuLieu = async () => {
       setIsLoaded(false);
       isReadyToSave.current = false;
-      setSelectedIndexes([]); 
-      setColWidths({}); 
+      dirtyRef.current = false;
+      setSelectedIndexes([]);
+      setColWidths({});
       setRowHeights({});
-      
-      try {
-        const parsedData = await safeGetStorage(`BYT_7603_${activeTab}`);
-        const rawCols = await AsyncStorage.getItem(`BYT_7603_COLS_${activeTab}`);
-        
-        let finalData = parsedData || [];
-        setData(finalData);
 
-        if (rawCols) {
-          setColumns(JSON.parse(rawCols));
-        } else if (finalData.length > 0) {
-          setColumns(Object.keys(finalData[0]).filter(k => k !== 'TRANG_THAI_SU_DUNG' && k !== 'STT')); 
-        } else {
-          const defaultCols = MODULES_CONFIG.find(m => m.id === activeTab)?.cols || [];
-          setColumns(defaultCols.filter(c => c !== 'STT')); 
+      try {
+        const { data: finalData, columns: finalColumns, seededFromCode, hydratedFromFirebase } = await taiBoDuLieuDanhMuc({
+          dataKey: layKhoaDuLieu(activeTab),
+          columnsKey: layKhoaCot(activeTab),
+          fallbackColumns: (MODULES_CONFIG.find(m => m.id === activeTab)?.cols || []).filter(c => c !== 'STT'),
+        });
+
+        dataRef.current = finalData;
+        columnsRef.current = finalColumns;
+        setData(finalData);
+        setColumns(finalColumns);
+        if (seededFromCode || hydratedFromFirebase) {
+          try { xoaCacheBoMayGiamDinh(); } catch {}
         }
       } catch (e) {
-        console.warn("Lỗi đọc Kho dữ liệu BYT: ", e);
+        console.warn('Lỗi đọc Kho dữ liệu BYT: ', e);
       } finally {
         setIsLoaded(true);
-        setTimeout(() => { isReadyToSave.current = true; }, 500);
+        setTimeout(() => { isReadyToSave.current = true; }, 300);
       }
     };
     fetchTabDuLieu();
@@ -125,15 +134,46 @@ const DanhMucBYTMain = () => {
 
   // 2. LƯU TỰ ĐỘNG KHI CÓ SỰ THAY ĐỔI
   useEffect(() => {
-    if (!isReadyToSave.current) return;
-    const saveTimer = setTimeout(async () => {
-      try {
-        await safeSetStorage(`BYT_7603_${activeTab}`, data);
-        await AsyncStorage.setItem(`BYT_7603_COLS_${activeTab}`, JSON.stringify(columns));
-      } catch (e) { console.error("Lỗi Auto-Save BYT:", e); }
-    }, 1000);
+    if (!isReadyToSave.current || !dirtyRef.current) return;
+    const saveTimer = setTimeout(() => {
+      luuNgayDanhMuc({ source: 'byt_autosave' }).catch((e) => {
+        console.error('Lỗi Auto-Save BYT:', e);
+      });
+    }, 700);
     return () => clearTimeout(saveTimer);
   }, [data, columns, activeTab]);
+
+  useEffect(() => {
+    const khoiPhucTab = async () => {
+      try {
+        const savedTab = await AsyncStorage.getItem(ACTIVE_TAB_STORAGE_KEY);
+        if (savedTab) setActiveTab(savedTab);
+      } catch {}
+    };
+    khoiPhucTab();
+  }, []);
+
+  useEffect(() => {
+    if (Platform.OS !== 'web') return undefined;
+
+    const flushLocal = () => {
+      luuNgayDanhMuc({ localOnly: true, source: 'byt_pagehide' }).catch(() => {});
+    };
+    const handleVisibility = () => {
+      if (globalThis.document?.visibilityState === 'hidden') flushLocal();
+    };
+
+    globalThis.addEventListener?.('pagehide', flushLocal);
+    globalThis.addEventListener?.('beforeunload', flushLocal);
+    globalThis.document?.addEventListener?.('visibilitychange', handleVisibility);
+
+    return () => {
+      flushLocal();
+      globalThis.removeEventListener?.('pagehide', flushLocal);
+      globalThis.removeEventListener?.('beforeunload', flushLocal);
+      globalThis.document?.removeEventListener?.('visibilitychange', handleVisibility);
+    };
+  }, []);
 
   // ============================================================
   // HÀM TIỆN ÍCH EXCEL
@@ -190,10 +230,22 @@ const DanhMucBYTMain = () => {
           
           setColumns(mergedCols);
           setData(newData);
+          dataRef.current = newData;
+          columnsRef.current = mergedCols;
+          dirtyRef.current = false;
+          setCurrentPage(1);
 
-          await safeSetStorage(`BYT_7603_${activeTab}`, newData);
-          await AsyncStorage.setItem(`BYT_7603_COLS_${activeTab}`, JSON.stringify(mergedCols));
-          
+          await luuBoDuLieuDanhMuc({
+            dataKey: layKhoaDuLieu(activeTab),
+            columnsKey: layKhoaCot(activeTab),
+            data: newData,
+            columns: mergedCols,
+            source: 'byt_import_excel',
+            syncRemote: true,
+          });
+          try { xoaCacheBoMayGiamDinh(); } catch {}
+          flushFirebaseDanhMucQueue().catch(() => {});
+
           alert(`✅ Đã Import thành công ${importedData.length} dòng dữ liệu vào ${activeTab}!`);
         }
       } catch (err) {
@@ -210,27 +262,37 @@ const DanhMucBYTMain = () => {
   const handleCellChange = (text, rowIndex, colName) => {
     const newData = [...data];
     newData[rowIndex][colName] = text;
+    danhDauDaSua();
+    dataRef.current = newData;
     setData(newData);
   };
 
   const handleAddRow = () => {
     const newRow = { TRANG_THAI_SU_DUNG: 'ON' };
     columns.forEach(col => newRow[col] = "");
-    setData([newRow, ...data]); 
+    const nextData = [newRow, ...data];
+    danhDauDaSua();
+    dataRef.current = nextData;
+    setData(nextData);
+    setCurrentPage(1);
   };
 
   const handleDeleteRow = (index) => {
     if (Platform.OS === 'web' && !window.confirm("Bác sĩ có chắc chắn muốn xóa dòng này?")) return;
     const newData = [...data];
     newData.splice(index, 1);
+    danhDauDaSua();
+    dataRef.current = newData;
     setData(newData);
-    setSelectedIndexes(selectedIndexes.filter(i => i !== index));
+    setSelectedIndexes((prev) => prev.filter((i) => i !== index).map((i) => (i > index ? i - 1 : i)));
   };
 
   const toggleTrangThai = (index) => {
     const newData = [...data];
     const currentState = newData[index].TRANG_THAI_SU_DUNG;
     newData[index].TRANG_THAI_SU_DUNG = currentState === 'OFF' ? 'ON' : 'OFF';
+    danhDauDaSua();
+    dataRef.current = newData;
     setData(newData);
   };
 
@@ -253,6 +315,8 @@ const DanhMucBYTMain = () => {
   const handleDeleteBulk = () => {
     if (Platform.OS === 'web' && !window.confirm(`Xóa vĩnh viễn ${selectedIndexes.length} dòng dữ liệu đã chọn?`)) return;
     const newData = data.filter((_, idx) => !selectedIndexes.includes(idx));
+    danhDauDaSua();
+    dataRef.current = newData;
     setData(newData);
     setSelectedIndexes([]); 
   };
@@ -298,6 +362,12 @@ const DanhMucBYTMain = () => {
     );
   };
 
+  const totalPages = Math.max(1, Math.ceil(data.length / SO_DONG_MOI_TRANG_BYT));
+  const currentPageSafe = Math.min(currentPage, totalPages);
+  const pageStartIndex = (currentPageSafe - 1) * SO_DONG_MOI_TRANG_BYT;
+  const pageEndIndex = Math.min(data.length, pageStartIndex + SO_DONG_MOI_TRANG_BYT);
+  const visibleRows = data.slice(pageStartIndex, pageEndIndex);
+
   return (
     <SafeAreaView style={styles.container}>
       
@@ -317,7 +387,7 @@ const DanhMucBYTMain = () => {
             <TouchableOpacity
               key={module.id}
               style={[styles.tabItem, activeTab === module.id && styles.tabItemActive]}
-              onPress={() => setActiveTab(module.id)}
+              onPress={() => chuyenTab(module.id)}
             >
               <Text style={[styles.tabTitle, activeTab === module.id && styles.tabTitleActive]}>{module.title}</Text>
               <Text style={[styles.tabDesc, activeTab === module.id && styles.tabDescActive]}>{module.desc}</Text>
@@ -368,7 +438,33 @@ const DanhMucBYTMain = () => {
                 <Text style={{ marginTop: 10, fontSize: 18, color: '#555' }}>Đang tải cấu trúc danh mục...</Text>
              </View>
           ) : (
-            <ScrollView horizontal style={styles.scroll_ngang}>
+            <View style={{ flex: 1 }}>
+              <View style={styles.khung_phan_trang}>
+                <Text style={styles.chu_phan_trang}>
+                  {data.length > 0
+                    ? `Hiển thị ${pageStartIndex + 1}-${pageEndIndex}/${data.length} dòng | Trang ${currentPageSafe}/${totalPages}`
+                    : 'Danh mục đang trống'}
+                </Text>
+                {totalPages > 1 && (
+                  <View style={styles.nhom_phan_trang}>
+                    <TouchableOpacity
+                      style={[styles.nut_phan_trang, currentPageSafe <= 1 && styles.nut_phan_trang_tat]}
+                      onPress={() => setCurrentPage((prev) => Math.max(1, prev - 1))}
+                      disabled={currentPageSafe <= 1}
+                    >
+                      <Text style={styles.chu_nut_phan_trang}>TRUOC</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                      style={[styles.nut_phan_trang, currentPageSafe >= totalPages && styles.nut_phan_trang_tat]}
+                      onPress={() => setCurrentPage((prev) => Math.min(totalPages, prev + 1))}
+                      disabled={currentPageSafe >= totalPages}
+                    >
+                      <Text style={styles.chu_nut_phan_trang}>SAU</Text>
+                    </TouchableOpacity>
+                  </View>
+                )}
+              </View>
+              <ScrollView horizontal style={styles.scroll_ngang}>
               <View style={[styles.bang_chinh, { minWidth: containerWidth > 0 ? containerWidth : '100%' }]}>
                 
                 {/* HEADER BẢNG VỚI NÚT CHỌN TẤT CẢ VÀ RESIZE ALL COLS */}
@@ -391,41 +487,42 @@ const DanhMucBYTMain = () => {
 
                 {/* BODY BẢNG */}
                 <ScrollView showsVerticalScrollIndicator={true} style={styles.scroll_doc}>
-                  {data.map((row, rowIndex) => {
+                  {visibleRows.map((row, rowIndex) => {
+                      const globalIndex = pageStartIndex + rowIndex;
                       const isOff = row.TRANG_THAI_SU_DUNG === 'OFF';
-                      const isSelected = selectedIndexes.includes(rowIndex);
+                      const isSelected = selectedIndexes.includes(globalIndex);
                       return (
                         <View 
-                          key={rowIndex} 
+                          key={globalIndex} 
                           style={[
                             styles.dong_du_lieu, 
                             isOff && {opacity: 0.5}, 
                             isSelected && {backgroundColor: '#E3F2FD'},
                             // Áp dụng chiều cao nếu người dùng kéo giãn Row
-                            rowHeights[rowIndex] ? { height: rowHeights[rowIndex] } : {},
+                            rowHeights[globalIndex] ? { height: rowHeights[globalIndex] } : {},
                             // Bật CSS Resize Vertical cho Row
                             Platform.OS === 'web' && { resize: 'vertical', overflow: 'hidden' }
                           ]}
                           onLayout={(e) => {
                               const newHeight = e.nativeEvent.layout.height;
-                              if (!rowHeights[rowIndex] || Math.abs(rowHeights[rowIndex] - newHeight) > 5) {
-                                  setRowHeights(prev => ({ ...prev, [rowIndex]: newHeight }));
+                              if (!rowHeights[globalIndex] || Math.abs(rowHeights[globalIndex] - newHeight) > 5) {
+                                  setRowHeights(prev => ({ ...prev, [globalIndex]: newHeight }));
                               }
                           }}
                         >
                             
                             <View style={[styles.o_du_lieu_stt, { width: colWidths['_CHK'] || 55, flex: 0 }]}>
-                              <TouchableOpacity onPress={() => toggleSelectRow(rowIndex)}>
+                              <TouchableOpacity onPress={() => toggleSelectRow(globalIndex)}>
                                   <View style={[styles.checkbox, isSelected && styles.checkbox_active]}></View>
                               </TouchableOpacity>
                             </View>
 
                             <View style={[styles.o_du_lieu_stt, { width: 90, flex: 0 }]}>
-                                <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#0D47A1' }}>{rowIndex + 1}</Text>
+                                <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#0D47A1' }}>{globalIndex + 1}</Text>
                             </View>
 
                             <View style={[styles.o_du_lieu_stt, { width: 200, flex: 0 }]}>
-                                <TouchableOpacity style={[styles.btn_toggle, isOff && styles.btn_toggle_off]} onPress={() => toggleTrangThai(rowIndex)}>
+                                <TouchableOpacity style={[styles.btn_toggle, isOff && styles.btn_toggle_off]} onPress={() => toggleTrangThai(globalIndex)}>
                                     <Text style={{color: '#FFF', fontWeight: 'bold', fontSize: 13}}>{isOff ? 'KHÓA' : 'ĐANG BẬT'}</Text>
                                 </TouchableOpacity>
                             </View>
@@ -443,7 +540,7 @@ const DanhMucBYTMain = () => {
                                   <TextInput
                                       style={styles.o_du_lieu}
                                       value={String(row[col] || '')}
-                                      onChangeText={(text) => handleCellChange(text, rowIndex, col)}
+                                      onChangeText={(text) => handleCellChange(text, globalIndex, col)}
                                       multiline={true}
                                       outlineStyle="none"
                                   />
@@ -451,7 +548,7 @@ const DanhMucBYTMain = () => {
                             ))}
                             
                             <View style={[styles.o_thao_tac, { width: 100, flex: 0 }]}>
-                                <TouchableOpacity onPress={() => handleDeleteRow(rowIndex)} style={styles.nut_xoa}>
+                                <TouchableOpacity onPress={() => handleDeleteRow(globalIndex)} style={styles.nut_xoa}>
                                     <Text style={styles.chu_nut_xoa}>✕</Text>
                                 </TouchableOpacity>
                             </View>
@@ -468,6 +565,7 @@ const DanhMucBYTMain = () => {
 
               </View>
             </ScrollView>
+            </View>
           )}
         </View>
 
@@ -504,6 +602,24 @@ const styles = StyleSheet.create({
   chu_nut: { color: '#FFF', fontWeight: 'bold', fontSize: 14, fontFamily: 'Arial' },
   
   khung_bang_master: { flex: 1, backgroundColor: '#FFF', borderRadius: 8, borderWidth: 1, borderColor: '#B0BEC5', overflow: 'hidden', ...Platform.select({ web: { boxShadow: '0px 4px 12px rgba(0,0,0,0.08)' }, default: { elevation: 3 } }) },
+  khung_phan_trang: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 12,
+    paddingTop: 12,
+    gap: 12,
+  },
+  chu_phan_trang: { color: '#455A64', fontSize: 15, fontWeight: '700', fontFamily: 'Arial' },
+  nhom_phan_trang: { flexDirection: 'row', gap: 8 },
+  nut_phan_trang: {
+    backgroundColor: '#0D47A1',
+    borderRadius: 10,
+    paddingHorizontal: 14,
+    paddingVertical: 8,
+  },
+  nut_phan_trang_tat: { opacity: 0.45 },
+  chu_nut_phan_trang: { color: '#FFF', fontSize: 13, fontWeight: '800', fontFamily: 'Arial' },
   scroll_ngang: { flex: 1 },
   bang_chinh: { flex: 1 },
 

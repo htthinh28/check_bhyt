@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: CD.bg.gradient_mobile,
-    ...Platform.select({ web: { background: CD.web.gradient_bg } }),
+    ...Platform.select({ web: { backgroundImage: CD.web.gradient_bg } }),
   },
 
   header: {
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     ...Platform.select({
       web: {
-        background: CD.web.gradient_header,
+        backgroundImage: CD.web.gradient_header,
         backdropFilter: CD.web.blur_header,
         boxShadow: CD.web.shadow_header,
       },
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
     borderColor: 'transparent',
     ...Platform.select({
       web: {
-        background: CD.web.gradient_primary,
+        backgroundImage: CD.web.gradient_primary,
         boxShadow: CD.web.shadow_btn,
       },
     }),

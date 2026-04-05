@@ -3,7 +3,7 @@
  * FILE: kho_luu_tru/tien_ich_kho.jsx (PHIÊN BẢN 3.9 - CHUNKING SAFE PARSER)
  * MỤC ĐÍCH: Tiện ích CRUD & Audit Trail cho Kho EMR.
  * SỬA LỖI: Tích hợp "Deep Clean Chunking" chống tràn bộ nhớ.
- * FIX TƯƠNG THÍCH: Trích xuất an toàn Array XML1, bảo tồn kết quả giám định,
+ * FIX TƯƠNG THÍCH: Trích xuất an toàn Array XML1, bảo tồn kết quả kiểm tra,
  * và giữ lại dữ liệu gốc để UI hiển thị.
  * ============================================================
  */
@@ -168,8 +168,8 @@ export const luuHoSoVaoKho = async (danhSachHoSoMoi, nguoiDung = 'Hệ thống C
         users_truy_cap: Array.from(usersTruyCap), lich_su_truy_cap: lichSuTruyCap,
         thoi_gian_luu_cuoi: thoiGianNow, ten_file_goc: item._ten_file || '',
         
-        // [FIX LỖI MẤT LỖI]: Bốc kết quả giám định
-        ket_qua_giam_dinh: item.ket_qua_giam_dinh || item.chiTietLoi || [],
+        // [FIX LỖI MẤT LỖI]: Bốc kết quả kiểm tra
+        ket_qua_giam_dinh: item.ket_qua_giam_dinh || item.chiTietLỗi || [],
         du_lieu_goc: item, 
       });
 

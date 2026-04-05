@@ -5,8 +5,8 @@
  */
 
 export const KIEM_TRA_LUAT_HANH_CHINH = (xml1) => {
-  let danhSachLoi = [];
-  if (!xml1) return danhSachLoi;
+  let danhSachLỗi = [];
+  if (!xml1) return danhSachLỗi;
 
   // HÀM TRỢ GIÚP CHUYỂN IN HOA ĐỂ KIỂM TRA TỪ KHÓA
   const toUpper = (val) => String(val || "").toUpperCase();
@@ -14,7 +14,7 @@ export const KIEM_TRA_LUAT_HANH_CHINH = (xml1) => {
   // 1. CHẶN HỒ SƠ KHÁM SỨC KHỎE (ĐIỀU 23 LUẬT BHYT)
   const tuKhoaKSK = /(KHÁM SỨC KHỎE|KHAM SUC KHOE|KSK|KIỂM TRA SỨC KHỎE|KIEM TRA|YÊU CẦU|YEU CAU)/;
   if (tuKhoaKSK.test(toUpper(xml1.LY_DO_VV)) || tuKhoaKSK.test(toUpper(xml1.CHAN_DOAN_VAO))) {
-    danhSachLoi.push({
+    danhSachLỗi.push({
       phan_loai: 'NGHIỆP VỤ BHYT',
       muc_do: 'Critical',
       truong_loi: 'LY_DO_VV',
@@ -26,7 +26,7 @@ export const KIEM_TRA_LUAT_HANH_CHINH = (xml1) => {
   // Chỉ kiểm tra khi có mã mẹ truyền vào (Tránh bắt nhầm người lớn)
   if (xml1.MA_LK_ME && xml1.MA_LK_ME.trim() !== "") {
     if (xml1.MA_LK === xml1.MA_LK_ME) {
-      danhSachLoi.push({
+      danhSachLỗi.push({
         phan_loai: 'HÀNH CHÍNH',
         muc_do: 'Critical',
         truong_loi: 'MA_LK',
@@ -40,7 +40,7 @@ export const KIEM_TRA_LUAT_HANH_CHINH = (xml1) => {
     const ngayHetHan = parseInt(xml1.GT_THE_DEN.substring(0, 8));
     const ngayVaoVien = parseInt(xml1.NGAY_VAO.substring(0, 8));
     if (ngayVaoVien > ngayHetHan) {
-      danhSachLoi.push({ 
+      danhSachLỗi.push({ 
         phan_loai: 'HÀNH CHÍNH', 
         muc_do: 'Critical', 
         truong_loi: 'MA_THE_BHYT',
@@ -51,7 +51,7 @@ export const KIEM_TRA_LUAT_HANH_CHINH = (xml1) => {
 
   // 4. KIỂM TRA GIỚI TÍNH (CHUẨN 130)
   if (xml1.GIOI_TINH && !['1', '2'].includes(String(xml1.GIOI_TINH))) {
-    danhSachLoi.push({
+    danhSachLỗi.push({
       phan_loai: 'DỮ LIỆU',
       muc_do: 'Warning',
       truong_loi: 'GIOI_TINH',
@@ -59,5 +59,5 @@ export const KIEM_TRA_LUAT_HANH_CHINH = (xml1) => {
     });
   }
 
-  return danhSachLoi;
+  return danhSachLỗi;
 };

@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useState } from 'react';
 import { Alert, Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import * as XLSX from 'xlsx';
+import { quayLaiAnToan } from '../tien_ich/dieu_huong_an_toan';
 
 const DanhMucICD10 = ({ navigation }) => {
   const [danhSachICD, setDanhSachICD] = useState([]);
@@ -18,7 +19,7 @@ const DanhMucICD10 = ({ navigation }) => {
   // State quản lý Form nhập liệu
   const [editingId, setEditingId] = useState(null);
   const [maBenh, setMaBenh] = useState('');
-  const [maBenhKhongDau, setMaBenhKhongDau] = useState('');
+  const [maBenhKhôngDau, setMaBenhKhôngDau] = useState('');
   const [diseaseName, setDiseaseName] = useState('');
   const [tenBenh, setTenBenh] = useState('');
 
@@ -51,7 +52,7 @@ const DanhMucICD10 = ({ navigation }) => {
     if (editingId) {
       const dataCapNhat = danhSachICD.map(item => 
         item.id === editingId 
-          ? { ...item, 'MÃ BỆNH': maBenh, 'MÃ BỆNH KHÔNG DẤU': maBenhKhongDau, 'DISEASE NAME': diseaseName, 'TÊN BỆNH': tenBenh }
+          ? { ...item, 'MÃ BỆNH': maBenh, 'MÃ BỆNH KHÔNG DẤU': maBenhKhôngDau, 'DISEASE NAME': diseaseName, 'TÊN BỆNH': tenBenh }
           : item
       );
       luuDuLieuVaoKho(dataCapNhat);
@@ -60,20 +61,20 @@ const DanhMucICD10 = ({ navigation }) => {
       const objMoi = {
         id: `ICD_${Date.now()}`,
         'MÃ BỆNH': maBenh.toUpperCase(),
-        'MÃ BỆNH KHÔNG DẤU': maBenhKhongDau.toUpperCase(),
+        'MÃ BỆNH KHÔNG DẤU': maBenhKhôngDau.toUpperCase(),
         'DISEASE NAME': diseaseName,
         'TÊN BỆNH': tenBenh
       };
       luuDuLieuVaoKho([objMoi, ...danhSachICD]);
     }
     
-    setMaBenh(''); setMaBenhKhongDau(''); setDiseaseName(''); setTenBenh('');
+    setMaBenh(''); setMaBenhKhôngDau(''); setDiseaseName(''); setTenBenh('');
   };
 
   const handleSua = (item) => {
     setEditingId(item.id);
     setMaBenh(item['MÃ BỆNH'] || '');
-    setMaBenhKhongDau(item['MÃ BỆNH KHÔNG DẤU'] || '');
+    setMaBenhKhôngDau(item['MÃ BỆNH KHÔNG DẤU'] || '');
     setDiseaseName(item['DISEASE NAME'] || '');
     setTenBenh(item['TÊN BỆNH'] || '');
   };
@@ -171,7 +172,7 @@ const DanhMucICD10 = ({ navigation }) => {
     <SafeAreaView style={styles.vung_an_toan}>
       {/* 1. THANH TIÊU ĐỀ */}
       <View style={styles.thanh_tieu_de}>
-        <TouchableOpacity onPress={() => navigation?.goBack()} style={styles.nut_quay_lai}>
+        <TouchableOpacity onPress={() => quayLaiAnToan(navigation, 'TongQuan')} style={styles.nut_quay_lai}>
           <Text style={styles.chu_nut_header}>⬅ TRỞ VỀ QUẢN LÝ DANH MỤC</Text>
         </TouchableOpacity>
         <Text style={styles.chu_tieu_de}>🗂️ CẤU HÌNH DANH MỤC ICD-10</Text>
@@ -185,7 +186,7 @@ const DanhMucICD10 = ({ navigation }) => {
           <Text style={styles.tieu_de_form}>{editingId ? '✏️ CHỈNH SỬA MÃ BỆNH' : '➕ THÊM MỚI MÃ BỆNH (THỦ CÔNG)'}</Text>
           <View style={styles.row_inputs}>
             <TextInput style={styles.input_box} placeholder="MÃ BỆNH (VD: A00)" value={maBenh} onChangeText={setMaBenh} />
-            <TextInput style={styles.input_box} placeholder="MÃ BỆNH KHÔNG DẤU (VD: A000)" value={maBenhKhongDau} onChangeText={setMaBenhKhongDau} />
+            <TextInput style={styles.input_box} placeholder="MÃ BỆNH KHÔNG DẤU (VD: A000)" value={maBenhKhôngDau} onChangeText={setMaBenhKhôngDau} />
           </View>
           <View style={styles.row_inputs}>
             <TextInput style={styles.input_box} placeholder="DISEASE NAME (Tiếng Anh)" value={diseaseName} onChangeText={setDiseaseName} />
@@ -196,7 +197,7 @@ const DanhMucICD10 = ({ navigation }) => {
               <Text style={styles.chu_btn_lon}>{editingId ? '💾 CẬP NHẬT' : '💾 LƯU THÊM MỚI'}</Text>
             </TouchableOpacity>
             {editingId && (
-              <TouchableOpacity style={[styles.btn_luu_lon, { backgroundColor: '#757575' }]} onPress={() => { setEditingId(null); setMaBenh(''); setMaBenhKhongDau(''); setDiseaseName(''); setTenBenh(''); }}>
+              <TouchableOpacity style={[styles.btn_luu_lon, { backgroundColor: '#757575' }]} onPress={() => { setEditingId(null); setMaBenh(''); setMaBenhKhôngDau(''); setDiseaseName(''); setTenBenh(''); }}>
                 <Text style={styles.chu_btn_lon}>✕ HỦY SỬA</Text>
               </TouchableOpacity>
             )}

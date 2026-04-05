@@ -292,7 +292,7 @@ const PhuLuc10MaDoiTuong = () => {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#FFF', padding: 10 },
-  title: { fontSize: 16, fontWeight: 'bold', color: '#4E342E', marginBottom: 10, textTransform: 'uppercase' },
+  title: { fontSize: 16, fontWeight: 'bold', color: '#4E342E', marginBottom: 10 },
   toolbar: { flexDirection: 'row', gap: 8, marginBottom: 10, flexWrap: 'wrap', alignItems: 'center' },
   btnPrimary: { backgroundColor: '#4CAF50', padding: 8, borderRadius: 4 },
   btnInfo: { backgroundColor: '#0288D1', padding: 8, borderRadius: 4 },
