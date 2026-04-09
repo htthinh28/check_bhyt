@@ -1,7 +1,7 @@
 # HƯỚNG DẪN SỬ DỤNG CHI TIẾT CDSS BHYT
 
-Phiên bản tài liệu: 2.0  
-Ngày cập nhật: 05/04/2026  
+Phiên bản tài liệu: 3.0  
+Ngày cập nhật: 08/04/2026  
 Đối tượng sử dụng: người dùng vận hành, quản trị dữ liệu, quản trị hệ thống và đội hỗ trợ triển khai
 
 ## 1. Mục tiêu tài liệu
@@ -69,19 +69,66 @@ npm run py:start
 
 ## 5. Tổng quan màn hình chính
 
-`TongQuan` là nơi tập trung các phân hệ của ứng dụng. Từ đây người dùng sẽ mở được các module theo quyền hiện có.
+`TongQuan` là bảng điều khiển sau đăng nhập: thanh bên **ĐIỀU HƯỚNG** mở từng module; khu vực giữa dùng để **nạp hàng loạt XML**, xem **danh mục vi phạm (QPS)** và xuất báo cáo. Menu hiển thị theo **RBAC** (phân quyền theo tài khoản).
 
-Các nhóm phân hệ thường gặp:
+### 5.1. Bảng chức năng trên thanh ĐIỀU HƯỚNG (theo mã màn hình)
 
-- Nhập và kiểm tra hồ sơ XML.
-- Kho lưu trữ.
-- Báo cáo và thống kê.
-- Quản lý luật và quy tắc ON/OFF.
-- Quản lý danh mục.
-- Danh mục Bộ Y tế.
-- Quản lý chuyên môn.
-- Helper hệ thống.
-- Phân quyền truy cập.
+| Trên giao diện | Màn hình (route) | Ghi chú ngắn |
+|----------------|------------------|--------------|
+| HELPER + FIREBASE | `Helper` | Đồng bộ Firebase, sao lưu/phục hồi, cấu hình hybrid Python (nếu dùng). |
+| KHO LƯU TRỮ | `KhoLuuTru` | Danh sách hồ sơ đã lưu cục bộ, mở chi tiết / sửa. |
+| ĐỌC XML CHI TIẾT | `DocXML` | Luồng đọc XML, xem cảnh báo chi tiết theo hồ sơ. |
+| CHUYÊN MÔN | `QuanLyChuyenMon` | Tài liệu / quy trình chuyên môn hỗ trợ giám định. |
+| DM NỘI BỘ | `QuanLyDanhMuc` | Danh mục nội bộ (mã dịch vụ, mapping… theo cấu hình đơn vị). |
+| DM BỘ Y TẾ | `DanhMucBYTMain` | Danh mục tham chiếu BYT. |
+| QUẢN LÝ LUẬT | `QuanLyLuat` | Xem và quản trị bộ luật (seed, điều kiện, cảnh báo). |
+| QUY TẮC ON/OFF | `QuanLyQuyTacOnOff` | Bật/tắt, sửa hiển thị, ẩn quy tắc mẫu — xem mục 7.7. |
+| BÁO CÁO | `BaoCaoVaThongKe` | Thống kê theo thời gian, khoa, bác sĩ, quy tắc. |
+| PHÂN QUYỀN | `PhanQuyenTruyCap` | Chỉ tài khoản được cấp quyền quản trị (thường là admin). |
+| Làm mới kho | (hành động trên dashboard) | Làm mới dữ liệu thống kê từ kho (không thay thế sao lưu trong Helper). |
+
+Các màn **Chi tiết ca** (`ChiTiet`), **Sửa XML** (`SuaFileXML`), **XML1…XML6** không có nút riêng trên thanh này: mở từ **Kho**, **Đọc XML**, hoặc từ luồng xử lý lỗi trên Tổng quan (mục 5.3).
+
+### 5.2. Đường dẫn web (deep link) — tham chiếu kỹ thuật
+
+Khi chạy bản web, có thể dùng đường dẫn tương ứng (ví dụ `.../dashboard` cho Tổng quan). Bảng tham chiếu:
+
+| Route | Đường dẫn web (path) |
+|-------|----------------------|
+| `TongQuan` | `/dashboard` |
+| `DocXML` | `/auditing` |
+| `ChiTiet` | `/case-detail/:maLK` |
+| `SuaFileXML` | `/auditing/edit/:maLK` |
+| `KhoLuuTru` | `/archive` |
+| `Helper` | `/helper` |
+| `QuanLyLuat` | `/rules` |
+| `QuanLyQuyTacOnOff` | `/rules/on-off` |
+| `QuanLyDanhMuc` | `/master-data` |
+| `DanhMucBYTMain` | `/danh-muc-byt` |
+| `QuanLyChuyenMon` | `/clinical-guidelines` |
+| `BaoCaoVaThongKe` | `/reports` |
+| `PhanQuyenTruyCap` | `/permissions` |
+| `XML1` … `XML6` | `/xml/xml1` … `/xml/xml6` |
+
+### 5.3. Chi tiết thao tác trên màn `TongQuan`
+
+1. **Chế độ giám định**  
+   Trên vùng “Nạp hồ sơ XML”, hệ thống hiển thị chế độ hiện tại: **JS nội bộ** hoặc **Python service**. Chuyển chế độ hybrid / kiểm tra service nằm ở **Helper** (nút “Mở Helper Hybrid” cạnh nút chọn file).
+
+2. **Nạp nhiều hồ sơ**  
+   Chọn **Chọn XML** → chọn một hoặc nhiều file → hệ thống chạy giám định batch. Kết quả đổ vào kho thống kê và bảng vi phạm bên dưới (sau khi dữ liệu được ghi nhận).
+
+3. **Bảng vi phạm QPS**  
+   - Lọc theo mức: Tất cả / Xuất toán / Cảnh báo / Nhắc nhở.  
+   - Ô lọc theo **mã luật / tên quy tắc** và theo **mã hồ sơ hoặc bệnh nhân**.  
+   - Chạm một dòng quy tắc để xem **danh sách ca phát sinh**; từ đó có thể: **Mở XML lỗi**, **Sửa và lưu XML**, **Đúng vị trí rule** (mở Quy tắc ON/OFF đúng tab gợi ý), hoặc **Mở Rule ON/OFF** ở đầu panel chi tiết.
+
+4. **Xuất file**  
+   - **XML → Excel**: chuyển dữ liệu XML đã nạp sang Excel (tiện đối chiếu ngoài hệ thống).  
+   - **Xuất báo cáo**: xuất danh sách lỗi chi tiết (cột theo cấu hình dashboard: mã LK, thẻ BHYT, mã luật, cảnh báo…).
+
+5. **Làm mới kho**  
+   Dùng khi cần đồng bộ lại hiển thị từ kho lưu trữ sau khi dữ liệu thay đổi; không thay cho **sao lưu** định kỳ trong Helper.
 
 ## 6. Quy trình thao tác chuẩn hằng ngày
 
@@ -103,9 +150,13 @@ Các nhóm phân hệ thường gặp:
 - Nhập một hoặc nhiều hồ sơ XML BHYT.
 - Chạy kiểm tra rule engine ngay sau khi nạp dữ liệu.
 
-### Các bước thực hiện
+### Quan hệ với Tổng quan
 
-1. Vào `DocXML` từ dashboard.
+- Có thể **nạp XML ngay trên `TongQuan`** (batch, xem bảng QPS) hoặc vào **`DocXML`** để làm việc chi tiết theo từng luồng màn hình đọc file. Tùy đơn vị, một trong hai điểm vào được dùng thường xuyên hơn; dữ liệu sau khi lưu đều gắn với **kho lưu trữ** cục bộ.
+
+### Các bước thực hiện (`DocXML`)
+
+1. Vào `DocXML` từ `TongQuan` (thanh ĐIỀU HƯỚNG).
 2. Chọn chức năng nhập file.
 3. Chọn một hoặc nhiều tệp XML từ máy.
 4. Chờ hệ thống đọc dữ liệu và bóc tách XML1 đến XML6.
@@ -236,13 +287,30 @@ Các nhóm phân hệ thường gặp:
 
 ### Mục đích
 
-- Bật hoặc tắt từng nhóm quy tắc mà không sửa trực tiếp mã nguồn hoặc artefact.
+- Bật hoặc tắt từng quy tắc (ON/OFF) mà không sửa mã nguồn.
+- **Sửa nội dung hiển thị** (tên quy tắc, cảnh báo, nhóm cảnh báo…) cho cả quy tắc **mẫu** (built-in / hardcoded): thay đổi được lưu dưới dạng **ghi đè cục bộ**; **mã luật** của quy tắc mẫu không đổi để tránh lệch map.
+- **Ẩn** quy tắc mẫu khỏi danh sách quản trị khi cần giảm nhiễu; có thể **hiện lại** từ khối “Quy tắc mẫu đã ẩn”.
+- Quy tắc **nhập tay** có thể **xóa** khỏi danh sách (khác với quy tắc mẫu: trên dòng mẫu dùng **Ẩn** thay vì xóa).
+
+### Các tab nội dung (ví dụ)
+
+Theo nhóm nghiệp vụ: **Cấu trúc XML**, **Hành chính**, **Chuyển tuyến**, **Hợp đồng**, **Công khám**, **DVKT/CĐHA**, **Máu**, **Thuốc**, **Giường bệnh**, **Nhân sự**, **Phẫu thuật/Thủ thuật**. Chọn tab đúng nhóm trước khi tìm mã luật.
+
+### Các bước sử dụng
+
+1. Vào `QuanLyQuyTacOnOff` từ `TongQuan` (hoặc từ nút **Mở Rule ON/OFF** / **Đúng vị trí rule** khi xử lý lỗi trên dashboard).
+2. Chọn **tab** phù hợp với loại quy tắc (hoặc đúng tab gợi ý khi mở từ một dòng lỗi).
+3. Tìm dòng theo **mã luật** hoặc **tên quy tắc**.
+4. Dùng **công tắc ON/OFF** để bật/tắt quy tắc đó trong lần giám định tiếp theo (sau khi lưu / áp dụng theo giao diện).
+5. **Sửa**: mở form sửa để chỉnh nội dung hiển thị hoặc ghi chú; với quy tắc mẫu, không đổi **mã luật**.
+6. **Ẩn** (quy tắc mẫu): ẩn khỏi danh sách quản lý; khôi phục bằng mục **Hiện lại** trong khối quy tắc đã ẩn.
+7. Sau khi thay đổi lớn: chạy lại giám định trên vài hồ sơ mẫu hoặc script QA nội bộ (`qa:on-off-match`, v.v.) nếu đơn vị có quy trình.
 
 ### Cách dùng an toàn
 
 1. Xác định rule hoặc nhóm rule cần giảm nhiễu.
-2. Đánh giá ảnh hưởng nghiệp vụ.
-3. Đổi trạng thái ON/OFF.
+2. Đánh giá ảnh hưởng nghiệp vụ (tắt rule có thể làm mất cảnh báo quan trọng).
+3. Đổi trạng thái ON/OFF hoặc chỉnh ghi đè nội dung có kiểm soát.
 4. Chạy lại kiểm thử hoặc audit mẫu để xác nhận không làm lệch kết quả ngoài ý muốn.
 
 ## 7.8. Màn hình `QuanLyDanhMuc` và `DanhMucBYTMain`

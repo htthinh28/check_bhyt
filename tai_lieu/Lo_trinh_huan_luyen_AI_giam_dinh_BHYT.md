@@ -1,7 +1,7 @@
 # LỘ TRÌNH HUẤN LUYỆN AI GIÁM ĐỊNH BHYT
 
-Phiên bản tài liệu: 1.3  
-Ngày cập nhật: 06/04/2026
+Phiên bản tài liệu: 2.0  
+Ngày cập nhật: 09/04/2026
 
 ## 1. Mục tiêu
 
@@ -21,6 +21,7 @@ Mục tiêu huấn luyện không phải là “nhồi hết mọi kiến thức
 - Mỗi lần huấn luyện nên xoay quanh một chủ đề, một loại lỗi, một nhóm rule hoặc một ca hồ sơ cụ thể.
 - AI chỉ đáng tin khi có thể chỉ ra được: nguồn tri thức, điều kiện áp dụng, ngoại lệ, và cách kiểm chứng.
 - Mọi kiến thức quan trọng nên được lưu thành tài liệu hoặc “thẻ tri thức”, không chỉ nằm trong hội thoại tạm thời.
+- **Kỹ năng giám định đa nhóm** (đọc cảnh báo, phân loại A–D, an toàn dữ liệu): [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md); **bài tập có gợi ý**: [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md).
 
 ## 3. Kiến trúc huấn luyện đề xuất
 
@@ -168,7 +169,8 @@ Nên chia theo đợt:
 - Đợt 1: hiểu XML và luồng hệ thống.
 - Đợt 2: lỗi hành chính và dữ liệu cơ bản.
 - Đợt 3: thuốc (khung “sai thuốc”: `The_tri_thuc_kiem_soat_sai_thuoc_AI.md`; **chỉ mục engine** `CLN-THUOC-*` / lọc `THUOC_391|417`: `The_tri_thuc_chi_muc_giam_dinh_thuoc_engine_AI.md`; **đa dạng danh mục BV**: `The_tri_thuc_da_dang_nhom_thuoc_dan_muc_BV_AI.md`; **DM nội bộ + đối chiếu tiền + DMBV-THUOC-***: `The_tri_thuc_giam_dinh_thuoc_DM_builtin_va_doi_chieu_tien_AI.md`; ca `Ca_huan_luyen_mau_*`, `Ca_huan_luyen_mau_000589_nhieu_nhom_thuoc_mot_ho_so.md`, `Ca_huan_luyen_mau_000589_DM_THUOC_03_danh_muc_noibo_snapshot.md`, `Ca_huan_luyen_mau_OP26000908_THUOC_267_Medlon_Methylprednisolon_ICD.md`, `Ca_huan_luyen_mau_ER26000392_THUOC_374_Magnesi_ICD_va_chong_lop.md`, `Ca_huan_luyen_mau_000573_THUOC_391_Dafodin_giuong_PT.md`, `Ca_huan_luyen_mau_IP26000139_DOMUVAR_THUOC_63_va_THUOC_417_noi_tru.md`).
-- Đợt 4: dịch vụ kỹ thuật.
+- Đợt 4: **dịch vụ kỹ thuật (DVKT)** — **chuẩn hóa suy luận AI** [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md); thẻ [The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md](./The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md); chuỗi văn bản mục **11.5** [The_tri_thuc_mau_luat_BHYT_2008_2025.md](./The_tri_thuc_mau_luat_BHYT_2008_2025.md); **phiên huấn luyện + lộ trình ca** [Huan_luyen_phien_DVKT_VBHN17_Cursor.md](./Huan_luyen_phien_DVKT_VBHN17_Cursor.md) (mục A–I); **bảng neo** [Bang_neo_phien_huan_luyen_dvkt_va_engine.md](./Bang_neo_phien_huan_luyen_dvkt_va_engine.md); ca mẫu theo thứ tự: `000308` (gói PTTT `DVKT_2587/2588`) → `000502` (`CDHA_164`) → `000538` (`CDHA_101`) → `000375` (`DVKT-OP-09`).
+- **VTYT (vật tư y tế):** **chuẩn hóa suy luận AI** [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) (§**0**: **chưa** có seed **`DM-VTYT-*`** trong CSDL); **bảng neo** [Bang_neo_phien_huan_luyen_vtyt_va_engine.md](./Bang_neo_phien_huan_luyen_vtyt_va_engine.md); trong repo **chưa** có `audit_*` chuyên VTYT trong `test_xml/` — **khung + lộ trình bổ sung rule** [Huan_luyen_phien_VTYT_du_phong_Cursor.md](./Huan_luyen_phien_VTYT_du_phong_Cursor.md) §**4** và mục **11.6** [The_tri_thuc_mau_luat_BHYT_2008_2025.md](./The_tri_thuc_mau_luat_BHYT_2008_2025.md); tạm **luyện đọc danh mục + điều kiện** qua Đợt 3 (thuốc) như đã neo ở 11.6.
 - Đợt 5: chỉ định cận lâm sàng.
 - Đợt 6: nội trú, ngày giường, thủ thuật, phẫu thuật.
 - Đợt 7: nhóm chuyên đề hay bị xuất toán tại đơn vị.

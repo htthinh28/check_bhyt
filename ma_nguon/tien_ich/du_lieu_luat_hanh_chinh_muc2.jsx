@@ -31,12 +31,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_4",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_04",
     "TEN_QUY_TAC": "Bắt buộc ghi chú lâm sàng",
-    "DIEU_KIEN": "COUNT(XML2) == 0 AND SUM(XML3.THANH_TIEN_BH) > 50000",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "YÊU CẦU: Chỉ định cận lâm sàng giá trị cao nhưng không kê đơn. Bác sĩ phải nhập diễn giải lâm sàng tại trường MO_TA_BENH.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: dùng SUM(collection.field) không tương thích engine; rule kế toán tương đương đã có bản SUM_IF an toàn hơn. Điều kiện gốc: COUNT(XML2) == 0 AND SUM(XML3.THANH_TIEN_BH) > 50000"
   },
   {
     "id": "SEED_HANHCHINH_5",
@@ -76,7 +77,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_9",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_09",
     "TEN_QUY_TAC": "Miễn cùng chi trả (5 năm LT)",
     "DIEU_KIEN": "XML1.MA_DK_BD == '1' AND XML1.T_BNCCT_LUY_KE > (6 * 2340000) AND (XML1.T_BHTT < XML1.T_TONGCHI_BH OR XML1.T_BNCCT > 0)",
@@ -85,7 +86,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_10",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_10",
     "TEN_QUY_TAC": "Cấp cứu (Bất kỳ cơ sở nào)",
     "DIEU_KIEN": "XML1.MA_LYDO_VVIEN == '2' AND XML1.T_BNCCT > 0",
@@ -139,7 +140,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_16",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_16",
     "TEN_QUY_TAC": "Ngoại trú trái tuyến (Cấp tỉnh)",
     "DIEU_KIEN": "XML1.MA_LOAI_KCB == '1' AND XML1.MA_LYDO_VVIEN == '3' AND CSKCB.HANG_BV == '1' AND XML1.T_BHTT > 0",
@@ -148,7 +149,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_17",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_17",
     "TEN_QUY_TAC": "Nội trú trái tuyến (Cấp tỉnh)",
     "DIEU_KIEN": "XML1.MA_LOAI_KCB == '3' AND XML1.MA_LYDO_VVIEN == '3' AND CSKCB.HANG_BV == '1' AND XML1.T_BHTT < XML1.T_TONGCHI_BH",
@@ -157,7 +158,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_18",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_18",
     "TEN_QUY_TAC": "Chuyển tuyến không hợp lệ",
     "DIEU_KIEN": "XML1.MA_LYDO_VVIEN == '3' AND IS_EMPTY(XML1.MA_NOI_CHUYEN)",
@@ -184,7 +185,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_21",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_21",
     "TEN_QUY_TAC": "Trẻ sơ sinh chưa có thẻ",
     "DIEU_KIEN": "IS_EMPTY(XML1.MA_THE_BHYT) AND LEN(XML1.MA_THE_TAM) == 0 AND DIFF_DAYS(XML1.NGAY_SINH, TODAY) < 60",
@@ -229,7 +230,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_26",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_26",
     "TEN_QUY_TAC": "Chuyển tuyến cấp cứu (NĐ 188)",
     "DIEU_KIEN": "XML1.MA_LYDO_VVIEN == '2' AND DIFF_DAYS(XML1.NGAY_VAO, XML1.NGAY_RA) > 3",
@@ -238,16 +239,16 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_27",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_27",
     "TEN_QUY_TAC": "Tỷ lệ thanh toán VTYT thay thế",
-    "DIEU_KIEN": "XML4.THANH_TIEN_BH > (40 * L_CO_SO)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ [NĐ 188/2025]: Một đơn vị VTYT thay thế không vượt quá 40 tháng lương cơ sở (40 * 2.340.000 = 93.600.000đ).",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_28",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_28",
     "TEN_QUY_TAC": "Tỷ lệ thanh toán Thuốc 50%",
     "DIEU_KIEN": "XML2.MA_HOAT_CHAT == '40.386' AND XML2.TYLE_TT != 50",
@@ -256,7 +257,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_29",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_29",
     "TEN_QUY_TAC": "VTYT Thủy tinh thể nhân tạo",
     "DIEU_KIEN": "XML4.MA_VAT_TU == 'TTT_NHAN_TAO' AND XML4.THANH_TIEN_BH > 3000000",
@@ -265,7 +266,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_30",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_30",
     "TEN_QUY_TAC": "Tỷ lệ VTYT Máy tạo nhịp tim",
     "DIEU_KIEN": "XML4.MA_VAT_TU == 'MAY_TAO_NHIP' AND XML4.TYLE_TT != 100",
@@ -274,10 +275,10 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_31",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_31",
     "TEN_QUY_TAC": "Họ tên chứa ký tự đặc biệt",
-    "DIEU_KIEN": "XML1.HO_TEN MATCHES /[^A-ZÁÀẢÃẠ...]/",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi hành chính: Họ tên chứa số hoặc ký tự lạ (Vd: @, #, 123).",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -292,39 +293,41 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_33",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_33",
     "TEN_QUY_TAC": "Sai cấu trúc mã thẻ BHYT",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT NOT MATCHES /^[A-Z]{2}[0-9]{1}[0-9]{2}[0-9]{10}$/",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi định dạng: Mã thẻ BHYT không đúng cấu trúc (2 chữ - 13 số).",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_34",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_34",
     "TEN_QUY_TAC": "Ngày sinh lớn hơn ngày hiện tại",
-    "DIEU_KIEN": "XML1.NGAY_SINH > GET_TODAY()",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi logic: Ngày sinh của người bệnh nằm ở tương lai.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_35",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_35",
     "TEN_QUY_TAC": "Trẻ em TE nhưng tuổi > 6",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'TE' AND (FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) >= 6)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Sai đối tượng: Thẻ TE nhưng người bệnh đã từ 6 tuổi trở lên.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc thời điểm chạy hiện tại, gây sai lệch với hồ sơ lịch sử production. Điều kiện gốc: XML1.MA_THE_BHYT STARTS_WITH 'TE' AND (FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) >= 6)"
   },
   {
     "id": "SEED_HANHCHINH_36",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_36",
     "TEN_QUY_TAC": "Thẻ HS/SV nhưng tuổi > 28",
-    "DIEU_KIEN": "(XML1.MA_THE_BHYT STARTS_WITH 'HS' OR XML1.MA_THE_BHYT STARTS_WITH 'SV') AND (FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) > 28)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Cảnh báo: Đối tượng Học sinh/Sinh viên nhưng tuổi đời quá cao, cần kiểm tra lại thẻ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc thời điểm chạy hiện tại, gây sai lệch với hồ sơ lịch sử production. Điều kiện gốc: (XML1.MA_THE_BHYT STARTS_WITH 'HS' OR XML1.MA_THE_BHYT STARTS_WITH 'SV') AND (FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) > 28)"
   },
   {
     "id": "SEED_HANHCHINH_37",
@@ -337,12 +340,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_38",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_38",
     "TEN_QUY_TAC": "Mã tỉnh trong địa chỉ sai",
-    "DIEU_KIEN": "SUBSTR(XML1.MATINH_CU_TRU, 0, 2) NOT IN (DM_TINH)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi danh mục: Mã tỉnh/thành phố không có trong danh mục hành chính quốc gia.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc DM_TINH, chưa thấy được nạp vào context engine hiện tại. Điều kiện gốc: SUBSTR(XML1.MATINH_CU_TRU, 0, 2) NOT IN (DM_TINH)"
   },
   {
     "id": "SEED_HANHCHINH_39",
@@ -391,19 +395,20 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_44",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_44",
     "TEN_QUY_TAC": "Giờ vào khoa trước giờ tiếp đón",
-    "DIEU_KIEN": "HIS.NGAY_VAO_KHOA < HIS.NGAY_TIEP_DON",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi quy trình: Bệnh nhân vào khoa điều trị trước khi làm thủ tục tiếp đón.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: HIS.NGAY_VAO_KHOA < HIS.NGAY_TIEP_DON"
   },
   {
     "id": "SEED_HANHCHINH_45",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_45",
     "TEN_QUY_TAC": "Y lệnh sau khi bệnh nhân đã ra viện",
-    "DIEU_KIEN": "COUNT_IF(XML2_3, NGAY_YL > XML1.NGAY_RA) > 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Sai y lệnh: Tồn tại thuốc/dịch vụ chỉ định sau thời điểm thanh toán ra viện.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -427,12 +432,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_48",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_48",
     "TEN_QUY_TAC": "Mã khoa phòng không đúng chuẩn",
-    "DIEU_KIEN": "XML1.MA_KHOA NOT IN (DM_KHOA_BYT)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi hệ thống: Mã khoa phòng chưa được ánh xạ (map) đúng với danh mục 9324 của Bộ Y tế.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc DM_KHOA_BYT, chưa thấy được nạp vào context engine hiện tại. Điều kiện gốc: XML1.MA_KHOA NOT IN (DM_KHOA_BYT)"
   },
   {
     "id": "SEED_HANHCHINH_49",
@@ -445,7 +451,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_50",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_50",
     "TEN_QUY_TAC": "Mã tai nạn thương tích sai",
     "DIEU_KIEN": "XML1.MA_LYDO_VVIEN == '4' AND XML1.MA_TAI_NAN NOT IN (1,2,3,4,5)",
@@ -454,12 +460,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_51",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_51",
     "TEN_QUY_TAC": "Đơn vị tính thuốc không chuẩn",
-    "DIEU_KIEN": "COUNT_IF(XML2, DON_VI_TINH NOT IN (DM_DVT_BYT))",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi dữ liệu: Đơn vị tính thuốc (DVT) không khớp với danh mục dùng chung của BHXH.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc DM_DVT_BYT, chưa thấy được nạp vào context engine hiện tại; cú pháp COUNT_IF cũng chưa theo lambda an toàn. Điều kiện gốc: COUNT_IF(XML2, DON_VI_TINH NOT IN (DM_DVT_BYT))"
   },
   {
     "id": "SEED_HANHCHINH_52",
@@ -472,7 +479,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_53",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_53",
     "TEN_QUY_TAC": "Chuyển tuyến thiếu số hồ sơ chuyển",
     "DIEU_KIEN": "XML1.MA_LYDO_VVIEN == '3' AND IS_EMPTY(XML1.SO_GIAY_CHUYEN_TUYEN)",
@@ -481,7 +488,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_54",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_54",
     "TEN_QUY_TAC": "Tuyến cơ sở KCB ban đầu sai",
     "DIEU_KIEN": "XML1.MA_THE_TAM == 1 AND XML1.MA_DKBD != XML1.MA_CSKCB",
@@ -490,16 +497,17 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_55",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_55",
     "TEN_QUY_TAC": "Cấp cứu nhưng mã lý do vào viện sai",
-    "DIEU_KIEN": "HIS.HINH_THUC_DEN == 'CAP_CUU' AND XML1.MA_LYDO_VVIEN != '2'",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Mâu thuẫn: Hình thức đến là cấp cứu nhưng lý do vào viện không phải là 2.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: HIS.HINH_THUC_DEN == 'CAP_CUU' AND XML1.MA_LYDO_VVIEN != '2'"
   },
   {
     "id": "SEED_HANHCHINH_56",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_56",
     "TEN_QUY_TAC": "Ngày cấp GCT sau ngày vào viện",
     "DIEU_KIEN": "XML1.NGAY_GIAY_CHUYEN_TUYEN > XML1.NGAY_VAO",
@@ -508,12 +516,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_57",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_57",
     "TEN_QUY_TAC": "Mã cơ sở chuyển đi không tồn tại",
-    "DIEU_KIEN": "XML1.MA_NOI_DI != '' AND XML1.MA_NOI_DI NOT IN (DM_BENH_VIEN)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi dữ liệu: Mã bệnh viện nơi chuyển đi không có trong danh mục toàn quốc.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc DM_BENH_VIEN, chưa thấy được nạp vào context engine hiện tại. Điều kiện gốc: XML1.MA_NOI_DI != '' AND XML1.MA_NOI_DI NOT IN (DM_BENH_VIEN)"
   },
   {
     "id": "SEED_HANHCHINH_58",
@@ -544,12 +553,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_61",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_61",
     "TEN_QUY_TAC": "Sai lệch tổng tiền XML1 và XML3",
-    "DIEU_KIEN": "ABS(XML1.T_VTYT - SUM(XML3.THANH_TIEN WHERE MA_NHOM==10)) > 1",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi đồng bộ: Tổng tiền vật tư tại XML1 không khớp với chi tiết XML3.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: dùng SUM(collection.field) không tương thích engine; rule kế toán tương đương đã có bản SUM_IF an toàn hơn. Điều kiện gốc: ABS(XML1.T_VTYT - SUM(XML3.THANH_TIEN WHERE MA_NHOM==10)) > 1"
   },
   {
     "id": "SEED_HANHCHINH_62",
@@ -571,10 +581,10 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_64",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_64",
     "TEN_QUY_TAC": "Bác sĩ mổ trùng bác sĩ gây mê",
-    "DIEU_KIEN": "COUNT(XML8) > 0 AND COUNT(XML9) > 0 AND XML8.MA_PT_VIEN == XML9.MA_BS_ME",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Kiểm tra: Một người vừa đứng tên phẫu thuật viên vừa đứng tên bác sĩ gây mê.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -589,21 +599,23 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_66",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_66",
     "TEN_QUY_TAC": "Sai phiên bản XML 130",
-    "DIEU_KIEN": "XML_HEADER.VERSION != '2.0'",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Từ chối: Phiên bản cấu trúc XML không phải 2.0 theo QĐ 130.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu XML_HEADER.* ngoài dữ liệu nghiệp vụ XML chuẩn đang dùng. Điều kiện gốc: XML_HEADER.VERSION != '2.0'"
   },
   {
     "id": "SEED_HANHCHINH_67",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_67",
     "TEN_QUY_TAC": "Mã cơ sở KCB trong file sai",
-    "DIEU_KIEN": "XML_HEADER.MA_CSKCB != '95013'",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi hệ thống: Mã bệnh viện trong tệp XML không khớp với mã của Phương Châu.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu XML_HEADER.* ngoài dữ liệu nghiệp vụ XML chuẩn đang dùng. Điều kiện gốc: XML_HEADER.MA_CSKCB != '95013'"
   },
   {
     "id": "SEED_HANHCHINH_68",
@@ -625,12 +637,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_70",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_70",
     "TEN_QUY_TAC": "Thừa tệp tin không quy định",
-    "DIEU_KIEN": "FILE_NAME NOT IN (XML1...XML12)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Cảnh báo: Gói dữ liệu chứa tệp tin lạ không nằm trong quy định của Bộ Y tế.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc metadata file/header không có trong payload XML nghiệp vụ. Điều kiện gốc: FILE_NAME NOT IN (XML1...XML12)"
   },
   {
     "id": "SEED_HANHCHINH_71",
@@ -643,21 +656,22 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_72",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_72",
     "TEN_QUY_TAC": "Chẩn đoán ICD-10 tiếng Việt không dấu",
-    "DIEU_KIEN": "XML1.TEN_BENH MATCHES /[^\\u0000-\\u007F]/ == FALSE",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Cảnh báo: Tên bệnh không có dấu tiếng Việt, yêu cầu chuẩn hóa hiển thị.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_73",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_73",
     "TEN_QUY_TAC": "Bệnh nhân quốc tịch nước ngoài thiếu hộ chiếu",
-    "DIEU_KIEN": "XML1.MA_QUOCTICH NOT IN ('704', 'VN', 'VNM')AND IS_EMPTY(EXT.SO_HO_CHIEU)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Pháp lý: Bệnh nhân người nước ngoài nên khai báo số Hộ chiếu (Passport).",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu EXT.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: XML1.MA_QUOCTICH NOT IN ('704', 'VN', 'VNM')AND IS_EMPTY(EXT.SO_HO_CHIEU)"
   },
   {
     "id": "SEED_HANHCHINH_74",
@@ -670,10 +684,10 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_75",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_75",
     "TEN_QUY_TAC": "Gửi hồ sơ chậm quá 7 ngày",
-    "DIEU_KIEN": "DATEDIFF_DAY(XML1.NGAY_RA, GET_TODAY()) > 7",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Cảnh báo: Hồ sơ ra viện quá 7 ngày chưa đẩy cổng, vi phạm thời gian quy định của BHXH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -688,30 +702,33 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_77",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_77",
     "TEN_QUY_TAC": "Trẻ em thiếu số định danh cá nhân",
-    "DIEU_KIEN": "(FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) < 6)AND IS_EMPTY(XML1.SO_CCCD)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Cảnh báo Đề án 06: Trẻ em chưa có mã định danh cá nhân, cần cập nhật từ Giấy khai sinh.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc thời điểm chạy hiện tại, gây sai lệch với hồ sơ lịch sử production. Điều kiện gốc: (FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) < 6)AND IS_EMPTY(XML1.SO_CCCD)"
   },
   {
     "id": "SEED_HANHCHINH_78",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_78",
     "TEN_QUY_TAC": "Thiếu số định danh khi dùng VNeID",
-    "DIEU_KIEN": "EXT.HINH_THUC_THE == 'VNEID' AND IS_EMPTY(XML1.SO_CCCD)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi hồ sơ: Sử dụng xác thực qua VNeID nhưng không truyền số CCCD vào file XML.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu EXT.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: EXT.HINH_THUC_THE == 'VNEID' AND IS_EMPTY(XML1.SO_CCCD)"
   },
   {
     "id": "SEED_HANHCHINH_79",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_79",
     "TEN_QUY_TAC": "Mã dân tộc sai chuẩn",
-    "DIEU_KIEN": "XML1.MA_DANTOC NOT IN (DM_DAN_TOC_BYT)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi danh mục: Mã dân tộc phải theo chuẩn 54 dân tộc của Tổng cục Thống kê.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc DM_DAN_TOC_BYT, chưa thấy được nạp vào context engine hiện tại. Điều kiện gốc: XML1.MA_DANTOC NOT IN (DM_DAN_TOC_BYT)"
   },
   {
     "id": "SEED_HANHCHINH_80",
@@ -724,12 +741,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_81",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_81",
     "TEN_QUY_TAC": "Thẻ mã vùng K1/K2/K3 thiếu nơi sống",
-    "DIEU_KIEN": "XML1.MA_KV != '' AND IS_EMPTY(EXT.MA_NOI_SINH_SONG)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Kiểm tra: Hưởng quyền lợi khu vực ưu tiên nhưng thiếu mã nơi sinh sống đặc thù.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu EXT.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: XML1.MA_KV != '' AND IS_EMPTY(EXT.MA_NOI_SINH_SONG)"
   },
   {
     "id": "SEED_HANHCHINH_82",
@@ -751,16 +769,16 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_84",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_84",
     "TEN_QUY_TAC": "Thẻ BHYT hết hạn tại thời điểm y lệnh",
-    "DIEU_KIEN": "XML1.GT_THE_DEN < XML2_3.NGAY_YL",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Xuất toán: Thuốc/Dịch vụ được chỉ định sau ngày thẻ BHYT hết giá trị sử dụng.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_85",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_85",
     "TEN_QUY_TAC": "Giấy chuyển tuyến thiếu mã nơi đi",
     "DIEU_KIEN": "XML1.MA_LYDO_VVIEN == '3' AND LEN(XML1.MA_NOI_DI) != 5",
@@ -778,7 +796,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_87",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_87",
     "TEN_QUY_TAC": "Chuyển tuyến không đúng thẩm quyền",
     "DIEU_KIEN": "XML1.CAP_NOI_DI > XML1.CAP_NOI_DEN",
@@ -787,7 +805,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_88",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_88",
     "TEN_QUY_TAC": "Thiếu mã số hồ sơ chuyển tuyến",
     "DIEU_KIEN": "XML1.MA_LYDO_VVIEN == '3' AND IS_EMPTY(XML1.MA_SO_HSCN)",
@@ -796,7 +814,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_89",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_89",
     "TEN_QUY_TAC": "Chẩn đoán nơi đi mâu thuẫn nơi đến",
     "DIEU_KIEN": "XML1.MA_BENH_NOI_DI != XML1.MA_BENH_CHINH AND XML1.MA_LYDO_VVIEN == '3'",
@@ -805,16 +823,17 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_90",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_90",
     "TEN_QUY_TAC": "Mã thuốc không có trong danh mục thầu",
-    "DIEU_KIEN": "XML2.MA_THUOC NOT IN (DM_THAU_QUOC_GIA) AND IS_EMPTY(XML2.TT_THAU)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Từ chối: Thuốc chưa được phê duyệt trúng thầu trên hệ thống giám định.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc danh mục DM_THAU_QUOC_GIA không thấy được nạp vào context engine hiện tại; để ON sẽ không chứng minh được đầu vào hợp lệ tại runtime. Điều kiện gốc: XML2.MA_THUOC NOT IN (DM_THAU_QUOC_GIA) AND IS_EMPTY(XML2.TT_THAU)"
   },
   {
     "id": "SEED_HANHCHINH_91",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_91",
     "TEN_QUY_TAC": "Thuốc phóng xạ thiếu mã an toàn",
     "DIEU_KIEN": "XML2.MA_NHOM == 'PHONG_XA' AND IS_EMPTY(XML2.MA_AN_TOAN)",
@@ -832,10 +851,10 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_93",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_93",
     "TEN_QUY_TAC": "Thuốc tự bào chế thiếu bảng kê",
-    "DIEU_KIEN": "COUNT_IF(XML2, MA_NHOM == 'BAO_CHE') > 0 AND COUNT(XML11) == 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Thiếu hồ sơ: Có thuốc tự bào chế nhưng thiếu chi tiết thành phần tại XML11.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -868,10 +887,10 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_97",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_97",
     "TEN_QUY_TAC": "Giấy ra viện thiếu chữ ký lãnh đạo",
-    "DIEU_KIEN": "NOT IS_EMPTY(XML7.KY_LANH_DAO) AND XML7.KY_LANH_DAO == 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Pháp lý: Giấy ra viện điện tử bắt buộc có chữ ký số của lãnh đạo đơn vị.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -895,34 +914,37 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_100",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_100",
     "TEN_QUY_TAC": "Tổng tiền thanh toán sai công thức",
-    "DIEU_KIEN": "XML1.NGAY_TTOAN > CERTIFICATE_EXPIRY_DATE",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi toán học: Tổng chi phí không bằng tổng các tiểu mục thành phần.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc chứng thư/metadata ngoài schema XML KCB BHYT. Điều kiện gốc: XML1.NGAY_TTOAN > CERTIFICATE_EXPIRY_DATE"
   },
   {
     "id": "SEED_HANHCHINH_101",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_101",
     "TEN_QUY_TAC": "Tiền xét nghiệm XML1 và XML3 lệch",
-    "DIEU_KIEN": "ABS(XML1.T_XN - SUM(XML3.THANH_TIEN WHERE MA_NHOM==2)) > 1",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi đồng bộ: Tổng tiền xét nghiệm ở bảng tổng và bảng chi tiết bị lệch.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: dùng SUM(collection.field) không tương thích engine; rule kế toán tương đương đã có bản SUM_IF an toàn hơn. Điều kiện gốc: ABS(XML1.T_XN - SUM(XML3.THANH_TIEN WHERE MA_NHOM==2)) > 1"
   },
   {
     "id": "SEED_HANHCHINH_102",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_102",
     "TEN_QUY_TAC": "Tiền chẩn đoán hình ảnh lệch",
-    "DIEU_KIEN": "ABS(XML1.T_CDHA - SUM(XML3.THANH_TIEN WHERE MA_NHOM==3)) > 1",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi đồng bộ: Tổng tiền CDHA ở bảng tổng và bảng chi tiết bị lệch.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: dùng SUM(collection.field) không tương thích engine; rule kế toán tương đương đã có bản SUM_IF an toàn hơn. Điều kiện gốc: ABS(XML1.T_CDHA - SUM(XML3.THANH_TIEN WHERE MA_NHOM==3)) > 1"
   },
   {
     "id": "SEED_HANHCHINH_103",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_103",
     "TEN_QUY_TAC": "Chi phí vận chuyển vượt định mức",
     "DIEU_KIEN": "XML3.MA_DICH_VU == 'VC' AND XML3.THANH_TIEN > (XML3.SO_KM * 15000)",
@@ -967,30 +989,33 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_108",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_108",
     "TEN_QUY_TAC": "Bác sĩ ký hồ sơ không phải điều trị",
-    "DIEU_KIEN": "NOT IS_EMPTY(HIS.MA_BS_KY_SO) AND XML1.MA_TTDV != HIS.MA_BS_KY_SO",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Audit: Người điều trị chính và người ký hồ sơ số hóa không khớp nhau.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: NOT IS_EMPTY(HIS.MA_BS_KY_SO) AND XML1.MA_TTDV != HIS.MA_BS_KY_SO"
   },
   {
     "id": "SEED_HANHCHINH_109",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_109",
     "TEN_QUY_TAC": "Tên file XML sai quy định",
-    "DIEU_KIEN": "FILE_NAME NOT MATCHES /^[0-9]{5}_[0-9]{8}_.*\\.xml$/",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi kỹ thuật: Tên file XML không đúng cấu trúc (Mã BV_Ngày_Mã LK).",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc metadata file/header không có trong payload XML nghiệp vụ. Điều kiện gốc: FILE_NAME NOT MATCHES /^[0-9]{5}_[0-9]{8}_.*\\\\.xml$/"
   },
   {
     "id": "SEED_HANHCHINH_110",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_110",
     "TEN_QUY_TAC": "File XML chứa ký tự BOM",
-    "DIEU_KIEN": "FILE_ENCODING == 'UTF-8-BOM'",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi cấu trúc: File XML không được chứa ký tự BOM ở đầu (Cổng BHXH sẽ từ chối).",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc metadata file/header không có trong payload XML nghiệp vụ. Điều kiện gốc: FILE_ENCODING == 'UTF-8-BOM'"
   },
   {
     "id": "SEED_HANHCHINH_111",
@@ -1003,34 +1028,37 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_112",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_112",
     "TEN_QUY_TAC": "Sai mã bảng dữ liệu",
-    "DIEU_KIEN": "XML_HEADER.TABLE_ID NOT IN ('XML1','XML2','XML3'...)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi định dạng: Mã bảng trong Header không khớp với nội dung dữ liệu bên dưới.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu XML_HEADER.* ngoài dữ liệu nghiệp vụ XML chuẩn đang dùng. Điều kiện gốc: XML_HEADER.TABLE_ID NOT IN ('XML1','XML2','XML3'...)"
   },
   {
     "id": "SEED_HANHCHINH_113",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_113",
     "TEN_QUY_TAC": "Bệnh nhân không có cân nặng/chiều cao",
-    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '3' AND (IS_EMPTY(JCI.CAN_NANG) OR IS_EMPTY(JCI.CHIEU_CAO))",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ JCI COP: Bệnh nhân nội trú thiếu chỉ số BMI cơ bản để tính liều thuốc.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu JCI.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: XML1.MA_LOAI_KCB == '3' AND (IS_EMPTY(JCI.CAN_NANG) OR IS_EMPTY(JCI.CHIEU_CAO))"
   },
   {
     "id": "SEED_HANHCHINH_114",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_114",
     "TEN_QUY_TAC": "Thiếu ghi chú dị ứng tại XML1",
-    "DIEU_KIEN": "IS_EMPTY(JCI.DI_UNG)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ JCI Safety: Trường thông tin dị ứng không được để trống (Phải ghi \"Không\" nếu không có).",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu JCI.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: IS_EMPTY(JCI.DI_UNG)"
   },
   {
     "id": "SEED_HANHCHINH_115",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_115",
     "TEN_QUY_TAC": "Mã định danh đơn thuốc điện tử sai",
     "DIEU_KIEN": "XML2.MA_DON_THUOC != '' AND LEN(XML2.MA_DON_THUOC) != 12",
@@ -1039,16 +1067,17 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_116",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_116",
     "TEN_QUY_TAC": "Chênh lệch tiền thuốc do làm tròn > 10đ",
-    "DIEU_KIEN": "ABS(XML1.T_THUOC - SUM(XML2.THANH_TIEN)) > 10",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Kế toán: Lệch tiền thuốc quá lớn (10 đồng), cần kiểm tra lại đơn giá và số lượng.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: dùng SUM(collection.field) không tương thích engine; rule kế toán tương đương đã có bản SUM_IF an toàn hơn. Điều kiện gốc: ABS(XML1.T_THUOC - SUM(XML2.THANH_TIEN)) > 10"
   },
   {
     "id": "SEED_HANHCHINH_117",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_117",
     "TEN_QUY_TAC": "Thiếu ngày kết thúc đợt điều trị",
     "DIEU_KIEN": "XML1.MA_LOAI_KCB == '2' AND IS_EMPTY(XML1.NGAY_KET_THUC)",
@@ -1057,7 +1086,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_118",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_118",
     "TEN_QUY_TAC": "Trẻ sơ sinh chưa có tên (Con bà...)",
     "DIEU_KIEN": "LEN(XML1.MA_THE_TAM) > 0 AND DIFF_DAYS(XML1.NGAY_SINH, TODAY) > 15",
@@ -1075,12 +1104,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_120",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_120",
     "TEN_QUY_TAC": "Bệnh nhân nội trú thiếu nhóm máu",
-    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '3' AND IS_EMPTY(HIS.NHOM_MAU)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ JCI Safety: Bệnh nhân nằm viện nội trú nên được định nhóm máu sẵn trong hồ sơ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: XML1.MA_LOAI_KCB == '3' AND IS_EMPTY(HIS.NHOM_MAU)"
   },
   {
     "id": "SEED_HANHCHINH_121",
@@ -1093,25 +1123,27 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_122",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_122",
     "TEN_QUY_TAC": "Chữ ký số hết hạn tại ngày ký",
-    "DIEU_KIEN": "XML1.NGAY_KY_SO > CERTIFICATE_EXPIRY_DATE",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Pháp lý: Chữ ký số của bác sĩ hoặc bệnh viện đã hết hạn tại thời điểm ký hồ sơ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc chứng thư/metadata ngoài schema XML KCB BHYT. Điều kiện gốc: XML1.NGAY_KY_SO > CERTIFICATE_EXPIRY_DATE"
   },
   {
     "id": "SEED_HANHCHINH_123",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_123",
     "TEN_QUY_TAC": "Thẻ quân nhân (QN) thiếu đơn vị quản lý",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'QN' AND IS_EMPTY(HIS.TEN_DON_VI)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Thiếu thông tin: Đối tượng quân nhân bắt buộc phải có tên đơn vị quản lý trên hồ sơ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: XML1.MA_THE_BHYT STARTS_WITH 'QN' AND IS_EMPTY(HIS.TEN_DON_VI)"
   },
   {
     "id": "SEED_HANHCHINH_124",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_124",
     "TEN_QUY_TAC": "Thẻ trẻ em (TE) không có ngày đủ 6 tuổi",
     "DIEU_KIEN": "XML1.NGAY_DU_6_TUOI = ADD_YEARS(XML1.NGAY_SINH, 6)",
@@ -1129,12 +1161,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_126",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_126",
     "TEN_QUY_TAC": "Thời gian vào khoa sau y lệnh đầu tiên",
-    "DIEU_KIEN": "HIS.NGAY_VAO_KHOA > MIN(XML2_3.NGAY_YL)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi quy trình: Phát hiện y lệnh thuốc/dịch vụ trước khi bệnh nhân thực hiện vào khoa điều trị.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: HIS.NGAY_VAO_KHOA > MIN(XML2_3.NGAY_YL)"
   },
   {
     "id": "SEED_HANHCHINH_127",
@@ -1147,7 +1180,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_128",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_128",
     "TEN_QUY_TAC": "Điều trị nội trú thiếu mã bác sĩ cho bệnh kèm",
     "DIEU_KIEN": "COUNT(XML1.MA_BENH_KT) > 0 AND IS_EMPTY(XML1.MA_BS_CHUYEN_KHOA)",
@@ -1156,12 +1189,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_129",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_129",
     "TEN_QUY_TAC": "Ra viện diện trốn viện (Lý do 4)",
-    "DIEU_KIEN": "HIS.MA_KHOA_LAP NOT IN (DM_KHOA_PHUONG_CHAU)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Kiểm tra: Bệnh nhân trốn viện thường để trạng thái \"Không thay đổi\" (3), yêu cầu rà soát.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: HIS.MA_KHOA_LAP NOT IN (DM_KHOA_PHUONG_CHAU)"
   },
   {
     "id": "SEED_HANHCHINH_130",
@@ -1174,7 +1208,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_131",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_131",
     "TEN_QUY_TAC": "Thông tuyến huyện sai mức hưởng",
     "DIEU_KIEN": "XML1.MA_LYDO_VVIEN == '5' AND XML1.T_BHTT < XML1.T_TONGCHI_BH",
@@ -1192,16 +1226,16 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_133",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_133",
     "TEN_QUY_TAC": "Giấy hẹn khám lại thiếu chữ ký BS",
-    "DIEU_KIEN": "NOT IS_EMPTY(XML1.NGAY_TAI_KHAM) AND XML12.GIAY_HEN_KY_SO == FALSE",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Pháp lý: Giấy hẹn khám lại trên hệ thống điện tử bắt buộc phải được ký số.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_134",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_134",
     "TEN_QUY_TAC": "Chuyển tuyến diện cấp cứu mâu thuẫn",
     "DIEU_KIEN": "XML1.MA_LYDO_VVIEN == '2' AND XML1.MA_NOI_DI != ''",
@@ -1210,7 +1244,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_135",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_135",
     "TEN_QUY_TAC": "Giấy chuyển tuyến quá hạn 1 năm",
     "DIEU_KIEN": "DATEDIFF_DAY(XML1.NGAY_GIAY_CHUYEN_TUYEN, XML1.NGAY_VAO) > 365",
@@ -1228,16 +1262,16 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_137",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_137",
     "TEN_QUY_TAC": "Dịch vụ kỹ thuật thiếu mã theo TT22",
-    "DIEU_KIEN": "XML3.MA_DICH_VU NOT MATCHES /^([0-9]{2}\\.[0-9]{4})$/",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi danh mục: Mã dịch vụ kỹ thuật không đúng cấu trúc quy định tại Thông tư 22/2023.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_138",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_138",
     "TEN_QUY_TAC": "Đơn giá thuốc bệnh viện tự thầu",
     "DIEU_KIEN": "XML2.MA_NGUON_CT == 'BV' AND XML2.DON_GIA > PRICE_BID_PROVINCE",
@@ -1246,34 +1280,34 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_139",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_139",
     "TEN_QUY_TAC": "Giấy nghỉ dưỡng thai thiếu số tuần",
-    "DIEU_KIEN": "XML1.MA_BENH_CHINH == 'Z34' AND IS_EMPTY(XML12.SO_TUAN_THAI)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Pháp lý: Giấy chứng nhận nghỉ dưỡng thai hưởng BHXH bắt buộc ghi rõ số tuần thai.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_140",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_140",
     "TEN_QUY_TAC": "Tóm tắt hồ sơ thiếu hướng điều trị tiếp",
-    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '3' AND IS_EMPTY(XML7.HUONG_DIEU_TRI)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi XML7: Giấy ra viện thiếu thông tin dặn dò/hướng dẫn điều trị tiếp theo.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_141",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_141",
     "TEN_QUY_TAC": "Biên bản PTTT thiếu mã gây mê",
-    "DIEU_KIEN": "COUNT(XML8) > 0 AND IS_EMPTY(XML8.MA_PP_GAY_ME)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Thiếu dữ liệu: Biên bản phẫu thuật bắt buộc phải khai báo phương pháp gây mê thực tế.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_142",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_142",
     "TEN_QUY_TAC": "Kết quả CLS thiếu giá trị bình thường",
     "DIEU_KIEN": "XML4.GIA_TRI != '' AND IS_EMPTY(XML4.CHI_SO_BINH_THUONG)",
@@ -1282,7 +1316,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_143",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_143",
     "TEN_QUY_TAC": "Hồ sơ tử vong thiếu thời điểm tử vong",
     "DIEU_KIEN": "XML1.KET_QUA_DTRI == '5' AND LEN(XML1.NGAY_TU_VONG) != 12",
@@ -1291,7 +1325,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_144",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_144",
     "TEN_QUY_TAC": "Tiền xét nghiệm XML1 âm",
     "DIEU_KIEN": "XML1.T_XN < 0",
@@ -1309,12 +1343,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_146",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_146",
     "TEN_QUY_TAC": "Chi phí chênh lệch giá (Nguồn khác)",
-    "DIEU_KIEN": "XML1.T_NGUONKHAC > 0 AND IS_EMPTY(HIS.LY_DO_NGUON_KHAC)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Giải trình: Có phát sinh chi phí từ nguồn khác (không phải BHYT/BN), cần ghi rõ lý do.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: XML1.T_NGUONKHAC > 0 AND IS_EMPTY(HIS.LY_DO_NGUON_KHAC)"
   },
   {
     "id": "SEED_HANHCHINH_147",
@@ -1327,30 +1362,33 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_148",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_148",
     "TEN_QUY_TAC": "Sai lệch số tiền miễn giảm",
-    "DIEU_KIEN": "HIS.T_MIEN_GIAM > (XML1.T_TONGCHI_BV - XML1.T_BHTT)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi tài chính: Số tiền miễn giảm lớn hơn cả số tiền bệnh nhân phải cùng chi trả.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: HIS.T_MIEN_GIAM > (XML1.T_TONGCHI_BV - XML1.T_BHTT)"
   },
   {
     "id": "SEED_HANHCHINH_149",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_149",
     "TEN_QUY_TAC": "Giám đốc chưa ký duyệt hồ sơ",
-    "DIEU_KIEN": "NOT IS_EMPTY(HIS.TRANG_THAI_KY_GD) AND HIS.TRANG_THAI_KY_GD == 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Từ chối: Tệp XML chưa có thông tin xác nhận ký điện tử của Ban Giám đốc cơ sở.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: NOT IS_EMPTY(HIS.TRANG_THAI_KY_GD) AND HIS.TRANG_THAI_KY_GD == 0"
   },
   {
     "id": "SEED_HANHCHINH_150",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_150",
     "TEN_QUY_TAC": "Ngày ký điện tử trước ngày lập bảng",
-    "DIEU_KIEN": "XML1.NGAY_TTOAN < HIS.NGAY_LAP",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi logic: Thời điểm ký số không thể xảy ra trước thời điểm tạo lập dữ liệu.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: XML1.NGAY_TTOAN < HIS.NGAY_LAP"
   },
   {
     "id": "SEED_HANHCHINH_151",
@@ -1363,21 +1401,23 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_152",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_152",
     "TEN_QUY_TAC": "Mã khoa lập hồ sơ không tồn tại",
-    "DIEU_KIEN": "XML1.MA_KHOA_LAP NOT IN (DM_KHOA_PHUONG_CHAU)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi hệ thống: Mã khoa/phòng tạo lập hồ sơ không nằm trong danh mục nội bộ bệnh viện.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc danh mục nội bộ DM_KHOA_PHUONG_CHAU mang tính cục bộ cơ sở, không thấy được nạp như dữ liệu chuẩn trong engine hiện tại. Điều kiện gốc: XML1.MA_KHOA_LAP NOT IN (DM_KHOA_PHUONG_CHAU)"
   },
   {
     "id": "SEED_HANHCHINH_153",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_153",
     "TEN_QUY_TAC": "BN nhi thiếu tên người giám hộ",
-    "DIEU_KIEN": "NOT IS_EMPTY(HIS.DIA_CHI_TT) AND NOT IS_EMPTY(HIS.DIA_CHI_TAM_TRU) AND HIS.DIA_CHI_TT == HIS.DIA_CHI_TAM_TRU",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ JCI COP: Bệnh nhân là trẻ em bắt buộc phải khai báo tên cha hoặc mẹ hoặc người giám hộ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: NOT IS_EMPTY(HIS.DIA_CHI_TT) AND NOT IS_EMPTY(HIS.DIA_CHI_TAM_TRU) AND HIS.DIA_CHI_TT == HIS.DIA_CHI_TAM_TRU"
   },
   {
     "id": "SEED_HANHCHINH_154",
@@ -1390,16 +1430,17 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_155",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_155",
     "TEN_QUY_TAC": "Tiền khám lượt 3 trở đi tính BHYT",
-    "DIEU_KIEN": "COUNT_IF(XML3, MA_NHOM == '01') > 2 AND SUM(XML3.T_BHTT) > 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Xuất toán: Công khám thứ 3 trong cùng một ngày không được tính BHYT (theo Thông tư 22).",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: dùng SUM(collection.field) không tương thích engine; rule kế toán tương đương đã có bản SUM_IF an toàn hơn. Điều kiện gốc: COUNT_IF(XML3, MA_NHOM == '01') > 2 AND SUM(XML3.T_BHTT) > 0"
   },
   {
     "id": "SEED_HANHCHINH_156",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_156",
     "TEN_QUY_TAC": "Sai mã hình thức vào viện",
     "DIEU_KIEN": "NOT IS_EMPTY(XML1.MA_LYDO_VVIEN) AND XML1.MA_LYDO_VVIEN NOT IN ('1','2','3','4')",
@@ -1417,21 +1458,23 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_158",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_158",
     "TEN_QUY_TAC": "Khám bằng hình ảnh thẻ trên VssID",
-    "DIEU_KIEN": "EXT.HINH_THUC_THE == 'VSSID' AND IS_EMPTY(EXT.MA_XAC_THUC)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Pháp lý: Khám qua ứng dụng VssID/VNeID bắt buộc phải có mã xác thực từ hệ thống.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu EXT.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: EXT.HINH_THUC_THE == 'VSSID' AND IS_EMPTY(EXT.MA_XAC_THUC)"
   },
   {
     "id": "SEED_HANHCHINH_159",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_159",
     "TEN_QUY_TAC": "BN từ chối cung cấp CCCD",
-    "DIEU_KIEN": "(FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) >= 14)AND IS_EMPTY(XML1.SO_CCCD)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Nhắc nhở: BN trên 14 tuổi chưa cung cấp CCCD, cần hướng dẫn BN đồng bộ dữ liệu.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc thời điểm chạy hiện tại, gây sai lệch với hồ sơ lịch sử production. Điều kiện gốc: (FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) >= 14)AND IS_EMPTY(XML1.SO_CCCD)"
   },
   {
     "id": "SEED_HANHCHINH_160",
@@ -1444,7 +1487,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_161",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_161",
     "TEN_QUY_TAC": "Sai logic mã thẻ tạm và số định danh",
     "DIEU_KIEN": "XML1.MA_THE_TAM == 1 AND IS_EMPTY(XML1.SO_CCCD)",
@@ -1462,25 +1505,26 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_163",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_163",
     "TEN_QUY_TAC": "Sai định dạng Ngày giờ y lệnh (Phút lẻ)",
-    "DIEU_KIEN": "SUBSTR(XML2_3.NGAY_YL, 11, 2) > '59'",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi kỹ thuật: Phút trong thời gian y lệnh không được vượt quá 59.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_164",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_164",
     "TEN_QUY_TAC": "Tổng tiền thanh toán bị làm tròn sai số",
-    "DIEU_KIEN": "ABS(XML1.T_TONGCHI_BH - SUM(XML2_3.THANH_TIEN_BH)) > 0.5",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi kế toán: Tổng chi phí trên XML1 lệch so với tổng chi tiết vượt mức sai số cho phép.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: dùng SUM(collection.field) không tương thích engine; rule kế toán tương đương đã có bản SUM_IF an toàn hơn. Điều kiện gốc: ABS(XML1.T_TONGCHI_BH - SUM(XML2_3.THANH_TIEN_BH)) > 0.5"
   },
   {
     "id": "SEED_HANHCHINH_165",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_165",
     "TEN_QUY_TAC": "Bệnh nhân ra viện nhưng hồ sơ chưa đóng",
     "DIEU_KIEN": "XML1.NGAY_RA != '' AND XML1.TRANG_THAI_HS == 'OPEN'",
@@ -1489,16 +1533,17 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_166",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_166",
     "TEN_QUY_TAC": "Tệp XML thiếu mã ký số cơ quan",
-    "DIEU_KIEN": "XML_HEADER.SIGNATURE_STATUS == FALSE",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Từ chối: Toàn bộ gói dữ liệu XML chưa được ký số ở cấp độ tổ chức (Cơ sở KCB).",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu XML_HEADER.* ngoài dữ liệu nghiệp vụ XML chuẩn đang dùng. Điều kiện gốc: XML_HEADER.SIGNATURE_STATUS == FALSE"
   },
   {
     "id": "SEED_HANHCHINH_167",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_167",
     "TEN_QUY_TAC": "Diễn biến lâm sàng sau giờ tử vong",
     "DIEU_KIEN": "NOT IS_EMPTY(XML1.NGAY_TU_VONG) AND XML5.NGAY_DB > XML1.NGAY_TU_VONG",
@@ -1507,10 +1552,10 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_168",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_168",
     "TEN_QUY_TAC": "Giờ kết thúc mổ sau giờ ra viện",
-    "DIEU_KIEN": "XML8.NGAY_KT_PT > XML1.NGAY_RA",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi logic: Thời điểm kết thúc phẫu thuật muộn hơn thời điểm bệnh nhân làm thủ tục ra viện.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -1525,10 +1570,10 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_170",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_170",
     "TEN_QUY_TAC": "Thời gian gây mê vượt quá 24h",
-    "DIEU_KIEN": "DATEDIFF_HOUR(XML9.GIO_BD_ME, XML9.GIO_KT_ME) > 24",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Kiểm tra: Thời gian gây mê kéo dài bất thường (>24h), yêu cầu bác sĩ rà soát lại.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -1543,10 +1588,10 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_172",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_172",
     "TEN_QUY_TAC": "Giấy ra viện thiếu mã bệnh chính",
-    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '3' AND IS_EMPTY(XML7.MA_BENH)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Thiếu dữ liệu: Giấy ra viện điện tử bắt buộc phải có mã bệnh ICD-10 ra viện.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -1561,12 +1606,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_174",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_174",
     "TEN_QUY_TAC": "Tổng tiền giường lệch với chi tiết",
-    "DIEU_KIEN": "ABS(XML1.T_GIUONG - SUM(XML3.THANH_TIEN WHERE MA_NHOM IN (14,15))) > 1",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi đồng bộ: Tiền giường trên XML1 lệch so với tổng tiền giường tại XML3.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: dùng SUM(collection.field) không tương thích engine; rule kế toán tương đương đã có bản SUM_IF an toàn hơn. Điều kiện gốc: ABS(XML1.T_GIUONG - SUM(XML3.THANH_TIEN WHERE MA_NHOM IN (14,15))) > 1"
   },
   {
     "id": "SEED_HANHCHINH_175",
@@ -1588,19 +1634,19 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_177",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_177",
     "TEN_QUY_TAC": "Mã PTTT quốc tế không chuẩn",
-    "DIEU_KIEN": "XML8.MA_PTTT_QT != '' AND LEN(XML8.MA_PTTT_QT) < 3",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi định dạng: Mã phẫu thuật quốc tế (ICD-9/ICD-10-PCS) sai cấu trúc.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_178",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_178",
     "TEN_QUY_TAC": "Đơn vị tính thuốc chứa số",
-    "DIEU_KIEN": "XML2.DON_VI_TINH MATCHES /[0-9]/",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Cảnh báo: Đơn vị tính (viên, gói...) không nên chứa ký số, cần kiểm tra lại.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -1615,10 +1661,10 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_180",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_180",
     "TEN_QUY_TAC": "Bác sĩ mổ và bác sĩ điều trị khác nhau",
-    "DIEU_KIEN": "XML8.MA_PT_VIEN != XML1.MA_TTDV",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Thông tin: Phẫu thuật viên chính không phải là bác sĩ điều trị chính của hồ sơ.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -1633,30 +1679,33 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_182",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_182",
     "TEN_QUY_TAC": "Người lập bảng và bác sĩ điều trị trùng nhau",
-    "DIEU_KIEN": "HIS.NGUOI_LAP == XML1.MA_TTDV",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Audit: Bác sĩ điều trị tự lập bảng tổng hợp dữ liệu, cần kiểm tra quy trình đối soát.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: HIS.NGUOI_LAP == XML1.MA_TTDV"
   },
   {
     "id": "SEED_HANHCHINH_183",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_183",
     "TEN_QUY_TAC": "Chữ ký số bệnh viện bị thiếu",
-    "DIEU_KIEN": "XML_HEADER.MA_CSKCB_SIGN == ''",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Từ chối: Gói dữ liệu XML thiếu chữ ký số xác thực của cơ sở KCB.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu XML_HEADER.* ngoài dữ liệu nghiệp vụ XML chuẩn đang dùng. Điều kiện gốc: XML_HEADER.MA_CSKCB_SIGN == ''"
   },
   {
     "id": "SEED_HANHCHINH_184",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_184",
     "TEN_QUY_TAC": "Ngày ký hồ sơ sau ngày gửi cổng",
-    "DIEU_KIEN": "XML1.NGAY_TTOAN > GET_CURRENT_TIMESTAMP()",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi logic: Ngày ký số hồ sơ nằm ở thời điểm tương lai so với hiện tại.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc ngữ cảnh runtime ngoài dữ liệu XML hồ sơ. Điều kiện gốc: XML1.NGAY_TTOAN > GET_CURRENT_TIMESTAMP()"
   },
   {
     "id": "SEED_HANHCHINH_185",
@@ -1678,28 +1727,29 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_187",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_187",
     "TEN_QUY_TAC": "Có tạng hiến nhưng thiếu mã tạng",
-    "DIEU_KIEN": "XML1.MA_BENH_CHINH == 'Z94' AND COUNT(XML11.MA_TANG) == 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Thiếu dữ liệu: Chẩn đoán ghép tạng nhưng thiếu chi tiết mã tạng tại bảng XML11.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_188",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_188",
     "TEN_QUY_TAC": "Thiếu giấy chứng sinh (Bé sơ sinh)",
-    "DIEU_KIEN": "(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) <= 7)AND COUNT(XML12.LOAI_GIAY == 'CHUNG_SINH') == 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Pháp lý: Trẻ sơ sinh ra viện thiếu thông tin giấy chứng sinh điện tử.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc thời điểm chạy hiện tại, gây sai lệch với hồ sơ lịch sử production. Điều kiện gốc: (DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) <= 7)AND COUNT(XML12.LOAI_GIAY == 'CHUNG_SINH') == 0"
   },
   {
     "id": "SEED_HANHCHINH_189",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_189",
     "TEN_QUY_TAC": "Nghỉ dưỡng thai quá 10 ngày/lần",
-    "DIEU_KIEN": "XML12.LOAI_GIAY == 'NGHI_DUONG_THAI' AND XML12.SO_NGAY_NGHI > 10",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Kiểm tra: Số ngày nghỉ dưỡng thai vượt định mức thông thường cho một lần cấp giấy.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -1714,21 +1764,23 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_191",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_191",
     "TEN_QUY_TAC": "Tên bảng dữ liệu viết thường",
-    "DIEU_KIEN": "XML_HEADER.TABLE_ID != UPPER(XML_HEADER.TABLE_ID)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Cảnh báo: Tên bảng (xml1, xml2...) nên được viết hoa theo chuẩn QĐ 130.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu XML_HEADER.* ngoài dữ liệu nghiệp vụ XML chuẩn đang dùng. Điều kiện gốc: XML_HEADER.TABLE_ID != UPPER(XML_HEADER.TABLE_ID)"
   },
   {
     "id": "SEED_HANHCHINH_192",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_192",
     "TEN_QUY_TAC": "File XML chứa ký tự lạ (Non-UTF8)",
-    "DIEU_KIEN": "FILE_ENCODING != 'UTF-8'",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi kỹ thuật: Tệp tin chứa ký tự không thuộc bảng mã UTF-8 gây lỗi hiển thị.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc metadata file/header không có trong payload XML nghiệp vụ. Điều kiện gốc: FILE_ENCODING != 'UTF-8'"
   },
   {
     "id": "SEED_HANHCHINH_193",
@@ -1750,25 +1802,27 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_195",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_195",
     "TEN_QUY_TAC": "Thiếu thông tin cổng tiếp nhận (Portal)",
-    "DIEU_KIEN": "XML_HEADER.RECEIVER_ID == ''",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi hệ thống: Gói dữ liệu thiếu thông tin định danh cổng tiếp nhận BHXH.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu XML_HEADER.* ngoài dữ liệu nghiệp vụ XML chuẩn đang dùng. Điều kiện gốc: XML_HEADER.RECEIVER_ID == ''"
   },
   {
     "id": "SEED_HANHCHINH_196",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_196",
     "TEN_QUY_TAC": "Dùng CCCD nhưng thiếu ngày cấp",
-    "DIEU_KIEN": "EXT.HINH_THUC_THE == 'CCCD' AND IS_EMPTY(EXT.NGAY_CAP_CCCD)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Định danh: Xác thực bằng CCCD gắn chip nên đi kèm thông tin ngày cấp thẻ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu EXT.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: EXT.HINH_THUC_THE == 'CCCD' AND IS_EMPTY(EXT.NGAY_CAP_CCCD)"
   },
   {
     "id": "SEED_HANHCHINH_197",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_197",
     "TEN_QUY_TAC": "Địa chỉ thường trú và tạm trú trùng nhau",
     "DIEU_KIEN": "NOT IS_EMPTY(XML1.DIA_CHI_TT) AND NOT IS_EMPTY(XML1.DIA_CHI_TAM_TRU) AND XML1.DIA_CHI_TT == XML1.DIA_CHI_TAM_TRU",
@@ -1777,12 +1831,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_198",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_198",
     "TEN_QUY_TAC": "Sai mã tỉnh cấp thẻ BHYT",
-    "DIEU_KIEN": "SUBSTR(XML1.MA_THE_BHYT, 3, 2) NOT IN (DM_MA_TINH_BHXH)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi định dạng: Mã tỉnh phát hành thẻ (2 số đầu sau ký hiệu chữ) không hợp lệ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc DM_MA_TINH_BHXH, chưa thấy được nạp vào context engine hiện tại. Điều kiện gốc: SUBSTR(XML1.MA_THE_BHYT, 3, 2) NOT IN (DM_MA_TINH_BHXH)"
   },
   {
     "id": "SEED_HANHCHINH_199",
@@ -1804,30 +1859,32 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_201",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_201",
     "TEN_QUY_TAC": "Bác sĩ điều trị nghỉ việc vẫn có tên",
-    "DIEU_KIEN": "XML1.MA_TTDV IN (DM_BS_NGHI_VIEC)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "❌ LỖI PHÁP LÝ: Bác sĩ đã nghỉ việc nhưng vẫn đứng tên điều trị trên hồ sơ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc danh mục thủ công DM_BS_NGHI_VIEC, không thấy được nạp như nguồn chuẩn vào context engine hiện tại. Điều kiện gốc: XML1.MA_TTDV IN (DM_BS_NGHI_VIEC)"
   },
   {
     "id": "SEED_HANHCHINH_202",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_202",
     "TEN_QUY_TAC": "Hồ sơ ra viện quá hạn đẩy cổng (> 15 ngày)",
-    "DIEU_KIEN": "DATEDIFF_DAY(XML1.NGAY_RA, GET_TODAY()) > 15",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Cảnh báo: Hồ sơ quá hạn đẩy cổng 15 ngày, nguy cơ bị từ chối thanh toán rất cao.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_203",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_203",
     "TEN_QUY_TAC": "Tệp XML bị virus hoặc mã độc",
-    "DIEU_KIEN": "FILE_SECURITY_SCAN == 'INFECTED'",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "❌ CẢNH BÁO AN NINH: Tệp XML bị nhiễm mã độc, hệ thống tự động cách ly.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc metadata file/header không có trong payload XML nghiệp vụ. Điều kiện gốc: FILE_SECURITY_SCAN == 'INFECTED'"
   },
   {
     "id": "SEED_HANHCHINH_204",
@@ -1876,12 +1933,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_209",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_209",
     "TEN_QUY_TAC": "Giờ vào khoa sau giờ ra viện",
-    "DIEU_KIEN": "HIS.NGAY_VAO_KHOA > XML1.NGAY_RA",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "❌ LỖI NGHIÊM TRỌNG: Thời điểm vào khoa muộn hơn thời điểm ra viện.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: HIS.NGAY_VAO_KHOA > XML1.NGAY_RA"
   },
   {
     "id": "SEED_HANHCHINH_210",
@@ -1894,7 +1952,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_211",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_211",
     "TEN_QUY_TAC": "Ngày cấp GCT trùng ngày ra viện",
     "DIEU_KIEN": "XML1.MA_LYDO_VVIEN == '3' AND XML1.NGAY_GIAY_CHUYEN_TUYEN == XML1.NGAY_RA",
@@ -1966,12 +2024,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_219",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_219",
     "TEN_QUY_TAC": "Sai lệch tiền DVKT (XML1 vs XML3)",
-    "DIEU_KIEN": "ABS(XML1.T_DVKT - SUM(XML3.THANH_TIEN WHERE MA_NHOM NOT IN (10,14,15))) > 2",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi đồng bộ: Tổng tiền dịch vụ kỹ thuật không khớp giữa hai bảng dữ liệu.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: dùng SUM(collection.field) không tương thích engine; rule kế toán tương đương đã có bản SUM_IF an toàn hơn. Điều kiện gốc: ABS(XML1.T_DVKT - SUM(XML3.THANH_TIEN WHERE MA_NHOM NOT IN (10,14,15))) > 2"
   },
   {
     "id": "SEED_HANHCHINH_220",
@@ -1993,10 +2052,10 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_222",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_222",
     "TEN_QUY_TAC": "Mã bác sĩ chứa ký tự đặc biệt",
-    "DIEU_KIEN": "XML1.MA_TTDV MATCHES /[^a-zA-Z0-9\\/\\-]/",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi kỹ thuật: Mã CCHN bác sĩ chứa khoảng trắng hoặc ký tự lạ.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -2011,10 +2070,10 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_224",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_224",
     "TEN_QUY_TAC": "Bác sĩ mổ trùng bác sĩ phụ mổ",
-    "DIEU_KIEN": "NOT IS_EMPTY(XML8.MA_PT_VIEN) AND NOT IS_EMPTY(XML8.MA_PHU_MO) AND XML8.MA_PT_VIEN == XML8.MA_PHU_MO",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Audit: Một người không thể vừa là phẫu thuật viên chính vừa là phụ mổ.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -2029,37 +2088,40 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_226",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_226",
     "TEN_QUY_TAC": "Trẻ em dùng mã định danh sai cấu trúc",
-    "DIEU_KIEN": "(FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) < 6)AND LEN(XML1.SO_CCCD) != 12",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Đề án 06: Mã định danh cá nhân của trẻ phải đủ 12 số.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc thời điểm chạy hiện tại, gây sai lệch với hồ sơ lịch sử production. Điều kiện gốc: (FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) < 6)AND LEN(XML1.SO_CCCD) != 12"
   },
   {
     "id": "SEED_HANHCHINH_227",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_227",
     "TEN_QUY_TAC": "Thiếu ảnh chân dung xác thực VNeID",
-    "DIEU_KIEN": "EXT.HINH_THUC_THE == 'VNEID' AND IS_EMPTY(EXT.URL_ANH)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ JCI MCI: Xác thực qua VNeID mức 2 nên lưu vết ảnh/mã xác thực vào hồ sơ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu EXT.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: EXT.HINH_THUC_THE == 'VNEID' AND IS_EMPTY(EXT.URL_ANH)"
   },
   {
     "id": "SEED_HANHCHINH_228",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_228",
     "TEN_QUY_TAC": "BN trên 80 tuổi thiếu đối tượng ưu tiên",
-    "DIEU_KIEN": "FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) >= 80 AND XML1.MA_THE_BHYT NOT STARTS_WITH 'BT'",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Thông tin: BN trên 80 tuổi, kiểm tra quyền lợi chuyển đổi sang đối tượng ưu tiên.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc thời điểm chạy hiện tại, gây sai lệch với hồ sơ lịch sử production. Điều kiện gốc: FLOOR(DATEDIFF(day, TO_DATE(SUBSTRING(XML1.NGAY_SINH,1,8), 'YYYYMMDD'), GETDATE()) / 365.25) >= 80 AND XML1.MA_THE_BHYT NOT STARTS_WITH 'BT'"
   },
   {
     "id": "SEED_HANHCHINH_229",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_229",
     "TEN_QUY_TAC": "Thiếu giấy chứng nhận phẫu thuật",
-    "DIEU_KIEN": "COUNT_IF(XML3, MA_NHOM == '04') > 0 AND COUNT(XML12.LOAI_GIAY == 'CN_PT') == 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Pháp lý: Có phẫu thuật nhưng hồ sơ thiếu giấy chứng nhận phẫu thuật điện tử.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
@@ -2074,12 +2136,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_231",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_231",
     "TEN_QUY_TAC": "Thiếu thông tin người đỡ đẻ (Sản)",
-    "DIEU_KIEN": "XML1.MA_BENH_CHINH STARTS_WITH 'O8' AND IS_EMPTY(HIS.TEN_HO_SINH)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ JCI Audit: Ca sinh đẻ thiếu thông tin định danh Nữ hộ sinh/Bác sĩ đỡ đẻ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: XML1.MA_BENH_CHINH STARTS_WITH 'O8' AND IS_EMPTY(HIS.TEN_HO_SINH)"
   },
   {
     "id": "SEED_HANHCHINH_232",
@@ -2092,7 +2155,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_233",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_233",
     "TEN_QUY_TAC": "Hồ sơ có thuốc gây nghiện thiếu số đơn",
     "DIEU_KIEN": "COUNT_IF(XML2, NHOM == 'GAY_NGHIEN') > 0 AND IS_EMPTY(XML2.SO_DON)",
@@ -2101,16 +2164,17 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_234",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_234",
     "TEN_QUY_TAC": "BN nội trú chưa đánh giá nguy cơ té ngã",
-    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '3' AND IS_EMPTY(JCI.SCORE_TE_NGA)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ JCI IPSG.6: Bệnh nhân nằm viện thiếu bảng điểm đánh giá nguy cơ té ngã.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu JCI.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: XML1.MA_LOAI_KCB == '3' AND IS_EMPTY(JCI.SCORE_TE_NGA)"
   },
   {
     "id": "SEED_HANHCHINH_235",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_235",
     "TEN_QUY_TAC": "Thiếu mã vùng thẻ (K1, K2, K3)",
     "DIEU_KIEN": "XML1.MA_DOITUONG IN (\"K1\",\"K2\",\"K3\") AND XML1.MA_LOAI_KCB != \"01\" AND XML1.T_TONGCHI_BH > 0 AND XML1.T_BHTT < XML1.T_TONGCHI_BH",
@@ -2119,12 +2183,13 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_236",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_236",
     "TEN_QUY_TAC": "Tiền khám lần 2 cùng chuyên khoa",
-    "DIEU_KIEN": "COUNT_IF(XML3, MA_DICH_VU == Current_DV) > 1 WITHIN(1_DAY)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Xuất toán: Không được tính 2 lần tiền khám cùng 1 chuyên khoa trong 1 ngày.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: toán tử không thuộc tập hàm an toàn đã chuẩn hóa của engine hiện tại. Điều kiện gốc: COUNT_IF(XML3, MA_DICH_VU == Current_DV) > 1 WITHIN(1_DAY)"
   },
   {
     "id": "SEED_HANHCHINH_237",
@@ -2146,25 +2211,26 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_239",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_239",
     "TEN_QUY_TAC": "Tên thẻ XML chứa ký tự tiếng Việt",
-    "DIEU_KIEN": "XML_TAG_CONTENT MATCHES /[áàảãạ...]/",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ Lỗi kỹ thuật: Tên các thẻ Tag XML không được chứa dấu tiếng Việt.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
     "id": "SEED_HANHCHINH_240",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_240",
     "TEN_QUY_TAC": "Hồ sơ gửi lại thiếu mã lý do",
-    "DIEU_KIEN": "XML_HEADER.RE_SEND == 1 AND IS_EMPTY(XML_HEADER.REASON)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Cảnh báo: Hồ sơ gửi thay thế nhưng thiếu nội dung lý do chỉnh sửa.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu XML_HEADER.* ngoài dữ liệu nghiệp vụ XML chuẩn đang dùng. Điều kiện gốc: XML_HEADER.RE_SEND == 1 AND IS_EMPTY(XML_HEADER.REASON)"
   },
   {
     "id": "SEED_HANHCHINH_241",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_241",
     "TEN_QUY_TAC": "BN chết trước khi vào viện",
     "DIEU_KIEN": "NOT IS_EMPTY(XML1.NGAY_TU_VONG) AND XML1.NGAY_TU_VONG < XML1.NGAY_VAO",
@@ -2182,21 +2248,23 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_243",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_243",
     "TEN_QUY_TAC": "Bác sĩ điều trị bị khóa tài khoản",
-    "DIEU_KIEN": "XML1.MA_TTDV IN (DM_BS_KHOA_CCHN)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "❌ LỖI PHÁP LÝ: Bác sĩ đang bị đình chỉ hoặc khóa CCHN nhưng vẫn đứng tên hồ sơ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc danh mục nội bộ DM_BS_KHOA_CCHN, không thấy được nạp như nguồn chuẩn vào context engine hiện tại. Điều kiện gốc: XML1.MA_TTDV IN (DM_BS_KHOA_CCHN)"
   },
   {
     "id": "SEED_HANHCHINH_244",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "HC_244",
     "TEN_QUY_TAC": "Hồ sơ chưa qua bước kiểm soát nội bộ",
-    "DIEU_KIEN": "HIS.INTERNAL_CHECK == FALSE",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ Nhắc nhở: Hồ sơ chưa được bộ phận KHTH/Giám định nội bộ duyệt.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: HIS.INTERNAL_CHECK == FALSE"
   },
   {
     "id": "SEED_HANHCHINH_245",

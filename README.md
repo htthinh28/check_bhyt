@@ -2,6 +2,14 @@
 
 This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
 
+## Hướng dẫn sử dụng hệ thống (tiếng Việt)
+
+- **Đầy đủ theo chức năng:** [`tai_lieu/Huong_dan_su_dung_CDSS_BHYT_20260405.md`](tai_lieu/Huong_dan_su_dung_CDSS_BHYT_20260405.md) (phiên bản 3.0).
+- **Người dùng không chuyên CNTT:** [`tai_lieu/Huong_dan_cho_nguoi_khong_chuyen_CNTT.md`](tai_lieu/Huong_dan_cho_nguoi_khong_chuyen_CNTT.md).
+- **Kỹ năng giám định AI (chung mọi nhóm rule):** [`tai_lieu/Ky_nang_cot_loi_giam_dinh_AI_BHYT.md`](tai_lieu/Ky_nang_cot_loi_giam_dinh_AI_BHYT.md) · [`tai_lieu/Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md`](tai_lieu/Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md) (bài tập có gợi ý).
+- **VTYT — chuẩn hóa suy luận AI:** [`tai_lieu/Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md`](tai_lieu/Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) · bảng neo [`tai_lieu/Bang_neo_phien_huan_luyen_vtyt_va_engine.md`](tai_lieu/Bang_neo_phien_huan_luyen_vtyt_va_engine.md) · khung phiên [`tai_lieu/Huan_luyen_phien_VTYT_du_phong_Cursor.md`](tai_lieu/Huan_luyen_phien_VTYT_du_phong_Cursor.md) (chưa có audit fixture trong repo).
+- **Huấn luyện AI — giám định DVKT (17/VBHN):** [`tai_lieu/Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md`](tai_lieu/Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md) (chuẩn hóa suy luận) → [`tai_lieu/Huan_luyen_phien_DVKT_VBHN17_Cursor.md`](tai_lieu/Huan_luyen_phien_DVKT_VBHN17_Cursor.md) (mục I: thứ tự ca mẫu).
+
 ## Get started
 
 1. Install dependencies

@@ -10,6 +10,11 @@ Tài liệu mô tả **cách phối hợp** giữa trợ lý AI trong **Cursor**
 **Bàn giao chuẩn Cursor → OpenClaw:** [Mau_handoff_Cursor_sang_OpenClaw.md](./Mau_handoff_Cursor_sang_OpenClaw.md).  
 **Phiên làm việc chung (copy prompt):** [Phien_lam_viec_chung_Cursor_va_OpenClaw.md](./Phien_lam_viec_chung_Cursor_va_OpenClaw.md).  
 **Neo phiên huấn luyện thuốc ↔ engine:** [Bang_neo_phien_huan_luyen_thuoc_va_engine.md](./Bang_neo_phien_huan_luyen_thuoc_va_engine.md).  
+**Neo phiên huấn luyện DVKT ↔ engine:** [Bang_neo_phien_huan_luyen_dvkt_va_engine.md](./Bang_neo_phien_huan_luyen_dvkt_va_engine.md).  
+**Kỹ năng cốt lõi + bài tập (mọi nhóm rule):** [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md), [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md) (bài **8–10** audit `test_xml/`; **11–13** VTYT / bảng neo).  
+**VTYT — chuẩn hóa suy luận AI:** [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) · **bảng neo:** [Bang_neo_phien_huan_luyen_vtyt_va_engine.md](./Bang_neo_phien_huan_luyen_vtyt_va_engine.md) · **phiên dự phòng** (chưa có audit fixture): [Huan_luyen_phien_VTYT_du_phong_Cursor.md](./Huan_luyen_phien_VTYT_du_phong_Cursor.md).  
+**Chuẩn hóa suy luận AI (DVKT):** [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md).  
+**Lộ trình huấn luyện DVKT (thứ tự ca):** [Huan_luyen_phien_DVKT_VBHN17_Cursor.md](./Huan_luyen_phien_DVKT_VBHN17_Cursor.md) mục **I**; chỗ đặt **Đợt 4** trong lộ trình tổng: [Lo_trinh_huan_luyen_AI_giam_dinh_BHYT.md](./Lo_trinh_huan_luyen_AI_giam_dinh_BHYT.md) mục **4 — Bước 3**.  
 **Audit huấn luyện bổ sung (không thay thế snapshot 10 file):** `test_xml/huan_luyen/*.xml` → `test_xml/audit_TRAINHL*_*.json` (chạy `npm run qa:claim-audit`).
 
 ---
@@ -176,6 +181,10 @@ flowchart LR
 **Phiên huấn luyện tiếp theo (THUOC_391):** [Huan_luyen_phien_02_THUOC_391_Cursor_OpenClaw.md](./Huan_luyen_phien_02_THUOC_391_Cursor_OpenClaw.md)  
 **Phiên 03 (đơn >30 ngày — THUOC_418 vs CLN-THUOC-04):** [Huan_luyen_phien_03_THUOC_418_CLN_THUOC_04.md](./Huan_luyen_phien_03_THUOC_418_CLN_THUOC_04.md)  
 **Phiên 04 (hạng BV — THUOC_419):** [Huan_luyen_phien_04_THUOC_419_hang_BV.md](./Huan_luyen_phien_04_THUOC_419_hang_BV.md)  
+**Kỹ năng cốt lõi / bài tập giám định (AI):** [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md) · [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md) (bài **8–10** = audit `test_xml/`; **11–13** = VTYT / neo)  
+**VTYT — chuẩn hóa:** [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) · **bảng neo:** [Bang_neo_phien_huan_luyen_vtyt_va_engine.md](./Bang_neo_phien_huan_luyen_vtyt_va_engine.md) · **phiên dự phòng:** [Huan_luyen_phien_VTYT_du_phong_Cursor.md](./Huan_luyen_phien_VTYT_du_phong_Cursor.md)  
+**Chuẩn hóa kiến thức AI giám định DVKT:** [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md)  
+**Phiên DVKT (17/VBHN-BYT — đủ nội dung tri thức, Cursor):** [Huan_luyen_phien_DVKT_VBHN17_Cursor.md](./Huan_luyen_phien_DVKT_VBHN17_Cursor.md)  
 **Mẫu handoff Cursor → OpenClaw:** [Mau_handoff_Cursor_sang_OpenClaw.md](./Mau_handoff_Cursor_sang_OpenClaw.md)  
 **Ví dụ regression cảnh báo THUOC/XML (ẩn danh):** [Vi_du_regression_canh_bao_THUOC_XML_an_danh.md](./Vi_du_regression_canh_bao_THUOC_XML_an_danh.md)
 

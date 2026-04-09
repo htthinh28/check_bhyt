@@ -1,5 +1,5 @@
 /** AUTO-GENERATED from DuLieu_LUAT_THUOC (9).xlsx */
-export const PHIEN_BAN_SEED_LUAT_THUOC_MUC8 = '2026-03-31_muc8_thuoc_v1';
+export const PHIEN_BAN_SEED_LUAT_THUOC_MUC8 = '2026-04-09_muc8_thuoc_v2';
 export const COT_SEED_LUAT_THUOC_MUC8 = ["TRANG_THAI","MA_LUAT","TEN_QUY_TAC","DIEU_KIEN","CANH_BAO","GHI_CHU","NGUON_DU_LIEU"];
 export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   {
@@ -2307,7 +2307,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_231",
     "TEN_QUY_TAC": "[Klamentin] Liều nhi (mg/kg)",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.155' AND XML1.CAN_NANG > 0 AND (CALC_SL_MOI_NGAY * 875 / XML1.CAN_NANG) > 90",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.155' AND XML1.CAN_NANG > 0 AND (XML2.CALC_SL_MOI_NGAY * 875 / XML1.CAN_NANG) > 90",
     "CANH_BAO": "⛔ [NGUY HIỂM]: Amoxicillin/Clavulanate vượt liều 90mg/kg/ngày. Tăng độc tính gan và tiêu chảy nặng.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -3864,12 +3864,12 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   },
   {
     "id": "SEED_THUOC_387",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_387",
     "TEN_QUY_TAC": "Amoxicilin/Clavulanic: Liều Nhi",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.155' AND XML1.CAN_NANG > 0 AND (XML2.SO_LUONG * 250 / XML1.CAN_NANG) > 90",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.155' AND XML1.CAN_NANG > 0 AND (XML2.CALC_SL_MOI_NGAY * 875 / XML1.CAN_NANG) > 90",
     "CANH_BAO": "⛔ [NGUY HIỂM]: Quá liều Amoxicillin trẻ em (> 90mg/kg/ngày). Tăng độc tính gan và tiêu chảy.",
-    "GHI_CHU": "",
+    "GHI_CHU": "2026-04-09: Tắt trùng THUOC_231 — bản cũ dùng XML2.SO_LUONG×250 (SO_LUONG là tổng cấp phát, không phải/ngày) gây báo động giả. Bật lại chỉ nếu cần mã THUOC_387 riêng; điều kiện đúng: XML2.CALC_SL_MOI_NGAY×875.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -3987,19 +3987,19 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_399",
     "TEN_QUY_TAC": "Đơn thuốc \"Hẹn khám lại\"",
-    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '1' AND IS_EMPTY(XML1.NGAY_HEN_KHAM)",
+    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '1' AND IS_EMPTY(XML1.NGAY_TAI_KHAM)",
     "CANH_BAO": "⛔ [TT 26/2025]: Đối với bệnh mạn tính, đơn thuốc phải đi kèm với ngày hẹn tái khám cụ thể trên hệ thống để tính toán thời gian cấp thuốc.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
     "id": "SEED_THUOC_400",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_400",
     "TEN_QUY_TAC": "Đơn thuốc điện tử sai định dạng mã",
-    "DIEU_KIEN": "LEN(XML1.MA_DON_THUOC) != 12 OR XML1.MA_DON_THUOC NOT LIKE 'DT%'",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ [TT 26/2025]: Mã đơn thuốc điện tử quốc gia bắt buộc gồm 12 ký tự, bắt đầu bằng \"DT\" để đồng bộ với hệ thống Đơn thuốc quốc gia.",
-    "GHI_CHU": "",
+    "GHI_CHU": "Giữ OFF: XML130 QĐ 3176 (XML1) không có trường MA_DON_THUOC; cần map từ hệ thống đơn thuốc điện tử/DU_PHONG trước khi bật.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -4147,7 +4147,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_415",
     "TEN_QUY_TAC": "Giám định Thành tiền BV",
-    "DIEU_KIEN": "ABS(THANH_TIEN_BH - (SO_LUONG * DON_GIA * (TYLE_TT_BH / 100) * (XML1.MUC_HUONG / 100))) > 0.01",
+    "DIEU_KIEN": "ABS(THANH_TIEN_BH - (SO_LUONG * DON_GIA * (TYLE_TT_BH / 100) * (XML2.MUC_HUONG / 100))) > 0.01",
     "CANH_BAO": "⛔ [SAI TÍNH TOÁN]: Thành tiền BV không khớp với tích Số lượng * Đơn giá.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -4257,7 +4257,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_426",
     "TEN_QUY_TAC": "Kê đơn thay thế (Biosimilar)",
-    "DIEU_KIEN": "XML2.LOAI_THUOC == 'SINH_PHAM' AND XML2.GHI_CHU NOT LIKE '%Xác nhận BN%'",
+    "DIEU_KIEN": "XML2.LOAI_THUOC == 'SINH_PHAM' AND XML2.GHI_CHU_BN NOT LIKE '%Xác nhận BN%' AND XML2.DU_PHONG NOT LIKE '%Xác nhận BN%'",
     "CANH_BAO": "⛔ [TT 26/2025]: Thay thế thuốc sinh phẩm (Biosimilar) tại nhà thuốc bệnh viện phải có sự tư vấn và xác nhận đồng ý của người bệnh.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -4353,16 +4353,6 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
-    "id": "SEED_THUOC_436",
-    "TRANG_THAI": "ON",
-    "MA_LUAT": "THUOC_436",
-    "TEN_QUY_TAC": "Kiểm tra Tên thuốc (INN)",
-    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '1' AND XML2.TEN_THUOC NOT LIKE '%(%'",
-    "CANH_BAO": "⛔ [TT 26/2025]: Kê đơn ngoại trú phải ghi tên chung quốc tế (INN). Trường hợp ghi tên thương mại phải ghi tên INN trong ngoặc đơn.",
-    "GHI_CHU": "",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
-  },
-  {
     "id": "SEED_THUOC_437",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_437",
@@ -4414,22 +4404,22 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   },
   {
     "id": "SEED_THUOC_442",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_442",
     "TEN_QUY_TAC": "Methylprednisolon: Liều/24h",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.775' AND ( (IS_EMPTY(XML1.CAN_NANG) AND (REGEX_SUM(XML2.LIEU_DUNG, \"(\\d+)(?=\\s*viên)\") * 16 > 128)) OR (!IS_EMPTY(XML1.CAN_NANG) AND (REGEX_SUM(XML2.LIEU_DUNG, \"(\\d+)(?=\\s*viên)\") * 16 > 2 * CAST(XML1.CAN_NANG, NUMBER))) )",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ [KIỂM TRA]: Liều Corticoid cao (> 128mg/ngày). Yêu cầu xác nhận phác đồ điều trị đặc biệt.",
-    "GHI_CHU": "",
+    "GHI_CHU": "✏️ [Production review] Vô hiệu hóa trước deploy: rule phụ thuộc REGEX_SUM/CAST và truy cập trực tiếp tập XML2 như một dòng đơn; engine hiện tại không hỗ trợ an toàn và XML chuẩn không đảm bảo suy được tổng mg/ngày chính xác chỉ từ text LIEU_DUNG.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
     "id": "SEED_THUOC_443",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_443",
     "TEN_QUY_TAC": "Người mua hộ thuốc thiếu định danh",
-    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '1' AND LEN(XML2.HOTEN_NGUOI_MUA_HO) > 0 AND IS_EMPTY(XML2.CCCD_NGUOI_MUA_HO)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ [TT 26/2025]: Trường hợp người mua hộ nhận thuốc thay, bắt buộc phải cập nhật số CCCD/Định danh cá nhân của người mua hộ vào hệ thống.",
-    "GHI_CHU": "",
+    "GHI_CHU": "Giữ OFF: Bảng 2 XML130 QĐ 3176 không có HOTEN_NGUOI_MUA_HO/CCCD_NGUOI_MUA_HO.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -4547,7 +4537,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_455",
     "TEN_QUY_TAC": "Thay thế thuốc không ký xác nhận",
-    "DIEU_KIEN": "XML2.GHI_CHU LIKE '%Thay thế%' AND IS_EMPTY(XML2.MA_BS_THAY_THE)",
+    "DIEU_KIEN": "(XML2.GHI_CHU LIKE '%Thay thế%' OR XML2.DU_PHONG LIKE '%Thay thế%') AND IS_EMPTY(XML2.MA_BS_THAY_THE)",
     "CANH_BAO": "⛔ [TT 26/2025]: Trường hợp thay thế thuốc trong đơn tại nhà thuốc BV, người thay thế phải có trình độ dược sĩ đại học và ký tên xác nhận trên hệ thống.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -4637,7 +4627,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_464",
     "TEN_QUY_TAC": "Thuốc cản quang - Tiền sử dị ứng",
-    "DIEU_KIEN": "XML2.MA_NHOM == 'CAN_QUANG' AND IS_EMPTY(XML1.GHI_CHU_DI_UNG)",
+    "DIEU_KIEN": "XML2.MA_NHOM == 'CAN_QUANG' AND IS_EMPTY(XML1.GHI_CHU)",
     "CANH_BAO": "⚠️ [JCI SQE]: Sử dụng thuốc cản quang bắt buộc phải khai thác và ghi nhận tiền sử dị ứng thuốc/hải sản của người bệnh vào hồ sơ điện tử.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -4727,7 +4717,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_473",
     "TEN_QUY_TAC": "Thuốc dùng cho BN nội trú ban ngày",
-    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '3' AND XML1.TRANG_THAI_RV == 'BAN_NGAY' AND COUNT_IF(XML2, MA_DUONG_DUNG == '1.01') > 0",
+    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '3' AND (UPPER(XML1.DU_PHONG) LIKE '%BAN NGÀY%' OR UPPER(XML1.GHI_CHU) LIKE '%BAN NGÀY%' OR UPPER(XML1.DU_PHONG) LIKE '%ĐIỀU TRỊ BAN NGÀY%' OR UPPER(XML1.GHI_CHU) LIKE '%ĐIỀU TRỊ BAN NGÀY%') AND COUNT_IF(XML2, MA_DUONG_DUNG == '1.01') > 0",
     "CANH_BAO": "⚠️ [TT 37/2024]: Bệnh nhân nằm viện ban ngày hạn chế thanh toán thuốc uống tại giường (trừ thuốc đặc trị). Ưu tiên kê đơn thuốc về nhà theo đơn ngoại trú.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -4737,7 +4727,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_474",
     "TEN_QUY_TAC": "Thuốc dùng khi BV thiếu (Cấp cứu)",
-    "DIEU_KIEN": "XML2.MA_THUOC_TU_TUC == 'YES' AND XML1.MA_LY_DO_VVIEN != '2'",
+    "DIEU_KIEN": "(XML1.DU_PHONG LIKE '%tự mua%' OR XML1.GHI_CHU LIKE '%tự mua%' OR XML1.DU_PHONG LIKE '%tu muc%' OR XML1.GHI_CHU LIKE '%tu muc%') AND XML1.MA_LY_DO_VVIEN != '2'",
     "CANH_BAO": "⚠️ [TT 37/2024]: Thuốc do bệnh nhân tự mua chỉ được BHYT thanh toán trực tiếp khi cơ sở KCB không cung ứng được thuốc thuộc danh mục cấp cứu.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -4747,7 +4737,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_475",
     "TEN_QUY_TAC": "Thuốc dùng trong ngày ra viện",
-    "DIEU_KIEN": "XML2.NGAY_YL == XML1.NGAY_RA AND XML1.MA_LOAI_KCB == '3' AND XML2.LOAI_THUOC == 'NOI_TRU'",
+    "DIEU_KIEN": "XML2.NGAY_YL == XML1.NGAY_RA AND XML1.MA_LOAI_KCB == '3'",
     "CANH_BAO": "⚠️ [KIỂM TRA]: Thuốc nội trú chỉ định đúng ngày ra viện cần kiểm tra lại là thuốc dùng tại giường hay thuốc cấp cho bệnh nhân về nhà (phải chuyển sang đơn ngoại trú).",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -4764,12 +4754,12 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   },
   {
     "id": "SEED_THUOC_477",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_477",
     "TEN_QUY_TAC": "Thuốc đắt tiền (>10 triệu/lọ)",
-    "DIEU_KIEN": "XML2.DON_GIA > 10000000 AND IS_EMPTY(XML2.MA_BS_HOI_CHAN)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ [TT 37/2024]: Các loại thuốc có giá trị lớn (>10 triệu/đơn vị) cần có thông tin bác sĩ hội chẩn hoặc lãnh đạo khoa duyệt trước khi thực hiện.",
-    "GHI_CHU": "",
+    "GHI_CHU": "Giữ OFF: XML2 QĐ 3176 không có MA_BS_HOI_CHAN; cần map từ DU_PHONG/hội chẩn nội bộ.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -4854,12 +4844,12 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   },
   {
     "id": "SEED_THUOC_486",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_486",
     "TEN_QUY_TAC": "Thuốc gây nghiện BN nhi < 12 tuổi",
-    "DIEU_KIEN": "XML1.TUOI_NAM < 12 AND XML2.MA_NHOM == 'GAY_NGHIEN' AND IS_EMPTY(XML2.CMND_NGUOI_THAN)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ [TT 26/2025]: Trẻ dưới 12 tuổi dùng thuốc gây nghiện, đơn thuốc bắt buộc phải có số CCCD/Định danh của cha/mẹ hoặc người giám hộ.",
-    "GHI_CHU": "",
+    "GHI_CHU": "Giữ OFF: XML2 QĐ 3176 không có CMND_NGUOI_THAN.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -4977,7 +4967,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_498",
     "TEN_QUY_TAC": "Thuốc Metformin vs Suy thận nặng",
-    "DIEU_KIEN": "XML2.MA_HOAT_CHAT == '40.670' AND XML1.MA_BENH_CHINH STARTS_WITH 'N18' AND XML1.GFR < 30",
+    "DIEU_KIEN": "XML2.MA_HOAT_CHAT == '40.670' AND (XML1.MA_BENH_CHINH == 'N18.4' OR XML1.MA_BENH_CHINH == 'N18.5' OR XML1.MA_BENH_CHINH == 'N18.6')",
     "CANH_BAO": "⛔ [AN TOÀN]: Chống chỉ định Metformin khi độ thanh thải Creatinine (GFR) < 30ml/phút do nguy cơ nhiễm toan acid lactic.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -4997,7 +4987,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_500",
     "TEN_QUY_TAC": "Thuốc ngoài danh mục (Hội chẩn)",
-    "DIEU_KIEN": "XML2.MA_THUOC_BHYT == 'NGOAI_DM' AND XML1.MA_LY_DO_VVIEN != '2'",
+    "DIEU_KIEN": "XML2.PHAM_VI == 2 AND XML1.MA_LY_DO_VVIEN != '2'",
     "CANH_BAO": "⛔ [TT 37/2024]: Thuốc ngoài danh mục BHYT của bệnh viện chỉ được thanh toán trong trường hợp hội chẩn đặc biệt hoặc chuyển tuyến cấp cứu.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -5104,32 +5094,32 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   },
   {
     "id": "SEED_THUOC_511",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_511",
     "TEN_QUY_TAC": "Thuốc thay thế dịch vụ (Cùng mã)",
-    "DIEU_KIEN": "LEN(XML2.MA_DVKT_THAY_THE) > 0 AND XML2.THANH_TIEN_BH > XML3.GIA_QUY_DINH",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ [TT 37/2024]: Khi sử dụng thuốc thay thế cho một phần của DVKT, tổng tiền thuốc không được vượt quá giá trị cấu thành trong giá DVKT đó.",
-    "GHI_CHU": "",
+    "GHI_CHU": "Giữ OFF: XML2/XML3 không có MA_DVKT_THAY_THE/GIA_QUY_DINH theo schema QĐ 3176 đang dùng.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
     "id": "SEED_THUOC_512",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_512",
     "TEN_QUY_TAC": "Thuốc thay thế khác hoạt chất",
-    "DIEU_KIEN": "XML2.TEN_THUOC_THAY_THE != \"\" AND XML2.MA_HOAT_CHAT_THAY_THE != XML2.MA_HOAT_CHAT",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ [TT 26/2025]: Nghiêm cấm thay thế thuốc khác hoạt chất trong đơn thuốc mà không có sự hội chẩn hoặc chỉ định lại của bác sĩ.",
-    "GHI_CHU": "",
+    "GHI_CHU": "Giữ OFF: XML2 không có TEN_THUOC_THAY_THE/MA_HOAT_CHAT_THAY_THE.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
     "id": "SEED_THUOC_513",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_513",
     "TEN_QUY_TAC": "Thuốc thay thế thiếu mã DVKT",
-    "DIEU_KIEN": "LEN(XML2.MA_DVKT_THAY_THE) > 0 AND COUNT_IF(XML3, MA_DICH_VU == XML2.MA_DVKT_THAY_THE) == 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ [TT 37/2024]: Khi kê thuốc thay thế cho DVKT (Cột 22 Bảng 2), mã DVKT đó phải có mặt đồng thời tại Bảng 3 để đối soát thanh toán.",
-    "GHI_CHU": "",
+    "GHI_CHU": "Giữ OFF: XML2 không có MA_DVKT_THAY_THE.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -5144,22 +5134,22 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   },
   {
     "id": "SEED_THUOC_515",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_515",
     "TEN_QUY_TAC": "Thuốc tự chế từ vị thuốc (Giá)",
-    "DIEU_KIEN": "XML2.LOAI_THUOC == 'PHA_CHE' AND XML2.DON_GIA > SUM(XML2.MA_THANH_PHAN_THUOC.GIA)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ [TT 37/2024]: Giá thuốc tự pha chế không được cao hơn tổng giá các thành phần (vị thuốc/hóa dược) cộng với công sắc/pha chế quy định.",
-    "GHI_CHU": "",
+    "GHI_CHU": "✏️ [Production review] Vô hiệu hóa trước deploy: rule cần cấu trúc thành phần pha chế MA_THANH_PHAN_THUOC.GIA không tồn tại trong schema XML đang dùng; SUM() trên cấu trúc lồng cũng không tương thích engine hiện tại.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
     "id": "SEED_THUOC_516",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_516",
     "TEN_QUY_TAC": "Thuốc tự mua - Thiếu số hóa đơn",
-    "DIEU_KIEN": "XML2.T_BNTT > 0 AND XML2.T_BHTT == 0 AND IS_EMPTY(XML2.SO_HOA_DON_VAT)",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ [TT 37/2024]: Thuốc bệnh nhân tự mua để BHYT thanh toán lại trực tiếp cần lưu trữ số hóa đơn tài chính trên hệ thống để đối soát.",
-    "GHI_CHU": "",
+    "GHI_CHU": "Giữ OFF: XML2 không có SO_HOA_DON_VAT; có thể map từ DU_PHONG khi có quy ước nội bộ.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -5167,7 +5157,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_517",
     "TEN_QUY_TAC": "Thuốc tự túc không ghi chú",
-    "DIEU_KIEN": "XML2.T_BNTT > 0 AND XML2.T_BHTT == 0 AND IS_EMPTY(XML2.GHI_CHU)",
+    "DIEU_KIEN": "XML2.T_BNTT > 0 AND XML2.T_BHTT == 0 AND IS_EMPTY(XML2.GHI_CHU_BN)",
     "CANH_BAO": "⛔ [TT 37/2024]: Trường hợp bệnh nhân tự mua thuốc do BV thiếu, bắt buộc phải ghi rõ lý do và sự đồng ý của BN vào cột Ghi chú để đối soát.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -5177,7 +5167,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_518",
     "TEN_QUY_TAC": "Thuốc tự túc thiếu sự đồng ý",
-    "DIEU_KIEN": "XML2.T_BNTT > 0 AND XML2.T_BHTT == 0 AND XML2.GHI_CHU NOT LIKE '%Đồng ý%'",
+    "DIEU_KIEN": "XML2.T_BNTT > 0 AND XML2.T_BHTT == 0 AND XML2.GHI_CHU_BN NOT LIKE '%Đồng ý%'",
     "CANH_BAO": "⛔ [TT 37/2024]: Đối với thuốc bệnh nhân tự mua, hồ sơ phải ghi nhận sự đồng ý của bệnh nhân trong trường Ghi chú tại Bảng 2.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -5207,7 +5197,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_521",
     "TEN_QUY_TAC": "Thuốc ung thư thiếu đợt điều trị",
-    "DIEU_KIEN": "DM_THUOC.LOAI == 'UNG_THU' AND IS_EMPTY(XML2.SO_DOT_DTRI)",
+    "DIEU_KIEN": "DM_THUOC.LOAI == 'UNG_THU' AND IS_EMPTY(XML2.DU_PHONG) AND IS_EMPTY(XML2.GHI_CHU_BN)",
     "CANH_BAO": "⛔ [TT 37/2024]: Thuốc hóa trị liệu bắt buộc phải ghi rõ số đợt điều trị (Cycle) trong trường Ghi chú hoặc cấu trúc mở rộng của Bảng 2.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -5227,7 +5217,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_523",
     "TEN_QUY_TAC": "Thuốc xịt (Asthma) thiếu thiết bị",
-    "DIEU_KIEN": "XML2.MA_DUONG_DUNG == '5.01' AND COUNT_IF(XML4, MA_VAT_TU == 'BUONG_DEM') == 0 AND XML1.TUOI_NAM < 6",
+    "DIEU_KIEN": "XML2.MA_DUONG_DUNG == '5.01' AND COUNT_IF(XML3, MA_VAT_TU == 'BUONG_DEM') == 0 AND XML1.TUOI_NAM < 6",
     "CANH_BAO": "⚠️ [LÂM SÀNG]: Trẻ dưới 6 tuổi dùng thuốc xịt định liều (MDI) cần kèm theo buồng đệm (Spacer) để đảm bảo hiệu quả điều trị.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -5237,7 +5227,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_524",
     "TEN_QUY_TAC": "Trẻ em < 72 tháng thiếu cân nặng",
-    "DIEU_KIEN": "COALESCE(XML1.TUOI_NGAY, DATEDIFF(NOW(), PARSE_DATE(XML1.NGAY_SINH, 'yyyyMMddHHmm'))) <= 2190 AND IS_EMPTY(XML2.CAN_NANG)",
+    "DIEU_KIEN": "XML1.TUOI_NGAY <= 2190 AND IS_EMPTY(XML1.CAN_NANG)",
     "CANH_BAO": "⛔ [TT 26/2025]: Trẻ dưới 72 tháng tuổi khi kê đơn ngoại trú bắt buộc phải ghi cân nặng để kiểm soát liều dùng an toàn.",
     "GHI_CHU": "SỬA 21/03/2026: Thay TUOI_NGAY bằng DATEDIFF(NGAY_SINH). TUOI_NGAY không tồn tại trong XML1 QĐ 130 → NULL<=2190=TRUE → flag sai BN 56-73 tuổi là trẻ em. 3 ca FP.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -5347,7 +5337,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_535",
     "TEN_QUY_TAC": "[MỨC HƯỞNG]: Trẻ em dưới 6 tuổi hưởng 100%",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT LIKE 'TE%' AND COALESCE(XML1.TUOI_NGAY, DATEDIFF(NOW(), PARSE_DATE(XML1.NGAY_SINH, 'yyyyMMddHHmm'))) <= 2190 AND COALESCE(XML2.MUC_HUONG, 0) != 100",
+    "DIEU_KIEN": "XML1.MA_THE_BHYT LIKE 'TE%' AND XML1.TUOI_NGAY <= 2190 AND XML2.MUC_HUONG != 100",
     "CANH_BAO": "⛔ [MỨC HƯỞNG]: Đối tượng Trẻ em dưới 6 tuổi (thẻ BHYT mã TE) bắt buộc hưởng mức 100% theo Luật BHYT Điều 22.",
     "GHI_CHU": "KIỂM TRA 21/03/2026: Luật hợp lệ ✅. Điều kiện kiểm tra thẻ TE + tuổi ≤2190 ngày + mức hưởng ≠100% - đúng Luật BHYT Điều 22 Khoản 3.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
@@ -5367,9 +5357,9 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_537",
     "TEN_QUY_TAC": "JCI Safety: Trường thông tin dị ứng không được để trống",
-    "DIEU_KIEN": "HAS_FIELD(XML1, 'DI_UNG_THUOC') AND (IS_EMPTY(XML1.DI_UNG_THUOC) OR TRIM(XML1.DI_UNG_THUOC) == '')",
+    "DIEU_KIEN": "IS_EMPTY(XML1.GHI_CHU)",
     "CANH_BAO": "⚠️ [JCI Safety]: Trường thông tin dị ứng không được để trống (Phải ghi \"Không\" nếu không có). Theo tiêu chuẩn JCI IPSG.",
-    "GHI_CHU": "KIỂM TRA 21/03/2026: Luật hợp lệ ✅. Theo tiêu chuẩn JCI IPSG.4 - phải ghi nhận thông tin dị ứng cho mọi bệnh nhân.",
+    "GHI_CHU": "XML1 QĐ 3176 không có trường dị ứng riêng — dùng IS_EMPTY(XML1.GHI_CHU) làm proxy cảnh báo ghi chú hành chính trống.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -5377,7 +5367,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_538",
     "TEN_QUY_TAC": "Lỗi kế toán: Tổng tiền lệch quá 5 đồng so với tổng các nguồn thanh toán",
-    "DIEU_KIEN": "ABS(XML1.T_TONGCHI_BV - (XML1.T_BHTT + XML1.T_BNTT + COALESCE(XML1.T_NGUONKHAC,0) + COALESCE(XML1.T_NGOAIDS,0) + COALESCE(XML1.T_BNCCT,0))) > 5",
+    "DIEU_KIEN": "ABS(XML1.T_TONGCHI_BV - (XML1.T_BHTT + XML1.T_BNTT + XML1.T_NGUONKHAC + XML1.T_BNCCT)) > 5",
     "CANH_BAO": "⛔ [LỖI KẾ TOÁN]: Tổng tiền (T_TONGCHI_BV) lệch quá 5 đồng so với tổng các nguồn thanh toán (T_BHTT + T_BNTT + T_NGUONKHAC + T_NGOAIDS + T_BNCCT). Kiểm tra lại số liệu.",
     "GHI_CHU": "KIỂM TRA 21/03/2026: Luật hợp lệ ✅. Công thức đối chiếu: |T_TONGCHI_BV - (T_BHTT + T_BNTT + T_NGUONKHAC + T_NGOAIDS + T_BNCCT)| > 5 đồng. Đúng nghiệp vụ kế toán BHXH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"

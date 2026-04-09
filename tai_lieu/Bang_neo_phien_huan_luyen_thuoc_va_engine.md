@@ -12,3 +12,5 @@ Mục đích: mỗi phiên **luôn** trỏ tới ít nhất một **mã rule**, 
 **Quy tắc soạn phiên mới:** thêm một dòng vào bảng trên trước khi coi phiên là “đóng”.
 
 **QA snapshot 10 file:** `npm run qa:audit-fixtures` — danh sách file cố định trong `scripts/qa_audit_fixtures.js`. Các audit `TRAINHL*` là **bổ sung huấn luyện**, không thay thế 10 file đó trừ khi đội chủ động đổi script.
+
+**Phiên / bảng neo DVKT (dịch vụ kỹ thuật):** [Bang_neo_phien_huan_luyen_dvkt_va_engine.md](./Bang_neo_phien_huan_luyen_dvkt_va_engine.md)

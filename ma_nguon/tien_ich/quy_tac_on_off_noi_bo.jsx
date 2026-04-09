@@ -6,9 +6,13 @@ import {
   normalizeCodeOnOff,
 } from './quy_tac_on_off_khop';
 
-export { khopMaLuatTheoMau };
+export { khopMaLuatTheoMau, chuanHoaKhoaMaLuatOnOff };
 
 export const KEY_ON_OFF_QUY_TAC_NOI_BO = 'CDSS_ON_OFF_QUY_TAC_NOI_BO_V1';
+/** Ghi đè nội dung hiển thị (tên, cảnh báo, nhóm…) cho quy tắc mẫu MA NGUON — không sửa mã trong repo */
+export const KEY_GHI_DE_NOI_DUNG_QUY_TAC_NOI_BO = 'CDSS_GHI_DE_NOI_DUNG_QUY_TAC_NOI_BO_V1';
+/** Mã luật đã ẩn khỏi màn hình quản trị (vẫn tồn tại trong engine theo ON/OFF) */
+export const KEY_AN_KHOI_QUAN_LY_QUY_TAC_NOI_BO = 'CDSS_AN_KHOI_QUAN_LY_QUY_TAC_NOI_BO_V1';
 
 const normalizeCode = normalizeCodeOnOff;
 const normalizeStatus = (value, fallback = 'ON') => {
@@ -427,6 +431,77 @@ export const luuMapTrangThaiQuyTacNoiBo = async (statusMap = {}) => {
   if (laMoiTruongWeb()) window.localStorage.setItem(KEY_ON_OFF_QUY_TAC_NOI_BO, raw);
   else await AsyncStorage.setItem(KEY_ON_OFF_QUY_TAC_NOI_BO, raw);
   return normalized;
+};
+
+/**
+ * Ghi đè nội dung hiển thị cho quy tắc mẫu (BUILTIN): { [maNorm]: { TEN_QUY_TAC?, CANH_BAO?, NHOM_CANH_BAO?, CHI_TIET_CANH_BAO?, DIEU_KIEN?, TAG_CANH_BAO?, TAG_NGUON_CANH_BAO? } }
+ */
+export const taiMapGhiDeNoiDungQuyTacNoiBo = async () => {
+  let raw;
+  if (laMoiTruongWeb()) raw = window.localStorage.getItem(KEY_GHI_DE_NOI_DUNG_QUY_TAC_NOI_BO);
+  else raw = await AsyncStorage.getItem(KEY_GHI_DE_NOI_DUNG_QUY_TAC_NOI_BO);
+  const parsed = parseJsonAnToan(raw, {});
+  if (parsed?.overrides && typeof parsed.overrides === 'object' && !Array.isArray(parsed.overrides)) {
+    const o = {};
+    Object.entries(parsed.overrides).forEach(([k, v]) => {
+      const nk = chuanHoaKhoaMaLuatOnOff(k);
+      if (nk && v && typeof v === 'object') o[nk] = v;
+    });
+    return o;
+  }
+  if (parsed && typeof parsed === 'object' && !Array.isArray(parsed)) {
+    const o = {};
+    Object.entries(parsed).forEach(([k, v]) => {
+      if (k === 'version' || k === 'updated_at' || k === 'VERSION' || k === 'UPDATED_AT') return;
+      const nk = chuanHoaKhoaMaLuatOnOff(k);
+      if (nk && v && typeof v === 'object') o[nk] = v;
+    });
+    return o;
+  }
+  return {};
+};
+
+export const luuMapGhiDeNoiDungQuyTacNoiBo = async (overrides = {}) => {
+  const payload = {
+    version: 1,
+    updated_at: new Date().toISOString(),
+    overrides: { ...(overrides || {}) },
+  };
+  const raw = JSON.stringify(payload);
+  if (laMoiTruongWeb()) window.localStorage.setItem(KEY_GHI_DE_NOI_DUNG_QUY_TAC_NOI_BO, raw);
+  else await AsyncStorage.setItem(KEY_GHI_DE_NOI_DUNG_QUY_TAC_NOI_BO, raw);
+  return payload.overrides;
+};
+
+/** Trả về Set mã luật (chuẩn hóa) đã ẩn khỏi UI quản trị */
+export const taiTapMaLuatAnKhoiQuanLyNoiBo = async () => {
+  let raw;
+  if (laMoiTruongWeb()) raw = window.localStorage.getItem(KEY_AN_KHOI_QUAN_LY_QUY_TAC_NOI_BO);
+  else raw = await AsyncStorage.getItem(KEY_AN_KHOI_QUAN_LY_QUY_TAC_NOI_BO);
+  const parsed = parseJsonAnToan(raw, {});
+  const items = Array.isArray(parsed?.items) ? parsed.items : (Array.isArray(parsed) ? parsed : []);
+  return new Set(
+    items
+      .map((x) => chuanHoaKhoaMaLuatOnOff(typeof x === 'string' ? x : (x?.MA_LUAT || x?.ma_luat || '')))
+      .filter(Boolean),
+  );
+};
+
+export const luuTapMaLuatAnKhoiQuanLyNoiBo = async (tap) => {
+  const arr = tap instanceof Set ? Array.from(tap) : (Array.isArray(tap) ? tap : []);
+  const items = arr.map((x) => chuanHoaKhoaMaLuatOnOff(x)).filter(Boolean);
+  const payload = { version: 1, updated_at: new Date().toISOString(), items };
+  const raw = JSON.stringify(payload);
+  if (laMoiTruongWeb()) window.localStorage.setItem(KEY_AN_KHOI_QUAN_LY_QUY_TAC_NOI_BO, raw);
+  else await AsyncStorage.setItem(KEY_AN_KHOI_QUAN_LY_QUY_TAC_NOI_BO, raw);
+  return new Set(items);
+};
+
+/** Áp ghi đè đã lưu lên một dòng quy tắc (mẫu hoặc hardcoded nội bộ) */
+export const apGhiDeChoDongNoiBo = (row, mapGhiDe = {}) => {
+  const ma = chuanHoaKhoaMaLuatOnOff(row?.MA_LUAT || row?.ma_luat || '');
+  if (!ma || !mapGhiDe[ma]) return row;
+  return { ...(row || {}), ...(mapGhiDe[ma] || {}) };
 };
 
 export const taoDanhSachQuyTacNoiBoTheoTab = (statusMap = {}) => {

@@ -697,13 +697,13 @@ export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
   },
   {
     "id": "SEED_DULIEU_78",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "XML_78",
     "TEN_QUY_TAC": "Sơ sinh vs Giấy chứng sinh",
-    "DIEU_KIEN": "!IS_EMPTY(XML1.MA_THE_BHYT) && STARTS_WITH(XML1.MA_THE_BHYT, 'TE') && DIFF_DAYS(XML1.NGAY_SINH, XML1.NGAY_VAO) < 60 && COUNT(XML14) == 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ [QUAN TRỌNG]: Trẻ chưa có thẻ BHYT (dùng thẻ mẹ) nhưng thiếu dữ liệu Giấy chứng sinh điện tử (XML14).",
     "DIEU_KIEN (Toán tử No-Code)": "",
-    "GHI_CHU_SUA": "✏️ [Rà soát] .startsWith→STARTS_WITH()",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu XML14 ngoài phạm vi payload XML1-XML6 đang dùng trong engine hiện tại. Điều kiện gốc: !IS_EMPTY(XML1.MA_THE_BHYT) && STARTS_WITH(XML1.MA_THE_BHYT, 'TE') && DIFF_DAYS(XML1.NGAY_SINH, XML1.NGAY_VAO) < 60 && COUNT(XML14) == 0",
     "NGUON_DU_LIEU": "DuLieu_LUAT_DU_LIEU (12).xlsx"
   },
   {
@@ -741,13 +741,13 @@ export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
   },
   {
     "id": "SEED_DULIEU_82",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "XML_82",
     "TEN_QUY_TAC": "Thiếu hồ sơ sơ sinh (XML8)",
-    "DIEU_KIEN": "!IS_EMPTY(XML1.NGAY_SINH) && DIFF_DAYS(XML1.NGAY_SINH, XML1.NGAY_VAO) < 30 && XML1.MA_LOAI_KCB == '3' && COUNT(XML8) == 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ [DỮ LIỆU]: Trẻ sơ sinh điều trị nội trú thiếu bảng tóm tắt hồ sơ bệnh án sơ sinh (XML8).",
     "DIEU_KIEN (Toán tử No-Code)": "",
-    "GHI_CHU_SUA": "",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu XML8 ngoài phạm vi payload XML1-XML6 đang dùng trong engine hiện tại. Điều kiện gốc: !IS_EMPTY(XML1.NGAY_SINH) && DIFF_DAYS(XML1.NGAY_SINH, XML1.NGAY_VAO) < 30 && XML1.MA_LOAI_KCB == '3' && COUNT(XML8) == 0",
     "NGUON_DU_LIEU": "DuLieu_LUAT_DU_LIEU (12).xlsx"
   },
   {
@@ -972,13 +972,13 @@ export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
   },
   {
     "id": "SEED_DULIEU_105",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "XML_105",
     "TEN_QUY_TAC": "Tóm tắt HSBA rỗng (XML7)",
-    "DIEU_KIEN": "XML1.MA_LOAI_KCB == '3' && XML1.KET_QUA_DTRI NOT IN ('4','5') && COUNT(XML7) == 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⛔ [LIÊN THÔNG]: Bệnh nhân nội trú ra viện nhưng thiếu bảng tóm tắt hồ sơ bệnh án (XML7) để đẩy cổng.",
     "DIEU_KIEN (Toán tử No-Code)": "",
-    "GHI_CHU_SUA": "✏️ Sửa phủ định !...IN(...) thành NOT IN để engine hiểu đúng điều kiện loại trừ KET_QUA_DTRI 4,5.",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu XML7 ngoài phạm vi payload XML1-XML6 đang dùng trong engine hiện tại. Điều kiện gốc: XML1.MA_LOAI_KCB == '3' && XML1.KET_QUA_DTRI NOT IN ('4','5') && COUNT(XML7) == 0",
     "NGUON_DU_LIEU": "DuLieu_LUAT_DU_LIEU (12).xlsx"
   },
   {
@@ -1126,13 +1126,13 @@ export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
   },
   {
     "id": "SEED_DULIEU_128",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "XML_128",
     "TEN_QUY_TAC": "XML2 có thứ tự dòng không liên tục",
-    "DIEU_KIEN": "COUNT_IF(XML2, item => item.STT <> INDEX(item)) > 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ STT XML2 không liên tục",
     "DIEU_KIEN (Toán tử No-Code)": "",
-    "GHI_CHU_SUA": "",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: rule dùng INDEX(item) để suy vị trí dòng, không thuộc tập hàm hỗ trợ của engine hiện tại và QĐ 130 không cung cấp chỉ số vị trí dòng như một trường XML nghiệp vụ độc lập.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_DU_LIEU (12).xlsx"
   },
   {
@@ -1181,13 +1181,13 @@ export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
   },
   {
     "id": "SEED_DULIEU_136",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "XML_136",
     "TEN_QUY_TAC": "XML3 có thứ tự dòng không liên tục",
-    "DIEU_KIEN": "COUNT_IF(XML3, item => item.STT <> INDEX(item)) > 0",
+    "DIEU_KIEN": "1 == 0",
     "CANH_BAO": "⚠️ STT XML3 không liên tục",
     "DIEU_KIEN (Toán tử No-Code)": "",
-    "GHI_CHU_SUA": "",
+    "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: rule dùng INDEX(item) để suy vị trí dòng, không thuộc tập hàm hỗ trợ của engine hiện tại và QĐ 130 không cung cấp chỉ số vị trí dòng như một trường XML nghiệp vụ độc lập.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_DU_LIEU (12).xlsx"
   },
   {

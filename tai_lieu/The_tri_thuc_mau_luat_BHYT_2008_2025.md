@@ -519,6 +519,8 @@ Mục này tóm tắt nội dung **liên quan trực tiếp tới giám định 
 
 **Mã nguồn:** `VAN_BAN_HANH_CHINH_HIEN_HANH.VBHN_17` trong `ma_nguon/tien_ich/dong_co_giam_dinh.jsx` (chuỗi `CO_SO_PHAP_LY_DVKT`); `VBHN_17_META` trong `rule_engine_dvkt_no_code.jsx` — cùng nội dung tóm tắt chuỗi **17/VBHN + TT 35** (sửa **TT 13**, **TT 39**).
 
+**Huấn luyện AI trong repo (bổ sung cho mục này):** kỹ năng chung + bài tập [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md), [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md); chuẩn hóa suy luận DVKT [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md); thẻ tri thức gộp [The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md](./The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md); phiên có bảng Điều + **lộ trình ca** [Huan_luyen_phien_DVKT_VBHN17_Cursor.md](./Huan_luyen_phien_DVKT_VBHN17_Cursor.md) (mục **I**); neo mã ↔ ca [Bang_neo_phien_huan_luyen_dvkt_va_engine.md](./Bang_neo_phien_huan_luyen_dvkt_va_engine.md).
+
 ### 11.6. Chuỗi văn bản thanh toán **vật tư y tế** (VTYT) BHYT
 
 **Mục đích:** Giám định VTYT cần bám **danh mục**, **tỷ lệ thanh toán**, **điều kiện** (chỉ định, phạm vi bệnh, số lượng/tần suất, ghi chú đặc thù…) và **giá** được phê duyệt tại CSKCB / trong hợp đồng BHYT.
@@ -527,15 +529,17 @@ Mục này tóm tắt nội dung **liên quan trực tiếp tới giám định 
 
 **Thứ tự tra cứu gợi ý:**
 
-1. **[14/VBHN-BYT năm 2025](https://thuvienphapluat.vn/van-ban/The-thao-Y-te/Van-ban-hop-nhat-14-VBHN-BYT-2025-Thong-tu-dieu-kien-thanh-toan-doi-voi-vat-tu-y-te-thuoc-bao-hiem-y-te-670262.aspx)** — bản **hợp nhất** quy định **điều kiện thanh toán** VTYT thuộc BHYT (ưu tiên cho quy định **hiện hành** sau khi công bố).
+1. **[14/VBHN-BYT năm 2025](https://thuvienphapluat.vn/van-ban/The-thao-Y-te/Van-ban-hop-nhat-14-VBHN-BYT-2025-Thong-tu-dieu-kien-thanh-toan-doi-voi-vat-tu-y-te-thuoc-bao-hiem-y-te-670262.aspx)** — bản **hợp nhất** quy định **điều kiện thanh toán** VTYT thuộc BHYT (ưu tiên cho quy định **hiện hành** sau khi công bố). **Ghi chú bản tải về:** file Word từ cùng trang thường có tên dạng `14_VBHN-BYT_670262.doc` (số **670262** trùng ID bài trên Thư viện pháp luật) — đó là **cùng một văn bản** để tra cứu offline; khi đối chiếu với engine/CDSS vẫn cần **số/ký hiệu VBHN + ngày hiệu lực** ghi trên đầu văn bản.
 2. **[Thông tư 04/2017/TT-BYT](https://thuvienphapluat.vn/van-ban/Bao-hiem/Thong-tu-04-2017-TT-BYT-Danh-muc-ty-le-dieu-kien-thanh-toan-vat-tu-y-te-nguoi-tham-gia-bao-hiem-y-te-290390.aspx)** — **khung gốc**: danh mục, tỷ lệ và điều kiện thanh toán VTYT; các thông tư sửa đổi sau đó được **tổng hợp** trong VBHN 14 (và trước đó trong VBHN 06).
 3. **[06/VBHN-BYT năm 2018](https://thuvienphapluat.vn/van-ban/Bao-hiem/Van-ban-hop-nhat-06-VBHN-BYT-2018-danh-muc-va-ty-le-dieu-kien-thanh-toan-doi-voi-vat-tu-y-te-382481.aspx)** — bản hợp nhất **cũ**; dùng khi cần đối chiếu hồ sơ theo **thời điểm** hoặc giải thích lịch sử quy định.
 
 **Giao thoa với DVKT / ngày giường:** Một phần vật tư tiêu hao **đã kết cấu trong giá ngày giường** hoặc trong **giá DVKT** thì **không tách thanh toán trùng** — xem **Điều 4a Thông tư 39/2024/TT-BYT** (sửa **TT 35/2016**) và quy tắc nội bộ “DVKT đã bao gồm vật tư” trong `rule_engine_dvkt_no_code.jsx`.
 
-**Ý nghĩa cho CDSS:** Danh mục **PL8 / DM_VTYT** trong seed hệ thống phải **khớp** danh mục và điều kiện BYT; giải thích từ chối/thanh toán một phần nên dẫn **14/VBHN-BYT 2025** (và TT sửa đổi sau VBHN nếu có).
+**Ý nghĩa cho CDSS:** Danh mục **PL8 / DM_VTYT** trong seed (khi có) cần **khớp** danh mục và điều kiện BYT; **riêng triển khai repo hiện tại** **chưa** có bộ **rule seed thanh toán VTYT** (`DM-VTYT-*`) tương tự DVKT/thuốc — giải thích từ chối/thanh toán theo từng mã vật tư chủ yếu dựa **văn bản pháp lý + nghiệp vụ**, và các rule **cấu trúc XML / DVKT kết cấu vật tư / hành chính** có trong mã (chi tiết: [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) §**0**). Khi cần dẫn điều kiện thanh toán, ưu tiên **14/VBHN-BYT 2025** (và TT sửa đổi sau VBHN nếu có).
 
 **Mã nguồn:** `VAN_BAN_HANH_CHINH_HIEN_HANH.VBHN_VTYT` và `CO_SO_PHAP_LY_VTYT` trong `ma_nguon/tien_ich/dong_co_giam_dinh.jsx` (cùng logic nối **NĐ 188**, **QĐ 3618**, **TT 12/2026** như `CO_SO_PHAP_LY_DVKT`).
+
+**Huấn luyện AI trong repo (bổ sung cho mục này):** kỹ năng chung + bài tập [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md), [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md); **chuẩn hóa suy luận VTYT** [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md); **bảng neo VTYT ↔ engine** [Bang_neo_phien_huan_luyen_vtyt_va_engine.md](./Bang_neo_phien_huan_luyen_vtyt_va_engine.md); **phiên VTYT dự phòng** (chưa có audit fixture trong `test_xml/`): [Huan_luyen_phien_VTYT_du_phong_Cursor.md](./Huan_luyen_phien_VTYT_du_phong_Cursor.md); chưa có phiên tách riêng “VTYT” đầy đủ như DVKT — dùng **Đợt 3** (nhóm thuốc & chủ đề XML liên quan) trong [Lo_trinh_huan_luyen_AI_giam_dinh_BHYT.md](./Lo_trinh_huan_luyen_AI_giam_dinh_BHYT.md) mục **4 — Bước 3**; bảng neo phiên **thuốc** ↔ engine (rule M8, ca mẫu) [Bang_neo_phien_huan_luyen_thuoc_va_engine.md](./Bang_neo_phien_huan_luyen_thuoc_va_engine.md); chỉ mục engine thuốc [The_tri_thuc_chi_muc_giam_dinh_thuoc_engine_AI.md](./The_tri_thuc_chi_muc_giam_dinh_thuoc_engine_AI.md); thẻ **cách đọc điều kiện thanh toán theo danh mục** (tinh thần tương tự đọc cột điều kiện VTYT) [The_tri_thuc_mau_thanh_toan_thuoc_BHYT.md](./The_tri_thuc_mau_thanh_toan_thuoc_BHYT.md).
 
 ### 11.7. **Luật Khám bệnh, chữa bệnh** và giám định BHYT
 

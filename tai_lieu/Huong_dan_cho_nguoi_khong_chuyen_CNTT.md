@@ -134,7 +134,7 @@ Gọi ngay khi:
 
 Nếu bạn cần hướng dẫn **sâu theo từng màn hình** (tên kỹ thuật, phân hệ, quy trình nâng cao), có thể xem thêm:
 
-- `Huong_dan_su_dung_CDSS_BHYT_20260405.md` (trong cùng thư mục `tai_lieu`).
+- `Huong_dan_su_dung_CDSS_BHYT_20260405.md` — hướng dẫn đầy đủ theo từng màn hình (phiên bản 3.0, cập nhật 08/04/2026; trong cùng thư mục `tai_lieu`).
 
 Tài liệu đó viết cho **người vận hành và quản trị**; không bắt buộc đọc nếu bạn chỉ dùng các thao tác cơ bản nêu trong file này.
 

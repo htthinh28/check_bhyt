@@ -288,12 +288,18 @@ export const ChuDeProvider = ({ children }) => {
     const [cheDoSang, setCheDoSang] = useState(false);
 
     useEffect(() => {
-        Promise.all([layTenChuDeHienTai(), layCheDo()]).then(([ten, cheDo]) => {
-            const sang = cheDo === 'SANG';
-            setTenChuDe(ten);
-            setCheDoSang(sang);
-            setTokens(layTokensChuDe(ten, sang));
-        });
+        Promise.all([layTenChuDeHienTai(), layCheDo()])
+            .then(([ten, cheDo]) => {
+                const sang = cheDo === 'SANG';
+                setTenChuDe(ten);
+                setCheDoSang(sang);
+                setTokens(layTokensChuDe(ten, sang));
+            })
+            .catch(() => {
+                setTenChuDe('PINK');
+                setCheDoSang(false);
+                setTokens(layTokensChuDe('PINK', false));
+            });
     }, []);
 
     const doiChuDe = useCallback(async (tenMoi) => {
@@ -305,12 +311,14 @@ export const ChuDeProvider = ({ children }) => {
 
     const doiCheDoSangToi = useCallback(async (sang) => {
         const giaTri = sang ? 'SANG' : 'TOI';
-        await luuCheDo(giaTri);
-        setCheDoSang(sang);
-        setTokens(layTokensChuDe(tenChuDe, sang));
-        if (Platform.OS === 'web' && typeof window !== 'undefined') {
-            setTimeout(() => window.location.reload(), 150);
+        try {
+            await luuCheDo(giaTri);
+            setCheDoSang(sang);
+            setTokens(layTokensChuDe(tenChuDe, sang));
+        } catch {
+            setTokens(layTokensChuDe(tenChuDe || 'PINK', sang));
         }
+        /** Không reload trang web: khi offline / cache lỗi, reload dễ gây màn hình trắng. Context đã cập nhật đủ cho useChuDe(). */
     }, [tenChuDe]);
 
     return React.createElement(
@@ -468,14 +476,13 @@ export const BoChonChuDe = ({ style }) => {
     const apDungChuDe = async (key) => {
         if (tenHienTai === key || dangApDung) return;
         setDangApDung(key);
-        await luuTenChuDe(key);
-        if (doiChuDe) doiChuDe(key);
-        if (Platform.OS === 'web' && typeof window !== 'undefined') {
-            setTimeout(() => window.location.reload(), 300);
-        } else {
-            // Mobile: context đã cập nhật, không cần reload
+        try {
+            await luuTenChuDe(key);
+            if (doiChuDe) await doiChuDe(key);
+        } finally {
             setDangApDung(null);
         }
+        /** Không reload — tránh màn trắng khi offline hoặc bundle không tải lại được. */
     };
 
     return (

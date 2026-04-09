@@ -2,10 +2,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as XLSX from 'xlsx';
 import { CD } from '../tien_ich/chu_de_giao_dien';
+import { useScaleGiaoDien } from '../tien_ich/diem_anh_man_hinh';
 import { quayLaiAnToan } from '../tien_ich/dieu_huong_an_toan';
 import { xoaCacheBoMayGiamDinh } from '../tien_ich/dong_co_giam_dinh';
 import { layDanhSachLuatCdhaHardcoded } from '../tien_ich/luat_cdha_hardcoded';
@@ -18,11 +19,17 @@ import { layDanhSachLuatHopDongHardcoded } from '../tien_ich/luat_hop_dong_hardc
 import { layDanhSachLuatNhanSuHardcoded } from '../tien_ich/luat_nhan_su_hardcoded';
 import { layDanhSachLuatThuocHardcoded } from '../tien_ich/luat_thuoc_hardcoded';
 import {
+    apGhiDeChoDongNoiBo,
     capNhatMapTrangThaiTuRowsNoiBo,
+    chuanHoaKhoaMaLuatOnOff,
     isQuyTacNoiBoDangBat,
+    luuMapGhiDeNoiDungQuyTacNoiBo,
     luuMapTrangThaiQuyTacNoiBo,
+    luuTapMaLuatAnKhoiQuanLyNoiBo,
     suyRaThongTinQuanTriQuyTac,
+    taiMapGhiDeNoiDungQuyTacNoiBo,
     taiMapTrangThaiQuyTacNoiBo,
+    taiTapMaLuatAnKhoiQuanLyNoiBo,
     taoDanhSachQuyTacNoiBoTheoTab,
 } from '../tien_ich/quy_tac_on_off_noi_bo';
 import { xoaCacheRuleEngineDvkt } from '../tien_ich/rule_engine_dvkt_no_code';
@@ -241,7 +248,11 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
   const [dangSuaRule, setDangSuaRule] = useState(null);
   const [chonXoaLoat, setChonXoaLoat] = useState({});
   const [maLuatCanHighlight, setMaLuatCanHighlight] = useState('');
+  const [tapMaLuatAnKhoiQuanLy, setTapMaLuatAnKhoiQuanLy] = useState(() => new Set());
   const khoaDieuHuongGanNhat = useRef('');
+  const { width: windowW } = useWindowDimensions();
+  const { font: fontScale } = useScaleGiaoDien();
+  const hepWeb = Platform.OS === 'web' && windowW < 960;
 
   const docTatCaDuLieu = async () => {
     setDangTai(true);
@@ -259,6 +270,9 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
       const tabIdsTrongStorage = Array.from(new Set(allKeys.map(layTabIdTuStorageKey).filter(Boolean)));
       const ketQua = {};
       const mapTrangThaiNoiBo = await taiMapTrangThaiQuyTacNoiBo();
+      const mapGhiDeNoiBo = await taiMapGhiDeNoiDungQuyTacNoiBo();
+      const tapAnKhoiQuanLy = await taiTapMaLuatAnKhoiQuanLyNoiBo();
+      setTapMaLuatAnKhoiQuanLy(tapAnKhoiQuanLy);
       const duLieuNoiBoTheoTab = taoDanhSachQuyTacNoiBoTheoTab(mapTrangThaiNoiBo);
 
       for (const tab of DANH_SACH_TAB_MAC_DINH) {
@@ -286,20 +300,28 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
           TRANG_THAI: row?.TRANG_THAI === 'OFF' ? 'OFF' : 'ON',
           _kind: 'DATASET',
         }));
-        const builtInRows = (duLieuNoiBoTheoTab[tab.id] || []).map((row) => lamGiauMetaQuanTriQuyTac({ ...row, _kind: 'BUILTIN' }));
+        const builtInRows = (duLieuNoiBoTheoTab[tab.id] || []).map((row) => lamGiauMetaQuanTriQuyTac(
+          { ...apGhiDeChoDongNoiBo(row, mapGhiDeNoiBo), _kind: 'BUILTIN' },
+        ));
 
         if (tab.id === 'LUAT_DU_LIEU') {
-          const dsHardcoded = layDanhSachLuatDuLieuHardcoded().map((row, index) => taoDongNoiBoTuNguon(row, index, 'hardcoded-dulieu', 'DULIEU_HARDCODED', mapTrangThaiNoiBo));
+          const dsHardcoded = layDanhSachLuatDuLieuHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-dulieu', 'DULIEU_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+          ));
           ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
         } else
 
         if (tab.id === 'LUAT_HANH_CHINH') {
-          const dsHardcoded = layDanhSachLuatHanhChinhHardcoded().map((row, index) => taoDongNoiBoTuNguon(row, index, 'hardcoded-hanhchinh', 'HANHCHINH_HARDCODED', mapTrangThaiNoiBo));
+          const dsHardcoded = layDanhSachLuatHanhChinhHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-hanhchinh', 'HANHCHINH_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+          ));
           ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
         } else
 
         if (tab.id === 'LUAT_THUOC') {
-          const dsHardcoded = layDanhSachLuatThuocHardcoded().map((row, index) => taoDongNoiBoTuNguon(row, index, 'hardcoded-thuoc', 'THUOC_HARDCODED', mapTrangThaiNoiBo));
+          const dsHardcoded = layDanhSachLuatThuocHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-thuoc', 'THUOC_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+          ));
           ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
         } else
 
@@ -307,27 +329,37 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
           const dsHardcoded = tronRuleKhongTrung(
             layDanhSachLuatCdhaHardcoded(),
             layDanhSachLuatGiamDinhChuyenDeHardcoded(),
-          ).map((row, index) => taoDongNoiBoTuNguon(row, index, 'hardcoded-cdha', 'CDHA_HARDCODED', mapTrangThaiNoiBo));
+          ).map((row, index) => lamGiauMetaQuanTriQuyTac(
+            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-cdha', 'CDHA_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+          ));
           ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
         } else
 
         if (tab.id === 'LUAT_CONG_KHAM') {
-          const dsHardcoded = layDanhSachLuatCongKhamHardcoded().map((row, index) => taoDongNoiBoTuNguon(row, index, 'hardcoded-congkham', 'CK_HARDCODED', mapTrangThaiNoiBo));
+          const dsHardcoded = layDanhSachLuatCongKhamHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-congkham', 'CK_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+          ));
           ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
         } else
 
         if (tab.id === 'LUAT_NHAN_SU') {
-          const dsHardcoded = layDanhSachLuatNhanSuHardcoded().map((row, index) => taoDongNoiBoTuNguon(row, index, 'hardcoded-nhansu', 'NS_HARDCODED', mapTrangThaiNoiBo));
+          const dsHardcoded = layDanhSachLuatNhanSuHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-nhansu', 'NS_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+          ));
           ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
         } else
 
         if (tab.id === 'LUAT_GIUONG') {
-          const dsHardcoded = layDanhSachLuatGiuongHardcoded().map((row, index) => taoDongNoiBoTuNguon(row, index, 'hardcoded-giuong', 'GB_HARDCODED', mapTrangThaiNoiBo));
+          const dsHardcoded = layDanhSachLuatGiuongHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-giuong', 'GB_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+          ));
           ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
         } else
 
         if (tab.id === 'LUAT_HOP_DONG') {
-          const dsHardcoded = layDanhSachLuatHopDongHardcoded().map((row, index) => taoDongNoiBoTuNguon(row, index, 'hardcoded-hopdong', 'HD_HARDCODED', mapTrangThaiNoiBo));
+          const dsHardcoded = layDanhSachLuatHopDongHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-hopdong', 'HD_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+          ));
           ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
         } else {
           ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows);
@@ -379,8 +411,14 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
   const danhSachNhom = useMemo(() => {
     const tuKhoa = chuanHoaTuKhoa(tuKhoaTimKiem);
     return DANH_SACH_TAB_MAC_DINH.map((tab) => {
-      const rows = duLieuTheoTab[tab.id] || [];
-      const rowsCoIndex = rows.map((row, index) => ({ row, index, key: taoKhoaDong(row, index) }));
+      const rowsGoc = duLieuTheoTab[tab.id] || [];
+      const rowsCoIndex = rowsGoc
+        .map((row, index) => ({ row, index, key: taoKhoaDong(row, index) }))
+        .filter(({ row }) => {
+          if (!laRuleNoiBo(row)) return true;
+          const ma = chuanHoaKhoaMaLuatOnOff(layMaLuat(row));
+          return !tapMaLuatAnKhoiQuanLy.has(ma);
+        });
       const rowsSauLoc = rowsCoIndex.filter(({ row }) => {
         if (boLocLoaiQuyTac !== 'TAT_CA' && layNhomCanhBao(row) !== boLocLoaiQuyTac) return false;
         if (!tuKhoa) return true;
@@ -408,20 +446,41 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
         tenNhom: NHOM_HIEN_THI[tab.id] || tab.ten,
         rules: rowsSauLoc,
         cumLoai,
-        tong: rows.length,
+        tong: rowsGoc.length,
         tongHienThi: rowsSauLoc.length,
         dangBat: rowsSauLoc.filter(({ row }) => laBat(row.TRANG_THAI)).length,
         tongXuatToan: rowsSauLoc.filter(({ row }) => layNhomCanhBao(row) === 'XUAT_TOAN').length,
         tongCanhBao: rowsSauLoc.filter(({ row }) => layNhomCanhBao(row) === 'CANH_BAO').length,
       };
     }).filter((g) => g.tong > 0 && g.tongHienThi > 0);
-  }, [boLocLoaiQuyTac, duLieuTheoTab, tuKhoaTimKiem]);
+  }, [boLocLoaiQuyTac, duLieuTheoTab, tuKhoaTimKiem, tapMaLuatAnKhoiQuanLy]);
 
   const tongTatCa = useMemo(() => {
     const tong = danhSachNhom.reduce((s, g) => s + g.tongHienThi, 0);
     const dangBat = danhSachNhom.reduce((s, g) => s + g.dangBat, 0);
     return { tong, dangBat };
   }, [danhSachNhom]);
+
+  const danhSachMaLuatDaAn = useMemo(
+    () => Array.from(tapMaLuatAnKhoiQuanLy).sort((a, b) => a.localeCompare(b, 'vi')),
+    [tapMaLuatAnKhoiQuanLy],
+  );
+
+  const hienLaiQuyTacAn = async (maLuat) => {
+    const ma = chuanHoaKhoaMaLuatOnOff(maLuat);
+    try {
+      setDangLuu(true);
+      const tap = new Set(tapMaLuatAnKhoiQuanLy);
+      tap.delete(ma);
+      await luuTapMaLuatAnKhoiQuanLyNoiBo(tap);
+      setTapMaLuatAnKhoiQuanLy(tap);
+      await docTatCaDuLieu();
+    } catch (e) {
+      Alert.alert('Lỗi', e.message || String(e));
+    } finally {
+      setDangLuu(false);
+    }
+  };
 
   const thongKeLoaiQuyTac = useMemo(() => {
     const tatCaRows = Object.values(duLieuTheoTab).flat();
@@ -510,12 +569,9 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
 
   const moSuaRule = (tabId, index) => {
     const row = (duLieuTheoTab[tabId] || [])[index];
-    if (!row || laRuleNoiBo(row)) {
-      Alert.alert('Thông báo', 'Quy tắc mã nguồn chỉ bật/tắt ON/OFF, không sửa nội dung tại đây.');
-      return;
-    }
+    if (!row) return;
     setTabQuanLyNoiDung(tabId);
-    setDangSuaRule({ tabId, index });
+    setDangSuaRule({ tabId, index, laNoiBo: laRuleNoiBo(row) });
     const thongTinQuanTri = lamGiauMetaQuanTriQuyTac(row);
     setFormRule({
       MA_LUAT: layMaLuat(row),
@@ -535,6 +591,32 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
       Alert.alert('Thiếu dữ liệu', 'Cần nhập ít nhất mã luật trước khi lưu.');
       return;
     }
+
+    if (dangSuaRule?.laNoiBo && Number.isInteger(dangSuaRule?.index)) {
+      try {
+        setDangLuu(true);
+        const maK = chuanHoaKhoaMaLuatOnOff(maLuat);
+        const cur = await taiMapGhiDeNoiDungQuyTacNoiBo();
+        const nhom = String(formRule?.NHOM_CANH_BAO || '').toUpperCase() === 'XUAT_TOAN' ? 'XUAT_TOAN' : 'CANH_BAO';
+        cur[maK] = {
+          TEN_QUY_TAC: String(formRule?.TEN_QUY_TAC || '').trim(),
+          CANH_BAO: String(formRule?.CANH_BAO || '').trim(),
+          NHOM_CANH_BAO: nhom,
+          CHI_TIET_CANH_BAO: String(formRule?.CHI_TIET_CANH_BAO || '').trim(),
+          DIEU_KIEN: String(formRule?.DIEU_KIEN || '').trim(),
+        };
+        await luuMapGhiDeNoiDungQuyTacNoiBo(cur);
+        lamMoiCacheEngine();
+        boFormRule();
+        await docTatCaDuLieu();
+      } catch (e) {
+        Alert.alert('Lỗi', `Không thể lưu ghi đè quy tắc mẫu: ${e.message || e}`);
+      } finally {
+        setDangLuu(false);
+      }
+      return;
+    }
+
     const thongTinQuanTri = lamGiauMetaQuanTriQuyTac({
       MA_LUAT: maLuat,
       TEN_QUY_TAC: String(formRule?.TEN_QUY_TAC || '').trim() || maLuat,
@@ -571,7 +653,33 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
     const row = (duLieuTheoTab[tabId] || [])[index];
     if (!row) return;
     if (laRuleNoiBo(row)) {
-      Alert.alert('Thông báo', 'Quy tắc mã nguồn chỉ bật/tắt ON/OFF, không xóa nội dung tại đây.');
+      const ma = chuanHoaKhoaMaLuatOnOff(layMaLuat(row));
+      Alert.alert(
+        'Ẩn quy tắc mẫu',
+        `Ẩn "${layMaLuat(row) || layTenQuyTac(row)}" khỏi danh sách quản trị? Trạng thái ON/OFF vẫn lưu; có thể hiện lại ở mục "Quy tắc mẫu đã ẩn" bên dưới.`,
+        [
+          { text: 'Hủy', style: 'cancel' },
+          {
+            text: 'Ẩn',
+            style: 'destructive',
+            onPress: async () => {
+              try {
+                setDangLuu(true);
+                const tap = new Set(tapMaLuatAnKhoiQuanLy);
+                tap.add(ma);
+                await luuTapMaLuatAnKhoiQuanLyNoiBo(tap);
+                setTapMaLuatAnKhoiQuanLy(tap);
+                boChonXoaLoat(tabId);
+                await docTatCaDuLieu();
+              } catch (e) {
+                Alert.alert('Lỗi', e.message || String(e));
+              } finally {
+                setDangLuu(false);
+              }
+            },
+          },
+        ],
+      );
       return;
     }
     Alert.alert('Xác nhận xóa', `Xóa quy tắc ${layMaLuat(row) || layTenQuyTac(row)}?`, [
@@ -823,8 +931,8 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
         </View>
       </View>
 
-      <View style={styles.bo_cuc_chinh}>
-        <ScrollView style={styles.sidebar_trai} contentContainerStyle={styles.sidebar_trai_content}>
+      <View style={[styles.bo_cuc_chinh, hepWeb && styles.bo_cuc_chinh_doc]}>
+        <ScrollView style={[styles.sidebar_trai, hepWeb && styles.sidebar_trai_full]} contentContainerStyle={styles.sidebar_trai_content}>
           <View style={styles.khung_tong_quan}>
             <Text style={styles.txt_thong_ke}>Đang bật: {tongTatCa.dangBat}/{tongTatCa.tong} quy tắc</Text>
             <TextInput
@@ -866,16 +974,45 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
                 <Text style={styles.txt_btn}>TẮT TẤT CẢ</Text>
               </TouchableOpacity>
             </View>
+
+            {danhSachMaLuatDaAn.length > 0 && (
+              <View style={styles.khung_da_an}>
+                <Text style={styles.tieu_de_da_an}>Quy tắc mẫu đã ẩn ({danhSachMaLuatDaAn.length})</Text>
+                <Text style={styles.mo_ta_da_an}>Chỉ áp dụng cho dòng có nhãn MA NGUON. Hiện lại để sửa hoặc bật/tắt.</Text>
+                <ScrollView style={styles.scroll_da_an} nestedScrollEnabled>
+                  {danhSachMaLuatDaAn.map((ma) => (
+                    <View key={`an-${ma}`} style={styles.hang_ma_da_an}>
+                      <Text style={styles.txt_ma_da_an} numberOfLines={1}>{ma}</Text>
+                      <TouchableOpacity style={styles.btn_hien_lai} onPress={() => hienLaiQuyTacAn(ma)}>
+                        <Text style={styles.txt_hien_lai}>Hiện lại</Text>
+                      </TouchableOpacity>
+                    </View>
+                  ))}
+                </ScrollView>
+              </View>
+            )}
           </View>
 
           <View style={styles.khung_quan_ly_noi_dung}>
             <Text style={styles.tieu_de_noi_dung}>QUẢN LÝ NỘI DUNG QUY TẮC (không sửa code nguồn)</Text>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.hang_tab_quan_ly}>
+            <ScrollView
+              horizontal
+              nestedScrollEnabled
+              keyboardShouldPersistTaps="handled"
+              showsHorizontalScrollIndicator={Platform.OS === 'web'}
+              style={styles.hang_tab_scroll}
+              contentContainerStyle={styles.hang_tab_quan_ly}
+            >
               {DANH_SACH_TAB_MAC_DINH.map((tab) => {
                 const active = tabQuanLyNoiDung === tab.id;
+                const fs = fontScale(14);
                 return (
-                  <TouchableOpacity key={`tab-quan-ly-${tab.id}`} style={[styles.chip_tab, active && styles.chip_tab_active]} onPress={() => setTabQuanLyNoiDung(tab.id)}>
-                    <Text style={[styles.chip_tab_txt, active && styles.chip_tab_txt_active]}>{NHOM_HIEN_THI[tab.id] || tab.ten}</Text>
+                  <TouchableOpacity
+                    key={`tab-quan-ly-${tab.id}`}
+                    style={[styles.chip_tab, active && styles.chip_tab_active]}
+                    onPress={() => setTabQuanLyNoiDung(tab.id)}
+                  >
+                    <Text style={[styles.chip_tab_txt, { fontSize: fs }, active && styles.chip_tab_txt_active]}>{NHOM_HIEN_THI[tab.id] || tab.ten}</Text>
                   </TouchableOpacity>
                 );
               })}
@@ -893,7 +1030,14 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
                   <Text style={styles.txt_btn}>TẢI FILE MẪU</Text>
                 </TouchableOpacity>
               </View>
-              <TextInput value={formRule.MA_LUAT} onChangeText={(v) => setFormRule((s) => ({ ...s, MA_LUAT: v }))} placeholder="Mã luật" placeholderTextColor={CD.text.muted} style={styles.input_rule} />
+              <TextInput
+                value={formRule.MA_LUAT}
+                onChangeText={(v) => setFormRule((s) => ({ ...s, MA_LUAT: v }))}
+                placeholder="Mã luật"
+                placeholderTextColor={CD.text.muted}
+                style={styles.input_rule}
+                editable={!dangSuaRule?.laNoiBo}
+              />
               <TextInput value={formRule.TEN_QUY_TAC} onChangeText={(v) => setFormRule((s) => ({ ...s, TEN_QUY_TAC: v }))} placeholder="Tên quy tắc" placeholderTextColor={CD.text.muted} style={styles.input_rule} />
               <TextInput value={formRule.DIEU_KIEN} onChangeText={(v) => setFormRule((s) => ({ ...s, DIEU_KIEN: v }))} placeholder="Điều kiện" placeholderTextColor={CD.text.muted} style={[styles.input_rule, styles.input_text_area]} multiline />
               <TextInput value={formRule.CANH_BAO} onChangeText={(v) => setFormRule((s) => ({ ...s, CANH_BAO: v }))} placeholder="Cảnh báo" placeholderTextColor={CD.text.muted} style={[styles.input_rule, styles.input_text_area]} multiline />
@@ -928,12 +1072,16 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
                   <Text style={styles.txt_btn}>XÓA LOẠT ĐÃ CHỌN</Text>
                 </TouchableOpacity>
               </View>
-              <Text style={styles.txt_luu_y}>Lưu ý: Quy tắc có nhãn MA NGUON chỉ hỗ trợ ON/OFF. Với quy tắc nhập tay, bạn có thể gắn loại Xuất toán/Cảnh báo và ghi rõ nội dung cần kiểm soát để vận hành dễ hơn.</Text>
+              <Text style={styles.txt_luu_y}>
+                {dangSuaRule?.laNoiBo
+                  ? 'Quy tắc MA NGUON: có thể sửa tên/cảnh báo/điều kiện hiển thị (ghi đè cục bộ, không đổi mã trong phần mềm). Nút Ẩn chỉ ẩn khỏi danh sách quản trị — trạng thái ON/OFF vẫn lưu.'
+                  : 'Quy tắc nhập tay: thêm/sửa/xóa toàn bộ dòng trong kho dữ liệu. Quy tắc MA NGUON dùng Sửa để ghi đè hiển thị hoặc Ẩn để thu gọn danh sách.'}
+              </Text>
             </View>
           </View>
         </ScrollView>
 
-        <View style={styles.khu_vuc_phai}>
+        <View style={[styles.khu_vuc_phai, hepWeb && styles.khu_vuc_phai_full]}>
           <ScrollView style={styles.rules_scroll} contentContainerStyle={styles.noi_dung}>
         {danhSachNhom.map((nhom) => (
           <View key={nhom.tabId} style={styles.card_nhom}>
@@ -973,46 +1121,63 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
                   const tagNguonCanhBao = layTagNguonCanhBao(rule);
                   const chiTietCanhBao = layChiTietCanhBao(rule);
                   return (
-                    <TouchableOpacity
+                    <View
                       key={`${nhom.tabId}-${key}`}
                       style={[styles.dong_rule, duocHighlight && styles.dong_rule_highlight]}
-                      onPress={() => doiTrangThaiRule(nhom.tabId, idx)}
                     >
                       {!laNoiBo && (
                         <TouchableOpacity style={[styles.checkbox_xoa, daChon && styles.checkbox_xoa_on]} onPress={() => batTatChonDong(nhom.tabId, key, !daChon)}>
                           {daChon ? <Text style={styles.checkmark}>✓</Text> : null}
                         </TouchableOpacity>
                       )}
-                      <View style={[styles.checkbox, on && styles.checkbox_on]}>
-                        {on ? <Text style={styles.checkmark}>✓</Text> : null}
-                      </View>
-                      <View style={{ flex: 1 }}>
-                        <Text style={[styles.ten_rule, on ? styles.ten_rule_on : styles.ten_rule_off]} numberOfLines={2}>
-                          {layTenQuyTac(rule)}
-                        </Text>
-                        {!!layMaLuat(rule) && <Text style={styles.ma_luat}>{layMaLuat(rule)}</Text>}
-                        <View style={styles.hang_tag_rule}>
-                          {laNoiBo && <Text style={styles.tag_noi_bo}>MA NGUON</Text>}
-                          <Text style={[styles.tag_loai_quy_tac, nhomCanhBao === 'XUAT_TOAN' ? styles.tag_xuat_toan : styles.tag_canh_bao]}>{tagCanhBao}</Text>
-                          {!!tagNguonCanhBao && <Text style={styles.tag_nguon_canh_bao}>{tagNguonCanhBao}</Text>}
+                      <TouchableOpacity
+                        activeOpacity={0.65}
+                        style={styles.dong_rule_vung_bat_tat}
+                        onPress={() => doiTrangThaiRule(nhom.tabId, idx)}
+                      >
+                        <View style={[styles.checkbox, on && styles.checkbox_on]} pointerEvents="none">
+                          {on ? <Text style={styles.checkmark}>✓</Text> : null}
                         </View>
-                        {!!chiTietCanhBao && <Text style={styles.chi_tiet_canh_bao} numberOfLines={3}>{chiTietCanhBao}</Text>}
-                        {!!String(rule?.DIEU_KIEN || rule?.dieu_kien || '').trim() && (
-                          <Text style={styles.dieu_kien_rule} numberOfLines={2}>Điều kiện: {String(rule?.DIEU_KIEN || rule?.dieu_kien || '').trim()}</Text>
-                        )}
-                      </View>
-                      {!laNoiBo && (
-                        <View style={styles.cot_thao_tac}>
-                          <TouchableOpacity style={styles.btn_thao_tac} onPress={() => moSuaRule(nhom.tabId, idx)}>
-                            <Text style={styles.txt_btn_thao_tac}>Sửa</Text>
-                          </TouchableOpacity>
-                          <TouchableOpacity style={[styles.btn_thao_tac, styles.btn_thao_tac_xoa]} onPress={() => xoaMotRule(nhom.tabId, idx)}>
-                            <Text style={styles.txt_btn_thao_tac}>Xóa</Text>
-                          </TouchableOpacity>
+                        <View style={styles.dong_rule_text_khoi} pointerEvents="none">
+                          <Text style={[styles.ten_rule, on ? styles.ten_rule_on : styles.ten_rule_off]} numberOfLines={2}>
+                            {layTenQuyTac(rule)}
+                          </Text>
+                          {!!layMaLuat(rule) && <Text style={styles.ma_luat}>{layMaLuat(rule)}</Text>}
+                          <View style={styles.hang_tag_rule}>
+                            {laNoiBo && <Text style={styles.tag_noi_bo}>MA NGUON</Text>}
+                            <Text style={[styles.tag_loai_quy_tac, nhomCanhBao === 'XUAT_TOAN' ? styles.tag_xuat_toan : styles.tag_canh_bao]}>{tagCanhBao}</Text>
+                            {!!tagNguonCanhBao && <Text style={styles.tag_nguon_canh_bao}>{tagNguonCanhBao}</Text>}
+                          </View>
+                          {!!chiTietCanhBao && <Text style={styles.chi_tiet_canh_bao} numberOfLines={3}>{chiTietCanhBao}</Text>}
+                          {!!String(rule?.DIEU_KIEN || rule?.dieu_kien || '').trim() && (
+                            <Text style={styles.dieu_kien_rule} numberOfLines={2}>Điều kiện: {String(rule?.DIEU_KIEN || rule?.dieu_kien || '').trim()}</Text>
+                          )}
                         </View>
-                      )}
-                      <Text style={[styles.badge, on ? styles.badge_on : styles.badge_off]}>{on ? 'ON' : 'OFF'}</Text>
-                    </TouchableOpacity>
+                      </TouchableOpacity>
+                      <View style={styles.cot_thao_tac}>
+                        <TouchableOpacity
+                          style={styles.btn_thao_tac}
+                          onPress={() => moSuaRule(nhom.tabId, idx)}
+                          hitSlop={{ top: 10, bottom: 10, left: 6, right: 6 }}
+                        >
+                          <Text style={styles.txt_btn_thao_tac}>Sửa</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={[styles.btn_thao_tac, styles.btn_thao_tac_xoa]}
+                          onPress={() => xoaMotRule(nhom.tabId, idx)}
+                          hitSlop={{ top: 10, bottom: 10, left: 6, right: 6 }}
+                        >
+                          <Text style={styles.txt_btn_thao_tac}>{laNoiBo ? 'Ẩn' : 'Xóa'}</Text>
+                        </TouchableOpacity>
+                      </View>
+                      <TouchableOpacity
+                        activeOpacity={0.65}
+                        onPress={() => doiTrangThaiRule(nhom.tabId, idx)}
+                        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+                      >
+                        <Text style={[styles.badge, on ? styles.badge_on : styles.badge_off]}>{on ? 'ON' : 'OFF'}</Text>
+                      </TouchableOpacity>
+                    </View>
                   );
                 })}
               </View>
@@ -1077,8 +1242,17 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12,
     paddingBottom: 12,
   },
+  bo_cuc_chinh_doc: {
+    flexDirection: 'column',
+  },
   sidebar_trai: {
     ...(Platform.OS === 'web' ? { flex: 1, minWidth: 340, maxWidth: 560 } : { width: '100%' }),
+  },
+  sidebar_trai_full: {
+    minWidth: 0,
+    maxWidth: '100%',
+    width: '100%',
+    alignSelf: 'stretch',
   },
   sidebar_trai_content: {
     paddingBottom: 16,
@@ -1086,6 +1260,11 @@ const styles = StyleSheet.create({
   khu_vuc_phai: {
     flex: Platform.OS === 'web' ? 2 : 1,
     minWidth: 0,
+  },
+  khu_vuc_phai_full: {
+    width: '100%',
+    flex: 1,
+    minHeight: 280,
   },
   rules_scroll: {
     flex: 1,
@@ -1099,6 +1278,26 @@ const styles = StyleSheet.create({
     borderColor: CD.border.glass,
     borderRadius: 14,
   },
+  khung_da_an: {
+    marginTop: 12,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: CD.border.glass_md,
+  },
+  tieu_de_da_an: { color: CD.text.primary, fontWeight: '800', fontSize: 13, fontFamily: CD.font.family },
+  mo_ta_da_an: { color: CD.text.muted, fontSize: 11, marginTop: 4, marginBottom: 8, fontFamily: CD.font.family },
+  scroll_da_an: { maxHeight: 160 },
+  hang_ma_da_an: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 6 },
+  txt_ma_da_an: { flex: 1, color: CD.text.secondary, fontSize: 12, fontFamily: CD.font.family },
+  btn_hien_lai: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 8,
+    backgroundColor: 'rgba(79,195,247,0.2)',
+    borderWidth: 1,
+    borderColor: 'rgba(79,195,247,0.45)',
+  },
+  txt_hien_lai: { color: '#4FC3F7', fontSize: 11, fontWeight: '700', fontFamily: CD.font.family },
   input_tim_kiem: {
     marginBottom: 10,
     backgroundColor: CD.bg.glass_input,
@@ -1141,17 +1340,29 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     fontFamily: CD.font.family,
   },
-  hang_tab_quan_ly: { gap: 8, paddingBottom: 10 },
+  hang_tab_scroll: {
+    maxWidth: '100%',
+    ...(Platform.OS === 'web' ? { overflowX: 'auto' } : {}),
+  },
+  hang_tab_quan_ly: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'nowrap',
+    gap: 8,
+    paddingBottom: 10,
+    paddingRight: 4,
+  },
   chip_tab: {
-    paddingHorizontal: 10,
-    paddingVertical: 7,
+    flexShrink: 0,
+    paddingHorizontal: 12,
+    paddingVertical: 9,
     borderRadius: 999,
     borderWidth: 1,
     borderColor: CD.border.glass_md,
     backgroundColor: CD.bg.glass_input,
   },
   chip_tab_active: { backgroundColor: 'rgba(25,118,210,0.24)', borderColor: 'rgba(66,165,245,0.5)' },
-  chip_tab_txt: { color: CD.text.secondary, fontSize: 12, fontWeight: '700', fontFamily: CD.font.family },
+  chip_tab_txt: { color: CD.text.secondary, fontSize: 14, fontWeight: '700', fontFamily: CD.font.family },
   chip_tab_txt_active: { color: CD.text.primary },
   form_rule: { gap: 8 },
   hang_nut_file: { flexDirection: 'row', flexWrap: 'wrap', gap: 8, marginBottom: 2 },
@@ -1279,6 +1490,18 @@ const styles = StyleSheet.create({
     paddingLeft: 8,
     borderRadius: 10,
   },
+  /** Tách khỏi cột Sửa/Ẩn — tránh TouchableOpacity lồng nhau (web không gọi onPress nút con). */
+  dong_rule_vung_bat_tat: {
+    flex: 1,
+    minWidth: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  dong_rule_text_khoi: {
+    flex: 1,
+    minWidth: 0,
+  },
   checkbox_xoa: {
     width: 20,
     height: 20,
@@ -1290,7 +1513,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,255,255,0.02)',
   },
   checkbox_xoa_on: { backgroundColor: '#B71C1C', borderColor: '#EF5350' },
-  cot_thao_tac: { flexDirection: 'row', gap: 6, marginRight: 4 },
+  cot_thao_tac: {
+    flexDirection: 'row',
+    gap: 6,
+    marginRight: 4,
+    zIndex: 2,
+  },
   btn_thao_tac: {
     paddingHorizontal: 7,
     paddingVertical: 5,

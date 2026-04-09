@@ -59,25 +59,51 @@ const hopNhatCot = (existingCols = []) => {
 };
 
 const hopNhatDongLuat = (existingRows = [], seedRows = []) => {
-  const merged = [];
-  const seen = new Set();
+  const seedNorm = (Array.isArray(seedRows) ? seedRows : []).map((row, index) => chuanHoaDongLuat(row, index));
+  const seedByMa = new Map();
+  seedNorm.forEach((n) => {
+    const ma = String(n.MA_LUAT || '').trim().toUpperCase();
+    if (ma) seedByMa.set(ma, n);
+  });
 
-  (Array.isArray(existingRows) ? existingRows : []).forEach((row, index) => {
-    const normalized = chuanHoaDongLuat(row, index);
-    const key = taoKhoaDongLuat(normalized);
-    if (seen.has(key)) return;
-    seen.add(key);
-    merged.push(normalized);
+  const existingNorm = (Array.isArray(existingRows) ? existingRows : []).map((row, index) => chuanHoaDongLuat(row, index));
+  const existingFirstByMa = new Map();
+  existingNorm.forEach((n) => {
+    const ma = String(n.MA_LUAT || '').trim().toUpperCase();
+    if (ma && !existingFirstByMa.has(ma)) existingFirstByMa.set(ma, n);
+  });
+
+  const merged = [];
+  const seedMaEmitted = new Set();
+
+  existingNorm.forEach((row) => {
+    const ma = String(row.MA_LUAT || '').trim().toUpperCase();
+    if (ma && seedByMa.has(ma)) {
+      if (!seedMaEmitted.has(ma)) {
+        merged.push(seedByMa.get(ma));
+        seedMaEmitted.add(ma);
+      }
+      return;
+    }
+    merged.push(row);
+  });
+
+  seedNorm.forEach((n) => {
+    const ma = String(n.MA_LUAT || '').trim().toUpperCase();
+    if (ma && !seedMaEmitted.has(ma)) {
+      merged.push(n);
+      seedMaEmitted.add(ma);
+    }
   });
 
   let addedCount = 0;
-  (Array.isArray(seedRows) ? seedRows : []).forEach((row, index) => {
-    const normalized = chuanHoaDongLuat(row, index);
-    const key = taoKhoaDongLuat(normalized);
-    if (seen.has(key)) return;
-    seen.add(key);
-    merged.push(normalized);
-    addedCount += 1;
+  seedByMa.forEach((seedRow, ma) => {
+    const prev = existingFirstByMa.get(ma);
+    if (!prev) {
+      addedCount += 1;
+      return;
+    }
+    if (JSON.stringify(prev) !== JSON.stringify(seedRow)) addedCount += 1;
   });
 
   return { mergedRows: merged, addedCount };

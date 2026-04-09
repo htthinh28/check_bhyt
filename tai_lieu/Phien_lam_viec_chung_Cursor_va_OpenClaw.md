@@ -118,8 +118,11 @@ Không ghi key API; không PII.
 - Sprint 60 phút: [Sprint_60p_huan_luyen_giam_dinh_thuoc_Cursor_OpenClaw.md](./Sprint_60p_huan_luyen_giam_dinh_thuoc_Cursor_OpenClaw.md)
 - Prompt mẫu (P1–P5): [Prompt_mau_chuan_hoa_BHYT_Cursor_OpenClaw.md](./Prompt_mau_chuan_hoa_BHYT_Cursor_OpenClaw.md) — mục **M** (handoff)
 - Bảng neo phiên huấn luyện thuốc ↔ engine: [Bang_neo_phien_huan_luyen_thuoc_va_engine.md](./Bang_neo_phien_huan_luyen_thuoc_va_engine.md)
+- **Kỹ năng giám định AI (mọi nhóm rule):** [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md) · [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md) (bài **8–10** audit `test_xml/`; **11–13** VTYT / bảng neo)
+- **VTYT:** [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) · [Bang_neo_phien_huan_luyen_vtyt_va_engine.md](./Bang_neo_phien_huan_luyen_vtyt_va_engine.md) · [Huan_luyen_phien_VTYT_du_phong_Cursor.md](./Huan_luyen_phien_VTYT_du_phong_Cursor.md) (chưa có fixture audit)
+- **DVKT (17/VBHN-BYT):** chuẩn hóa suy luận AI [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md); phiên + lộ trình ca [Huan_luyen_phien_DVKT_VBHN17_Cursor.md](./Huan_luyen_phien_DVKT_VBHN17_Cursor.md); bảng neo [Bang_neo_phien_huan_luyen_dvkt_va_engine.md](./Bang_neo_phien_huan_luyen_dvkt_va_engine.md)
 - Ví dụ regression cảnh báo THUOC/XML (ẩn danh): [Vi_du_regression_canh_bao_THUOC_XML_an_danh.md](./Vi_du_regression_canh_bao_THUOC_XML_an_danh.md)
 
 ---
 
-*Phiên bản 1.1 — nhấn mạnh ranh giới Cursor/OpenClaw, handoff và neo engine; cập nhật khi đổi mã luật trọng tâm.*
+*Phiên bản 1.9 — bài 13 + thẻ DVKT §8 trỏ VTYT; trước đó 1.8 bảng neo.*
