@@ -1,5 +1,7 @@
 import { Platform, SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { COT_MAC_DINH_PHAC_DO_CDSS } from './phac_do_cdss_columns';
+
 // Tự động sinh danh mục 40 tài liệu tham khảo y khoa uy tín (>50% trong 5 năm gần đây)
 const DANH_MUC_THAM_KHAO = Array.from({ length: 40 }).map((_, index) => {
   const namXB = index < 25 ? (2021 + Math.floor(Math.random() * 5)) : (2015 + Math.floor(Math.random() * 5));
@@ -14,7 +16,42 @@ const DANH_MUC_THAM_KHAO = Array.from({ length: 40 }).map((_, index) => {
   };
 }).sort((a, b) => a.tacGia.localeCompare(b.tacGia)); // Sắp xếp ABC theo tên tác giả
 
-const InfographicPhacDo = ({ maICD = "J18.9" }) => {
+const InfographicPhacDo = ({ maICD = 'J18.9', noiDungPhacDo = null }) => {
+  const coDuLieuCdss =
+    noiDungPhacDo &&
+    String(noiDungPhacDo['TÊN BỆNH (CHẨN ĐOÁN)'] || noiDungPhacDo['MÃ ICD-10'] || '').trim();
+
+  if (coDuLieuCdss) {
+    return (
+      <SafeAreaView style={styles.vung_an_toan}>
+        <ScrollView contentContainerStyle={styles.khung_chinh}>
+          <View style={styles.the_phan_he}>
+            <Text style={styles.tieu_de_phan}>HÀNH CHÍNH — PHÁC ĐỒ CDSS PHƯƠNG CHÂU</Text>
+            <View style={styles.noi_dung_hang}>
+              <Text style={styles.chu_dam}>Mã ICD-10:</Text>
+              <Text style={styles.chu_thuong}> {noiDungPhacDo['MÃ ICD-10'] || maICD}</Text>
+            </View>
+            <View style={styles.noi_dung_hang}>
+              <Text style={styles.chu_dam}>Mã tài liệu:</Text>
+              <Text style={styles.chu_thuong}> PC-COP-PD-{noiDungPhacDo['MÃ ICD-10'] || maICD}</Text>
+            </View>
+          </View>
+
+          {COT_MAC_DINH_PHAC_DO_CDSS.map((cot) => {
+            const noiDung = String(noiDungPhacDo[cot] ?? '').trim();
+            if (!noiDung) return null;
+            return (
+              <View key={cot} style={styles.the_phan_he}>
+                <Text style={styles.tieu_de_phan}>{cot}</Text>
+                <Text style={styles.chu_thuong}>{noiDung}</Text>
+              </View>
+            );
+          })}
+        </ScrollView>
+      </SafeAreaView>
+    );
+  }
+
   return (
     <SafeAreaView style={styles.vung_an_toan}>
       <ScrollView contentContainerStyle={styles.khung_chinh}>

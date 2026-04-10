@@ -46,6 +46,9 @@ import QuanLyChuyenMon from '../man_hinh/quan_ly_chuyen_mon';
 
 // 6. NHÓM BÁO CÁO VÀ THỐNG KÊ
 import BaoCaoVaThongKe from '../man_hinh/baocao_va_thongke';
+import ManHinhThuVien from '../man_hinh/thu_vien';
+import ManHinhTriThucTuGiamDinh from '../man_hinh/tri_thuc_tu_giam_dinh';
+import CongTiepNhanHIS from '../man_hinh/cong_tiep_nhan_his';
 
 const Stack = createNativeStackNavigator();
 const KHOA_DIEU_HUONG = 'CDSS_NAV_STATE_V1';
@@ -75,6 +78,9 @@ const cauHinhLienKet = {
       DanhMucBYTMain: 'danh-muc-byt', // Path cho Danh mục Bộ Y tế
       PhanQuyenTruyCap: 'permissions',
       QuanLyChuyenMon: 'clinical-guidelines',
+      ThuVien: 'thu-vien',
+      TriThucTuGiamDinh: 'tri-thuc-giam-dinh',
+      CongHIS: 'his-gateway',
       BaoCaoVaThongKe: 'reports', // Path cho báo cáo
       SuaFileXML: 'auditing/edit/:maLK',
       XML1: 'xml/xml1',
@@ -216,6 +222,9 @@ const DieuHuongChinh = () => {
         <Stack.Screen name="QuanLyDanhMuc" component={ManHinhQuanLyDanhMuc} />
         <Stack.Screen name="DanhMucBYTMain" component={DanhMucBYTMain} /> 
         <Stack.Screen name="QuanLyChuyenMon" component={QuanLyChuyenMon} />
+        <Stack.Screen name="ThuVien" component={ManHinhThuVien} />
+        <Stack.Screen name="TriThucTuGiamDinh" component={ManHinhTriThucTuGiamDinh} />
+        <Stack.Screen name="CongHIS" component={CongTiepNhanHIS} />
         
         {/* --- PHÂN HỆ BÁO CÁO VÀ THỐNG KÊ --- */}
         <Stack.Screen name="BaoCaoVaThongKe" component={BaoCaoVaThongKe} />

@@ -157,6 +157,171 @@ const hopNhatDanhSachFile = (danhSachCu = [], danhSachMoi = [], { multiple = tru
   return dongBoDanhSachFile(Array.from(mapFile.values()));
 };
 
+/**
+ * Nạp ngữ cảnh trùng MA_LK (lịch sử + kho) — dùng cho giám định tự động theo thư mục.
+ */
+export const taiNguonPhuThuocNhapXml = async () => {
+  try {
+    const stored = await AsyncStorage.getItem('CDSS_LICH_SU_XML');
+    const lichSuGiamDinh = stored ? JSON.parse(stored) : [];
+    const dsMaLKTrongKho = await layDanhSachMaLKTuKho();
+    const danhSachMaLKDaCo = Array.from(
+      new Set(
+        [
+          ...lichSuGiamDinh.map((hs) => chuanHoaMaLK(hs?.ma_lk)),
+          ...(Array.isArray(dsMaLKTrongKho) ? dsMaLKTrongKho : []).map((maLK) => chuanHoaMaLK(maLK)),
+        ].filter(Boolean),
+      ),
+    );
+    return { lichSuGiamDinh, danhSachMaLKDaCo };
+  } catch (err) {
+    console.warn('[NhapFileXML] taiNguonPhuThuocNhapXml:', err);
+    return { lichSuGiamDinh: [], danhSachMaLKDaCo: [] };
+  }
+};
+
+/**
+ * Đọc một File (web), parse QĐ130, chạy kiểm tra tĩnh + engine giám định JS (cùng logic màn nhập file).
+ */
+export const xuLyMotFileXmlChoBanGiamDinh = (file, { lichSuGiamDinh = [], danhSachMaLKDaCo = [] } = {}) => {
+  return new Promise((resolve) => {
+    if (file.size > 10 * 1024 * 1024) {
+      resolve({
+        id: Math.random().toString(36),
+        tenFile: file.name,
+        ma_lk: 'LOI_DUNG_LUONG',
+        trangThai: TRANG_THAI_FILE.LOI,
+        lyDoLoi: 'File vượt quá 10MB, nguy cơ tràn bộ nhớ.',
+        coTrungLap: false,
+        coCanhBao: false,
+        coTheChuyenTiep: false,
+      });
+      return;
+    }
+
+    const reader = new FileReader();
+
+    reader.onerror = () => {
+      resolve({
+        id: Math.random().toString(36),
+        tenFile: file.name,
+        ma_lk: 'LOI',
+        trangThai: TRANG_THAI_FILE.LOI,
+        lyDoLoi: 'File bị hỏng hoặc lỗi phân mảnh (Chunk Error).',
+        coTrungLap: false,
+        coCanhBao: false,
+        coTheChuyenTiep: false,
+      });
+    };
+
+    reader.onload = async (e) => {
+      try {
+        const rawXML = e.target.result;
+        const ketQuaHoSo = xuLyFileXML130(rawXML);
+
+        const arr = Array.isArray(ketQuaHoSo) ? ketQuaHoSo : [ketQuaHoSo];
+        const hsDauTien = arr[0] || {};
+        const xml1 = hsDauTien.xml1 || hsDauTien.XML1 || {};
+
+        const maLKGoc = String(xml1.MA_LK || '').trim();
+        const maLK = maLKGoc || 'KHONG_XAC_DINH';
+        const maLKChuan = chuanHoaMaLK(maLKGoc);
+        const maBN = xml1.MA_BN || 'KHONG_XAC_DINH';
+        const hoSoCu = lichSuGiamDinh.find((hs) => chuanHoaMaLK(hs?.ma_lk) === maLKChuan);
+        const coTrungLap = Boolean(maLKChuan && danhSachMaLKDaCo.includes(maLKChuan));
+
+        let trangThai = coTrungLap ? TRANG_THAI_FILE.TRUNG_LAP : TRANG_THAI_FILE.HOP_LE;
+        let dsLoi = [];
+        let lyDoLoi = '';
+        let chiTietLoiCDSS = [];
+        let coCanhBao = false;
+        let coTheChuyenTiep = false;
+
+        if (maLK === 'KHONG_XAC_DINH') {
+          trangThai = TRANG_THAI_FILE.LOI;
+          lyDoLoi = 'Không tìm thấy thẻ <MA_LK> (Mã liên kết).';
+        } else if (arr.length > 0) {
+          coTheChuyenTiep = true;
+          const ketQuaValidate = kiemTraDinhDangXML(hsDauTien);
+          const rawChiTietLoi = await chayBoMayGiamDinhV3(hsDauTien);
+
+          chiTietLoiCDSS = rawChiTietLoi.map((loi) => ({
+            ...loi,
+            ma_bn: maBN,
+          }));
+
+          if (!ketQuaValidate.hop_le || chiTietLoiCDSS.length > 0) {
+            coCanhBao = true;
+            if (!coTrungLap && trangThai === TRANG_THAI_FILE.HOP_LE) trangThai = TRANG_THAI_FILE.CANH_BAO;
+            dsLoi = [
+              ...ketQuaValidate.danh_sach_loi,
+              ...chiTietLoiCDSS.map(
+                (l) =>
+                  `[${l.truong_loi || l.phan_he}] ${l.canh_bao} (Mã BN: ${l.ma_bn} - ĐK: ${l.dieu_kien || 'N/A'})`,
+              ),
+            ];
+          }
+        }
+
+        resolve({
+          id: Math.random().toString(36),
+          tenFile: file.name,
+          kichThuoc: (file.size / 1024).toFixed(1) + ' KB',
+          ma_lk: maLK,
+          duLieu: arr.map((hs) => ({ ...hs, _ten_file: file.name, _ds_loi: dsLoi })),
+          ngayGiamDinhCu: hoSoCu?.ngay_giam_dinh || null,
+          trangThai,
+          coTrungLap,
+          coCanhBao,
+          coTheChuyenTiep,
+          lyDoLoi,
+          dsLoi,
+          chiTietLoi: chiTietLoiCDSS,
+          tomTatData: {
+            hoTen: xml1.HO_TEN || 'N/A',
+            maBN,
+            tienTrinh: xml1.NGAY_VAO && xml1.NGAY_RA ? `${xml1.NGAY_VAO} -> ${xml1.NGAY_RA}` : 'N/A',
+            xml2: hsDauTien.xml2?.length || hsDauTien.XML2?.length || 0,
+            xml3: hsDauTien.xml3?.length || hsDauTien.XML3?.length || 0,
+            xml4: hsDauTien.xml4?.length || hsDauTien.XML4?.length || 0,
+            xml5: hsDauTien.xml5?.length || hsDauTien.XML5?.length || 0,
+          },
+        });
+      } catch (err) {
+        resolve({
+          id: Math.random().toString(36),
+          tenFile: file.name,
+          ma_lk: 'LOI',
+          trangThai: TRANG_THAI_FILE.LOI,
+          lyDoLoi: `Lỗi parser: ${err.message}`,
+          coTrungLap: false,
+          coCanhBao: false,
+          coTheChuyenTiep: false,
+        });
+      }
+    };
+    reader.readAsText(file, 'UTF-8');
+  });
+};
+
+/** Chuyển một bản ghi kết quả quét file sang mảng hồ sơ gửi kho (giống nút "Chuyển dữ liệu"). */
+export const chuyenKetQuaFileSangMangHoSoKho = (f) => {
+  if (!laHoSoCoTheChuyenTiep(f)) return [];
+  return (Array.isArray(f.duLieu) ? f.duLieu : [])
+    .map((hoSo) => {
+      const maLKHoSo = layMaLKTuHoSo(hoSo, f.ma_lk);
+      return {
+        ...hoSo,
+        ma_lk: maLKHoSo,
+        _tu_dong_ghi_de: laHoSoTrungLap(f),
+        _trang_thai_nhap: f.trangThai,
+        _co_canh_bao_nhap: Boolean(f.coCanhBao),
+        ket_qua_giam_dinh: f.chiTietLoi || [],
+      };
+    })
+    .filter((hoSo) => Boolean(hoSo.ma_lk));
+};
+
 const NhapFileXML = ({ onDuLieuSanSang, multiple = true, styleButton, textButton = DEFAULT_TEXT_BUTTON }) => {
   const [dangXuLy, setDangXuLy] = useState(false);
   const [dangGuiDuLieu, setDangGuiDuLieu] = useState(false);
@@ -189,125 +354,8 @@ const NhapFileXML = ({ onDuLieuSanSang, multiple = true, styleButton, textButton
     taiLichSu();
   }, []);
 
-  const processSingleFile = (file) => {
-    return new Promise((resolve) => {
-      if (file.size > 10 * 1024 * 1024) {
-        resolve({
-          id: Math.random().toString(36),
-          tenFile: file.name,
-          ma_lk: 'LOI_DUNG_LUONG',
-          trangThai: TRANG_THAI_FILE.LOI,
-          lyDoLoi: 'File vượt quá 10MB, nguy cơ tràn bộ nhớ.',
-          coTrungLap: false,
-          coCanhBao: false,
-          coTheChuyenTiep: false,
-        });
-        return;
-      }
-
-      const reader = new FileReader();
-      
-      reader.onerror = () => {
-        resolve({
-          id: Math.random().toString(36),
-          tenFile: file.name,
-          ma_lk: 'LOI',
-          trangThai: TRANG_THAI_FILE.LOI,
-          lyDoLoi: 'File bị hỏng hoặc lỗi phân mảnh (Chunk Error).',
-          coTrungLap: false,
-          coCanhBao: false,
-          coTheChuyenTiep: false,
-        });
-      };
-
-      reader.onload = async (e) => {
-        try {
-          const rawXML = e.target.result;
-          const ketQuaHoSo = xuLyFileXML130(rawXML);
-          
-          const arr = Array.isArray(ketQuaHoSo) ? ketQuaHoSo : [ketQuaHoSo];
-          const hsDauTien = arr[0] || {};
-          const xml1 = hsDauTien.xml1 || hsDauTien.XML1 || {};
-          
-          const maLKGoc = String(xml1.MA_LK || '').trim();
-          const maLK = maLKGoc || 'KHONG_XAC_DINH';
-          const maLKChuan = chuanHoaMaLK(maLKGoc);
-          const maBN = xml1.MA_BN || 'KHONG_XAC_DINH';
-          const hoSoCu = lichSuGiamDinh.find((hs) => chuanHoaMaLK(hs?.ma_lk) === maLKChuan);
-          const coTrungLap = Boolean(maLKChuan && danhSachMaLKDaCo.includes(maLKChuan));
-
-          let trangThai = coTrungLap ? TRANG_THAI_FILE.TRUNG_LAP : TRANG_THAI_FILE.HOP_LE;
-          let dsLoi = [];
-          let lyDoLoi = '';
-          let chiTietLoiCDSS = [];
-          let coCanhBao = false;
-          let coTheChuyenTiep = false;
-
-          if (maLK === 'KHONG_XAC_DINH') {
-            trangThai = TRANG_THAI_FILE.LOI;
-            lyDoLoi = 'Không tìm thấy thẻ <MA_LK> (Mã liên kết).';
-          } else if (arr.length > 0) {
-            coTheChuyenTiep = true;
-            const ketQuaValidate = kiemTraDinhDangXML(hsDauTien);
-            const rawChiTietLoi = await chayBoMayGiamDinhV3(hsDauTien);
-            
-            // Bổ sung MA_BN vào dữ liệu lỗi để kết xuất báo cáo
-            chiTietLoiCDSS = rawChiTietLoi.map(loi => ({
-              ...loi,
-              ma_bn: maBN
-            }));
-
-            if (!ketQuaValidate.hop_le || chiTietLoiCDSS.length > 0) {
-              coCanhBao = true;
-              if (!coTrungLap && trangThai === TRANG_THAI_FILE.HOP_LE) trangThai = TRANG_THAI_FILE.CANH_BAO;
-              dsLoi = [
-                ...ketQuaValidate.danh_sach_loi,
-                // Hiển thị thêm MA_BN và DIEU_KIEN trên chuỗi cảnh báo UI
-                ...chiTietLoiCDSS.map(l => `[${l.truong_loi || l.phan_he}] ${l.canh_bao} (Mã BN: ${l.ma_bn} - ĐK: ${l.dieu_kien || 'N/A'})`)
-              ];
-            }
-          }
-
-          resolve({
-            id: Math.random().toString(36),
-            tenFile: file.name,
-            kichThuoc: (file.size / 1024).toFixed(1) + ' KB',
-            ma_lk: maLK,
-            duLieu: arr.map(hs => ({ ...hs, _ten_file: file.name, _ds_loi: dsLoi })), 
-            ngayGiamDinhCu: hoSoCu?.ngay_giam_dinh || null,
-            trangThai,
-            coTrungLap,
-            coCanhBao,
-            coTheChuyenTiep,
-            lyDoLoi, 
-            dsLoi,
-            chiTietLoi: chiTietLoiCDSS, 
-            tomTatData: { 
-              hoTen: xml1.HO_TEN || 'N/A',
-              maBN: maBN,
-              tienTrinh: xml1.NGAY_VAO && xml1.NGAY_RA ? `${xml1.NGAY_VAO} -> ${xml1.NGAY_RA}` : 'N/A',
-              xml2: hsDauTien.xml2?.length || hsDauTien.XML2?.length || 0,
-              xml3: hsDauTien.xml3?.length || hsDauTien.XML3?.length || 0,
-              xml4: hsDauTien.xml4?.length || hsDauTien.XML4?.length || 0,
-              xml5: hsDauTien.xml5?.length || hsDauTien.XML5?.length || 0,
-            }
-          });
-        } catch (err) {
-          resolve({
-            id: Math.random().toString(36),
-            tenFile: file.name,
-            ma_lk: 'LOI',
-            trangThai: TRANG_THAI_FILE.LOI,
-            lyDoLoi: `Lỗi parser: ${err.message}`,
-            coTrungLap: false,
-            coCanhBao: false,
-            coTheChuyenTiep: false,
-          });
-        }
-      };
-      reader.readAsText(file, 'UTF-8');
-    });
-  };
+  const processSingleFile = (file) =>
+    xuLyMotFileXmlChoBanGiamDinh(file, { lichSuGiamDinh, danhSachMaLKDaCo });
 
   const xuLyChonFileWeb = async (event) => {
     const files = event.target.files;
@@ -409,19 +457,7 @@ const NhapFileXML = ({ onDuLieuSanSang, multiple = true, styleButton, textButton
         ...dsDuocDuyet.map((f) => chuanHoaMaLK(f.ma_lk)),
       ].filter(Boolean))));
 
-      const tatCaDuLieu = dsDuocDuyet.flatMap(f => {
-        return (Array.isArray(f.duLieu) ? f.duLieu : []).map((hoSo) => {
-          const maLKHoSo = layMaLKTuHoSo(hoSo, f.ma_lk);
-          return {
-            ...hoSo,
-            ma_lk: maLKHoSo,
-            _tu_dong_ghi_de: laHoSoTrungLap(f),
-            _trang_thai_nhap: f.trangThai,
-            _co_canh_bao_nhap: Boolean(f.coCanhBao),
-            ket_qua_giam_dinh: f.chiTietLoi || [],
-          };
-        }).filter((hoSo) => Boolean(hoSo.ma_lk));
-      });
+      const tatCaDuLieu = dsDuocDuyet.flatMap((f) => chuyenKetQuaFileSangMangHoSoKho(f));
 
       if (tatCaDuLieu.length === 0) {
         throw new Error('Không suy ra được MA_LK hợp lệ để chuyển sang bàn giám định.');

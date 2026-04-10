@@ -66,9 +66,11 @@ Chi tiết ca mẫu: [Bang_neo_phien_huan_luyen_dvkt_va_engine.md](./Bang_neo_ph
 
 0. **Kỹ năng chung (mọi nhóm rule):** [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md) · [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md) — nên đọc/làm **trước** khi đi sâu DVKT.  
 1. Thẻ tri thức: [The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md](./The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md)  
-2. Chuỗi pháp lý tóm: [The_tri_thuc_mau_luat_BHYT_2008_2025.md](./The_tri_thuc_mau_luat_BHYT_2008_2025.md) mục **11.5**  
-3. Phiên huấn luyện (bảng Điều + ca): [Huan_luyen_phien_DVKT_VBHN17_Cursor.md](./Huan_luyen_phien_DVKT_VBHN17_Cursor.md) — mục **A–I** (mục **I** = thứ tự ca)  
-4. Lộ trình tổng **Đợt 4**: [Lo_trinh_huan_luyen_AI_giam_dinh_BHYT.md](./Lo_trinh_huan_luyen_AI_giam_dinh_BHYT.md) mục **4 — Bước 3**
+1b. **Danh mục 1 / 2 chi tiết (VBHN 17):** [The_tri_thuc_Danh_muc_1_DVKT_dieu_kien_ty_le_gia_VBHN17_AI.md](./The_tri_thuc_Danh_muc_1_DVKT_dieu_kien_ty_le_gia_VBHN17_AI.md) · [The_tri_thuc_Danh_muc_2_DVKT_dieu_kien_thanh_toan_VBHN17_AI.md](./The_tri_thuc_Danh_muc_2_DVKT_dieu_kien_thanh_toan_VBHN17_AI.md)  
+2. **Kiểm soát lỗi DVKT (phân loại cảnh báo):** [The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md](./The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md)  
+3. Chuỗi pháp lý tóm: [The_tri_thuc_mau_luat_BHYT_2008_2025.md](./The_tri_thuc_mau_luat_BHYT_2008_2025.md) mục **11.5**  
+4. Phiên huấn luyện (bảng Điều + ca): [Huan_luyen_phien_DVKT_VBHN17_Cursor.md](./Huan_luyen_phien_DVKT_VBHN17_Cursor.md) — mục **A–J** (mục **I** = thứ tự ca; **J** = kiểm soát lỗi)  
+5. Lộ trình tổng **Đợt 4**: [Lo_trinh_huan_luyen_AI_giam_dinh_BHYT.md](./Lo_trinh_huan_luyen_AI_giam_dinh_BHYT.md) mục **4 — Bước 3**
 
 ---
 

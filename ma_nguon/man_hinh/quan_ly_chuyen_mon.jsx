@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useEffect, useState } from 'react';
-import { Platform, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CD } from '../tien_ich/chu_de_giao_dien';
 
@@ -40,32 +40,35 @@ const QuanLyChuyenMon = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* THANH TIÊU ĐỀ */}
+      {/* Header gồm tiêu đề + các thẻ phân hệ (chuyên môn) */}
       <View style={styles.header}>
-        {/* Đã sửa lệnh goBack() thành navigate trực tiếp về TongQuan */}
-        <TouchableOpacity onPress={() => navigation.navigate('TongQuan')} style={styles.nut_quay_lai}>
-          <Text style={styles.txt_back}>⬅ QUAY LẠI TỔNG QUAN</Text>
-        </TouchableOpacity>
-        <Text style={styles.txt_title}>🧠 EBM: QUẢN LÝ TRI THỨC LÂM SÀNG</Text>
-        <View style={{width: 200}} />
-      </View>
-
-      {/* THANH TAB BAR */}
-      <View style={styles.tab_bar}>
-        {PHAN_HE_CHUYEN_MON.map(tab => (
-          <TouchableOpacity
-            key={tab.id}
-            onPress={() => handleChuyenTab(tab.id)}
-            style={[styles.tab_item, tabHienTai === tab.id && styles.tab_active]}
-          >
-            <Text style={[styles.txt_tab, tabHienTai === tab.id && styles.txt_tab_active]}>
-              {tab.ten}
-            </Text>
+        <View style={styles.header_row_top}>
+          <TouchableOpacity onPress={() => navigation.navigate('TongQuan')} style={styles.nut_quay_lai}>
+            <Text style={styles.txt_back}>⬅ QUAY LẠI TỔNG QUAN</Text>
           </TouchableOpacity>
-        ))}
+          <Text style={styles.txt_title} numberOfLines={2}>🧠 EBM: QUẢN LÝ TRI THỨC LÂM SÀNG</Text>
+          <View style={styles.header_spacer} />
+        </View>
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.tab_row_content}
+          style={styles.tab_scroll}
+        >
+          {PHAN_HE_CHUYEN_MON.map((tab) => (
+            <TouchableOpacity
+              key={tab.id}
+              onPress={() => handleChuyenTab(tab.id)}
+              style={[styles.tab_item, tabHienTai === tab.id && styles.tab_active]}
+            >
+              <Text style={[styles.txt_tab, tabHienTai === tab.id && styles.txt_tab_active]} numberOfLines={1}>
+                {tab.ten}
+              </Text>
+            </TouchableOpacity>
+          ))}
+        </ScrollView>
       </View>
 
-      {/* KHU VỰC HIỂN THỊ NỘI DUNG CHUYÊN SÂU */}
       <View style={styles.body}>
         {tabHienTai === 'PHAC_DO_BV' && <PhacDoBenhVien />}
         {tabHienTai === 'HUONG_DAN_BYT' && <HuongDanBoYTe />}
@@ -86,12 +89,9 @@ const styles = StyleSheet.create({
     backgroundColor: CD.brand.mauDam,
     borderBottomWidth: 1,
     borderBottomColor: CD.border.header,
-    paddingHorizontal: 24,
-    paddingVertical: 16,
-    paddingTop: 40,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingBottom: 12,
+    paddingTop: Platform.OS === 'web' ? 16 : 12,
     ...Platform.select({
       web: {
         backgroundImage: CD.web.gradient_header,
@@ -99,6 +99,29 @@ const styles = StyleSheet.create({
         boxShadow: CD.web.shadow_header,
       },
     }),
+  },
+
+  header_row_top: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+
+  header_spacer: {
+    width: 160,
+    ...Platform.select({ default: {}, web: { minWidth: 160 } }),
+  },
+
+  tab_scroll: {
+    maxHeight: 56,
+  },
+
+  tab_row_content: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingRight: 8,
   },
 
   nut_quay_lai: {
@@ -109,22 +132,19 @@ const styles = StyleSheet.create({
     borderRadius: 14,
   },
   txt_back: { color: CD.text.primary, fontWeight: 'bold', fontSize: 20, fontFamily: CD.font.family },
-  txt_title: { color: CD.text.primary, fontSize: 26, fontWeight: 'bold', fontFamily: CD.font.family },
-
-  tab_bar: {
-    flexDirection: 'row',
-    backgroundColor: CD.bg.table_row_even,
-    borderBottomWidth: 1,
-    borderBottomColor: CD.border.divider,
-    paddingHorizontal: 20,
-    paddingTop: 15,
-    gap: 10,
+  txt_title: {
+    color: CD.text.primary,
+    fontSize: 22,
+    fontWeight: 'bold',
+    fontFamily: CD.font.family,
+    flex: 1,
+    textAlign: 'center',
+    marginHorizontal: 8,
   },
 
   tab_item: {
     paddingVertical: 10,
-    paddingHorizontal: 16,
-    marginRight: 10,
+    paddingHorizontal: 14,
     borderRadius: 10,
     backgroundColor: CD.bg.glass_card,
     borderWidth: 1,
@@ -142,10 +162,10 @@ const styles = StyleSheet.create({
     }),
   },
 
-  txt_tab: { fontWeight: 'bold', color: CD.text.secondary, fontSize: 20, fontFamily: CD.font.family },
-  txt_tab_active: { color: CD.text.primary, fontSize: 20, fontFamily: CD.font.family, fontWeight: 'bold' },
+  txt_tab: { fontWeight: 'bold', color: CD.text.secondary, fontSize: 17, fontFamily: CD.font.family },
+  txt_tab_active: { color: CD.text.primary, fontSize: 17, fontFamily: CD.font.family, fontWeight: 'bold' },
 
-  body: { flex: 1 },
+  body: { flex: 1, minHeight: 0 },
 });
 
 export default QuanLyChuyenMon;

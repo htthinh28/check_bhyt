@@ -1,7 +1,7 @@
 # THẺ TRI THỨC: GIÁM ĐỊNH DỊCH VỤ KỸ THUẬT (DVKT) THEO 17/VBHN-BYT
 
-Phiên bản tài liệu: 1.1  
-Ngày cập nhật: 09/04/2026  
+Phiên bản tài liệu: 1.2  
+Ngày cập nhật: 10/04/2026  
 Đối tượng: huấn luyện AI giám định, chuẩn hóa nguyên tắc — **không thay thế** văn bản gốc Bộ Y tế / BHXH.
 
 ---
@@ -137,6 +137,11 @@ Nơi tập trung nhiều **một dịch vụ — một hoặc nhiều điều ki
 
 **Lưu ý:** Số thứ tự cột trong Excel BYT phải lấy **đúng file Phụ lục** đính kèm Thông tư / VBHN — không đoán.
 
+**Thẻ tri thức chi tiết (đúng tên danh mục trong VBHN):**
+
+- **Danh mục 1** — *DVKT có quy định cụ thể điều kiện, tỷ lệ và mức giá thanh toán:* [The_tri_thuc_Danh_muc_1_DVKT_dieu_kien_ty_le_gia_VBHN17_AI.md](./The_tri_thuc_Danh_muc_1_DVKT_dieu_kien_ty_le_gia_VBHN17_AI.md)
+- **Danh mục 2** — *DVKT có quy định cụ thể điều kiện thanh toán:* [The_tri_thuc_Danh_muc_2_DVKT_dieu_kien_thanh_toan_VBHN17_AI.md](./The_tri_thuc_Danh_muc_2_DVKT_dieu_kien_thanh_toan_VBHN17_AI.md)
+
 ---
 
 ## 5. Liên hệ giám định BHXH (TT 12/2026/TT-BTC, Điều 10)
@@ -172,11 +177,13 @@ Việc **thêm rule mới** từ từng dòng Phụ lục: làm qua quy trình *
 ## 8. Tài liệu liên quan trong repo
 
 - `tai_lieu/Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md` — **chuẩn hóa suy luận AI** (7 bước, ma trận nguồn rule, checklist).
+- `tai_lieu/The_tri_thuc_Danh_muc_1_DVKT_dieu_kien_ty_le_gia_VBHN17_AI.md` — **Danh mục 1** (điều kiện + tỷ lệ + giá) chi tiết cho AI.
+- `tai_lieu/The_tri_thuc_Danh_muc_2_DVKT_dieu_kien_thanh_toan_VBHN17_AI.md` — **Danh mục 2** (điều kiện thanh toán) chi tiết cho AI.
 - `tai_lieu/Ky_nang_cot_loi_giam_dinh_AI_BHYT.md` — kỹ năng cốt lõi đa nhóm; `tai_lieu/Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md` — bài tập thực hành.
 - `tai_lieu/The_tri_thuc_mau_luat_BHYT_2008_2025.md` — mục **11.5** (chuỗi VBHN 17 + TT 39).
 - `tai_lieu/The_tri_thuc_mau_nhom_pttt_dot1.md` — PTTT & XML3.
 - `tai_lieu/Huan_luyen_phien_hanh_chinh_BHYT_bat_buoc_Cursor.md` — mô hình neo XML1 (bổ sung ngữ cảnh).
-- `tai_lieu/Huan_luyen_phien_DVKT_VBHN17_Cursor.md` — phiên huấn luyện DVKT (mục A–I).
+- `tai_lieu/Huan_luyen_phien_DVKT_VBHN17_Cursor.md` — phiên huấn luyện DVKT (mục A–J).
 - `tai_lieu/Bang_neo_phien_huan_luyen_dvkt_va_engine.md` — neo phiên ↔ engine.
 - **VTYT (vật tư — kết cấu với DVKT, VBHN 14):** `tai_lieu/Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md`; `tai_lieu/Bang_neo_phien_huan_luyen_vtyt_va_engine.md`; mục **11.6** `tai_lieu/The_tri_thuc_mau_luat_BHYT_2008_2025.md` — trong CSDL **chưa** có seed `DM-VTYT-*`; nhánh **DVKT no-code** (`checkGhiChu`, `DVKT-OP-08`) xem bảng neo VTYT.
 - `tai_lieu/Ca_huan_luyen_mau_000308_DVKT_2587_2588_PTTT_goi_thuoc.md` — ca mẫu gói PT + ICD + thuốc tê/mê (`DVKT_2587`, `DVKT_2588`).

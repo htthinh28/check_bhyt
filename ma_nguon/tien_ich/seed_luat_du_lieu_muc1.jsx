@@ -44,6 +44,8 @@ const MA_LUAT_CAN_CAP_NHAT = new Set([
   'XML_108',
   'XML_109',
   'XML_137',
+  'CDSS_CM_01',
+  'CDSS_CM_02',
 ]);
 const MA_LUAT_CAN_XOA = new Set([
   'XML_05',

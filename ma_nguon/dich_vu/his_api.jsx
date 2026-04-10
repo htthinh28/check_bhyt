@@ -1,9 +1,10 @@
 /**
  * FILE: dich_vu/his_api.jsx
  * MỤC ĐÍCH:
- * - Kết nối hệ thống HIS qua REST, SOAP, WebSocket.
- * - Tiền kiểm hồ sơ realtime để chặn lỗi trước khi đi sâu vào luồng giám định.
- * - Giữ tương thích với các lời gọi cũ của module.
+ * - Kết nối HIS đa giao thức: REST JSON, FHIR (REST), GraphQL (HTTP POST), SOAP/XML, WebSocket.
+ * - Cấu hình qua app.json extra.his + biến môi trường EXPO_PUBLIC_HIS_* (xem getConfig).
+ * - Tiền kiểm hồ sơ realtime (WebSocket) trước khi giám định.
+ * Ghi chú: HL7 v2 qua TCP/MLLP, MQTT, gRPC cần máy chủ trung gian (không chạy trực tiếp trong trình duyệt).
  */
 
 import { Buffer } from 'buffer';
@@ -253,18 +254,45 @@ class HisConnector {
       pickValue(runtimeCfg.websocketUrl, staticCfg.websocketUrl, getEnv('EXPO_PUBLIC_HIS_WEBSOCKET_URL', 'REACT_APP_HIS_WEBSOCKET_URL'))
     );
     const orgCode = trimValue(pickValue(runtimeCfg.orgCode, staticCfg.orgCode, getEnv('EXPO_PUBLIC_HIS_ORG_CODE', 'REACT_APP_HIS_ORG_CODE')));
+    const fhirBaseUrl = trimValue(
+      pickValue(runtimeCfg.fhirBaseUrl, staticCfg.fhirBaseUrl, getEnv('EXPO_PUBLIC_HIS_FHIR_BASE_URL', 'REACT_APP_HIS_FHIR_BASE_URL')),
+    );
+    const graphqlUrl = trimValue(
+      pickValue(runtimeCfg.graphqlUrl, staticCfg.graphqlUrl, getEnv('EXPO_PUBLIC_HIS_GRAPHQL_URL', 'REACT_APP_HIS_GRAPHQL_URL')),
+    );
+    /** Endpoint SOAP thực tế (POST). Nếu trống, gọi SOAP tới soapWsdlUrl (một số BV chỉ khai WSDL URL). */
+    const soapServiceUrl = trimValue(
+      pickValue(runtimeCfg.soapServiceUrl, staticCfg.soapServiceUrl, getEnv('EXPO_PUBLIC_HIS_SOAP_SERVICE_URL', 'REACT_APP_HIS_SOAP_SERVICE_URL')),
+    );
     const enabled = parseBoolean(
       pickValue(runtimeCfg.enabled, staticCfg.enabled, getEnv('EXPO_PUBLIC_HIS_ENABLED', 'REACT_APP_HIS_ENABLED')),
-      Boolean(restBaseUrl || websocketUrl || soapWsdlUrl)
+      Boolean(restBaseUrl || websocketUrl || soapWsdlUrl || soapServiceUrl || fhirBaseUrl || graphqlUrl),
     );
     const timeoutMs = Number(pickValue(runtimeCfg.timeoutMs, staticCfg.timeoutMs, DEFAULT_TIMEOUT_MS)) || DEFAULT_TIMEOUT_MS;
     const reconnectDelayMs = Number(pickValue(runtimeCfg.reconnectDelayMs, staticCfg.reconnectDelayMs, DEFAULT_RECONNECT_MS)) || DEFAULT_RECONNECT_MS;
+    /** Danh sách giao thức phụ WebSocket, cách nhau bởi dấu phẩy (ví dụ: soap, graphql-transport-ws). */
+    const websocketProtocols = trimValue(
+      pickValue(runtimeCfg.websocketProtocols, staticCfg.websocketProtocols, getEnv('EXPO_PUBLIC_HIS_WEBSOCKET_PROTOCOLS')),
+    );
+    /** Các đường dẫn health thử lần lượt khi kiểm tra REST. */
+    const restHealthPaths = trimValue(
+      pickValue(
+        runtimeCfg.restHealthPaths,
+        staticCfg.restHealthPaths,
+        getEnv('EXPO_PUBLIC_HIS_REST_HEALTH_PATHS'),
+      ),
+    ) || '/health,/ready,/actuator/health';
 
     return {
       enabled,
       restBaseUrl,
       soapWsdlUrl,
+      soapServiceUrl,
       websocketUrl,
+      websocketProtocols,
+      fhirBaseUrl,
+      graphqlUrl,
+      restHealthPaths,
       token,
       orgCode,
       timeoutMs,
@@ -323,6 +351,24 @@ class HisConnector {
     return headers;
   }
 
+  /** Header cho GET/HEAD (không gửi Content-Type để tránh một số API từ chối). */
+  _buildHeadersRead(extra = {}) {
+    const cfg = this.getConfig();
+    const headers = {
+      Accept: 'application/json, application/fhir+json, application/xml, text/plain, */*',
+      ...extra,
+    };
+    if (cfg.token) headers.Authorization = `Bearer ${cfg.token}`;
+    if (cfg.orgCode) headers['X-HIS-ORG-CODE'] = cfg.orgCode;
+    return headers;
+  }
+
+  _parseWebsocketProtocols(cfg) {
+    const raw = trimValue(cfg.websocketProtocols);
+    if (!raw) return [];
+    return raw.split(/[,;\s]+/).map((s) => s.trim()).filter(Boolean);
+  }
+
   async fetchREST(endpoint, method = 'GET', data = null) {
     const cfg = this.getConfig();
     if (!cfg.enabled) throw new Error('Tích hợp HIS đang tắt (his.enabled=false).');
@@ -346,13 +392,67 @@ class HisConnector {
     return response.json();
   }
 
+  /**
+   * FHIR R4 (HTTP): GET/POST JSON theo chuẩn application/fhir+json.
+   * @param {string} resourcePath ví dụ '/Patient/123' hoặc '/metadata'
+   */
+  async fetchFHIR(resourcePath, method = 'GET', bodyObj = null) {
+    const cfg = this.getConfig();
+    if (!cfg.enabled) throw new Error('Tích hợp HIS đang tắt (his.enabled=false).');
+    if (!cfg.fhirBaseUrl) throw new Error('Chưa cấu hình HIS FHIR base URL (fhirBaseUrl).');
+
+    const base = cfg.fhirBaseUrl.replace(/\/$/, '');
+    const path = String(resourcePath || '').startsWith('/') ? resourcePath : `/${resourcePath || ''}`;
+    const url = `${base}${path}`;
+    const response = await this._fetchWithTimeout(
+      url,
+      {
+        method,
+        headers: {
+          ...this._buildHeaders('application/fhir+json'),
+          Accept: 'application/fhir+json',
+        },
+        body: bodyObj ? JSON.stringify(bodyObj) : null,
+      },
+      cfg.timeoutMs,
+    );
+
+    if (!response.ok) {
+      throw new Error(`Lỗi FHIR HIS: ${response.status} ${response.statusText}`);
+    }
+    return response.json();
+  }
+
+  /** GraphQL qua HTTP POST (Apollo, Hasura, v.v.). */
+  async postGraphQL(query, variables = null) {
+    const cfg = this.getConfig();
+    if (!cfg.enabled) throw new Error('Tích hợp HIS đang tắt (his.enabled=false).');
+    if (!cfg.graphqlUrl) throw new Error('Chưa cấu hình HIS GraphQL URL (graphqlUrl).');
+
+    const response = await this._fetchWithTimeout(
+      cfg.graphqlUrl,
+      {
+        method: 'POST',
+        headers: this._buildHeaders('application/json'),
+        body: JSON.stringify({ query, variables }),
+      },
+      cfg.timeoutMs,
+    );
+
+    if (!response.ok) {
+      throw new Error(`Lỗi GraphQL HIS: ${response.status} ${response.statusText}`);
+    }
+    return response.json();
+  }
+
   async fetchSOAP(actionName, xmlBody) {
     const cfg = this.getConfig();
     if (!cfg.enabled) throw new Error('Tích hợp HIS đang tắt (his.enabled=false).');
-    if (!cfg.soapWsdlUrl) throw new Error('Chưa cấu hình HIS SOAP WSDL URL.');
+    const endpoint = trimValue(cfg.soapServiceUrl) || trimValue(cfg.soapWsdlUrl);
+    if (!endpoint) throw new Error('Chưa cấu hình HIS SOAP (soapServiceUrl hoặc soapWsdlUrl).');
 
     const response = await this._fetchWithTimeout(
-      cfg.soapWsdlUrl,
+      endpoint,
       {
         method: 'POST',
         headers: {
@@ -368,6 +468,102 @@ class HisConnector {
       throw new Error(`Lỗi khi gọi HIS SOAP API: ${response.status} ${response.statusText}`);
     }
     return response.text();
+  }
+
+  /**
+   * Kiểm tra nhanh tất cả kênh đã cấu hình (REST health, FHIR metadata, GraphQL, WSDL/SOAP endpoint, WebSocket).
+   * Kênh không cấu hình được đánh dấu skipped.
+   */
+  async kiemTraBoKetNoiHIS() {
+    const cfg = this.getConfig();
+    const thoiGian = new Date().toISOString();
+    const chiTiet = {};
+
+    if (!cfg.enabled) {
+      return { ok: false, lyDo: 'Tích hợp HIS đang tắt (his.enabled=false).', chiTiet: {}, thoiGian };
+    }
+
+    if (cfg.restBaseUrl) {
+      const paths = cfg.restHealthPaths.split(/[,;]+/).map((s) => s.trim()).filter(Boolean);
+      let ok = false;
+      let message = '';
+      for (const p of paths) {
+        const ep = p.startsWith('/') ? p : `/${p}`;
+        try {
+          const url = `${cfg.restBaseUrl.replace(/\/$/, '')}${ep}`;
+          const response = await this._fetchWithTimeout(
+            url,
+            { method: 'GET', headers: this._buildHeadersRead() },
+            cfg.timeoutMs,
+          );
+          ok = response.ok;
+          message = `${ep} → HTTP ${response.status}`;
+          if (ok) break;
+        } catch (e) {
+          message = `${ep}: ${e?.message || e}`;
+        }
+      }
+      chiTiet.rest = { ok, message };
+    } else {
+      chiTiet.rest = { ok: false, skipped: true, message: 'Chưa cấu hình REST base URL.' };
+    }
+
+    if (cfg.fhirBaseUrl) {
+      try {
+        const meta = await this.fetchFHIR('/metadata', 'GET');
+        const kind = meta?.resourceType || 'unknown';
+        chiTiet.fhir = { ok: true, message: `FHIR /metadata OK (${kind}).` };
+      } catch (e) {
+        chiTiet.fhir = { ok: false, message: e?.message || String(e) };
+      }
+    } else {
+      chiTiet.fhir = { ok: false, skipped: true, message: 'Chưa cấu hình FHIR base URL.' };
+    }
+
+    if (cfg.graphqlUrl) {
+      try {
+        await this.postGraphQL('query { __typename }', null);
+        chiTiet.graphql = { ok: true, message: 'GraphQL ping phản hồi.' };
+      } catch (e) {
+        chiTiet.graphql = { ok: false, message: e?.message || String(e) };
+      }
+    } else {
+      chiTiet.graphql = { ok: false, skipped: true, message: 'Chưa cấu hình GraphQL URL.' };
+    }
+
+    const wsdlOrSoap = trimValue(cfg.soapWsdlUrl) || trimValue(cfg.soapServiceUrl);
+    if (wsdlOrSoap) {
+      try {
+        const url = trimValue(cfg.soapWsdlUrl) || trimValue(cfg.soapServiceUrl);
+        const response = await this._fetchWithTimeout(
+          url,
+          { method: 'GET', headers: this._buildHeadersRead({ Accept: 'text/xml, application/xml' }) },
+          cfg.timeoutMs,
+        );
+        chiTiet.soap = {
+          ok: response.ok,
+          message: response.ok ? `SOAP/WSDL GET → HTTP ${response.status}` : `GET ${response.status} (thử soapWsdlUrl hoặc kiểm tra quyền)`,
+        };
+      } catch (e) {
+        chiTiet.soap = { ok: false, message: e?.message || String(e) };
+      }
+    } else {
+      chiTiet.soap = { ok: false, skipped: true, message: 'Chưa cấu hình SOAP WSDL hoặc soapServiceUrl.' };
+    }
+
+    const wsChk = await this.checkRealtimeConnection();
+    if (cfg.websocketUrl) {
+      chiTiet.websocket = wsChk.ok
+        ? { ok: true, message: wsChk.reason || 'Cấu hình WebSocket hợp lệ.' }
+        : { ok: false, message: wsChk.reason || 'WebSocket chưa sẵn sàng.' };
+    } else {
+      chiTiet.websocket = { ok: false, skipped: true, message: 'Chưa cấu hình WebSocket URL.' };
+    }
+
+    const evaluated = Object.values(chiTiet).filter((x) => !x.skipped);
+    const ok = evaluated.length > 0 && evaluated.every((x) => x.ok);
+
+    return { ok, chiTiet, thoiGian };
   }
 
   async checkRealtimeConnection() {
@@ -456,7 +652,8 @@ class HisConnector {
     });
 
     try {
-      this.ws = new WebSocket(cfg.websocketUrl);
+      const protos = this._parseWebsocketProtocols(cfg);
+      this.ws = protos.length > 0 ? new WebSocket(cfg.websocketUrl, protos) : new WebSocket(cfg.websocketUrl);
     } catch (error) {
       const message = error?.message || 'Không khởi tạo được WebSocket HIS.';
       this._updateRealtimeStatus({

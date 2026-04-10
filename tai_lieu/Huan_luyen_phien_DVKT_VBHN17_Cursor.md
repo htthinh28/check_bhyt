@@ -1,13 +1,15 @@
 # Phiên huấn luyện — Giám định DVKT theo 17/VBHN-BYT (Cursor — đủ nội dung tri thức)
 
-**Phiên bản:** 1.6  
-**Ngày:** 09/04/2026  
+**Phiên bản:** 1.7  
+**Ngày:** 10/04/2026  
 **Mục phiên:** Chuẩn hóa tư duy AI giám định **dịch vụ kỹ thuật (DVKT)** theo khung **17/VBHN-BYT** + **TT 39/2024** (HL 01/01/2025 cho nhiều điểm), neo **XML1/XML3** và **mã nguồn** có sẵn — **không thay thế** văn bản gốc BYT/BHXH.
 
 **Nguồn tri thức bắt buộc trong repo:**
 
 - **Kỹ năng chung (mọi rule):** [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md) · [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md)
 - **Điểm vào chuẩn hóa suy luận DVKT (đọc sau kỹ năng chung):** [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md)
+- **Kiểm soát lỗi DVKT (phân loại cảnh báo theo VBHN 17 — song song thẻ “sai thuốc”):** [The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md](./The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md)
+- **Danh mục 1 / 2 chi tiết (đúng danh pháp lý VBHN):** [The_tri_thuc_Danh_muc_1_DVKT_dieu_kien_ty_le_gia_VBHN17_AI.md](./The_tri_thuc_Danh_muc_1_DVKT_dieu_kien_ty_le_gia_VBHN17_AI.md) · [The_tri_thuc_Danh_muc_2_DVKT_dieu_kien_thanh_toan_VBHN17_AI.md](./The_tri_thuc_Danh_muc_2_DVKT_dieu_kien_thanh_toan_VBHN17_AI.md)
 - [The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md](./The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md)
 - [The_tri_thuc_mau_luat_BHYT_2008_2025.md](./The_tri_thuc_mau_luat_BHYT_2008_2025.md) — mục **11.5**
 - (Bổ sung ngữ cảnh PTTT–XML3) [The_tri_thuc_mau_nhom_pttt_dot1.md](./The_tri_thuc_mau_nhom_pttt_dot1.md)
@@ -120,6 +122,7 @@ Phiên huấn luyện **DVKT / 17/VBHN-BYT** đã củng cố **lớp kiểm tra
 ### Đánh dấu hoàn thành (mở rộng)
 
 - [ ] Đã đọc mục A–G và thẻ [The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md](./The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md)
+- [ ] Đã đọc thẻ kiểm soát lỗi [The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md](./The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md) và mục **J** (phiên 1.7)
 - [ ] Đã làm bài tập trên ca **000308** (mục 6 trong file ca) hoặc rút gọn tương đương
 - [ ] (Tuỳ chọn) Chạy `npm run qa:audit-fixtures` / `npm run qa:on-off-match` sau khi chỉnh seed DVKT–PTTT
 - [ ] Đã đi theo **lộ trình ca** mục I (ít nhất đọc + 1 bài tập mỗi ca)
@@ -142,13 +145,24 @@ Nên đi **từ tri thức tổng → gói PTTT → CĐHA hardcoded → engine n
 
 ---
 
+## J. Kiểm soát lỗi DVKT theo VBHN 17 (bổ sung phiên 1.7)
+
+Mục tiêu: AI và người đào tạo có **một lớp phân loại lỗi** giống cách làm với thuốc ([The_tri_thuc_kiem_soat_sai_thuoc_AI.md](./The_tri_thuc_kiem_soat_sai_thuoc_AI.md)), nhưng neo **Điều/Khoản** và **ba nhánh mã** (`DVKT_*` / `CDHA_*` / `DVKT-OP-*`).
+
+- **Đọc:** [The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md](./The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md) (mục 2–4: định nghĩa, bảng tra nhanh, nguyên tắc).
+- **Làm:** chọn **một** ca trong mục **H** (ưu tiên đúng thứ tự mục **I**), dùng **Prompt mẫu** trong thẻ mục 5 — đầu ra: bảng phân loại từng `ma_luat` + một dòng kết luận nghiệp vụ / giới hạn engine.
+- **Không** mở rộng phạm vi sang VTYT sâu — chỉ neo chéo khi cùng dòng tiền **4a** (xem [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md)).
+
+---
+
 ## Liên kết
 
 - Chuẩn hóa kiến thức AI (DVKT): [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md)
+- Kiểm soát lỗi DVKT (VBHN 17): [The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md](./The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md)
 - Quy trình Cursor + OpenClaw: [Quy_trinh_lam_viec_Cursor_OpenClaw_AI_giam_dinh_BHYT.md](./Quy_trinh_lam_viec_Cursor_OpenClaw_AI_giam_dinh_BHYT.md)
 - Thẻ DVKT đầy đủ: [The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md](./The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md)
 - Chuỗi văn bản DVKT (mục 11.5): [The_tri_thuc_mau_luat_BHYT_2008_2025.md](./The_tri_thuc_mau_luat_BHYT_2008_2025.md)
 
 ---
 
-*Phiên này thay thế prompt OpenClaw khi gateway không tách vai được: mục A–I + tài liệu [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md) chuẩn hóa suy luận.*
+*Phiên này thay thế prompt OpenClaw khi gateway không tách vai được: mục A–J + tài liệu [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md) chuẩn hóa suy luận; mục **J** + [The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md](./The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md) kiểm soát lỗi.*

@@ -1,5 +1,7 @@
 import { Platform, ScrollView, StyleSheet, Text, View } from 'react-native';
 
+import { COT_MAC_DINH_PHAC_DO_CDSS } from './phac_do_cdss_columns';
+
 // Tự động sinh danh mục 40 tài liệu tham khảo y khoa uy tín (>50% trong 5 năm gần đây)
 const DANH_MUC_THAM_KHAO = Array.from({ length: 40 }).map((_, index) => {
   const namXB = index < 25 ? (2021 + Math.floor(Math.random() * 5)) : (2015 + Math.floor(Math.random() * 5));
@@ -14,7 +16,46 @@ const DANH_MUC_THAM_KHAO = Array.from({ length: 40 }).map((_, index) => {
   };
 }).sort((a, b) => a.tacGia.localeCompare(b.tacGia)); // Sắp xếp ABC
 
-const InPhacDo = ({ maICD = "J18.9" }) => {
+const InPhacDo = ({ maICD = 'J18.9', noiDungPhacDo = null }) => {
+  const coDuLieuCdss =
+    noiDungPhacDo &&
+    String(noiDungPhacDo['TÊN BỆNH (CHẨN ĐOÁN)'] || noiDungPhacDo['MÃ ICD-10'] || '').trim();
+
+  if (coDuLieuCdss) {
+    return (
+      <ScrollView style={styles.vung_an_toan}>
+        <View style={styles.trang_in}>
+          <View style={styles.phan_dau_trang}>
+            <Text style={styles.ten_benh_vien}>TẬP ĐOÀN Y TẾ PHƯƠNG CHÂU</Text>
+            <Text style={styles.tieu_de_tai_lieu}>PHÁC ĐỒ ĐIỀU TRỊ — CDSS GUIDELINES</Text>
+            <Text style={styles.ma_icd_header}>
+              Mã ICD-10: {noiDungPhacDo['MÃ ICD-10'] || maICD}
+            </Text>
+            <View style={styles.duong_ke_ngang} />
+          </View>
+
+          {COT_MAC_DINH_PHAC_DO_CDSS.map((cot) => {
+            const noiDung = String(noiDungPhacDo[cot] ?? '').trim();
+            if (!noiDung) return null;
+            return (
+              <View key={cot} style={styles.phan_muc}>
+                <Text style={styles.tieu_de_muc}>{cot}</Text>
+                <View style={styles.noi_dung_muc}>
+                  <Text style={styles.chu_thuong}>{noiDung}</Text>
+                </View>
+              </View>
+            );
+          })}
+
+          <View style={styles.phan_cuoi_trang}>
+            <Text style={styles.chu_ky_ten}>BAN GIÁM ĐỐC PHÊ DUYỆT</Text>
+            <Text style={styles.chu_ky_ngay}>(Ký và ghi rõ họ tên)</Text>
+          </View>
+        </View>
+      </ScrollView>
+    );
+  }
+
   return (
     <ScrollView style={styles.vung_an_toan}>
       <View style={styles.trang_in}>

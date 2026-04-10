@@ -7,59 +7,68 @@
 
 import { CAU_TRUC_DU_LIEU } from '../quy_tac/quyluat_cautrucdulieu/quyluat_cau_truc_du_lieu';
 
-const DANH_SACH_BANG_XML = ['XML1', 'XML2', 'XML3', 'XML4', 'XML5', 'XML6'];
+const DANH_SACH_BANG_XML = [
+  'XML1', 'XML2', 'XML3', 'XML4', 'XML5', 'XML6', 'XML7', 'XML8', 'XML9', 'XML10', 'XML11', 'XML12', 'XML13', 'XML14', 'XML15',
+];
 const TEN_QUY_TAC_CAU_TRUC = 'Kiểm tra cấu trúc XML theo QĐ3176';
 const CO_SO_PHAP_LY_CAU_TRUC_XML =
-  'QĐ 3176/QĐ-BYT + QĐ 130/QĐ-BYT (đặc tả bộ chỉ tiêu XML hiện hành).';
+  'QĐ 3176/QĐ-BYT (bảng trường bắt buộc đồng bộ file QD3176_Truong_Bat_Buoc_1.xlsx) + QĐ 130/QĐ-BYT.';
 
-// Bo sung truong bat buoc de tranh bo sot khi file quy tac chua khai bao het.
+/**
+ * Trường bắt buộc theo từng bảng — đồng bộ với phụ lục QĐ 3176/QĐ-BYT (file QD3176_Truong_Bat_Buoc_1.xlsx).
+ * Không gộp thêm QUY_TAC.required từ xml1–6 để tránh lệch so với bảng chính thức.
+ */
 const TRUONG_BAT_BUOC_BO_SUNG = {
   XML1: [
-    'MA_LK',
-    'MA_BN',
-    'HO_TEN',
-    'NGAY_SINH',
-    'GIOI_TINH',
-    'MA_THE_BHYT',
-    'MA_DOITUONG_KCB',
-    'MA_BENH_CHINH',
-    'NGAY_VAO',
-    'NGAY_RA',
-    'MA_LOAI_KCB',
-    'MA_CSKCB',
-    'T_TONGCHI_BV',
-    'T_TONGCHI_BH',
+    'MA_LK', 'STT', 'MA_BN', 'HO_TEN', 'NGAY_SINH', 'GIOI_TINH', 'MA_QUOCTICH', 'MA_DANTOC', 'MA_NGHE_NGHIEP', 'DIA_CHI',
+    'MATINH_CU_TRU', 'MAHUYEN_CU_TRU', 'LY_DO_VV', 'CHAN_DOAN_VAO', 'CHAN_DOAN_RV', 'MA_BENH_CHINH', 'MA_DOITUONG_KCB',
+    'NGAY_VAO', 'NGAY_RA', 'SO_NGAY_DTRI', 'PP_DIEU_TRI', 'KET_QUA_DTRI', 'MA_LOAI_RV', 'T_THUOC', 'T_VTYT', 'T_TONGCHI_BV',
+    'T_TONGCHI_BH', 'T_BNTT', 'T_BNCCT', 'T_BHTT', 'T_NGUONKHAC', 'NAM_QT', 'THANG_QT', 'MA_LOAI_KCB', 'MA_KHOA', 'MA_CSKCB',
+    'MA_KHUVUC', 'MA_TTDV',
   ],
   XML2: [
-    'MA_LK',
-    'STT',
-    'MA_THUOC',
-    'TEN_THUOC',
-    'MA_NHOM',
-    'SO_LUONG',
-    'DON_GIA',
-    'THANH_TIEN_BV',
-    'MA_KHOA',
-    'MA_BAC_SI',
-    'NGAY_YL',
+    'MA_LK', 'STT', 'MA_THUOC', 'MA_DICH_VU', 'TEN_THUOC', 'TEN_HOAT_CHAT', 'DUONG_DUNG', 'HAM_LUONG', 'DON_VI_TINH', 'SO_LUONG',
+    'DON_GIA', 'TT_THAU', 'PHAM_VI', 'TYLE_TT', 'THANH_TIEN_BV', 'THANH_TIEN_BH', 'T_NGUONKHAC', 'T_BNTT', 'T_BNCCT', 'T_BHTT',
+    'MA_PTTT', 'NGAY_YL',
   ],
   XML3: [
-    'MA_LK',
-    'STT',
-    'MA_NHOM',
-    'SO_LUONG',
-    'DON_GIA_BV',
-    'THANH_TIEN_BV',
-    'MA_KHOA',
-    'MA_BAC_SI',
-    'NGAY_YL',
+    'MA_LK', 'STT', 'MA_DICH_VU', 'MA_PTTT_QT', 'TEN_DICH_VU', 'DON_VI_TINH', 'SO_LUONG', 'DON_GIA_BV', 'DON_GIA_BH', 'TT_THAU',
+    'PHAM_VI', 'TYLE_TT', 'THANH_TIEN_BV', 'THANH_TIEN_BH', 'T_NGUONKHAC', 'T_BNTT', 'T_BNCCT', 'T_BHTT', 'MA_PTTT', 'NGAY_YL',
+    'NGAY_KQ',
   ],
-  XML4: ['MA_LK', 'STT', 'MA_DICH_VU', 'NGAY_KQ'],
-  XML5: ['MA_LK', 'STT', 'NGAY_YL', 'MA_BAC_SI', 'MA_KHOA'],
-  XML6: ['MA_LK', 'STT', 'MA_BN', 'HO_TEN', 'MA_BAC_SI', 'MA_KHOA', 'MA_CSKCB', 'MA_BENH_CHINH'],
+  XML4: ['MA_LK', 'STT', 'MA_DICH_VU', 'TEN_DICH_VU'],
+  XML5: ['MA_LK', 'STT', 'DIEN_BIEN_LS', 'NGAY_YL'],
+  XML6: ['MA_LK', 'MA_BN', 'HO_TEN', 'NGAY_SINH', 'GIOI_TINH', 'DIA_CHI', 'MATINH_CU_TRU', 'MAHUYEN_CU_TRU', 'MAXA_CU_TRU'],
+  XML7: ['MA_LK', 'SO_LUU_TRU', 'MA_YTE', 'MA_KHOA_RV'],
+  XML8: ['MA_LK', 'SO_LUU_TRU', 'MA_YTE', 'MA_KHOA_RV'],
+  XML9: ['MA_LK', 'HO_TEN_ME', 'NGAYSINH_ME'],
+  XML10: ['MA_LK', 'HO_TEN', 'CHAN_DOAN', 'TU_NGAY', 'DEN_NGAY'],
+  XML11: ['MA_LK', 'HO_TEN', 'CHAN_DOAN', 'PP_DIEU_TRI', 'TU_NGAY', 'DEN_NGAY'],
+  XML12: ['MA_LK'],
+  XML13: ['MA_LK', 'SO_HOSO'],
+  XML14: ['MA_LK'],
+  XML15: ['MA_LK'],
 };
 
-const TAP_TRUONG_TY_LE = new Set(['MUC_HUONG', 'TYLE_TT_BH', 'TYLE_TT_DV']);
+/** Một số hệ thống gửi tên cột khác với QĐ — coi là đủ nếu một trong các alias có giá trị. */
+const ANH_XA_TRUONG_BAT_BUOC = {
+  XML1: {
+    MA_QUOCTICH: ['MA_QUOC_TICH'],
+    MATINH_CU_TRU: ['MA_TINH_CU_TRU'],
+    MAHUYEN_CU_TRU: ['MA_HUYEN_CU_TRU'],
+    MAXA_CU_TRU: ['MA_XA_CU_TRU'],
+  },
+  XML2: { TYLE_TT: ['TYLE_TT_BH', 'TYLE_TT_DV'] },
+  XML3: { TYLE_TT: ['TYLE_TT_BH', 'TYLE_TT_DV'] },
+  XML5: { DIEN_BIEN_LS: ['DIEN_BIEN'] },
+  XML6: {
+    MATINH_CU_TRU: ['MA_TINH_CU_TRU'],
+    MAHUYEN_CU_TRU: ['MA_HUYEN_CU_TRU'],
+    MAXA_CU_TRU: ['MA_XA_CU_TRU'],
+  },
+};
+
+const TAP_TRUONG_TY_LE = new Set(['MUC_HUONG', 'TYLE_TT', 'TYLE_TT_BH', 'TYLE_TT_DV']);
 const TAP_TRUONG_SO_KHONG_AM = new Set([
   'SO_NGAY_DTRI',
   'SO_LUONG',
@@ -87,6 +96,9 @@ const TAP_NGAY_8_SO = new Set([
   'NGAY_TAI_KHAM',
   'NAM_NAM_LIEN_TUC',
   'NGAY_HEN_TAI_KHAM',
+  'TU_NGAY',
+  'DEN_NGAY',
+  'NGAYSINH_ME',
 ]);
 
 const TAP_NGAY_12_SO = new Set([
@@ -236,13 +248,14 @@ const kiemTraLoaiDuLieuBang = (hoSo, tenBang, danhSachLoi) => {
   }
 };
 
-const layTapBatBuocTheoBang = (tenBang, cauTruc) => {
-  const tap = new Set(TRUONG_BAT_BUOC_BO_SUNG[tenBang] || []);
-  const quyTac = cauTruc?.quy_tac || {};
-  Object.entries(quyTac).forEach(([field, rule]) => {
-    if (rule?.required) tap.add(field);
-  });
-  return tap;
+const layTapBatBuocTheoBang = (tenBang) => new Set(TRUONG_BAT_BUOC_BO_SUNG[tenBang] || []);
+
+/** Trường bắt buộc có giá trị (kể cả qua tên cột thay thế trong ANH_XA_TRUONG_BAT_BUOC). */
+const coGiaTriBatBuoc = (row, tenBang, field) => {
+  if (!laRong(row[field])) return true;
+  const alts = ANH_XA_TRUONG_BAT_BUOC[tenBang]?.[field];
+  if (!alts || !Array.isArray(alts)) return false;
+  return alts.some((k) => !laRong(row[k]));
 };
 
 const checkKhongAmVaTyLe = (tenBang, index, field, val, danhSachLoi) => {
@@ -327,24 +340,29 @@ const kiemTraLienTruongTheoBang = (tenBang, row, index, danhSachLoi) => {
     }
   }
 
-  if (tenBang === 'XML5' && laRong(row.DIEN_BIEN) && laRong(row.HOI_CHAN) && laRong(row.PHAU_THUAT)) {
-    pushLoi(danhSachLoi, {
-      phanHe: tenBang,
-      index,
-      truong: 'DIEN_BIEN',
-      maLuat: `${tenBang}-CONTENT-EMPTY`,
-      mucDo: 'Error',
-      noiDung: 'Dòng XML5 không có nội dung DIEN_BIEN/HOI_CHAN/PHAU_THUAT.',
-    });
+  if (tenBang === 'XML5') {
+    const coDienBien = !laRong(row.DIEN_BIEN) || !laRong(row.DIEN_BIEN_LS);
+    if (!coDienBien && laRong(row.HOI_CHAN) && laRong(row.PHAU_THUAT)) {
+      pushLoi(danhSachLoi, {
+        phanHe: tenBang,
+        index,
+        truong: 'DIEN_BIEN',
+        maLuat: `${tenBang}-CONTENT-EMPTY`,
+        mucDo: 'Error',
+        noiDung: 'Dòng XML5 không có nội dung DIEN_BIEN/DIEN_BIEN_LS/HOI_CHAN/PHAU_THUAT.',
+      });
+    }
   }
 };
 
 const kiemTraTheoQuyTacBang = (tenBang, rows, danhSachLoi, maLkGoc) => {
-  const cauTruc = CAU_TRUC_DU_LIEU[tenBang];
-  if (!cauTruc) return;
+  const cauTruc = CAU_TRUC_DU_LIEU[tenBang] || { cot: [], quy_tac: {} };
+  const coCauHinhBang = CAU_TRUC_DU_LIEU[tenBang];
+  const coTruongBatBuoc = (TRUONG_BAT_BUOC_BO_SUNG[tenBang] || []).length > 0;
+  if (!coCauHinhBang && !coTruongBatBuoc) return;
 
   const tapCotChuan = new Set(cauTruc.cot || []);
-  const tapBatBuoc = layTapBatBuocTheoBang(tenBang, cauTruc);
+  const tapBatBuoc = layTapBatBuocTheoBang(tenBang);
   const quyTac = cauTruc.quy_tac || {};
   const daGapSTT = new Set();
 
@@ -363,33 +381,35 @@ const kiemTraTheoQuyTacBang = (tenBang, rows, danhSachLoi, maLkGoc) => {
       return;
     }
 
-    Object.keys(row).forEach((field) => {
-      const fieldRaw = String(field || '');
-      const fieldClean = fieldRaw.replace(/^\uFEFF/, '').trim();
-      if (fieldClean === 'id' || fieldClean.startsWith('_')) return;
-      if (tapCotChuan.has(fieldClean)) return;
+    if (tapCotChuan.size > 0) {
+      Object.keys(row).forEach((field) => {
+        const fieldRaw = String(field || '');
+        const fieldClean = fieldRaw.replace(/^\uFEFF/, '').trim();
+        if (fieldClean === 'id' || fieldClean.startsWith('_')) return;
+        if (tapCotChuan.has(fieldClean)) return;
 
-      const laParserError = fieldClean.toLowerCase() === 'parsererror';
-      const noiDung = laParserError
-        ? 'Cột [parsererror] không nằm trong danh mục chỉ tiêu quy định. Xử lý: XML đầu vào sai cú pháp (thiếu thẻ đóng, lỗi ký tự đặc biệt, lỗi mã hóa). Cần sửa XML gốc rồi nạp lại.'
-        : `Cột [${field}] không nằm trong danh mục chỉ tiêu quy định.`;
+        const laParserError = fieldClean.toLowerCase() === 'parsererror';
+        const noiDung = laParserError
+          ? 'Cột [parsererror] không nằm trong danh mục chỉ tiêu quy định. Xử lý: XML đầu vào sai cú pháp (thiếu thẻ đóng, lỗi ký tự đặc biệt, lỗi mã hóa). Cần sửa XML gốc rồi nạp lại.'
+          : `Cột [${field}] không nằm trong danh mục chỉ tiêu quy định.`;
 
-      const noiDungChuan = laParserError
-        ? noiDung
-        : String(noiDung).replace(`[${field}]`, `[${fieldClean}]`);
+        const noiDungChuan = laParserError
+          ? noiDung
+          : String(noiDung).replace(`[${field}]`, `[${fieldClean}]`);
 
-      pushLoi(danhSachLoi, {
-        phanHe: tenBang,
-        index,
-        truong: fieldClean,
-        maLuat: `${tenBang}-UNKNOWN-${fieldClean}`,
-        mucDo: laParserError ? 'Critical' : 'Warning',
-        noiDung: noiDungChuan,
+        pushLoi(danhSachLoi, {
+          phanHe: tenBang,
+          index,
+          truong: fieldClean,
+          maLuat: `${tenBang}-UNKNOWN-${fieldClean}`,
+          mucDo: laParserError ? 'Critical' : 'Warning',
+          noiDung: noiDungChuan,
+        });
       });
-    });
+    }
 
     tapBatBuoc.forEach((field) => {
-      if (laRong(row[field])) {
+      if (!coGiaTriBatBuoc(row, tenBang, field)) {
         pushLoi(danhSachLoi, {
           phanHe: tenBang,
           index,

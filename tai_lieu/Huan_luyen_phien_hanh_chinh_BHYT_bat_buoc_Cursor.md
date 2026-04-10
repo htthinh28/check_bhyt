@@ -2,6 +2,8 @@
 
 **Mục phiên:** AI (và người đào tạo) nắm **tầng hành chính–pháp lý** (thẻ BHYT, đối tượng, mức hưởng, loại KCB, cơ sở KCB, mốc thời gian, tổng chi) trước khi đi sâu lâm sàng/thuốc/DVKT; biết **neo** vào XML1/QĐ 3176 và nhóm luật **HC_** trong repo.
 
+**Bổ sung (phiên mở rộng):** khung **4 tầng + 5 bước giám định** — [Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md](./Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md); thẻ kiểm soát lỗi tập trung — [The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md](./The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md).
+
 **Căn cứ chung:** Luật BHYT (hiện hành), hướng dẫn thi hành và đặc tả **XML130** — trong repo: **QĐ 3176/QĐ-BYT** + **QĐ 130** (bảng chỉ tiêu), không thay bằng “truyền miệng” hoặc form nội bộ cũ.
 
 ---
@@ -92,6 +94,7 @@ AI khi giải thích “bắt buộc” cần phân biệt:
 
 | Tài liệu / vị trí | Vai trò |
 |-------------------|--------|
+| [The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md](./The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md) | **Kiểm soát lỗi** thẻ & quyền lợi — bảng phân loại + prompt |
 | [The_tri_thuc_mau_luat_BHYT_2008_2025.md](./The_tri_thuc_mau_luat_BHYT_2008_2025.md) | Nền luật |
 | `ma_nguon/quy_tac/quyluat_cautrucdulieu/xml1.jsx` | Cột XML1 |
 | `ma_nguon/tien_ich/kiem_tra_xml.jsx` | Trường bắt buộc bổ sung theo cấu trúc |

@@ -1,5 +1,5 @@
 /** AUTO-GENERATED from DuLieu_LUAT_DU_LIEU (12).xlsx */
-export const PHIEN_BAN_SEED_LUAT_DU_LIEU_MUC1 = '2026-04-05_muc1_du_lieu_v6';
+export const PHIEN_BAN_SEED_LUAT_DU_LIEU_MUC1 = '2026-04-10_muc1_du_lieu_v9_cdss_icd_gop';
 export const COT_SEED_LUAT_DU_LIEU_MUC1 = ["TRANG_THAI","MA_LUAT","TEN_QUY_TAC","DIEU_KIEN","CANH_BAO","DIEU_KIEN (Toán tử No-Code)","GHI_CHU_SUA","NGUON_DU_LIEU"];
 export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
   {
@@ -40,8 +40,8 @@ export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "XML_04",
     "TEN_QUY_TAC": "Cân đối tổng chi BV",
-    "DIEU_KIEN": "!IS_EMPTY(XML1.T_TONGCHI_BV) AND ABS(TO_NUMBER(XML1.T_TONGCHI_BV) - (TO_NUMBER(XML1.T_BHTT) + TO_NUMBER(XML1.T_BNCCT) + TO_NUMBER(XML1.T_BNTT) + TO_NUMBER(XML1.T_NGUONKHAC))) > 1",
-    "CANH_BAO": "⛔ Tổng chi BV lệch với tổng các nguồn thanh toán (Lỗi làm tròn hoặc thất thoát).",
+    "DIEU_KIEN": "!IS_EMPTY(XML1.T_TONGCHI_BV) AND ABS(TO_NUMBER(XML1.T_TONGCHI_BV) - (TO_NUMBER(XML1.T_BHTT) + TO_NUMBER(XML1.T_BNCCT) + TO_NUMBER(XML1.T_BNTT) + TO_NUMBER(XML1.T_NGUONKHAC) + TO_NUMBER(XML1.T_NGOAIDS))) > 1",
+    "CANH_BAO": "⛔ Tổng chi BV lệch với tổng các nguồn thanh toán (BHYT + CCT + BN tự trả + Nguồn khác + Ngoài DS HIV/AIDS).",
     "DIEU_KIEN (Toán tử No-Code)": "",
     "GHI_CHU_SUA": "✏️ [Rà soát] Math.abs→ABS",
     "NGUON_DU_LIEU": "DuLieu_LUAT_DU_LIEU (12).xlsx"
@@ -986,8 +986,8 @@ export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "XML_107",
     "TEN_QUY_TAC": "Tổng chi bệnh viện (T_TONGCHI_BV)",
-    "DIEU_KIEN": "ABS(TO_NUMBER(XML1.T_TONGCHI_BV) - (TO_NUMBER(XML1.T_BHTT) + TO_NUMBER(XML1.T_BNCCT) + TO_NUMBER(XML1.T_BNTT) + TO_NUMBER(XML1.T_NGUONKHAC))) > 1",
-    "CANH_BAO": "⛔ [KẾ TOÁN]: Tổng chi phí lệch so với tổng các nguồn thanh toán (BHYT + Cùng chi trả + Tự trả + Nguồn khác).",
+    "DIEU_KIEN": "ABS(TO_NUMBER(XML1.T_TONGCHI_BV) - (TO_NUMBER(XML1.T_BHTT) + TO_NUMBER(XML1.T_BNCCT) + TO_NUMBER(XML1.T_BNTT) + TO_NUMBER(XML1.T_NGUONKHAC) + TO_NUMBER(XML1.T_NGOAIDS))) > 1",
+    "CANH_BAO": "⛔ [KẾ TOÁN]: Tổng chi phí lệch so với tổng các nguồn thanh toán (BHYT + Cùng chi trả + Tự trả + Nguồn khác + Ngoài DS HIV/AIDS).",
     "DIEU_KIEN (Toán tử No-Code)": "",
     "GHI_CHU_SUA": "✏️ [Rà soát] Math.abs→ABS",
     "NGUON_DU_LIEU": "DuLieu_LUAT_DU_LIEU (12).xlsx"
@@ -1233,5 +1233,29 @@ export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
     "DIEU_KIEN (Toán tử No-Code)": "",
     "GHI_CHU_SUA": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_DU_LIEU (12).xlsx"
+  },
+  {
+    "id": "SEED_DULIEU_CDSS_CM_01",
+    "TRANG_THAI": "ON",
+    "MA_LUAT": "CDSS_CM_01",
+    "TEN_QUY_TAC": "Tri thức phác đồ CDSS — ICD chính và kèm (khử trùng) khớp kho Chuyên môn",
+    "DIEU_KIEN": "CO_KHO_TRI_THUC_PHAC_DO() AND CO_PHAC_DO_CDSS_CHO_BAT_CU_ICD_TREN_XML1(XML1)",
+    "CANH_BAO": "ℹ️ [CHUYÊN MÔN — CDSS]: Có phác đồ nội bộ cho ít nhất một mã ICD trên hồ sơ (chính hoặc kèm, trùng nhau chỉ tính một lần) — nên đối chiếu mục tiêu điều trị, dự phòng và theo dõi với thuốc/DVKT (Luật BHYT Điều 15).",
+    "DIEU_KIEN (Toán tử No-Code)": "",
+    "GHI_CHU_SUA": "Đối soát MA_BENH_CHINH + MA_BENH_KT (+ MA_BENHKEM); trùng lặp gộp một mã. Hàm CO_PHAC_DO_CDSS_CHO_BAT_CU_ICD_TREN_XML1. Kho phác đồ: gộp FileMau_PhacDo_CDSS + seed; một mã ICD một dòng (SO_DONG = số mã duy nhất).",
+    "NGUON_DU_LIEU": "CDSS Phác đồ BV + engine dong_co_giam_dinh",
+    "MUC_DO": "Info"
+  },
+  {
+    "id": "SEED_DULIEU_CDSS_CM_02",
+    "TRANG_THAI": "OFF",
+    "MA_LUAT": "CDSS_CM_02",
+    "TEN_QUY_TAC": "Có kho phác đồ CDSS nhưng không mã ICD chính/kèm (sau gộp) khớp bảng",
+    "DIEU_KIEN": "CO_KHO_TRI_THUC_PHAC_DO() AND KHONG_CO_PHAC_DO_CDSS_CHO_MA_ICD_GOP_TREN_XML1(XML1)",
+    "CANH_BAO": "📋 [CHUYÊN MÔN]: Đã nạp kho phác đồ CDSS nhưng không có dòng nào khớp các mã ICD trên hồ sơ (chính và kèm, đã khử trùng) — có thể bổ sung trong module Chuyên môn.",
+    "DIEU_KIEN (Toán tử No-Code)": "",
+    "GHI_CHU_SUA": "Mặc định OFF (dễ ồn); bật khi muốn nhắc bổ sung dữ liệu chuyên môn.",
+    "NGUON_DU_LIEU": "CDSS Phác đồ BV + engine dong_co_giam_dinh",
+    "MUC_DO": "Warning"
   }
 ];

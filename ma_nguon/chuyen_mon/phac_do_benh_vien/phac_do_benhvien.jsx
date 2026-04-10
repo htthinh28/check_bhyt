@@ -1,54 +1,32 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { Platform, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import * as XLSX from 'xlsx';
 
 import InPhacDo from './in_phac_do';
+import {
+  chuanHoaDongImportPhacDo,
+  COT_MAC_DINH_PHAC_DO_CDSS,
+  gopPhacDoImportVoiDuLieuHienTai,
+  loaiTrungMaIcdUuTienNoiDung,
+} from './phac_do_cdss_columns';
 import InfographicPhacDo from './infographic';
 
-// DANH SÁCH 18 CỘT TIÊU CHUẨN (JCI & TT 23/2024/TT-BYT)
-const COT_MAC_DINH = [
-  'MÃ ICD-10',
-  'TÊN BỆNH',
-  'LÂM SÀNG',
-  'CẬN LÂM SÀNG (TT 23/2024)',
-  'TIÊU CHUẨN CHẨN ĐOÁN CHÍNH XÁC',
-  'CHẨN ĐOÁN PHÂN BIỆT',
-  'NHÓM THUỐC',
-  'HOẠT CHẤT THUỐC',
-  'LIỀU DÙNG TỐI THIỂU',
-  'LIỀU DÙNG TỐI ĐA',
-  'ĐIỀU TRỊ CAN THIỆP (TT 23/2024)',
-  'MÃ DỊCH VỤ CAN THIỆP (TT 23/2024)',
-  'CẬN LÂM SÀNG THEO DÕI (TT 23/2024)',
-  'THỜI GIAN KIỂM LẠI (NGÀY)',
-  'ĐIỀU TRỊ KHÁC (TT 23/2024)',
-  'DỰ PHÒNG',
-  'TIÊN LƯỢNG',
-  'TÀI LIỆU THAM KHẢO'
-];
+import seedGuidelines from './du_lieu_phac_do_cdss_guidelines.seed.json';
 
-const DULIEU_MAU = [{
-  id: '1',
-  'MÃ ICD-10': 'J18, J15',
-  'TÊN BỆNH': 'Viêm phổi, Viêm phổi do vi khuẩn',
-  'LÂM SÀNG': 'Hội chứng nhiễm trùng (Sốt cao, vẻ mặt nhiễm trùng), Hội chứng đông đặc phổi kinh điển (Rung thanh tăng, gõ đục, rì rào phế nang giảm, rale nổ).',
-  'CẬN LÂM SÀNG (TT 23/2024)': 'Tổng phân tích tế bào máu ngoại vi (bằng máy đếm laser), Định lượng CRP, Chụp Xquang ngực thẳng',
-  'TIÊU CHUẨN CHẨN ĐOÁN CHÍNH XÁC': 'X-quang có tổn thương thâm nhiễm mới + Ít nhất 2 triệu chứng lâm sàng.',
-  'CHẨN ĐOÁN PHÂN BIỆT': 'Nhồi máu phổi, Lao phổi, Viêm phế quản cấp.',
-  'NHÓM THUỐC': 'Kháng sinh nhóm Beta-lactam, Nhóm Macrolid',
-  'HOẠT CHẤT THUỐC': 'Amoxicillin + Acid Clavulanic, Clarithromycin',
-  'LIỀU DÙNG TỐI THIỂU': '2g/ngày, 500mg/ngày',
-  'LIỀU DÙNG TỐI ĐA': '4g/ngày, 1000mg/ngày',
-  'ĐIỀU TRỊ CAN THIỆP (TT 23/2024)': 'Thở ô xy qua gọng kính',
-  'MÃ DỊCH VỤ CAN THIỆP (TT 23/2024)': '01.0001.0001',
-  'CẬN LÂM SÀNG THEO DÕI (TT 23/2024)': 'Định lượng CRP',
-  'THỜI GIAN KIỂM LẠI (NGÀY)': '2',
-  'ĐIỀU TRỊ KHÁC (TT 23/2024)': 'Vỗ rung lồng ngực',
-  'DỰ PHÒNG': 'Tiêm vaccine phế cầu, Vaccine cúm.',
-  'TIÊN LƯỢNG': 'Tốt nếu can thiệp sớm; Nặng nếu có biến chứng suy hô hấp.',
-  'TÀI LIỆU THAM KHẢO': '[1] UpToDate 2026. [2] BMJ Best Practice 2025.'
-}];
+const KEY_COLS = 'CDSS_COLS_PHAC_DO_V3';
+const KEY_DATA = 'CDSS_DATA_PHAC_DO_V3';
+
+const COT_MAC_DINH = COT_MAC_DINH_PHAC_DO_CDSS;
+
+const gopCotTuDong = (dong) => {
+  const keys = Object.keys(dong || {}).filter((k) => k !== 'id');
+  const thuTu = [...COT_MAC_DINH];
+  keys.forEach((k) => {
+    if (!thuTu.includes(k)) thuTu.push(k);
+  });
+  return thuTu;
+};
 
 const PhacDoBenhVien = () => {
   const [columns, setColumns] = useState(COT_MAC_DINH);
@@ -56,19 +34,32 @@ const PhacDoBenhVien = () => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [newColName, setNewColName] = useState('');
   const [sortAsc, setSortAsc] = useState(true);
+  /** Chiều cao vùng bảng (flex 3/4) — cần cho ScrollView ngang + cuộn dọc bên trong */
+  const [chieuCaoVungBang, setChieuCaoVungBang] = useState(0);
   
   // Trạng thái điều hướng xem/in
   const [viewMode, setViewMode] = useState('table'); 
   const [currentICD, setCurrentICD] = useState('');
 
+  const noiDungDongHienTai = useMemo(() => {
+    const key = 'MÃ ICD-10';
+    return data.find((row) => String(row[key] || '').trim() === String(currentICD || '').trim()) || null;
+  }, [data, currentICD]);
+
   useEffect(() => {
     const taiDuLieu = async () => {
       try {
-        const storedCols = await AsyncStorage.getItem('CDSS_COLS_PHAC_DO_V2');
-        const storedData = await AsyncStorage.getItem('CDSS_DATA_PHAC_DO_V2');
-        if (storedCols) setColumns(JSON.parse(storedCols));
-        if (storedData) setData(JSON.parse(storedData));
-        else setData(DULIEU_MAU);
+        const storedCols = await AsyncStorage.getItem(KEY_COLS);
+        const storedData = await AsyncStorage.getItem(KEY_DATA);
+        const seedCols = Array.isArray(seedGuidelines.columns) ? seedGuidelines.columns : COT_MAC_DINH;
+        const seedData = Array.isArray(seedGuidelines.data) ? seedGuidelines.data : [];
+        if (storedData) {
+          if (storedCols) setColumns(JSON.parse(storedCols));
+          setData(JSON.parse(storedData));
+        } else {
+          setColumns(seedCols);
+          setData(seedData.length ? seedData : []);
+        }
       } catch (e) { console.error(e); }
     };
     taiDuLieu();
@@ -77,8 +68,8 @@ const PhacDoBenhVien = () => {
   const luuHeThong = async (newData, newCols = columns) => {
     setData(newData);
     setColumns(newCols);
-    await AsyncStorage.setItem('CDSS_DATA_PHAC_DO_V2', JSON.stringify(newData));
-    await AsyncStorage.setItem('CDSS_COLS_PHAC_DO_V2', JSON.stringify(newCols));
+    await AsyncStorage.setItem(KEY_DATA, JSON.stringify(newData));
+    await AsyncStorage.setItem(KEY_COLS, JSON.stringify(newCols));
   };
 
   const handleAddRow = () => {
@@ -89,9 +80,9 @@ const PhacDoBenhVien = () => {
 
   const handleAddColumn = () => {
     if (!newColName) return;
-    const colUpper = newColName.trim().toUpperCase();
-    if (columns.includes(colUpper)) return alert("Cột đã tồn tại!");
-    luuHeThong(data, [...columns, colUpper]);
+    const colName = newColName.trim();
+    if (columns.some((c) => c.toLowerCase() === colName.toLowerCase())) return alert('Cột đã tồn tại!');
+    luuHeThong(data, [...columns, colName]);
     setNewColName('');
   };
 
@@ -128,8 +119,8 @@ const PhacDoBenhVien = () => {
       });
       const ws = XLSX.utils.json_to_sheet(exportData, { header: columns });
       const wb = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "CDSS_PhacDo");
-      XLSX.writeFile(wb, "PhacDo_CDSS_PhuongChau.xlsx");
+      XLSX.utils.book_append_sheet(wb, ws, 'PhacDo');
+      XLSX.writeFile(wb, 'PhacDo_CDSS_PhuongChau.xlsx');
     }
   };
 
@@ -149,104 +140,129 @@ const PhacDoBenhVien = () => {
     reader.onload = (evt) => {
       const bstr = evt.target.result;
       const wb = XLSX.read(bstr, { type: 'binary' });
-      const wsname = wb.SheetNames[0];
+      const wsname = wb.SheetNames.includes('Template') ? 'Template' : wb.SheetNames[0];
       const ws = wb.Sheets[wsname];
-      const importedData = XLSX.utils.sheet_to_json(ws, { defval: "" });
-      
+      const importedData = XLSX.utils.sheet_to_json(ws, { defval: '' });
+
       if (importedData.length > 0) {
-        const importedCols = Object.keys(importedData[0]).filter(k => k !== 'id');
-        const formattedData = importedData.map(row => ({ ...row, id: Date.now().toString() + Math.random() }));
-        luuHeThong(formattedData, importedCols.length > 0 ? importedCols : columns);
-        alert("Đã Import thành công hệ thống Phác đồ CDSS!");
+        const formattedData = importedData.map((row, i) => {
+          const clean = chuanHoaDongImportPhacDo(row);
+          return { ...clean, id: clean.id || `imp-${Date.now()}-${i}` };
+        });
+        const importKhongTrungIcd = loaiTrungMaIcdUuTienNoiDung(formattedData);
+        const mergedRows = gopPhacDoImportVoiDuLieuHienTai(data, importKhongTrungIcd, {
+          uuTienFileMoi: true,
+          loaiTenBenhTrung: false,
+        });
+        const mergedCols = gopCotTuDong(mergedRows[0] || formattedData[0]);
+        luuHeThong(mergedRows, mergedCols);
+        alert(
+          'Đã import và gộp phác đồ CDSS: ưu tiên nội dung file mới cho trùng mã ICD; giữ các mã chỉ có trong bảng cũ; trùng mã ICD trong cùng file giữ bản chi tiết nhất.',
+        );
       }
+      e.target.value = '';
     };
     reader.readAsBinaryString(file);
   };
 
   const renderTable = () => (
-    <>
-      <View style={styles.thanh_cong_cu_top}>
-        <Text style={styles.tieu_de_chinh}>CDSS: CƠ SỞ DỮ LIỆU PHÁC ĐỒ PHƯƠNG CHÂU</Text>
-        <View style={styles.group_buttons}>
-          <TouchableOpacity style={styles.btn_pink} onPress={handleAddRow}>
-            <Text style={styles.txt_btn}>➕ THÊM DÒNG MỚI</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn_red} onPress={handleDeleteBulk}>
-            <Text style={styles.txt_btn}>🗑 XÓA ĐÃ CHỌN ({selectedRows.length})</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <View style={styles.thanh_cong_cu_excel}>
-        <View style={styles.khoi_them_cot}>
-          <TextInput style={styles.o_nhap_cot} placeholder="Tên trường dữ liệu mới..." value={newColName} onChangeText={setNewColName} />
-          <TouchableOpacity style={styles.btn_blue} onPress={handleAddColumn}>
-            <Text style={styles.txt_btn_small}>+ THÊM TRƯỜNG</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.group_buttons}>
-          <TouchableOpacity style={styles.btn_outline} onPress={handleDownloadTemplate}>
-            <Text style={styles.txt_btn_outline}>📄 TẢI FILE MẪU</Text>
-          </TouchableOpacity>
-          {Platform.OS === 'web' && (
-            <>
-              <input type="file" accept=".xlsx, .xls" onChange={handleImport} style={{ display: 'none' }} id="import-excel" />
-              <TouchableOpacity style={styles.btn_orange} onPress={() => document.getElementById('import-excel').click()}>
-                <Text style={styles.txt_btn}>📤 IMPORT</Text>
+    <View style={styles.layout_chia_man_hinh}>
+      <View style={styles.phan_cong_cu_va_ghi_chu}>
+        <ScrollView
+          nestedScrollEnabled
+          keyboardShouldPersistTaps="handled"
+          style={styles.cuon_phan_tren}
+          contentContainerStyle={styles.cuon_phan_tren_content}
+        >
+          <View style={styles.thanh_cong_cu_top}>
+            <Text style={styles.tieu_de_chinh}>CDSS: CƠ SỞ DỮ LIỆU PHÁC ĐỒ PHƯƠNG CHÂU</Text>
+            <View style={styles.group_buttons}>
+              <TouchableOpacity style={styles.btn_pink} onPress={handleAddRow}>
+                <Text style={styles.txt_btn}>➕ THÊM DÒNG MỚI</Text>
               </TouchableOpacity>
-            </>
-          )}
-          <TouchableOpacity style={styles.btn_green} onPress={handleExport}>
-            <Text style={styles.txt_btn}>📥 EXPORT</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-
-      <ScrollView horizontal style={styles.khung_bang}>
-        <View>
-          <View style={styles.dong_tieu_de}>
-            <View style={[styles.o_tieu_de, { width: 80 }]}><Text style={styles.chu_o_tieu_de}>CHỌN</Text></View>
-            <View style={[styles.o_tieu_de, { width: 180 }]}><Text style={styles.chu_o_tieu_de}>THAO TÁC</Text></View>
-            {columns.map((col, index) => (
-              <TouchableOpacity key={index} style={[styles.o_tieu_de, { width: 350 }]} onPress={col === 'MÃ ICD-10' ? handleSortABC : null}>
-                <Text style={styles.chu_o_tieu_de}>{col} {col === 'MÃ ICD-10' ? (sortAsc ? ' 🔽' : ' 🔼') : ''}</Text>
+              <TouchableOpacity style={styles.btn_red} onPress={handleDeleteBulk}>
+                <Text style={styles.txt_btn}>🗑 XÓA ĐÃ CHỌN ({selectedRows.length})</Text>
               </TouchableOpacity>
-            ))}
+            </View>
           </View>
 
-          <ScrollView style={{ maxHeight: 600 }}>
-            {data.map((row) => (
-              <View key={row.id} style={styles.dong_du_lieu}>
-                <View style={[styles.o_du_lieu, { width: 80, justifyContent: 'center', alignItems: 'center' }]}>
-                  <TouchableOpacity style={[styles.checkbox, selectedRows.includes(row.id) && styles.checkbox_active]} onPress={() => toggleSelectRow(row.id)}>
-                    {selectedRows.includes(row.id) && <Text style={{ color: '#FFF', fontWeight: 'bold', fontSize: 22 }}>✓</Text>}
+          <View style={styles.thanh_cong_cu_excel}>
+            <View style={styles.khoi_them_cot}>
+              <TextInput style={styles.o_nhap_cot} placeholder="Tên trường dữ liệu mới..." value={newColName} onChangeText={setNewColName} />
+              <TouchableOpacity style={styles.btn_blue} onPress={handleAddColumn}>
+                <Text style={styles.txt_btn_small}>+ THÊM TRƯỜNG</Text>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.group_buttons}>
+              <TouchableOpacity style={styles.btn_outline} onPress={handleDownloadTemplate}>
+                <Text style={styles.txt_btn_outline}>📄 TẢI FILE MẪU</Text>
+              </TouchableOpacity>
+              {Platform.OS === 'web' && (
+                <>
+                  <input type="file" accept=".xlsx, .xls" onChange={handleImport} style={{ display: 'none' }} id="import-excel" />
+                  <TouchableOpacity style={styles.btn_orange} onPress={() => document.getElementById('import-excel').click()}>
+                    <Text style={styles.txt_btn}>📤 IMPORT</Text>
                   </TouchableOpacity>
-                </View>
-                
-                <View style={[styles.o_du_lieu, { width: 180, flexDirection: 'row', gap: 10, justifyContent: 'center', alignItems: 'center' }]}>
-                  <TouchableOpacity style={styles.btn_icon_blue} onPress={() => { setCurrentICD(row['MÃ ICD-10']); setViewMode('info'); }}>
-                    <Text style={styles.txt_btn_small}>📊 Xem</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity style={styles.btn_icon_green} onPress={() => { setCurrentICD(row['MÃ ICD-10']); setViewMode('print'); }}>
-                    <Text style={styles.txt_btn_small}>🖨️ In</Text>
-                  </TouchableOpacity>
-                </View>
+                </>
+              )}
+              <TouchableOpacity style={styles.btn_green} onPress={handleExport}>
+                <Text style={styles.txt_btn}>📥 EXPORT</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
 
-                {columns.map((col, colIndex) => (
-                  <TextInput key={colIndex} style={[styles.o_du_lieu, { width: 350 }, col === 'MÃ ICD-10' && { fontWeight: 'bold', color: '#D81B60' }]}
-                    multiline value={String(row[col] || '')} onChangeText={(val) => handleCellChange(row.id, col, val)} />
-                ))}
-              </View>
-            ))}
-          </ScrollView>
-        </View>
-      </ScrollView>
-
-      <View style={styles.khu_vuc_trich_dan}>
-        <Text style={styles.van_ban_trich_dan}>[1] Tiêu chuẩn đánh giá chất lượng bệnh viện JCI (Chương COP - Chăm sóc người bệnh).</Text>
-        <Text style={styles.van_ban_trich_dan}>[2] Thông tư 23/2024/TT-BYT: Danh mục dịch vụ kỹ thuật khám bệnh, chữa bệnh.</Text>
+          <View style={styles.khu_vuc_trich_dan}>
+            <Text style={styles.van_ban_trich_dan}>Cấu trúc cột khớp bảng CDSS Guidelines (ICD-10, mục tiêu điều trị, điều trị đặc hiệu/triệu chứng, can thiệp, dự phòng, theo dõi…).</Text>
+            <Text style={styles.van_ban_trich_dan}>Import .xlsx (sheet Template nếu có): gộp với dữ liệu hiện tại — cùng mã ICD lấy theo file mới; không nhân đôi bệnh đã có mã.</Text>
+          </View>
+        </ScrollView>
       </View>
-    </>
+
+      <View
+        style={styles.phan_bang_du_lieu}
+        onLayout={(e) => setChieuCaoVungBang(e.nativeEvent.layout.height)}
+      >
+        <ScrollView horizontal nestedScrollEnabled style={styles.khung_bang} contentContainerStyle={styles.khung_bang_content}>
+          <View style={[styles.khoi_cot_bang, chieuCaoVungBang > 0 && { height: chieuCaoVungBang }]}>
+            <View style={styles.dong_tieu_de}>
+              <View style={[styles.o_tieu_de, { width: 80 }]}><Text style={styles.chu_o_tieu_de}>CHỌN</Text></View>
+              <View style={[styles.o_tieu_de, { width: 180 }]}><Text style={styles.chu_o_tieu_de}>THAO TÁC</Text></View>
+              {columns.map((col, index) => (
+                <TouchableOpacity key={index} style={[styles.o_tieu_de, { width: 350 }]} onPress={col === 'MÃ ICD-10' ? handleSortABC : null}>
+                  <Text style={styles.chu_o_tieu_de}>{col} {col === 'MÃ ICD-10' ? (sortAsc ? ' 🔽' : ' 🔼') : ''}</Text>
+                </TouchableOpacity>
+              ))}
+            </View>
+
+            <ScrollView nestedScrollEnabled style={styles.cuon_bang_doc} keyboardShouldPersistTaps="handled">
+              {data.map((row) => (
+                <View key={row.id} style={styles.dong_du_lieu}>
+                  <View style={[styles.o_du_lieu, { width: 80, justifyContent: 'center', alignItems: 'center' }]}>
+                    <TouchableOpacity style={[styles.checkbox, selectedRows.includes(row.id) && styles.checkbox_active]} onPress={() => toggleSelectRow(row.id)}>
+                      {selectedRows.includes(row.id) && <Text style={{ color: '#FFF', fontWeight: 'bold', fontSize: 22 }}>✓</Text>}
+                    </TouchableOpacity>
+                  </View>
+
+                  <View style={[styles.o_du_lieu, { width: 180, flexDirection: 'row', gap: 10, justifyContent: 'center', alignItems: 'center' }]}>
+                    <TouchableOpacity style={styles.btn_icon_blue} onPress={() => { setCurrentICD(row['MÃ ICD-10']); setViewMode('info'); }}>
+                      <Text style={styles.txt_btn_small}>📊 Xem</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.btn_icon_green} onPress={() => { setCurrentICD(row['MÃ ICD-10']); setViewMode('print'); }}>
+                      <Text style={styles.txt_btn_small}>🖨️ In</Text>
+                    </TouchableOpacity>
+                  </View>
+
+                  {columns.map((col, colIndex) => (
+                    <TextInput key={colIndex} style={[styles.o_du_lieu, { width: 350 }, col === 'MÃ ICD-10' && { fontWeight: 'bold', color: '#D81B60' }]}
+                      multiline value={String(row[col] || '')} onChangeText={(val) => handleCellChange(row.id, col, val)} />
+                  ))}
+                </View>
+              ))}
+            </ScrollView>
+          </View>
+        </ScrollView>
+      </View>
+    </View>
   );
 
   return (
@@ -260,15 +276,27 @@ const PhacDoBenhVien = () => {
         </View>
       )}
 
-      {viewMode === 'table' ? renderTable() : 
-       viewMode === 'info' ? <InfographicPhacDo maICD={currentICD} /> : 
-       <InPhacDo maICD={currentICD} />}
+      {viewMode === 'table' ? renderTable() :
+        viewMode === 'info' ? (
+          <InfographicPhacDo maICD={currentICD} noiDungPhacDo={noiDungDongHienTai} />
+        ) : (
+          <InPhacDo maICD={currentICD} noiDungPhacDo={noiDungDongHienTai} />
+        )}
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
-  vung_an_toan: { flex: 1, backgroundColor: '#F9F9F9' },
+  vung_an_toan: { flex: 1, backgroundColor: '#F9F9F9', minHeight: 0 },
+  layout_chia_man_hinh: { flex: 1, flexDirection: 'column', minHeight: 0 },
+  /** Tỷ lệ 1 : 3 với vùng bảng (công cụ + ghi chú ~25%, bảng ~75%) */
+  phan_cong_cu_va_ghi_chu: { flex: 1, flexBasis: 0, minHeight: 0 },
+  cuon_phan_tren: { flex: 1 },
+  cuon_phan_tren_content: { flexGrow: 1, paddingBottom: 8 },
+  phan_bang_du_lieu: { flex: 3, flexBasis: 0, minHeight: 0, marginHorizontal: 20, marginBottom: 12 },
+  khung_bang_content: { flexGrow: 1 },
+  khoi_cot_bang: { flexDirection: 'column', alignSelf: 'flex-start' },
+  cuon_bang_doc: { flex: 1 },
   thanh_cong_cu_top: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', padding: 20, backgroundColor: '#FF66A3' },
   tieu_de_chinh: { fontSize: 26, color: '#FFF', fontWeight: 'bold', fontFamily: 'Arial' },
   thanh_cong_cu_excel: { flexDirection: 'row', justifyContent: 'space-between', padding: 20, backgroundColor: '#FFF', borderBottomWidth: 2, borderColor: '#FCE4EC' },
@@ -287,7 +315,7 @@ const styles = StyleSheet.create({
   txt_btn_small: { color: '#FFF', fontSize: 18, fontWeight: 'bold', fontFamily: 'Arial' },
   txt_btn_outline: { color: '#D81B60', fontSize: 20, fontWeight: 'bold', fontFamily: 'Arial' },
   
-  khung_bang: { margin: 20, backgroundColor: '#FFF', borderRadius: 10, elevation: 4 },
+  khung_bang: { flex: 1, backgroundColor: '#FFF', borderRadius: 10, elevation: 4 },
   dong_tieu_de: { flexDirection: 'row', backgroundColor: '#FCE4EC', borderBottomWidth: 3, borderColor: '#D81B60' },
   o_tieu_de: { padding: 20, borderRightWidth: 1, borderColor: '#F8BBD0', justifyContent: 'center', alignItems: 'center' },
   chu_o_tieu_de: { fontSize: 20, fontWeight: 'bold', color: '#C2185B', fontFamily: 'Arial', textAlign: 'center' },

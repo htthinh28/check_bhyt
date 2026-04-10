@@ -30,8 +30,18 @@ import {
 
 // [CẬP NHẬT LÕI]: Thống nhất dùng kho_du_lieu để đồng bộ với man_hinh_kho_luu_tru
 import { chayBoMayGiamDinhNhieuHoSoV3 } from '../tien_ich/dong_co_giam_dinh';
-import { layDanhSachMaLKTuKho, layTatCaHoSoTuKho, luuHoSoVaoKho, xoaToanBoKho } from '../tien_ich/kho_du_lieu';
-import NhapFileXML from '../tien_ich/nhap_file_xml';
+import {
+  layDanhSachMaLKTuKho,
+  layTatCaHoSoTuKho,
+  luuHoSoVaoKho,
+  phanTichKhoangCachDieuTri,
+  xoaToanBoKho,
+} from '../tien_ich/kho_du_lieu';
+import NhapFileXML, {
+  chuyenKetQuaFileSangMangHoSoKho,
+  taiNguonPhuThuocNhapXml,
+  xuLyMotFileXmlChoBanGiamDinh,
+} from '../tien_ich/nhap_file_xml';
 
 const LOGO_PC = 'https://i.ibb.co/nNr9SQYr/logo-pc.png';
 const TEN_SHEET_BAO_CAO_VI_PHAM = 'DS_Loi';
@@ -366,12 +376,17 @@ const ManHinhTongQuan = ({ navigation }) => {
   const [vaiTroHienTai, setVaiTroHienTai] = useState('Đang tải...');
   const [tenTaiKhoan, setTenTaiKhoan] = useState('');
   const [cheDoGiamDinh, setCheDoGiamDinh] = useState(CHE_DO_GIAM_DINH.LOCAL);
+  /** Chỉ Web: nhật ký từng file khi chạy giám định tự động cả thư mục (không dùng alert). */
+  const [logGiamDinhTuDongThuMuc, setLogGiamDinhTuDongThuMuc] = useState([]);
 
   const tatCaModules = [
     { id: 'MOD_HELPER', route: 'Helper', ten: '🧰 HELPER + FIREBASE' },
     { id: 'MOD_KHO_LUU_TRU', route: 'KhoLuuTru', ten: '🗄️ KHO LƯU TRỮ' },
     { id: 'MOD_XML_GIAM_DINH', route: 'DocXML', ten: '🗂️ ĐỌC XML CHI TIẾT' },
+    { id: 'MOD_CONG_HIS', route: 'CongHIS', ten: '🔌 CỔNG HIS' },
     { id: 'MOD_CHUYEN_MON', route: 'QuanLyChuyenMon', ten: '🧠 CHUYÊN MÔN' },
+    { id: 'MOD_THU_VIEN', route: 'ThuVien', ten: '📚 THƯ VIỆN' },
+    { id: 'MOD_TRI_THUC_GD', route: 'TriThucTuGiamDinh', ten: '🧠 TRI THỨC TỪ GIÁM ĐỊNH' },
     { id: 'MOD_DANH_MUC', route: 'QuanLyDanhMuc', ten: '📋 DM NỘI BỘ' },
     { id: 'MOD_DANH_MUC_BYT', route: 'DanhMucBYTMain', ten: '🏥 DM BỘ Y TẾ' },
     { id: 'MOD_QUAN_LY_LUAT', route: 'QuanLyLuat', ten: '⚙️ QUẢN LÝ LUẬT' },
@@ -512,7 +527,7 @@ const ManHinhTongQuan = ({ navigation }) => {
     });
   };
 
-  const nhanDienHoSoTuFile = async (danhSachHoSoTuFile) => {
+  const nhanDienHoSoTuFile = async (danhSachHoSoTuFile, tuyChon = {}) => {
     const dsMaLKSanCo = new Set((await layDanhSachMaLKTuKho()).map(chuanHoaMaLK).filter(Boolean));
     const danhSachHopLe = [];
     let soHoSoGhiDe = 0;
@@ -525,11 +540,81 @@ const ManHinhTongQuan = ({ navigation }) => {
     });
 
     if (danhSachHopLe.length === 0) {
-      alert('Không có hồ sơ hợp lệ để giám định.');
+      if (!tuyChon.boQuaThongBaoCuoi) {
+        alert('Không có hồ sơ hợp lệ để giám định.');
+      }
       return;
     }
 
-    await tienHanhGiamDinh(danhSachHopLe, { soHoSoGhiDe });
+    await tienHanhGiamDinh(danhSachHopLe, { soHoSoGhiDe, boQuaThongBaoCuoi: tuyChon.boQuaThongBaoCuoi });
+  };
+
+  /**
+   * Web: chọn cả thư mục → xử lý tuần tự từng file .xml → giám định + lưu kho giống nút "Chuyển dữ liệu",
+   * không hiện alert từng bước; kết quả ghi vào log trên màn hình. Luồng "Chọn XML" thông thường không đổi.
+   */
+  const chayGiamDinhTuDongTrenThuMuc = () => {
+    if (Platform.OS !== 'web' || typeof document === 'undefined') return;
+    const input = document.createElement('input');
+    input.type = 'file';
+    input.multiple = true;
+    input.webkitdirectory = true;
+    input.onchange = async (ev) => {
+      const fileList = ev.target?.files;
+      if (!fileList?.length) return;
+      const dsFile = Array.from(fileList).filter((f) => f.name.toLowerCase().endsWith('.xml'));
+      dsFile.sort((a, b) => a.name.localeCompare(b.name, 'vi'));
+      if (dsFile.length === 0) {
+        setLogGiamDinhTuDongThuMuc((prev) => [...prev, `${new Date().toLocaleTimeString('vi-VN')}: Không có file .xml trong thư mục đã chọn.`]);
+        if (ev.target) ev.target.value = '';
+        return;
+      }
+
+      setLogGiamDinhTuDongThuMuc([`${new Date().toLocaleTimeString('vi-VN')}: Bắt đầu ${dsFile.length} file XML (thư mục).`]);
+
+      let { lichSuGiamDinh, danhSachMaLKDaCo } = await taiNguonPhuThuocNhapXml();
+      const tong = dsFile.length;
+      let soLuuDuoc = 0;
+      let soLoi = 0;
+
+      for (let i = 0; i < dsFile.length; i += 1) {
+        const file = dsFile[i];
+        const ketQua = await xuLyMotFileXmlChoBanGiamDinh(file, { lichSuGiamDinh, danhSachMaLKDaCo });
+        const hoSoGui = chuyenKetQuaFileSangMangHoSoKho(ketQua);
+        const soLoiSoBo = Array.isArray(ketQua.chiTietLoi) ? ketQua.chiTietLoi.length : 0;
+
+        if (hoSoGui.length === 0) {
+          soLoi += 1;
+          const ly = ketQua.lyDoLoi || 'Không chuyển được sang kho.';
+          setLogGiamDinhTuDongThuMuc((prev) => [
+            ...prev,
+            `✖ [${i + 1}/${tong}] ${file.name} — ${ly}`,
+          ]);
+          continue;
+        }
+
+        const maStr = String(hoSoGui[0]?.ma_lk || ketQua.ma_lk || '—');
+        await nhanDienHoSoTuFile(hoSoGui, { boQuaThongBaoCuoi: true });
+        soLuuDuoc += 1;
+        const maNorm = String(maStr || '').trim().toUpperCase();
+        if (maNorm && !danhSachMaLKDaCo.includes(maNorm)) {
+          danhSachMaLKDaCo = [...danhSachMaLKDaCo, maNorm];
+        }
+
+        const engineNhan = cheDoGiamDinh === CHE_DO_GIAM_DINH.PYTHON ? 'Python' : 'JS';
+        setLogGiamDinhTuDongThuMuc((prev) => [
+          ...prev,
+          `✓ [${i + 1}/${tong}] ${file.name} → MA_LK ${maStr} · ${soLoiSoBo} cảnh báo (quét sơ bộ) · đã lưu kho (${engineNhan})`,
+        ]);
+      }
+
+      setLogGiamDinhTuDongThuMuc((prev) => [
+        ...prev,
+        `— Hoàn tất: ${soLuuDuoc} hồ sơ đã lưu, ${soLoi} file bỏ qua/lỗi / ${tong} file XML.`,
+      ]);
+      if (ev.target) ev.target.value = '';
+    };
+    input.click();
   };
 
   const tienHanhGiamDinh = async (danhSachTienHanh, thongTinThem = {}) => {
@@ -647,23 +732,49 @@ const ManHinhTongQuan = ({ navigation }) => {
       if (ketQuaLuu) {
         const soHoSoGhiDe = Number(thongTinThem?.soHoSoGhiDe) || 0;
         fetchThongTinHeThong();
-        alert(
-          daFallbackTuPythonSangJs
-            ? `Đã gửi ${danhSachLuuKho.length} hồ sơ qua Python service và tự fallback sang engine JS để giữ kết quả giám định chi tiết.`
-            : daHopNhatPythonVaJs
-              ? `Đã giám định ${danhSachLuuKho.length} hồ sơ bằng Python service và hợp nhất thêm engine JS để giữ đủ chức năng hệ thống hiện có.`
-              : daDungPythonService
-                ? `Đã giám định và lưu ${danhSachLuuKho.length} hồ sơ bằng Python service thành công.`
-                : soHoSoGhiDe > 0
-                  ? `Đã giám định lại ${danhSachLuuKho.length} hồ sơ. Trong đó ${soHoSoGhiDe} hồ sơ trùng MA_LK đã được ghi đè.`
-                  : `Đã giám định và lưu ${danhSachLuuKho.length} hồ sơ thành công.`
-        );
+        let msg = daFallbackTuPythonSangJs
+          ? `Đã gửi ${danhSachLuuKho.length} hồ sơ qua Python service và tự fallback sang engine JS để giữ kết quả giám định chi tiết.`
+          : daHopNhatPythonVaJs
+            ? `Đã giám định ${danhSachLuuKho.length} hồ sơ bằng Python service và hợp nhất thêm engine JS để giữ đủ chức năng hệ thống hiện có.`
+            : daDungPythonService
+              ? `Đã giám định và lưu ${danhSachLuuKho.length} hồ sơ bằng Python service thành công.`
+              : soHoSoGhiDe > 0
+                ? `Đã giám định lại ${danhSachLuuKho.length} hồ sơ. Trong đó ${soHoSoGhiDe} hồ sơ trùng MA_LK đã được ghi đè.`
+                : `Đã giám định và lưu ${danhSachLuuKho.length} hồ sơ thành công.`;
+
+        const goiYlichSu = [];
+        for (const hs of danhSachLuuKho) {
+          try {
+            const fx = await phanTichKhoangCachDieuTri(hs);
+            if (!fx.co_lan_truoc_so_sanh) continue;
+            const t = fx.trung_ma_thuoc?.length || 0;
+            const d = fx.trung_ma_dvkt?.length || 0;
+            const ngay = fx.so_ngay_tu_ngay_ra_lan_truoc;
+            if (t + d > 0 || (Number.isFinite(ngay) && ngay <= 30)) {
+              const ma = hs.ma_lk || hs.xml1?.MA_LK || hs.XML1?.MA_LK || '?';
+              goiYlichSu.push(`MA_LK ${ma}: ~${ngay} ngày sau ngày ra lần trước; trùng mã thuốc/DVKT: ${t}/${d}.`);
+            }
+          } catch (_e) {
+            /* bỏ qua */
+          }
+          if (goiYlichSu.length >= 5) break;
+        }
+        if (goiYlichSu.length > 0) {
+          msg += `\n\nSo với lịch sử điều trị đã lưu trên máy (cùng MA_BN):\n${goiYlichSu.join('\n')}`;
+        }
+        if (!thongTinThem?.boQuaThongBaoCuoi) {
+          alert(msg);
+        }
       } else {
-        alert("Lỗi lưu trữ: Không thể lưu hồ sơ vào kho. Vui lòng thử lại.");
+        if (!thongTinThem?.boQuaThongBaoCuoi) {
+          alert("Lỗi lưu trữ: Không thể lưu hồ sơ vào kho. Vui lòng thử lại.");
+        }
       }
 
     } catch (err) {
-      alert("Lỗi xử lý giám định.");
+      if (!thongTinThem?.boQuaThongBaoCuoi) {
+        alert("Lỗi xử lý giám định.");
+      }
       console.error(err);
     } finally {
       setDangTai(false);
@@ -672,8 +783,12 @@ const ManHinhTongQuan = ({ navigation }) => {
   };
 
   const handleResetKho = async () => {
-    if (confirm("Làm mới màn hình Giám định? (Dữ liệu trong Kho lưu trữ vĩnh viễn sẽ bị XÓA SẠCH).")) {
-      await xoaToanBoKho(); // Gọi lệnh diệt tận gốc từ module Kho
+    if (confirm(
+      'Xóa KHO LÀM VIỆC (danh sách hồ sơ đang giám định trên màn hình)? '
+      + 'Dữ liệu lưu trên trình duyệt/máy (IndexedDB hoặc bộ nhớ app) sẽ mất cho kho đó. '
+      + 'Lịch sử điều trị theo bệnh nhân (để so sánh lần khám) vẫn được giữ trên máy trừ khi bạn xóa riêng trong Helper.',
+    )) {
+      await xoaToanBoKho(); // Chỉ xóa store hồ sơ làm việc, không xóa lịch sử BN
       setThongKe({ tong: 0, sach: 0, loi: 0, giamDinhLai: 0, danhMuc: [] });
       setRawDanhSach([]);
     }
@@ -817,7 +932,9 @@ const ManHinhTongQuan = ({ navigation }) => {
     MOD_HELPER: { icon: '🧰', mau: '#1565C0', mauNhat: '#E3F2FD' },
     MOD_KHO_LUU_TRU: { icon: '🗄️', mau: '#6A1B9A', mauNhat: '#F3E5F5' },
     MOD_XML_GIAM_DINH: { icon: '🗂️', mau: '#00695C', mauNhat: '#E0F2F1' },
+    MOD_CONG_HIS: { icon: '🔌', mau: '#006064', mauNhat: '#E0F7FA' },
     MOD_CHUYEN_MON: { icon: '🧠', mau: '#E65100', mauNhat: '#FFF3E0' },
+    MOD_THU_VIEN: { icon: '📚', mau: '#5D4037', mauNhat: '#EFEBE9' },
     MOD_DANH_MUC: { icon: '📋', mau: '#558B2F', mauNhat: '#F1F8E9' },
     MOD_DANH_MUC_BYT: { icon: '🏥', mau: '#0277BD', mauNhat: '#E1F5FE' },
     MOD_QUAN_LY_LUAT: { icon: '⚙️', mau: '#8E24AA', mauNhat: '#F3E5F5' },
@@ -954,6 +1071,41 @@ const ManHinhTongQuan = ({ navigation }) => {
                         <Text style={styles.helper_redirect_txt}>🧰 Mở Helper Hybrid</Text>
                       </TouchableOpacity>
                     </View>
+
+                    {Platform.OS === 'web' ? (
+                      <View style={styles.import_auto_folder_wrap}>
+                        <Text style={styles.import_auto_folder_title}>Nâng cao — giám định tự động cả thư mục</Text>
+                        <Text style={styles.import_auto_folder_note}>
+                          Chọn một thư mục chứa file .xml: ứng dụng xử lý lần lượt từng file, dùng cùng engine với luồng
+                          nạp thông thường (Python service nếu bật, không thì JS), lưu kho và hiển thị nhật ký ngay trên
+                          màn hình — không dùng hộp thoại xác nhận từng file.
+                        </Text>
+                        <TouchableOpacity
+                          style={[styles.import_auto_folder_btn, dangTai && styles.import_auto_folder_btn_disabled]}
+                          onPress={chayGiamDinhTuDongTrenThuMuc}
+                          disabled={dangTai}
+                        >
+                          <Text style={styles.import_auto_folder_btn_txt}>📁 Chọn thư mục XML — chạy tự động</Text>
+                        </TouchableOpacity>
+                        {logGiamDinhTuDongThuMuc.length > 0 ? (
+                          <View style={styles.import_auto_folder_log}>
+                            <View style={styles.import_auto_folder_log_header}>
+                              <Text style={styles.import_auto_folder_log_title}>Nhật ký</Text>
+                              <TouchableOpacity onPress={() => setLogGiamDinhTuDongThuMuc([])}>
+                                <Text style={styles.import_auto_folder_clear}>Xóa log</Text>
+                              </TouchableOpacity>
+                            </View>
+                            <ScrollView style={styles.import_auto_folder_scroll} nestedScrollEnabled>
+                              {logGiamDinhTuDongThuMuc.map((line, idx) => (
+                                <Text key={`log-${idx}`} style={styles.import_auto_folder_line}>
+                                  {line}
+                                </Text>
+                              ))}
+                            </ScrollView>
+                          </View>
+                        ) : null}
+                      </View>
+                    ) : null}
                   </View>
                 </View>
               </View>
@@ -1564,6 +1716,83 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  import_auto_folder_wrap: {
+    marginTop: 14,
+    paddingTop: 14,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(148,163,184,0.35)',
+    width: '100%',
+  },
+  import_auto_folder_title: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#0F172A',
+    fontFamily: CD.font.family,
+    marginBottom: 6,
+  },
+  import_auto_folder_note: {
+    fontSize: 11,
+    lineHeight: 17,
+    color: '#475569',
+    fontFamily: CD.font.family,
+    marginBottom: 10,
+  },
+  import_auto_folder_btn: {
+    alignSelf: 'center',
+    backgroundColor: '#0D9488',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderWidth: 1,
+    borderColor: '#0F766E',
+    ...Platform.select({ web: { cursor: 'pointer' } }),
+  },
+  import_auto_folder_btn_disabled: { opacity: 0.55 },
+  import_auto_folder_btn_txt: {
+    fontSize: 12,
+    fontWeight: '800',
+    color: '#F0FDFA',
+    fontFamily: CD.font.family,
+  },
+  import_auto_folder_log: {
+    marginTop: 12,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#CBD5E1',
+    backgroundColor: '#F8FAFC',
+    overflow: 'hidden',
+  },
+  import_auto_folder_log_header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    backgroundColor: '#EEF2FF',
+    borderBottomWidth: 1,
+    borderBottomColor: '#C7D2FE',
+  },
+  import_auto_folder_log_title: {
+    fontSize: 11,
+    fontWeight: '800',
+    color: '#3730A3',
+    fontFamily: CD.font.family,
+  },
+  import_auto_folder_clear: {
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#4F46E5',
+    fontFamily: CD.font.family,
+    ...Platform.select({ web: { cursor: 'pointer' } }),
+  },
+  import_auto_folder_scroll: { maxHeight: 220, paddingHorizontal: 10, paddingVertical: 8 },
+  import_auto_folder_line: {
+    fontSize: 11,
+    lineHeight: 17,
+    color: '#1E293B',
+    fontFamily: CD.font.mono,
+    marginBottom: 6,
   },
   helper_redirect_btn: {
     alignSelf: 'center',

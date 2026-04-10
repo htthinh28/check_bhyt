@@ -3,10 +3,12 @@
  * FILE: tien_ich/kho_du_lieu.jsx
  * MỤC ĐÍCH: Quản lý lưu trữ nội bộ cho ứng dụng CDSS.
  *
- * KIẾN TRÚC LƯU TRỮ:
- *   - WEB:    IndexedDB — không giới hạn dung lượng (thực tế GB), phù hợp
- *             hàng nghìn hồ sơ XML hàng ngày.
- *   - MOBILE: AsyncStorage với cấu trúc Index-Detail để vượt giới hạn 2MB/key.
+ * KIẾN TRÚC LƯU TRỮ (BỀN TRÊN Ổ SSD/FLASH CỤC BỘ — KHÔNG PHẢI RAM):
+ *   - WEB:    IndexedDB — nằm trong hồ sơ trình duyệt trên ổ đĩa; dung lượng lớn
+ *             (GB), phù hợp hàng nghìn hồ sơ/ngày; không mất khi tắt tab (trừ khi
+ *             xóa dữ liệu trang / ẩn danh).
+ *   - MOBILE: AsyncStorage — sandbox ứng dụng trên bộ nhớ trong; Index-Detail để
+ *             vượt giới hạn 2MB/key.
  *
  * LƯU Ý: Phiên bản này tự động chuyển đổi (migrate) dữ liệu cũ từ localStorage
  * sang IndexedDB trong lần chạy đầu tiên, giải phóng toàn bộ localStorage cho
@@ -28,7 +30,10 @@ const getLocalStorage = () => globalThis?.localStorage || null;
 const IDB_NAME = 'CDSS_HO_SO_DB';
 const IDB_STORE = 'ho_so';
 const IDB_STORE_DANH_MUC = 'danh_muc';
-const IDB_VERSION = 2;
+/** Lịch sử các lần giám định theo MA_BN (cùng IndexedDB/ổ đĩa như trên) — không xóa khi xóa kho làm việc. */
+const IDB_STORE_LICH_SU = 'lich_su_bn';
+const IDB_VERSION = 3;
+const MAX_LAN_LICH_SU_PER_BN = 48;
 
 let _dbCache = null;
 
@@ -49,6 +54,9 @@ const _openDB = () => {
       }
       if (!db.objectStoreNames.contains(IDB_STORE_DANH_MUC)) {
         db.createObjectStore(IDB_STORE_DANH_MUC, { keyPath: 'key' });
+      }
+      if (!db.objectStoreNames.contains(IDB_STORE_LICH_SU)) {
+        db.createObjectStore(IDB_STORE_LICH_SU, { keyPath: 'ma_bn' });
       }
     };
     req.onsuccess = (e) => {
@@ -170,6 +178,27 @@ const idb = {
   },
 };
 
+const idbLichSu = {
+  get: async (ma_bn) => {
+    const db = await _openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE_LICH_SU, 'readonly');
+      const req = tx.objectStore(IDB_STORE_LICH_SU).get(ma_bn);
+      req.onsuccess = () => resolve(req.result || null);
+      tx.onerror = () => reject(tx.error);
+    });
+  },
+  put: async (record) => {
+    const db = await _openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE_LICH_SU, 'readwrite');
+      tx.objectStore(IDB_STORE_LICH_SU).put(record);
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => reject(tx.error);
+    });
+  },
+};
+
 const idbDanhMuc = {
   put: async (record) => {
     const db = await _openDB();
@@ -271,6 +300,92 @@ const DANH_MUC_CACHE = new Map();
 let dongBoDanhMucPromise = null;
 let migrateDanhMucIdbPromise = null;
 const chuanHoaBanGhiHoSo = (hoSo) => chuanHoaHoSoCanhBao(hoSo);
+
+const PREFIX_LICH_SU_MOBILE = 'CDSS_LSBN_';
+const KHO_LICH_SU_INDEX_MOBILE = 'CDSS_LSBN_INDEX_MA_BN';
+
+const parseNgayXml130 = (val) => {
+  const digits = String(val || '').replace(/\D/g, '');
+  if (digits.length < 8) return null;
+  const nam = Number(digits.slice(0, 4));
+  const thang = Number(digits.slice(4, 6)) - 1;
+  const ngay = Number(digits.slice(6, 8));
+  const gio = Number(digits.slice(8, 10) || '0');
+  const phut = Number(digits.slice(10, 12) || '0');
+  const parsed = new Date(nam, thang, ngay, gio, phut, 0, 0);
+  if (Number.isNaN(parsed.getTime())) return null;
+  return parsed;
+};
+
+const layBangHoSo = (hoSo, ten) => {
+  const lower = ten.toLowerCase();
+  const raw = hoSo?.[lower] ?? hoSo?.[ten];
+  if (Array.isArray(raw)) return raw;
+  if (raw && typeof raw === 'object') return [raw];
+  return [];
+};
+
+const tomTatHoSoChoLichSu = (hoSo) => {
+  const xml2 = layBangHoSo(hoSo, 'XML2');
+  const xml3 = layBangHoSo(hoSo, 'XML3');
+  const maThuoc = xml2.map((r) => String(r?.MA_THUOC || r?.ma_thuoc || '').trim()).filter(Boolean);
+  const maDv = xml3.map((r) => String(r?.MA_DVKT || r?.ma_dvkt || '').trim()).filter(Boolean);
+  return {
+    so_thuoc: xml2.length,
+    so_dvkt: xml3.length,
+    mau_ma_thuoc: [...new Set(maThuoc)].slice(0, 24),
+    mau_ma_dvkt: [...new Set(maDv)].slice(0, 24),
+  };
+};
+
+const ghiMotLanLichSu = async (hoSo) => {
+  const x1 = hoSo?.xml1 || hoSo?.XML1;
+  if (!x1 || typeof x1 !== 'object') return;
+  const ma_bn = String(x1.MA_BN || x1.ma_bn || '').trim();
+  const ma_lk = String(hoSo.ma_lk || x1.MA_LK || x1.ma_lk || '').trim();
+  if (!ma_bn || !ma_lk) return;
+
+  const lan = {
+    ma_lk,
+    ma_bn,
+    ho_ten: String(x1.HO_TEN || '').trim(),
+    ngay_vao: String(x1.NGAY_VAO || '').trim(),
+    ngay_ra: String(x1.NGAY_RA || '').trim(),
+    ghi_luc_iso: new Date().toISOString(),
+    tom_tat: tomTatHoSoChoLichSu(hoSo),
+  };
+
+  if (Platform.OS === 'web') {
+    const cur = await idbLichSu.get(ma_bn);
+    const cac_lan = Array.isArray(cur?.cac_lan) ? cur.cac_lan.filter((x) => x?.ma_lk !== ma_lk) : [];
+    cac_lan.push(lan);
+    cac_lan.sort((a, b) => String(b.ngay_ra || '').localeCompare(String(a.ngay_ra || '')));
+    await idbLichSu.put({
+      ma_bn,
+      cac_lan: cac_lan.slice(0, MAX_LAN_LICH_SU_PER_BN),
+      cap_nhat: Date.now(),
+    });
+    return;
+  }
+
+  const key = `${PREFIX_LICH_SU_MOBILE}${ma_bn}`;
+  const raw = await AsyncStorage.getItem(key);
+  let rec = raw ? parseJsonAnToan(raw) : null;
+  if (!rec || !Array.isArray(rec.cac_lan)) rec = { ma_bn, cac_lan: [] };
+  rec.cac_lan = rec.cac_lan.filter((x) => x?.ma_lk !== ma_lk);
+  rec.cac_lan.push(lan);
+  rec.cac_lan.sort((a, b) => String(b.ngay_ra || '').localeCompare(String(a.ngay_ra || '')));
+  rec.cac_lan = rec.cac_lan.slice(0, MAX_LAN_LICH_SU_PER_BN);
+  rec.cap_nhat = Date.now();
+  await AsyncStorage.setItem(key, JSON.stringify(rec));
+
+  const rawIdx = await AsyncStorage.getItem(KHO_LICH_SU_INDEX_MOBILE);
+  const idx = rawIdx ? (parseJsonAnToan(rawIdx) || []) : [];
+  if (!idx.includes(ma_bn)) {
+    idx.push(ma_bn);
+    await AsyncStorage.setItem(KHO_LICH_SU_INDEX_MOBILE, JSON.stringify(idx));
+  }
+};
 
 const taoKhoaHoSo = (maLK) => `${PREFIX_HS_KEY}${maLK}`;
 const taoKhoaMetaChunkHoSo = (maLK) => `${taoKhoaHoSo(maLK)}_CHUNKS`;
@@ -577,6 +692,16 @@ export const luuHoSoVaoKho = async (danhSachHoSoMoi) => {
       await AsyncStorage.setItem(KHO_INDEX_KEY, JSON.stringify(chuanHoaDanhSachMaLK(dsMaLK)));
     }
 
+    for (const hoSo of danhSachHoSoMoi) {
+      try {
+        const maLK = hoSo.ma_lk || hoSo.XML1?.MA_LK || hoSo.xml1?.MA_LK;
+        if (!maLK) continue;
+        await ghiMotLanLichSu(chuanHoaBanGhiHoSo({ ...hoSo, ma_lk: maLK }));
+      } catch (e) {
+        console.warn('[KHO_DU_LIEU] Không ghi được lịch sử điều trị (BN):', e?.message || e);
+      }
+    }
+
     console.log(`[KHO_DU_LIEU] Đã lưu ${danhSachHoSoMoi.length} hồ sơ thành công.`);
     return true;
   } catch (error) {
@@ -633,6 +758,100 @@ export const xoaHoSoKhoiKho = async (maLK_CanXoa) => {
 /**
  * 4. XÓA TOÀN BỘ KHO
  */
+/**
+ * Lịch sử giám định theo MA_BN (để so sánh lần điều trị). Xóa riêng — không gọi khi xóa kho làm việc.
+ */
+export const layLichSuDieuTriTheoMaBN = async (ma_bn) => {
+  const m = String(ma_bn || '').trim();
+  if (!m) return { ma_bn: '', cac_lan: [] };
+  try {
+    if (Platform.OS === 'web') {
+      const r = await idbLichSu.get(m);
+      return r && Array.isArray(r.cac_lan) ? r : { ma_bn: m, cac_lan: [] };
+    }
+    const raw = await AsyncStorage.getItem(`${PREFIX_LICH_SU_MOBILE}${m}`);
+    const rec = raw ? parseJsonAnToan(raw) : null;
+    return rec && Array.isArray(rec.cac_lan) ? rec : { ma_bn: m, cac_lan: [] };
+  } catch (e) {
+    console.warn('[KHO_DU_LIEU] layLichSuDieuTriTheoMaBN:', e);
+    return { ma_bn: m, cac_lan: [] };
+  }
+};
+
+/**
+ * So sánh hồ sơ hiện tại với lần điều trị cùng MA_BN gần nhất trước NGAY_VAO hiện tại.
+ * Dùng cho cảnh báo trùng chỉ định/thuốc trong đợt gần nhau.
+ */
+export const phanTichKhoangCachDieuTri = async (hoSo) => {
+  const x1 = hoSo?.xml1 || hoSo?.XML1;
+  if (!x1 || typeof x1 !== 'object') {
+    return { co_du_lieu: false, ly_do: 'Thiếu XML1' };
+  }
+  const ma_bn = String(x1.MA_BN || x1.ma_bn || '').trim();
+  const ma_lk = String(hoSo?.ma_lk || x1.MA_LK || x1.ma_lk || '').trim();
+  if (!ma_bn) return { co_du_lieu: false, ly_do: 'Thiếu MA_BN' };
+
+  const ngay_vao_ht = parseNgayXml130(x1.NGAY_VAO);
+  const ls = await layLichSuDieuTriTheoMaBN(ma_bn);
+  const cac_lan = (ls.cac_lan || []).filter((l) => l.ma_lk !== ma_lk);
+
+  const truoc = cac_lan
+    .map((l) => ({ l, t: parseNgayXml130(l.ngay_ra) }))
+    .filter((x) => x.t && ngay_vao_ht && x.t < ngay_vao_ht)
+    .sort((a, b) => b.t - a.t)[0]?.l;
+
+  if (!truoc) {
+    return { co_du_lieu: true, co_lan_truoc_so_sanh: false };
+  }
+
+  const t_ra_truoc = parseNgayXml130(truoc.ngay_ra);
+  const ms = ngay_vao_ht && t_ra_truoc ? ngay_vao_ht - t_ra_truoc : 0;
+  const so_ngay = Math.max(0, Math.floor(ms / 86400000));
+  const so_gio_du = Math.max(0, Math.floor((ms % 86400000) / 3600000));
+
+  const tt_ht = tomTatHoSoChoLichSu(hoSo);
+  const mt0 = truoc.tom_tat?.mau_ma_thuoc || [];
+  const md0 = truoc.tom_tat?.mau_ma_dvkt || [];
+  const trung_thuoc = mt0.filter((t) => tt_ht.mau_ma_thuoc.includes(t));
+  const trung_dvkt = md0.filter((d) => tt_ht.mau_ma_dvkt.includes(d));
+
+  return {
+    co_du_lieu: true,
+    co_lan_truoc_so_sanh: true,
+    lan_truoc: truoc,
+    so_ngay_tu_ngay_ra_lan_truoc: so_ngay,
+    so_gio_du_trong_ngay_dau: so_gio_du,
+    trung_ma_thuoc: trung_thuoc,
+    trung_ma_dvkt: trung_dvkt,
+  };
+};
+
+/** Xóa toàn bộ lịch sử điều trị cục bộ (quyền riêng tư / reset sâu). Không xóa khi xóa kho làm việc. */
+export const xoaToanBoLichSuDieuTri = async () => {
+  try {
+    if (Platform.OS === 'web') {
+      const db = await _openDB();
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction(IDB_STORE_LICH_SU, 'readwrite');
+        tx.objectStore(IDB_STORE_LICH_SU).clear();
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => reject(tx.error);
+      });
+      return true;
+    }
+    const rawIdx = await AsyncStorage.getItem(KHO_LICH_SU_INDEX_MOBILE);
+    const idx = rawIdx ? (parseJsonAnToan(rawIdx) || []) : [];
+    for (const m of idx) {
+      await AsyncStorage.removeItem(`${PREFIX_LICH_SU_MOBILE}${m}`);
+    }
+    await AsyncStorage.removeItem(KHO_LICH_SU_INDEX_MOBILE);
+    return true;
+  } catch (e) {
+    console.error('[KHO_DU_LIEU] xoaToanBoLichSuDieuTri:', e);
+    return false;
+  }
+};
+
 export const xoaToanBoKho = async () => {
   try {
     if (Platform.OS === 'web') {
@@ -768,6 +987,9 @@ const KhoDuLieu = {
   layTatCaHoSoTuKho,
   xoaHoSoKhoiKho,
   xoaToanBoKho,
+  layLichSuDieuTriTheoMaBN,
+  phanTichKhoangCachDieuTri,
+  xoaToanBoLichSuDieuTri,
   layDanhMuc,
   docDanhMucTuKho,
   capNhatDanhMuc,

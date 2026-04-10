@@ -7,7 +7,7 @@
  */
 
 import { useEffect, useMemo, useState } from 'react';
-import { ActivityIndicator, Alert, Platform, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ActivityIndicator, Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CD } from '../tien_ich/chu_de_giao_dien';
@@ -15,6 +15,12 @@ import { chuanHoaDanhSachCanhBaoGiamDinh, chuanHoaHoSoCanhBao } from '../tien_ic
 import { chayGiamDinhToanDienV15 } from '../tien_ich/dong_co_giam_dinh';
 import { quayLaiAnToan } from '../tien_ich/dieu_huong_an_toan';
 import { layNhieuHoSoTuKho } from '../tien_ich/kho_du_lieu';
+import {
+  dongGoiPhanHoiXacNhanCanhBao,
+  goiYTomTatTuKetQuaGiamDinh,
+  LOAI_GHI_TRI_THUC,
+  themTriThucTuCa,
+} from '../tien_ich/tri_thuc_tu_giam_dinh';
 
 const layThongDiepTrangThaiXml = (meta, tenXml, coDuLieu) => {
   if (coDuLieu) return '';
@@ -49,6 +55,16 @@ const ManHinhChiTiet = ({ route, navigation }) => {
   const [hoSo, setHoSo] = useState(null);
   const [dangTai, setDangTai] = useState(true);
   const [danhSachLoiTam, setDanhSachLoiTam] = useState([]);
+  const [noiDungBaiHoc, setNoiDungBaiHoc] = useState('');
+  /** Phản hồi đúng/sai theo từng dòng cảnh báo (tri thức học tập). */
+  const [phanHoiCanhBao, setPhanHoiCanhBao] = useState({});
+  /** Khi không có cảnh báo: xác nhận kết quả “sạch” của engine. */
+  const [xacNhanHoSoKhongLoi, setXacNhanHoSoKhongLoi] = useState(false);
+
+  useEffect(() => {
+    setPhanHoiCanhBao({});
+    setXacNhanHoSoKhongLoi(false);
+  }, [maLK]);
 
   useEffect(() => {
     const taiDuLieu = async () => {
@@ -80,6 +96,139 @@ const ManHinhChiTiet = ({ route, navigation }) => {
       chi_tiet_loi || benh_nhan_duoc_chon?.chi_tiet_loi || hoSo?.ket_qua_giam_dinh || hoSo?.lich_su_audit || []
     );
   }, [benh_nhan_duoc_chon, chi_tiet_loi, danhSachLoiTam, hoSo]);
+
+  const goiYHeThong = useMemo(
+    () =>
+      goiYTomTatTuKetQuaGiamDinh({
+        ma_lk: maLkHienThi,
+        ma_bn: String(xml1?.MA_BN || '').trim(),
+        ho_ten: String(xml1?.HO_TEN || '').trim(),
+        danhSachLoi,
+      }),
+    [danhSachLoi, maLkHienThi, xml1?.HO_TEN, xml1?.MA_BN],
+  );
+
+  const luuTriThucTuCa = async () => {
+    const bai = String(noiDungBaiHoc || '').trim();
+    if (bai.length < 8) {
+      Alert.alert('Thiếu nội dung', 'Nhập bài học / kết luận (ít nhất vài chữ) trước khi lưu.');
+      return;
+    }
+    const maLuat = [
+      ...new Set(
+        danhSachLoi.map((l) => String(l?.ma_luat || '').trim()).filter(Boolean),
+      ),
+    ].join(', ');
+    const snap = JSON.stringify(
+      danhSachLoi.slice(0, 12).map((l) => ({
+        phan_he: l?.phan_he,
+        ma_luat: l?.ma_luat,
+        canh_bao: String(l?.canh_bao || '').slice(0, 400),
+      })),
+    );
+    const tom = bai.split('\n')[0].slice(0, 200);
+    await themTriThucTuCa({
+      ma_lk: maLkHienThi,
+      ma_bn: String(xml1?.MA_BN || '').trim(),
+      ho_ten: String(xml1?.HO_TEN || '').trim(),
+      tom_tat: tom || `Ca ${maLkHienThi}`,
+      bai_hoc: bai,
+      ma_luat_goi_y: maLuat,
+      snapshot_loi: snap,
+    });
+    Alert.alert('Đã lưu', 'Bài học đã ghi vào kho tri thức. Xem tại Tổng quan → Tri thức từ giám định.');
+  };
+
+  const datKetLuanCanhBao = (index, ket_luan) => {
+    setPhanHoiCanhBao((prev) => ({
+      ...prev,
+      [index]: { ket_luan, ghi_chu: String(prev[index]?.ghi_chu || '') },
+    }));
+  };
+
+  const datGhiChuSai = (index, ghi_chu) => {
+    setPhanHoiCanhBao((prev) => ({
+      ...prev,
+      [index]: {
+        ket_luan: prev[index]?.ket_luan || 'SAI',
+        ghi_chu,
+      },
+    }));
+  };
+
+  const luuPhanHoiXacNhanVaoTriThuc = async () => {
+    if (danhSachLoi.length === 0) {
+      if (!xacNhanHoSoKhongLoi) {
+        Alert.alert('Thiếu xác nhận', 'Đánh dấu xác nhận “không có cảnh báo” là đúng trước khi lưu tri thức.');
+        return;
+      }
+      const goi = dongGoiPhanHoiXacNhanCanhBao({
+        ma_lk: maLkHienThi,
+        danhSachLoi: [],
+        phanHoiTheoChiSo: {},
+        xacNhanHoSoSach: 'DUNG',
+      });
+      await themTriThucTuCa({
+        ma_lk: maLkHienThi,
+        ma_bn: String(xml1?.MA_BN || '').trim(),
+        ho_ten: String(xml1?.HO_TEN || '').trim(),
+        tom_tat: goi.tom_tat,
+        bai_hoc: goi.bai_hoc,
+        ma_luat_goi_y: '',
+        snapshot_loi: '[]',
+        phan_hoi_canh_bao_json: goi.phan_hoi_canh_bao_json,
+        loai_ghi: LOAI_GHI_TRI_THUC.XAC_NHAN_CANH_BAO,
+      });
+      Alert.alert(
+        'Đã lưu',
+        'Xác nhận đã ghi vào thẻ tri thức (hồ sơ không cảnh báo). Mở Tri thức từ giám định để xem hoặc xuất Markdown.',
+      );
+      return;
+    }
+
+    for (let i = 0; i < danhSachLoi.length; i += 1) {
+      const ph = phanHoiCanhBao[i];
+      if (ph?.ket_luan !== 'DUNG' && ph?.ket_luan !== 'SAI') {
+        Alert.alert(
+          'Chưa đủ xác nhận',
+          `Vui lòng chọn Đúng hoặc Sai cho tất cả cảnh báo (${danhSachLoi.length} mục).`,
+        );
+        return;
+      }
+    }
+
+    const goi = dongGoiPhanHoiXacNhanCanhBao({
+      ma_lk: maLkHienThi,
+      danhSachLoi,
+      phanHoiTheoChiSo: phanHoiCanhBao,
+      xacNhanHoSoSach: null,
+    });
+    const maLuat = [
+      ...new Set(danhSachLoi.map((l) => String(l?.ma_luat || '').trim()).filter(Boolean)),
+    ].join(', ');
+    const snap = JSON.stringify(
+      danhSachLoi.slice(0, 12).map((l) => ({
+        phan_he: l?.phan_he,
+        ma_luat: l?.ma_luat,
+        canh_bao: String(l?.canh_bao || '').slice(0, 400),
+      })),
+    );
+    await themTriThucTuCa({
+      ma_lk: maLkHienThi,
+      ma_bn: String(xml1?.MA_BN || '').trim(),
+      ho_ten: String(xml1?.HO_TEN || '').trim(),
+      tom_tat: goi.tom_tat,
+      bai_hoc: goi.bai_hoc,
+      ma_luat_goi_y: maLuat,
+      snapshot_loi: snap,
+      phan_hoi_canh_bao_json: goi.phan_hoi_canh_bao_json,
+      loai_ghi: LOAI_GHI_TRI_THUC.XAC_NHAN_CANH_BAO,
+    });
+    Alert.alert(
+      'Đã lưu',
+      'Phản hồi đúng/sai đã ghi vào thẻ tri thức. Dữ liệu có cấu trúc (JSON) phục vụ huấn luyện/cải thiện độ chính xác — xem tại Tri thức từ giám định.',
+    );
+  };
 
   const handleChayGiamDinh = async () => {
     if (!dataGoc || Object.keys(dataGoc).length === 0) {
@@ -164,6 +313,8 @@ const ManHinhChiTiet = ({ route, navigation }) => {
               danhSachLoi.map((loi, index) => {
                 const isFixable = loi.truong_loi && loi.truong_loi !== 'UNKNOWN';
                 const coSoPhapLy = String(loi.co_so_phap_ly || '').trim();
+                const ph = phanHoiCanhBao[index];
+                const kl = ph?.ket_luan;
 
                 return (
                   <View key={`${loi.phan_he || 'LOG'}_${index}`} style={styles.card_error_item}>
@@ -173,8 +324,37 @@ const ManHinhChiTiet = ({ route, navigation }) => {
                       </View>
                       <Text style={styles.txt_phan_he}>Phân hệ: {loi.phan_he || 'Tổng quát'}</Text>
                     </View>
+                    <Text style={styles.txt_ma_luat_nho}>
+                      {loi.ma_luat ? `Mã luật/quy tắc: ${loi.ma_luat}` : ''}
+                    </Text>
                     <Text style={styles.txt_log}>- {loi.canh_bao || loi.noi_dung || `Vi phạm tại trường: ${loi.truong_loi}`}</Text>
                     {!!coSoPhapLy && <Text style={styles.txt_log_phap_ly}>Cơ sở pháp lý: {coSoPhapLy}</Text>}
+                    <Text style={styles.xac_nhan_label}>Xác nhận kết quả giám định (tri thức học tập)</Text>
+                    <View style={styles.xac_nhan_row}>
+                      <TouchableOpacity
+                        style={[styles.xac_nhan_btn, kl === 'DUNG' && styles.xac_nhan_btn_active_dung]}
+                        onPress={() => datKetLuanCanhBao(index, 'DUNG')}
+                      >
+                        <Text style={[styles.xac_nhan_btn_txt, kl === 'DUNG' && styles.xac_nhan_btn_txt_on]}>Đúng</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={[styles.xac_nhan_btn, kl === 'SAI' && styles.xac_nhan_btn_active_sai]}
+                        onPress={() => datKetLuanCanhBao(index, 'SAI')}
+                      >
+                        <Text style={[styles.xac_nhan_btn_txt, kl === 'SAI' && styles.xac_nhan_btn_txt_on]}>Sai</Text>
+                      </TouchableOpacity>
+                    </View>
+                    {kl === 'SAI' ? (
+                      <TextInput
+                        style={styles.xac_nhan_ghi_chu}
+                        placeholder="Vì sao sai / bối cảnh (khuyến nghị để AI học đúng hơn)"
+                        placeholderTextColor={CD.text.muted}
+                        value={ph?.ghi_chu || ''}
+                        onChangeText={(t) => datGhiChuSai(index, t)}
+                        multiline
+                        textAlignVertical="top"
+                      />
+                    ) : null}
                     <TouchableOpacity style={styles.btn_truy_van} onPress={() => navigation.navigate('SuaFileXML', { maLK: maLkHienThi, loi })}>
                       <Text style={styles.txt_truy_van}>Truy vấn và đề nghị sửa lỗi</Text>
                     </TouchableOpacity>
@@ -184,8 +364,63 @@ const ManHinhChiTiet = ({ route, navigation }) => {
             ) : (
               <View style={styles.card_error_sach}>
                 <Text style={styles.txt_no_error}>Hồ sơ chưa ghi nhận vi phạm nghiêm trọng.</Text>
+                <Text style={styles.xac_nhan_hint_sach}>
+                  Nếu đồng ý với kết luận “không có cảnh báo” của hệ thống, đánh dấu bên dưới rồi lưu vào tri thức để tích lũy mẫu đúng.
+                </Text>
+                <TouchableOpacity
+                  style={[styles.xac_nhan_hs_sach_btn, xacNhanHoSoKhongLoi && styles.xac_nhan_hs_sach_btn_on]}
+                  onPress={() => setXacNhanHoSoKhongLoi((v) => !v)}
+                >
+                  <Text style={styles.xac_nhan_hs_sach_txt}>
+                    {xacNhanHoSoKhongLoi ? '✓ Đã xác nhận: không cảnh báo là đúng' : 'Xác nhận: không có cảnh báo là đúng'}
+                  </Text>
+                </TouchableOpacity>
               </View>
             )}
+            <TouchableOpacity style={styles.btn_luu_phan_hoi} onPress={luuPhanHoiXacNhanVaoTriThuc}>
+              <Text style={styles.btn_luu_phan_hoi_txt}>Lưu xác nhận đúng/sai vào thẻ tri thức</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={styles.tieu_de_section}>TRI THỨC & HỌC TỪ CA (HỖ TRỢ SOẠN THẢO)</Text>
+          <View style={styles.card}>
+            <Text style={styles.tri_thuc_hint}>
+              Phần cảnh báo phía trên cho phép đánh giá Đúng/Sai từng mục — lưu thành thẻ tri thức có JSON phục vụ học tập và
+              nâng cao độ chính xác. Bên dưới: gợi ý nháp từ cảnh báo — chỉnh sửa rồi lưu bài học tự do. Tri thức lưu cục bộ;
+              xuất Markdown vào <Text style={styles.tri_thuc_mono}>tai_lieu/</Text> khi cần.
+            </Text>
+            <Text style={styles.tri_thuc_label}>Gợi ý từ dữ liệu ca (có thể chèn vào ô dưới)</Text>
+            <ScrollView style={styles.goi_y_box} nestedScrollEnabled>
+              <Text style={styles.goi_y_txt} selectable>
+                {goiYHeThong}
+              </Text>
+            </ScrollView>
+            <TouchableOpacity style={styles.btn_chen_goi_y} onPress={() => setNoiDungBaiHoc(goiYHeThong)}>
+              <Text style={styles.btn_chen_goi_y_txt}>Chèn gợi ý vào ô bài học</Text>
+            </TouchableOpacity>
+            <Text style={styles.tri_thuc_label}>Bài học / kết luận giám định (bắt buộc khi lưu)</Text>
+            <TextInput
+              style={styles.tri_thuc_input}
+              multiline
+              placeholder="Ghi nhận điểm chính: tình huống, kết luận, việc cần tránh lặp lại…"
+              placeholderTextColor={CD.text.muted}
+              value={noiDungBaiHoc}
+              onChangeText={setNoiDungBaiHoc}
+              textAlignVertical="top"
+            />
+            <View style={styles.tri_thuc_actions}>
+              <TouchableOpacity style={styles.btn_luu_tri_thuc} onPress={luuTriThucTuCa}>
+                <Text style={styles.btn_luu_tri_thuc_txt}>Lưu vào kho tri thức</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.btn_mo_kho}
+                onPress={() => navigation.navigate('TriThucTuGiamDinh')}
+              >
+                <Text style={styles.btn_mo_kho_txt}>Mở kho tri thức →</Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
 
@@ -379,6 +614,63 @@ const styles = StyleSheet.create({
   txt_no_error: { fontSize: 20, color: CD.text.primary, fontWeight: 'bold', fontFamily: CD.font.family },
   btn_truy_van: { alignSelf: 'flex-start', paddingVertical: 5 },
   txt_truy_van: { fontSize: 20, color: CD.brand.mauNhat, fontWeight: 'bold', fontFamily: CD.font.family, textDecorationLine: 'underline' },
+  txt_ma_luat_nho: { fontSize: 16, color: CD.text.muted, marginBottom: 6, fontFamily: CD.font.mono },
+  xac_nhan_label: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: CD.brand.mauNhat,
+    marginTop: 10,
+    marginBottom: 8,
+    fontFamily: CD.font.family,
+  },
+  xac_nhan_row: { flexDirection: 'row', gap: 10, flexWrap: 'wrap', marginBottom: 8 },
+  xac_nhan_btn: {
+    paddingVertical: 8,
+    paddingHorizontal: 18,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: CD.border.glass_md,
+    backgroundColor: CD.bg.glass_input,
+  },
+  xac_nhan_btn_active_dung: { backgroundColor: 'rgba(46,125,50,0.25)', borderColor: '#2E7D32' },
+  xac_nhan_btn_active_sai: { backgroundColor: 'rgba(198,40,40,0.2)', borderColor: '#C62828' },
+  xac_nhan_btn_txt: { fontSize: 16, fontWeight: '700', color: CD.text.secondary, fontFamily: CD.font.family },
+  xac_nhan_btn_txt_on: { color: CD.text.primary },
+  xac_nhan_ghi_chu: {
+    minHeight: 72,
+    borderWidth: 1,
+    borderColor: CD.border.glass_md,
+    borderRadius: 10,
+    padding: 10,
+    fontSize: 15,
+    color: CD.text.table_cell,
+    backgroundColor: CD.bg.glass_input,
+    marginBottom: 10,
+    fontFamily: CD.font.family,
+  },
+  xac_nhan_hint_sach: { fontSize: 15, color: CD.text.secondary, lineHeight: 22, marginTop: 10, fontFamily: CD.font.family },
+  xac_nhan_hs_sach_btn: {
+    marginTop: 12,
+    alignSelf: 'flex-start',
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: CD.border.glass_md,
+    backgroundColor: CD.bg.glass_input,
+  },
+  xac_nhan_hs_sach_btn_on: { backgroundColor: 'rgba(46,125,50,0.2)', borderColor: '#2E7D32' },
+  xac_nhan_hs_sach_txt: { fontSize: 15, fontWeight: '700', color: CD.text.table_cell, fontFamily: CD.font.family },
+  btn_luu_phan_hoi: {
+    marginTop: 12,
+    alignSelf: 'stretch',
+    backgroundColor: '#1565C0',
+    paddingVertical: 12,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  btn_luu_phan_hoi_txt: { color: '#FFF', fontWeight: '800', fontSize: 15, fontFamily: CD.font.family },
   item_list: {
     backgroundColor: CD.bg.glass_card,
     borderRadius: 20,
@@ -409,6 +701,47 @@ const styles = StyleSheet.create({
     paddingHorizontal: 18,
   },
   txt_btn_back: { color: CD.text.primary, fontSize: 18, fontWeight: 'bold', fontFamily: CD.font.family },
+  tri_thuc_hint: {
+    fontSize: 14,
+    color: CD.text.secondary,
+    lineHeight: 22,
+    marginBottom: 12,
+    fontFamily: CD.font.family,
+  },
+  tri_thuc_mono: { fontFamily: CD.font.mono, fontSize: 13, color: CD.text.accent },
+  tri_thuc_label: {
+    fontSize: 15,
+    fontWeight: '700',
+    color: CD.brand.mauNhat,
+    marginBottom: 8,
+    fontFamily: CD.font.family,
+  },
+  goi_y_box: { maxHeight: 160, marginBottom: 10 },
+  goi_y_txt: { fontSize: 14, color: CD.text.table_cell, lineHeight: 22, fontFamily: CD.font.family },
+  btn_chen_goi_y: { alignSelf: 'flex-start', marginBottom: 14 },
+  btn_chen_goi_y_txt: { fontSize: 15, color: CD.brand.mauNhat, fontWeight: '700', textDecorationLine: 'underline', fontFamily: CD.font.family },
+  tri_thuc_input: {
+    minHeight: 120,
+    borderWidth: 1,
+    borderColor: CD.border.glass_md,
+    borderRadius: 12,
+    padding: 12,
+    fontSize: 15,
+    color: CD.text.table_cell,
+    backgroundColor: CD.bg.glass_input,
+    marginBottom: 12,
+    fontFamily: CD.font.family,
+  },
+  tri_thuc_actions: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, alignItems: 'center' },
+  btn_luu_tri_thuc: {
+    backgroundColor: CD.brand.mauChinh,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    borderRadius: 12,
+  },
+  btn_luu_tri_thuc_txt: { color: CD.text.primary, fontWeight: '800', fontSize: 15, fontFamily: CD.font.family },
+  btn_mo_kho: { paddingVertical: 10, paddingHorizontal: 8 },
+  btn_mo_kho_txt: { color: CD.brand.mauNhat, fontWeight: '700', fontSize: 15, fontFamily: CD.font.family },
 });
 
 export default ManHinhChiTiet;

@@ -1,5 +1,5 @@
 /** AUTO-GENERATED from DuLieu_LUAT_THUOC (9).xlsx */
-export const PHIEN_BAN_SEED_LUAT_THUOC_MUC8 = '2026-04-09_muc8_thuoc_v2';
+export const PHIEN_BAN_SEED_LUAT_THUOC_MUC8 = '2026-04-10_muc8_thuoc_v3_doi_chieu_177';
 export const COT_SEED_LUAT_THUOC_MUC8 = ["TRANG_THAI","MA_LUAT","TEN_QUY_TAC","DIEU_KIEN","CANH_BAO","GHI_CHU","NGUON_DU_LIEU"];
 export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   {
@@ -3108,8 +3108,8 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "MA_LUAT": "THUOC_311",
     "TEN_QUY_TAC": "[Paracetamol] Kiểm tra Chỉ định ICD-10",
     "DIEU_KIEN": "XML2.MA_THUOC == '40.48' AND XML1.MA_BENH_CHINH NOT IN ('R50', 'R52', 'M54') AND XML1.MA_BENH_KT NOT LIKE '%R50%' AND XML1.MA_BENH_KT NOT LIKE '%R52%' AND XML1.MA_BENH_KT NOT LIKE '%M54%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(SỐT|ĐAU|ĐAU LƯNG|ĐAU THẮT LƯNG|ĐAU CỘT SỐNG)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc Hapacol 650 chỉ được thanh toán cho chẩn đoán Sốt (R50) hoặc Đau (R52, M54).",
-    "GHI_CHU": "",
+    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc nhóm Paracetamol (mã DM 40.48; {TEN_THUOC}) chỉ được thanh toán cho chẩn đoán Sốt (R50) hoặc Đau (R52, M54). Không gắn cứng tên biệt dược một sản phẩm.",
+    "GHI_CHU": "Đối chiếu gói 177 (04/03/2026): cảnh báo cũ ghi \"Hapacol 650\" trong khi XML2 có tên khác (vd AGIMOL) — đã chuẩn hóa template.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -5354,12 +5354,12 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   },
   {
     "id": "SEED_THUOC_537",
-    "TRANG_THAI": "ON",
+    "TRANG_THAI": "OFF",
     "MA_LUAT": "THUOC_537",
     "TEN_QUY_TAC": "JCI Safety: Trường thông tin dị ứng không được để trống",
     "DIEU_KIEN": "IS_EMPTY(XML1.GHI_CHU)",
     "CANH_BAO": "⚠️ [JCI Safety]: Trường thông tin dị ứng không được để trống (Phải ghi \"Không\" nếu không có). Theo tiêu chuẩn JCI IPSG.",
-    "GHI_CHU": "XML1 QĐ 3176 không có trường dị ứng riêng — dùng IS_EMPTY(XML1.GHI_CHU) làm proxy cảnh báo ghi chú hành chính trống.",
+    "GHI_CHU": "OFF sau đối chiếu gói 177 (04/03/2026): 177/177 hồ sơ GHI_CHU trống — proxy không phải vi phạm Luật BHYT; gây ~100% cảnh báo và nhiễu huấn luyện AI. Bật lại chỉ khi audit an toàn/JCI có quy ước HIS map vào GHI_CHU.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -5367,9 +5367,9 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_538",
     "TEN_QUY_TAC": "Lỗi kế toán: Tổng tiền lệch quá 5 đồng so với tổng các nguồn thanh toán",
-    "DIEU_KIEN": "ABS(XML1.T_TONGCHI_BV - (XML1.T_BHTT + XML1.T_BNTT + XML1.T_NGUONKHAC + XML1.T_BNCCT)) > 5",
+    "DIEU_KIEN": "ABS(TO_NUMBER(XML1.T_TONGCHI_BV) - (TO_NUMBER(XML1.T_BHTT) + TO_NUMBER(XML1.T_BNTT) + TO_NUMBER(XML1.T_NGUONKHAC) + TO_NUMBER(XML1.T_NGOAIDS) + TO_NUMBER(XML1.T_BNCCT))) > 5",
     "CANH_BAO": "⛔ [LỖI KẾ TOÁN]: Tổng tiền (T_TONGCHI_BV) lệch quá 5 đồng so với tổng các nguồn thanh toán (T_BHTT + T_BNTT + T_NGUONKHAC + T_NGOAIDS + T_BNCCT). Kiểm tra lại số liệu.",
-    "GHI_CHU": "KIỂM TRA 21/03/2026: Luật hợp lệ ✅. Công thức đối chiếu: |T_TONGCHI_BV - (T_BHTT + T_BNTT + T_NGUONKHAC + T_NGOAIDS + T_BNCCT)| > 5 đồng. Đúng nghiệp vụ kế toán BHXH.",
+    "GHI_CHU": "SỬA 10/04/2026: TO_NUMBER đủ hạng + T_NGOAIDS; đồng bộ với tinhChenhTongChi (dong_co_giam_dinh) và XML_04/XML_107/HC_242. Đối chiếu gói 177: báo cáo cũ 132× FP do biểu thức cũ.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {

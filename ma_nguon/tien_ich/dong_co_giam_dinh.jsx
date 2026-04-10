@@ -34,6 +34,7 @@ import { damBaoSeedLuatHanhChinhMuc2 } from './seed_luat_hanh_chinh_muc2';
 import { damBaoSeedLuatPtttMuc11 } from './seed_luat_pttt_muc11';
 import { damBaoSeedLuatThuocMuc8 } from './seed_luat_thuoc_muc8';
 import { BANG_ICD10_TT06, PHIEN_BAN_ICD10_TT06 } from '../thanh_phan/icd10_tt06_bang_ma';
+import { chuanHoaMaIcdPhacDoCdss } from '../chuyen_mon/phac_do_benh_vien/phac_do_cdss_columns';
 
 // ============================================================
 // [PHẦN 1] CACHE VÀ HÀM TIỆN ÍCH CƠ BẢN
@@ -809,8 +810,28 @@ const taoKhoaLocTrungCanhBao = (loi = {}) => {
 // ============================================================
 // [PHẦN 3] TẢI DANH MỤC BV + BYT → MAP O(1)
 // ============================================================
+/** Từ mảng dòng phác đồ CDSS → Map mã ICD → có trong kho tri thức nội bộ (một mã = một dòng hợp lệ). */
+const taoMetaPhacDoCdssTuBang = (rows) => {
+    const arr = Array.isArray(rows) ? rows : [];
+    const map = new Map();
+    const cotIcd = 'MÃ ICD-10';
+    arr.forEach((row) => {
+        const v = row?.[cotIcd] ?? row?.['MA ICD-10'];
+        const k = chuanHoaMaIcdPhacDoCdss(v);
+        if (k) map.set(k, true);
+    });
+    return {
+        MAP_PHAC_DO_CDSS: map,
+        SO_DONG_PHAC_DO_CDSS: map.size,
+        CO_KHO_PHAC_DO_CDSS: map.size > 0,
+    };
+};
+
 const taiDanhMucHeThong = async () => {
-    if (cache_DanhMucHeThong) return cache_DanhMucHeThong;
+    if (cache_DanhMucHeThong) {
+        const phacRows = await fetchChunkedData('CDSS_DATA_PHAC_DO_V3');
+        return { ...cache_DanhMucHeThong, ...taoMetaPhacDoCdssTuBang(phacRows) };
+    }
     try {
         const [icd10Arr, dvktArr, thuocArr, vtytArr, khoaArrRaw, icdKeDonTren30NgayArr, nhanSuArr] = await Promise.all([
             fetchChunkedData('DANH_MUC_ICD10'),
@@ -856,7 +877,11 @@ const taiDanhMucHeThong = async () => {
         const khoaArr = Array.isArray(khoaArrRaw) ? khoaArrRaw : [];
         const boQuyTacDoiTuongKcb = taoBoQuyTacDoiTuongKcb(pl10);
 
+        const phacDoRows = await fetchChunkedData('CDSS_DATA_PHAC_DO_V3');
+        const metaPhacDo = taoMetaPhacDoCdssTuBang(phacDoRows);
+
         cache_DanhMucHeThong = {
+            ...metaPhacDo,
             // Arrays for NLP engine (backward compatible)
             DM_ICD10: icd10Arr.map(i => i['MÃ BỆNH'] || i['MA_BENH'] || ''),
             DM_ICD10_KE_DON_TREN_30_NGAY: icdKeDonTren30NgayArr.map((i) => i['Mã bệnh theo ICD 10'] || i['Ma benh theo ICD 10'] || i['MA_BENH_THEO_ICD_10'] || ''),
@@ -895,6 +920,9 @@ const taiDanhMucHeThong = async () => {
         return cache_DanhMucHeThong;
     } catch (_e) {
         return {
+            MAP_PHAC_DO_CDSS: new Map(),
+            SO_DONG_PHAC_DO_CDSS: 0,
+            CO_KHO_PHAC_DO_CDSS: false,
             DM_ICD10:[], DM_ICD10_KE_DON_TREN_30_NGAY:[], DM_BENH_MAN_TINH:[], DM_DVKT:[], DM_THUOC:[], DM_VTYT:[], DM_KHOA:[],
             PL1_DVKT:[],PL2_KHAM:[],PL3_GIUONG:[],PL4_GIUONG_BN:[],PL5_THUOC:[],
             PL6_THUOC_YHCT:[],PL7_BENH_YHCT:[],PL8_VTYT:[],PL9_MAU:[],
@@ -1181,7 +1209,12 @@ const coDichVuSauNgayRa = (hoSo, xml1) => {
 };
 
 const tinhChenhTongChi = (xml1) => {
-    const tong = TO_NUMBER(xml1?.T_BNTT) + TO_NUMBER(xml1?.T_BNCCT) + TO_NUMBER(xml1?.T_BHTT) + TO_NUMBER(xml1?.T_NGUONKHAC);
+    const tong =
+        TO_NUMBER(xml1?.T_BNTT)
+        + TO_NUMBER(xml1?.T_BNCCT)
+        + TO_NUMBER(xml1?.T_BHTT)
+        + TO_NUMBER(xml1?.T_NGUONKHAC)
+        + TO_NUMBER(xml1?.T_NGOAIDS);
     return Math.abs(TO_NUMBER(xml1?.T_TONGCHI_BV) - tong);
 };
 
@@ -2759,7 +2792,9 @@ const SYS_KEYWORDS_RULE_DONG = Object.freeze([
     'XML1', 'XML2', 'XML3', 'XML4', 'XML5', 'XML6', 'XML7', 'XML8', 'XML9', 'XML10', 'XML11', 'XML12', 'XML13', 'XML14', 'XML15',
     'DS_XML1', 'DS_XML2', 'DS_XML3', 'DS_XML4', 'DS_XML5', 'DS_XML6', 'DS_XML7', 'DS_XML8', 'DS_XML9', 'DS_XML10', 'DS_XML11', 'DS_XML12', 'DS_XML13', 'DS_XML14', 'DS_XML15', 'CURRENT', 'NOW', 'TODAY', 'CURRENT_TIMESTAMP',
     'NOT_CONTAINS', 'CONTAINS', 'IN', 'LIKE', 'NULL', 'OR', 'AND', 'Math', 'String', 'includes', 'match', 'true', 'false', 'item', 'RegExp', 'new',
-    'MATCH_MA_LOAI_KCB', 'MATCH_ANY_MA_LOAI_KCB'
+    'MATCH_MA_LOAI_KCB', 'MATCH_ANY_MA_LOAI_KCB',
+    'CO_PHAC_DO_CDSS_CHO_ICD', 'CO_KHO_TRI_THUC_PHAC_DO',
+    'CO_PHAC_DO_CDSS_CHO_BAT_CU_ICD_TREN_XML1', 'KHONG_CO_PHAC_DO_CDSS_CHO_MA_ICD_GOP_TREN_XML1',
 ]);
 
 const MAX_RULE_DONG_EXPRESSION_LENGTH = 4000;
@@ -3432,6 +3467,44 @@ const taoHamDieuKienLuatDong = (jsQuery = '') => {
                 IS_EMPTY, STARTS_WITH, SUBSTR, TO_NUMBER
             } = ctx;
             const { DM_ICD10, DM_DVKT, DM_THUOC, DM_VTYT, DM_KHOA, PL1_DVKT, PL2_KHAM, PL3_GIUONG, PL4_GIUONG_BN, PL5_THUOC, PL6_THUOC_YHCT, PL7_BENH_YHCT, PL8_VTYT, PL9_MAU, PL10_DOI_TUONG, PL11_CLS, PL12_NHIEN_LIEU } = danhMucHeThong;
+            const normalizeMaIcdPhacDoKey = (v) => String(v || '').replace(/\\./g, '').trim().toUpperCase();
+            const ICD_RG_PHAC = /[A-TV-Z]\\d{2}(?:\\.[0-9A-Z]{1,2})?/g;
+            const layMaIcdGopChinhVaKemKhongTrung = (x1) => {
+                const seen = new Set();
+                const out = [];
+                const parts = [x1 && x1.MA_BENH_CHINH, x1 && x1.MA_BENH_KT, x1 && x1.MA_BENHKEM];
+                parts.forEach((value) => {
+                    (String(value || '').toUpperCase().match(ICD_RG_PHAC) || []).forEach((code) => {
+                        const n = String(code || '').replace(/[^A-Z0-9.]/g, '').toUpperCase();
+                        if (!n) return;
+                        const k = n.replace(/\\./g, '');
+                        if (k && !seen.has(k)) {
+                            seen.add(k);
+                            out.push(k);
+                        }
+                    });
+                });
+                return out;
+            };
+            const CO_PHAC_DO_CDSS_CHO_ICD = (ma) => {
+                const m = danhMucHeThong && danhMucHeThong.MAP_PHAC_DO_CDSS;
+                if (!m || typeof m.has !== 'function') return false;
+                const k = normalizeMaIcdPhacDoKey(ma);
+                return k ? m.has(k) : false;
+            };
+            const CO_PHAC_DO_CDSS_CHO_BAT_CU_ICD_TREN_XML1 = (x1) => {
+                const m = danhMucHeThong && danhMucHeThong.MAP_PHAC_DO_CDSS;
+                if (!m || typeof m.has !== 'function') return false;
+                return layMaIcdGopChinhVaKemKhongTrung(x1).some((k) => m.has(k));
+            };
+            const KHONG_CO_PHAC_DO_CDSS_CHO_MA_ICD_GOP_TREN_XML1 = (x1) => {
+                const codes = layMaIcdGopChinhVaKemKhongTrung(x1);
+                if (codes.length === 0) return false;
+                const m = danhMucHeThong && danhMucHeThong.MAP_PHAC_DO_CDSS;
+                if (!m || typeof m.has !== 'function') return false;
+                return !codes.some((k) => m.has(k));
+            };
+            const CO_KHO_TRI_THUC_PHAC_DO = () => !!(danhMucHeThong && danhMucHeThong.CO_KHO_PHAC_DO_CDSS);
             const normalizeMaLoaiKcb = ${normalizeMaLoaiKcb.toString()};
             const layTapMaLoaiKcbTheoGiaTriRule = ${layTapMaLoaiKcbTheoGiaTriRule.toString()};
             const MATCH_MA_LOAI_KCB = ${MATCH_MA_LOAI_KCB.toString()};

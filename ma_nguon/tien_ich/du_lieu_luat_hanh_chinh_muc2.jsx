@@ -1,5 +1,5 @@
 /** AUTO-GENERATED from DuLieu_LUAT_HANH_CHINH (7).xlsx */
-export const PHIEN_BAN_SEED_LUAT_HANH_CHINH_MUC2 = '2026-03-31_muc2_hanh_chinh_v7';
+export const PHIEN_BAN_SEED_LUAT_HANH_CHINH_MUC2 = '2026-04-10_muc2_hanh_chinh_v8_hc242';
 export const COT_SEED_LUAT_HANH_CHINH_MUC2 = ["TRANG_THAI","MA_LUAT","TEN_QUY_TAC","DIEU_KIEN","CANH_BAO","NGUON_DU_LIEU"];
 export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   {
@@ -2241,9 +2241,9 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "id": "SEED_HANHCHINH_242",
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_242",
-    "TEN_QUY_TAC": "Tổng chi phí lệch với số tiền BN trả",
-    "DIEU_KIEN": "ABS(XML1.T_TONGCHI_BV - (XML1.T_BHTT + XML1.T_BNTT + XML1.T_BNCCT + XML1.T_NGUONKHAC)) > 5",
-    "CANH_BAO": "⛔ Lỗi kế toán: Tổng tiền lệch quá 5 đồng so với tổng các nguồn thanh toán.",
+    "TEN_QUY_TAC": "Cân đối T_TONGCHI_BV với tổng các nguồn thanh toán",
+    "DIEU_KIEN": "ABS(TO_NUMBER(XML1.T_TONGCHI_BV) - (TO_NUMBER(XML1.T_BHTT) + TO_NUMBER(XML1.T_BNTT) + TO_NUMBER(XML1.T_BNCCT) + TO_NUMBER(XML1.T_NGUONKHAC) + TO_NUMBER(XML1.T_NGOAIDS))) > 5",
+    "CANH_BAO": "⛔ Lỗi kế toán: Tổng tiền (T_TONGCHI_BV) lệch quá 5 đồng so với tổng các nguồn thanh toán (BHYT + BN + CCT + Nguồn khác + Ngoài DS HIV/AIDS).",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {

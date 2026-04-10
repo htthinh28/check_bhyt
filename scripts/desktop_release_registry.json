@@ -1,0 +1,15 @@
+{
+  "lastReleasedVersion": "1.1.0",
+  "history": [
+    {
+      "version": "1.0.0",
+      "date": "2026-04-01",
+      "note": "Baseline trước script release-desktop (theo package.json)."
+    },
+    {
+      "version": "1.1.0",
+      "date": "2026-04-09",
+      "note": "Desktop build (win)"
+    }
+  ]
+}

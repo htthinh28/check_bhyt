@@ -57,6 +57,7 @@ const CongTiepNhanHIS = ({ navigation }) => {
   const [hisConfig, setHisConfig] = useState(() => HisAPI.getConfig());
   const [realtimeStatus, setRealtimeStatus] = useState(() => HisAPI.getRealtimeStatus());
   const [restProbe, setRestProbe] = useState({ loading: false, ok: null, message: 'Chưa kiểm tra REST health.' });
+  const [probeDaGiaoThuc, setProbeDaGiaoThuc] = useState({ loading: false, ketQua: null, loi: null });
 
   const capNhatTrangThai = () => {
     setHisConfig(HisAPI.getConfig());
@@ -123,9 +124,20 @@ const CongTiepNhanHIS = ({ navigation }) => {
     setRestProbe({ loading: true, ok: null, message: 'Đang kiểm tra REST health từ HIS...' });
     try {
       await HisAPI.fetchREST('/health', 'GET');
-      setRestProbe({ loading: false, ok: true, message: 'REST health HIS phản hồi thành công.' });
+      setRestProbe({ loading: false, ok: true, message: 'REST /health HIS phản hồi thành công.' });
     } catch (error) {
-      setRestProbe({ loading: false, ok: false, message: error?.message || 'Không kiểm tra được REST health HIS.' });
+      setRestProbe({ loading: false, ok: false, message: error?.message || 'Không kiểm tra được REST /health (thử nút kiểm tra đa giao thức).' });
+    }
+    capNhatTrangThai();
+  };
+
+  const kiemTraTatCaGiaoThuc = async () => {
+    setProbeDaGiaoThuc({ loading: true, ketQua: null, loi: null });
+    try {
+      const ketQua = await HisAPI.kiemTraBoKetNoiHIS();
+      setProbeDaGiaoThuc({ loading: false, ketQua, loi: null });
+    } catch (error) {
+      setProbeDaGiaoThuc({ loading: false, ketQua: null, loi: error?.message || 'Lỗi kiểm tra cổng HIS.' });
     }
     capNhatTrangThai();
   };
@@ -136,7 +148,7 @@ const CongTiepNhanHIS = ({ navigation }) => {
         <TouchableOpacity onPress={() => quayLaiAnToan(navigation, 'TongQuan')} style={styles.nut_quay_lai}>
           <Text style={styles.chu_nut}>⬅ QUAY LẠI TỔNG QUAN</Text>
         </TouchableOpacity>
-        <Text style={styles.chu_tieu_de}>🔌 HIS API GATEWAY (REALTIME)</Text>
+        <Text style={styles.chu_tieu_de}>🔌 CỔNG HIS — ĐA GIAO THỨC</Text>
         <View style={styles.khoang_trong_tieu_de} />
       </View>
 
@@ -144,8 +156,8 @@ const CongTiepNhanHIS = ({ navigation }) => {
         <View style={styles.panel_trai}>
           <Text style={styles.tieu_de_panel}>⚙️ THÔNG SỐ TÍCH HỢP HIS THỰC TẾ</Text>
           <Text style={styles.mo_ta_panel}>
-            Gateway này dùng cấu hình runtime thật của ứng dụng để nhận dữ liệu từ HIS qua REST và WebSocket. Mỗi hồ sơ realtime được
-            tiền kiểm ngay lúc phát sinh để chặn lỗi thiếu MA_LK, HO_TEN, thẻ BHYT hoặc payload XML không đủ trước khi sang bước giám định.
+            Cổng hỗ trợ REST (JSON), FHIR (HTTP), GraphQL, SOAP/XML (WSDL/endpoint) và WebSocket. Cấu hình trong app.json và biến môi trường
+            EXPO (tiền tố HIS). HL7 TCP/MLLP hoặc MQTT cần máy chủ trung gian — không gọi trực tiếp từ trình duyệt.
           </Text>
 
           <View style={styles.the_cau_hinh}>
@@ -156,9 +168,39 @@ const CongTiepNhanHIS = ({ navigation }) => {
           </View>
 
           <View style={styles.the_cau_hinh}>
-            <Text style={styles.nhan_cau_hinh}>WebSocket URL</Text>
+            <Text style={styles.nhan_cau_hinh}>REST health paths (thử lần lượt)</Text>
+            <View style={styles.o_code}>
+              <Text style={styles.chu_code}>{hisConfig.restHealthPaths || '—'}</Text>
+            </View>
+          </View>
+
+          <View style={styles.the_cau_hinh}>
+            <Text style={styles.nhan_cau_hinh}>FHIR Base URL</Text>
+            <View style={styles.o_code}>
+              <Text style={styles.chu_code}>{hisConfig.fhirBaseUrl || 'Chưa cấu hình'}</Text>
+            </View>
+          </View>
+
+          <View style={styles.the_cau_hinh}>
+            <Text style={styles.nhan_cau_hinh}>GraphQL HTTP URL</Text>
+            <View style={styles.o_code}>
+              <Text style={styles.chu_code}>{hisConfig.graphqlUrl || 'Chưa cấu hình'}</Text>
+            </View>
+          </View>
+
+          <View style={styles.the_cau_hinh}>
+            <Text style={styles.nhan_cau_hinh}>SOAP — WSDL / service URL</Text>
+            <View style={styles.o_code}>
+              <Text style={styles.chu_code}>soapWsdlUrl: {hisConfig.soapWsdlUrl || '—'}</Text>
+              <Text style={styles.chu_code}>soapServiceUrl (POST): {hisConfig.soapServiceUrl || '—'}</Text>
+            </View>
+          </View>
+
+          <View style={styles.the_cau_hinh}>
+            <Text style={styles.nhan_cau_hinh}>WebSocket URL + giao thức phụ (tùy chọn)</Text>
             <View style={styles.o_code}>
               <Text style={styles.chu_code}>{hisConfig.websocketUrl || 'Chưa cấu hình'}</Text>
+              <Text style={styles.chu_code}>websocketProtocols: {hisConfig.websocketProtocols || '—'}</Text>
             </View>
           </View>
 
@@ -175,10 +217,10 @@ const CongTiepNhanHIS = ({ navigation }) => {
             <Text style={styles.nhan_cau_hinh}>Payload realtime được hỗ trợ</Text>
             <View style={styles.o_code_block}>
               <Text style={styles.chu_code}>{'{'}</Text>
-              <Text style={styles.chu_code}>  "ma_lk": "2305010001",</Text>
-              <Text style={styles.chu_code}>  "xml1_base64": "PD94bWwgdmVyc2...",</Text>
-              <Text style={styles.chu_code}>  "xml2_base64": "PD94bWwgdmVyc2...",</Text>
-              <Text style={styles.chu_code}>  "xml3_base64": "PD94bWwgdmVyc2..."</Text>
+              <Text style={styles.chu_code}>{'  "ma_lk": "2305010001",'}</Text>
+              <Text style={styles.chu_code}>{'  "xml1_base64": "PD94bWwgdmVyc2...",'}</Text>
+              <Text style={styles.chu_code}>{'  "xml2_base64": "PD94bWwgdmVyc2...",'}</Text>
+              <Text style={styles.chu_code}>{'  "xml3_base64": "PD94bWwgdmVyc2..."'}</Text>
               <Text style={styles.chu_code}>{'}'}</Text>
             </View>
           </View>
@@ -204,8 +246,40 @@ const CongTiepNhanHIS = ({ navigation }) => {
             </View>
           </View>
 
+          <TouchableOpacity style={styles.nut_phu_chinh} onPress={kiemTraTatCaGiaoThuc} disabled={probeDaGiaoThuc.loading}>
+            <Text style={styles.chu_nut_phu_chinh}>
+              {probeDaGiaoThuc.loading ? 'ĐANG KIỂM TRA ĐA GIAO THỨC...' : 'KIỂM TRA TẤT CẢ GIAO THỨC (REST+FHIR+GraphQL+SOAP+WS)'}
+            </Text>
+          </TouchableOpacity>
+
+          {probeDaGiaoThuc.loi ? (
+            <View style={[styles.ket_qua_probe, styles.ket_qua_probe_fail]}>
+              <Text style={styles.chu_probe}>{probeDaGiaoThuc.loi}</Text>
+            </View>
+          ) : null}
+
+          {probeDaGiaoThuc.ketQua ? (
+            <View style={styles.khung_bang_probe}>
+              <Text style={styles.chu_probe_tieu_de}>
+                Kết quả: {probeDaGiaoThuc.ketQua.ok ? 'ĐẠT (mọi kênh đã cấu hình)' : 'CHƯA ĐẠT'} — {dinhDangThoiDiem(probeDaGiaoThuc.ketQua.thoiGian)}
+              </Text>
+              {Object.entries(probeDaGiaoThuc.ketQua.chiTiet || {}).map(([ten, tt]) => (
+                <View
+                  key={ten}
+                  style={[
+                    styles.dong_probe,
+                    tt.skipped ? styles.dong_probe_skip : tt.ok ? styles.dong_probe_ok : styles.dong_probe_fail,
+                  ]}
+                >
+                  <Text style={styles.chu_ten_kenh}>{ten.toUpperCase()}</Text>
+                  <Text style={styles.chu_mo_ta_kenh}>{tt.message || '—'}</Text>
+                </View>
+              ))}
+            </View>
+          ) : null}
+
           <TouchableOpacity style={styles.nut_phu} onPress={kiemTraRestHealth}>
-            <Text style={styles.chu_nut_phu}>{restProbe.loading ? 'ĐANG KIỂM TRA REST...' : 'KIỂM TRA REST HEALTH'}</Text>
+            <Text style={styles.chu_nut_phu}>{restProbe.loading ? 'ĐANG KIỂM TRA REST...' : 'KIỂM TRA NHANH REST /health'}</Text>
           </TouchableOpacity>
 
           <View style={[styles.ket_qua_probe, restProbe.ok === true ? styles.ket_qua_probe_ok : restProbe.ok === false ? styles.ket_qua_probe_fail : null]}>
@@ -345,6 +419,18 @@ const styles = StyleSheet.create({
   chu_phu: { fontSize: 15, color: CD.text.muted, fontFamily: CD.font.family, marginTop: 8 },
   trang_thai_xanh: { color: '#1B8F5A' },
   trang_thai_do: { color: '#C62828' },
+  nut_phu_chinh: {
+    marginTop: 16,
+    paddingVertical: 16,
+    paddingHorizontal: 20,
+    backgroundColor: 'rgba(0,96,100,0.22)',
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(0,96,100,0.45)',
+    alignItems: 'center',
+    ...Platform.select({ web: { cursor: CD.web.cursor_pointer } }),
+  },
+  chu_nut_phu_chinh: { fontSize: 18, fontWeight: 'bold', color: '#004D40', fontFamily: CD.font.family },
   nut_phu: {
     marginTop: 16,
     paddingVertical: 14,
@@ -357,6 +443,22 @@ const styles = StyleSheet.create({
     ...Platform.select({ web: { cursor: CD.web.cursor_pointer } }),
   },
   chu_nut_phu: { fontSize: 18, fontWeight: 'bold', color: '#114A8D', fontFamily: CD.font.family },
+  khung_bang_probe: {
+    marginTop: 14,
+    padding: 12,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    borderWidth: 1,
+    borderColor: CD.border.divider,
+    gap: 8,
+  },
+  chu_probe_tieu_de: { fontSize: 16, fontWeight: '800', color: CD.text.primary, fontFamily: CD.font.family, marginBottom: 8 },
+  dong_probe: { padding: 10, borderRadius: 8, borderWidth: 1 },
+  dong_probe_ok: { backgroundColor: 'rgba(76,175,80,0.12)', borderColor: 'rgba(76,175,80,0.35)' },
+  dong_probe_fail: { backgroundColor: 'rgba(244,67,54,0.10)', borderColor: 'rgba(244,67,54,0.3)' },
+  dong_probe_skip: { backgroundColor: 'rgba(158,158,158,0.12)', borderColor: 'rgba(158,158,158,0.25)' },
+  chu_ten_kenh: { fontSize: 14, fontWeight: '800', color: CD.brand.mauNhat, fontFamily: CD.font.family },
+  chu_mo_ta_kenh: { fontSize: 15, color: CD.text.secondary, fontFamily: CD.font.family, marginTop: 4, lineHeight: 22 },
   ket_qua_probe: {
     marginTop: 12,
     padding: 14,
