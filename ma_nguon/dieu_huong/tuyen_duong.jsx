@@ -11,7 +11,10 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect, useRef, useState } from 'react';
 import { ActivityIndicator, Linking, Platform, StyleSheet, View } from 'react-native';
-import { ChuDeProvider } from '../tien_ich/chu_de_giao_dien';
+import {
+  dangKyTuDongKetNoiLaiPythonKhiMangHoacPhien,
+  kichHoatKetNoiPythonSauKhoiDongUngDung,
+} from '../tien_ich/hybrid_python_helper';
 import { coPhienDangNhapHopLe, docPhienDangNhap } from '../tien_ich/phien_dang_nhap';
 import { coQuyenManHinh, taiRBAC } from '../tien_ich/rbac_engine';
 
@@ -30,6 +33,7 @@ import SuaFileXML from '../man_hinh/sua_file_xml';
 // 3. NHÓM MÀN HÌNH QUẢN TRỊ DANH MỤC & QUY TẮC
 import DanhMucBYTMain from '../danh_muc_byt/danh_muc_7603_main'; // KẾT NỐI MODULE 12 PHỤ LỤC BYT
 import ManHinhQuanLyDanhMuc from '../man_hinh/quan_ly_danh_muc';
+import MappingNghiepVu from '../man_hinh/mapping_nghiep_vu';
 import ManHinhQuanLyLuat from '../man_hinh/quan_ly_luat';
 import ManHinhQuanLyQuyTacOnOff from '../man_hinh/quan_ly_quy_tac_on_off';
 
@@ -76,6 +80,7 @@ const cauHinhLienKet = {
       QuanLyLuat: 'rules',
       QuanLyQuyTacOnOff: 'rules/on-off',
       QuanLyDanhMuc: 'master-data',
+      MappingNghiepVu: 'mapping-nghiep-vu',
       DanhMucBYTMain: 'danh-muc-byt', // Path cho Danh mục Bộ Y tế
       PhanQuyenTruyCap: 'permissions',
       QuanLyChuyenMon: 'clinical-guidelines',
@@ -158,6 +163,13 @@ const DieuHuongChinh = () => {
     return () => { conHieuLuc = false; };
   }, []);
 
+  /** Warm-up Python (localhost/LAN) ngay khi shell app sẵn sàng — không phụ thuộc màn Tổng quan; online/offline mạng ngoài đều thử. */
+  useEffect(() => {
+    if (!daKhoiPhucXong) return undefined;
+    kichHoatKetNoiPythonSauKhoiDongUngDung().catch(() => {});
+    return dangKyTuDongKetNoiLaiPythonKhiMangHoacPhien();
+  }, [daKhoiPhucXong]);
+
   if (!daKhoiPhucXong) {
     return (
       <View style={styles.khung_dang_tai}>
@@ -167,7 +179,6 @@ const DieuHuongChinh = () => {
   }
 
   return (
-    <ChuDeProvider>
     <NavigationContainer
       ref={navRef}
       linking={cauHinhLienKet}
@@ -222,6 +233,7 @@ const DieuHuongChinh = () => {
         <Stack.Screen name="QuanLyLuat" component={ManHinhQuanLyLuat} />
         <Stack.Screen name="QuanLyQuyTacOnOff" component={ManHinhQuanLyQuyTacOnOff} />
         <Stack.Screen name="QuanLyDanhMuc" component={ManHinhQuanLyDanhMuc} />
+        <Stack.Screen name="MappingNghiepVu" component={MappingNghiepVu} />
         <Stack.Screen name="DanhMucBYTMain" component={DanhMucBYTMain} /> 
         <Stack.Screen name="QuanLyChuyenMon" component={QuanLyChuyenMon} />
         <Stack.Screen name="ThuVien" component={ManHinhThuVien} />
@@ -242,7 +254,6 @@ const DieuHuongChinh = () => {
 
       </Stack.Navigator>
     </NavigationContainer>
-    </ChuDeProvider>
   );
 };
 

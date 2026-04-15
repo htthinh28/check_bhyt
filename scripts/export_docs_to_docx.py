@@ -26,6 +26,11 @@ SOURCE_TARGETS = [
         DOCS_DIR / "Huong_dan_su_dung_CDSS_BHYT_20260405.docx",
         "Hướng dẫn sử dụng CDSS BHYT",
     ),
+    (
+        DOCS_DIR / "Giao_ban_ket_noi_Python_service_CDSS.md",
+        DOCS_DIR / "Giao_ban_ket_noi_Python_service_CDSS.docx",
+        "Giao ban — Kết nối Python service (CDSS BHYT)",
+    ),
 ]
 
 

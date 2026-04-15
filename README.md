@@ -155,6 +155,22 @@ The sample audit endpoint currently returns:
 
 This is a safe scaffold to start moving selected processing from the app into Python without breaking the current local audit flow.
 
+## Offline web export — gói cập nhật delta (nội bộ)
+
+Sau `npm run desktop:export`, thư mục `dist/` là bản web tĩnh có thể đặt trên máy chủ nội bộ (offline). Để **chỉ đóng gói phần thay đổi** so với lần đóng gói trước (và áp lên bản cũ như bản vá):
+
+```bash
+npm run desktop:pack:offline-delta
+```
+
+- Sinh file zip trong `offline_update_packs/` + cập nhật `scripts/offline_pack_state.json` (snapshot hash từng file).
+- Lần đầu (chưa có snapshot): gói **toàn bộ** `dist/`.
+- Áp vá lên thư mục `dist` đang chạy: `npm run desktop:apply-offline-update -- --zip ./offline_update_packs/<file>.zip --dist "D:\\path\\to\\dist"`
+
+**Cập nhật tối giản cho bản desktop offline (một file `.exe` chứa sẵn `dist` mới):** `npm run desktop:build-simple-update` → `tai_nguyen/CDSS-BHYT-CapNhat-Offline.exe`. Xem `tai_lieu/HUONG_DAN_NANG_CAP_OFFLINE.txt`.
+
+Bản cài Electron đầy đủ vẫn dùng `npm run release-desktop` / `desktop:build:*`; gói delta phục vụ **triển khai web tĩnh** hoặc bản copy thư mục.
+
 In the output, you'll find options to open the app in a
 
 - [development build](https://docs.expo.dev/develop/development-builds/introduction/)

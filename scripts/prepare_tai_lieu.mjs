@@ -2,6 +2,8 @@
  * Đồng bộ thư mục tai_lieu/ → public/tai_lieu/ (phục vụ web/Electron) và sinh manifest.
  * - File .html: copy giữ nguyên đường dẫn tương đối.
  * - File .md: chuyển sang .html (render Markdown) cùng cấu trúc thư mục.
+ * - File .docx: copy sang public/tai_lieu (mở tải xuống / ứng dụng mặc định).
+ * - File .txt: copy giữ nguyên (danh mục sinh tự động, v.v.).
  *
  * Chạy: npm run tai_lieu:prepare
  */
@@ -33,6 +35,19 @@ function walk(dir, baseRel = '') {
     }
   }
   return out;
+}
+
+function layTieuDeTuFileMdSongSong(docxRel) {
+  const mdRel = docxRel.replace(/\.docx$/i, '.md');
+  const mdFull = path.join(SRC, mdRel);
+  if (!fs.existsSync(mdFull)) return '';
+  try {
+    const md = fs.readFileSync(mdFull, 'utf8');
+    const m = md.match(/^#\s+(.+)$/m);
+    return m ? `${m[1].trim()} (Word)` : '';
+  } catch {
+    return '';
+  }
 }
 
 function escapeHtml(s) {
@@ -122,6 +137,33 @@ function main() {
         relPath: outRel.replace(/\\/g, '/'),
         title,
         nguon: 'markdown',
+      });
+      continue;
+    }
+    if (lower.endsWith('.docx')) {
+      const dest = path.join(OUT, rel);
+      fs.mkdirSync(path.dirname(dest), { recursive: true });
+      fs.copyFileSync(full, dest);
+      const base = path.basename(rel, '.docx');
+      const titleTuMd = layTieuDeTuFileMdSongSong(rel);
+      items.push({
+        id: `docx:${rel}`,
+        relPath: rel.replace(/\\/g, '/'),
+        title: titleTuMd || base.replace(/_/g, ' '),
+        nguon: 'docx',
+      });
+      continue;
+    }
+    if (lower.endsWith('.txt')) {
+      const dest = path.join(OUT, rel);
+      fs.mkdirSync(path.dirname(dest), { recursive: true });
+      fs.copyFileSync(full, dest);
+      const base = path.basename(rel, '.txt');
+      items.push({
+        id: `txt:${rel}`,
+        relPath: rel.replace(/\\/g, '/'),
+        title: base.replace(/_/g, ' '),
+        nguon: 'text',
       });
     }
   }

@@ -1,5 +1,5 @@
-/** AUTO-GENERATED from DuLieu_LUAT_HANH_CHINH (7).xlsx */
-export const PHIEN_BAN_SEED_LUAT_HANH_CHINH_MUC2 = '2026-04-10_muc2_hanh_chinh_v8_hc242';
+/** AUTO-GENERATED from DuLieu_LUAT_HANH_CHINH (7).xlsx + HC_249; HC_13…HC_205 mức hưởng theo QĐ 1018/QĐ-BHXH (ký tự thứ 3 thẻ) */
+export const PHIEN_BAN_SEED_LUAT_HANH_CHINH_MUC2 = '2026-04-14_muc2_qd1018_ty_le_the_hc250';
 export const COT_SEED_LUAT_HANH_CHINH_MUC2 = ["TRANG_THAI","MA_LUAT","TEN_QUY_TAC","DIEU_KIEN","CANH_BAO","NGUON_DU_LIEU"];
 export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   {
@@ -117,8 +117,8 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_13",
     "TEN_QUY_TAC": "Trẻ em dưới 6 tuổi (TE)",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'TE' AND XML1.T_BHTT < XML1.T_TONGCHI_BH",
-    "CANH_BAO": "⛔ [MỨC HƯỞNG]: Đối tượng Trẻ em dưới 6 tuổi bắt buộc hưởng mức 100%.",
+    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'TE' AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ [MỨC HƯỞNG]: Theo QĐ 1018/QĐ-BHXH — ký hiệu số thứ 3 trên thẻ (nhóm TE/CC: mức 1 → 100% phạm vi chi trả; có giới hạn thuốc/VKT/DVKT theo BYT). T_BHTT chưa khớp tỷ lệ so với T_TONGCHI_BH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -126,8 +126,8 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_14",
     "TEN_QUY_TAC": "Công nhân cao su (NĐ 188)",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'CS' AND ABS(XML1.T_BHTT - XML1.T_TONGCHI_BH * 0.80) > 1",
-    "CANH_BAO": "⛔ [NĐ 188/2025]: Công nhân cao su đang hưởng trợ cấp hàng tháng (Mã CS) hưởng mức 80%.",
+    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'CS' AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ [Mức 4 / CS]: Theo QĐ 1018/QĐ-BHXH — ký hiệu số thứ 3 = 4 → 80% chi phí KCB thuộc phạm vi (có giới hạn thuốc/VKT/DVKT). T_BHTT chưa khớp tỷ lệ so với T_TONGCHI_BH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -135,8 +135,8 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_15",
     "TEN_QUY_TAC": "Dân cư xã An toàn khu (NĐ 188)",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'AK' AND XML1.T_BHTT < XML1.T_TONGCHI_BH",
-    "CANH_BAO": "⛔ [NĐ 188/2025]: Người dân xã An toàn khu cách mạng (Mã AK) được hưởng mức 100%.",
+    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'AK' AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ [Mức 2 / AK]: Theo QĐ 1018/QĐ-BHXH — ký hiệu số thứ 3 = 2 → 100% phạm vi chi trả (có giới hạn thuốc/VKT/DVKT). T_BHTT chưa khớp tỷ lệ so với T_TONGCHI_BH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -159,11 +159,12 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   },
   {
     "id": "SEED_HANHCHINH_18",
-    "TRANG_THAI": "OFF",
+    "TRANG_THAI": "ON",
     "MA_LUAT": "HC_18",
     "TEN_QUY_TAC": "Chuyển tuyến không hợp lệ",
     "DIEU_KIEN": "XML1.MA_LYDO_VVIEN == '3' AND IS_EMPTY(XML1.MA_NOI_CHUYEN)",
     "CANH_BAO": "⛔ [HÀNH CHÍNH]: Hồ sơ ghi nhận Đúng tuyến nhưng thiếu thông tin Mã nơi chuyển (Bảng 1).",
+    "GHI_CHU_SUA": "2026-04-13: Bật ON — điều kiện thuần XML1 (MA_LYDO_VVIEN, MA_NOI_CHUYEN); đối chiếu mã lý do vào viện theo QĐ 130.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -180,8 +181,8 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_20",
     "TEN_QUY_TAC": "Nghệ nhân ưu tú (NĐ 188)",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'NN' AND ABS(XML1.T_BHTT - XML1.T_TONGCHI_BH * 0.80) > 1",
-    "CANH_BAO": "⛔ [NĐ 188/2025]: Nghệ nhân nhân dân, nghệ nhân ưu tú (Mã NN) hưởng mức 80%.",
+    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'NN' AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ [Mức 4 / NN]: Theo QĐ 1018/QĐ-BHXH — ký hiệu số thứ 3 = 4 → 80% phạm vi chi trả. T_BHTT chưa khớp tỷ lệ so với T_TONGCHI_BH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -206,9 +207,9 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "id": "SEED_HANHCHINH_23",
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_23",
-    "TEN_QUY_TAC": "Nhóm Quân nhân/Công an (QN, CA)",
-    "DIEU_KIEN": "(XML1.MA_THE_BHYT STARTS_WITH 'QN' OR XML1.MA_THE_BHYT STARTS_WITH 'CA') AND XML1.T_BHTT < XML1.T_TONGCHI_BH",
-    "CANH_BAO": "⛔ [NĐ 188/2025]: Nhóm QN, CA, CY hưởng mức 100%. Bao gồm cả các dịch vụ ngoài phạm vi (nếu có quy định).",
+    "TEN_QUY_TAC": "Nhóm Quân nhân/Công an (QN, CA, CY)",
+    "DIEU_KIEN": "(XML1.MA_THE_BHYT STARTS_WITH 'QN' OR XML1.MA_THE_BHYT STARTS_WITH 'CA' OR XML1.MA_THE_BHYT STARTS_WITH 'CY') AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ [Mức 5 / QN, CA, CY]: Theo QĐ 1018/QĐ-BHXH — ký hiệu số thứ 3 = 5 → 100% chi phí KCB trong phạm vi chi trả (và quy định mở rộng theo đối tượng). Kiểm tra T_BHTT so với T_TONGCHI_BH (trả thiếu phần phạm vi).",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -216,8 +217,8 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_24",
     "TEN_QUY_TAC": "Nhóm Hộ nghèo/Dân tộc (HN, DT)",
-    "DIEU_KIEN": "(XML1.MA_THE_BHYT STARTS_WITH 'HN' OR XML1.MA_THE_BHYT STARTS_WITH 'DT') AND XML1.T_BHTT < XML1.T_TONGCHI_BH",
-    "CANH_BAO": "⛔ [MỨC HƯỞNG]: Đối tượng người nghèo, dân tộc thiểu số vùng khó khăn hưởng mức 100%.",
+    "DIEU_KIEN": "(XML1.MA_THE_BHYT STARTS_WITH 'HN' OR XML1.MA_THE_BHYT STARTS_WITH 'DT') AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ [Mức 2 / HN, DT]: Theo QĐ 1018/QĐ-BHXH — ký hiệu số thứ 3 = 2 → 100% phạm vi chi trả (có giới hạn thuốc/VKT/DVKT). T_BHTT chưa khớp tỷ lệ so với T_TONGCHI_BH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -225,8 +226,8 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_25",
     "TEN_QUY_TAC": "Nhóm Hộ cận nghèo (CN)",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'CN' AND ABS(XML1.T_BHTT - XML1.T_TONGCHI_BH * 0.95) > 1",
-    "CANH_BAO": "⛔ [MỨC HƯỞNG]: Người thuộc hộ cận nghèo hưởng mức 95% quyền lợi BHYT.",
+    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'CN' AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ [Mức 3 / CN]: Theo QĐ 1018/QĐ-BHXH — ký hiệu số thứ 3 = 3 → 95% phạm vi chi trả (có giới hạn thuốc/VKT/DVKT). T_BHTT chưa khớp tỷ lệ so với T_TONGCHI_BH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -354,26 +355,28 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_39",
     "TEN_QUY_TAC": "Giới tính mâu thuẫn với tên",
-    "DIEU_KIEN": "XML1.HO_TEN LIKE '%VĂN%' AND XML1.GIOI_TINH == '2'",
+    "DIEU_KIEN": "XML1.HO_TEN LIKE '%VĂN%' AND XML1.GIOI_TINH == '2' AND NOT NGOAI_TRU_HC39_HC40_TRE_SO_SINH(XML1)",
     "CANH_BAO": "⚠️ Kiểm tra: Họ tên có chữ \"Văn\" nhưng khai báo giới tính Nữ.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ Ngoại trừ trẻ <15 ngày: tên theo mẹ (CB / Con bà đầu chuỗi) — NGOAI_TRU_HC39_HC40_TRE_SO_SINH trong dong_co_giam_dinh.jsx"
   },
   {
     "id": "SEED_HANHCHINH_40",
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_40",
     "TEN_QUY_TAC": "Giới tính mâu thuẫn với tên (Nữ)",
-    "DIEU_KIEN": "XML1.HO_TEN LIKE '%THỊ%' AND XML1.GIOI_TINH == '1'",
+    "DIEU_KIEN": "XML1.HO_TEN LIKE '%THỊ%' AND XML1.GIOI_TINH == '1' AND NOT NGOAI_TRU_HC39_HC40_TRE_SO_SINH(XML1)",
     "CANH_BAO": "⚠️ Kiểm tra: Họ tên có chữ \"Thị\" nhưng khai báo giới tính Nam.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ Ngoại trừ trẻ <15 ngày: tên theo mẹ (CB / Con bà đầu chuỗi) — NGOAI_TRU_HC39_HC40_TRE_SO_SINH trong dong_co_giam_dinh.jsx"
   },
   {
     "id": "SEED_HANHCHINH_41",
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_41",
     "TEN_QUY_TAC": "Thẻ CC/CK sai mức hưởng",
-    "DIEU_KIEN": "(XML1.MA_THE_BHYT STARTS_WITH 'CC' OR XML1.MA_THE_BHYT STARTS_WITH 'CK') AND XML1.T_BHTT < XML1.T_TONGCHI_BH",
-    "CANH_BAO": "⛔ Sai mức hưởng: Đối tượng Người có công (CC, CK) phải hưởng 100%.",
+    "DIEU_KIEN": "(XML1.MA_THE_BHYT STARTS_WITH 'CC' OR XML1.MA_THE_BHYT STARTS_WITH 'CK') AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ [Mức 1 / CC; mức 2 / CK]: Theo QĐ 1018/QĐ-BHXH — CC→mức 1 (100%, không giới hạn tỷ lệ TT thuốc/VKT/DVKT); CK→mức 2 (100% có giới hạn). T_BHTT chưa khớp tỷ lệ so với T_TONGCHI_BH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -593,10 +596,11 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "id": "SEED_HANHCHINH_65",
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_65",
-    "TEN_QUY_TAC": "Ngày ký hồ sơ trước ngày ra viện",
-    "DIEU_KIEN": "XML1.NGAY_TTOAN < XML1.NGAY_RA",
-    "CANH_BAO": "⛔ Lỗi logic: Ngày ký điện tử hồ sơ không thể xảy ra trước khi bệnh nhân ra viện.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "TEN_QUY_TAC": "Mốc chỉ định/thực hiện/kết quả DV ngoài khoảng vào–ra viện",
+    "DIEU_KIEN": "HC_65_CO_MOC_DV_NGOAI_KHOANG_VAO_RA(XML1, XML2, XML3, XML4)",
+    "CANH_BAO": "⛔ Lỗi logic: Có mốc thời gian (chỉ định NGAY_YL, thực hiện NGAY_TH_YL, kết quả NGAY_KQ trên XML3/XML4; thuốc NGAY_YL trên XML2) nằm trước thời điểm vào viện hoặc sau thời điểm ra viện — so sánh sau khi parse định dạng YYYYMMDDHHmm. (Không dùng NGAY_TTOAN so với NGAY_RA; thanh toán có thể trước giờ ra viện.)",
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ Đổi từ NGAY_TTOAN < NGAY_RA sang HC_65_CO_MOC_DV_NGOAI_KHOANG_VAO_RA: parse ngày giờ rồi kiểm tra mốc DV trong [NGAY_VAO, NGAY_RA]."
   },
   {
     "id": "SEED_HANHCHINH_66",
@@ -755,8 +759,8 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_82",
     "TEN_QUY_TAC": "Thẻ Cựu chiến binh (CB) sai mức hưởng",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'CB' AND XML1.T_BHTT < XML1.T_TONGCHI_BH",
-    "CANH_BAO": "⛔ Sai mức hưởng: Đối tượng Cựu chiến binh (CB) phải hưởng mức 100%.",
+    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'CB' AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ [Mức 2 / CB]: Theo QĐ 1018/QĐ-BHXH — ký hiệu số thứ 3 = 2 → 100% phạm vi chi trả (có giới hạn thuốc/VKT/DVKT). T_BHTT chưa khớp tỷ lệ so với T_TONGCHI_BH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -764,8 +768,8 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_83",
     "TEN_QUY_TAC": "Thẻ mã 'TS' (Thân nhân liệt sĩ)",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'TS' AND ABS(XML1.T_BHTT - XML1.T_TONGCHI_BH * 0.95) > 1",
-    "CANH_BAO": "⛔ Sai mức hưởng: Đối tượng TS mức hưởng quy định là 95%.",
+    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'TS' AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ [Mức 2 / TS]: Theo QĐ 1018/QĐ-BHXH — ký hiệu số thứ 3 = 2 → 100% phạm vi chi trả (có giới hạn thuốc/VKT/DVKT), không còn quy đổi 95% theo cách cũ. T_BHTT chưa khớp tỷ lệ so với T_TONGCHI_BH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -1202,10 +1206,11 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "id": "SEED_HANHCHINH_130",
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_130",
-    "TEN_QUY_TAC": "Tổng ngày điều trị lệch Ngày vào/ra",
-    "DIEU_KIEN": "XML1.SO_NGAY_DTRI != DATEDIFF_DAY(XML1.NGAY_VAO, XML1.NGAY_RA)",
-    "CANH_BAO": "⛔ Lỗi kế toán: Số ngày điều trị khai báo không khớp với khoảng cách ngày vào - ngày ra.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+    "TEN_QUY_TAC": "Số ngày điều trị nội trú lệch VBHN 17 (ngày giường)",
+    "DIEU_KIEN": "KY_VONG_SO_NGAY_DTRI_VBHN17(XML1) != null && TO_NUMBER(XML1.SO_NGAY_DTRI) != KY_VONG_SO_NGAY_DTRI_VBHN17(XML1)",
+    "CANH_BAO": "⛔ Lỗi kế toán: SO_NGAY_DTRI không khớp quy đếm ngày điều trị nội trú theo VBHN 17 (≤4h→0; >4h–<24h cùng ngày/qua đêm→1; trường hợp (a) D+1 với KET_QUA_DTRI=5 hoặc chuyển MA_LOAI_RV 2/3; còn lại (b) D = ngày ra − ngày vào theo lịch).",
+    "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
+    "GHI_CHU_SUA": "✏️ VBHN 17: thay so khớp thuần DIFF_DAYS bằng KY_VONG_SO_NGAY_DTRI_VBHN17(XML1) trong dong_co_giam_dinh.jsx"
   },
   {
     "id": "SEED_HANHCHINH_131",
@@ -1901,8 +1906,8 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_205",
     "TEN_QUY_TAC": "Thẻ hưu trí (HT) sai mức hưởng",
-    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'HT' AND XML1.T_TONGCHI_BH > 0 AND ABS(XML1.T_BHTT / XML1.T_TONGCHI_BH - 0.95) > 0.01 AND ABS(XML1.T_BHTT / XML1.T_TONGCHI_BH - 1.0) > 0.01",
-    "CANH_BAO": "⛔ Sai mức hưởng: Thẻ HT chỉ được hưởng 95% hoặc 100% nếu có công.",
+    "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'HT' AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ [Mức 3 / HT]: Theo QĐ 1018/QĐ-BHXH — ký hiệu số thứ 3 = 3 → 95% phạm vi chi trả (có giới hạn thuốc/VKT/DVKT); ngoại lệ 100% tuyến xã / một lần KCB dưới 15% LCS không kiểm tra trên XML1. T_BHTT chưa khớp tỷ lệ cơ bản so với T_TONGCHI_BH.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
   },
   {
@@ -2302,5 +2307,23 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "DIEU_KIEN": "SUBSTR(XML1.NGAY_VAO,9,2) > '23' OR SUBSTR(XML1.NGAY_VAO,11,2) > '59' OR SUBSTR(XML1.NGAY_RA,9,2) > '23' OR SUBSTR(XML1.NGAY_RA,11,2) > '59'",
     "CANH_BAO": "⛔ [QĐ 130]: Phần giờ (HH) phải từ 00-23, phần phút (mm) phải từ 00-59 trong chuỗi yyyyMMddHHmm. Áp dụng cho NGAY_VAO và NGAY_RA.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx"
+  },
+  {
+    "id": "SEED_HANHCHINH_249",
+    "TRANG_THAI": "ON",
+    "MA_LUAT": "HC_249",
+    "TEN_QUY_TAC": "Cấp cứu: ICD và lý do/tình trạng theo danh mục ICD-10 cấp cứu (Nhi NH** / Người lớn NL**)",
+    "DIEU_KIEN": "HC_249_BUILTIN_ICD10_CAP_CUU",
+    "CANH_BAO": "⚠️ [ICD cấp cứu]: MA_LY_DO_VV=2 (cấp cứu) nhưng chưa đối chiếu được với danh mục nội bộ: (1) MA_BENH_CHINH phải khớp mã trích từ cột ICD_Chinh hoặc ICD_Kem_Theo của ít nhất một dòng đúng nhóm tuổi (mã dòng NH** cho trẻ dưới 16 tuổi, NL** từ 16 tuổi trở lên); (2) CHẨN ĐOÁN/ghi chú cần phản ánh ít nhất một phần nội dung Tinh_Trang_Benh hoặc Ly_Do_Nhap_Vien của cùng dòng đó. Cập nhật DM tại Quản lý danh mục → ICD10 cấp cứu nếu cần.",
+    "NGUON_DU_LIEU": "giam_dinh_icd10_cap_cuu.jsx + DANH_MUC_ICD10_CAP_CUU"
+  },
+  {
+    "id": "SEED_HANHCHINH_250",
+    "TRANG_THAI": "ON",
+    "MA_LUAT": "HC_250",
+    "TEN_QUY_TAC": "Thẻ BHYT: 2 ký tự đầu không khớp nhóm theo ký hiệu số thứ 3 (nghi ngờ sai thẻ/khai báo)",
+    "DIEU_KIEN": "VI_PHAM_KHAI_BAO_THE_SO3_LECH_PREFIX(XML1)",
+    "CANH_BAO": "⚠️ [Thẻ BHYT]: Hai ký tự đầu MA_THE_BHYT không thuộc nhóm đối tượng thông thường của ký tự thứ 3 (theo bảng nội bộ QĐ 1018). Kiểm tra thẻ cứng/BHXH hoặc nhập lại mã thẻ — không dùng kết quả này một mình để kết luận sai tỷ lệ T_BHTT.",
+    "NGUON_DU_LIEU": "dong_co_giam_dinh.jsx (BANG_HAI_KY_TU_THEO_KY_HIEU_SO3)"
   }
 ];

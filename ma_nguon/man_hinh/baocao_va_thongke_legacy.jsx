@@ -28,6 +28,7 @@ const TAB_LIST = [
   { id: 'THEO_KHOA', label: 'Theo khoa' },
   { id: 'THEO_BAC_SI', label: 'Theo bác sĩ' },
   { id: 'THEO_QUY_TAC', label: 'Theo quy tắc' },
+  { id: 'THEO_MA_LOAI_KCB_QD824', label: 'Theo mã loại KCB (QĐ 824)' },
   { id: 'CHI_TIET_LOI', label: 'Chi tiết lỗi' },
   { id: 'XU_HUONG', label: 'Xu hướng' },
 ];
@@ -53,6 +54,20 @@ const normalizeMaLoaiKcb = (val) => {
   if (!raw) return '';
   const digits = raw.replace(/\D/g, '');
   return digits ? digits.padStart(2, '0') : raw;
+};
+
+/** Phụ lục QĐ 824/QĐ-BYT — mã loại hình KCB trong XML1 (MA_LOAI_KCB: 01–09) */
+const MA_LOAI_KCB_HOP_LE_QD824 = new Set(['01', '02', '03', '04', '05', '06', '07', '08', '09']);
+const TEN_MA_LOAI_KCB_QD824 = {
+  '01': 'Khám bệnh',
+  '02': 'Điều trị ngoại trú',
+  '03': 'Điều trị nội trú',
+  '04': 'Điều trị ban ngày',
+  '05': 'Điều trị ngoại trú YHCT',
+  '06': 'Khám bệnh YHCT',
+  '07': 'Khám bệnh tại Trạm Y tế xã, phường',
+  '08': 'Điều trị ngoại trú (mã 08 — Phụ lục QĐ 824)',
+  '09': 'Điều trị nội trú (mã 09 — Phụ lục QĐ 824)',
 };
 
 /** Khám & ngoại trú (lượt khám / ngoại trú theo danh mục nội bộ engine) */
@@ -408,6 +423,52 @@ const tongHopDuLieu = (hoSoTrongKy, toanBoHoSo, khoangThoiGian, kieuXuHuong, dan
     soHoSoAnhHuong: item.so_ho_so,
   }));
 
+  /** Hồ sơ có cảnh báo/lỗi trong kỳ, gom theo MA_LOAI_KCB chuẩn QĐ 824 (01–09, Phụ lục QĐ 824/QĐ-BYT). */
+  const mapMaLoai824 = new Map();
+  hoSoTrongKy.forEach((hoSo) => {
+    const dsLoi = mapChiTietTheoMaLK.get(layMaLKHoSo(hoSo)) || [];
+    if (dsLoi.length === 0) return;
+    const xml1 = layXml1HoSo(hoSo);
+    const rawStr = String(xml1?.MA_LOAI_KCB ?? '').trim();
+    const norm = normalizeMaLoaiKcb(xml1?.MA_LOAI_KCB);
+    let bucketId;
+    let maLoaiKcb;
+    let moTaQd824;
+    let sortKey;
+    if (!norm) {
+      bucketId = 'QD824_EMPTY';
+      maLoaiKcb = '—';
+      moTaQd824 = 'Thiếu hoặc không đọc được MA_LOAI_KCB (XML1)';
+      sortKey = '91_EMPTY';
+    } else if (!MA_LOAI_KCB_HOP_LE_QD824.has(norm)) {
+      bucketId = `QD824_INV_${norm}`;
+      maLoaiKcb = rawStr || norm;
+      moTaQd824 = `Không thuộc danh mục mã 01–09 (Phụ lục QĐ 824/QĐ-BYT); XML: "${rawStr}" → chuẩn hóa: ${norm}`;
+      sortKey = `92_INV_${norm.padStart(6, '0')}`;
+    } else {
+      bucketId = `QD824_OK_${norm}`;
+      maLoaiKcb = norm;
+      moTaQd824 = TEN_MA_LOAI_KCB_QD824[norm] || `Mã ${norm}`;
+      sortKey = `${norm}`;
+    }
+    if (!mapMaLoai824.has(bucketId)) {
+      mapMaLoai824.set(bucketId, {
+        maLoaiKcb,
+        moTaQd824,
+        hoSoLoi: 0,
+        tongLoi: 0,
+        sortKey,
+      });
+    }
+    const row824 = mapMaLoai824.get(bucketId);
+    row824.hoSoLoi += 1;
+    row824.tongLoi += dsLoi.length;
+  });
+
+  const theoMaLoaiKcb824 = Array.from(mapMaLoai824.values())
+    .sort((a, b) => String(a.sortKey).localeCompare(String(b.sortKey)))
+    .map(({ sortKey: _sk, ...rest }) => rest);
+
   const duLieuXuHuong = taoDuLieuXuHuong(hoSoTrongKy, kieuXuHuong);
 
   return {
@@ -430,6 +491,7 @@ const tongHopDuLieu = (hoSoTrongKy, toanBoHoSo, khoangThoiGian, kieuXuHuong, dan
     theoKhoa,
     theoBacSi,
     theoQuyTac,
+    theoMaLoaiKcb824,
     chiTietLoi: danhSachChiTietTrongKy,
     duLieuXuHuong,
   };
@@ -658,6 +720,7 @@ export default function BaoCaoVaThongKeLegacy({ navigation, duLieuKhoBanDau }) {
       XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(tongHop.theoKhoa), 'TheoKhoa');
       XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(tongHop.theoBacSi), 'TheoBacSi');
       XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(tongHop.theoQuyTac), 'TheoQuyTac');
+      XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(tongHop.theoMaLoaiKcb824), 'TheoMaLoaiKCB_QD824');
       XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(danhSachLoiChiTietTrongKy), 'ChiTietLoi');
       XLSX.utils.book_append_sheet(wb, XLSX.utils.json_to_sheet(tongHop.duLieuXuHuong), 'XuHuong');
 
@@ -704,7 +767,7 @@ export default function BaoCaoVaThongKeLegacy({ navigation, duLieuKhoBanDau }) {
         <Text style={styles.emptyText}>Không có dữ liệu trong bộ lọc đã chọn.</Text>
       ) : (
         rows.map((row, idx) => (
-          <View key={`${keyPrefix}_r_${row?.maKhoa || row?.maBacSi || row?.rule || row?.ky || idx}`} style={[styles.tableRow, idx % 2 === 1 && styles.tableRowAlt]}>
+          <View key={`${keyPrefix}_r_${row?.maKhoa || row?.maBacSi || row?.rule || row?.maLoaiKcb || row?.ky || idx}`} style={[styles.tableRow, idx % 2 === 1 && styles.tableRowAlt]}>
             {columns.map((col) => (
               col.renderAsNode ? (
                 <View key={`${keyPrefix}_c_${col.key}_${idx}`} style={[styles.td_node_wrap, { flex: col.flex || 1 }]}>
@@ -949,6 +1012,9 @@ export default function BaoCaoVaThongKeLegacy({ navigation, duLieuKhoBanDau }) {
                   <Text style={styles.summaryItem}>- Số khoa có phát sinh hồ sơ: {tongHop.input.soKhoa}</Text>
                   <Text style={styles.summaryItem}>- Số bác sĩ có phát sinh hồ sơ: {tongHop.input.soBacSi}</Text>
                   <Text style={styles.summaryItem}>- Số quy tắc vi phạm: {tongHop.output.soQuyTacViPham}</Text>
+                  <Text style={styles.summaryItem}>
+                    - Vi phạm theo mã loại hình KCB (MA_LOAI_KCB, Phụ lục QĐ 824/QĐ-BYT): xem tab &quot;Theo mã loại KCB (QĐ 824)&quot; và sheet Excel &quot;TheoMaLoaiKCB_QD824&quot;.
+                  </Text>
                 </View>
               </View>
             )}
@@ -990,6 +1056,25 @@ export default function BaoCaoVaThongKeLegacy({ navigation, duLieuKhoBanDau }) {
               ],
               tongHop.theoQuyTac,
               'quytac'
+            )}
+
+            {tab === 'THEO_MA_LOAI_KCB_QD824' && (
+              <View style={styles.sectionCard}>
+                <Text style={styles.sectionTitle}>Vi phạm theo mã loại hình khám chữa bệnh (QĐ 824/QĐ-BYT)</Text>
+                <Text style={styles.sectionDesc}>
+                  Gom các hồ sơ có cảnh báo/lỗi trong kỳ theo trường XML1.MA_LOAI_KCB, đối chiếu danh mục mã 01–09 (Phụ lục QĐ 824). Hàng &quot;Không thuộc 01–09&quot; hoặc &quot;Thiếu MA_LOAI_KCB&quot; cần rà soát dữ liệu gửi BHYT.
+                </Text>
+                {renderBang(
+                  [
+                    { key: 'maLoaiKcb', label: 'Mã / giá trị', flex: 0.85 },
+                    { key: 'moTaQd824', label: 'Diễn giải loại hình (QĐ 824)', flex: 2 },
+                    { key: 'hoSoLoi', label: 'Hồ sơ có lỗi' },
+                    { key: 'tongLoi', label: 'Tổng lỗi' },
+                  ],
+                  tongHop.theoMaLoaiKcb824,
+                  'maloaikcb824'
+                )}
+              </View>
             )}
 
             {tab === 'CHI_TIET_LOI' && renderBang(

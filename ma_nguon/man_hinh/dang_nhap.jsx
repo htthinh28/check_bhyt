@@ -17,6 +17,7 @@ import {
     View
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import ChanTrangUngDung from '../thanh_phan/chan_trang_ung_dung';
 import { CD } from '../tien_ich/chu_de_giao_dien';
 import { capNhatTaiKhoanTheoEmail, docDanhSachTaiKhoan, ghiNhatKyHeThong, luuDanhSachTaiKhoan } from '../tien_ich/nhat_ky_he_thong';
 import { luuPhienDangNhap } from '../tien_ich/phien_dang_nhap';
@@ -338,9 +339,11 @@ const ManHinhDangNhap = ({ navigation }) => {
             </View>
 
             {/* Footer */}
-            <Text style={styles.footer_txt}>
-              JCI Standard SQE.1 · Bảo mật dữ liệu lâm sàng · 2025
-            </Text>
+            <ChanTrangUngDung style={{ marginTop: 24 }}>
+              <Text style={[styles.footer_txt, { marginBottom: 10 }]}>
+                JCI Standard SQE.1 · Bảo mật dữ liệu lâm sàng · 2026
+              </Text>
+            </ChanTrangUngDung>
           </ScrollView>
         </KeyboardAvoidingView>
 

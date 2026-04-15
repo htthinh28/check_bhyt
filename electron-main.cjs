@@ -9,7 +9,18 @@ const fs = require('fs');
 const http = require('http');
 const path = require('path');
 
-const distDir = path.join(__dirname, 'dist');
+function getDistDir() {
+  if (!app.isPackaged) {
+    return path.join(__dirname, 'dist');
+  }
+  const unpacked = path.join(process.resourcesPath, 'app.asar.unpacked', 'dist');
+  if (fs.existsSync(unpacked)) {
+    return unpacked;
+  }
+  return path.join(__dirname, 'dist');
+}
+
+const distDir = getDistDir();
 
 function contentType(filePath) {
   const ext = path.extname(filePath).toLowerCase();

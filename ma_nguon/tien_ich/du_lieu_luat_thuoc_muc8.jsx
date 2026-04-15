@@ -1,5 +1,5 @@
 /** AUTO-GENERATED from DuLieu_LUAT_THUOC (9).xlsx */
-export const PHIEN_BAN_SEED_LUAT_THUOC_MUC8 = '2026-04-11_muc8_thuoc_329_e78_token';
+export const PHIEN_BAN_SEED_LUAT_THUOC_MUC8 = '2026-04-12_muc8_thuoc_thuoc482_clopi';
 export const COT_SEED_LUAT_THUOC_MUC8 = ["TRANG_THAI","MA_LUAT","TEN_QUY_TAC","DIEU_KIEN","CANH_BAO","GHI_CHU","NGUON_DU_LIEU"];
 export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   {
@@ -406,10 +406,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_41",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_41",
-    "TEN_QUY_TAC": "[Amoxicilin + Acid clavulanic] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.155' AND XML1.MA_BENH_CHINH NOT IN ('J01', 'J03', 'J06', 'J15', 'J20', 'H66', 'L01') AND XML1.MA_BENH_KT NOT LIKE '%J01%' AND XML1.MA_BENH_KT NOT LIKE '%J03%' AND XML1.MA_BENH_KT NOT LIKE '%J06%' AND XML1.MA_BENH_KT NOT LIKE '%J15%' AND XML1.MA_BENH_KT NOT LIKE '%J20%' AND XML1.MA_BENH_KT NOT LIKE '%H66%' AND XML1.MA_BENH_KT NOT LIKE '%L01%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(VIÊM XOANG|VIÊM AMIDAN|VIÊM HỌNG|VIÊM ĐƯỜNG HÔ HẤP TRÊN|NHIỄM TRÙNG HÔ HẤP|VIÊM PHỔI|VIÊM PHẾ QUẢN|VIÊM TAI GIỮA|CHỐC|NHIỄM TRÙNG DA)' AND XML1.CHAN_DOAN_VAO NOT REGEXP '(?i)(VIÊM XOANG|VIÊM AMIDAN|VIÊM HỌNG|VIÊM ĐƯỜNG HÔ HẤP TRÊN|NHIỄM TRÙNG HÔ HẤP|VIÊM PHỔI|VIÊM PHẾ QUẢN|VIÊM TAI GIỮA|CHỐC|NHIỄM TRÙNG DA)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc Klamentin 875/125 chỉ được thanh toán cho chẩn đoán nhiễm khuẩn hô hấp, tai mũi họng hoặc da (J01-J20, H66, L01).",
-    "GHI_CHU": "",
+    "TEN_QUY_TAC": "[Amoxicillin + clavulanat] Chỉ định nhiễm khuẩn (40.155)",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.155' AND THUOC_41_VI_PHAM_CHI_DINH(XML1, XML2)",
+    "CANH_BAO": "⛔ [CHỈ ĐỊNH / THỜI GIAN]: Amoxicillin + acid clavulanic (40.155) — dùng ngắn ngày (thường dưới 14 ngày) cho nhiễm khuẩn do chủng beta-lactamase không đáp ứng aminopenicilin đơn độc: HK trên nặng (viêm amidan/xoang/tai giữa…), HK dưới (viêm phế quản/phổi, H. influenzae/Moraxella…), tiết niệu–sinh dục (viêm bàng quang, niệu đạo, bể thận…), da/mô mềm, tủy xương, áp xe răng, nhiễm sau sảy thai/sản/ổ bụng… Cảnh báo khi ICD/chẩn đoán không khớp hoặc SO_NGAY > 14.",
+    "GHI_CHU": "Viết lại theo hướng dẫn dùng chế phẩm; không gắn tên biệt dược.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -626,10 +626,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_63",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_63",
-    "TEN_QUY_TAC": "[Bacillus subtilis] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.718' AND XML1.MA_BENH_CHINH NOT IN ('A09', 'K59.1', 'R19.7') AND XML1.MA_BENH_KT NOT LIKE '%A09%' AND XML1.MA_BENH_KT NOT LIKE '%K59.1%' AND XML1.MA_BENH_KT NOT LIKE '%R19.7%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(TIÊU CHẢY|RỐI LOẠN NHU ĐỘNG RUỘT)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc DOMUVAR chỉ được thanh toán cho chẩn đoán Tiêu chảy (A09) hoặc Loạn khuẩn ruột (K59.1, R19.7).",
-    "GHI_CHU": "",
+    "TEN_QUY_TAC": "[Bacillus subtilis] Tiêu chảy, viêm ruột, rối loạn tiêu hóa",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.718' AND ENGINE_RULE_THUOC_63",
+    "CANH_BAO": "⛔ [CHỈ ĐỊNH]: Bacillus subtilis (DOMUVAR) phù hợp khi điều trị tiêu chảy; viêm ruột cấp/mạn; rối loạn tiêu hóa; đi ngoài phân lỏng / bất thường (vd. A04–A09, K50–K52, K58, K59.1, K30, R19.5/R19.7…). Kiểm tra ICD/chẩn đoán — không dùng chỉ định tắc ruột (K56, xem THUOC_62).",
+    "GHI_CHU": "Engine: THUOC_63 — coChiDinhHopLeBacillusSubtilis63. THUOC_62 chống chỉ định K56.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -739,7 +739,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TEN_QUY_TAC": "[Budesonid + Formoterol] Kiểm tra duy trì",
     "DIEU_KIEN": "XML2.MA_THUOC == '40.762' AND TAN_SUAT > 2 AND XML1.MA_BENH_CHINH NOT IN ('J45') AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(HEN|HEN SUYỄN|HEN PHẾ QUẢN)'",
     "CANH_BAO": "⚠️ [KIỂM TRA LÂM SÀNG]: Symbicort dùng duy trì tối đa 2 lần/ngày. Tần suất > 2 lần chỉ dành cho liệu pháp cắt cơn (SMART) ở bệnh nhân Hen.",
-    "GHI_CHU": "",
+    "GHI_CHU": "Quy tắc này chỉ xử lý tần suất Symbicort (40.762), không phải chỉ định Seretide. Chỉ định ICS/LABA: Seretide (40.982) = THUOC_338; Symbicort = THUOC_76.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -756,10 +756,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_76",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_76",
-    "TEN_QUY_TAC": "[Budesonid, Formoterol] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.762' AND XML1.MA_BENH_CHINH NOT IN ('J45', 'J44') AND XML1.MA_BENH_KT NOT LIKE '%J45%' AND XML1.MA_BENH_KT NOT LIKE '%J44%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(HEN|HEN SUYỄN|HEN PHẾ QUẢN|BỆNH PHỔI TẮC NGHẼN|COPD)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc Symbicort Turbuhaler chỉ được thanh toán cho chẩn đoán Hen phế quản (J45) hoặc COPD (J44).",
-    "GHI_CHU": "",
+    "TEN_QUY_TAC": "[Budesonid, Formoterol] Kiểm tra chỉ định (hen J45 từ 4 tuổi, COPD J44)",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.762' AND ENGINE_RULE_THUOC_76",
+    "CANH_BAO": "⛔ [XUẤT TOÁN]: Budesonid + Formoterol (Symbicort) chỉ phù hợp điều trị duy trì hen phế quản (J45, từ 4 tuổi) hoặc COPD (J44), theo ICD-10 hoặc chẩn đoán tương đương.",
+    "GHI_CHU": "Giám định theo động cơ: coChiDinhHopLeIcsLabaJ45J44 (dong_co_giam_dinh.jsx).",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -946,9 +946,9 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_95",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_95",
-    "TEN_QUY_TAC": "[Cefpodoxim] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.177' AND XML1.MA_BENH_CHINH NOT IN ('J01', 'J03', 'J15', 'J20', 'N10', 'N30') AND XML1.MA_BENH_KT NOT LIKE '%J01%' AND XML1.MA_BENH_KT NOT LIKE '%J03%' AND XML1.MA_BENH_KT NOT LIKE '%J15%' AND XML1.MA_BENH_KT NOT LIKE '%J20%' AND XML1.MA_BENH_KT NOT LIKE '%N10%' AND XML1.MA_BENH_KT NOT LIKE '%N30%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(VIÊM XOANG|VIÊM AMIDAN|VIÊM HỌNG|VIÊM PHỔI|VIÊM PHẾ QUẢN|VIÊM THẬN BỂ THẬN|VIÊM BÀNG QUANG)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc Vipocef 100/200 chỉ được thanh toán cho Nhiễm khuẩn hô hấp (J01-J20) hoặc Nhiễm khuẩn tiết niệu (N10, N30).",
+    "TEN_QUY_TAC": "[Cefpodoxim] Kiểm tra chỉ định ICD/chẩn đoán (Vipocef)",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.177' AND THUOC_95_VI_PHAM_CHI_DINH(XML1, XML2)",
+    "CANH_BAO": "⛔ [CHỈ ĐỊNH]: Cefpodoxim (40.177) không khớp nhóm chỉ định được phép (hô hấp J01–J18/J20/J44, tai H66–H67, tiết niệu N10/N30…, da L…, lậu A54… theo ICD/chẩn đoán). Quy tắc này không giám định liều — xem THUOC_93 (mg/kg), THUOC_96 (tần suất).",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
@@ -1386,10 +1386,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_139",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_139",
-    "TEN_QUY_TAC": "[Domperidon] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.688' AND XML1.MA_BENH_CHINH NOT IN ('R11', 'K30') AND XML1.MA_BENH_KT NOT LIKE '%R11%' AND XML1.MA_BENH_KT NOT LIKE '%K30%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(BUỒN NÔN|NÔN|KHÓ TIÊU|RỐI LOẠN TIÊU HÓA)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc Modom's chỉ được thanh toán cho chẩn đoán Buồn nôn, Nôn (R11) hoặc Khó tiêu (K30).",
-    "GHI_CHU": "",
+    "TEN_QUY_TAC": "[Domperidon] Chỉ định: nôn/buồn nôn và bệnh lý dạ dày–tá tràng",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.688' AND ENGINE_RULE_THUOC_139",
+    "CANH_BAO": "⛔ [CHỈ ĐỊNH]: Domperidon phù hợp khi điều trị triệu chứng nôn/buồn nôn (R11…) hoặc trong bối cảnh bệnh lý dạ dày–tá tràng (vd. K21 trào ngược; K25–K28 loét; K29 viêm; K30 khó tiêu chức năng; K31…). Kiểm tra ICD và chẩn đoán lâm sàng trên hồ sơ.",
+    "GHI_CHU": "Engine: THUOC_139 — coChiDinhHopLeDomperidon139 (R11; K21 K25–K31; từ khóa nôn/buồn nôn, dạ dày–tá tràng, GERD, loét…).",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -2326,10 +2326,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_233",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_233",
-    "TEN_QUY_TAC": "[L-Ornithin - L- aspartat] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.747' AND XML1.MA_BENH_CHINH NOT IN ('K71', 'K72', 'K73', 'K74') AND XML1.MA_BENH_KT NOT LIKE '%K71%' AND XML1.MA_BENH_KT NOT LIKE '%K72%' AND XML1.MA_BENH_KT NOT LIKE '%K73%' AND XML1.MA_BENH_KT NOT LIKE '%K74%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(BỆNH GAN DO THUỐC|TỔN THƯƠNG GAN|VIÊM GAN MẠN|XƠ GAN)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc HEPA-MERZ chỉ được thanh toán cho các chẩn đoán Bệnh lý gan (K71, K72, K73, K74).",
-    "GHI_CHU": "",
+    "TEN_QUY_TAC": "[L-Ornithin - L-aspartat] Chỉ định (gan cấp/mạn, tăng ammoniac / não gan)",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.747' AND ENGINE_RULE_THUOC_233",
+    "CANH_BAO": "⛔ [XUẤT TOÁN]: L-ornithin L-aspartat (HEPA-MERZ) chỉ phù hợp khi hồ sơ phản ánh bệnh gan cấp/mạn (viêm gan, xơ gan, gan nhiễm mỡ…), hội chứng tăng ammoniac máu, tiền hôn mê hoặc biến chứng thần kinh do gan (não gan) — theo ICD (K70–K77, G93.4, R79.8…) hoặc chẩn đoán tương đương.",
+    "GHI_CHU": "SmPC (tóm tắt): gan cấp/mạn; tăng ammoniac; tiền hôn mê / não gan. Engine: coChiDinhHopLeLOrnithinAspartat233.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -2666,10 +2666,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_267",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_267",
-    "TEN_QUY_TAC": "[Methylprednisolon] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.775' AND XML1.MA_BENH_CHINH NOT IN ('J45', 'J44', 'M05', 'L50') AND XML1.MA_BENH_KT NOT LIKE '%J45%' AND XML1.MA_BENH_KT NOT LIKE '%J44%' AND XML1.MA_BENH_KT NOT LIKE '%M05%' AND XML1.MA_BENH_KT NOT LIKE '%L50%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(HEN|HEN SUYỄN|HEN PHẾ QUẢN|BỆNH PHỔI TẮC NGHẼN|COPD|VIÊM KHỚP DẠNG THẤP|MÀY ĐAY)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc Medlon 16 chỉ được thanh toán cho chẩn đoán Hen (J45), COPD (J44), Viêm khớp dạng thấp (M05), Mày đay (L50).",
-    "GHI_CHU": "Đã gộp dòng trùng [Methylprednisolon] ICD-10",
+    "TEN_QUY_TAC": "[Methylprednisolon] Chỉ định liệu pháp glucocorticoid (40.775)",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.775' AND THUOC_267_VI_PHAM_CHI_DINH(XML1, XML2)",
+    "CANH_BAO": "⛔ [CHỈ ĐỊNH]: Methylprednisolon — liệu pháp không đặc hiệu cần chống viêm / giảm miễn dịch: viêm khớp dạng thấp (M05–M06), lupus (M32), viêm mạch (M30–M31), sarcoid (D86), hen (J45), viêm loét đại tràng mạn (K51), thiếu máu tan máu (D55–D59), giảm bạch cầu hạt (D70), dị ứng nặng / phản vệ (L50, T78…), điều trị ung thư (vd. bạch cầu C91–C95, lympho C81–C85, vú C50, tiền liệt tuyến C61), hội chứng thận hư nguyên phát (N04). Cảnh báo khi ICD/chẩn đoán không khớp — không gắn tên biệt dược.",
+    "GHI_CHU": "Thiết lập lại theo chỉ định dược lâm sàng; so khớp ICD + CHAN_DOAN_RV/VAO.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -3106,10 +3106,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_311",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_311",
-    "TEN_QUY_TAC": "[Paracetamol] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.48' AND XML1.MA_BENH_CHINH NOT IN ('R50', 'R52', 'M54') AND XML1.MA_BENH_KT NOT LIKE '%R50%' AND XML1.MA_BENH_KT NOT LIKE '%R52%' AND XML1.MA_BENH_KT NOT LIKE '%M54%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(SỐT|ĐAU|ĐAU LƯNG|ĐAU THẮT LƯNG|ĐAU CỘT SỐNG)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc nhóm Paracetamol (mã DM 40.48; {TEN_THUOC}) chỉ được thanh toán cho chẩn đoán Sốt (R50) hoặc Đau (R52, M54). Không gắn cứng tên biệt dược một sản phẩm.",
-    "GHI_CHU": "Đối chiếu gói 177 (04/03/2026): cảnh báo cũ ghi \"Hapacol 650\" trong khi XML2 có tên khác (vd AGIMOL) — đã chuẩn hóa template.",
+    "TEN_QUY_TAC": "[Paracetamol] Chỉ định giảm đau / hạ sốt (40.48)",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.48' AND THUOC_311_VI_PHAM_CHI_DINH(XML1, XML2)",
+    "CANH_BAO": "⛔ [CHỈ ĐỊNH]: Paracetamol (40.48) có tác dụng giảm đau, hạ sốt — cần gắn bối cảnh lâm sàng phù hợp (sốt/đau đầu, đau răng, cảm cúm, sau tiêm ngừa/nhổ răng, đau hành kinh, đau họng, đau cơ–xương–khớp, phối hợp điều trị triệu chứng…). ICD gợi ý: R50–R52, R05–R07, R09; M15–M25, M54, M60–M79; J00–J11; K04–K05, K08; N92–N94; H65–H66; Z25 (tiêm chủng); G43–G44; Y59 — hoặc mô tả rõ trong chẩn đoán.",
+    "GHI_CHU": "Viết lại theo chỉ định dược lâm sàng (giảm đau/hạ sốt, thay salicylat); không gắn tên biệt dược. So khớp ICD + CHAN_DOAN_RV trong engine.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -3206,10 +3206,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_321",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_321",
-    "TEN_QUY_TAC": "[Protease +Amylase + Lipase] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.740' AND XML1.MA_BENH_CHINH NOT IN ('K86.1', 'K90') AND XML1.MA_BENH_KT NOT LIKE '%K86.1%' AND XML1.MA_BENH_KT NOT LIKE '%K90%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(VIÊM TỤY MẠN|KÉM HẤP THU)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc Pancres chỉ được thanh toán cho chẩn đoán Thiếu men tụy (K86.1) hoặc Kém hấp thu ruột (K90).",
-    "GHI_CHU": "",
+    "TEN_QUY_TAC": "[Men tụy] Chỉ định: suy/viêm tụy mạn, xơ nang, sau mổ tụy, kém hấp thu/ỉa mỡ",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.740' AND ENGINE_RULE_THUOC_321",
+    "CANH_BAO": "⛔ [CHỈ ĐỊNH]: Men tụy (Pancreatin) phù hợp khi suy tụy / suy tụy kèm viêm tụy mạn / viêm tụy mạn; trợ tiêu hóa sau cắt tụy hoặc tắc ống tụy, sau mổ cắt tụy, sau nối dạ dày–ruột; điều trị xơ nang tụy (E84); phân mỡ / kém hấp thu (K90, R19.5…). Kiểm tra ICD và chẩn đoán lâm sàng.",
+    "GHI_CHU": "Engine: THUOC_321 — coChiDinhHopLeMenTuyPancreatin321 (E84, K86, K90, K91, R19.5, Z90.89… + từ khóa). THUOC_320 vẫn chống chỉ định K85 cấp.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -3236,10 +3236,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_324",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_324",
-    "TEN_QUY_TAC": "[Racecadotril] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.732' AND XML1.MA_BENH_CHINH NOT IN ('A09') AND XML1.MA_BENH_KT NOT LIKE '%A09%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(TIÊU CHẢY)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc Soshydra chỉ được thanh toán cho chẩn đoán Tiêu chảy cấp (A09).",
-    "GHI_CHU": "",
+    "TEN_QUY_TAC": "[Racecadotril] Tiêu chảy cấp, >3 tháng, bù nước đường uống (trẻ em)",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.732' AND ENGINE_RULE_THUOC_324",
+    "CANH_BAO": "⛔ [CHỈ ĐỊNH]: Racecadotril — bổ sung điều trị triệu chứng tiêu chảy cấp ở trẻ trên 3 tháng và trẻ em, kèm bù nước đường uống (ORS); có thể dùng bổ sung khi đã điều trị nguyên nhân. Kiểm tra tuổi (tối thiểu 90 ngày nếu có TUOI_NGAY), ICD/chẩn đoán tiêu chảy (A04, A08, A09, R19.7…) và ORS hoặc ghi nhận trên hồ sơ với trẻ em dưới 18 tuổi.",
+    "GHI_CHU": "Engine: THUOC_324 — coChiDinhHopLeRacecadotril324. THUOC_322 liều/kg; THUOC_323 K72; THUOC_325 tần suất.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -3376,10 +3376,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_338",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_338",
-    "TEN_QUY_TAC": "[Salmeterol + Fluticason] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.982' AND XML1.MA_BENH_CHINH NOT IN ('J45', 'J44') AND XML1.MA_BENH_KT NOT LIKE '%J45%' AND XML1.MA_BENH_KT NOT LIKE '%J44%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(HEN|HEN SUYỄN|HEN PHẾ QUẢN|BỆNH PHỔI TẮC NGHẼN|COPD)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc Seretide Accuhaler 50/250mcg chỉ được thanh toán cho chẩn đoán Hen (J45) hoặc COPD (J44).",
-    "GHI_CHU": "Đã gộp dòng trùng [Salmeterol+Fluticason] ICD-10",
+    "TEN_QUY_TAC": "[Seretide / Salmeterol + Fluticason] Chỉ định SmPC (hen ĐDK hồi phục, COPD duy trì)",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.982' AND ENGINE_RULE_THUOC_338",
+    "CANH_BAO": "⛔ [XUẤT TOÁN]: Seretide (Salmeterol+Fluticasone) theo SmPC chỉ trong điều trị hen — bệnh tắc nghẽn đường dẫn khí có hồi phục (J45, từ 4 tuổi; các tình huống duy trì/điều chỉnh theo ICS, LABA, SABA PRN) hoặc COPD — điều trị duy trì tắc nghẽn đường dẫn khí và giảm kịch phát (J44). Cần mã/chẩn đoán tương ứng trên hồ sơ.",
+    "GHI_CHU": "SmPC (tóm tắt): Hen — BN kiểm soát tốt với ICS+LABA dài; BN còn triệu chứng khi ICS hít; BN chưa kiểm soát đủ với ICS+SABA khi cần. COPD — duy trì tắc nghẽn ĐDK, giảm kịch phát (chứng minh lâm sàng). Engine: coChiDinhHopLeIcsLabaJ45J44. Đã gộp dòng trùng [Salmeterol+Fluticason] ICD-10.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -3446,10 +3446,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_345",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_345",
-    "TEN_QUY_TAC": "[Simethicon] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.750' AND XML1.MA_BENH_CHINH NOT IN ('R14') AND XML1.MA_BENH_KT NOT LIKE '%R14%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(ĐẦY HƠI|CHƯỚNG BỤNG)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc Simecol chỉ được thanh toán cho chẩn đoán Đầy hơi, trướng bụng (R14).",
-    "GHI_CHU": "",
+    "TEN_QUY_TAC": "[Simethicon] Chỉ định lâm sàng (đầy hơi, khó tiêu, GERD, phá bọt nội soi/XQ)",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.750' AND ENGINE_RULE_THUOC_345",
+    "CANH_BAO": "⛔ [CHỈ ĐỊNH]: Simethicon chỉ phù hợp khi có chỉ định/bối cảnh: giảm đầy hơi và khó chịu do thừa hơi (vd. R14), khó tiêu chức năng (K30), trào ngược dạ dày–thực quản (K21…), hoặc bệnh lý/ thủ thuật nội soi — chụp X-quang đường tiêu hóa cần chất phá bọt; thường phối hợp thuốc kháng acid trong rối loạn tiêu hóa. Kiểm tra ICD/chẩn đoán lâm sàng và dịch vụ liên quan trên hồ sơ.",
+    "GHI_CHU": "Engine: THUOC_345 — coChiDinhHopLeSimethiconTheoHc (ICD R12/R14/R101, K21, K30, K318, Z018; từ khóa chẩn đoán; XML3 nội soi/chụp tiêu hóa).",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -3646,10 +3646,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_365",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_365",
-    "TEN_QUY_TAC": "[Ursodeoxycholic acid] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.756' AND XML1.MA_BENH_CHINH NOT IN ('K80', 'K74.3', 'K71') AND XML1.MA_BENH_KT NOT LIKE '%K80%' AND XML1.MA_BENH_KT NOT LIKE '%K74.3%' AND XML1.MA_BENH_KT NOT LIKE '%K71%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(SỎI MẬT|XƠ GAN|BỆNH GAN DO THUỐC|TỔN THƯƠNG GAN)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc CUELLAR chỉ được thanh toán cho Sỏi mật (K80), Xơ gan ứ mật (K74.3) hoặc Viêm gan (K71).",
-    "GHI_CHU": "",
+    "TEN_QUY_TAC": "[Ursodeoxycholic acid] Chỉ định SmPC (sỏi mật, PBC/ứ mật, béo phì, CF 6–18…)",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.756' AND ENGINE_RULE_THUOC_365",
+    "CANH_BAO": "⛔ [XUẤT TOÁN]: Acid ursodeoxycholic chỉ phù hợp khi hồ sơ phản ánh chỉ định: tan sỏi mật cản quang (không vôi hóa, bối cảnh không mổ/nguy cơ mổ); phòng sỏi khi béo phì/giảm cân nhanh; PBC/xơ gan nguyên phát; gan ứ mật; rối loạn gan–mật do xơ nang (6–18 tuổi); viêm đường mật nguyên phát; bất thường cholesterol mật/thoát dịch — theo ICD (K80, K71, K74.3–6, K76.8, E66, E84, K83.1–9…) hoặc chẩn đoán tương đương.",
+    "GHI_CHU": "Không dùng K83.0 cấp (xem THUOC_364). Engine: coChiDinhHopLeUrsodeoxycholic365, laDuoi6Den18HoSo cho E84/xơ nang.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -3736,10 +3736,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_374",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_374",
-    "TEN_QUY_TAC": "[Vitamin B6 + magnesi lactat] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.1055' AND XML1.MA_BENH_CHINH NOT IN ('E83.4', 'R25.2') AND XML1.MA_BENH_KT NOT LIKE '%E83.4%' AND XML1.MA_BENH_KT NOT LIKE '%R25.2%' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(HẠ MAGIE|CHUỘT RÚT|CO GIẬT CƠ)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc Magnesi B6 chỉ được thanh toán cho chẩn đoán Rối loạn Magne (E83.4) hoặc Co quắp cơ/Chuột rút (R25.2).",
-    "GHI_CHU": "",
+    "TEN_QUY_TAC": "[Vitamin B6 + magnesi lactat] Thiếu magnesi (đơn độc hoặc kết hợp)",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.1055' AND ENGINE_RULE_THUOC_374",
+    "CANH_BAO": "⛔ [CHỈ ĐỊNH]: Magnesi B6 dùng khi điều trị thiếu magnesi đơn độc hoặc kết hợp (vd. E61.2 thiếu magnesi, E83.4 rối loạn chuyển hóa magnesi, E61.8 thiếu đa chất; triệu chứng kèm R25.2 nếu liên quan). Kiểm tra ICD và chẩn đoán lâm sàng.",
+    "GHI_CHU": "Engine: THUOC_374 — coChiDinhHopLeMagnesiB6374. THUOC_373 chống chỉ định N18.4/5, E83.5.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -3976,9 +3976,9 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_398",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_398",
-    "TEN_QUY_TAC": "Domperidon: An toàn Tim mạch",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.688' AND (XML2.SO_LUONG * 10) > 30",
-    "CANH_BAO": "⛔ [CẢNH BÁO DƯỢC]: Liều Domperidon > 30mg/ngày tăng nguy cơ kéo dài khoảng QT gây đột tử.",
+    "TEN_QUY_TAC": "Domperidon viên: độ tuổi + trần 30 mg/ngày",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.688' AND THUOC_398_VI_PHAM_DOMPERIDON(XML1, XML2)",
+    "CANH_BAO": "⛔ [CẢNH BÁO DƯỢC]: Domperidon dạng viên (40.688) — Trẻ dưới 12 tuổi: chống chỉ định. Từ 12 tuổi trở lên: liều/ngày = liều dùng × tần suất trong ngày (hoặc SL_MOI_NGAY / TONG_LIEU_24H từ HAM_LUONG) không được vượt 30 mg/ngày (nguy cơ kéo dài QT).",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
@@ -4477,10 +4477,11 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_449",
     "TEN_QUY_TAC": "Rosuvastatin: Nhất quán Y lệnh",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.558' AND XML2.SO_LUONG != (XML2.TAN_SUAT * XML2.SL_MOI_LAN)",
-    "CANH_BAO": "⛔ [SAI DỮ LIỆU]: Số lượng xuất (XML2.SO_LUONG) không khớp với y lệnh chi tiết trong LIEU_DUNG.",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.558' AND TO_NUMBER(XML2.SL_MOI_NGAY) > 0 AND TO_NUMBER(XML2.SO_NGAY) > 0 AND TO_NUMBER(XML2.SO_LUONG) != (TO_NUMBER(XML2.SL_MOI_NGAY) * TO_NUMBER(XML2.SO_NGAY))",
+    "CANH_BAO": "⛔ [SAI DỮ LIỆU]: Số lượng xuất (SO_LUONG) không khớp tổng liều suy từ LIEU_DUNG: SL_MOI_NGAY/ngày × SO_NGAY (engine bổ sung từ parse LIEU_DUNG; không so chỉ với liều 1 ngày).",
     "GHI_CHU": "",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx",
+    "GHI_CHU_SUA": "✏️ SO_LUONG là tổng cả đợt (vd 1 viên/ngày × 28 ngày = 28); đổi từ TAN_SUAT*SL_MOI_LAN (≈ liều/ngày) sang SL_MOI_NGAY*SO_NGAY."
   },
   {
     "id": "SEED_THUOC_450",
@@ -4496,11 +4497,12 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_451",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_451",
-    "TEN_QUY_TAC": "Sai lệch tiền trần thanh toán",
-    "DIEU_KIEN": "XML2.THANH_TIEN_BH > XML2.T_TRANTT AND XML2.T_TRANTT > 0",
-    "CANH_BAO": "⛔ [TT 37/2024]: Số tiền BHYT thanh toán vượt mức giá trần thanh toán quy định cho thuốc này (Kiểm tra cột T_TRANTT).",
+    "TEN_QUY_TAC": "Sai lệch tiền trần thanh toán (theo đơn vị)",
+    "DIEU_KIEN": "TO_NUMBER(XML2.DON_GIA) > 0 AND THUOC_451_VI_PHAM_TRAN_BH_TREN_DON_VI(XML1, XML2)",
+    "CANH_BAO": "⛔ [TT 37/2024]: Tiền BHYT trên một đơn vị cấp phát (THANH_TIEN_BH ÷ SO_LUONG khi SL > 0; nếu không có SL thì lấy THANH_TIEN_BH như tiền/đơn vị) vượt DON_GIA (đơn giá/đơn vị). Không so tổng THANH_TIEN_BH với đơn giá.",
     "GHI_CHU": "",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
+    "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx",
+    "GHI_CHU_SUA": "✏️ So trần theo đơn vị: THANH_TIEN_BH là thành tiền BHYT cả dòng — quy đổi tiền BHYT/1 đơn vị rồi mới so với DON_GIA; không dùng T_TRANTT (có thể bị enrich ghi đè)."
   },
   {
     "id": "SEED_THUOC_452",
@@ -4560,16 +4562,6 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "DIEU_KIEN": "IS_EMPTY(XML2.LIEU_DUNG) OR (XML2.LIEU_DUNG NOT REGEXP '\\d+\\s*(viên|gói|ống|ml|chai|lọ)/lần\\s*[+]\\s*\\d+\\s*lần/ngày' AND XML2.LIEU_DUNG NOT REGEXP '(Sáng|Trưa|Chiều|Tối):\\s*\\d+\\s*(viên|gói|ống|ml)') OR XML2.LIEU_DUNG NOT REGEXP '\\[\\d+\\s*(viên|gói|ống|ml|chai|lọ)/ngày\\]'",
     "CANH_BAO": "⛔ [TT 37/2024]: Trường Liều dùng (Cột 19 Bảng 2) bắt buộc ghi: số lượng/lần + số lần/ngày + số ngày [tổng/ngày] (ngoại trú) hoặc Sáng/Chiều/Tối: số lượng [tổng/ngày] (nội trú liều thay đổi).",
     "GHI_CHU": "SỬA 21/03/2026 (lần 2): Điều kiện mới 3 lớp: (1) LIEU_DUNG trống, (2) không khớp format ngoại trú lẫn nội trú, (3) thiếu phần tổng bắt buộc [SL/ngày]. Đã test logic với 5 test case TT 37/2024 - tất cả đúng.",
-    "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
-  },
-  {
-    "id": "SEED_THUOC_458",
-    "TRANG_THAI": "ON",
-    "MA_LUAT": "THUOC_458",
-    "TEN_QUY_TAC": "Thuốc Botulinum Toxin (Botox)",
-    "DIEU_KIEN": "XML2.MA_HOAT_CHAT == '40.51' AND XML1.MA_BENH_CHINH NOT IN ('G24','G80') AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(LOẠN TRƯƠNG LỰC CƠ|BẠI NÃO)'",
-    "CANH_BAO": "⚠️ [KIỂM TRA]: Botox chỉ được BHYT thanh toán cho các chỉ định loạn trương lực cơ (G24) hoặc co cứng cơ ở trẻ bại não (G80).",
-    "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -4807,9 +4799,9 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_482",
     "TEN_QUY_TAC": "Thuốc điều trị rối loạn cương dương",
-    "DIEU_KIEN": "(XML2.MA_HOAT_CHAT == '40.541' OR XML2.TEN_THUOC REGEXP '(?i)(sildenafil|tadalafil|vardenafil|avanafil)') AND XML2.MA_THUOC != '40.540' AND XML2.MA_HOAT_CHAT != '40.540'",
+    "DIEU_KIEN": "( (XML2.MA_HOAT_CHAT == '40.541' OR XML2.TEN_THUOC REGEXP '(?i)(sildenafil|tadalafil|vardenafil|avanafil)') AND XML2.MA_THUOC != '40.540' AND XML2.MA_HOAT_CHAT != '40.540' AND NOT (XML2.TEN_THUOC REGEXP '(?i)(clopidogrel|vixcar|plavix|dogrelsavi|dogrel|clogrel|plagerl|ceruvin)') )",
     "CANH_BAO": "⛔ [LOẠI TRỪ]: Các thuốc ức chế Phosphodiesterase-5 (Sildenafil, Tadalafil...) không thuộc phạm vi thanh toán của quỹ BHYT.",
-    "GHI_CHU": "SỬA 04/2026: Không dùng 40.540 trong MA_HOAT_CHAT — theo DM QĐ130 mã 40.540 là nhóm thuốc chứa Clopidogrel (VD Vixcar), không phải PDE-5. Loại trừ rõ MA_THUOC/MA_HOAT_CHAT 40.540; bổ sung nhận diện theo tên hoạt chất PDE-5.",
+    "GHI_CHU": "SỬA 04/2026: 40.541 = PE5 (VD Vixcar), không phải PDE-5. Loại MA_THUOC/MA_HOAT 40.540; loại theo tên hoạt chất/thương mại clopidogrel; MA_HOAT_CHAT sai 40.540 nhưng tên Vixcar/clopidogrel không còn báo PDE-5.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -5286,10 +5278,10 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_530",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_530",
-    "TEN_QUY_TAC": "Ung thư dùng thuốc không có GPB",
-    "DIEU_KIEN": "XML1.MA_BENH_CHINH STARTS_WITH 'C' AND COUNT_IF(XML3, MA_DICH_VU == 'GIAI_PHAU_BENH') == 0",
-    "CANH_BAO": "⛔ [VBHN 15]: Thanh toán thuốc điều trị ung thư bắt buộc phải có kết quả giải phẫu bệnh hoặc bằng chứng tế bào học khẳng định ác tính.",
-    "GHI_CHU": "RÀ SOÁT 21/03/2026: Sửa typo MA_BEN_CHINH→MA_BENH_CHINH (thiếu chữ H)",
+    "TEN_QUY_TAC": "Thuốc điều trị ung thư (DM LOAI=UNG_THU) không có GPB",
+    "DIEU_KIEN": "XML1.MA_BENH_CHINH STARTS_WITH 'C' AND COUNT_IF(XML3, MA_DICH_VU == 'GIAI_PHAU_BENH') == 0 AND DM_THUOC.LOAI == 'UNG_THU'",
+    "CANH_BAO": "⛔ [VBHN 15]: Thanh toán thuốc điều trị ung thư bắt buộc phải có kết quả giải phẫu bệnh hoặc bằng chứng tế bào học khẳng định ác tính (chỉ áp cho dòng thuốc thuộc nhóm điều trị ung thư trên đơn).",
+    "GHI_CHU": "Engine: THUOC_530 — chỉ cảnh báo dòng XML2 có MA_THUOC khớp DM với LOAI=UNG_THU; thuốc thường cùng hồ sơ không kích hoạt. GPB: MA_DICH_VU/MA_DV = GIAI_PHAU_BENH trên XML3.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
@@ -5316,9 +5308,9 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "id": "SEED_THUOC_533",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_533",
-    "TEN_QUY_TAC": "Wamlox: Nhất quán Y lệnh",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.30.501' AND XML2.SO_LUONG != (XML2.TAN_SUAT * XML2.SL_MOI_LAN)",
-    "CANH_BAO": "⚠️ [KIỂM TRA]: Số lượng Wamlox kê đơn không khớp với hướng dẫn sử dụng.",
+    "TEN_QUY_TAC": "Wamlox: Liều/ngày, trần 2 viên/ngày, nhất quán SL",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.30.501' AND THUOC_533_VI_PHAM_WAMLOX(XML1, XML2)",
+    "CANH_BAO": "⚠️ [KIỂM TRA]: Wamlox (40.30.501) — liều trong ngày = SL_MOI_LAN × TAN_SUAT (hoặc SL_MOI_NGAY khi parse được) không được vượt 2 viên/ngày; SO_LUONG phải bằng liều/ngày × SO_NGAY (nếu có số ngày) hoặc bằng liều/ngày khi không khai SO_NGAY.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },

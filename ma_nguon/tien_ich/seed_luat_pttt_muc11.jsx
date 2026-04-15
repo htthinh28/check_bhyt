@@ -65,6 +65,11 @@ const laDongLuatDaGoKhoiSeed = (row = {}) => {
   return ten.startsWith('Thực hiện -') && dk.includes('COUNT_IF(DS_XML5');
 };
 
+/** Quy tắc đã bỏ hẳn khỏi bundle — luôn gỡ khỏi cache (tránh MA_LUAT không còn trong seed vẫn bị giữ như tùy biến BV). */
+const MA_LUAT_DA_LOAI_BO_KHOI_PTTT = new Set(['DVKT_2588']);
+const laDongLuatBiLoaiBoKhoiPttt = (row = {}) =>
+  MA_LUAT_DA_LOAI_BO_KHOI_PTTT.has(String(row?.MA_LUAT || '').trim().toUpperCase());
+
 /**
  * Hợp nhất seed với dữ liệu đã lưu cục bộ.
  * @param {{ thayTheToanBoSeed?: boolean }} options — khi true: toàn bộ dòng trùng MA_LUAT với seed được thay bằng bản bundle;
@@ -169,7 +174,7 @@ export const damBaoSeedLuatPtttMuc11 = async () => {
       thayTheToanBoSeed: !daApDungDungPhienBan,
     });
     const soDongTruocLoc = mergedRows.length;
-    mergedRows = mergedRows.filter((r) => !laDongLuatDaGoKhoiSeed(r));
+    mergedRows = mergedRows.filter((r) => !laDongLuatDaGoKhoiSeed(r) && !laDongLuatBiLoaiBoKhoiPttt(r));
     const soDongGoTuCache = soDongTruocLoc - mergedRows.length;
     const mergedCols = hopNhatCot(colsHienTai);
     const canGhiLai = addedCount > 0

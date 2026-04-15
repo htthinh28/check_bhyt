@@ -1,7 +1,7 @@
 {
-  "timestamp": "2026-04-11T13:50:07.766Z",
-  "tong_so": 4329,
-  "on": 4000,
+  "timestamp": "2026-04-13T16:48:51.005Z",
+  "tong_so": 4328,
+  "on": 3999,
   "off": 329,
   "unknown": 0,
   "danh_sach_off": [
@@ -1661,6 +1661,6 @@
     "du_lieu_luat_du_lieu_muc1.jsx": 108,
     "du_lieu_luat_hanh_chinh_muc2.jsx": 107,
     "du_lieu_luat_thuoc_muc8.jsx": 526,
-    "du_lieu_luat_pttt_muc11.jsx": 2320
+    "du_lieu_luat_pttt_muc11.jsx": 2319
   }
 }

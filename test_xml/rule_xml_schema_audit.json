@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-04-11T13:00:07.932Z",
+  "timestamp": "2026-04-13T16:48:50.234Z",
   "schemaTables": {
     "XML1": [
       "CAN_NANG",
@@ -1092,7 +1092,7 @@
     {
       "file": "ma_nguon\\tien_ich\\luat_giam_dinh_chuyen_de_hardcoded.jsx",
       "missing": false,
-      "blocks": 68,
+      "blocks": 406,
       "issues": []
     },
     {

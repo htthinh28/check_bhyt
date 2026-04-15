@@ -53,6 +53,9 @@
         "baseUrl": "",
         "timeoutMs": 20000
       }
-    }
+    },
+    "plugins": [
+      "@react-native-community/datetimepicker"
+    ]
   }
 }

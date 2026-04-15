@@ -1,6 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
-import { CHUOI_DAY_DU_TT12_2026_D10_VA_D13 as TT_12_BTC_D10_META } from './co_so_phap_ly_tt12_2026';
+import {
+  CHUOI_DAY_DU_TT12_2026_D10_VA_D13 as TT_12_BTC_LEGACY_FULL,
+  CHUOI_TRICH_DAN_TT12_2026_D10_VA_D13 as TT_12_BTC_D10_META,
+} from './co_so_phap_ly_tt12_2026';
 import { DANH_MUC_DVKT_M05 } from '../thanh_phan/dich_vu_ky_thuat';
 import { DANH_MUC_MAPPING_NGUOI_HANH_NGHE } from '../thanh_phan/mapping_nguoi_hanh_nghe';
 import { DANH_MUC_NHAN_SU } from '../thanh_phan/nhan_su';
@@ -102,13 +105,15 @@ const DEFAULT_DVKT_RULES = [
   { RULE_CODE: 'DVKT-OP-06', RULE_NAME: 'Hiệu lực DVKT', OPERATOR: 'CHECK_VALIDITY', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT ngoài khoảng hiệu lực áp dụng.' },
   { RULE_CODE: 'DVKT-OP-07', RULE_NAME: 'Phân loại PTTT', OPERATOR: 'CHECK_PTTT_LEVEL', STATUS: 'ON', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Thông tin phân loại PTTT chưa đúng quy định.' },
   { RULE_CODE: 'DVKT-OP-08', RULE_NAME: 'Ghi chú đặc thù', OPERATOR: 'CHECK_GHICHU', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'Thông tin VTYT không phù hợp ghi chú đặc thù DVKT.' },
-  { RULE_CODE: 'DVKT-OP-09', RULE_NAME: 'Danh mục nội bộ được phê duyệt', OPERATOR: 'CHECK_INTERNAL_APPROVAL', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT không nằm trong danh mục nội bộ được phê duyệt.' },
+  { RULE_CODE: 'DVKT-OP-09', RULE_NAME: 'Khám và giường bệnh (nội bộ) được phê duyệt', OPERATOR: 'CHECK_INTERNAL_APPROVAL', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT không nằm trong danh mục Khám và giường bệnh (nội bộ) được phê duyệt.' },
   { RULE_CODE: 'DVKT-OP-10', RULE_NAME: 'Thời gian hành nghề bác sỹ', OPERATOR: 'CHECK_STAFF_PRACTICE_TIME', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'Thông tin hành nghề bác sỹ không hợp lệ tại thời điểm thực hiện DVKT.' },
   { RULE_CODE: 'DVKT-OP-11', RULE_NAME: 'Danh mục 3 tạm thời chưa thanh toán', OPERATOR: 'CHECK_TEMP_LIST3', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT thuộc danh mục tạm thời chưa được quỹ BHYT thanh toán.' },
   { RULE_CODE: 'DVKT-OP-12', RULE_NAME: 'Mapping người hành nghề theo DVKT', OPERATOR: 'CHECK_SERVICE_PRACTITIONER_MAPPING', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'Người hành nghề không khớp mapping được phê duyệt cho DVKT.' },
   { RULE_CODE: 'DVKT-OP-13', RULE_NAME: 'Đối soát tên DVKT theo danh mục', OPERATOR: 'CHECK_CATALOG_NAME_MATCH', STATUS: 'ON', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Tên DVKT trên hồ sơ không khớp danh mục nội bộ M05.' },
   { RULE_CODE: 'DVKT-OP-14', RULE_NAME: 'Danh mục DVKT phải có đơn giá', OPERATOR: 'CHECK_CATALOG_PRICE_CONFIG', STATUS: 'ON', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Danh mục nội bộ M05 chưa cấu hình đơn giá cho DVKT.' },
   { RULE_CODE: 'DVKT-OP-15', RULE_NAME: 'Danh mục DVKT phải có quyết định', OPERATOR: 'CHECK_CATALOG_DECISION', STATUS: 'ON', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Danh mục nội bộ M05 chưa có thông tin quyết định phê duyệt DVKT.' },
+  /** Tùy chọn: bật nếu cần cảnh báo hồ sơ còn mã giường dạng cũ Kxx.xxxx (4 số sau dấu chấm). */
+  { RULE_CODE: 'DVKT-OP-16', RULE_NAME: 'Mã giường dạng cũ (Kxx.xxxx)', OPERATOR: 'CHECK_LEGACY_BED_SERVICE_FORMAT', STATUS: 'OFF', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Mã DVKT nhóm giường theo định dạng cũ — đã chuyển sang bảng mã mới (tab Giường & khám BV).' },
 ];
 
 const tronRuleKhongTrung = (...sources) => {
@@ -128,27 +133,28 @@ const tronRuleKhongTrung = (...sources) => {
   return out;
 };
 
-const VBHN_17_META =
-  'VBHN 17/VBHN-BYT (31/12/2024) — hop nhat TT DVKT BHYT; goc TT 35/2016/TT-BYT, sua TT 13/2020 va TT 39/2024 (HL 01/01/2025: mot luot KCB, Dieu 4a-4d, so giuong trong HD KCB BHYT)';
-const ND_188_META = 'Nghị định 188/2025/NĐ-CP (quy định thanh toán chi phí KCB BHYT, thủ tục thanh toán và xử lý vi phạm hành chính)';
-const TT_01_META = 'Thông tư 01/2025/TT-BYT (quy định đăng ký KCB ban đầu, thẻ KCB BHYT điện tử và hồ sơ chuyển cơ sở KCB BHYT)';
-const QD_3618_BHXH_META = 'Quyết định 3618/QĐ-BHXH (quy trình kiểm tra BHYT và bộ chỉ tiêu dữ liệu kiểm tra điện tử)';
+/** Trích dẫn ngắn (hiển thị trên báo cáo — không dài dòng). */
+const VBHN_17_META = 'VBHN 17/BYT (31/12/2024)';
+const ND_188_META = 'NĐ 188/2025/NĐ-CP';
+const TT_01_META = 'TT 01/2025/TT-BYT';
+const QD_3618_BHXH_META = 'QĐ 3618/QĐ-BHXH';
 const LEGAL_BASIS_BY_OPERATOR = {
-  CHECK_INTERNAL_APPROVAL: `${VBHN_17_META} , Dieu 3 khoan 1 diem a; Dieu 3 khoan 2. ${ND_188_META}. ${TT_01_META}. ${QD_3618_BHXH_META}`,
-  CHECK_PHAMVI: `${VBHN_17_META} , Dieu 3 khoan 1 diem b; Dieu 3 khoan 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_STAFF_PRACTICE_TIME: `${VBHN_17_META} , Dieu 3 khoan 1 diem b; Dieu 3 khoan 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_SERVICE_PRACTITIONER_MAPPING: `${VBHN_17_META} , Dieu 3 khoan 1 diem b; Dieu 3 khoan 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_EQUIPMENT: `${VBHN_17_META} , Dieu 3 khoan 1 diem b; Dieu 3 khoan 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_PRICE: `${VBHN_17_META} , Dieu 3 khoan 1 diem c. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_VALIDITY: `${VBHN_17_META} , Dieu 3 khoan 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_GHICHU: `${VBHN_17_META} , Dieu 2 khoan 2,3; Dieu 4a khoan 2,3. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_TEMP_LIST3: `${VBHN_17_META} , Dieu 1 khoan 2 diem c; Dieu 4 khoan 6. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_ICD_INDICATION: `${VBHN_17_META} , Dieu 3 khoan 1 diem b. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_ICD_CONTRAINDICATION: `${VBHN_17_META} , Dieu 3 khoan 1 diem b. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_PTTT_LEVEL: `${VBHN_17_META} , Dieu 3 khoan 1 diem b. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_CATALOG_NAME_MATCH: `${VBHN_17_META} , Dieu 3 khoan 1 diem a. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_CATALOG_PRICE_CONFIG: `${VBHN_17_META} , Dieu 3 khoan 1 diem c. ${ND_188_META}. ${QD_3618_BHXH_META}`,
-  CHECK_CATALOG_DECISION: `${VBHN_17_META} , Dieu 3 khoan 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_INTERNAL_APPROVAL: `${VBHN_17_META}: Điều 3 khoản 1 điểm a; Điều 3 khoản 2. ${ND_188_META}. ${TT_01_META}. ${QD_3618_BHXH_META}`,
+  CHECK_PHAMVI: `${VBHN_17_META}: Điều 3 khoản 1 điểm b; Điều 3 khoản 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_STAFF_PRACTICE_TIME: `${VBHN_17_META}: Điều 3 khoản 1 điểm b; Điều 3 khoản 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_SERVICE_PRACTITIONER_MAPPING: `${VBHN_17_META}: Điều 3 khoản 1 điểm b; Điều 3 khoản 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_EQUIPMENT: `${VBHN_17_META}: Điều 3 khoản 1 điểm b; Điều 3 khoản 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_PRICE: `${VBHN_17_META}: Điều 3 khoản 1 điểm c. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_VALIDITY: `${VBHN_17_META}: Điều 3 khoản 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_GHICHU: `${VBHN_17_META}: Điều 2 khoản 2, 3; Điều 4a khoản 2, 3. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_TEMP_LIST3: `${VBHN_17_META}: Điều 1 khoản 2 điểm c; Điều 4 khoản 6. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_ICD_INDICATION: `${VBHN_17_META}: Điều 3 khoản 1 điểm b. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_ICD_CONTRAINDICATION: `${VBHN_17_META}: Điều 3 khoản 1 điểm b. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_PTTT_LEVEL: `${VBHN_17_META}: Điều 3 khoản 1 điểm b. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_CATALOG_NAME_MATCH: `${VBHN_17_META}: Điều 3 khoản 1 điểm a. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_CATALOG_PRICE_CONFIG: `${VBHN_17_META}: Điều 3 khoản 1 điểm c. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_CATALOG_DECISION: `${VBHN_17_META}: Điều 3 khoản 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_LEGACY_BED_SERVICE_FORMAT: `${VBHN_17_META}: Điều 3 khoản 1 điểm a. ${ND_188_META}. ${QD_3618_BHXH_META}`,
 };
 
 let cacheConfig = null;
@@ -612,6 +618,28 @@ const mapByPrefix = (rows, prefixKeys, valueKeys) => {
   return m;
 };
 
+/** Map sheet nội bộ Khám và giường bệnh (DANH_MUC_GIUONG_BAN_KHAM_BV) → dòng field tương thích engine (DVKT-OP-09 chỉ đối chiếu bảng này, không dùng DM05). */
+const mapGiuongBanKhamRowToDmkt = (row) => {
+  if (!row || typeof row !== 'object') return null;
+  const ma = normalizeDvktCode(pickValue(row, ['MA_TUONG_DUONG', 'MA_DICH_VU']));
+  if (!ma) return null;
+  return {
+    ...row,
+    MA_DICH_VU: ma,
+    MA_TUONG_DUONG: ma,
+    TEN_DICH_VU: String(pickValue(row, ['TEN_DVKT_PHEDUYET', 'TEN_DICH_VU']) || '').trim(),
+    TEN_DVKT_GIA: String(pickValue(row, ['TEN_DVKT_GIA', 'TEN_DVKT_PHEDUYET']) || '').trim(),
+    DON_GIA: pickValue(row, ['DON_GIA']),
+    TINHTRANG_DV: pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI']) || '1',
+    TU_NGAY: pickValue(row, ['TU_NGAY', 'TUNGAY']),
+    DEN_NGAY: pickValue(row, ['DEN_NGAY', 'DENNGAY']),
+    GHICHU: pickValue(row, ['GHICHU', 'GHI_CHU', 'QUY_TRINH']),
+    QUYET_DINH: pickValue(row, ['QUYET_DINH']),
+    MA_CSKCB: pickValue(row, ['MA_CSKCB', 'CSKCB_CGKT']) || pickValue(row, ['CSKCB_CLS']),
+    PHAN_LOAI_PTTT: pickValue(row, ['PHAN_LOAI_PTTT']),
+  };
+};
+
 const mergeDvktRowsWithBuiltin = (rows, builtinRows = DANH_MUC_DVKT_M05) => {
   const out = [];
   const seen = new Set();
@@ -626,6 +654,69 @@ const mergeDvktRowsWithBuiltin = (rows, builtinRows = DANH_MUC_DVKT_M05) => {
   (Array.isArray(rows) ? rows : []).forEach(addRow);
   (Array.isArray(builtinRows) ? builtinRows : []).forEach(addRow);
   return out;
+};
+
+const buildDmktMapFromRows = (rows) => {
+  const dmktByCode = new Map();
+  (Array.isArray(rows) ? rows : []).forEach((row) => {
+    const codes = [
+      pickValue(row, ['MA_TUONG_DUONG', 'MA_DICH_VU', 'MA_DVKT', 'MA_GIA']),
+      ...parseList(pickValue(row, ['MA_TD_LIST'])),
+    ]
+      .map((x) => normalizeDvktCode(x))
+      .filter(Boolean);
+    const entry = {
+      raw: row,
+      tenDvkt: String(pickValue(row, ['TEN_DICH_VU', 'TEN_DVKT_GIA', 'TEN_GIA', 'TEN_DVKT'])).trim(),
+      tenDvktNorm: normalizeText(pickValue(row, ['TEN_DICH_VU', 'TEN_DVKT_GIA', 'TEN_GIA', 'TEN_DVKT'])),
+      donGia: toNumber(pickValue(row, ['DON_GIA', 'GIA_TT_BHYT', 'DON_GIA_BHYT', 'GIA_BH_TT'])),
+      tuNgayKey: dateToKey(pickValue(row, ['TU_NGAY', 'TUNGAY', 'HD_TU'])),
+      denNgayKey: dateToKey(pickValue(row, ['DEN_NGAY', 'DENNGAY', 'HD_DEN'])),
+      prefixHint: normalizePrefix(pickValue(row, ['PREFIX', 'PREFIX_DVKT']) || codes[0] || ''),
+      maChuyenKhoa: normalizePrefix(pickValue(row, ['MA_CHUYEN_KHOA', 'Mã chuyên khoa', 'PREFIX_DVKT'])),
+      phamviNeeded: new Set(collectListValues(row, ['PHAMVI_CM_NEEDED', 'PHAMVI_CM_OK']).map((value) => normalizeToken(value)).filter(Boolean)),
+      phanLoaiPtttRaw: String(pickValue(row, ['PHAN_LOAI_PTTT', 'MA_PTTT', 'PHAN_LOAI'])).trim(),
+      phanLoaiPtttNorm: normalizeToken(pickValue(row, ['PHAN_LOAI_PTTT', 'MA_PTTT', 'PHAN_LOAI'])),
+      ghiChuNorm: normalizeText(pickValue(row, ['GHICHU', 'GHI_CHU', 'QUY_TRINH'])),
+      danhMucNorm: normalizeText(pickValue(row, ['DANH_MUC', 'DANH_MUC_AP_DUNG', 'PHAN_LOAI_DM', 'LOAI_DVKT'])),
+      danhMucToken: normalizeToken(pickValue(row, ['DANH_MUC', 'DANH_MUC_AP_DUNG', 'PHAN_LOAI_DM', 'LOAI_DVKT'])),
+      dieuKienThanhToanNorm: normalizeText(pickValue(row, ['DIEU_KIEN_THANH_TOAN', 'DIEU_KIEN', 'COT_3', 'DIEUKIEN_COT3'])),
+      quyetDinh: String(pickValue(row, ['QUYET_DINH', 'QUYETDINH', 'SO_QUYET_DINH'])).trim(),
+      maCskcb: toUpper(pickValue(row, ['MA_CSKCB', 'MA_BV'])),
+      approvalRaw: pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET']),
+      approvalNorm: normalizeToken(pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET'])),
+      approvalActive: isActiveStatus(pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET']), true),
+    };
+    codes.forEach((code) => {
+      if (!dmktByCode.has(code)) dmktByCode.set(code, entry);
+    });
+  });
+  return dmktByCode;
+};
+
+const buildInternalApprovalMapFromRows = (rows) => {
+  const internalApprovalByCode = new Map();
+  (Array.isArray(rows) ? rows : []).forEach((row) => {
+    const codes = [
+      pickValue(row, ['MA_TUONG_DUONG', 'MA_DICH_VU', 'MA_DVKT', 'MA_GIA']),
+      ...parseList(pickValue(row, ['MA_TD_LIST'])),
+    ].map((x) => normalizeDvktCode(x)).filter(Boolean);
+
+    const approvalEntry = {
+      raw: row,
+      maCskcb: toUpper(pickValue(row, ['MA_CSKCB', 'MA_BV'])),
+      tuNgayKey: dateToKey(pickValue(row, ['TU_NGAY', 'TUNGAY', 'HD_TU', 'NGAY_HL_TU'])),
+      denNgayKey: dateToKey(pickValue(row, ['DEN_NGAY', 'DENNGAY', 'HD_DEN', 'NGAY_HL_DEN'])),
+      approvalRaw: pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET']),
+      approvalNorm: normalizeToken(pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET'])),
+      approvalActive: isActiveStatus(pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET']), true),
+    };
+
+    codes.forEach((code) => {
+      if (!internalApprovalByCode.has(code)) internalApprovalByCode.set(code, approvalEntry);
+    });
+  });
+  return internalApprovalByCode;
 };
 
 const hasIntersectionSet = (setA, setB) => {
@@ -673,10 +764,20 @@ const buildEngineConfig = async () => {
     .map((rule) => toCompiledRule(rule))
     .filter(Boolean));
 
-  const dmktRows = mergeDvktRowsWithBuiltin(dmkt, DANH_MUC_DVKT_M05);
+  const giuongBkRaw = await loadTable('DANH_MUC_GIUONG_BAN_KHAM_BV', '');
+  const giuongBkMapped = (Array.isArray(giuongBkRaw) ? giuongBkRaw : [])
+    .map(mapGiuongBanKhamRowToDmkt)
+    .filter(Boolean);
+
+  const dmktRows = mergeDvktRowsWithBuiltin(
+    [...giuongBkMapped, ...(Array.isArray(dmkt) ? dmkt : [])],
+    DANH_MUC_DVKT_M05,
+  );
   const internalApprovalRowsResolved = mergeDvktRowsWithBuiltin(
-    Array.isArray(internalApprovalRows) && internalApprovalRows.length > 0 ? internalApprovalRows : dmktRows,
-    DANH_MUC_DVKT_M05
+    Array.isArray(internalApprovalRows) && internalApprovalRows.length > 0
+      ? [...giuongBkMapped, ...internalApprovalRows]
+      : dmktRows,
+    DANH_MUC_DVKT_M05,
   );
 
   const phamviRows = (Array.isArray(phamviMap) ? phamviMap : []).map((row) => ({
@@ -761,63 +862,13 @@ const buildEngineConfig = async () => {
     severity: normalizeResult(pickValue(row, ['SEVERITY', 'MUC_DO']), 'REJECT'),
   }));
 
-  const dmktByCode = new Map();
-  (Array.isArray(dmktRows) ? dmktRows : []).forEach((row) => {
-    const codes = [
-      pickValue(row, ['MA_TUONG_DUONG', 'MA_DICH_VU', 'MA_DVKT', 'MA_GIA']),
-      ...parseList(pickValue(row, ['MA_TD_LIST'])),
-    ]
-      .map((x) => normalizeDvktCode(x))
-      .filter(Boolean);
-    const entry = {
-      raw: row,
-      tenDvkt: String(pickValue(row, ['TEN_DICH_VU', 'TEN_DVKT_GIA', 'TEN_GIA', 'TEN_DVKT'])).trim(),
-      tenDvktNorm: normalizeText(pickValue(row, ['TEN_DICH_VU', 'TEN_DVKT_GIA', 'TEN_GIA', 'TEN_DVKT'])),
-      donGia: toNumber(pickValue(row, ['DON_GIA', 'GIA_TT_BHYT', 'DON_GIA_BHYT', 'GIA_BH_TT'])),
-      tuNgayKey: dateToKey(pickValue(row, ['TU_NGAY', 'TUNGAY', 'HD_TU'])),
-      denNgayKey: dateToKey(pickValue(row, ['DEN_NGAY', 'DENNGAY', 'HD_DEN'])),
-      prefixHint: normalizePrefix(pickValue(row, ['PREFIX', 'PREFIX_DVKT']) || codes[0] || ''),
-      maChuyenKhoa: normalizePrefix(pickValue(row, ['MA_CHUYEN_KHOA', 'Mã chuyên khoa', 'PREFIX_DVKT'])),
-      phamviNeeded: new Set(collectListValues(row, ['PHAMVI_CM_NEEDED', 'PHAMVI_CM_OK']).map((value) => normalizeToken(value)).filter(Boolean)),
-      phanLoaiPtttRaw: String(pickValue(row, ['PHAN_LOAI_PTTT', 'MA_PTTT', 'PHAN_LOAI'])).trim(),
-      phanLoaiPtttNorm: normalizeToken(pickValue(row, ['PHAN_LOAI_PTTT', 'MA_PTTT', 'PHAN_LOAI'])),
-      ghiChuNorm: normalizeText(pickValue(row, ['GHICHU', 'GHI_CHU', 'QUY_TRINH'])),
-      danhMucNorm: normalizeText(pickValue(row, ['DANH_MUC', 'DANH_MUC_AP_DUNG', 'PHAN_LOAI_DM', 'LOAI_DVKT'])),
-      danhMucToken: normalizeToken(pickValue(row, ['DANH_MUC', 'DANH_MUC_AP_DUNG', 'PHAN_LOAI_DM', 'LOAI_DVKT'])),
-      dieuKienThanhToanNorm: normalizeText(pickValue(row, ['DIEU_KIEN_THANH_TOAN', 'DIEU_KIEN', 'COT_3', 'DIEUKIEN_COT3'])),
-      quyetDinh: String(pickValue(row, ['QUYET_DINH', 'QUYETDINH', 'SO_QUYET_DINH'])).trim(),
-      maCskcb: toUpper(pickValue(row, ['MA_CSKCB', 'MA_BV'])),
-      approvalRaw: pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET']),
-      approvalNorm: normalizeToken(pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET'])),
-      approvalActive: isActiveStatus(pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET']), true),
-    };
-    codes.forEach((code) => {
-      if (!dmktByCode.has(code)) dmktByCode.set(code, entry);
-    });
-  });
-
-  const internalApprovalByCode = new Map();
+  const dmktByCode = buildDmktMapFromRows(dmktRows);
   const approvalRows = internalApprovalRowsResolved;
-  (Array.isArray(approvalRows) ? approvalRows : []).forEach((row) => {
-    const codes = [
-      pickValue(row, ['MA_TUONG_DUONG', 'MA_DICH_VU', 'MA_DVKT', 'MA_GIA']),
-      ...parseList(pickValue(row, ['MA_TD_LIST'])),
-    ].map((x) => normalizeDvktCode(x)).filter(Boolean);
+  const internalApprovalByCode = buildInternalApprovalMapFromRows(approvalRows);
 
-    const approvalEntry = {
-      raw: row,
-      maCskcb: toUpper(pickValue(row, ['MA_CSKCB', 'MA_BV'])),
-      tuNgayKey: dateToKey(pickValue(row, ['TU_NGAY', 'TUNGAY', 'HD_TU', 'NGAY_HL_TU'])),
-      denNgayKey: dateToKey(pickValue(row, ['DEN_NGAY', 'DENNGAY', 'HD_DEN', 'NGAY_HL_DEN'])),
-      approvalRaw: pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET']),
-      approvalNorm: normalizeToken(pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET'])),
-      approvalActive: isActiveStatus(pickValue(row, ['TINHTRANG_DV', 'TRANG_THAI', 'TRANGTHAI', 'TRANG_THAI_SU_DUNG', 'PHE_DUYET', 'DUOC_PHE_DUYET']), true),
-    };
-
-    codes.forEach((code) => {
-      if (!internalApprovalByCode.has(code)) internalApprovalByCode.set(code, approvalEntry);
-    });
-  });
+  /** DVKT-OP-09: chỉ đối chiếu bảng nội bộ Khám và giường bệnh (DANH_MUC_GIUONG_BAN_KHAM_BV), không dùng DM05. */
+  const op09DmktByCode = buildDmktMapFromRows(giuongBkMapped);
+  const op09InternalApprovalByCode = buildInternalApprovalMapFromRows(giuongBkMapped);
 
   const staffById = new Map();
   (Array.isArray(staff) ? staff : []).forEach((row) => {
@@ -906,6 +957,8 @@ const buildEngineConfig = async () => {
     activeRules,
     dmktByCode,
     internalApprovalByCode,
+    op09DmktByCode,
+    op09InternalApprovalByCode,
     staffById,
     equipmentByPrefix,
     equipmentByCode,
@@ -1227,8 +1280,9 @@ const resolveLegalBasis = (rule) => {
   const custom = String(pickValue(rule, ['LEGAL_BASIS', 'CAN_CU_PHAP_LY', 'CO_SO_PHAP_LY', 'VAN_BAN']) || '').trim();
   if (custom) {
     const normCustom = normalizeText(custom);
-    const normTt12 = normalizeText(TT_12_BTC_D10_META);
-    if (normCustom.includes(normTt12)) return custom;
+    const normTt12Short = normalizeText(TT_12_BTC_D10_META);
+    const normTt12Full = normalizeText(TT_12_BTC_LEGACY_FULL);
+    if (normCustom.includes(normTt12Short) || normCustom.includes(normTt12Full)) return custom;
     return `${custom}. ${TT_12_BTC_D10_META}`;
   }
   const base = LEGAL_BASIS_BY_OPERATOR[rule?.OPERATOR] || `${VBHN_17_META}. ${QD_3618_BHXH_META}`;
@@ -1519,11 +1573,15 @@ const checkEquipment = ({ rule, line, claim, config }) => {
 };
 
 const checkInternalApproval = ({ rule, line, claim, config }) => {
-  if (config.dmktByCode.size === 0 && config.internalApprovalByCode.size === 0) return pass();
-  const dmRow = config.dmktByCode.get(line.maTuongDuong);
-  if (!dmRow) return fail('WARNING', `${rule.ALERT_MESSAGE} Mã DVKT [${line.maTuongDuong}] chưa có trong danh mục để đối chiếu.`, 'MA_DICH_VU');
+  const dmMap = config.op09DmktByCode;
+  const apMap = config.op09InternalApprovalByCode;
+  if (!dmMap || (dmMap.size === 0 && (!apMap || apMap.size === 0))) return pass();
+  const dmRow = dmMap.get(line.maTuongDuong);
+  if (!dmRow) {
+    return fail('WARNING', `${rule.ALERT_MESSAGE} Mã DVKT [${line.maTuongDuong}] chưa có trong danh mục Khám và giường bệnh (nội bộ) để đối chiếu.`, 'MA_DICH_VU');
+  }
 
-  const approvalRow = config.internalApprovalByCode.get(line.maTuongDuong) || dmRow;
+  const approvalRow = apMap.get(line.maTuongDuong) || dmRow;
   if (!approvalRow.approvalActive) {
     return fail('REJECT', `${rule.ALERT_MESSAGE} DVKT [${line.maTuongDuong}] thuộc Danh mục 3/tạm thời chưa thanh toán BHYT.`, 'MA_DICH_VU');
   }
@@ -1733,6 +1791,17 @@ const checkCatalogDecision = ({ rule, line, config }) => {
   return fail('WARNING', `${rule.ALERT_MESSAGE} MA_DICH_VU [${line.maTuongDuong}] thiếu trường QUYET_DINH trong danh mục M05.`, 'QUYET_DINH');
 };
 
+/** Định dạng cũ tiền giường: K + hậu tố số.chỉ số 4 chữ số (vd. K27.1939) — không còn dùng; mặc định rule OFF. */
+const checkLegacyBedServiceFormat = ({ rule, line }) => {
+  if (String(line?.maNhom || '').trim() !== '15') return pass();
+  const ma = String(line?.maTuongDuong || '').trim();
+  if (!ma) return pass();
+  if (/^K\d+\.\d{4}$/.test(ma)) {
+    return fail('WARNING', `${rule.ALERT_MESSAGE} MA_DICH_VU [${ma}]`, 'MA_DICH_VU');
+  }
+  return pass();
+};
+
 const OPERATOR_HANDLERS = {
   CHECK_ICD_INDICATION: checkIcdIndication,
   CHECK_ICD_CONTRAINDICATION: checkIcdContraindication,
@@ -1749,6 +1818,7 @@ const OPERATOR_HANDLERS = {
   CHECK_CATALOG_NAME_MATCH: checkCatalogNameMatch,
   CHECK_CATALOG_PRICE_CONFIG: checkCatalogPriceConfig,
   CHECK_CATALOG_DECISION: checkCatalogDecision,
+  CHECK_LEGACY_BED_SERVICE_FORMAT: checkLegacyBedServiceFormat,
 };
 
 const evaluateRule = ({ rule, line, claim, config }) => {

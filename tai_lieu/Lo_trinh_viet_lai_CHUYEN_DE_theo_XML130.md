@@ -81,6 +81,20 @@ Thay mã `03.xxxx…` bằng mã M05 đã thống nhất tại BV; phần `TEN_D
 - `scripts/chuyen_de_batch_manifest.json` — trạng thái từng lô.
 - `CHUYEN_DE_XML130_CONVERSION_VERSION` trong `luat_giam_dinh_chuyen_de_hardcoded.jsx` — đồng bộ phiên bản khi bắt đầu ghi nhận lô hoàn tất trong mã.
 
+## 7. Thống nhất quy trình “thực chiến” (từng bước)
+
+Sau khi có `DIEU_KIEN` XML130 (không placeholder), không coi là đã an toàn thực chiến chỉ vì `TRANG_THAI=ON` trong seed. Làm lần lượt:
+
+1. **Điều kiện XML130 thật** — không dùng `CHUYEN_DE_XML130_CHO_XU_LY_SAU`; engine mới có thể phát cảnh báo trên XML có `MA_LK`.
+2. **Seed ON** — trong `luat_giam_dinh_chuyen_de_hardcoded.jsx` là `TRANG_THAI: 'ON'` (trừ khi cố ý tắt có ghi chú).
+3. **ON/OFF nội bộ** — nếu mã nằm `DANH_SACH_MAU_QUY_TAC_MAC_DINH_OFF` trong `quy_tac_on_off_noi_bo.jsx`, mặc định app vẫn OFF; chỉ triển khai khi BV bật ON có kiểm soát.
+4. **Kiểm thử vàng** — chạy trên XML mẫu / ca huấn luyện; ghi `golden_test_refs` trong manifest khi có.
+5. **Ký duyệt** — thêm `CHUYEN_DE-xxx` vào `scripts/chuyen_de_thuc_chien_manifest.json` (`approved_rule_ids`, sắp xếp tăng dần), rồi chạy `npm run qa:chuyen-de-thuc-chien`.
+
+Lệnh: `npm run chuyen-de:sync-eligible-scan` (inventory), `npm run qa:chuyen-de-placeholder`, `npm run qa:chuyen-de-thuc-chien`.
+
+Sau mỗi lô merge (đã bỏ placeholder, đã sync registry): **`npm run chuyen-de:rollout-verify`** — chạy đồng bộ registry, QA CHUYEN_DE, **lint**, audit lõi (fixture / ON-OFF / schema / claim smoke), chỉ mục huấn luyện AI và **`tai_lieu:danh-muc-off`**. Audit trạng thái đầy đủ (console dài): `npm run qa:rule-trang-thai`.
+
 ---
 
 *Các phiên làm việc sau: mở một PR theo đúng một lô; cập nhật manifest và phiên bản; chạy kiểm thử giám định trên mẫu XML trước khi merge.*

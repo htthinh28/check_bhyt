@@ -1,5 +1,5 @@
 /**
- * MODULE: QUẢN LÝ DANH MỤC TỔNG THỂ (MASTER DATA TABS)
+ * MODULE: QUẢN LÝ DANH MỤC TỔNG THỂ (MASTER DATA — sidebar trái)
  * Nâng cấp (Bản 2.0 - Fullscreen & Chunking Storage):
  * 1. FIX LỖI MẤT DỮ LIỆU: Vượt rào giới hạn 5MB của Web Browser bằng thuật toán Chunking (Băm nhỏ mảng).
  * 2. FIX AUTO-SAVE: Bổ sung cờ isReadyToSave để tránh ghi đè mảng rỗng khi F5.
@@ -9,7 +9,7 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useEffect, useRef, useState } from 'react';
-import { Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as XLSX from 'xlsx';
 import { CD } from '../tien_ich/chu_de_giao_dien';
@@ -37,12 +37,18 @@ const DANH_SACH_TAB = [
   { id: 'DANH_MUC_KHOA_LS_M01', ten: 'Mẫu 01 (Khoa/Giường)' },
   { id: 'DANH_MUC_NHAN_SU', ten: 'Mẫu 02 (Nhân sự)' },
   { id: 'DANH_MUC_MAPPING_NGUOI_HANH_NGHE', ten: 'Mapping người hành nghề' },
+  { id: 'DVKT_PHAMVI_MAPPING', ten: 'Mapping phạm vi – chức danh DVKT' },
+  { id: 'DVKT_EQUIP_DVKT_MAP', ten: 'Mapping máy thiết bị ↔ prefix DVKT' },
   { id: 'DANH_MUC_THUOC_MAU_M03', ten: 'Mẫu 03 (Thuốc/Máu)' },
+  { id: 'DANH_MUC_TUONG_TAC_THUOC', ten: 'Tương tác thuốc (BV)' },
   { id: 'DANH_MUC_VAT_TU_M04', ten: 'Mẫu 04 (Vật tư)' },
   { id: 'DANH_MUC_DVKT_M05', ten: 'Mẫu 05 (DVKT)' },
+  { id: 'DANH_MUC_GIUONG_BAN_KHAM_BV', ten: 'Giường & khám (mã BV mới)' },
   { id: 'DANH_MUC_TRANG_THIET_BI_M06', ten: 'Mẫu 06 (Thiết bị)' },
   { id: 'DANH_MUC_HA_TANG', ten: 'Hạ tầng (JCI)' },
 ];
+
+const IDS_TAB_ICD_DAC_BIET = ['DANH_MUC_ICD10', 'DANH_MUC_ICD10_CAP_CUU', 'DANH_MUC_ICD10_KE_DON_TREN_30_NGAY'];
 
 const MAU_EXCEL_CHUAN = {
   DANH_MUC_ICD10: ['MÃ BỆNH', 'MÃ BỆNH KHÔNG DẤU', 'DISEASE NAME', 'TÊN BỆNH'],
@@ -52,14 +58,30 @@ const MAU_EXCEL_CHUAN = {
   DANH_MUC_KHOA_LS_M01: ['STT', 'MA_KHOA', 'TEN_KHOA', 'BAN_KHAM', 'GIUONG_PD', 'GIUONG_TK', 'GIUONG_HSTC', 'GIUONG_HSCC', 'TU_NGAY', 'DEN_NGAY', 'MA_CSKCB', 'ID', 'MA_LOAI_KCB', 'LDLK', 'LIEN_KHOA', 'GIUONG_2015'],
   DANH_MUC_NHAN_SU: ['DEN_NGAY', 'STT', 'MA_LOAI_KCB', 'MA_KHOA', 'TEN_KHOA', 'MA_BHXH', 'HO_TEN', 'GIOI_TINH', 'NGAY_SINH', 'SO_CCCD', 'CHUCDANH_NN', 'VI_TRI', 'MACCHN', 'NGAYCAP_CCHN', 'NOICAP_CCHN', 'PHAMVI_CM', 'PHAMVI_CMBS', 'DVKT_KHAC', 'VB_PHANCONG', 'THOIGIAN_DK', 'THOIGIAN_NGAY', 'THOIGIAN_TUAN', 'CSKCB_KHAC', 'CSKCB_CGKT', 'QD_CGKT', 'TU_NGAY', 'MA_DANTOC', 'ID'],
   DANH_MUC_MAPPING_NGUOI_HANH_NGHE: ['STT', 'MA_TUONG_DUONG', 'TEN_DVKT', 'MA_CHUYEN_KHOA', 'PHAMVI_CM_CAN', 'SO_NV_DU_DIEU_KIEN', 'DANH_SACH_NGUOI_THUC_HIEN', 'DANH_SACH_MACCHN', 'DANH_SACH_MA_BHXH', 'TRANG_THAI'],
+  DVKT_PHAMVI_MAPPING: ['PREFIX_DVKT', 'PHAMVI_CM_OK', 'CHUCDANH_NN_OK', 'NHOM_DVKT'],
+  DVKT_EQUIP_DVKT_MAP: ['PREFIX_DVKT', 'MA_MAY_PREFIX', 'GHI_CHU'],
   DANH_MUC_THUOC_MAU_M03: ['STT', 'MA_THUOC', 'TEN_HOAT_CHAT', 'TEN_THUOC', 'DON_VI_TINH', 'HAM_LUONG', 'DUONG_DUNG', 'MA_DUONG_DUNG', 'DANG_BAO_CHE', 'SO_DANG_KY', 'QUY_CACH', 'DON_GIA', 'DON_GIA_TT', 'GIA_BH_TT', 'TT_THAU', 'TYLE_TT_BH', 'LOAI_THUOC', 'LOAI_THAU', 'NHA_SX', 'NUOC_SX', 'NHA_THAU', 'KIEU_THAU', 'GIA_KHOA_KHO', 'GIA_BB_CD', 'PP_CHEBIEN', 'VITRI_YHCT', 'MA_CSKCB_THUOC', 'TU_NGAY', 'DEN_NGAY', 'MA_CSKCB', 'SO_LUONG', 'ID'],
+  DANH_MUC_TUONG_TAC_THUOC: ['id', 'TRANG_THAI', 'MA_TUONG_TAC', 'MA_THUOC_A', 'MA_THUOC_B', 'NOI_DUNG_TUONG_TAC', 'CANH_BAO_HE_THONG', 'DU_LIEU_CAP_DOI_DAY_DU'],
   DANH_MUC_VAT_TU_M04: ['STT', 'MA_VAT_TU', 'NHOM_VAT_TU', 'TEN_VAT_TU', 'MA_HIEU', 'SO_LUU_HANH', 'TINHNANG_KT', 'QUY_CACH', 'DON_VI_TINH', 'DON_GIA', 'GIA_BH_TT', 'TT_THAU', 'TYLE_TT_BH', 'LOAI_THAU', 'NHA_SX', 'NUOC_SX', 'NHA_THAU', 'NHA_PP', 'TU_NGAY', 'DEN_NGAY', 'MA_CSKCB'],
   DANH_MUC_DVKT_M05: ['STT', 'MA_DICH_VU', 'TEN_DICH_VU', 'TEN_DVKT_GIA', 'DON_GIA', 'QUY_TRINH', 'CS_THUCHIEN', 'TINHTRANG_DV', 'MA_GIA', 'TEN_GIA', 'GIA_TT_BHYT', 'MA_PTTT', 'TU_NGAY', 'DEN_NGAY', 'MA_CSKCB', 'PHAN_LOAI_PTTT', 'GHICHU', 'QUYET_DINH'],
+  DANH_MUC_GIUONG_BAN_KHAM_BV: [
+    'STT', 'MA_TUONG_DUONG', 'TEN_DVKT_PHEDUYET', 'TEN_DVKT_GIA', 'PHAN_LOAI_PTTT', 'DON_GIA',
+    'GHICHU', 'QUYET_DINH', 'TUNGAY', 'DENNGAY', 'CSKCB_CGKT', 'CSKCB_CLS', 'ID',
+  ],
   DANH_MUC_TRANG_THIET_BI_M06: ['STT', 'TEN_TB', 'KY_HIEU', 'CONGTY_SX', 'NUOC_SX', 'NAM_SX', 'NAM_SD', 'MA_MAY', 'SO_LUU_HANH', 'HD_TU', 'HD_DEN', 'TU_NGAY', 'DEN_NGAY', 'MA_CSKCB', 'ID'],
   DANH_MUC_HA_TANG: ['MA_TIEU_CHI', 'TEN_TIEU_CHI', 'TRANG_THAI', 'GHI_CHU']
 };
 
-const SO_DONG_MOI_TRANG_DANH_MUC = 160;
+/** Mặc định mỗi trang (tránh render cùng lúc quá nhiều ô TextInput). Có thể đổi trên UI. */
+const SO_DONG_MOI_TRANG_MAC_DINH = 160;
+/** Các mức số dòng/trang; -1 = hiển thị toàn bộ dữ liệu hiện có trong một trang (có thể nặng máy với danh mục lớn). */
+const TUY_CHON_SO_DONG_MOT_TRANG = [
+  { label: '160', value: 160 },
+  { label: '320', value: 320 },
+  { label: '500', value: 500 },
+  { label: '1000', value: 1000 },
+  { label: 'Tất cả', value: -1 },
+];
 const DANH_SACH_TAB_DONG_BO = DANH_SACH_TAB.map((tab) => ({
   id: tab.id,
   ten: tab.ten,
@@ -67,12 +89,15 @@ const DANH_SACH_TAB_DONG_BO = DANH_SACH_TAB.map((tab) => ({
   columnsKey: `COLS_${tab.id}`,
 }));
 
-const ManHinhQuanLyDanhMuc = ({ navigation }) => {
+const ManHinhQuanLyDanhMuc = ({ navigation, route }) => {
+  const { width: winW } = useWindowDimensions();
+  const rongSidebar = winW < 420 ? 196 : winW < 768 ? 232 : 292;
   const [danhMucHienTai, setDanhMucHienTai] = useState(DANH_SACH_TAB[0].id); 
   const [columns, setColumns] = useState([]);
   const [data, setData] = useState([]);
   const [newColumnName, setNewColumnName] = useState('');
   const [trangHienTai, setTrangHienTai] = useState(1);
+  const [soDongMotTrang, setSoDongMotTrang] = useState(SO_DONG_MOI_TRANG_MAC_DINH);
 
   const layDoRongCot = (tenCot) => {
     const cot = String(tenCot || '').toUpperCase();
@@ -92,13 +117,17 @@ const ManHinhQuanLyDanhMuc = ({ navigation }) => {
   useEffect(() => { dataRef.current = data; }, [data]);
   useEffect(() => { columnsRef.current = columns; }, [columns]);
   useEffect(() => { danhMucRef.current = danhMucHienTai; }, [danhMucHienTai]);
+  const kichThuocTrangHienThi =
+    soDongMotTrang < 0 ? Math.max(1, data.length || 1) : Math.max(1, soDongMotTrang);
+
   useEffect(() => {
-    const tongTrang = Math.max(1, Math.ceil(data.length / SO_DONG_MOI_TRANG_DANH_MUC));
+    const tongTrang = Math.max(1, Math.ceil(data.length / kichThuocTrangHienThi));
     if (trangHienTai > tongTrang) {
       setTrangHienTai(tongTrang);
     }
-  }, [data.length, trangHienTai]);
+  }, [data.length, trangHienTai, kichThuocTrangHienThi]);
   useEffect(() => { setTrangHienTai(1); }, [danhMucHienTai]);
+  useEffect(() => { setTrangHienTai(1); }, [soDongMotTrang]);
 
   const layKhoaCotDanhMuc = (key) => `COLS_${key}`;
   const dinhDangThoiGianMeta = (value) => {
@@ -161,12 +190,18 @@ const ManHinhQuanLyDanhMuc = ({ navigation }) => {
   useEffect(() => {
     const khoiTao = async () => {
       try {
+        const tabParam = route?.params?.moTab;
+        if (tabParam && DANH_SACH_TAB.some((t) => t.id === tabParam)) {
+          setDanhMucHienTai(tabParam);
+          await AsyncStorage.setItem('TAB_DANG_MO', tabParam);
+          return;
+        }
         const tabLuuTru = await AsyncStorage.getItem('TAB_DANG_MO');
         if (tabLuuTru) setDanhMucHienTai(tabLuuTru);
       } catch (error) { console.error(error); }
     };
     khoiTao();
-  }, []);
+  }, [route?.params?.moTab]);
 
   // 2. N?P D? LI?U T? KHO V?T L?
   useEffect(() => {
@@ -571,10 +606,10 @@ const ManHinhQuanLyDanhMuc = ({ navigation }) => {
     e.target.value = null; 
   };
 
-  const tongSoTrang = Math.max(1, Math.ceil(data.length / SO_DONG_MOI_TRANG_DANH_MUC));
+  const tongSoTrang = Math.max(1, Math.ceil(data.length / kichThuocTrangHienThi));
   const trangDangXem = Math.min(trangHienTai, tongSoTrang);
-  const chiSoBatDau = (trangDangXem - 1) * SO_DONG_MOI_TRANG_DANH_MUC;
-  const chiSoKetThuc = Math.min(data.length, chiSoBatDau + SO_DONG_MOI_TRANG_DANH_MUC);
+  const chiSoBatDau = (trangDangXem - 1) * kichThuocTrangHienThi;
+  const chiSoKetThuc = Math.min(data.length, chiSoBatDau + kichThuocTrangHienThi);
   const duLieuTrang = data.slice(chiSoBatDau, chiSoKetThuc);
 
   return (
@@ -584,34 +619,52 @@ const ManHinhQuanLyDanhMuc = ({ navigation }) => {
           <Text style={styles.chu_nut_header}>⬅ TRỞ VỀ TỔNG QUAN</Text>
         </TouchableOpacity>
         <Text style={styles.chu_tieu_de}>🗄️ QUẢN LÝ DANH MỤC (MASTER DATA)</Text>
-        <View style={{ width: 180 }} />
+        <TouchableOpacity onPress={() => navigation.navigate('MappingNghiepVu')} style={styles.nut_hub_mapping}>
+          <Text style={styles.chu_nut_header}>🔗 MAPPING</Text>
+        </TouchableOpacity>
       </View>
 
-      <View style={styles.khung_chuc_nang}>
-        
-        {/* THANH TAB ĐIỀU HƯỚNG */}
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.khung_tab}>
-          {DANH_SACH_TAB.map(tab => (
-            <TouchableOpacity 
-              key={tab.id} 
-              onPress={() => chuyenTab(tab.id)} 
-              style={[
-                styles.nut_tab, 
-                danhMucHienTai === tab.id && styles.nut_tab_active,
-                ['DANH_MUC_ICD10', 'DANH_MUC_ICD10_CAP_CUU', 'DANH_MUC_ICD10_KE_DON_TREN_30_NGAY'].includes(tab.id) && styles.nut_tab_dac_biet
-              ]}
-            >
-              <Text style={[
-                styles.chu_tab, 
-                danhMucHienTai === tab.id && styles.chu_tab_active,
-                ['DANH_MUC_ICD10', 'DANH_MUC_ICD10_CAP_CUU', 'DANH_MUC_ICD10_KE_DON_TREN_30_NGAY'].includes(tab.id) && styles.chu_tab_dac_biet
-              ]}>
-                {tab.ten}
-              </Text>
-            </TouchableOpacity>
-          ))}
-        </ScrollView>
+      <View style={styles.khung_chinh_dm}>
+        <View style={[styles.sidebar, { width: rongSidebar }]}>
+          <Text style={styles.chu_sidebar_tieu_de}>Chọn danh mục</Text>
+          <ScrollView
+            style={styles.sidebar_scroll}
+            contentContainerStyle={styles.sidebar_scroll_content}
+            showsVerticalScrollIndicator
+            keyboardShouldPersistTaps="handled"
+          >
+            {DANH_SACH_TAB.map((tab) => {
+              const laDacBiet = IDS_TAB_ICD_DAC_BIET.includes(tab.id);
+              const dangChon = danhMucHienTai === tab.id;
+              return (
+                <TouchableOpacity
+                  key={tab.id}
+                  onPress={() => chuyenTab(tab.id)}
+                  style={[
+                    styles.muc_sidebar,
+                    dangChon && styles.muc_sidebar_active,
+                    laDacBiet && !dangChon && styles.muc_sidebar_dac_biet,
+                    laDacBiet && dangChon && styles.muc_sidebar_active_dac_biet,
+                  ]}
+                  activeOpacity={0.85}
+                >
+                  <Text
+                    style={[
+                      styles.chu_muc_sidebar,
+                      dangChon && styles.chu_muc_sidebar_active,
+                      laDacBiet && !dangChon && styles.chu_muc_sidebar_dac_biet,
+                    ]}
+                    numberOfLines={4}
+                  >
+                    {tab.ten}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </ScrollView>
+        </View>
 
+        <View style={styles.khoi_noi_dung_phai}>
         <View style={styles.thanh_cong_cu}>
           <View style={styles.khoi_them_cot}>
             <TextInput style={styles.o_nhap_cot} placeholder="Tên cột (VD: MA_KHOA)" value={newColumnName} onChangeText={setNewColumnName} outlineStyle="none" />
@@ -675,11 +728,28 @@ const ManHinhQuanLyDanhMuc = ({ navigation }) => {
         {/* BẢNG DỮ LIỆU ĐỘNG FULLSCREEN */}
         <View style={styles.khung_bang_master}>
           <View style={styles.khung_phan_trang}>
-            <Text style={styles.chu_phan_trang}>
-              {data.length > 0
-                ? `Hiển thị ${chiSoBatDau + 1}-${chiSoKetThuc}/${data.length} dòng | Trang ${trangDangXem}/${tongSoTrang}`
-                : 'Danh mục đang trống'}
-            </Text>
+            <View style={{ flex: 1, minWidth: 200 }}>
+              <Text style={styles.chu_phan_trang}>
+                {data.length > 0
+                  ? `Hiển thị ${chiSoBatDau + 1}-${chiSoKetThuc}/${data.length} dòng | Trang ${trangDangXem}/${tongSoTrang}`
+                  : 'Danh mục đang trống'}
+              </Text>
+              <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.hang_chon_so_dong}>
+                <Text style={styles.nhan_chon_so_dong}>Số dòng/trang:</Text>
+                {TUY_CHON_SO_DONG_MOT_TRANG.map((opt) => {
+                  const active = soDongMotTrang === opt.value;
+                  return (
+                    <TouchableOpacity
+                      key={String(opt.value)}
+                      style={[styles.nut_chon_so_dong, active && styles.nut_chon_so_dong_active]}
+                      onPress={() => setSoDongMotTrang(opt.value)}
+                    >
+                      <Text style={[styles.chu_chon_so_dong, active && styles.chu_chon_so_dong_active]}>{opt.label}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </ScrollView>
+            </View>
             {tongSoTrang > 1 && (
               <View style={styles.nhom_phan_trang}>
                 <TouchableOpacity
@@ -754,6 +824,7 @@ const ManHinhQuanLyDanhMuc = ({ navigation }) => {
           </ScrollView>
         </View>
 
+        </View>
       </View>
     </SafeAreaView>
   );
@@ -784,39 +855,96 @@ const styles = StyleSheet.create({
     borderColor: CD.border.glass_md,
     borderRadius: 14,
   },
+  nut_hub_mapping: {
+    padding: 12,
+    backgroundColor: 'rgba(200, 230, 201, 0.35)',
+    borderWidth: 1,
+    borderColor: '#558B2F',
+    borderRadius: 14,
+    minWidth: 140,
+    alignItems: 'center',
+  },
   chu_nut_header: { color: CD.text.primary, fontWeight: 'bold', fontSize: 20, fontFamily: CD.font.family },
   chu_tieu_de: { fontSize: 26, color: CD.text.primary, fontWeight: 'bold', fontFamily: CD.font.family },
 
-  khung_chuc_nang: { padding: 25, flex: 1 },
-
-  // TABS STYLE
-  khung_tab: { flexDirection: 'row', marginBottom: 25, maxHeight: 65 },
-  nut_tab: {
-    paddingHorizontal: 16,
-    paddingVertical: 10,
-    backgroundColor: CD.bg.glass_card,
-    marginRight: 15,
+  khung_chinh_dm: {
+    flex: 1,
+    flexDirection: 'row',
+    minHeight: 0,
+    minWidth: 0,
+  },
+  sidebar: {
+    alignSelf: 'stretch',
+    flexDirection: 'column',
+    paddingTop: 12,
+    paddingHorizontal: 10,
+    paddingBottom: 8,
+    borderRightWidth: 1,
+    borderRightColor: CD.border.glass_md,
+    backgroundColor: 'rgba(0,0,0,0.22)',
+    ...Platform.select({ web: { boxSizing: 'border-box' } }),
+  },
+  chu_sidebar_tieu_de: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: CD.text.muted,
+    textTransform: 'uppercase',
+    letterSpacing: 0.6,
+    paddingHorizontal: 8,
+    paddingBottom: 10,
+    fontFamily: CD.font.family,
+  },
+  sidebar_scroll: { flex: 1 },
+  sidebar_scroll_content: { paddingBottom: 20 },
+  muc_sidebar: {
+    paddingVertical: 12,
+    paddingHorizontal: 12,
     borderRadius: 10,
-    justifyContent: 'center',
     borderWidth: 1,
     borderColor: CD.border.glass,
+    backgroundColor: CD.bg.glass_card,
+    marginBottom: 6,
   },
-  nut_tab_active: {
-    backgroundColor: CD.brand.mauChinh,
-    borderWidth: 0,
-    ...Platform.select({ web: { backgroundImage: CD.web.gradient_primary, boxShadow: CD.web.shadow_btn } }),
+  muc_sidebar_active: {
+    backgroundColor: '#D81B60',
+    borderColor: '#AD1457',
+    ...Platform.select({ web: { boxShadow: '0 2px 12px rgba(216,27,96,0.45)' } }),
   },
-  // Tab ICD-10 đặc biệt: dùng glass border accent xanh lam
-  nut_tab_dac_biet: {
+  muc_sidebar_dac_biet: {
     borderWidth: 2,
-    borderColor: 'rgba(100,181,246,0.5)',
-    backgroundColor: 'rgba(25,118,210,0.15)',
+    borderColor: 'rgba(100,181,246,0.55)',
+    backgroundColor: 'rgba(25,118,210,0.18)',
   },
-  chu_tab: { fontSize: 20, color: CD.text.secondary, fontWeight: 'bold', fontFamily: CD.font.family },
-  chu_tab_active: { color: CD.text.primary },
-  chu_tab_dac_biet: { color: CD.text.link },
+  muc_sidebar_active_dac_biet: {
+    borderColor: '#F48FB1',
+    backgroundColor: '#C2185B',
+  },
+  chu_muc_sidebar: {
+    fontSize: 16,
+    lineHeight: 22,
+    color: CD.text.secondary,
+    fontWeight: '700',
+    fontFamily: CD.font.family,
+  },
+  chu_muc_sidebar_active: {
+    color: '#FFFFFF',
+  },
+  chu_muc_sidebar_dac_biet: {
+    color: CD.text.link,
+  },
+  khoi_noi_dung_phai: {
+    flex: 1,
+    minWidth: 0,
+    minHeight: 0,
+    flexDirection: 'column',
+    padding: 16,
+    paddingTop: 20,
+    ...Platform.select({
+      web: { paddingLeft: 20, paddingRight: 24 },
+    }),
+  },
 
-  thanh_cong_cu: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 25, flexWrap: 'wrap', alignItems: 'center' },
+  thanh_cong_cu: { flexDirection: 'row', justifyContent: 'space-between', marginBottom: 18, flexWrap: 'wrap', alignItems: 'center' },
   khoi_them_cot: { flexDirection: 'row', alignItems: 'center' },
   o_nhap_cot: {
     backgroundColor: CD.bg.glass_input,
@@ -938,6 +1066,43 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: '800',
     fontFamily: CD.font.family,
+  },
+  hang_chon_so_dong: {
+    marginTop: 8,
+    maxHeight: 44,
+    flexGrow: 0,
+  },
+  nhan_chon_so_dong: {
+    color: CD.text.secondary,
+    fontSize: 14,
+    fontWeight: '600',
+    marginRight: 8,
+    alignSelf: 'center',
+    fontFamily: CD.font.family,
+  },
+  nut_chon_so_dong: {
+    marginRight: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: CD.border.glass_md,
+    backgroundColor: CD.bg.glass_input,
+    alignSelf: 'center',
+    ...Platform.select({ web: { cursor: CD.web.cursor_pointer } }),
+  },
+  nut_chon_so_dong_active: {
+    backgroundColor: CD.brand.mauPhu,
+    borderColor: CD.brand.mauChinh,
+  },
+  chu_chon_so_dong: {
+    color: CD.text.secondary,
+    fontSize: 13,
+    fontWeight: '700',
+    fontFamily: CD.font.family,
+  },
+  chu_chon_so_dong_active: {
+    color: CD.text.primary,
   },
   scroll_ngang: { flex: 1 },
   bang_chinh: { flex: 1, minWidth: '100%' },

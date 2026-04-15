@@ -139,6 +139,7 @@ const ManHinhThuVien = ({ navigation }) => {
                     <Text style={styles.row_meta} numberOfLines={1}>
                       {it.relPath}
                       {it.nguon === 'markdown' ? ' · từ Markdown' : ''}
+                      {it.nguon === 'docx' ? ' · Word (.docx)' : ''}
                     </Text>
                   </View>
                   <Text style={styles.row_action}>Mở →</Text>

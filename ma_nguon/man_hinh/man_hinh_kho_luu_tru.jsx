@@ -14,10 +14,14 @@
 import React, { useEffect, useState } from 'react'; // BẮT BUỘC CÓ REACT ĐỂ KHÔNG BỊ LỖI WEB
 import { Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as FileSystem from 'expo-file-system';
+import * as Sharing from 'expo-sharing';
 import * as XLSX from 'xlsx';
 
 // --- IMPORT CÁC HÀM TỪ KHO DỮ LIỆU ĐỂ THAY THẾ LÕI CŨ ---
+import * as DocumentPicker from 'expo-document-picker';
 import { layTatCaHoSoTuKho, luuHoSoVaoKho, xoaHoSoKhoiKho } from '../tien_ich/kho_du_lieu';
+import { xuLyFileXML130 } from '../tien_ich/xml_helper';
 import { CD } from '../tien_ich/chu_de_giao_dien';
 
 // --- HÀM HỖ TRỢ HIỂN THỊ HỘP THOẠI TRÊN CẢ WEB & MOBILE ---
@@ -155,6 +159,39 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
   useEffect(() => {
     taiDuLieuKho();
   }, []);
+
+  const handleNhapXmlGoi130VaoKho = async () => {
+    try {
+      const res = await DocumentPicker.getDocumentAsync({
+        type: ['application/xml', 'text/xml', '*/*'],
+        copyToCacheDirectory: true,
+      });
+      if (res.canceled) return;
+      const asset = res.assets?.[0];
+      const uri = asset?.uri;
+      if (!uri) {
+        safeAlert('Lỗi', 'Không đọc được đường dẫn file.');
+        return;
+      }
+      let raw = '';
+      if (Platform.OS === 'web') {
+        const r = await fetch(uri);
+        raw = await r.text();
+      } else {
+        raw = await FileSystem.readAsStringAsync(uri);
+      }
+      const ds = xuLyFileXML130(raw);
+      if (!Array.isArray(ds) || ds.length === 0) {
+        safeAlert('Lỗi', 'Không trích được hồ sơ. Cần file XML đúng định dạng gói 130 (QĐ 3176).');
+        return;
+      }
+      await luuHoSoVaoKho(ds, 'Import XML gói 130');
+      await taiDuLieuKho();
+      safeAlert('Thành công', `Đã nhập ${ds.length} hồ sơ vào kho.`);
+    } catch (e) {
+      safeAlert('Lỗi', e?.message || 'Không nhập được XML.');
+    }
+  };
 
   const taiDuLieuKho = async () => {
     try {
@@ -657,6 +694,9 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
                 onChangeText={setTuKhoa}
                 outlineStyle="none"
               />
+              <TouchableOpacity onPress={handleNhapXmlGoi130VaoKho} style={[styles.nut_quay_lai, { backgroundColor: 'rgba(106,27,154,0.35)', borderColor: 'rgba(186,104,200,0.5)' }]}>
+                <Text style={styles.chu_nut_header}>📥 Import XML 130</Text>
+              </TouchableOpacity>
               <Text style={styles.thong_ke}>Tổng cộng: {danhSachKho.length} hồ sơ</Text>
             </View>
 
@@ -753,7 +793,7 @@ const styles = StyleSheet.create({
 
   // ── LAYOUT ──
   khung_chinh: { flex: 1, padding: 20 },
-  thanh_cong_cu: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 },
+  thanh_cong_cu: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16, flexWrap: 'wrap', gap: 12 },
 
   // ── TÌM KIẾM ──
   o_tim_kiem: {

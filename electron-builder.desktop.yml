@@ -10,6 +10,11 @@ copyright: Copyright © Phuong Chau
 directories:
   output: ../release-desktop
 
+# dist nằm ngoài app.asar để có thể vá bằng file CDSS-BHYT-CapNhat-Offline.exe (pkg)
+asar: true
+asarUnpack:
+  - "dist/**/*"
+
 files:
   - dist/**/*
   - electron-main.cjs

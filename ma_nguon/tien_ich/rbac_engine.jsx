@@ -72,6 +72,7 @@ const DEFAULT_RESOURCES = [
   { id: 'RES_DOC_XML', name: 'Đọc XML', moduleId: 'MOD_XML_GIAM_DINH', route: 'DocXML', actions: ['VIEW', 'CREATE', 'UPDATE', 'DELETE', 'EXPORT'] },
   { id: 'RES_CHUYEN_MON', name: 'Quản lý chuyên môn', moduleId: 'MOD_CHUYEN_MON', route: 'QuanLyChuyenMon', actions: ['VIEW', 'CREATE', 'UPDATE', 'DELETE', 'EXPORT'] },
   { id: 'RES_DANH_MUC_NOI_BO', name: 'Danh mục nội bộ', moduleId: 'MOD_DANH_MUC', route: 'QuanLyDanhMuc', actions: ['VIEW', 'CREATE', 'UPDATE', 'DELETE', 'EXPORT'] },
+  { id: 'RES_MAPPING_DM', name: 'Hub mapping nghiệp vụ (DM)', moduleId: 'MOD_MAPPING_DM', route: 'MappingNghiepVu', actions: ['VIEW'] },
   { id: 'RES_DANH_MUC_BYT', name: 'Danh mục Bộ Y tế', moduleId: 'MOD_DANH_MUC_BYT', route: 'DanhMucBYTMain', actions: ['VIEW', 'CREATE', 'UPDATE', 'DELETE', 'EXPORT'] },
   { id: 'RES_LUAT_BHYT', name: 'Quản lý luật BHYT', moduleId: 'MOD_QUAN_LY_LUAT', route: 'QuanLyLuat', actions: ['VIEW', 'CREATE', 'UPDATE', 'DELETE', 'EXPORT'] },
   { id: 'RES_QUY_TAC', name: 'Quản lý quy tắc on/off', moduleId: 'MOD_QUY_TAC_ON_OFF', route: 'QuanLyQuyTacOnOff', actions: ['VIEW', 'UPDATE'] },
@@ -253,6 +254,15 @@ const taoMatrixMacDinh = (roles, resources) => {
         if (!has(r, 'VIEW')) set(r, 'VIEW', true);
       });
     }
+  });
+
+  resources.forEach((res) => {
+    if (res.id !== 'RES_MAPPING_DM') return;
+    roles.forEach((role) => {
+      const dmView = Boolean(matrix[role.id]?.RES_DANH_MUC_NOI_BO?.VIEW);
+      matrix[role.id] = matrix[role.id] || {};
+      matrix[role.id].RES_MAPPING_DM = { ...(matrix[role.id].RES_MAPPING_DM || {}), VIEW: dmView };
+    });
   });
 
   return matrix;

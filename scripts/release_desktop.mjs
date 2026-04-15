@@ -98,6 +98,7 @@ const main = () => {
     ? path.resolve(process.env.CDSS_RELEASE_OUT)
     : path.join(os.tmpdir(), 'cdss-bhyt-release-desktop');
   console.log(`\n[release-desktop] Xong. Phiên bản: ${next}. Artifact: ${outGoiY}`);
+  console.log('[release-desktop] Gợi ý cập nhật offline (delta dist/): npm run desktop:pack:offline-delta');
 };
 
 main();

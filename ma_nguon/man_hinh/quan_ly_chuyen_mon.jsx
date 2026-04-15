@@ -8,12 +8,14 @@ import { CD } from '../tien_ich/chu_de_giao_dien';
 import HuongDanBoYTe from '../chuyen_mon/huong_dan_byt/huong_dan_byt';
 import PhacDoBenhVien from '../chuyen_mon/phac_do_benh_vien/phac_do_benhvien';
 import QuyTrinhMauBYT from '../chuyen_mon/quytrinhkt_byt/quytrinh_mau_byt';
+import TuongTacThuocChuyenMon from '../chuyen_mon/tuong_tac_thuoc/tuong_tac_thuoc';
 
-// Định nghĩa 3 phân hệ chuyên môn
+// Định nghĩa phân hệ chuyên môn
 const PHAN_HE_CHUYEN_MON = [
   { id: 'PHAC_DO_BV', ten: '🏥 PHÁC ĐỒ PHƯƠNG CHÂU' },
   { id: 'HUONG_DAN_BYT', ten: '📖 HƯỚNG DẪN BỘ Y TẾ' },
-  { id: 'QUY_TRINH_KT', ten: '⚙️ QUY TRÌNH KỸ THUẬT' }
+  { id: 'QUY_TRINH_KT', ten: '⚙️ QUY TRÌNH KỸ THUẬT' },
+  { id: 'TUONG_TAC_THUOC', ten: '💊 TƯƠNG TÁC THUỐC' },
 ];
 
 const QuanLyChuyenMon = ({ navigation }) => {
@@ -73,6 +75,7 @@ const QuanLyChuyenMon = ({ navigation }) => {
         {tabHienTai === 'PHAC_DO_BV' && <PhacDoBenhVien />}
         {tabHienTai === 'HUONG_DAN_BYT' && <HuongDanBoYTe />}
         {tabHienTai === 'QUY_TRINH_KT' && <QuyTrinhMauBYT />}
+        {tabHienTai === 'TUONG_TAC_THUOC' && <TuongTacThuocChuyenMon />}
       </View>
     </SafeAreaView>
   );

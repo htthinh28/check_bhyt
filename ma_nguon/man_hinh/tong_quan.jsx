@@ -27,6 +27,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as XLSX from 'xlsx';
 import { auditClaimsBangPythonService } from '../dich_vu/python_service_api';
+import ChanTrangUngDung from '../thanh_phan/chan_trang_ung_dung';
 import KhungTroLyTriThucChat from '../thanh_phan/khung_tro_ly_tri_thuc_chat';
 import { BoChonChuDe, CD } from '../tien_ich/chu_de_giao_dien';
 import {
@@ -436,6 +437,7 @@ const ManHinhTongQuan = ({ navigation }) => {
     { id: 'MOD_TRO_LY_TRI_THUC', route: 'TroLyTriThuc', ten: '🤖 TRỢ LÝ TRI THỨC (RAG)' },
     { id: 'MOD_TRI_THUC_GD', route: 'TriThucTuGiamDinh', ten: '🧠 TRI THỨC TỪ GIÁM ĐỊNH' },
     { id: 'MOD_DANH_MUC', route: 'QuanLyDanhMuc', ten: '📋 DM NỘI BỘ' },
+    { id: 'MOD_MAPPING_DM', route: 'MappingNghiepVu', ten: '🔗 MAPPING DM' },
     { id: 'MOD_DANH_MUC_BYT', route: 'DanhMucBYTMain', ten: '🏥 DM BỘ Y TẾ' },
     { id: 'MOD_QUAN_LY_LUAT', route: 'QuanLyLuat', ten: '⚙️ QUẢN LÝ LUẬT' },
     { id: 'MOD_QUY_TAC_ON_OFF', route: 'QuanLyQuyTacOnOff', ten: '🎚 QUY TẮC ON/OFF' },
@@ -1018,6 +1020,7 @@ const ManHinhTongQuan = ({ navigation }) => {
     MOD_TRO_LY_TRI_THUC: { icon: '🤖', mau: '#00695C', mauNhat: '#E0F2F1' },
     MOD_TRI_THUC_GD: { icon: '🧩', mau: '#4527A0', mauNhat: '#EDE7F6' },
     MOD_DANH_MUC: { icon: '📋', mau: '#558B2F', mauNhat: '#F1F8E9' },
+    MOD_MAPPING_DM: { icon: '🔗', mau: '#558B2F', mauNhat: '#E8F5E9' },
     MOD_DANH_MUC_BYT: { icon: '🏥', mau: '#0277BD', mauNhat: '#E1F5FE' },
     MOD_QUAN_LY_LUAT: { icon: '⚙️', mau: '#8E24AA', mauNhat: '#F3E5F5' },
     MOD_QUY_TAC_ON_OFF: { icon: '🎚️', mau: '#AD1457', mauNhat: '#FCE4EC' },
@@ -1514,7 +1517,9 @@ const ManHinhTongQuan = ({ navigation }) => {
         </View>
 
           {/* ── 6. CHỦ ĐỀ GIAO DIỆN ── */}
-          <BoChonChuDe style={{ margin: 16, marginBottom: 32 }} />
+          <BoChonChuDe style={{ margin: 16, marginBottom: 16 }} />
+
+          <ChanTrangUngDung style={{ marginBottom: 28 }} />
 
         </ScrollView>
       </View>

@@ -1,10 +1,40 @@
 {
-  "generatedAt": "2026-04-11T12:59:56.219Z",
+  "generatedAt": "2026-04-15T03:01:13.279Z",
   "items": [
+    {
+      "id": "txt:_extract_cv266/PL1_plain.txt",
+      "relPath": "_extract_cv266/PL1_plain.txt",
+      "title": "PL1 plain",
+      "nguon": "text"
+    },
+    {
+      "id": "txt:_extract_cv266/PL2_plain.txt",
+      "relPath": "_extract_cv266/PL2_plain.txt",
+      "title": "PL2 plain",
+      "nguon": "text"
+    },
+    {
+      "id": "txt:_extract_hop_dong_phuong_chau_2026/Hop_dong_plain.txt",
+      "relPath": "_extract_hop_dong_phuong_chau_2026/Hop_dong_plain.txt",
+      "title": "Hop dong plain",
+      "nguon": "text"
+    },
+    {
+      "id": "txt:_extract_luan_van_BHYT_thinh/luan_van_full.txt",
+      "relPath": "_extract_luan_van_BHYT_thinh/luan_van_full.txt",
+      "title": "luan van full",
+      "nguon": "text"
+    },
     {
       "id": "md:Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md",
       "relPath": "Bai_tap_phat_trien_ky_nang_giam_dinh_AI.html",
       "title": "Bài tập phát triển kỹ năng giám định cho AI",
+      "nguon": "markdown"
+    },
+    {
+      "id": "md:Ban_ghi_kiem_thu_CHUYEN_DE_XML130_20260413.md",
+      "relPath": "Ban_ghi_kiem_thu_CHUYEN_DE_XML130_20260413.html",
+      "title": "Bản ghi kiểm thử — CHUYEN_DE XML130 (batch 39–40)",
       "nguon": "markdown"
     },
     {
@@ -30,6 +60,12 @@
       "relPath": "Bang_neo_phien_huan_luyen_vtyt_va_engine.html",
       "title": "Bảng neo — phiên huấn luyện VTYT ↔ engine (repo)",
       "nguon": "markdown"
+    },
+    {
+      "id": "txt:Bao_cao_thuc_trang_quy_tac_he_thong.txt",
+      "relPath": "Bao_cao_thuc_trang_quy_tac_he_thong.txt",
+      "title": "Bao cao thuc trang quy tac he thong",
+      "nguon": "text"
     },
     {
       "id": "md:Bat_dau_test_10_ca_chi_tiet.md",
@@ -242,15 +278,45 @@
       "nguon": "markdown"
     },
     {
+      "id": "docx:Dac_ta_he_thong_CDSS_BHYT_20260405.docx",
+      "relPath": "Dac_ta_he_thong_CDSS_BHYT_20260405.docx",
+      "title": "ĐẶC TẢ HỆ THỐNG CDSS BHYT (Word)",
+      "nguon": "docx"
+    },
+    {
       "id": "md:Dac_ta_he_thong_CDSS_BHYT_20260405.md",
       "relPath": "Dac_ta_he_thong_CDSS_BHYT_20260405.html",
       "title": "ĐẶC TẢ HỆ THỐNG CDSS BHYT",
       "nguon": "markdown"
     },
     {
+      "id": "txt:Danh_muc_quy_tac_OFF_va_Placeholder.txt",
+      "relPath": "Danh_muc_quy_tac_OFF_va_Placeholder.txt",
+      "title": "Danh muc quy tac OFF va Placeholder",
+      "nguon": "text"
+    },
+    {
       "id": "md:Danh_sach_10_ca_test_va_du_lieu_chi_tiet.md",
       "relPath": "Danh_sach_10_ca_test_va_du_lieu_chi_tiet.html",
       "title": "DANH SÁCH 10 CA TEST & DỮ LIỆU CHI TIẾT",
+      "nguon": "markdown"
+    },
+    {
+      "id": "txt:DANH_SACH_DUONG_DAN_TRUY_CAP.txt",
+      "relPath": "DANH_SACH_DUONG_DAN_TRUY_CAP.txt",
+      "title": "DANH SACH DUONG DAN TRUY CAP",
+      "nguon": "text"
+    },
+    {
+      "id": "docx:Giao_ban_ket_noi_Python_service_CDSS.docx",
+      "relPath": "Giao_ban_ket_noi_Python_service_CDSS.docx",
+      "title": "Giao ban — Kết nối Python service (CDSS BHYT) (Word)",
+      "nguon": "docx"
+    },
+    {
+      "id": "md:Giao_ban_ket_noi_Python_service_CDSS.md",
+      "relPath": "Giao_ban_ket_noi_Python_service_CDSS.html",
+      "title": "Giao ban — Kết nối Python service (CDSS BHYT)",
       "nguon": "markdown"
     },
     {
@@ -308,6 +374,12 @@
       "nguon": "markdown"
     },
     {
+      "id": "md:HUONG_DAN_AI_CHAY_KIEM_THU.md",
+      "relPath": "HUONG_DAN_AI_CHAY_KIEM_THU.html",
+      "title": "Hướng dẫn AI / kỹ thuật viên — chạy kiểm thử repo CDSS BHYT",
+      "nguon": "markdown"
+    },
+    {
       "id": "md:Huong_dan_chay_test_AI_chi_tiet.md",
       "relPath": "Huong_dan_chay_test_AI_chi_tiet.html",
       "title": "HƯỚNG DẪN CHI TIẾT: CHẠY TEST AI GIÁM ĐỊNH BHYT",
@@ -354,6 +426,18 @@
       "relPath": "HUONG_DAN_LAM_VIEC_ONLINE_GITHUB.html",
       "title": "🌐 Hướng Dẫn Làm Việc Nhóm Online với GitHub",
       "nguon": "markdown"
+    },
+    {
+      "id": "txt:HUONG_DAN_NANG_CAP_OFFLINE.txt",
+      "relPath": "HUONG_DAN_NANG_CAP_OFFLINE.txt",
+      "title": "HUONG DAN NANG CAP OFFLINE",
+      "nguon": "text"
+    },
+    {
+      "id": "docx:Huong_dan_su_dung_CDSS_BHYT_20260405.docx",
+      "relPath": "Huong_dan_su_dung_CDSS_BHYT_20260405.docx",
+      "title": "HƯỚNG DẪN SỬ DỤNG CHI TIẾT CDSS BHYT (Word)",
+      "nguon": "docx"
     },
     {
       "id": "md:Huong_dan_su_dung_CDSS_BHYT_20260405.md",
@@ -414,6 +498,12 @@
       "relPath": "Phien_lam_viec_chung_Cursor_va_OpenClaw.html",
       "title": "Phiên làm việc chung: Cursor AI + OpenClaw (cùng một nhiệm vụ)",
       "nguon": "markdown"
+    },
+    {
+      "id": "txt:Phu_luc_QD_CLVT_BVPCST_2025_plain.txt",
+      "relPath": "Phu_luc_QD_CLVT_BVPCST_2025_plain.txt",
+      "title": "Phu luc QD CLVT BVPCST 2025 plain",
+      "nguon": "text"
     },
     {
       "id": "md:Phuong_an_trien_khai_Phac_do_Chuyen_mon_CLS_kiem_soat_chuoi.md",
@@ -641,6 +731,12 @@
       "id": "md:The_tri_thuc_quy_dinh_CLVT_BVPCST_2025_giam_dinh_AI.md",
       "relPath": "The_tri_thuc_quy_dinh_CLVT_BVPCST_2025_giam_dinh_AI.html",
       "title": "THẺ TRI THỨC: QUY ĐỊNH CHỤP CẮT LỚP VI TÍNH (CLVT) — BV QUỐC TẾ PHƯƠNG CHÂU SÓC TRĂNG (2025) — PHỤC VỤ GIÁM ĐỊNH / AI",
+      "nguon": "markdown"
+    },
+    {
+      "id": "md:The_tri_thuc_tuong_tac_thuoc_XML2_AI.md",
+      "relPath": "The_tri_thuc_tuong_tac_thuoc_XML2_AI.html",
+      "title": "THẺ TRI THỨC: TƯƠNG TÁC THUỐC (XML2 — CÙNG ĐỢT, ĐỒNG THỜI A VÀ B)",
       "nguon": "markdown"
     },
     {

@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { Platform } from 'react-native';
+import Constants from 'expo-constants';
+import { AppState, Platform } from 'react-native';
 import {
   auditClaimsBangPythonService,
   healthCheckPythonService,
@@ -157,7 +158,92 @@ let trangThaiPythonGanNhat = null;
 
 export const layTrangThaiPythonGanNhat = () => trangThaiPythonGanNhat;
 
+const layExtraPythonService = () => (
+  Constants.expoConfig?.extra
+  || Constants.manifest2?.extra
+  || Constants.manifest?.extra
+  || {}
+);
+
+/** `expo.extra.pythonService.enabled !== false` — mặc định bật. */
+export const laPythonServiceBatTrongCauHinh = () => layExtraPythonService()?.pythonService?.enabled !== false;
+
+let thoiDiemKetNoiPythonGanNhat = 0;
+
+const coTheThuKetNoiPythonLaiNgay = (debounceMs = 5000) => {
+  const now = Date.now();
+  if (now - thoiDiemKetNoiPythonGanNhat < debounceMs) return false;
+  thoiDiemKetNoiPythonGanNhat = now;
+  return true;
+};
+
 const hoan = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+/**
+ * Gọi một lần sau khi ứng dụng khởi động (toàn cục). Không phụ thuộc internet:
+ * Python thường là localhost/LAN — vẫn kiểm tra được khi "offline" với mạng ngoài.
+ * Tôn trọng `expo.extra.pythonService.enabled === false`.
+ */
+export const kichHoatKetNoiPythonSauKhoiDongUngDung = async (options = {}) => {
+  if (!laPythonServiceBatTrongCauHinh()) {
+    return {
+      ok: false,
+      skipped: true,
+      trangThai: TRANG_THAI_PYTHON.KHONG_KHA_DUNG,
+      chiTiet: 'Python service đã tắt trong cấu hình (expo.extra.pythonService.enabled = false).',
+      baseUrl: pythonServiceConfig().baseUrl || '',
+      soLanThu: 0,
+    };
+  }
+  thoiDiemKetNoiPythonGanNhat = Date.now();
+  return ketNoiPythonServiceLucKhoiDong({
+    maxAttempts: 4,
+    delaysMs: [0, 400, 1200, 2800],
+    ...options,
+  });
+};
+
+/**
+ * Đăng ký làm mới kết nối khi:
+ * - App chuyển lại foreground (offline/online đều thử — LAN/local vẫn chạy).
+ * - Web: sự kiện `window.online` (mạng ngoài trở lại — hữu ích khi baseUrl là IP LAN).
+ * Trả về hàm hủy đăng ký.
+ */
+export const dangKyTuDongKetNoiLaiPythonKhiMangHoacPhien = () => {
+  if (!laPythonServiceBatTrongCauHinh()) {
+    return () => {};
+  }
+
+  const thuLai = async () => {
+    if (!coTheThuKetNoiPythonLaiNgay(6000)) return;
+    await ketNoiPythonServiceLucKhoiDong({
+      maxAttempts: 3,
+      delaysMs: [0, 500, 1600],
+    }).catch(() => {});
+  };
+
+  const sub = AppState.addEventListener('change', (next) => {
+    if (next === 'active') thuLai();
+  });
+
+  const unsubs = [() => sub.remove()];
+
+  if (Platform.OS === 'web' && typeof window !== 'undefined') {
+    const onOnline = () => thuLai();
+    window.addEventListener('online', onOnline);
+    unsubs.push(() => window.removeEventListener('online', onOnline));
+  }
+
+  return () => {
+    unsubs.forEach((u) => {
+      try {
+        u();
+      } catch {
+        /* ignore */
+      }
+    });
+  };
+};
 
 /**
  * Thử kết nối Python nhiều lần (lần 1 ngay; các lần sau chờ thêm để service cold-start / mạng ổn định).

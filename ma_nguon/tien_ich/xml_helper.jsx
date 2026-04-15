@@ -26,6 +26,64 @@ const chuanHoaGiaTriTheoTruong = (fieldName, value) => {
   }
   return cleaned;
 };
+
+const IS_EMPTY_GIA_TRI = (value) => value === null || value === undefined || String(value).trim() === '';
+
+/**
+ * Đọc một node bản ghi XML (TONG_HOP, CHI_TIET_*...):
+ * - Lấy cả thuộc tính trên thẻ (một số HIS ghi MA_LK="..." thay vì thẻ con).
+ * - Nếu thẻ con chỉ chứa text/CDATA → gán trực tiếp.
+ * - Nếu thẻ con còn chứa thẻ con (nhóm lồng 1 cấp) → làm phẳng vào cùng object (tránh mất MA_* khi bọc trong THONG_TIN/ROW).
+ */
+const layCacNodeConElement = (element) => {
+  const out = [];
+  const ch = element?.childNodes || [];
+  for (let i = 0; i < ch.length; i++) {
+    if (ch[i]?.nodeType === 1) out.push(ch[i]);
+  }
+  return out;
+};
+
+const gopTruongNeuChuaCoHoacRong = (obj, key, rawValue) => {
+  if (!key) return;
+  const v = chuanHoaGiaTriTheoTruong(key, rawValue);
+  if (obj[key] === undefined) {
+    obj[key] = v;
+    return;
+  }
+  if (IS_EMPTY_GIA_TRI(obj[key]) && !IS_EMPTY_GIA_TRI(v)) obj[key] = v;
+};
+
+const flattenXmlRecordElement = (element) => {
+  const obj = {};
+  if (!element || element.nodeType !== 1) return obj;
+
+  const attrs = element.attributes;
+  if (attrs?.length) {
+    for (let i = 0; i < attrs.length; i++) {
+      const a = attrs[i];
+      gopTruongNeuChuaCoHoacRong(obj, layTenTruongKhongNamespace(a.name), a.value);
+    }
+  }
+
+  const conLaElement = layCacNodeConElement(element);
+  for (let i = 0; i < conLaElement.length; i++) {
+    const node = conLaElement[i];
+    const key = layTenTruongKhongNamespace(node.nodeName);
+    if (!key) continue;
+    const chau = layCacNodeConElement(node);
+    if (chau.length === 0) {
+      gopTruongNeuChuaCoHoacRong(obj, key, node.textContent);
+    } else {
+      const nested = flattenXmlRecordElement(node);
+      Object.keys(nested).forEach((nk) => {
+        gopTruongNeuChuaCoHoacRong(obj, nk, nested[nk]);
+      });
+    }
+  }
+
+  return obj;
+};
 const boTienToNamespace = (name) => String(name || '').split(':').pop();
 const layTenTruongKhongNamespace = (name) => lamSachTenTruong(boTienToNamespace(name));
 const chuanHoaTenTag = (name) =>
@@ -148,7 +206,16 @@ const giaiMaBase64 = (base64Str) => {
 
 const getTagValue = (element, tagName) => {
   const node = layNodeConTheoTen(element, tagName);
-  return node ? lamSachGiaTri(node.textContent) : "";
+  if (node) return lamSachGiaTri(node.textContent);
+  const attrs = element?.attributes;
+  const want = chuanHoaTenTag(tagName);
+  if (attrs?.length && want) {
+    for (let i = 0; i < attrs.length; i++) {
+      const a = attrs[i];
+      if (chuanHoaTenTag(a.name) === want) return lamSachGiaTri(a.value);
+    }
+  }
+  return '';
 };
 
 const normalizeLoaiHoSo = (loaiRaw) => {
@@ -232,15 +299,7 @@ const parseRecordsByTag = (xmlDoc, tagName) => {
   if (!xmlDoc || !tagName) return danhSach;
   const items = layDanhSachNodeTheoTen(xmlDoc, tagName);
   for (let i = 0; i < items.length; i++) {
-    const obj = {};
-    const childNodes = items[i].childNodes || [];
-    for (let j = 0; j < childNodes.length; j++) {
-      const node = childNodes[j];
-      if (node?.nodeType !== 1) continue;
-      const key = layTenTruongKhongNamespace(node.nodeName);
-      if (!key) continue;
-      obj[key] = chuanHoaGiaTriTheoTruong(key, node.textContent);
-    }
+    const obj = flattenXmlRecordElement(items[i]);
     if (Object.keys(obj).length > 0) danhSach.push(obj);
   }
   return danhSach;
@@ -303,8 +362,6 @@ const chuanHoaHoSoSauKhiParse = (hoSo = {}) => {
     xml5,
   };
 };
-
-const IS_EMPTY_GIA_TRI = (value) => value === null || value === undefined || String(value).trim() === '';
 
 const parseHoSoTrucTiep = (xmlDoc) => {
   const parseByTags = (tags = []) => {
@@ -374,30 +431,14 @@ const parseInnerXML = (xmlRaw, loaiHoso) => {
   }
 
   for (let i = 0; i < items.length; i++) {
-    let obj = {};
-    const childNodes = items[i].childNodes || [];
-    for (let j = 0; j < childNodes.length; j++) {
-      const node = childNodes[j];
-      if (node?.nodeType !== 1) continue;
-      const key = layTenTruongKhongNamespace(node.nodeName);
-      if (!key) continue;
-      obj[key] = chuanHoaGiaTriTheoTruong(key, node.textContent);
-    }
-    ketQua.push(obj);
+    const row = flattenXmlRecordElement(items[i]);
+    if (Object.keys(row).length > 0) ketQua.push(row);
   }
 
   if (ketQua.length === 0) {
     const root = xmlDoc?.documentElement;
     if (root) {
-      const obj = {};
-      const childNodes = root.childNodes || [];
-      for (let j = 0; j < childNodes.length; j++) {
-        const node = childNodes[j];
-        if (node?.nodeType !== 1) continue;
-        const key = layTenTruongKhongNamespace(node.nodeName);
-        if (!key) continue;
-        obj[key] = chuanHoaGiaTriTheoTruong(key, node.textContent);
-      }
+      const obj = flattenXmlRecordElement(root);
       if (Object.keys(obj).length > 0) ketQua.push(obj);
     }
   }

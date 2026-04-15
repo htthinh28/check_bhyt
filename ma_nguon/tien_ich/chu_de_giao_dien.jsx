@@ -9,14 +9,15 @@
  *   const CD = useChuDe();
  *   style={{ backgroundColor: CD.bg.glass_card, fontFamily: CD.font.family }}
  *
- *   ctx._doiChuDe('BLUE')           // đổi màu: 'PINK'|'BLUE'|'TEAL'|'VIOLET'
- *   ctx._doiCheDoSangToi(true)      // true = sáng, false = tối
+ *   ctx._doiChuDe('BLUE')              // đổi màu: 'PINK'|'BLUE'|'TEAL'|'VIOLET'
+ *   ctx._doiCheDoGiaoDien('TU_DONG')   // 'TU_DONG' | 'SANG' | 'TOI'
+ *   ctx._doiCheDoSangToi(true)         // tương thích: true=Sáng, false=Tối (không dùng Tự động)
  * ============================================================================
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react';
-import { Platform } from 'react-native';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react';
+import { Appearance, Platform, useColorScheme } from 'react-native';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // [1] TOKEN GENERATORS
@@ -229,7 +230,25 @@ export const DANH_SACH_CHU_DE = {
 // ─────────────────────────────────────────────────────────────────────────────
 
 const STORAGE_KEY = 'CDSS_CHU_DE_HIEN_TAI';
-const CHE_DO_KEY  = 'CDSS_CHE_DO_SANG_TOI';   // 'SANG' | 'TOI'
+const CHE_DO_KEY  = 'CDSS_CHE_DO_SANG_TOI';   // 'SANG' | 'TOI' | 'TU_DONG'
+
+/** Giá trị lưu trữ hợp lệ cho chế độ sáng/tối */
+export const CHE_DO_LUU_TRU = Object.freeze({
+  TU_DONG: 'TU_DONG',
+  SANG: 'SANG',
+  TOI: 'TOI',
+});
+
+/**
+ * Suy ra giao diện sáng (true) / tối (false) từ chế độ đã lưu và chủ đề hệ thống.
+ * `schemeHeThong`: 'light' | 'dark' | null/undefined (coi như light)
+ */
+export const suyRaCheDoSang = (cheDoLuuTru, schemeHeThong) => {
+  if (cheDoLuuTru === CHE_DO_LUU_TRU.SANG) return true;
+  if (cheDoLuuTru === CHE_DO_LUU_TRU.TOI) return false;
+  const s = schemeHeThong || 'light';
+  return s !== 'dark';
+};
 
 /** Lấy tên chủ đề đang dùng */
 export const layTenChuDeHienTai = async () => {
@@ -249,24 +268,29 @@ export const luuTenChuDe = async (tenChuDe) => {
     } catch {}
 };
 
-/** Lấy chế độ sáng/tối ('SANG' | 'TOI') */
+/** Lấy chế độ sáng/tối đã lưu ('SANG' | 'TOI' | 'TU_DONG') */
 export const layCheDo = async () => {
     try {
         if (typeof window !== 'undefined' && window.localStorage) {
             const v = window.localStorage.getItem(CHE_DO_KEY);
-            if (v === 'SANG' || v === 'TOI') return v;
+            if (v === CHE_DO_LUU_TRU.SANG || v === CHE_DO_LUU_TRU.TOI || v === CHE_DO_LUU_TRU.TU_DONG) return v;
         }
         const saved = await AsyncStorage.getItem(CHE_DO_KEY);
-        return saved === 'SANG' ? 'SANG' : 'TOI';
-    } catch { return 'TOI'; }
+        if (saved === CHE_DO_LUU_TRU.SANG || saved === CHE_DO_LUU_TRU.TOI || saved === CHE_DO_LUU_TRU.TU_DONG) {
+            return saved;
+        }
+    } catch { /* noop */ }
+    return CHE_DO_LUU_TRU.TU_DONG;
 };
 
-/** Lưu chế độ sáng/tối */
+/** Lưu chế độ sáng/tối (web: localStorage + AsyncStorage; offline: AsyncStorage) */
 export const luuCheDo = async (cheDo) => {
+    if (cheDo !== CHE_DO_LUU_TRU.SANG && cheDo !== CHE_DO_LUU_TRU.TOI && cheDo !== CHE_DO_LUU_TRU.TU_DONG) return;
     try { await AsyncStorage.setItem(CHE_DO_KEY, cheDo); } catch {}
     try {
-        if (typeof window !== 'undefined' && window.localStorage)
+        if (typeof window !== 'undefined' && window.localStorage) {
             window.localStorage.setItem(CHE_DO_KEY, cheDo);
+        }
     } catch {}
 };
 
@@ -280,55 +304,101 @@ export const layTokensChuDe = (tenChuDe, cheDoSang = false) => {
 // [4] REACT CONTEXT (dynamic switching)
 // ─────────────────────────────────────────────────────────────────────────────
 
-const ChuDeContext = createContext(DANH_SACH_CHU_DE.PINK.tokensToi);
+const schemeKhoiTao = Appearance.getColorScheme() ?? 'light';
+const sangKhoiTaoTuDong = suyRaCheDoSang(CHE_DO_LUU_TRU.TU_DONG, schemeKhoiTao);
+
+const ChuDeContext = createContext({
+    ...layTokensChuDe('PINK', sangKhoiTaoTuDong),
+    _tenChuDe: 'PINK',
+    _cheDoLuuTru: CHE_DO_LUU_TRU.TU_DONG,
+    _cheDoSang: sangKhoiTaoTuDong,
+    _doiChuDe: () => {},
+    _doiCheDoGiaoDien: () => {},
+    _doiCheDoSangToi: () => {},
+});
 
 export const ChuDeProvider = ({ children }) => {
-    const [tokens, setTokens]       = useState(DANH_SACH_CHU_DE.PINK.tokensToi);
-    const [tenChuDe, setTenChuDe]   = useState('PINK');
-    const [cheDoSang, setCheDoSang] = useState(false);
+    const schemeHeThong = useColorScheme() ?? 'light';
+
+    const [tenChuDe, setTenChuDe] = useState('PINK');
+    const [cheDoLuuTru, setCheDoLuuTru] = useState(CHE_DO_LUU_TRU.TU_DONG);
+    /** Tránh ghi đè lựa chọn người dùng khi AsyncStorage hoàn tất sau khi đã bấm đổi chủ đề */
+    const nguoiDungDaChinhChuDe = useRef(false);
+
+    /** Một nguồn sự thật: sáng/tối suy ra từ chế độ lưu + chủ đề hệ thống (Tự động = theo OS/trình duyệt) */
+    const cheDoSang = useMemo(
+        () => suyRaCheDoSang(cheDoLuuTru, schemeHeThong),
+        [cheDoLuuTru, schemeHeThong]
+    );
+
+    const tokens = useMemo(
+        () => layTokensChuDe(tenChuDe, cheDoSang),
+        [tenChuDe, cheDoSang]
+    );
 
     useEffect(() => {
+        let huy = false;
         Promise.all([layTenChuDeHienTai(), layCheDo()])
             .then(([ten, cheDo]) => {
-                const sang = cheDo === 'SANG';
+                if (huy || nguoiDungDaChinhChuDe.current) return;
                 setTenChuDe(ten);
-                setCheDoSang(sang);
-                setTokens(layTokensChuDe(ten, sang));
+                setCheDoLuuTru(cheDo);
             })
             .catch(() => {
+                if (huy || nguoiDungDaChinhChuDe.current) return;
                 setTenChuDe('PINK');
-                setCheDoSang(false);
-                setTokens(layTokensChuDe('PINK', false));
+                setCheDoLuuTru(CHE_DO_LUU_TRU.TU_DONG);
             });
+        return () => { huy = true; };
     }, []);
+
+    /** Web: đồng bộ scrollbar/form controls + theme-color (PWA / trình duyệt) */
+    useEffect(() => {
+        if (Platform.OS !== 'web' || typeof document === 'undefined') return;
+        const root = document.documentElement;
+        root.setAttribute('data-cdss-theme', cheDoSang ? 'light' : 'dark');
+        root.style.colorScheme = cheDoSang ? 'light' : 'dark';
+        let meta = document.querySelector('meta[name="theme-color"]');
+        if (!meta) {
+            meta = document.createElement('meta');
+            meta.setAttribute('name', 'theme-color');
+            document.head.appendChild(meta);
+        }
+        meta.setAttribute('content', cheDoSang ? '#f5f6f7' : '#111111');
+    }, [cheDoSang]);
 
     const doiChuDe = useCallback(async (tenMoi) => {
         if (!DANH_SACH_CHU_DE[tenMoi]) return;
+        nguoiDungDaChinhChuDe.current = true;
         await luuTenChuDe(tenMoi);
         setTenChuDe(tenMoi);
-        setTokens(layTokensChuDe(tenMoi, cheDoSang));
-    }, [cheDoSang]);
+    }, []);
+
+    const doiCheDoGiaoDien = useCallback(async (cheDo) => {
+        if (cheDo !== CHE_DO_LUU_TRU.SANG && cheDo !== CHE_DO_LUU_TRU.TOI && cheDo !== CHE_DO_LUU_TRU.TU_DONG) return;
+        nguoiDungDaChinhChuDe.current = true;
+        try {
+            await luuCheDo(cheDo);
+            setCheDoLuuTru(cheDo);
+        } catch {
+            setCheDoLuuTru(cheDo);
+        }
+    }, []);
 
     const doiCheDoSangToi = useCallback(async (sang) => {
-        const giaTri = sang ? 'SANG' : 'TOI';
-        try {
-            await luuCheDo(giaTri);
-            setCheDoSang(sang);
-            setTokens(layTokensChuDe(tenChuDe, sang));
-        } catch {
-            setTokens(layTokensChuDe(tenChuDe || 'PINK', sang));
-        }
-        /** Không reload trang web: khi offline / cache lỗi, reload dễ gây màn hình trắng. Context đã cập nhật đủ cho useChuDe(). */
-    }, [tenChuDe]);
+        await doiCheDoGiaoDien(sang ? CHE_DO_LUU_TRU.SANG : CHE_DO_LUU_TRU.TOI);
+    }, [doiCheDoGiaoDien]);
 
     return React.createElement(
         ChuDeContext.Provider,
         {
             value: {
                 ...tokens,
-                _tenChuDe:        tenChuDe,
-                _cheDoSang:       cheDoSang,
-                _doiChuDe:        doiChuDe,
+                _tenChuDe: tenChuDe,
+                _cheDoLuuTru: cheDoLuuTru,
+                _cheDoSang: cheDoSang,
+                _doiChuDe: doiChuDe,
+                _doiCheDoGiaoDien: doiCheDoGiaoDien,
                 _doiCheDoSangToi: doiCheDoSangToi,
             },
         },
@@ -356,8 +426,19 @@ const _docChuDeSync = () => {
 
 const _docCheDoSync = () => {
     try {
-        if (typeof window !== 'undefined' && window.localStorage)
-            return window.localStorage.getItem(CHE_DO_KEY) === 'SANG';
+        if (typeof window !== 'undefined' && window.localStorage) {
+            const v = window.localStorage.getItem(CHE_DO_KEY);
+            if (v === CHE_DO_LUU_TRU.SANG) return true;
+            if (v === CHE_DO_LUU_TRU.TOI) return false;
+            if (v === CHE_DO_LUU_TRU.TU_DONG || v == null || v === '') {
+                if (typeof window.matchMedia === 'function'
+                    && window.matchMedia('(prefers-color-scheme: dark)').matches) return false;
+                return true;
+            }
+        }
+    } catch {}
+    try {
+        return suyRaCheDoSang(CHE_DO_LUU_TRU.TU_DONG, Appearance.getColorScheme());
     } catch {}
     return false;
 };
@@ -465,11 +546,12 @@ import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 const _MAU_BRAND = { PINK:'#C2185B', BLUE:'#1565C0', TEAL:'#00838F', VIOLET:'#6A1B9A' };
 
 export const BoChonChuDe = ({ style }) => {
-    const ctx             = useChuDe();
-    const tenHienTai      = ctx._tenChuDe        || 'PINK';
-    const cheDoSang       = ctx._cheDoSang        || false;
-    const doiChuDe        = ctx._doiChuDe;
-    const doiCheDoSangToi = ctx._doiCheDoSangToi;
+    const ctx = useChuDe();
+    const tenHienTai = ctx._tenChuDe || 'PINK';
+    const cheDoSang = ctx._cheDoSang || false;
+    const cheDoLuuTru = ctx._cheDoLuuTru || CHE_DO_LUU_TRU.TU_DONG;
+    const doiChuDe = ctx._doiChuDe;
+    const doiCheDoGiaoDien = ctx._doiCheDoGiaoDien;
     const [dangApDung, setDangApDung] = useState(null); // key đang trong quá trình áp dụng
 
     // Áp dụng trực tiếp — không dùng Alert (Alert.alert không hoạt động trên Expo Web)
@@ -477,31 +559,49 @@ export const BoChonChuDe = ({ style }) => {
         if (tenHienTai === key || dangApDung) return;
         setDangApDung(key);
         try {
-            await luuTenChuDe(key);
             if (doiChuDe) await doiChuDe(key);
         } finally {
             setDangApDung(null);
         }
-        /** Không reload — tránh màn trắng khi offline hoặc bundle không tải lại được. */
+    };
+
+    const nutCheDo = (ma, nhan, icon) => {
+        const active = cheDoLuuTru === ma;
+        return (
+            <TouchableOpacity
+                style={[
+                    st_picker.che_do_nut,
+                    cheDoSang && st_picker.che_do_nut_sang,
+                    active && st_picker.che_do_nut_on,
+                    active && cheDoSang && st_picker.che_do_nut_on_sang,
+                ]}
+                onPress={() => doiCheDoGiaoDien && doiCheDoGiaoDien(ma)}
+                accessibilityRole="button"
+                accessibilityState={{ selected: active }}
+            >
+                <Text style={st_picker.che_do_icon}>{icon}</Text>
+                <Text style={[
+                    st_picker.che_do_txt,
+                    cheDoSang && st_picker.che_do_txt_sang,
+                    active && st_picker.che_do_txt_on,
+                ]}>{nhan}</Text>
+            </TouchableOpacity>
+        );
     };
 
     return (
         <View style={[st_picker.container, cheDoSang && st_picker.container_sang, style]}>
 
-            {/* Header: tiêu đề + nút toggle sáng/tối */}
+            {/* Header: tiêu đề + chế độ sáng/tối (Tự động / Sáng / Tối) */}
             <View style={st_picker.hang_header}>
                 <Text style={[st_picker.tieu_de, cheDoSang && st_picker.tieu_de_sang]}>
                     🎨  Chủ đề giao diện
                 </Text>
-                <TouchableOpacity
-                    style={[st_picker.toggle_btn, cheDoSang && st_picker.toggle_btn_sang]}
-                    onPress={() => doiCheDoSangToi && doiCheDoSangToi(!cheDoSang)}
-                >
-                    <Text style={st_picker.toggle_icon}>{cheDoSang ? '☀️' : '🌙'}</Text>
-                    <Text style={[st_picker.toggle_text, cheDoSang && st_picker.toggle_text_sang]}>
-                        {cheDoSang ? 'Sáng' : 'Tối'}
-                    </Text>
-                </TouchableOpacity>
+            </View>
+            <View style={st_picker.che_do_hang}>
+                {nutCheDo(CHE_DO_LUU_TRU.TU_DONG, 'Tự động', '🖥')}
+                {nutCheDo(CHE_DO_LUU_TRU.SANG, 'Sáng', '☀️')}
+                {nutCheDo(CHE_DO_LUU_TRU.TOI, 'Tối', '🌙')}
             </View>
 
             {/* Danh sách màu chủ đạo */}
@@ -545,7 +645,7 @@ export const BoChonChuDe = ({ style }) => {
 
             {/* Gợi ý hành động */}
             <Text style={[st_picker.goi_y, cheDoSang && st_picker.goi_y_sang]}>
-                Nhấn để áp dụng — trang tự động tải lại để cập nhật màu
+                Chọn màu chủ đạo và chế độ sáng — áp dụng ngay trên web và bản cài đặt, không cần tải lại trang.
             </Text>
         </View>
     );
@@ -574,8 +674,49 @@ const st_picker = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        marginBottom: 16,
+        marginBottom: 10,
     },
+    che_do_hang: {
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        gap: 8,
+        marginBottom: 16,
+        justifyContent: 'center',
+    },
+    che_do_nut: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        gap: 6,
+        paddingVertical: 8,
+        paddingHorizontal: 12,
+        borderRadius: 14,
+        borderWidth: 1,
+        borderColor: 'rgba(255,255,255,0.2)',
+        backgroundColor: 'rgba(255,255,255,0.06)',
+        ...Platform.select({ web: { cursor: 'pointer' } }),
+    },
+    che_do_nut_sang: {
+        borderColor: 'rgba(0,0,0,0.14)',
+        backgroundColor: 'rgba(0,0,0,0.04)',
+    },
+    che_do_nut_on: {
+        borderColor: 'rgba(255,255,255,0.45)',
+        backgroundColor: 'rgba(255,255,255,0.14)',
+    },
+    che_do_nut_on_sang: {
+        borderColor: 'rgba(0,0,0,0.28)',
+        backgroundColor: 'rgba(0,0,0,0.10)',
+    },
+    che_do_icon: { fontSize: 15 },
+    che_do_txt: {
+        fontSize: 15,
+        fontWeight: '600',
+        color: 'rgba(255,255,255,0.88)',
+        fontFamily: Platform.OS === 'web'
+            ? "'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
+    },
+    che_do_txt_sang: { color: 'rgba(0,0,0,0.62)' },
+    che_do_txt_on: { fontWeight: '800' },
     tieu_de: {
         fontSize: 20,
         fontWeight: '700',
@@ -584,31 +725,6 @@ const st_picker = StyleSheet.create({
             ? "'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
     },
     tieu_de_sang: { color: '#1A1A2E' },
-    toggle_btn: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: 6,
-        paddingVertical: 8,
-        paddingHorizontal: 14,
-        borderRadius: 20,
-        borderWidth: 1,
-        borderColor: 'rgba(255,255,255,0.25)',
-        backgroundColor: 'rgba(255,255,255,0.10)',
-        ...Platform.select({ web: { cursor: 'pointer' } }),
-    },
-    toggle_btn_sang: {
-        borderColor: 'rgba(0,0,0,0.18)',
-        backgroundColor: 'rgba(0,0,0,0.06)',
-    },
-    toggle_icon: { fontSize: 16 },
-    toggle_text: {
-        fontSize: 16,
-        fontWeight: '600',
-        color: 'rgba(255,255,255,0.90)',
-        fontFamily: Platform.OS === 'web'
-            ? "'Inter', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', 'Helvetica Neue', Arial, sans-serif" : 'Arial',
-    },
-    toggle_text_sang: { color: 'rgba(0,0,0,0.65)' },
     hang: { flexDirection: 'row', flexWrap: 'wrap', gap: 10 },
     nut: {
         flexDirection: 'row',

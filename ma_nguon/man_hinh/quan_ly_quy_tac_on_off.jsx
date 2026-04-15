@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import { useEffect, useMemo, useRef, useState } from 'react';
-import { ActivityIndicator, Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
+import { ActivityIndicator, Alert, Platform, ScrollView, SectionList, StyleSheet, Text, TextInput, TouchableOpacity, useWindowDimensions, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as XLSX from 'xlsx';
 import { CD } from '../tien_ich/chu_de_giao_dien';
@@ -237,11 +237,71 @@ const tronRuleKhongTrung = (...sources) => {
   return out;
 };
 
+/** Gộp dataset + mẫu nội bộ + hardcoded theo từng tab (CPU — gọi song song theo tab khi tải). */
+const gopDuLieuMotTabQuyTac = (tab, dataRows, builtInRows, mapTrangThaiNoiBo, mapGhiDeNoiBo) => {
+  if (tab.id === 'LUAT_DU_LIEU') {
+    const dsHardcoded = layDanhSachLuatDuLieuHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-dulieu', 'DULIEU_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+    ));
+    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
+  }
+  if (tab.id === 'LUAT_HANH_CHINH') {
+    const dsHardcoded = layDanhSachLuatHanhChinhHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-hanhchinh', 'HANHCHINH_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+    ));
+    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
+  }
+  if (tab.id === 'LUAT_THUOC') {
+    const dsHardcoded = layDanhSachLuatThuocHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-thuoc', 'THUOC_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+    ));
+    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
+  }
+  if (tab.id === 'LUAT_CDHA') {
+    const dsHardcoded = tronRuleKhongTrung(
+      layDanhSachLuatCdhaHardcoded(),
+      layDanhSachLuatGiamDinhChuyenDeHardcoded(),
+    ).map((row, index) => lamGiauMetaQuanTriQuyTac(
+      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-cdha', 'CDHA_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+    ));
+    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
+  }
+  if (tab.id === 'LUAT_CONG_KHAM') {
+    const dsHardcoded = layDanhSachLuatCongKhamHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-congkham', 'CK_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+    ));
+    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
+  }
+  if (tab.id === 'LUAT_NHAN_SU') {
+    const dsHardcoded = layDanhSachLuatNhanSuHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-nhansu', 'NS_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+    ));
+    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
+  }
+  if (tab.id === 'LUAT_GIUONG') {
+    const dsHardcoded = layDanhSachLuatGiuongHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-giuong', 'GB_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+    ));
+    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
+  }
+  if (tab.id === 'LUAT_HOP_DONG') {
+    const dsHardcoded = layDanhSachLuatHopDongHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
+      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-hopdong', 'HD_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+    ));
+    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
+  }
+  return tronRuleKhongTrung(dataRows, builtInRows);
+};
+
 const QuanLyQuyTacOnOff = ({ navigation, route }) => {
   const [dangTai, setDangTai] = useState(true);
   const [dangLuu, setDangLuu] = useState(false);
   const [duLieuTheoTab, setDuLieuTheoTab] = useState({});
   const [tuKhoaTimKiem, setTuKhoaTimKiem] = useState('');
+  /** Giảm tính lại bộ lọc khi gõ — tránh lag khi có hàng nghìn quy tắc */
+  const [tuKhoaTimDebounced, setTuKhoaTimDebounced] = useState('');
+  /** '' = hiển thị mọi nhóm tab; hoặc một TAB_ID để chỉ render một nhóm (FlatList nhẹ hơn) */
+  const [locChiNhomTabPhai, setLocChiNhomTabPhai] = useState('');
   const [boLocLoaiQuyTac, setBoLocLoaiQuyTac] = useState('TAT_CA');
   const [tabQuanLyNoiDung, setTabQuanLyNoiDung] = useState(DANH_SACH_TAB_MAC_DINH[0].id);
   const [formRule, setFormRule] = useState(taoDuLieuFormRong());
@@ -253,6 +313,11 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
   const { width: windowW } = useWindowDimensions();
   const { font: fontScale } = useScaleGiaoDien();
   const hepWeb = Platform.OS === 'web' && windowW < 960;
+
+  useEffect(() => {
+    const t = setTimeout(() => setTuKhoaTimDebounced(tuKhoaTimKiem), 280);
+    return () => clearTimeout(t);
+  }, [tuKhoaTimKiem]);
 
   const docTatCaDuLieu = async () => {
     setDangTai(true);
@@ -267,19 +332,20 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
         allKeys = await AsyncStorage.getAllKeys();
       }
 
-      const tabIdsTrongStorage = Array.from(new Set(allKeys.map(layTabIdTuStorageKey).filter(Boolean)));
-      const ketQua = {};
+      const tabIdsCoDinh = DANH_SACH_TAB_MAC_DINH.map((x) => x.id);
+      const tabIdsTrongStorage = Array.from(
+        new Set([...tabIdsCoDinh, ...allKeys.map(layTabIdTuStorageKey).filter(Boolean)]),
+      );
       const mapTrangThaiNoiBo = await taiMapTrangThaiQuyTacNoiBo();
       const mapGhiDeNoiBo = await taiMapGhiDeNoiDungQuyTacNoiBo();
       const tapAnKhoiQuanLy = await taiTapMaLuatAnKhoiQuanLyNoiBo();
       setTapMaLuatAnKhoiQuanLy(tapAnKhoiQuanLy);
       const duLieuNoiBoTheoTab = taoDanhSachQuyTacNoiBoTheoTab(mapTrangThaiNoiBo);
 
-      for (const tab of DANH_SACH_TAB_MAC_DINH) {
-        const dsUngVien = timTabUngVien(tab.id, tabIdsTrongStorage);
-        let dataLoaded = [];
-
-        if (true) {
+      const ketQuaPairs = await Promise.all(
+        DANH_SACH_TAB_MAC_DINH.map(async (tab) => {
+          const dsUngVien = timTabUngVien(tab.id, tabIdsTrongStorage);
+          let dataLoaded = [];
           for (const tabIdUngVien of dsUngVien) {
             let raw;
             if (Platform.OS === 'web') {
@@ -293,78 +359,20 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
               break;
             }
           }
-        }
 
-        const dataRows = (Array.isArray(dataLoaded) ? dataLoaded : []).map((row) => lamGiauMetaQuanTriQuyTac({
-          ...row,
-          TRANG_THAI: row?.TRANG_THAI === 'OFF' ? 'OFF' : 'ON',
-          _kind: 'DATASET',
-        }));
-        const builtInRows = (duLieuNoiBoTheoTab[tab.id] || []).map((row) => lamGiauMetaQuanTriQuyTac(
-          { ...apGhiDeChoDongNoiBo(row, mapGhiDeNoiBo), _kind: 'BUILTIN' },
-        ));
-
-        if (tab.id === 'LUAT_DU_LIEU') {
-          const dsHardcoded = layDanhSachLuatDuLieuHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-dulieu', 'DULIEU_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
+          const dataRows = (Array.isArray(dataLoaded) ? dataLoaded : []).map((row) => lamGiauMetaQuanTriQuyTac({
+            ...row,
+            TRANG_THAI: row?.TRANG_THAI === 'OFF' ? 'OFF' : 'ON',
+            _kind: 'DATASET',
+          }));
+          const builtInRows = (duLieuNoiBoTheoTab[tab.id] || []).map((row) => lamGiauMetaQuanTriQuyTac(
+            { ...apGhiDeChoDongNoiBo(row, mapGhiDeNoiBo), _kind: 'BUILTIN' },
           ));
-          ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-        } else
-
-        if (tab.id === 'LUAT_HANH_CHINH') {
-          const dsHardcoded = layDanhSachLuatHanhChinhHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-hanhchinh', 'HANHCHINH_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-          ));
-          ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-        } else
-
-        if (tab.id === 'LUAT_THUOC') {
-          const dsHardcoded = layDanhSachLuatThuocHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-thuoc', 'THUOC_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-          ));
-          ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-        } else
-
-        if (tab.id === 'LUAT_CDHA') {
-          const dsHardcoded = tronRuleKhongTrung(
-            layDanhSachLuatCdhaHardcoded(),
-            layDanhSachLuatGiamDinhChuyenDeHardcoded(),
-          ).map((row, index) => lamGiauMetaQuanTriQuyTac(
-            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-cdha', 'CDHA_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-          ));
-          ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-        } else
-
-        if (tab.id === 'LUAT_CONG_KHAM') {
-          const dsHardcoded = layDanhSachLuatCongKhamHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-congkham', 'CK_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-          ));
-          ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-        } else
-
-        if (tab.id === 'LUAT_NHAN_SU') {
-          const dsHardcoded = layDanhSachLuatNhanSuHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-nhansu', 'NS_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-          ));
-          ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-        } else
-
-        if (tab.id === 'LUAT_GIUONG') {
-          const dsHardcoded = layDanhSachLuatGiuongHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-giuong', 'GB_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-          ));
-          ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-        } else
-
-        if (tab.id === 'LUAT_HOP_DONG') {
-          const dsHardcoded = layDanhSachLuatHopDongHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-            apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-hopdong', 'HD_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-          ));
-          ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-        } else {
-          ketQua[tab.id] = tronRuleKhongTrung(dataRows, builtInRows);
-        }
-      }
+          const merged = gopDuLieuMotTabQuyTac(tab, dataRows, builtInRows, mapTrangThaiNoiBo, mapGhiDeNoiBo);
+          return [tab.id, merged];
+        }),
+      );
+      const ketQua = Object.fromEntries(ketQuaPairs);
 
       setDuLieuTheoTab(ketQua);
     } catch (e) {
@@ -400,7 +408,10 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
     if (tabHopLe) setTabQuanLyNoiDung(tabHopLe.id);
 
     const tuKhoa = String(params.initialKeyword || params.highlightedMaLuat || '').trim();
-    if (tuKhoa) setTuKhoaTimKiem(tuKhoa);
+    if (tuKhoa) {
+      setTuKhoaTimKiem(tuKhoa);
+      setTuKhoaTimDebounced(tuKhoa);
+    }
 
     const boLocHopLe = BO_LOC_LOAI_QUY_TAC.find((item) => item.id === params.boLocLoaiQuyTac);
     if (boLocHopLe) setBoLocLoaiQuyTac(boLocHopLe.id);
@@ -409,8 +420,11 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
   }, [route?.params]);
 
   const danhSachNhom = useMemo(() => {
-    const tuKhoa = chuanHoaTuKhoa(tuKhoaTimKiem);
-    return DANH_SACH_TAB_MAC_DINH.map((tab) => {
+    const tuKhoa = chuanHoaTuKhoa(tuKhoaTimDebounced);
+    const dsTabCanXuLy = locChiNhomTabPhai
+      ? DANH_SACH_TAB_MAC_DINH.filter((t) => t.id === locChiNhomTabPhai)
+      : DANH_SACH_TAB_MAC_DINH;
+    return dsTabCanXuLy.map((tab) => {
       const rowsGoc = duLieuTheoTab[tab.id] || [];
       const rowsCoIndex = rowsGoc
         .map((row, index) => ({ row, index, key: taoKhoaDong(row, index) }))
@@ -453,7 +467,42 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
         tongCanhBao: rowsSauLoc.filter(({ row }) => layNhomCanhBao(row) === 'CANH_BAO').length,
       };
     }).filter((g) => g.tong > 0 && g.tongHienThi > 0);
-  }, [boLocLoaiQuyTac, duLieuTheoTab, tuKhoaTimKiem, tapMaLuatAnKhoiQuanLy]);
+  }, [boLocLoaiQuyTac, duLieuTheoTab, tuKhoaTimDebounced, tapMaLuatAnKhoiQuanLy, locChiNhomTabPhai]);
+
+  /** SectionList: mỗi tab = 1 section; data phẳng (tiêu đề cum + từng dòng) → ảo hóa, không map hết vào một ScrollView */
+  const sectionQuyTacOnOff = useMemo(() => danhSachNhom.map((nhom) => {
+    const data = [];
+    nhom.cumLoai.forEach((cum) => {
+      if (cum.rules.length === 0) {
+        data.push({
+          loai: 'CUM_TRONG',
+          key: `ctr-${nhom.tabId}-${cum.id}`,
+          nhom,
+          cum,
+        });
+      } else {
+        data.push({
+          loai: 'CUM_HEAD',
+          key: `ch-${nhom.tabId}-${cum.id}`,
+          nhom,
+          cum,
+        });
+        cum.rules.forEach(({ row: rule, index: idx, key: ruleKey }, i) => {
+          data.push({
+            loai: 'RULE',
+            key: `r-${nhom.tabId}-${ruleKey}`,
+            nhom,
+            cum,
+            rule,
+            idx,
+            ruleKey,
+            firstInCum: i === 0,
+          });
+        });
+      }
+    });
+    return { key: nhom.tabId, nhom, data };
+  }), [danhSachNhom]);
 
   const tongTatCa = useMemo(() => {
     const tong = danhSachNhom.reduce((s, g) => s + g.tongHienThi, 0);
@@ -898,7 +947,7 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
         return;
       }
 
-      const b64 = await FileSystem.readAsStringAsync(asset.uri, { encoding: FileSystem.EncodingType.Base64 });
+      const b64 = await FileSystem.readAsStringAsync(asset.uri, { encoding: 'base64' });
       const wb = XLSX.read(b64, { type: 'base64' });
       const ws = wb.Sheets[wb.SheetNames[0]];
       const rows = XLSX.utils.sheet_to_json(ws, { defval: '' });
@@ -906,6 +955,127 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
     } catch (e) {
       Alert.alert('Lỗi', `Không thể import dữ liệu: ${e.message || e}`);
     }
+  };
+
+  const extraDataSectionQuyTac = useMemo(
+    () => ({ chonXoaLoat, maLuatCanHighlight }),
+    [chonXoaLoat, maLuatCanHighlight],
+  );
+
+  const renderSectionHeaderQuyTac = ({ section }) => {
+    const nhom = section.nhom;
+    return (
+      <View style={styles.card_nhom}>
+        <View style={styles.card_header}>
+          <View style={{ flex: 1 }}>
+            <Text style={styles.ten_nhom}>{nhom.tenNhom}</Text>
+            <Text style={styles.tong_ket_loai_nhom}>Xuất toán: {nhom.tongXuatToan} | Cảnh báo: {nhom.tongCanhBao}</Text>
+          </View>
+          <Text style={styles.dem_nhom}>{nhom.dangBat}/{nhom.tongHienThi} (lọc) | tổng {nhom.tong}</Text>
+        </View>
+        <View style={styles.hang_nut_nhom}>
+          <TouchableOpacity style={[styles.btn_nhom, styles.btn_nhom_bat]} onPress={() => batTatTatCaTrongNhom(nhom.tabId, true)}>
+            <Text style={styles.txt_btn_nhom}>Bật nhóm</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={[styles.btn_nhom, styles.btn_nhom_tat]} onPress={() => batTatTatCaTrongNhom(nhom.tabId, false)}>
+            <Text style={styles.txt_btn_nhom}>Tắt nhóm</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    );
+  };
+
+  const renderItemQuyTac = ({ item }) => {
+      if (item.loai === 'CUM_TRONG') {
+        const { cum } = item;
+        return (
+          <View style={styles.card_loai_quy_tac}>
+            <View style={styles.card_loai_header}>
+              <Text style={[styles.card_loai_tieu_de, cum.id === 'XUAT_TOAN' ? styles.card_loai_tieu_de_xuat_toan : styles.card_loai_tieu_de_canh_bao]}>{cum.ten}</Text>
+              <Text style={styles.card_loai_dem}>{cum.rules.filter(({ row }) => laBat(row.TRANG_THAI)).length}/{cum.rules.length}</Text>
+            </View>
+            <Text style={styles.txt_loai_trong}>Không có quy tắc phù hợp trong nhóm này.</Text>
+          </View>
+        );
+      }
+      if (item.loai === 'CUM_HEAD') {
+        const { cum } = item;
+        return (
+          <View style={styles.card_loai_quy_tac}>
+            <View style={styles.card_loai_header}>
+              <Text style={[styles.card_loai_tieu_de, cum.id === 'XUAT_TOAN' ? styles.card_loai_tieu_de_xuat_toan : styles.card_loai_tieu_de_canh_bao]}>{cum.ten}</Text>
+              <Text style={styles.card_loai_dem}>{cum.rules.filter(({ row }) => laBat(row.TRANG_THAI)).length}/{cum.rules.length}</Text>
+            </View>
+          </View>
+        );
+      }
+      const { nhom, rule, idx, ruleKey, firstInCum } = item;
+      const on = laBat(rule.TRANG_THAI);
+      const laNoiBo = laRuleNoiBo(rule);
+      const daChon = new Set(chonXoaLoat?.[nhom.tabId] || []).has(ruleKey);
+      const duocHighlight = chuanHoaTuKhoa(maLuatCanHighlight) !== '' && chuanHoaTuKhoa(layMaLuat(rule)) === chuanHoaTuKhoa(maLuatCanHighlight);
+      const nhomCanhBao = layNhomCanhBao(rule);
+      const tagCanhBao = layTagCanhBao(rule) || (nhomCanhBao === 'XUAT_TOAN' ? 'QUY TẮC XUẤT TOÁN' : 'QUY TẮC CẢNH BÁO');
+      const tagNguonCanhBao = layTagNguonCanhBao(rule);
+      const chiTietCanhBao = layChiTietCanhBao(rule);
+      return (
+        <View
+          style={[styles.dong_rule, duocHighlight && styles.dong_rule_highlight, firstInCum && styles.dong_rule_sau_cum_head]}
+        >
+          {!laNoiBo && (
+            <TouchableOpacity style={[styles.checkbox_xoa, daChon && styles.checkbox_xoa_on]} onPress={() => batTatChonDong(nhom.tabId, ruleKey, !daChon)}>
+              {daChon ? <Text style={styles.checkmark}>✓</Text> : null}
+            </TouchableOpacity>
+          )}
+          <TouchableOpacity
+            activeOpacity={0.65}
+            style={styles.dong_rule_vung_bat_tat}
+            onPress={() => doiTrangThaiRule(nhom.tabId, idx)}
+          >
+            <View style={[styles.checkbox, on && styles.checkbox_on]} pointerEvents="none">
+              {on ? <Text style={styles.checkmark}>✓</Text> : null}
+            </View>
+            <View style={styles.dong_rule_text_khoi} pointerEvents="none">
+              <Text style={[styles.ten_rule, on ? styles.ten_rule_on : styles.ten_rule_off]} numberOfLines={2}>
+                {layTenQuyTac(rule)}
+              </Text>
+              {!!layMaLuat(rule) && <Text style={styles.ma_luat}>{layMaLuat(rule)}</Text>}
+              <View style={styles.hang_tag_rule}>
+                {laNoiBo && <Text style={styles.tag_noi_bo}>MA NGUON</Text>}
+                <Text style={[styles.tag_loai_quy_tac, nhomCanhBao === 'XUAT_TOAN' ? styles.tag_xuat_toan : styles.tag_canh_bao]}>{tagCanhBao}</Text>
+                {!!tagNguonCanhBao && <Text style={styles.tag_nguon_canh_bao}>{tagNguonCanhBao}</Text>}
+              </View>
+              {!!chiTietCanhBao && <Text style={styles.chi_tiet_canh_bao} numberOfLines={3}>{chiTietCanhBao}</Text>}
+              {!!String(rule?.DIEU_KIEN || rule?.dieu_kien || '').trim() && (
+                <Text style={styles.dieu_kien_rule} numberOfLines={2}>Điều kiện: {String(rule?.DIEU_KIEN || rule?.dieu_kien || '').trim()}</Text>
+              )}
+            </View>
+          </TouchableOpacity>
+          <View style={styles.cot_thao_tac}>
+            <TouchableOpacity
+              style={styles.btn_thao_tac}
+              onPress={() => moSuaRule(nhom.tabId, idx)}
+              hitSlop={{ top: 10, bottom: 10, left: 6, right: 6 }}
+            >
+              <Text style={styles.txt_btn_thao_tac}>Sửa</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.btn_thao_tac, styles.btn_thao_tac_xoa]}
+              onPress={() => xoaMotRule(nhom.tabId, idx)}
+              hitSlop={{ top: 10, bottom: 10, left: 6, right: 6 }}
+            >
+              <Text style={styles.txt_btn_thao_tac}>{laNoiBo ? 'Ẩn' : 'Xóa'}</Text>
+            </TouchableOpacity>
+          </View>
+          <TouchableOpacity
+            activeOpacity={0.65}
+            onPress={() => doiTrangThaiRule(nhom.tabId, idx)}
+            hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
+          >
+            <Text style={[styles.badge, on ? styles.badge_on : styles.badge_off]}>{on ? 'ON' : 'OFF'}</Text>
+          </TouchableOpacity>
+        </View>
+      );
   };
 
   if (dangTai) {
@@ -966,6 +1136,34 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
                 );
               })}
             </View>
+            <Text style={styles.txt_label_loc_nhom}>Danh mục bên phải</Text>
+            <ScrollView
+              horizontal
+              nestedScrollEnabled
+              showsHorizontalScrollIndicator={Platform.OS === 'web'}
+              keyboardShouldPersistTaps="handled"
+              style={styles.scroll_chip_loc_nhom}
+              contentContainerStyle={styles.scroll_chip_loc_nhom_content}
+            >
+              <TouchableOpacity
+                style={[styles.chip_loc_nhom, !locChiNhomTabPhai && styles.chip_loc_nhom_active]}
+                onPress={() => setLocChiNhomTabPhai('')}
+              >
+                <Text style={[styles.chip_loc_nhom_txt, !locChiNhomTabPhai && styles.chip_loc_nhom_txt_active]}>Tất cả</Text>
+              </TouchableOpacity>
+              {DANH_SACH_TAB_MAC_DINH.map((tab) => {
+                const active = locChiNhomTabPhai === tab.id;
+                return (
+                  <TouchableOpacity
+                    key={`loc-nhom-${tab.id}`}
+                    style={[styles.chip_loc_nhom, active && styles.chip_loc_nhom_active]}
+                    onPress={() => setLocChiNhomTabPhai((c) => (c === tab.id ? '' : tab.id))}
+                  >
+                    <Text style={[styles.chip_loc_nhom_txt, active && styles.chip_loc_nhom_txt_active]}>{NHOM_HIEN_THI[tab.id] || tab.ten}</Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </ScrollView>
             <View style={styles.hang_nut_tong}>
               <TouchableOpacity style={[styles.btn_hanh_dong, styles.btn_bat]} onPress={() => batTatToanBo(true)}>
                 <Text style={styles.txt_btn}>BẬT TẤT CẢ</Text>
@@ -1082,116 +1280,26 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
         </ScrollView>
 
         <View style={[styles.khu_vuc_phai, hepWeb && styles.khu_vuc_phai_full]}>
-          <ScrollView style={styles.rules_scroll} contentContainerStyle={styles.noi_dung}>
-        {danhSachNhom.map((nhom) => (
-          <View key={nhom.tabId} style={styles.card_nhom}>
-            <View style={styles.card_header}>
-              <View style={{ flex: 1 }}>
-                <Text style={styles.ten_nhom}>{nhom.tenNhom}</Text>
-                <Text style={styles.tong_ket_loai_nhom}>Xuất toán: {nhom.tongXuatToan} | Cảnh báo: {nhom.tongCanhBao}</Text>
+          <SectionList
+            style={styles.rules_scroll}
+            contentContainerStyle={styles.noi_dung}
+            sections={sectionQuyTacOnOff}
+            keyExtractor={(row) => row.key}
+            renderSectionHeader={renderSectionHeaderQuyTac}
+            renderItem={renderItemQuyTac}
+            stickySectionHeadersEnabled={false}
+            initialNumToRender={10}
+            maxToRenderPerBatch={16}
+            windowSize={8}
+            removeClippedSubviews={Platform.OS !== 'web'}
+            extraData={extraDataSectionQuyTac}
+            ListEmptyComponent={(
+              <View style={styles.trong_box}>
+                <Text style={styles.txt_trong}>Chưa tìm thấy dữ liệu quy tắc để quản lý ON/OFF.</Text>
+                <Text style={styles.txt_trong_sub}>Bạn hãy nhập/tạo dữ liệu ở màn hình Quản lý Luật trước.</Text>
               </View>
-              <Text style={styles.dem_nhom}>{nhom.dangBat}/{nhom.tongHienThi} (lọc) | tổng {nhom.tong}</Text>
-            </View>
-
-            <View style={styles.hang_nut_nhom}>
-              <TouchableOpacity style={[styles.btn_nhom, styles.btn_nhom_bat]} onPress={() => batTatTatCaTrongNhom(nhom.tabId, true)}>
-                <Text style={styles.txt_btn_nhom}>Bật nhóm</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={[styles.btn_nhom, styles.btn_nhom_tat]} onPress={() => batTatTatCaTrongNhom(nhom.tabId, false)}>
-                <Text style={styles.txt_btn_nhom}>Tắt nhóm</Text>
-              </TouchableOpacity>
-            </View>
-
-            {nhom.cumLoai.map((cum) => (
-              <View key={`${nhom.tabId}-${cum.id}`} style={styles.card_loai_quy_tac}>
-                <View style={styles.card_loai_header}>
-                  <Text style={[styles.card_loai_tieu_de, cum.id === 'XUAT_TOAN' ? styles.card_loai_tieu_de_xuat_toan : styles.card_loai_tieu_de_canh_bao]}>{cum.ten}</Text>
-                  <Text style={styles.card_loai_dem}>{cum.rules.filter(({ row }) => laBat(row.TRANG_THAI)).length}/{cum.rules.length}</Text>
-                </View>
-
-                {cum.rules.length === 0 ? (
-                  <Text style={styles.txt_loai_trong}>Không có quy tắc phù hợp trong nhóm này.</Text>
-                ) : cum.rules.map(({ row: rule, index: idx, key }) => {
-                  const on = laBat(rule.TRANG_THAI);
-                  const laNoiBo = laRuleNoiBo(rule);
-                  const daChon = new Set(chonXoaLoat?.[nhom.tabId] || []).has(key);
-                  const duocHighlight = chuanHoaTuKhoa(maLuatCanHighlight) !== '' && chuanHoaTuKhoa(layMaLuat(rule)) === chuanHoaTuKhoa(maLuatCanHighlight);
-                  const nhomCanhBao = layNhomCanhBao(rule);
-                  const tagCanhBao = layTagCanhBao(rule) || (nhomCanhBao === 'XUAT_TOAN' ? 'QUY TẮC XUẤT TOÁN' : 'QUY TẮC CẢNH BÁO');
-                  const tagNguonCanhBao = layTagNguonCanhBao(rule);
-                  const chiTietCanhBao = layChiTietCanhBao(rule);
-                  return (
-                    <View
-                      key={`${nhom.tabId}-${key}`}
-                      style={[styles.dong_rule, duocHighlight && styles.dong_rule_highlight]}
-                    >
-                      {!laNoiBo && (
-                        <TouchableOpacity style={[styles.checkbox_xoa, daChon && styles.checkbox_xoa_on]} onPress={() => batTatChonDong(nhom.tabId, key, !daChon)}>
-                          {daChon ? <Text style={styles.checkmark}>✓</Text> : null}
-                        </TouchableOpacity>
-                      )}
-                      <TouchableOpacity
-                        activeOpacity={0.65}
-                        style={styles.dong_rule_vung_bat_tat}
-                        onPress={() => doiTrangThaiRule(nhom.tabId, idx)}
-                      >
-                        <View style={[styles.checkbox, on && styles.checkbox_on]} pointerEvents="none">
-                          {on ? <Text style={styles.checkmark}>✓</Text> : null}
-                        </View>
-                        <View style={styles.dong_rule_text_khoi} pointerEvents="none">
-                          <Text style={[styles.ten_rule, on ? styles.ten_rule_on : styles.ten_rule_off]} numberOfLines={2}>
-                            {layTenQuyTac(rule)}
-                          </Text>
-                          {!!layMaLuat(rule) && <Text style={styles.ma_luat}>{layMaLuat(rule)}</Text>}
-                          <View style={styles.hang_tag_rule}>
-                            {laNoiBo && <Text style={styles.tag_noi_bo}>MA NGUON</Text>}
-                            <Text style={[styles.tag_loai_quy_tac, nhomCanhBao === 'XUAT_TOAN' ? styles.tag_xuat_toan : styles.tag_canh_bao]}>{tagCanhBao}</Text>
-                            {!!tagNguonCanhBao && <Text style={styles.tag_nguon_canh_bao}>{tagNguonCanhBao}</Text>}
-                          </View>
-                          {!!chiTietCanhBao && <Text style={styles.chi_tiet_canh_bao} numberOfLines={3}>{chiTietCanhBao}</Text>}
-                          {!!String(rule?.DIEU_KIEN || rule?.dieu_kien || '').trim() && (
-                            <Text style={styles.dieu_kien_rule} numberOfLines={2}>Điều kiện: {String(rule?.DIEU_KIEN || rule?.dieu_kien || '').trim()}</Text>
-                          )}
-                        </View>
-                      </TouchableOpacity>
-                      <View style={styles.cot_thao_tac}>
-                        <TouchableOpacity
-                          style={styles.btn_thao_tac}
-                          onPress={() => moSuaRule(nhom.tabId, idx)}
-                          hitSlop={{ top: 10, bottom: 10, left: 6, right: 6 }}
-                        >
-                          <Text style={styles.txt_btn_thao_tac}>Sửa</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                          style={[styles.btn_thao_tac, styles.btn_thao_tac_xoa]}
-                          onPress={() => xoaMotRule(nhom.tabId, idx)}
-                          hitSlop={{ top: 10, bottom: 10, left: 6, right: 6 }}
-                        >
-                          <Text style={styles.txt_btn_thao_tac}>{laNoiBo ? 'Ẩn' : 'Xóa'}</Text>
-                        </TouchableOpacity>
-                      </View>
-                      <TouchableOpacity
-                        activeOpacity={0.65}
-                        onPress={() => doiTrangThaiRule(nhom.tabId, idx)}
-                        hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}
-                      >
-                        <Text style={[styles.badge, on ? styles.badge_on : styles.badge_off]}>{on ? 'ON' : 'OFF'}</Text>
-                      </TouchableOpacity>
-                    </View>
-                  );
-                })}
-              </View>
-            ))}
-          </View>
-        ))}
-
-        {danhSachNhom.length === 0 && (
-          <View style={styles.trong_box}>
-            <Text style={styles.txt_trong}>Chưa tìm thấy dữ liệu quy tắc để quản lý ON/OFF.</Text>
-            <Text style={styles.txt_trong_sub}>Bạn hãy nhập/tạo dữ liệu ở màn hình Quản lý Luật trước.</Text>
-          </View>
-        )}
-          </ScrollView>
+            )}
+          />
         </View>
       </View>
 
@@ -1324,6 +1432,27 @@ const styles = StyleSheet.create({
   chip_bo_loc_canh_bao: { borderColor: 'rgba(79,195,247,0.45)' },
   chip_bo_loc_txt: { color: CD.text.secondary, fontSize: 12, fontWeight: '700', fontFamily: CD.font.family },
   chip_bo_loc_txt_active: { color: CD.text.primary },
+  txt_label_loc_nhom: {
+    color: CD.text.muted,
+    fontSize: 11,
+    fontWeight: '700',
+    marginTop: 10,
+    marginBottom: 6,
+    fontFamily: CD.font.family,
+  },
+  scroll_chip_loc_nhom: { maxHeight: 44, marginBottom: 4 },
+  scroll_chip_loc_nhom_content: { flexDirection: 'row', alignItems: 'center', gap: 8, paddingRight: 8 },
+  chip_loc_nhom: {
+    paddingVertical: 6,
+    paddingHorizontal: 10,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: CD.border.glass_md,
+    backgroundColor: 'rgba(255,255,255,0.04)',
+  },
+  chip_loc_nhom_active: { backgroundColor: 'rgba(255,255,255,0.14)', borderColor: 'rgba(255,255,255,0.22)' },
+  chip_loc_nhom_txt: { color: CD.text.secondary, fontSize: 11, fontWeight: '700', fontFamily: CD.font.family },
+  chip_loc_nhom_txt_active: { color: CD.text.primary },
   khung_quan_ly_noi_dung: {
     marginHorizontal: 0,
     marginBottom: 12,
@@ -1482,6 +1611,9 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     borderBottomWidth: 1,
     borderBottomColor: CD.border.divider,
+  },
+  dong_rule_sau_cum_head: {
+    marginTop: 6,
   },
   dong_rule_highlight: {
     backgroundColor: 'rgba(56, 189, 248, 0.10)',

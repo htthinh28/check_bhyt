@@ -1084,11 +1084,11 @@ export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
     "id": "SEED_DULIEU_121",
     "TRANG_THAI": "ON",
     "MA_LUAT": "XML_121",
-    "TEN_QUY_TAC": "Trùng lặp Thuốc cùng ngày",
-    "DIEU_KIEN": "COUNT_DISTINCT(XML2, item => item.MA_THUOC + SUBSTR(item.NGAY_YL, 1, 8)) < COUNT_IF(XML2, item => !IS_EMPTY(item.MA_THUOC))",
-    "CANH_BAO": "⚠️ Có dấu hiệu kê trùng 1 loại thuốc nhiều lần trong cùng một ngày y lệnh.",
+    "TEN_QUY_TAC": "Trùng lặp Thuốc cùng ngày (ngoại trú)",
+    "DIEU_KIEN": "(MATCH_MA_LOAI_KCB(XML1.MA_LOAI_KCB, '1') OR MATCH_MA_LOAI_KCB(XML1.MA_LOAI_KCB, '4')) AND COUNT_DISTINCT(XML2, item => IS_EMPTY(item.MA_THUOC) || IS_EMPTY(SUBSTR(item.NGAY_YL, 1, 8)) ? '' : UPPER(item.MA_THUOC) + '|' + SUBSTR(item.NGAY_YL, 1, 8)) < COUNT_IF(XML2, item => !IS_EMPTY(item.MA_THUOC) && !IS_EMPTY(SUBSTR(item.NGAY_YL, 1, 8)))",
+    "CANH_BAO": "⚠️ Có dấu hiệu kê trùng 1 loại thuốc nhiều lần trong cùng một ngày y lệnh (chỉ áp dụng ngoại trú / điều trị ban ngày; không áp dụng nội trú).",
     "DIEU_KIEN (Toán tử No-Code)": "",
-    "GHI_CHU_SUA": "",
+    "GHI_CHU_SUA": "✏️ Khóa UPPER(MA_THUOC)+'|'+SUBSTR(NGAY_YL,1,8); bỏ qua dòng thiếu mã/ngày; MA_LOAI_KCB '1'|'4' — không nội trú 03/09.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_DU_LIEU (12).xlsx"
   },
   {

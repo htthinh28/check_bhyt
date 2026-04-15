@@ -1,6 +1,13 @@
 /**
+ * Trích dẫn ngắn — hiển thị trên báo cáo lỗi (không nhét full text Điều 10/13).
+ * Dùng trong dong_co_giam_dinh (co_so_phap_ly) và resolveLegalBasis (rule_engine_dvkt_no_code).
+ */
+export const CHUOI_TRICH_DAN_TT12_2026_D10_VA_D13 =
+  'TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3';
+
+/**
  * Chuỗi căn cứ pháp lý đầy đủ — Thông tư 12/2026/TT-BTC: Điều 10 khoản 1 (đủ điểm a–m), Điều 13 (khoản 1–3).
- * Dùng chung cho co_so_phap_ly trong dong_co_giam_dinh và LEGAL_BASIS rule_engine_dvkt_no_code.
+ * Giữ cho checklist/tài liệu map XML; không nối vào thông báo lỗi runtime.
  */
 
 export const CHUOI_DAY_DU_TT12_2026_D10_VA_D13 = [
