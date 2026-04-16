@@ -1,21 +1,88 @@
 /**
- * Lưu trữ bản ghi catalog_mapping (đặc tả 2.2) — client: AsyncStorage key CATALOG_MAPPING_V1.
+ * Lưu trữ bản ghi catalog_mapping — mỗi loại mapping (thẻ) một key AsyncStorage riêng.
+ * Legacy: toàn bộ từng nằm ở CATALOG_MAPPING_V1; tự migrate khi đọc nếu còn dữ liệu legacy.
  */
 
 import { docMangDanhMucTuStorage, ghiMangDanhMucVaoStorage } from './luu_tru_danh_muc';
-import { layCauHinhLoaiMapping } from './catalog_mapping_types';
+import { layCauHinhLoaiMapping, MAPPING_TYPE_CONFIG } from './catalog_mapping_types';
 
-const KHOA_LUU = 'CATALOG_MAPPING_V1';
+/** Khóa cũ (một bảng chung) — chỉ dùng để đọc migrate, sau migrate sẽ ghi rỗng. */
+export const KHOA_LUU_LEGACY = 'CATALOG_MAPPING_V1';
 
-export const taiTatCaBanGhiMapping = async () => normalizeArray(await docMangDanhMucTuStorage(KHOA_LUU));
+const PREFIX_SHARD = 'CATALOG_MAP_V1__';
 
-export const luuTatCaBanGhiMapping = async (rows) => {
-  await ghiMangDanhMucVaoStorage(KHOA_LUU, normalizeArray(rows), {});
+/** Key lưu theo từng thẻ mapping (mapping_type). */
+export const layKhoaLuuTheoLoaiMapping = (mappingType) => {
+  const t = String(mappingType || '')
+    .trim()
+    .toUpperCase()
+    .replace(/[^A-Z0-9_]/g, '_');
+  return `${PREFIX_SHARD}${t || 'UNKNOWN'}`;
 };
 
 function normalizeArray(a) {
   return Array.isArray(a) ? a : [];
 }
+
+const docShard = async (mappingType) =>
+  normalizeArray(await docMangDanhMucTuStorage(layKhoaLuuTheoLoaiMapping(mappingType)));
+
+const ghiShard = async (mappingType, rows) =>
+  ghiMangDanhMucVaoStorage(layKhoaLuuTheoLoaiMapping(mappingType), normalizeArray(rows), {});
+
+const tachHangTheoLoai = (rows) => {
+  const known = new Set(MAPPING_TYPE_CONFIG.map((c) => c.mapping_type));
+  const byType = {};
+  for (const { mapping_type: mt } of MAPPING_TYPE_CONFIG) {
+    byType[mt] = [];
+  }
+  const unknown = [];
+  for (const row of normalizeArray(rows)) {
+    const mt = String(row?.mapping_type || '').trim();
+    if (known.has(mt)) byType[mt].push(row);
+    else unknown.push(row);
+  }
+  return { byType, unknown };
+};
+
+/** Ghi từng shard + bucket loại không còn trong cấu hình; xóa legacy. */
+const ghiTatCaShardTuHang = async (rows) => {
+  const { byType, unknown } = tachHangTheoLoai(rows);
+  const tasks = MAPPING_TYPE_CONFIG.map(({ mapping_type }) =>
+    ghiShard(mapping_type, byType[mapping_type] || []),
+  );
+  tasks.push(ghiShard('_UNKNOWN_', unknown));
+  await Promise.all(tasks);
+  await ghiMangDanhMucVaoStorage(KHOA_LUU_LEGACY, [], {});
+};
+
+export const taiTatCaBanGhiMapping = async () => {
+  const tuShard = [];
+  for (const { mapping_type } of MAPPING_TYPE_CONFIG) {
+    tuShard.push(...(await docShard(mapping_type)));
+  }
+  tuShard.push(...(await docShard('_UNKNOWN_')));
+
+  const legacy = normalizeArray(await docMangDanhMucTuStorage(KHOA_LUU_LEGACY));
+  if (legacy.length === 0) return tuShard;
+
+  const theoId = new Map();
+  for (const r of tuShard) {
+    if (r?.id) theoId.set(r.id, r);
+  }
+  const gop = [...tuShard];
+  for (const r of legacy) {
+    if (r?.id && theoId.has(r.id)) continue;
+    gop.push(r);
+    if (r?.id) theoId.set(r.id, r);
+  }
+  await ghiTatCaShardTuHang(gop);
+  return gop;
+};
+
+export const luuTatCaBanGhiMapping = async (rows) => {
+  await ghiTatCaShardTuHang(rows);
+};
 
 export const taoIdMapping = () =>
   `cm_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`;
@@ -87,4 +154,5 @@ function giaoHieuLuc(a, b) {
   return !(at < bf || bt < af);
 }
 
-export { KHOA_LUU };
+/** @deprecated Dùng KHOA_LUU_LEGACY */
+export const KHOA_LUU = KHOA_LUU_LEGACY;

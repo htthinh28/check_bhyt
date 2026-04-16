@@ -40,10 +40,16 @@ export const DVKT_ENGINE_STORAGE_KEYS = {
   CLAIM_RESULTS: 'DVKT_CLAIM_RESULTS',
 };
 
+/** Tab Quản lý danh mục: Giường & khám (mã BV mới). Nguồn hợp lệ duy nhất cho DVKT-OP-09 — không dùng DM DVKT M05. */
+const DVKT_OP09_CATALOG_STORAGE_KEY = 'DANH_MUC_GIUONG_BAN_KHAM_BV';
+/** XML3.MA_NHOM (nhóm chi phí): 1 — phí khám; 15 — phí giường (đồng bộ rule DVKT-OP-16 / tiền giường). */
+const OP09_XML3_MA_NHOM_KHAM = '1';
+const OP09_XML3_MA_NHOM_GIUONG = '15';
+
 const DVKT_SYNC_TABLES = [
   { datasetKey: DVKT_ENGINE_STORAGE_KEYS.RULES, fallbackKey: 'CDSS_DATA_LUAT_CDHA' },
   { datasetKey: DVKT_ENGINE_STORAGE_KEYS.DMKT, fallbackKey: 'DANH_MUC_DVKT_M05' },
-  { datasetKey: DVKT_ENGINE_STORAGE_KEYS.INTERNAL_APPROVAL, fallbackKey: 'DANH_MUC_DVKT_M05' },
+  { datasetKey: DVKT_ENGINE_STORAGE_KEYS.INTERNAL_APPROVAL, fallbackKey: DVKT_OP09_CATALOG_STORAGE_KEY },
   { datasetKey: DVKT_ENGINE_STORAGE_KEYS.EQUIPMENT, fallbackKey: 'DANH_MUC_TRANG_THIET_BI_M06' },
   { datasetKey: DVKT_ENGINE_STORAGE_KEYS.STAFF, fallbackKey: 'DANH_MUC_NHAN_SU' },
   { datasetKey: DVKT_ENGINE_STORAGE_KEYS.SERVICE_PRACTITIONER_MAP, fallbackKey: 'DANH_MUC_MAPPING_NGUOI_HANH_NGHE' },
@@ -85,7 +91,6 @@ const FULL_SYNC_SKIP_KEYS = new Set([
 ]);
 const BUILTIN_ENGINE_TABLES = {
   [DVKT_ENGINE_STORAGE_KEYS.DMKT]: DANH_MUC_DVKT_M05,
-  [DVKT_ENGINE_STORAGE_KEYS.INTERNAL_APPROVAL]: DANH_MUC_DVKT_M05,
   DANH_MUC_DVKT_M05,
   [DVKT_ENGINE_STORAGE_KEYS.EQUIPMENT]: DANH_MUC_TRANG_THIET_BI_M06,
   DANH_MUC_TRANG_THIET_BI_M06,
@@ -746,7 +751,7 @@ const buildEngineConfig = async () => {
   const [rulesRaw, dmkt, internalApprovalRows, equipment, staff, servicePractitionerMap, phamviMap, indicationMap, contraRows, equipDvktMap, mapTrangThaiNoiBo] = await Promise.all([
     loadTable(DVKT_ENGINE_STORAGE_KEYS.RULES, 'CDSS_DATA_LUAT_CDHA'),
     loadTable(DVKT_ENGINE_STORAGE_KEYS.DMKT, 'DANH_MUC_DVKT_M05'),
-    loadTable(DVKT_ENGINE_STORAGE_KEYS.INTERNAL_APPROVAL, 'DANH_MUC_DVKT_M05'),
+    loadTable(DVKT_ENGINE_STORAGE_KEYS.INTERNAL_APPROVAL, DVKT_OP09_CATALOG_STORAGE_KEY),
     loadTable(DVKT_ENGINE_STORAGE_KEYS.EQUIPMENT, 'DANH_MUC_TRANG_THIET_BI_M06'),
     loadTable(DVKT_ENGINE_STORAGE_KEYS.STAFF, 'DANH_MUC_NHAN_SU'),
     loadTable(DVKT_ENGINE_STORAGE_KEYS.SERVICE_PRACTITIONER_MAP, 'DANH_MUC_MAPPING_NGUOI_HANH_NGHE'),
@@ -764,7 +769,7 @@ const buildEngineConfig = async () => {
     .map((rule) => toCompiledRule(rule))
     .filter(Boolean));
 
-  const giuongBkRaw = await loadTable('DANH_MUC_GIUONG_BAN_KHAM_BV', '');
+  const giuongBkRaw = await loadTable(DVKT_OP09_CATALOG_STORAGE_KEY, DVKT_ENGINE_STORAGE_KEYS.INTERNAL_APPROVAL);
   const giuongBkMapped = (Array.isArray(giuongBkRaw) ? giuongBkRaw : [])
     .map(mapGiuongBanKhamRowToDmkt)
     .filter(Boolean);
@@ -773,11 +778,10 @@ const buildEngineConfig = async () => {
     [...giuongBkMapped, ...(Array.isArray(dmkt) ? dmkt : [])],
     DANH_MUC_DVKT_M05,
   );
+  /** Không trộn DM M05: slot legacy (nếu còn dùng) chỉ phản ánh Giường & khám BV + bản sao đồng bộ DVKT_INTERNAL_APPROVAL. */
   const internalApprovalRowsResolved = mergeDvktRowsWithBuiltin(
-    Array.isArray(internalApprovalRows) && internalApprovalRows.length > 0
-      ? [...giuongBkMapped, ...internalApprovalRows]
-      : dmktRows,
-    DANH_MUC_DVKT_M05,
+    [...giuongBkMapped, ...(Array.isArray(internalApprovalRows) ? internalApprovalRows : [])],
+    [],
   );
 
   const phamviRows = (Array.isArray(phamviMap) ? phamviMap : []).map((row) => ({
@@ -866,7 +870,10 @@ const buildEngineConfig = async () => {
   const approvalRows = internalApprovalRowsResolved;
   const internalApprovalByCode = buildInternalApprovalMapFromRows(approvalRows);
 
-  /** DVKT-OP-09: chỉ đối chiếu bảng nội bộ Khám và giường bệnh (DANH_MUC_GIUONG_BAN_KHAM_BV), không dùng DM05. */
+  /**
+   * DVKT-OP-09 (CHECK_INTERNAL_APPROVAL): chỉ giuongBkMapped — sheet Giường & khám (mã BV mới).
+   * Không dùng dmktRows / DANH_MUC_DVKT_M05; không đọc DVKT_INTERNAL_APPROVAL nếu đã map ở đây (cùng nguồn sau khi đồng bộ đúng).
+   */
   const op09DmktByCode = buildDmktMapFromRows(giuongBkMapped);
   const op09InternalApprovalByCode = buildInternalApprovalMapFromRows(giuongBkMapped);
 
@@ -1248,6 +1255,8 @@ const extractDvktLines = (hoSo) => {
       maVatTu: toUpper(pickValue(row, ['MA_VAT_TU'])),
       maMay: toUpper(pickValue(row, ['MA_MAY'])),
       stt: String(pickValue(row, ['STT'])),
+      /** QĐ 130 XML3 — mã giường tại khoa (đối chiếu DM Giường & khám BV khi có). */
+      maGiuong: normalizeDvktCode(pickValue(row, ['MA_GIUONG'])),
     });
   });
 
@@ -1572,16 +1581,47 @@ const checkEquipment = ({ rule, line, claim, config }) => {
   return pass();
 };
 
+/**
+ * DVKT-OP-09: chỉ phí Khám (MA_NHOM=1) hoặc phí Giường (MA_NHOM=15); phải có dữ liệu để đối chiếu mã khám / mã giường.
+ * — Khám: bắt buộc có MA_DICH_VU (mã khám).
+ * — Giường: có MA_GIUONG hoặc MA_DICH_VU dạng mã giường BV mới (K…).
+ * — MA_NHOM trống: chỉ khi MA_DICH_VU dạng K… (mã giường theo bảng BV).
+ */
+const isXml3HuongUngDvktOp09 = (line) => {
+  const mnRaw = String(line?.maNhom || '').trim();
+  const mn = mnRaw.replace(/^0+(?=\d)/, '');
+  const maDv = String(line?.maTuongDuong || '').trim();
+  const kieuMaGiuongBv = /^K\d+\./i.test(maDv);
+  if (mn === OP09_XML3_MA_NHOM_KHAM) {
+    return !isEmpty(line.maTuongDuong);
+  }
+  if (mn === OP09_XML3_MA_NHOM_GIUONG) {
+    return kieuMaGiuongBv || !isEmpty(line.maGiuong);
+  }
+  if (mnRaw !== '') return false;
+  return kieuMaGiuongBv;
+};
+
 const checkInternalApproval = ({ rule, line, claim, config }) => {
+  if (!isXml3HuongUngDvktOp09(line)) return pass();
   const dmMap = config.op09DmktByCode;
   const apMap = config.op09InternalApprovalByCode;
   if (!dmMap || (dmMap.size === 0 && (!apMap || apMap.size === 0))) return pass();
-  const dmRow = dmMap.get(line.maTuongDuong);
+  const maDv = line.maTuongDuong;
+  const maG = String(line.maGiuong || '').trim();
+  const dmRow = dmMap.get(maDv) || (maG ? dmMap.get(maG) : undefined);
   if (!dmRow) {
-    return fail('WARNING', `${rule.ALERT_MESSAGE} Mã DVKT [${line.maTuongDuong}] chưa có trong danh mục Khám và giường bệnh (nội bộ) để đối chiếu.`, 'MA_DICH_VU');
+    const chiTiet = maG
+      ? `Mã dịch vụ [${maDv || '—'}]; mã giường [${maG}]`
+      : `Mã dịch vụ [${maDv || '—'}]`;
+    return fail(
+      'WARNING',
+      `${rule.ALERT_MESSAGE} ${chiTiet} chưa có trong danh mục Giường & khám (nội bộ) để đối chiếu.`,
+      'MA_DICH_VU'
+    );
   }
 
-  const approvalRow = apMap.get(line.maTuongDuong) || dmRow;
+  const approvalRow = (apMap.get(maDv) || (maG ? apMap.get(maG) : undefined)) || dmRow;
   if (!approvalRow.approvalActive) {
     return fail('REJECT', `${rule.ALERT_MESSAGE} DVKT [${line.maTuongDuong}] thuộc Danh mục 3/tạm thời chưa thanh toán BHYT.`, 'MA_DICH_VU');
   }
