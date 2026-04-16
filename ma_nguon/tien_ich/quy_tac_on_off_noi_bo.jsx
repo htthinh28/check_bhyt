@@ -5,6 +5,7 @@ import {
   khopMaLuatTheoMau,
   normalizeCodeOnOff,
 } from './quy_tac_on_off_khop';
+import DATA_QUY_TAC_GIU_OFF_MO_RONG from './data_quy_tac_giu_off_mo_rong.json';
 
 export { khopMaLuatTheoMau, chuanHoaKhoaMaLuatOnOff };
 
@@ -240,91 +241,13 @@ const taoDanhMucQuyTacNoiBo = () => {
 
 export const DANH_MUC_QUY_TAC_NOI_BO = Object.freeze(taoDanhMucQuyTacNoiBo());
 
-// Các rule phụ thuộc mapping/phân loại nghiệp vụ phức tạp có thể tạo dương tính giả cao.
-// Mặc định OFF để giảm thời gian xử lý thủ công; người dùng có thể bật lại trong màn hình ON/OFF.
-const DANH_SACH_MAU_QUY_TAC_MAC_DINH_OFF = Object.freeze([
-  'DVKT-OP-03', // Phạm vi hành nghề (phụ thuộc mapping nhân sự/chuyên khoa)
-  'DVKT-OP-04', // Trang thiết bị (phụ thuộc danh mục M06 đầy đủ)
-  'DVKT-OP-07', // Phân loại PTTT (phụ thuộc mã phân loại và quy ước viện)
-  'DVKT-OP-10', // Thời gian hành nghề bác sĩ (dễ lệch do dữ liệu ca/kíp)
-  'DVKT-OP-11', // Danh mục 3 tạm thời (thường chưa ổn định)
-  'DVKT-OP-12', // Mapping người hành nghề theo DVKT (phụ thuộc mapping mở rộng)
-  // Nhóm mã report thực tế đang nhiễu cao, cần rà soát nghiệp vụ trước khi bật lại.
-  'CDHA_08',
-  'CDHA_09',
-  'CDHA_198',
-  'CDHA_202',
-  'CDHA_236',
-  'THUOC_98',
-  'THUOC_400',
-  'DVKT_1602',
-  'DMBV-DVKT-00',
-  'DMBV-THUOC-00',
-  // Nhóm hardcoded từ Excel đang trùng nghĩa hoặc dùng pseudo-syntax chưa hỗ trợ ổn định.
-  // Tắt mặc định để giảm dương tính giả; vẫn có thể bật lại từ màn hình ON/OFF khi đã rà soát.
-  'GB_02',
-  'GB_76',
-  'CK_23',
-  'CK_25',
-  'CK_26',
-  'CK_27',
-  'CK_36',
-  'CK_38',
-  'CK_46',
-  'CK_51',
-  'CK_52',
-  // NS_01, NS_10: seed ON + handler batch trong dong_co_giam_dinh — không ép OFF mặc định.
-  'NS_02',
-  'NS_03',
-  'NS_04',
-  'NS_05',
-  'NS_06',
-  'NS_07',
-  'NS_08',
-  'NS_09',
-  'NS_11',
-  'NS_12',
-  'NS_13',
-  'NS_14',
-  'NS_15',
-  'HD_01',
-  'GB_63',
-  'GB_71',
-  'GB_28',
-  'GB_34',
-  'GB_56',
-  'GB_67',
-  'GB_68',
-  // Nhóm chuyên đề cảnh báo mềm/kiểm tra logic: mặc định OFF để giảm dương tính giả.
-  'CHUYEN_DE_003', 'CHUYEN_DE_009', 'CHUYEN_DE_010', 'CHUYEN_DE_011', 'CHUYEN_DE_012',
-  'CHUYEN_DE_014', 'CHUYEN_DE_019', 'CHUYEN_DE_020', 'CHUYEN_DE_024', 'CHUYEN_DE_027',
-  'CHUYEN_DE_031', 'CHUYEN_DE_037', 'CHUYEN_DE_038', 'CHUYEN_DE_039', 'CHUYEN_DE_044',
-  'CHUYEN_DE_047', 'CHUYEN_DE_055', 'CHUYEN_DE_058', 'CHUYEN_DE_068', 'CHUYEN_DE_083',
-  'CHUYEN_DE_091', 'CHUYEN_DE_095', 'CHUYEN_DE_097', 'CHUYEN_DE_112', 'CHUYEN_DE_121',
-  'CHUYEN_DE_124', 'CHUYEN_DE_138', 'CHUYEN_DE_139', 'CHUYEN_DE_151', 'CHUYEN_DE_166',
-  'CHUYEN_DE_169', 'CHUYEN_DE_172', 'CHUYEN_DE_175', 'CHUYEN_DE_180', 'CHUYEN_DE_182',
-  'CHUYEN_DE_189', 'CHUYEN_DE_191', 'CHUYEN_DE_209', 'CHUYEN_DE_215', 'CHUYEN_DE_223',
-  'CHUYEN_DE_244', 'CHUYEN_DE_257', 'CHUYEN_DE_258', 'CHUYEN_DE_289', 'CHUYEN_DE_294',
-  'CHUYEN_DE_295', 'CHUYEN_DE_298', 'CHUYEN_DE_299', 'CHUYEN_DE_306', 'CHUYEN_DE_322',
-  'CHUYEN_DE_342', 'CHUYEN_DE_357', 'CHUYEN_DE_364', 'CHUYEN_DE_371', 'CHUYEN_DE_374',
-  'CHUYEN_DE_381', 'CHUYEN_DE_385', 'CHUYEN_DE_390', 'CHUYEN_DE_408', 'CHUYEN_DE_414',
-  'CHUYEN_DE_416', 'CHUYEN_DE_417', 'CHUYEN_DE_434', 'CHUYEN_DE_440', 'CHUYEN_DE_457',
-  'CHUYEN_DE_458', 'CHUYEN_DE_472', 'CHUYEN_DE_482', 'CHUYEN_DE_491', 'CHUYEN_DE_495',
-  'CHUYEN_DE_496', 'CHUYEN_DE_507', 'CHUYEN_DE_520', 'CHUYEN_DE_522', 'CHUYEN_DE_526',
-  'CHUYEN_DE_528', 'CHUYEN_DE_530', 'CHUYEN_DE_534', 'CHUYEN_DE_540', 'CHUYEN_DE_543',
-  'CHUYEN_DE_546', 'CHUYEN_DE_551', 'CHUYEN_DE_554', 'CHUYEN_DE_561', 'CHUYEN_DE_563',
-  'CHUYEN_DE_566', 'CHUYEN_DE_571', 'CHUYEN_DE_580', 'CHUYEN_DE_582', 'CHUYEN_DE_591',
-
-  // Phụ thuộc bản in / PACS / phiếu công khai tay / bảng kê — không có trong XML130 gửi BHXH; chỉ bật khi BV có map dữ liệu mở rộng.
-  'CHUYEN_DE_029',
-  'CHUYEN_DE_043',
-  'CHUYEN_DE_125',
-  'CHUYEN_DE_211',
-  'CHUYEN_DE_212',
-  'CHUYEN_DE_504',
-  'CHUYEN_DE_540',
-]);
-
+/**
+ * Mặc định ON cho hầu hết quy tắc. Giữ OFF chỉ khi:
+ * — CDHA: quy tắc liên quan MRI / DSA (quét từ luat_cdha_hardcoded.jsx);
+ * — CHUYEN_DE: quy tắc MRI/DSA trong tên-điều kiện; hoặc DIEU_KIEN placeholder (không đủ dữ liệu XML130);
+ * — DANH_SACH_QUY_TAC_TAT_CUNG (khóa OFF cứng).
+ * Danh sách mã giữ OFF nằm trong `data_quy_tac_giu_off_mo_rong.json` (cập nhật khi rà soát MRI/DSA/placeholder trong luật).
+ */
 // Các rule đã xác nhận dương tính giả: khóa OFF cứng để tránh bị bật lại bởi cache cũ.
 const DANH_SACH_QUY_TAC_TAT_CUNG = Object.freeze([
   'CDHA_07',
@@ -332,6 +255,27 @@ const DANH_SACH_QUY_TAC_TAT_CUNG = Object.freeze([
   'DVKT_1634',
   'XML_140',
 ]);
+
+const taoSetMaGiuMacDinhOffTheoChinhSach = () => {
+  const s = new Set();
+  const add = (code) => {
+    const k = chuanHoaKhoaMaLuatOnOff(code);
+    if (k) s.add(k);
+  };
+  const addMany = (arr) => {
+    (Array.isArray(arr) ? arr : []).forEach(add);
+  };
+  addMany(DATA_QUY_TAC_GIU_OFF_MO_RONG.cdha_mri);
+  addMany(DATA_QUY_TAC_GIU_OFF_MO_RONG.cdha_dsa);
+  addMany(DATA_QUY_TAC_GIU_OFF_MO_RONG.chuyen_de_mri);
+  addMany(DATA_QUY_TAC_GIU_OFF_MO_RONG.chuyen_de_dsa);
+  addMany(DATA_QUY_TAC_GIU_OFF_MO_RONG.chuyen_de_placeholder);
+  DANH_SACH_QUY_TAC_TAT_CUNG.forEach(add);
+  return s;
+};
+
+/** Mã luật mặc định OFF theo chính sách (MRI/DSA/placeholder/tất cung). Các mã khác mặc định ON. */
+const MA_GIU_MAC_DINH_OFF_THEO_CHINH_SACH = taoSetMaGiuMacDinhOffTheoChinhSach();
 
 const isQuyTacTatCung = (maLuat = '') => {
   const m = chuanHoaKhoaMaLuatOnOff(maLuat);
@@ -342,12 +286,7 @@ const isQuyTacTatCung = (maLuat = '') => {
 const isMauQuyTacMacDinhOff = (maLuat = '') => {
   const ma = chuanHoaKhoaMaLuatOnOff(maLuat);
   if (!ma) return false;
-  return DANH_SACH_MAU_QUY_TAC_MAC_DINH_OFF.some((patternRaw) => {
-    const pattern = normalizeCode(patternRaw);
-    if (!pattern) return false;
-    if (pattern.endsWith('*')) return ma.startsWith(chuanHoaKhoaMaLuatOnOff(pattern.slice(0, -1)));
-    return ma === chuanHoaKhoaMaLuatOnOff(pattern);
-  });
+  return MA_GIU_MAC_DINH_OFF_THEO_CHINH_SACH.has(ma);
 };
 
 const DANH_MUC_MAU_NOI_BO = DANH_MUC_QUY_TAC_NOI_BO.map((item, index) => {

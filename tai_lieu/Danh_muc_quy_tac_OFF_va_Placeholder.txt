@@ -1,5 +1,5 @@
 DANH MỤC QUY TẮC TRẠNG THÁI OFF VÀ CHUYÊN ĐỀ PLACEHOLDER
-Sinh tự động: 2026-04-13 16:53:54 (UTC có thể lệch múi giờ máy)
+Sinh tự động: 2026-04-16 09:03:00 (UTC có thể lệch múi giờ máy)
 Repo: C:\Users\admin\Documents\Google Drive\ung_dung_cdss_bhyt
 
 === PHẦN A — CHUYÊN ĐỀ (CHUYEN_DE) ĐIỀU KIỆN PLACEHOLDER (CHUYEN_DE_XML130_CHO_XU_LY_SAU) ===
@@ -10,7 +10,7 @@ Số quy tắc placeholder: 0
 
 
 === PHẦN B — QUY TẮC TRANG_THAI: OFF TRONG MÃ NGUỒN (hardcoded .jsx, một dòng / rule) ===
-Tổng: 169 dòng rule
+Tổng: 167 dòng rule
 
 [CDHA_01] CDHA-001
   Tên: XML 5: Phim và XML 3: Số lượng
@@ -628,10 +628,6 @@ Tổng: 169 dòng rule
   Tên: Dịch vụ ngoài danh mục phê duyệt
   File: ma_nguon/tien_ich/luat_hop_dong_hardcoded.jsx
 
-[NS_01] NS-001
-  Tên: Kiểm tra trùng mã liên kết (MA_LK)
-  File: ma_nguon/tien_ich/luat_nhan_su_hardcoded.jsx
-
 [NS_02] NS-002
   Tên: Kiểm tra nhân sự có trong DM đăng ký hành nghề
   File: ma_nguon/tien_ich/luat_nhan_su_hardcoded.jsx
@@ -664,10 +660,6 @@ Tổng: 169 dòng rule
   Tên: Kiểm tra phân cấp kỹ thuật theo vị trí chuyên môn
   File: ma_nguon/tien_ich/luat_nhan_su_hardcoded.jsx
 
-[NS_10] NS-010
-  Tên: BS "Phân thân" - Trùng thời gian thực hiện DVKT
-  File: ma_nguon/tien_ich/luat_nhan_su_hardcoded.jsx
-
 [NS_11] NS-011
   Tên: Kê thuốc đặc trị - BS không có quyền kê
   File: ma_nguon/tien_ich/luat_nhan_su_hardcoded.jsx
@@ -689,7 +681,7 @@ Tổng: 169 dòng rule
   File: ma_nguon/tien_ich/luat_nhan_su_hardcoded.jsx
 
 === PHẦN C — QUY TẮC "TRANG_THAI": "OFF" TRONG SEED (JSON trong .jsx) ===
-Tổng: 160 rule (có thể trùng MA_LUAT nếu nhiều file; thường không)
+Tổng: 159 rule (có thể trùng MA_LUAT nếu nhiều file; thường không)
 
 [CDSS_CM_02] SEED_DULIEU_CDSS_CM_02
   Tên: CDSS Chuyên môn — Có kho phác đồ nhưng không có khóa ICD nào trên XML1 trùng bảng (sau gộp)
@@ -945,10 +937,6 @@ Tổng: 160 rule (có thể trùng MA_LUAT nếu nhiều file; thường không)
 
 [HC_178] SEED_HANHCHINH_178
   Tên: Đơn vị tính thuốc chứa số
-  File: ma_nguon/tien_ich/du_lieu_luat_hanh_chinh_muc2.jsx
-
-[HC_18] SEED_HANHCHINH_18
-  Tên: Chuyển tuyến không hợp lệ
   File: ma_nguon/tien_ich/du_lieu_luat_hanh_chinh_muc2.jsx
 
 [HC_180] SEED_HANHCHINH_180
@@ -1332,155 +1320,8 @@ Tổng: 160 rule (có thể trùng MA_LUAT nếu nhiều file; thường không)
   File: ma_nguon/tien_ich/du_lieu_luat_du_lieu_muc1.jsx
 
 === PHẦN D — MẶC ĐỊNH OFF (ỨNG DỤNG ÁP KHI CHƯA CÓ CẤU HÌNH ON/OFF) ===
-Nguồn: ma_nguon/tien_ich/quy_tac_on_off_noi_bo.jsx — DANH_SACH_MAU_QUY_TAC_MAC_DINH_OFF (147 mã/pattern).
+Nguồn: ma_nguon/tien_ich/quy_tac_on_off_noi_bo.jsx — DANH_SACH_MAU_QUY_TAC_MAC_DINH_OFF (0 mã/pattern).
 
-  DVKT-OP-03
-  DVKT-OP-04
-  DVKT-OP-07
-  DVKT-OP-10
-  DVKT-OP-11
-  DVKT-OP-12
-  CDHA_08
-  CDHA_09
-  CDHA_198
-  CDHA_202
-  CDHA_236
-  THUOC_98
-  THUOC_400
-  DVKT_1602
-  DMBV-DVKT-00
-  DMBV-THUOC-00
-  GB_02
-  GB_76
-  CK_23
-  CK_25
-  CK_26
-  CK_27
-  CK_36
-  CK_38
-  CK_46
-  CK_51
-  CK_52
-  NS_01
-  NS_10
-  NS_02
-  NS_03
-  NS_04
-  NS_05
-  NS_06
-  NS_07
-  NS_08
-  NS_09
-  NS_11
-  NS_12
-  NS_13
-  NS_14
-  NS_15
-  HD_01
-  GB_63
-  GB_71
-  GB_28
-  GB_34
-  GB_56
-  GB_67
-  GB_68
-  CHUYEN_DE_003
-  CHUYEN_DE_009
-  CHUYEN_DE_010
-  CHUYEN_DE_011
-  CHUYEN_DE_012
-  CHUYEN_DE_014
-  CHUYEN_DE_019
-  CHUYEN_DE_020
-  CHUYEN_DE_024
-  CHUYEN_DE_027
-  CHUYEN_DE_031
-  CHUYEN_DE_037
-  CHUYEN_DE_038
-  CHUYEN_DE_039
-  CHUYEN_DE_044
-  CHUYEN_DE_047
-  CHUYEN_DE_055
-  CHUYEN_DE_058
-  CHUYEN_DE_068
-  CHUYEN_DE_083
-  CHUYEN_DE_091
-  CHUYEN_DE_095
-  CHUYEN_DE_097
-  CHUYEN_DE_112
-  CHUYEN_DE_121
-  CHUYEN_DE_124
-  CHUYEN_DE_138
-  CHUYEN_DE_139
-  CHUYEN_DE_151
-  CHUYEN_DE_166
-  CHUYEN_DE_169
-  CHUYEN_DE_172
-  CHUYEN_DE_175
-  CHUYEN_DE_180
-  CHUYEN_DE_182
-  CHUYEN_DE_189
-  CHUYEN_DE_191
-  CHUYEN_DE_209
-  CHUYEN_DE_215
-  CHUYEN_DE_223
-  CHUYEN_DE_244
-  CHUYEN_DE_257
-  CHUYEN_DE_258
-  CHUYEN_DE_289
-  CHUYEN_DE_294
-  CHUYEN_DE_295
-  CHUYEN_DE_298
-  CHUYEN_DE_299
-  CHUYEN_DE_306
-  CHUYEN_DE_322
-  CHUYEN_DE_342
-  CHUYEN_DE_357
-  CHUYEN_DE_364
-  CHUYEN_DE_371
-  CHUYEN_DE_374
-  CHUYEN_DE_381
-  CHUYEN_DE_385
-  CHUYEN_DE_390
-  CHUYEN_DE_408
-  CHUYEN_DE_414
-  CHUYEN_DE_416
-  CHUYEN_DE_417
-  CHUYEN_DE_434
-  CHUYEN_DE_440
-  CHUYEN_DE_457
-  CHUYEN_DE_458
-  CHUYEN_DE_472
-  CHUYEN_DE_482
-  CHUYEN_DE_491
-  CHUYEN_DE_495
-  CHUYEN_DE_496
-  CHUYEN_DE_507
-  CHUYEN_DE_520
-  CHUYEN_DE_522
-  CHUYEN_DE_526
-  CHUYEN_DE_528
-  CHUYEN_DE_530
-  CHUYEN_DE_534
-  CHUYEN_DE_540
-  CHUYEN_DE_543
-  CHUYEN_DE_546
-  CHUYEN_DE_551
-  CHUYEN_DE_554
-  CHUYEN_DE_561
-  CHUYEN_DE_563
-  CHUYEN_DE_566
-  CHUYEN_DE_571
-  CHUYEN_DE_580
-  CHUYEN_DE_582
-  CHUYEN_DE_591
-  CHUYEN_DE_029
-  CHUYEN_DE_043
-  CHUYEN_DE_125
-  CHUYEN_DE_211
-  CHUYEN_DE_212
-  CHUYEN_DE_504
-  CHUYEN_DE_540
 
 === PHẦN E — TẮT CỨNG (KHÔNG CHO BẬT LẠI QUA UI) ===
 Nguồn: cùng file — DANH_SACH_QUY_TAC_TAT_CUNG (4 mã).

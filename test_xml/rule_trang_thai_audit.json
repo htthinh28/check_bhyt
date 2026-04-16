@@ -1,8 +1,8 @@
 {
-  "timestamp": "2026-04-13T16:48:51.005Z",
-  "tong_so": 4328,
-  "on": 3999,
-  "off": 329,
+  "timestamp": "2026-04-16T08:53:27.348Z",
+  "tong_so": 4330,
+  "on": 4004,
+  "off": 326,
   "unknown": 0,
   "danh_sach_off": [
     {
@@ -1066,11 +1066,6 @@
       "ten_quy_tac": "Đơn vị tính thuốc chứa số"
     },
     {
-      "ma_luat": "HC_18",
-      "file": "du_lieu_luat_hanh_chinh_muc2.jsx",
-      "ten_quy_tac": "Chuyển tuyến không hợp lệ"
-    },
-    {
       "ma_luat": "HC_180",
       "file": "du_lieu_luat_hanh_chinh_muc2.jsx",
       "ten_quy_tac": "Bác sĩ mổ và bác sĩ điều trị khác nhau"
@@ -1491,11 +1486,6 @@
       "ten_quy_tac": "Dịch vụ ngoài danh mục phê duyệt"
     },
     {
-      "ma_luat": "NS_01",
-      "file": "luat_nhan_su_hardcoded.jsx",
-      "ten_quy_tac": "Kiểm tra trùng mã liên kết (MA_LK)"
-    },
-    {
       "ma_luat": "NS_02",
       "file": "luat_nhan_su_hardcoded.jsx",
       "ten_quy_tac": "Kiểm tra nhân sự có trong DM đăng ký hành nghề"
@@ -1534,11 +1524,6 @@
       "ma_luat": "NS_09",
       "file": "luat_nhan_su_hardcoded.jsx",
       "ten_quy_tac": "Kiểm tra phân cấp kỹ thuật theo vị trí chuyên môn"
-    },
-    {
-      "ma_luat": "NS_10",
-      "file": "luat_nhan_su_hardcoded.jsx",
-      "ten_quy_tac": "BS \"Phân thân\" - Trùng thời gian thực hiện DVKT"
     },
     {
       "ma_luat": "NS_11",
@@ -1654,13 +1639,13 @@
   "danh_sach_on_count_by_file": {
     "luat_cdha_hardcoded.jsx": 223,
     "luat_cong_kham_hardcoded.jsx": 46,
-    "luat_nhan_su_hardcoded.jsx": 0,
+    "luat_nhan_su_hardcoded.jsx": 2,
     "luat_giuong_hardcoded.jsx": 60,
     "luat_hop_dong_hardcoded.jsx": 17,
     "luat_giam_dinh_chuyen_de_hardcoded.jsx": 593,
-    "du_lieu_luat_du_lieu_muc1.jsx": 108,
-    "du_lieu_luat_hanh_chinh_muc2.jsx": 107,
-    "du_lieu_luat_thuoc_muc8.jsx": 526,
+    "du_lieu_luat_du_lieu_muc1.jsx": 109,
+    "du_lieu_luat_hanh_chinh_muc2.jsx": 110,
+    "du_lieu_luat_thuoc_muc8.jsx": 525,
     "du_lieu_luat_pttt_muc11.jsx": 2319
   }
 }
