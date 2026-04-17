@@ -1051,7 +1051,101 @@ const taoMetaPhacDoCdssTuBang = (rows) => {
     };
 };
 
-/** Danh mục tương tác thuốc nội bộ: cặp MA_THUOC (không hướng) → mô tả cảnh báo */
+const reMaTrongNgoacTuongTacThuoc = /\[([^\]]+)\]/g;
+
+/** Mã trong ngoặc vuông [40.xxx] trong nội dung tương tác (thứ tự xuất hiện, không trùng). */
+const trichDanhSachMaTrongNgoacTuNoiDungTT = (text) => {
+    const out = [];
+    const seen = new Set();
+    const s = String(text || '');
+    reMaTrongNgoacTuongTacThuoc.lastIndex = 0;
+    let m;
+    while ((m = reMaTrongNgoacTuongTacThuoc.exec(s)) !== null) {
+        const code = UPPER(String(m[1] || '').trim());
+        if (!code || seen.has(code)) continue;
+        seen.add(code);
+        out.push(code);
+    }
+    return out;
+};
+
+/** Tách «bên trái» và «bên phải» theo từ khóa « vs » (không phân biệt hoa thường). */
+const tachHaiBenTheoVsNoiDungTT = (noiDung) => {
+    const nd = String(noiDung || '');
+    const match = nd.match(/\s+vs\s+/i);
+    if (!match || match.index === undefined) return null;
+    return {
+        trai: nd.slice(0, match.index),
+        phai: nd.slice(match.index + match[0].length),
+    };
+};
+
+const MUC_DO_TUONG_TAC_ORDER_META = { Critical: 3, Error: 2, Warning: 1 };
+
+const chuanHoaMucDoCanhBaoTuongTacThuoc = (raw, rowGoiY = null) => {
+    const u = UPPER(String(raw || '').trim());
+    if (u === 'CRITICAL' || u === 'NGHIEM_TRONG' || u === 'NGHIÊM_TRỌNG') return 'Critical';
+    if (u === 'ERROR' || u === 'LOI' || u === 'LỖI') return 'Error';
+    if (u === 'WARNING' || u === 'CANH BÁO' || u === 'CANH BAO') return 'Warning';
+    if (u) return 'Warning';
+    const cb = String(rowGoiY?.CANH_BAO_HE_THONG || '');
+    if (/🚫|CHỐNG\s*CHỈ\s*ĐỊNH|CHONG\s*CHI\s*DINH/i.test(cb)) return 'Critical';
+    return 'Warning';
+};
+
+/** Khi hai dòng sinh cùng một cặp mã: giữ mức độ nghiêm trọng hơn, rồi cảnh báo chi tiết hơn. */
+const gopMetaTuongTacTrungCap = (current, incoming) => {
+    if (!current) return incoming;
+    const oC = MUC_DO_TUONG_TAC_ORDER_META[chuanHoaMucDoCanhBaoTuongTacThuoc(current.MUC_DO_CANH_BAO)] || 1;
+    const oI = MUC_DO_TUONG_TAC_ORDER_META[chuanHoaMucDoCanhBaoTuongTacThuoc(incoming.MUC_DO_CANH_BAO)] || 1;
+    if (oI > oC) return incoming;
+    if (oI < oC) return current;
+    const lenI = (incoming.CANH_BAO_HE_THONG || '').length;
+    const lenC = (current.CANH_BAO_HE_THONG || '').length;
+    if (lenI > lenC) return incoming;
+    return current;
+};
+
+/**
+ * Từ một dòng danh mục: danh sách khóa cặp mã đã sắp xếp (a|b, a<=b theo chuỗi).
+ * — Nếu «Nội dung» có dạng «… vs …»: lấy mã trong ngoặc hai bên, tích chéo (bên trái × bên phải);
+ *   một bên không có ngoặc thì dùng MA_THUOC_A / MA_THUOC_B tương ứng nếu có.
+ * — Ngược lại: nếu đủ MA_THUOC_A và MA_THUOC_B thì một cặp; không thì mọi cặp từ các mã trong ngoặc (fallback).
+ */
+const taoDanhSachCapMaTuHangTuongTacThuoc = (r) => {
+    const a = UPPER(r?.MA_THUOC_A);
+    const b = UPPER(r?.MA_THUOC_B);
+    const nd = String(r?.NOI_DUNG_TUONG_TAC || '');
+    const capSet = new Set();
+    const themCap = (x, y) => {
+        if (!x || !y || x === y) return;
+        capSet.add([x, y].sort().join('|'));
+    };
+    const hai = tachHaiBenTheoVsNoiDungTT(nd);
+    if (hai) {
+        let maTrai = trichDanhSachMaTrongNgoacTuNoiDungTT(hai.trai);
+        let maPhai = trichDanhSachMaTrongNgoacTuNoiDungTT(hai.phai);
+        if (maTrai.length === 0 && a) maTrai = [a];
+        if (maPhai.length === 0 && b) maPhai = [b];
+        if (maTrai.length > 0 && maPhai.length > 0) {
+            maTrai.forEach((x) => maPhai.forEach((y) => themCap(x, y)));
+            return Array.from(capSet);
+        }
+    }
+    if (a && b) {
+        themCap(a, b);
+        return Array.from(capSet);
+    }
+    const tat = trichDanhSachMaTrongNgoacTuNoiDungTT(nd);
+    for (let i = 0; i < tat.length; i += 1) {
+        for (let j = i + 1; j < tat.length; j += 1) {
+            themCap(tat[i], tat[j]);
+        }
+    }
+    return Array.from(capSet);
+};
+
+/** Danh mục tương tác thuốc nội bộ: cặp MA_THUOC (không hướng) → mô tả cảnh báo + mức độ */
 const taoMetaTuongTacThuocTuBang = (rows) => {
     const MAP_TUONG_TAC_CAP = new Map();
     if (!Array.isArray(rows)) {
@@ -1060,15 +1154,17 @@ const taoMetaTuongTacThuocTuBang = (rows) => {
     rows.forEach((r) => {
         const tt = UPPER(r?.TRANG_THAI);
         if (tt === 'OFF' || tt === '0' || tt === 'FALSE' || tt === 'TAT') return;
-        const a = UPPER(r?.MA_THUOC_A);
-        const b = UPPER(r?.MA_THUOC_B);
-        if (!a || !b) return;
-        const pk = [a, b].sort().join('|');
-        if (MAP_TUONG_TAC_CAP.has(pk)) return;
-        MAP_TUONG_TAC_CAP.set(pk, {
+        const capPkList = taoDanhSachCapMaTuHangTuongTacThuoc(r);
+        if (capPkList.length === 0) return;
+        const meta = {
             MA_TUONG_TAC: String(r?.MA_TUONG_TAC || '').trim(),
             CANH_BAO_HE_THONG: String(r?.CANH_BAO_HE_THONG || '').trim(),
             NOI_DUNG_TUONG_TAC: String(r?.NOI_DUNG_TUONG_TAC || '').trim(),
+            MUC_DO_CANH_BAO: chuanHoaMucDoCanhBaoTuongTacThuoc(r?.MUC_DO_CANH_BAO, r),
+        };
+        capPkList.forEach((pk) => {
+            const prev = MAP_TUONG_TAC_CAP.get(pk);
+            MAP_TUONG_TAC_CAP.set(pk, gopMetaTuongTacTrungCap(prev, meta));
         });
     });
     return {
@@ -2850,13 +2946,14 @@ const giamDinhDanhMucNoiBo = (hoSo, dm) => {
                 const nenTang = maLk
                     ? ` Đợt KCB ${loaiDt}, MA_LK ${maLk} — đối chiếu toàn bộ dòng thuốc XML2 do BHYT thanh toán.`
                     : ` Đợt KCB ${loaiDt} — đối chiếu toàn bộ dòng thuốc XML2 do BHYT thanh toán.`;
+                const mucDoTt = chuanHoaMucDoCanhBaoTuongTacThuoc(hit.MUC_DO_CANH_BAO);
                 addLỗi(
                     'XML2',
                     idxRef,
                     maLuat,
                     'Tương tác thuốc (XML2 — cùng đợt, đồng thời A và B)',
                     `${msgGoc}${phuLucDieuKien}${nenTang} (Cặp mã: [${dsMa[i]}] + [${dsMa[j]}].)`,
-                    'Warning',
+                    mucDoTt,
                     'MA_THUOC',
                     CO_SO_PHAP_LY_KCB.CHUYEN_MON,
                 );

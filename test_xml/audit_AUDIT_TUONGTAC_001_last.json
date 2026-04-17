@@ -1,24 +1,25 @@
 {
   "meta": {
-    "generated_at": "2026-04-14T15:20:42.684Z",
+    "generated_at": "2026-04-17T11:36:01.357Z",
     "claim_path": "C:\\Users\\admin\\Documents\\Google Drive\\ung_dung_cdss_bhyt\\test_xml\\huan_luyen\\AUDIT_TUONGTAC_001.xml",
     "ma_lk": "AUDIT_TUONGTAC_001",
-    "total_warnings": 94,
+    "total_warnings": 93,
+    "tuong_tac_only": false,
     "by_severity": {
       "Critical": 22,
       "Error": 30,
-      "Warning": 42
+      "Warning": 41
     },
     "by_namespace": {
       "HANH_CHINH_BUILTIN": 1,
       "HANH_CHINH_HARDCODED": 11,
       "ICD10_TT06_BUILTIN": 1,
-      "QUY_TAC_NOI_BO": 72,
+      "QUY_TAC_NOI_BO": 71,
       "THUOC_HARDCODED": 7,
       "XDC_BUILTIN": 2
     },
     "by_source": {
-      "dong_co_giam_dinh": 76,
+      "dong_co_giam_dinh": 75,
       "luat_hanh_chinh_hardcoded": 11,
       "luat_thuoc_hardcoded": 7
     },
@@ -50,7 +51,6 @@
     "TUONGTAC_001",
     "XML_109",
     "XML_49",
-    "XML_53",
     "XML_59",
     "XML1-REQ-CHAN_DOAN_VAO",
     "XML1-REQ-DIA_CHI",
@@ -125,7 +125,6 @@
     "TUONGTAC_001": 1,
     "XML_109": 1,
     "XML_49": 1,
-    "XML_53": 1,
     "XML_59": 1,
     "XML1-REQ-CHAN_DOAN_VAO": 1,
     "XML1-REQ-DIA_CHI": 1,
@@ -1257,22 +1256,6 @@
       "ma_luat": "XML_49",
       "ten_quy_tac": "Lệch BHYT trả (T_BHTT)",
       "dieu_kien": "ABS(TO_NUMBER(XML1.T_BHTT) - (SUM_IF(XML2, item => !IS_EMPTY(item.T_BHTT), item => TO_NUMBER(item.T_BHTT)) + SUM_IF(XML3, item => !IS_EMPTY(item.T_BHTT), item => TO_NUMBER(item.T_BHTT)))) > 1",
-      "co_so_phap_ly": "Quyết định 130/QĐ-BYT: quy định cấu trúc và danh mục chỉ tiêu dữ liệu XML KCB BHYT. Nghị định 188/2025/NĐ-CP: quy định về thanh toán chi phí KCB BHYT, thủ tục thanh toán và xử lý vi phạm hành chính. Quyết định 3618/QĐ-BHXH: quy trình kiểm tra BHYT và bộ danh mục, chỉ tiêu dữ liệu phục vụ kiểm tra điện tử. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
-      "tab_quan_tri_goi_y": ""
-    },
-    {
-      "id": "XML_53",
-      "phan_he": "XML1",
-      "truong_loi": "T_THUOC",
-      "canh_bao": "⛔ [KẾ TOÁN]: Tổng tiền thuốc tại XML1 lệch với cộng dồn THANH_TIEN_BV của các dòng thuốc tại XML2.",
-      "muc_do": "Warning",
-      "index": -1,
-      "ma_luat": "XML_53",
-      "ten_quy_tac": "Lệch tiền Thuốc (T_THUOC)",
-      "dieu_kien": "ABS(TO_NUMBER(XML1.T_THUOC) - SUM_IF(XML2, item => item.MA_NHOM IN ('4','5'), item => TO_NUMBER(item.THANH_TIEN_BV))) > 1",
       "co_so_phap_ly": "Quyết định 130/QĐ-BYT: quy định cấu trúc và danh mục chỉ tiêu dữ liệu XML KCB BHYT. Nghị định 188/2025/NĐ-CP: quy định về thanh toán chi phí KCB BHYT, thủ tục thanh toán và xử lý vi phạm hành chính. Quyết định 3618/QĐ-BHXH: quy trình kiểm tra BHYT và bộ danh mục, chỉ tiêu dữ liệu phục vụ kiểm tra điện tử. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",

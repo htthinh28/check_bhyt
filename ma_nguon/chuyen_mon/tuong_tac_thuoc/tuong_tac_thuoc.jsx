@@ -35,6 +35,7 @@ const COT_LUU_TRU = [
   'MA_THUOC_B',
   'NOI_DUNG_TUONG_TAC',
   'CANH_BAO_HE_THONG',
+  'MUC_DO_CANH_BAO',
   'DU_LIEU_CAP_DOI_DAY_DU',
 ];
 
@@ -52,6 +53,7 @@ const METADATA_COT = {
   MA_THUOC_B: { label: 'Mã thuốc B', flex: 0.95, minWidth: 100, loai: 'ma' },
   NOI_DUNG_TUONG_TAC: { label: 'Nội dung tương tác', flex: 2.4, minWidth: 220, loai: 'long' },
   CANH_BAO_HE_THONG: { label: 'Cảnh báo hệ thống', flex: 2.4, minWidth: 240, loai: 'long' },
+  MUC_DO_CANH_BAO: { label: 'Mức độ', flex: 0.85, minWidth: 200, loai: 'muc_do' },
   DU_LIEU_CAP_DOI_DAY_DU: { label: 'Đủ cặp mã', flex: 0.45, minWidth: 72, loai: 'badge' },
 };
 
@@ -61,6 +63,17 @@ const CAO_DONG_TOI_THIEU = 108;
 const reBracket = /\[([^\]]+)\]/g;
 
 const UPPER = (s) => String(s || '').trim().toUpperCase();
+
+const chuanHoaMucDoHang = (raw, rowGoiY) => {
+  const u = UPPER(raw);
+  if (u === 'CRITICAL' || u === 'NGHIEM_TRONG' || u === 'NGHIÊM_TRỌNG') return 'Critical';
+  if (u === 'ERROR' || u === 'LOI' || u === 'LỖI') return 'Error';
+  if (u === 'WARNING' || u === 'CANH BÁO' || u === 'CANH BAO') return 'Warning';
+  if (u) return 'Warning';
+  const cb = String(rowGoiY?.CANH_BAO_HE_THONG || '');
+  if (/🚫|CHỐNG\s*CHỈ\s*ĐỊNH|CHONG\s*CHI\s*DINH/i.test(cb)) return 'Critical';
+  return 'Warning';
+};
 
 const chuanHoaHang = (r) => {
   const row = { ...r };
@@ -73,6 +86,7 @@ const chuanHoaHang = (r) => {
   const a = UPPER(row.MA_THUOC_A);
   const b = UPPER(row.MA_THUOC_B);
   row.DU_LIEU_CAP_DOI_DAY_DU = a && b ? '1' : '0';
+  row.MUC_DO_CANH_BAO = chuanHoaMucDoHang(row.MUC_DO_CANH_BAO, row);
   return row;
 };
 
@@ -86,6 +100,8 @@ const chuanHoaDongTuExcel = (row, i) => {
   const ttRaw = String(row['Trạng thái'] ?? row.TRANG_THAI ?? row['Bật'] ?? 'ON').trim();
   const tt = UPPER(ttRaw);
   const trangThai = tt === 'OFF' || tt === '0' || tt === 'TẮT' || tt === 'TAT' ? 'OFF' : 'ON';
+  const canh = String(row['Cảnh báo hệ thống'] ?? row.CANH_BAO_HE_THONG ?? '');
+  const mucRaw = String(row['Mức độ'] ?? row['Mức độ cảnh báo'] ?? row.MUC_DO_CANH_BAO ?? '');
   return chuanHoaHang({
     id: String(row.id || `tt-${Date.now()}-${i}`),
     TRANG_THAI: trangThai,
@@ -93,7 +109,8 @@ const chuanHoaDongTuExcel = (row, i) => {
     MA_THUOC_A: maA,
     MA_THUOC_B: maB,
     NOI_DUNG_TUONG_TAC: noiDung,
-    CANH_BAO_HE_THONG: String(row['Cảnh báo hệ thống'] ?? row.CANH_BAO_HE_THONG ?? ''),
+    CANH_BAO_HE_THONG: canh,
+    MUC_DO_CANH_BAO: mucRaw,
     DU_LIEU_CAP_DOI_DAY_DU: maA && maB ? '1' : '0',
   });
 };
@@ -219,6 +236,7 @@ const TuongTacThuocChuyenMon = () => {
       MA_THUOC_B: '',
       NOI_DUNG_TUONG_TAC: '',
       CANH_BAO_HE_THONG: '',
+      MUC_DO_CANH_BAO: 'Warning',
       DU_LIEU_CAP_DOI_DAY_DU: '0',
     });
     luuHeThong([newRow, ...data]);
@@ -424,6 +442,36 @@ const TuongTacThuocChuyenMon = () => {
       );
     }
 
+    if (meta.loai === 'muc_do') {
+      const levels = [
+        { v: 'Warning', short: 'C.báo' },
+        { v: 'Error', short: 'Lỗi' },
+        { v: 'Critical', short: 'N.trọng' },
+      ];
+      const cur = row.MUC_DO_CANH_BAO || 'Warning';
+      return (
+        <View key={`c-${row.id}-${key}`} style={[styles.o_cell, base, styles.o_muc_do_wrap]}>
+          {levels.map(({ v, short }) => {
+            const active = cur === v;
+            return (
+              <TouchableOpacity
+                key={v}
+                onPress={() => handleCellChange(row.id, 'MUC_DO_CANH_BAO', v)}
+                style={[
+                  styles.pill_muc_do,
+                  active ? (v === 'Critical' ? styles.pill_md_crit : v === 'Error' ? styles.pill_md_err : styles.pill_md_warn) : styles.pill_muc_do_off,
+                ]}
+              >
+                <Text style={[styles.pill_muc_do_txt, active ? styles.pill_muc_do_txt_on : null]} numberOfLines={1}>
+                  {short}
+                </Text>
+              </TouchableOpacity>
+            );
+          })}
+        </View>
+      );
+    }
+
     if (meta.loai === 'badge') {
       const ok = row.DU_LIEU_CAP_DOI_DAY_DU === '1';
       return (
@@ -501,8 +549,8 @@ const TuongTacThuocChuyenMon = () => {
             <Text style={styles.txt_btn_quy_tac}>{moQuyTac ? '▼' : '▶'} Quy tắc giám định</Text>
           </TouchableOpacity>
         </ScrollView>
-        <Text style={styles.ghi_chu} numberOfLines={2}>
-          ON mới giám định. ⧉ sao chép dòng · Tối thiểu {CAO_DONG_TOI_THIEU}px/dòng.
+        <Text style={styles.ghi_chu} numberOfLines={3}>
+          ON mới giám định. «Nội dung» có « vs »: động cơ tạo tất cả cặp mã […] bên trái × bên phải (nhóm thuốc). Mức độ: Critical/Error/Warning — để trống thì suy từ cảnh báo (🚫/chống chỉ định → Critical). ⧉ sao chép dòng.
         </Text>
         <Text style={styles.thong_ke_dong} selectable>
           Tổng {thongKeBang.tong} dòng đã lưu · {thongKeBang.capPhanBiet} cặp mã khác nhau · Đủ A+B:{' '}
@@ -760,6 +808,14 @@ const styles = StyleSheet.create({
   badge_ok: { backgroundColor: '#E8F5E9' },
   badge_no: { backgroundColor: '#FFEBEE' },
   badge_txt: { fontSize: 12, fontWeight: '600', fontFamily: CD.font.family, color: '#333' },
+  o_muc_do_wrap: { flexDirection: 'row', flexWrap: 'wrap', alignItems: 'center', gap: 4, justifyContent: 'center' },
+  pill_muc_do: { paddingHorizontal: 6, paddingVertical: 5, borderRadius: 6, borderWidth: 1, borderColor: CD.border.glass_md },
+  pill_muc_do_off: { backgroundColor: CD.bg.glass_input },
+  pill_md_warn: { backgroundColor: '#FFF8E1', borderColor: '#F9A825' },
+  pill_md_err: { backgroundColor: '#FFEBEE', borderColor: '#E53935' },
+  pill_md_crit: { backgroundColor: '#FCE4EC', borderColor: '#AD1457' },
+  pill_muc_do_txt: { fontSize: 11, fontWeight: '600', color: CD.text.secondary, fontFamily: CD.font.family },
+  pill_muc_do_txt_on: { color: '#222' },
 });
 
 export default TuongTacThuocChuyenMon;

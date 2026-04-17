@@ -63,7 +63,7 @@ for (const r of raw) {
 
 const payload = {
   phien_ban: `2026.04.14.${rows.length}`,
-  columns: ['id', 'TRANG_THAI', 'MA_TUONG_TAC', 'MA_THUOC_A', 'MA_THUOC_B', 'NOI_DUNG_TUONG_TAC', 'CANH_BAO_HE_THONG', 'DU_LIEU_CAP_DOI_DAY_DU'],
+  columns: ['id', 'TRANG_THAI', 'MA_TUONG_TAC', 'MA_THUOC_A', 'MA_THUOC_B', 'NOI_DUNG_TUONG_TAC', 'CANH_BAO_HE_THONG', 'MUC_DO_CANH_BAO', 'DU_LIEU_CAP_DOI_DAY_DU'],
   data: rows,
 };
 
