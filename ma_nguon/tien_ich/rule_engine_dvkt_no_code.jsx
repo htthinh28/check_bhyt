@@ -1594,6 +1594,25 @@ const checkEquipment = ({ rule, line, claim, config }) => {
 };
 
 /**
+ * DVKT-OP-09: chỉ đối chiếu DM Giường & khám BV khi tên hoặc mã dịch vụ gợi nhận **giường** hoặc **khám**
+ * (sau chuẩn hóa không dấu), hoặc có MA_GIUONG / mã dạng giường BV mới (K…).
+ * Tránh so với danh mục nội viện khi dòng không mang tín hiệu đó (dù MA_NHOM có thể trùng nhóm phí).
+ */
+const hasTenHoacMaLienQuanGiuongKhamNoiDm = (line) => {
+  const tenNorm = normalizeText(line?.tenDvkt || '');
+  if (tenNorm.includes('GIUONG') || tenNorm.includes('KHAM')) return true;
+  const maDv = String(line?.maTuongDuong || '').trim();
+  if (/^K\d+\./i.test(maDv)) return true;
+  const maG = String(line?.maGiuong || '').trim();
+  if (maG) return true;
+  const maDvNorm = normalizeText(maDv);
+  if (maDvNorm.includes('GIUONG') || maDvNorm.includes('KHAM')) return true;
+  const maGNorm = normalizeText(maG);
+  if (maGNorm.includes('GIUONG') || maGNorm.includes('KHAM')) return true;
+  return false;
+};
+
+/**
  * DVKT-OP-09: chỉ phí Khám (MA_NHOM=1) hoặc phí Giường (MA_NHOM=15); phải có dữ liệu để đối chiếu mã khám / mã giường.
  * — Khám: bắt buộc có MA_DICH_VU (mã khám).
  * — Giường: có MA_GIUONG hoặc MA_DICH_VU dạng mã giường BV mới (K…).
@@ -1616,6 +1635,7 @@ const isXml3HuongUngDvktOp09 = (line) => {
 
 const checkInternalApproval = ({ rule, line, claim, config }) => {
   if (!isXml3HuongUngDvktOp09(line)) return pass();
+  if (!hasTenHoacMaLienQuanGiuongKhamNoiDm(line)) return pass();
   const dmMap = config.op09DmktByCode;
   const apMap = config.op09InternalApprovalByCode;
   if (!dmMap || (dmMap.size === 0 && (!apMap || apMap.size === 0))) return pass();
