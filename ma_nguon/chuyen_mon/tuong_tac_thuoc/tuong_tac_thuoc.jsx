@@ -21,6 +21,7 @@ import { ghiMangDanhMucVaoStorage, taiBoDuLieuDanhMuc } from '../../tien_ich/luu
 import { xoaCacheBoMayGiamDinh } from '../../tien_ich/dong_co_giam_dinh';
 import TimKiemPhanTrangBang from '../../thanh_phan/tim_kiem_phan_trang_bang';
 import seed from './du_lieu_tuong_tac_thuoc.seed.json';
+import { chuanHoaBangTuongTacKhongTrungKey, coTrungIdHoacTrungNoiDungBangTuongTac } from './chuan_hoa_bang_tuong_tac';
 import { NOI_DUNG_QUY_TAC_HIEN_THI } from './quy_tac_giam_dinh_tuong_tac';
 
 const DATA_KEY = 'DANH_MUC_TUONG_TAC_THUOC';
@@ -167,8 +168,22 @@ const TuongTacThuocChuyenMon = () => {
         columnsKey: COLUMNS_KEY,
         fallbackColumns: COT_LUU_TRU,
       });
-      const raw = Array.isArray(rows) && rows.length ? rows : (Array.isArray(seed?.data) ? seed.data : []);
-      setData(raw.map(chuanHoaHang));
+      const fromStorage = Array.isArray(rows) && rows.length > 0;
+      const raw = fromStorage ? rows : (Array.isArray(seed?.data) ? seed.data : []);
+      const fixed = chuanHoaBangTuongTacKhongTrungKey(raw).map(chuanHoaHang);
+      if (
+        fromStorage &&
+        (coTrungIdHoacTrungNoiDungBangTuongTac(raw) || raw.length !== fixed.length)
+      ) {
+        try {
+          await ghiMangDanhMucVaoStorage(DATA_KEY, fixed);
+          await ghiMangDanhMucVaoStorage(COLUMNS_KEY, COT_LUU_TRU);
+          xoaCacheBoMayGiamDinh();
+        } catch (e2) {
+          console.warn(e2);
+        }
+      }
+      setData(fixed);
     } catch (e) {
       console.warn(e);
     }
@@ -183,7 +198,7 @@ const TuongTacThuocChuyenMon = () => {
   }, [data]);
 
   const luuHeThong = async (newData) => {
-    const next = newData.map(chuanHoaHang);
+    const next = chuanHoaBangTuongTacKhongTrungKey(newData).map(chuanHoaHang);
     setData(next);
     try {
       await ghiMangDanhMucVaoStorage(DATA_KEY, next);
@@ -632,7 +647,14 @@ const TuongTacThuocChuyenMon = () => {
             {COT_HIEN_BANG.map((key) => renderOToCot(key, {}, true))}
           </View>
 
-          <ScrollView nestedScrollEnabled style={styles.cuon_doc} keyboardShouldPersistTaps="handled">
+          <ScrollView
+            nestedScrollEnabled
+            style={[
+              styles.cuon_doc,
+              Platform.OS === 'web' ? { flex: 1, flexBasis: 0, minHeight: 0 } : null,
+            ]}
+            keyboardShouldPersistTaps="handled"
+          >
             {duLieuTrang.map(({ row }) => (
               <View key={row.id} style={[styles.dong_row, styles.dong_dat]}>
                 <View style={[styles.o_co_dinh, styles.o_flex_center, { width: RONG_CHON }]}>

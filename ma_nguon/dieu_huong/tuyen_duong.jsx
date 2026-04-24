@@ -15,11 +15,13 @@ import {
   dangKyTuDongKetNoiLaiPythonKhiMangHoacPhien,
   kichHoatKetNoiPythonSauKhoiDongUngDung,
 } from '../tien_ich/hybrid_python_helper';
+import { docDanhSachTaiKhoan } from '../tien_ich/nhat_ky_he_thong';
 import { coPhienDangNhapHopLe, docPhienDangNhap } from '../tien_ich/phien_dang_nhap';
 import { coQuyenManHinh, taiRBAC } from '../tien_ich/rbac_engine';
 
 // 1. NHÓM MÀN HÌNH HỆ THỐNG & TỔNG QUAN
 import ManHinhDangNhap from '../man_hinh/dang_nhap';
+import ManHinhDoiMatKhau from '../man_hinh/doi_mat_khau';
 import ManHinhHelperHeThong from '../man_hinh/helper_he_thong';
 import ManHinhKhoLuuTru from '../man_hinh/man_hinh_kho_luu_tru';
 import ManHinhPhanQuyen from '../man_hinh/phan_quyen_truy_cap';
@@ -90,7 +92,24 @@ const DieuHuongChinh = () => {
       return;
     }
 
-    if (daDangNhap && tenManHinh !== 'TongQuan' && tenManHinh !== 'DangNhap') {
+    if (daDangNhap && tenManHinh !== 'DoiMatKhau' && tenManHinh !== 'DangNhap') {
+      try {
+        const session = await docPhienDangNhap();
+        const email = String(session.email || '').trim().toLowerCase();
+        if (email) {
+          const ds = await docDanhSachTaiKhoan();
+          const u = ds.find((x) => x.email === email);
+          if (u?.buocDoiMatKhau) {
+            navRef.current.resetRoot({ index: 0, routes: [{ name: 'DoiMatKhau', params: { batBuoc: true } }] });
+            return;
+          }
+        }
+      } catch {
+        /* không chặn điều hướng */
+      }
+    }
+
+    if (daDangNhap && tenManHinh !== 'TongQuan' && tenManHinh !== 'DangNhap' && tenManHinh !== 'DoiMatKhau') {
       const [session, cfg] = await Promise.all([docPhienDangNhap(), taiRBAC()]);
       const choPhep = coQuyenManHinh({
         cfg,
@@ -187,6 +206,7 @@ const DieuHuongChinh = () => {
       >
         {/* --- PHÂN HỆ TRUY CẬP & HỆ THỐNG --- */}
         <Stack.Screen name="DangNhap" component={ManHinhDangNhap} />
+        <Stack.Screen name="DoiMatKhau" component={ManHinhDoiMatKhau} />
         <Stack.Screen name="TongQuan" component={ManHinhTongQuan} />
         <Stack.Screen name="Helper" component={ManHinhHelperHeThong} />
         <Stack.Screen name="PhanQuyenTruyCap" component={ManHinhPhanQuyen} />

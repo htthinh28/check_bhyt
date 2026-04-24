@@ -1182,6 +1182,12 @@ ${phanDongKhoi.join('\n')}
                   </Text>
                 </View>
               </View>
+              <TouchableOpacity
+                style={styles.btn_doi_mk}
+                onPress={() => navigation.navigate('DoiMatKhau', { batBuoc: false })}
+              >
+                <Text style={styles.btn_doi_mk_txt}>🔑 Đổi mật khẩu</Text>
+              </TouchableOpacity>
               <TouchableOpacity style={styles.btn_logout} onPress={xuLyDangXuat}>
                 <Text style={styles.btn_logout_txt}>⏻ Đăng xuất</Text>
               </TouchableOpacity>
@@ -2116,6 +2122,16 @@ const styles = StyleSheet.create({
   user_badge_icon: { fontSize: 22 },
   user_badge_name: { fontSize: 17, fontWeight: '700', color: '#FFF', fontFamily: CD.font.family },
   user_badge_role: { fontSize: 14, color: 'rgba(255,255,255,0.7)', fontFamily: CD.font.family },
+  btn_doi_mk: {
+    paddingVertical: 10,
+    paddingHorizontal: 14,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.35)',
+    marginRight: 8,
+    ...Platform.select({ web: { cursor: 'pointer' } }),
+  },
+  btn_doi_mk_txt: { fontSize: 15, color: '#FFF', fontWeight: '600', fontFamily: CD.font.family },
   btn_logout: {
     paddingVertical: 8, paddingHorizontal: 16,
     backgroundColor: 'rgba(255,255,255,0.08)', borderRadius: 10,

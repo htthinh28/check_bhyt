@@ -23,7 +23,7 @@ async function fillLogin(page, email, password) {
   await page.goto(`${BASE_URL}/login`, { waitUntil: 'domcontentloaded' });
   await page.getByPlaceholder('Nhập email hoặc mã HIS...').fill(email);
   await page.getByPlaceholder('Nhập mật khẩu...').fill(password);
-  await page.getByText('🔑  ĐĂNG NHẬP HỆ THỐNG', { exact: true }).click();
+  await page.getByText('🔑  ĐĂNG NHẬP', { exact: true }).click();
 }
 
 async function loginAdmin(page) {
@@ -63,11 +63,15 @@ async function createUser(page) {
 }
 
 async function grantReportRole(page) {
-  await page.getByPlaceholder('Tìm theo tên, email, vai trò, trạng thái...').fill(TEST_USER_EMAIL);
+  await page.getByText('Gán quyền (RBAC)', { exact: true }).click();
+  await page.getByText(TEST_USER_EMAIL, { exact: true }).first().click();
   await page.getByText('Quản lý chất lượng', { exact: false }).click();
 
+  await page.getByText('Tài khoản & mật khẩu', { exact: true }).click();
+  await page.getByPlaceholder('Tìm theo tên, email, vai trò, trạng thái...').fill(TEST_USER_EMAIL);
   await page.getByTestId(`user-report-view-${TEST_USER_EMAIL}`).getByText('Báo cáo VIEW: Cho phép', { exact: true }).waitFor({ timeout: 15000 });
-  await page.getByText('Đóng bảng chỉnh sửa người dùng', { exact: false }).click();
+  await page.getByText('Gán quyền (RBAC)', { exact: true }).click();
+  await page.getByText('Bỏ chọn tài khoản', { exact: false }).click();
 }
 
 async function verifyUserCanLoginAndSeeReports(page) {

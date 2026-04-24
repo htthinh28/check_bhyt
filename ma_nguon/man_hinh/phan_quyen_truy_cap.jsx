@@ -11,6 +11,13 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
+import {
+    capNhatMatKhauTrongDanhSach,
+    KIEM_TRA_EMAIL_CDSS,
+    kiemTraDinhDangMatKhau,
+    taoBanGhiTaiKhoanMoi,
+    taoMatKhauNgauNhien,
+} from '../tien_ich/dich_vu_tai_khoan_cdss';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CD } from '../tien_ich/chu_de_giao_dien';
 import { quayLaiAnToan } from '../tien_ich/dieu_huong_an_toan';
@@ -33,8 +40,6 @@ const CREATE_ACCOUNT_TABS = [
   { id: 'PROFILE', label: 'Thông tin tài khoản' },
   { id: 'PERMISSIONS', label: 'Phân quyền ngay' },
 ];
-
-const KIEM_TRA_EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const tachDanhSachDuyNhat = (items) => Array.from(new Set((Array.isArray(items) ? items : []).filter(Boolean)));
 
@@ -130,6 +135,13 @@ export default function ManHinhPhanQuyen({ navigation }) {
   const [newResModuleId, setNewResModuleId] = useState('');
   const [newResRoute, setNewResRoute] = useState('');
   const [tuKhoaNguoiDung, setTuKhoaNguoiDung] = useState('');
+  /** Tách màn: tài khoản/mật khẩu vs gán RBAC theo user */
+  const [usersSubTab, setUsersSubTab] = useState('TAI_KHOAN');
+  const [modalMatKhau, setModalMatKhau] = useState(null);
+  const [mkAdminMoi, setMkAdminMoi] = useState('');
+  const [mkAdminXacNhan, setMkAdminXacNhan] = useState('');
+  const [buocDoiSauDoiAdmin, setBuocDoiSauDoiAdmin] = useState(true);
+  const [dangLuuMatKhauAdmin, setDangLuuMatKhauAdmin] = useState(false);
 
   const selectedUser = useMemo(
     () => users.find((u) => u.email === selectedUserEmail) || null,
@@ -431,7 +443,7 @@ export default function ManHinhPhanQuyen({ navigation }) {
         Alert.alert('Thiếu thông tin', 'Vui lòng nhập tối thiểu họ tên, email và mật khẩu khởi tạo.');
         return;
       }
-      if (!KIEM_TRA_EMAIL.test(email)) {
+      if (!KIEM_TRA_EMAIL_CDSS.test(email)) {
         setCapDoThongBaoTaoTaiKhoan('ERROR');
         setThongBaoTaoTaiKhoan('Email chưa đúng định dạng.');
         Alert.alert('Email chưa hợp lệ', 'Vui lòng nhập đúng định dạng email (ví dụ: ten@benhvien.vn).');
@@ -476,23 +488,20 @@ export default function ManHinhPhanQuyen({ navigation }) {
       const danhSachRole = bindingKhoiTao.roleIds.map((id) => trangThaiRole(cfgHienTai, id)).join(', ') || 'Không gán role';
       const danhSachGroup = bindingKhoiTao.groupIds.map((id) => trangThaiGroup(cfgHienTai, id)).join(', ') || 'Không gán nhóm';
 
+      const banGhiMoi = taoBanGhiTaiKhoanMoi({
+        email,
+        hoTen,
+        khoa,
+        phong,
+        chucDanh,
+        soDienThoai,
+        matKhau,
+        vaiTro: laAdminToanQuyen ? 'ADMIN' : 'USER',
+        trangThai: 'HOAT_DONG',
+        buocDoiMatKhau: false,
+      });
       const nextUsers = await voiTimeout(
-        luuDanhSachTaiKhoan([
-          ...dsNguoiDungHienTai,
-          {
-            email,
-            ten: hoTen,
-            hoTen,
-            khoa,
-            phong,
-            chucDanh,
-            soDienThoai,
-            matKhau,
-            vaiTro: laAdminToanQuyen ? 'ADMIN' : 'USER',
-            trangThai: 'HOAT_DONG',
-            buocDoiMatKhau: false,
-          },
-        ], adminEmail || 'ADMIN'),
+        luuDanhSachTaiKhoan([...dsNguoiDungHienTai, banGhiMoi], adminEmail || 'ADMIN'),
         15000,
         'Hết thời gian lưu danh sách tài khoản. Vui lòng kiểm tra storage và thử lại.'
       );
@@ -537,6 +546,7 @@ export default function ManHinhPhanQuyen({ navigation }) {
       setUsers(usersDaLuu);
       setCfg(cfgDaLuu);
       setSelectedUserEmail(email);
+      setUsersSubTab('RBAC');
       setCapDoThongBaoTaoTaiKhoan('SUCCESS');
       setThongBaoTaoTaiKhoan(`Đã lưu tài khoản ${email} thành công.`);
       dongModalTaoTaiKhoan();
@@ -649,29 +659,85 @@ export default function ManHinhPhanQuyen({ navigation }) {
     ]);
   };
 
-  const datLaiMatKhau = (user) => {
-    Alert.alert('Đặt lại mật khẩu', `Đặt mật khẩu mặc định 123456 cho ${user.email}?`, [
-      { text: 'Hủy', style: 'cancel' },
-      {
-        text: 'Đặt lại',
-        style: 'destructive',
-        onPress: async () => {
-          const nextUsers = await luuDanhSachTaiKhoan(
-            users.map((u) => (u.email === user.email ? { ...u, matKhau: '123456', buocDoiMatKhau: true } : u)),
-            adminEmail || 'ADMIN'
-          );
-          setUsers(nextUsers);
-          await ghiNhatKyHeThong({
-            hanhDong: 'DAT_LAI_MAT_KHAU',
-            doiTuong: user.email,
-            chiTiet: 'Mật khẩu đặt về 123456',
-            taiKhoan: adminEmail,
-            vaiTro: 'ADMIN',
-          });
-          await napNhatKy();
+  const moModalMatKhauAdmin = (user) => {
+    setModalMatKhau({ email: user.email, hoTen: user.hoTen || user.ten || user.email });
+    setMkAdminMoi('');
+    setMkAdminXacNhan('');
+    setBuocDoiSauDoiAdmin(true);
+  };
+
+  const dongModalMatKhauAdmin = () => {
+    setModalMatKhau(null);
+    setMkAdminMoi('');
+    setMkAdminXacNhan('');
+    setDangLuuMatKhauAdmin(false);
+  };
+
+  const sinhMatKhauTamVaLuu = (user) => {
+    const mk = taoMatKhauNgauNhien(12);
+    Alert.alert(
+      'Cấp mật khẩu tạm (phục hồi)',
+      `Gửi cho người dùng một lần (không gửi email tự động trong phiên bản này):\n\n${mk}\n\nSau khi lưu, người dùng phải đổi mật khẩu khi đăng nhập lại.`,
+      [
+        { text: 'Hủy', style: 'cancel' },
+        {
+          text: 'Lưu & áp dụng',
+          onPress: async () => {
+            const nextUsers = await luuDanhSachTaiKhoan(
+              capNhatMatKhauTrongDanhSach(users, user.email, mk, { buocDoiMatKhau: true }),
+              adminEmail || 'ADMIN',
+            );
+            setUsers(nextUsers);
+            await ghiNhatKyHeThong({
+              hanhDong: 'PHUC_HOI_MAT_KHAU_TEMP',
+              doiTuong: user.email,
+              chiTiet: 'Admin cấp mật khẩu tạm + bắt buộc đổi khi đăng nhập',
+              taiKhoan: adminEmail,
+              vaiTro: 'ADMIN',
+            });
+            await napNhatKy();
+          },
         },
-      },
-    ]);
+      ],
+    );
+  };
+
+  const luuMatKhauAdminTuModal = async () => {
+    if (!modalMatKhau?.email || dangLuuMatKhauAdmin) return;
+    const email = modalMatKhau.email;
+    const mk = mkAdminMoi.trim();
+    const mk2 = mkAdminXacNhan.trim();
+    const kt = kiemTraDinhDangMatKhau(mk);
+    if (!kt.ok) {
+      Alert.alert('Mật khẩu', kt.loi);
+      return;
+    }
+    if (mk !== mk2) {
+      Alert.alert('Xác nhận', 'Hai lần nhập mật khẩu mới không khớp.');
+      return;
+    }
+    setDangLuuMatKhauAdmin(true);
+    try {
+      const nextUsers = await luuDanhSachTaiKhoan(
+        capNhatMatKhauTrongDanhSach(users, email, mk, { buocDoiMatKhau: buocDoiSauDoiAdmin }),
+        adminEmail || 'ADMIN',
+      );
+      setUsers(nextUsers);
+      await ghiNhatKyHeThong({
+        hanhDong: 'ADMIN_DOI_MAT_KHAU',
+        doiTuong: email,
+        chiTiet: buocDoiSauDoiAdmin ? 'Admin đặt mật khẩu + bắt đổi khi đăng nhập' : 'Admin đặt mật khẩu',
+        taiKhoan: adminEmail,
+        vaiTro: 'ADMIN',
+      });
+      await napNhatKy();
+      dongModalMatKhauAdmin();
+      Alert.alert('Thành công', `Đã cập nhật mật khẩu cho ${email}.`);
+    } catch (e) {
+      Alert.alert('Lỗi', String(e?.message || 'Không lưu được.'));
+    } finally {
+      setDangLuuMatKhauAdmin(false);
+    }
   };
 
   const xoaTaiKhoan = (user) => {
@@ -962,6 +1028,23 @@ export default function ManHinhPhanQuyen({ navigation }) {
 
   const renderUsers = () => (
     <View>
+      <View style={[styles.tabRow, { marginBottom: 12 }]}>
+        <TouchableOpacity
+          style={[styles.tabBtn, usersSubTab === 'TAI_KHOAN' && styles.tabBtnActive]}
+          onPress={() => setUsersSubTab('TAI_KHOAN')}
+        >
+          <Text style={[styles.tabText, usersSubTab === 'TAI_KHOAN' && styles.tabTextActive]}>Tài khoản & mật khẩu</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.tabBtn, usersSubTab === 'RBAC' && styles.tabBtnActive]}
+          onPress={() => setUsersSubTab('RBAC')}
+        >
+          <Text style={[styles.tabText, usersSubTab === 'RBAC' && styles.tabTextActive]}>Gán quyền (RBAC)</Text>
+        </TouchableOpacity>
+      </View>
+
+      {usersSubTab === 'TAI_KHOAN' ? (
+      <View>
       <TouchableOpacity style={styles.primaryBtn} onPress={() => {
         moModalTaoTaiKhoan();
       }}>
@@ -1027,14 +1110,23 @@ export default function ManHinhPhanQuyen({ navigation }) {
               <TouchableOpacity style={styles.minorBtn} onPress={() => moModalSuaTaiKhoan(u)}>
                 <Text style={styles.minorBtnText}>Sửa hồ sơ</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.minorBtn} onPress={() => setSelectedUserEmail(u.email)}>
-                <Text style={styles.minorBtnText}>Sửa phân quyền</Text>
+              <TouchableOpacity
+                style={styles.minorBtn}
+                onPress={() => {
+                  setSelectedUserEmail(u.email);
+                  setUsersSubTab('RBAC');
+                }}
+              >
+                <Text style={styles.minorBtnText}>Gán quyền (RBAC)</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.minorBtn} onPress={() => doiTrangThaiTaiKhoan(u)}>
                 <Text style={styles.minorBtnText}>{u.trangThai === 'KHOA' ? 'Mở khóa' : 'Khóa'}</Text>
               </TouchableOpacity>
-              <TouchableOpacity style={styles.minorBtn} onPress={() => datLaiMatKhau(u)}>
-                <Text style={styles.minorBtnText}>Đặt lại mật khẩu</Text>
+              <TouchableOpacity style={styles.minorBtn} onPress={() => moModalMatKhauAdmin(u)}>
+                <Text style={styles.minorBtnText}>Đặt mật khẩu</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.minorBtn} onPress={() => sinhMatKhauTamVaLuu(u)}>
+                <Text style={styles.minorBtnText}>Mật khẩu tạm</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.dangerBtn} onPress={() => xoaTaiKhoan(u)}>
                 <Text style={styles.dangerBtnText}>Xóa</Text>
@@ -1043,111 +1135,139 @@ export default function ManHinhPhanQuyen({ navigation }) {
           </View>
         );
       })}
+        </View>
+      ) : (
+        <View>
+          <Text style={styles.hint}>
+            Gán vai trò, nhóm và ghi đè quyền theo email. Đặt mật khẩu / phục hồi mật khẩu thực hiện ở tab &quot;Tài khoản & mật khẩu&quot; — tách khỏi RBAC.
+          </Text>
+          <Text style={styles.sectionLabel}>Chọn tài khoản</Text>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={{ marginBottom: 12 }}>
+            <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8, paddingVertical: 4 }}>
+              {users.map((u) => {
+                const on = selectedUserEmail === u.email;
+                return (
+                  <TouchableOpacity
+                    key={`rbac-pick-${u.email}`}
+                    style={[styles.chip, on && styles.chipOn]}
+                    onPress={() => setSelectedUserEmail(u.email)}
+                  >
+                    <Text style={[styles.chipText, on && styles.chipTextOn]} numberOfLines={1}>
+                      {u.email}
+                    </Text>
+                  </TouchableOpacity>
+                );
+              })}
+            </View>
+          </ScrollView>
+          {!selectedUser ? (
+            <Text style={styles.empty}>Chọn một email để chỉnh RBAC.</Text>
+          ) : (
+            <View style={styles.panel}>
+              <Text style={styles.panelTitle}>Phân quyền theo tài khoản: {selectedUser.hoTen || selectedUser.ten || selectedUser.email}</Text>
+              <Text style={styles.hint}>{selectedUser.email} · {selectedUser.chucDanh || 'Chưa cập nhật'} · {selectedUser.khoa || 'Chưa cập nhật'} / {selectedUser.phong || 'Chưa cập nhật'}</Text>
+              <View style={styles.accountPermissionHero}>
+                <Text style={styles.accountPermissionHeroTitle}>{laBindingAdmin(selectedBinding) ? 'ADMIN TOÀN QUYỀN' : 'PHÂN QUYỀN GẮN THEO TÀI KHOẢN'}</Text>
+                <Text style={styles.accountPermissionHeroText}>{laBindingAdmin(selectedBinding)
+                  ? 'Tài khoản này luôn được mở toàn bộ quyền truy cập, không bị giới hạn bởi ma trận role.'
+                  : 'Role, nhóm, phạm vi dữ liệu và quyền ghi đè đang được lưu trực tiếp trên email tài khoản này, không suy diễn theo chức danh.'}</Text>
+                {!laBindingAdmin(selectedBinding) ? (
+                  <TouchableOpacity style={styles.primaryBtn} onPress={() => capAdminToanQuyenChoUser(selectedUser.email)}>
+                    <Text style={styles.primaryBtnText}>CẤP ADMIN TOÀN QUYỀN</Text>
+                  </TouchableOpacity>
+                ) : (
+                  <TouchableOpacity style={styles.minorBtn} onPress={() => boAdminToanQuyenChoUser(selectedUser.email)}>
+                    <Text style={styles.minorBtnText}>BỎ ADMIN TOÀN QUYỀN (BẬT ON/OFF CHI TIẾT)</Text>
+                  </TouchableOpacity>
+                )}
+              </View>
 
-      {selectedUser ? (
-        <View style={styles.panel}>
-          <Text style={styles.panelTitle}>Phân quyền theo tài khoản: {selectedUser.hoTen || selectedUser.ten || selectedUser.email}</Text>
-          <Text style={styles.hint}>{selectedUser.email} · {selectedUser.chucDanh || 'Chưa cập nhật'} · {selectedUser.khoa || 'Chưa cập nhật'} / {selectedUser.phong || 'Chưa cập nhật'}</Text>
-          <View style={styles.accountPermissionHero}>
-            <Text style={styles.accountPermissionHeroTitle}>{laBindingAdmin(selectedBinding) ? 'ADMIN TOÀN QUYỀN' : 'PHÂN QUYỀN GẮN THEO TÀI KHOẢN'}</Text>
-            <Text style={styles.accountPermissionHeroText}>{laBindingAdmin(selectedBinding)
-              ? 'Tài khoản này luôn được mở toàn bộ quyền truy cập, không bị giới hạn bởi ma trận role.'
-              : 'Role, nhóm, phạm vi dữ liệu và quyền ghi đè đang được lưu trực tiếp trên email tài khoản này, không suy diễn theo chức danh.'}</Text>
-            {!laBindingAdmin(selectedBinding) ? (
-              <TouchableOpacity style={styles.primaryBtn} onPress={() => capAdminToanQuyenChoUser(selectedUser.email)}>
-                <Text style={styles.primaryBtnText}>CẤP ADMIN TOÀN QUYỀN</Text>
-              </TouchableOpacity>
-            ) : (
-              <TouchableOpacity style={styles.minorBtn} onPress={() => boAdminToanQuyenChoUser(selectedUser.email)}>
-                <Text style={styles.minorBtnText}>BỎ ADMIN TOÀN QUYỀN (BẬT ON/OFF CHI TIẾT)</Text>
-              </TouchableOpacity>
-            )}
-          </View>
+              <Text style={styles.sectionLabel}>Gán đa vai trò</Text>
+              <View style={styles.grid2}>
+                {cfg.roles.map((role) => {
+                  const on = selectedBinding?.roleIds.includes(role.id);
+                  return (
+                    <TouchableOpacity key={role.id} style={[styles.chip, on && styles.chipOn]} onPress={() => batTatRoleChoUser(selectedUser.email, role.id)}>
+                      <Text style={[styles.chipText, on && styles.chipTextOn]}>{role.name}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
 
-          <Text style={styles.sectionLabel}>Gán đa vai trò</Text>
-          <View style={styles.grid2}>
-            {cfg.roles.map((role) => {
-              const on = selectedBinding?.roleIds.includes(role.id);
-              return (
-                <TouchableOpacity key={role.id} style={[styles.chip, on && styles.chipOn]} onPress={() => batTatRoleChoUser(selectedUser.email, role.id)}>
-                  <Text style={[styles.chipText, on && styles.chipTextOn]}>{role.name}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
+              <Text style={styles.sectionLabel}>Gán nhóm người dùng</Text>
+              <View style={styles.grid2}>
+                {cfg.groups.map((g) => {
+                  const on = selectedBinding?.groupIds.includes(g.id);
+                  return (
+                    <TouchableOpacity key={g.id} style={[styles.chip, on && styles.chipOn]} onPress={() => batTatGroupChoUser(selectedUser.email, g.id)}>
+                      <Text style={[styles.chipText, on && styles.chipTextOn]}>{g.name}</Text>
+                    </TouchableOpacity>
+                  );
+                })}
+              </View>
 
-          <Text style={styles.sectionLabel}>Gán nhóm người dùng</Text>
-          <View style={styles.grid2}>
-            {cfg.groups.map((g) => {
-              const on = selectedBinding?.groupIds.includes(g.id);
-              return (
-                <TouchableOpacity key={g.id} style={[styles.chip, on && styles.chipOn]} onPress={() => batTatGroupChoUser(selectedUser.email, g.id)}>
-                  <Text style={[styles.chipText, on && styles.chipTextOn]}>{g.name}</Text>
-                </TouchableOpacity>
-              );
-            })}
-          </View>
-
-          <Text style={styles.sectionLabel}>Ghi đè phạm vi dữ liệu</Text>
-          <View style={styles.scopeRow}>
-            {DATA_SCOPES.map((scope) => (
-              <TouchableOpacity
-                key={scope}
-                style={[styles.scopeBtn, (selectedBinding?.dataScope || '') === scope && styles.scopeBtnActive]}
-                onPress={() => capNhatScopeUser(selectedUser.email, scope)}
-              >
-                <Text style={[styles.scopeText, (selectedBinding?.dataScope || '') === scope && styles.scopeTextActive]}>{scope}</Text>
-              </TouchableOpacity>
-            ))}
-          </View>
-
-          <Text style={styles.sectionLabel}>Ghi đè quyền cá nhân (ưu tiên hơn vai trò)</Text>
-          {laBindingAdmin(selectedBinding) ? <Text style={styles.hint}>ROLE_ADMIN đang bật nên mọi quyền luôn mở toàn bộ. Ghi đè deny bị khóa để tránh triệt tiêu quyền admin.</Text> : null}
-          <ScrollView horizontal>
-            <View>
-              <View style={styles.tableHeader}>
-                <Text style={[styles.th, { width: 240 }]}>Chức năng</Text>
-                {ACCOUNT_ACTIONS.map((a) => (
-                  <Text key={a} style={styles.th}>{a}</Text>
+              <Text style={styles.sectionLabel}>Ghi đè phạm vi dữ liệu</Text>
+              <View style={styles.scopeRow}>
+                {DATA_SCOPES.map((scope) => (
+                  <TouchableOpacity
+                    key={scope}
+                    style={[styles.scopeBtn, (selectedBinding?.dataScope || '') === scope && styles.scopeBtnActive]}
+                    onPress={() => capNhatScopeUser(selectedUser.email, scope)}
+                  >
+                    <Text style={[styles.scopeText, (selectedBinding?.dataScope || '') === scope && styles.scopeTextActive]}>{scope}</Text>
+                  </TouchableOpacity>
                 ))}
               </View>
 
-              {cfg.resources.map((res) => (
-                <View key={res.id} style={styles.tableRow}>
-                  <Text style={[styles.tdText, { width: 240 }]}>{res.name}</Text>
-                  {ACCOUNT_ACTIONS.map((action) => {
-                    const key = taoPermissionKey(res.id, action);
-                    const allow = selectedBinding?.overrides?.allow.includes(key);
-                    const deny = selectedBinding?.overrides?.deny.includes(key);
-                    return (
-                      <View key={`${res.id}_${action}`} style={styles.overrideCell}>
-                        <TouchableOpacity
-                          style={[styles.ovrBtn, allow && styles.ovrAllow, laBindingAdmin(selectedBinding) && styles.ovrDisabled]}
-                          onPress={() => batTatOverride(selectedUser.email, res.id, action, 'ALLOW')}
-                          disabled={laBindingAdmin(selectedBinding)}
-                        >
-                          <Text style={styles.ovrText}>A</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                          style={[styles.ovrBtn, deny && styles.ovrDeny, laBindingAdmin(selectedBinding) && styles.ovrDisabled]}
-                          onPress={() => batTatOverride(selectedUser.email, res.id, action, 'DENY')}
-                          disabled={laBindingAdmin(selectedBinding)}
-                        >
-                          <Text style={styles.ovrText}>D</Text>
-                        </TouchableOpacity>
-                      </View>
-                    );
-                  })}
-                </View>
-              ))}
-            </View>
-          </ScrollView>
+              <Text style={styles.sectionLabel}>Ghi đè quyền cá nhân (ưu tiên hơn vai trò)</Text>
+              {laBindingAdmin(selectedBinding) ? <Text style={styles.hint}>ROLE_ADMIN đang bật nên mọi quyền luôn mở toàn bộ. Ghi đè deny bị khóa để tránh triệt tiêu quyền admin.</Text> : null}
+              <ScrollView horizontal>
+                <View>
+                  <View style={styles.tableHeader}>
+                    <Text style={[styles.th, { width: 240 }]}>Chức năng</Text>
+                    {ACCOUNT_ACTIONS.map((a) => (
+                      <Text key={a} style={styles.th}>{a}</Text>
+                    ))}
+                  </View>
 
-          <TouchableOpacity style={styles.backInline} onPress={() => setSelectedUserEmail('')}>
-            <Text style={styles.backInlineText}>Đóng bảng chỉnh sửa người dùng</Text>
-          </TouchableOpacity>
+                  {cfg.resources.map((res) => (
+                    <View key={res.id} style={styles.tableRow}>
+                      <Text style={[styles.tdText, { width: 240 }]}>{res.name}</Text>
+                      {ACCOUNT_ACTIONS.map((action) => {
+                        const key = taoPermissionKey(res.id, action);
+                        const allow = selectedBinding?.overrides?.allow.includes(key);
+                        const deny = selectedBinding?.overrides?.deny.includes(key);
+                        return (
+                          <View key={`${res.id}_${action}`} style={styles.overrideCell}>
+                            <TouchableOpacity
+                              style={[styles.ovrBtn, allow && styles.ovrAllow, laBindingAdmin(selectedBinding) && styles.ovrDisabled]}
+                              onPress={() => batTatOverride(selectedUser.email, res.id, action, 'ALLOW')}
+                              disabled={laBindingAdmin(selectedBinding)}
+                            >
+                              <Text style={styles.ovrText}>A</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity
+                              style={[styles.ovrBtn, deny && styles.ovrDeny, laBindingAdmin(selectedBinding) && styles.ovrDisabled]}
+                              onPress={() => batTatOverride(selectedUser.email, res.id, action, 'DENY')}
+                              disabled={laBindingAdmin(selectedBinding)}
+                            >
+                              <Text style={styles.ovrText}>D</Text>
+                            </TouchableOpacity>
+                          </View>
+                        );
+                      })}
+                    </View>
+                  ))}
+                </View>
+              </ScrollView>
+
+              <TouchableOpacity style={styles.backInline} onPress={() => setSelectedUserEmail('')}>
+                <Text style={styles.backInlineText}>Bỏ chọn tài khoản</Text>
+              </TouchableOpacity>
+            </View>
+          )}
         </View>
-      ) : null}
+      )}
     </View>
   );
 
@@ -1514,6 +1634,45 @@ export default function ManHinhPhanQuyen({ navigation }) {
               </TouchableOpacity>
               <TouchableOpacity style={[styles.primaryBtn, dangLuuHoSoTaiKhoan && styles.btnDisabled]} onPress={luuHoSoTaiKhoan} disabled={dangLuuHoSoTaiKhoan}>
                 <Text style={styles.primaryBtnText}>{dangLuuHoSoTaiKhoan ? 'Đang lưu...' : 'Lưu hồ sơ'}</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+      <Modal visible={!!modalMatKhau} transparent animationType="fade" onRequestClose={dongModalMatKhauAdmin}>
+        <View style={styles.modalBg}>
+          <View style={styles.modalCard}>
+            <Text style={styles.modalTitle}>ĐẶT MẬT KHẨU (ADMIN)</Text>
+            <Text style={styles.hint}>Tài khoản: {modalMatKhau?.email || ''}</Text>
+            <TextInput
+              style={styles.input}
+              placeholder="Mật khẩu mới"
+              placeholderTextColor="#9ca3af"
+              secureTextEntry
+              value={mkAdminMoi}
+              onChangeText={setMkAdminMoi}
+              autoCapitalize="none"
+            />
+            <TextInput
+              style={styles.input}
+              placeholder="Nhập lại mật khẩu mới"
+              placeholderTextColor="#9ca3af"
+              secureTextEntry
+              value={mkAdminXacNhan}
+              onChangeText={setMkAdminXacNhan}
+              autoCapitalize="none"
+            />
+            <View style={{ flexDirection: 'row', alignItems: 'center', marginVertical: 10, gap: 10 }}>
+              <Text style={styles.hint}>Bắt buộc đổi khi đăng nhập lại</Text>
+              <Switch value={buocDoiSauDoiAdmin} onValueChange={setBuocDoiSauDoiAdmin} />
+            </View>
+            <View style={styles.modalActions}>
+              <TouchableOpacity style={styles.minorBtn} onPress={dongModalMatKhauAdmin}>
+                <Text style={styles.minorBtnText}>Hủy</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={[styles.primaryBtn, dangLuuMatKhauAdmin && styles.btnDisabled]} onPress={luuMatKhauAdminTuModal} disabled={dangLuuMatKhauAdmin}>
+                <Text style={styles.primaryBtnText}>{dangLuuMatKhauAdmin ? 'Đang lưu...' : 'Lưu'}</Text>
               </TouchableOpacity>
             </View>
           </View>

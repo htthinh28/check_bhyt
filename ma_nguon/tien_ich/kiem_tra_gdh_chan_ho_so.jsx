@@ -8,6 +8,15 @@
  * Đã bao phủ (XML): 1,3–5,11,14–27,31,34,35–38,39–48,51,52,56,102–103 và nhánh 9324/4210 (mã 3 vs 47).
  * Chưa thể chặn khớp cổng chỉ từ XML: 8–10,12,49–50,53–55,58,60–61,101,104–106 (cần DM + DB/hợp đồng).
  * Rút gọn so với văn bản đầy đủ: 48,52 (trái tuyến/gói/TYT), 101 (tuyến BV), 102 (chi tiết gói).
+ *
+ * Bổ sung QĐ 4210 — không thay thế kiểm tra QĐ 130/3176:
+ * - `xuLyFileXML130Va4210` gán `_meta.chuan_du_lieu: QD130_3176` khi đọc được theo 130; mọi quy tắc GDH (tol ±2đ, mã 3/4/5,
+ *   47, 52…) chạy đầy đủ như trước khi có 4210.
+ * - Chỉ khi `_meta.chuan_du_lieu === 'QD4210'` (luồng 4210 + `chuanHoaHoSoTuPhienBan4210`) mới áp nguyên tắc nới bên dưới.
+ *
+ * Nguyên tắc QĐ 4210 (sau `xml_helper` → `_meta.chuan_du_lieu: QD4210`):
+ * - Dữ liệu đã qua `chuanHoaHoSoTuPhienBan4210` (tách THANH_TIEN/DON_GIA theo 7464→130); các GDH tiền
+ *   dễ trùng với bước chuẩn hóa → nới dung sai đồng (tol lớn hơn), bỏ mã 47/52 và bỏ khối 9324 mã 3/4/5 trên hồ sơ nguồn 4210.
  */
 
 const CO_SO_PHAP_LY =
@@ -159,6 +168,14 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
   const out = [];
   const xml1 = layDongXML1(hoSo);
   if (!xml1 || typeof xml1 !== 'object') return out;
+
+  /** Chỉ true khi meta do luồng 4210 đặt — không dùng `phienBan` từ mã thẻ; QD130_3176 / thiếu meta → false (giữ kiểm tra 130 đủ). */
+  const nguon4210DaChuanHoa =
+    String(hoSo?._meta?.chuan_du_lieu || '')
+      .trim()
+      .toUpperCase() === 'QD4210';
+  /** Đồng: 130/3176 ±2 theo cổng; chỉ QD4210 (đã tách cột) dùng tol lớn hơn để tránh báo oan. */
+  const tolDong = nguon4210DaChuanHoa ? 40 : 2;
 
   const maThe = String(xml1.MA_THE_BHYT || xml1.MA_THE || '').trim().toUpperCase();
   const phienBan =
@@ -587,7 +604,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
 
   // --- Tổng tiền & chi tiết (9324 mã 3, 4; 4210 mã 34, 47) ---
   let sumThanhBh2 = 0;
-  if (dung9324Bh) {
+  if (dung9324Bh && !nguon4210DaChuanHoa) {
     xml2.forEach((row, idx) => {
       const sl = toNum(row.SO_LUONG);
       const dg = toNum(row.DON_GIA ?? row.DON_GIA_BH);
@@ -595,7 +612,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
       const ttBh = toNum(row.THANH_TIEN_BH);
       if (Number.isNaN(ttBh) || [sl, dg].some((x) => Number.isNaN(x)) || ttBh < 0) return;
       const kyVong = sl * dg * (ty / 100);
-      if (Math.abs(ttBh - kyVong) > 2) {
+      if (Math.abs(ttBh - kyVong) > tolDong) {
         push(out, {
           maGdh: 3,
           phienBan: '9324',
@@ -603,15 +620,20 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
           index: idx,
           truong: 'THANH_TIEN_BH',
           mucDo: 'Critical',
-          noiDung: `THANH_TIEN_BH không khớp SL×Đơn giá×TYLE/100 (sai > 2đ) — GDH 9324 mã 3.`,
+          noiDung: `THANH_TIEN_BH không khớp SL×Đơn giá×TYLE/100 (sai > ${tolDong}đ) — GDH 9324 mã 3.`,
         });
       }
       sumThanhBh2 += ttBh;
     });
+  } else if (dung9324Bh) {
+    xml2.forEach((row) => {
+      const ttBh = toNum(row.THANH_TIEN_BH);
+      if (!Number.isNaN(ttBh) && ttBh >= 0) sumThanhBh2 += ttBh;
+    });
   }
 
   let sumThanhBh3 = 0;
-  if (dung9324Bh) {
+  if (dung9324Bh && !nguon4210DaChuanHoa) {
     xml3.forEach((row, idx) => {
       const sl = toNum(row.SO_LUONG);
       const dg = toNum(row.DON_GIA_BH ?? row.DON_GIA_BV ?? row.DON_GIA);
@@ -619,7 +641,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
       const ttBh = toNum(row.THANH_TIEN_BH);
       if (Number.isNaN(ttBh) || [sl, dg].some((x) => Number.isNaN(x)) || ttBh < 0) return;
       const kyVong = sl * dg * (ty / 100);
-      if (Math.abs(ttBh - kyVong) > 2) {
+      if (Math.abs(ttBh - kyVong) > tolDong) {
         push(out, {
           maGdh: 3,
           phienBan: '9324',
@@ -627,22 +649,27 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
           index: idx,
           truong: 'THANH_TIEN_BH',
           mucDo: 'Critical',
-          noiDung: `THANH_TIEN_BH không khớp SL×Đơn giá×TYLE/100 (sai > 2đ) — GDH 9324 mã 3.`,
+          noiDung: `THANH_TIEN_BH không khớp SL×Đơn giá×TYLE/100 (sai > ${tolDong}đ) — GDH 9324 mã 3.`,
         });
       }
       sumThanhBh3 += ttBh;
     });
+  } else if (dung9324Bh) {
+    xml3.forEach((row) => {
+      const ttBh = toNum(row.THANH_TIEN_BH);
+      if (!Number.isNaN(ttBh) && ttBh >= 0) sumThanhBh3 += ttBh;
+    });
   }
 
-  // --- Mã 47 (4210): XML2 THANH_TIEN (BV) = SL × Đơn giá ---
-  if (phienBan === '4210') {
+  // --- Mã 47 (4210): XML2 THANH_TIEN (BV) = SL × Đơn giá — bỏ khi đã tách cột từ QĐ 4210 ---
+  if (phienBan === '4210' && !nguon4210DaChuanHoa) {
     xml2.forEach((row, idx) => {
       const sl = toNum(row.SO_LUONG);
       const dg = toNum(row.DON_GIA ?? row.DON_GIA_BV ?? row.DON_GIA_BH);
       const ttBv = layThanhTienBvDong(row);
       if ([sl, dg, ttBv].some((x) => Number.isNaN(x)) || ttBv < 0) return;
       const ky = sl * dg;
-      if (Math.abs(ttBv - ky) > 2) {
+      if (Math.abs(ttBv - ky) > tolDong) {
         push(out, {
           maGdh: 47,
           phienBan,
@@ -691,7 +718,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
     if (
       !Number.isNaN(ttBv41) &&
       ttBv41 >= 0 &&
-      !almostEq(ttBv41, sumCp, 2)
+      !almostEq(ttBv41, sumCp, tolDong)
     ) {
       push(out, {
         maGdh: 41,
@@ -708,7 +735,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
     if (
       !Number.isNaN(aids2) &&
       Math.abs(aids2) > 1e-9 &&
-      !almostEq(aids2, tbhtt2, 2)
+      !almostEq(aids2, tbhtt2, tolDong)
     ) {
       push(out, {
         maGdh: 42,
@@ -746,7 +773,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
       !Number.isNaN(tbhtt2)
     ) {
       const ky48 = thanhBhRow * (ty2 / 100) * (mucAp2 / 100);
-      if (!almostEq(tbhtt2, ky48, 2)) {
+      if (!almostEq(tbhtt2, ky48, tolDong)) {
         push(out, {
           maGdh: 48,
           phienBan,
@@ -794,7 +821,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
     if (
       !Number.isNaN(ttBv45) &&
       ttBv45 >= 0 &&
-      !almostEq(ttBv45, sumCp3, 2)
+      !almostEq(ttBv45, sumCp3, tolDong)
     ) {
       push(out, {
         maGdh: 45,
@@ -811,7 +838,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
     if (
       !Number.isNaN(aids3) &&
       Math.abs(aids3) > 1e-9 &&
-      !almostEq(aids3, tbhtt3r, 2)
+      !almostEq(aids3, tbhtt3r, tolDong)
     ) {
       push(out, {
         maGdh: 46,
@@ -841,14 +868,20 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
     const dg52Bv = toNum(row.DON_GIA_BV ?? row.DON_GIA ?? row.DON_GIA_BH);
     const ty52 = layTyLeTtPhanTram(row);
     const goiVt = String(row.GOI_VTYT ?? '').trim();
-    if (laRong(goiVt) && !Number.isNaN(sl52) && !Number.isNaN(dg52Bv) && !Number.isNaN(ttBv45)) {
+    if (
+      !nguon4210DaChuanHoa &&
+      laRong(goiVt) &&
+      !Number.isNaN(sl52) &&
+      !Number.isNaN(dg52Bv) &&
+      !Number.isNaN(ttBv45)
+    ) {
       const nhom52 = chuanHoaSoMa(row.MA_NHOM);
       const dacBiet52 =
         nhom52 === '13' ||
         nhom52 === '15' ||
         (nhom52 === '8' && (ty52 === 50 || ty52 === 80));
       const ky52 = dacBiet52 ? sl52 * dg52Bv * (ty52 / 100) : sl52 * dg52Bv;
-      if (Math.abs(ttBv45 - ky52) > 2) {
+      if (Math.abs(ttBv45 - ky52) > tolDong) {
         push(out, {
           maGdh: 52,
           phienBan,
@@ -904,9 +937,10 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
   const tongBhHeader = toNum(xml1.T_TONGCHI_BH);
   if (
     dung9324Bh &&
+    !nguon4210DaChuanHoa &&
     xml2.length + xml3.length > 0 &&
     !Number.isNaN(tongBhHeader) &&
-    !almostEq(tongBhHeader, sumThanhBh2 + sumThanhBh3, 2)
+    !almostEq(tongBhHeader, sumThanhBh2 + sumThanhBh3, tolDong)
   ) {
     push(out, {
       maGdh: 4,
@@ -926,7 +960,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
   if (
     xml2.length + xml3.length > 0 &&
     !Number.isNaN(tBv) &&
-    !almostEq(tBv, sumBv, 2)
+    !almostEq(tBv, sumBv, tolDong)
   ) {
     push(out, {
       maGdh: 4,
@@ -935,7 +969,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
       index: -1,
       truong: 'T_TONGCHI_BV',
       mucDo: 'Warning',
-      noiDung: `T_TONGCHI_BV không khớp tổng thành tiền BV chi tiết (lệch >2đ) — kiểm tra theo GDH mã 4 (thành tiền BV).`,
+      noiDung: `T_TONGCHI_BV không khớp tổng thành tiền BV chi tiết (lệch >${tolDong}đ) — kiểm tra theo GDH mã 4 (thành tiền BV).`,
     });
   }
 
@@ -946,7 +980,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
   const tongBvFull = bntt + bhtt + bncct + ngkh;
   if (
     !Number.isNaN(tBv) &&
-    !almostEq(tBv, tongBvFull, 2) &&
+    !almostEq(tBv, tongBvFull, tolDong) &&
     xml2.length + xml3.length > 0
   ) {
     push(out, {
@@ -964,11 +998,12 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
   // GDH 9324 mã 5 — T_TONGCHI_BH khớp T_BNCCT + T_BHTT + T_NGUONKHAC
   if (
     dung9324Bh &&
+    !nguon4210DaChuanHoa &&
     !Number.isNaN(tongBhHeader) &&
     !Number.isNaN(bncct) &&
     !Number.isNaN(bhtt) &&
     !Number.isNaN(ngkh) &&
-    !almostEq(tongBhHeader, bncct + bhtt + ngkh, 2)
+    !almostEq(tongBhHeader, bncct + bhtt + ngkh, tolDong)
   ) {
     push(out, {
       maGdh: 5,
@@ -995,7 +1030,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
   if (
     xml2.length + xml3.length > 0 &&
     !Number.isNaN(bhtt) &&
-    !almostEq(bhtt, sumTbhtt2 + sumTbhtt3, 2)
+    !almostEq(bhtt, sumTbhtt2 + sumTbhtt3, tolDong)
   ) {
     push(out, {
       maGdh: 31,

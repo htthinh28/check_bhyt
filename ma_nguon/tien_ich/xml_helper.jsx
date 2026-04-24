@@ -768,8 +768,8 @@ export const xuLyFileXML4210 = (rawXMLString) => {
 };
 
 /**
- * Ưu tiên đọc theo QĐ 130/3176 (`xuLyFileXML130`); nếu không có dữ liệu hợp lệ thì thử Phụ lục QĐ 4210.
- * `_meta.chuan_du_lieu`: `QD130_3176` | `QD4210`.
+ * Ưu tiên đọc theo QĐ 130/3176 (`xuLyFileXML130`); nếu không có dữ liệu hợp lệ thì thử Phụ lục QĐ 4210 (bổ sung, không thay thế 130).
+ * `_meta.chuan_du_lieu`: `QD130_3176` (hồ sơ đọc được bằng 130) | `QD4210` (chỉ khi rơi sang luồng 4210); các lớp kiểm tra GDH nới tiền chỉ khi `QD4210`.
  */
 export const xuLyFileXML130Va4210 = (rawXMLString) => {
   const ds130 = xuLyFileXML130(rawXMLString);

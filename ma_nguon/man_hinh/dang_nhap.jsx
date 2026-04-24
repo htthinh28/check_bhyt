@@ -65,6 +65,7 @@ const ManHinhDangNhap = ({ navigation }) => {
     setDangXuLy(true);
     const tkChuan = tk.toLowerCase();
     let quyen = 'USER';
+    let batBuocDoiMatKhau = false;
 
     try {
       const dangNhapKhanCapAdmin = async (lyDo) => {
@@ -171,11 +172,8 @@ const ManHinhDangNhap = ({ navigation }) => {
         email: tkChuan,
         fallbackRole: userHopLe.vaiTro || (tkChuan === ADMIN_EMAIL ? 'ADMIN' : 'USER'),
       });
-      if (userHopLe.buocDoiMatKhau) {
-        capNhatThongBao('Đăng nhập thành công. Vui lòng liên hệ Admin để đổi mật khẩu mặc định.', 'warning');
-        Alert.alert('Thông báo bảo mật', 'Tài khoản đang dùng mật khẩu mặc định. Vui lòng liên hệ Admin để đổi mật khẩu sau khi đăng nhập.');
-      }
-    } catch (e) {
+      batBuocDoiMatKhau = Boolean(userHopLe.buocDoiMatKhau);
+    } catch (_e) {
       capNhatThongBao('Không thể kết nối cơ sở dữ liệu. Vui lòng thử lại.', 'error');
       Alert.alert('Lỗi hệ thống', 'Không thể kết nối cơ sở dữ liệu.');
       setDangXuLy(false);
@@ -183,19 +181,31 @@ const ManHinhDangNhap = ({ navigation }) => {
     }
     try {
       await luuPhienDangNhap(tkChuan, quyen);
-      if (quyen !== 'ADMIN') {
+      if (!batBuocDoiMatKhau && quyen !== 'ADMIN') {
         await capNhatTaiKhoanTheoEmail(tkChuan, { lanDangNhapCuoi: new Date().toISOString() }, 'HE_THONG');
       }
       await ghiNhatKyHeThong({
         hanhDong: 'DANG_NHAP_THANH_CONG',
         doiTuong: 'HE_THONG',
-        chiTiet: 'Xác thực thành công',
+        chiTiet: batBuocDoiMatKhau ? 'Xác thực thành công — bắt buộc đổi mật khẩu' : 'Xác thực thành công',
         taiKhoan: tkChuan,
         vaiTro: quyen,
       });
+      if (batBuocDoiMatKhau) {
+        capNhatThongBao('Đăng nhập thành công. Vui lòng đặt mật khẩu mới để tiếp tục.', 'warning');
+        if (navigation?.reset) {
+          navigation.reset({ index: 0, routes: [{ name: 'DoiMatKhau', params: { batBuoc: true } }] });
+        } else if (navigation?.replace) {
+          navigation.replace('DoiMatKhau', { batBuoc: true });
+        } else if (Platform.OS === 'web' && typeof window !== 'undefined') {
+          window.location.assign('/account/password');
+        }
+        setDangXuLy(false);
+        return;
+      }
       capNhatThongBao('Đăng nhập thành công, đang chuyển vào hệ thống...', 'success');
       dieuHuongSauDangNhap();
-    } catch (e) {
+    } catch (_e) {
       capNhatThongBao('Không thể khởi tạo phiên làm việc. Vui lòng thử lại.', 'error');
       Alert.alert("Lỗi bộ nhớ", "Không thể khởi tạo phiên làm việc.");
     }
@@ -315,7 +325,7 @@ const ManHinhDangNhap = ({ navigation }) => {
                 disabled={dangXuLy}
               >
                 <Text style={styles.login_btn_txt}>
-                  {dangXuLy ? '⏳  ĐANG XÁC THỰC...' : '🔑  ĐĂNG NHẬP HỆ THỐNG'}
+                  {dangXuLy ? '⏳  ĐANG XÁC THỰC...' : '🔑  ĐĂNG NHẬP'}
                 </Text>
               </TouchableOpacity>
 

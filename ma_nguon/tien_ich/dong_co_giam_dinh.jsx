@@ -16,6 +16,7 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { chuanHoaMaIcdPhacDoCdss } from '../chuyen_mon/phac_do_benh_vien/phac_do_cdss_columns';
+import { chuanHoaBangTuongTacKhongTrungKey } from '../chuyen_mon/tuong_tac_thuoc/chuan_hoa_bang_tuong_tac';
 import tuongTacThuocSeed from '../chuyen_mon/tuong_tac_thuoc/du_lieu_tuong_tac_thuoc.seed.json';
 import { DANH_MUC_ICD10_CAP_CUU } from '../thanh_phan/icd10_nhap_vien_cap_cuu';
 import { BANG_ICD10_TT06, PHIEN_BAN_ICD10_TT06 } from '../thanh_phan/icd10_tt06_bang_ma';
@@ -1429,6 +1430,7 @@ const taiDanhMucHeThong = async () => {
         if (!Array.isArray(tuongTacRows) || tuongTacRows.length === 0) {
             tuongTacRows = Array.isArray(tuongTacThuocSeed?.data) ? tuongTacThuocSeed.data : [];
         }
+        tuongTacRows = chuanHoaBangTuongTacKhongTrungKey(tuongTacRows);
         const base = {
             ...cache_DanhMucHeThong,
             ...taoMetaPhacDoCdssTuBang(phacRows),
@@ -1494,6 +1496,7 @@ const taiDanhMucHeThong = async () => {
         if (!Array.isArray(tuongTacRows) || tuongTacRows.length === 0) {
             tuongTacRows = Array.isArray(tuongTacThuocSeed?.data) ? tuongTacThuocSeed.data : [];
         }
+        tuongTacRows = chuanHoaBangTuongTacKhongTrungKey(tuongTacRows);
         const metaTuongTac = taoMetaTuongTacThuocTuBang(tuongTacRows);
 
         const mappingRows = await fetchChunkedData(KHOA_CATALOG_ICD_DRUG);

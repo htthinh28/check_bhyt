@@ -7,6 +7,7 @@ export const CAU_HINH_LIEN_KET = {
   config: {
     screens: {
       DangNhap: 'login',
+      DoiMatKhau: 'account/password',
       TongQuan: 'dashboard',
       Helper: 'helper',
       DocXML: 'auditing',

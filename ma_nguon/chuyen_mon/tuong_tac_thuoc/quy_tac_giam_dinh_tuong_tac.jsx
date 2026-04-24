@@ -34,6 +34,7 @@ export const NOI_DUNG_QUY_TAC_HIEN_THI = [
       'Không có « vs »: nếu đủ MA_THUOC_A và MA_THUOC_B thì một cặp; không thì suy từ các mã trong ngoặc trong toàn bộ «Nội dung» (mọi cặp trong tập mã — dùng khi mô tả ngắn chỉ có danh sách [mã]).',
       'Chỉ các dòng TRANG_THAI = ON mới được nạp vào động cơ (dòng OFF không sinh cảnh báo).',
       'Trùng một cặp mã từ hai dòng khác nhau: giữ bản ghi có mức độ nghiêm trọng hơn (Critical > Error > Warning); cùng mức thì ưu tiên «Cảnh báo hệ thống» dài hơn.',
+      'Chuẩn hóa khi đọc bảng / khi nạp động cơ: bỏ dòng trùng toàn bộ nội dung (trừ id); nếu hai dòng khác nội dung nhưng trùng MA_TUONG_TAC thì gán mã mới cho bản sau; id luôn duy nhất — tránh lỗi React chỉ hiển thị một phần dòng.',
     ],
   },
   {

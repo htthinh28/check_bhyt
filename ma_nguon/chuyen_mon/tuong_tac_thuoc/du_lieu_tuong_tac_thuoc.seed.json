@@ -1,5 +1,5 @@
 {
-  "phien_ban": "2026.04.19.267.trangthai",
+  "phien_ban": "2026.04.24.226.ma-normal",
   "columns": [
     "id",
     "TRANG_THAI",
@@ -1473,8 +1473,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_107",
-      "MA_TUONG_TAC": "TUONGTAC_107",
+      "id": "tt-TUONGTAC_187",
+      "MA_TUONG_TAC": "TUONGTAC_187",
       "MA_THUOC_A": "40.483",
       "MA_THUOC_B": "40.519",
       "NOI_DUNG_TUONG_TAC": "[40.483] Amiodaron hydroclorid vs [40.519] Nifedipin",
@@ -1483,8 +1483,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_108",
-      "MA_TUONG_TAC": "TUONGTAC_108",
+      "id": "tt-TUONGTAC_188",
+      "MA_TUONG_TAC": "TUONGTAC_188",
       "MA_THUOC_A": "40.491",
       "MA_THUOC_B": "40.219",
       "NOI_DUNG_TUONG_TAC": "[40.491] Amlodipin vs [40.219] Azithromycin",
@@ -1493,8 +1493,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_109",
-      "MA_TUONG_TAC": "TUONGTAC_109",
+      "id": "tt-TUONGTAC_189",
+      "MA_TUONG_TAC": "TUONGTAC_189",
       "MA_THUOC_A": "40.540",
       "MA_THUOC_B": "40.800",
       "NOI_DUNG_TUONG_TAC": "[40.540] Clopidogrel vs [40.800] Gliclazid",
@@ -1503,8 +1503,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_110",
-      "MA_TUONG_TAC": "TUONGTAC_110",
+      "id": "tt-TUONGTAC_190",
+      "MA_TUONG_TAC": "TUONGTAC_190",
       "MA_THUOC_A": "40.59",
       "MA_THUOC_B": "40.671",
       "NOI_DUNG_TUONG_TAC": "[40.59] Allopurinol vs [40.671] Magnesi hydroxyd + nhôm hydroxyd",
@@ -1513,8 +1513,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_111",
-      "MA_TUONG_TAC": "TUONGTAC_111",
+      "id": "tt-TUONGTAC_191",
+      "MA_TUONG_TAC": "TUONGTAC_191",
       "MA_THUOC_A": "40.39",
       "MA_THUOC_B": "40.567",
       "NOI_DUNG_TUONG_TAC": "[40.39] Ketorolac vs [40.567] Kali chloride",
@@ -1523,8 +1523,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_112",
-      "MA_TUONG_TAC": "TUONGTAC_112",
+      "id": "tt-TUONGTAC_192",
+      "MA_TUONG_TAC": "TUONGTAC_192",
       "MA_THUOC_A": "40.979",
       "MA_THUOC_B": "40.288",
       "NOI_DUNG_TUONG_TAC": "[40.979] Natri montelukast vs [40.288] Fluconazol",
@@ -1533,8 +1533,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_113",
-      "MA_TUONG_TAC": "TUONGTAC_113",
+      "id": "tt-TUONGTAC_193",
+      "MA_TUONG_TAC": "TUONGTAC_193",
       "MA_THUOC_A": "40.336",
       "MA_THUOC_B": "40.961",
       "NOI_DUNG_TUONG_TAC": "[40.336] Flunarizin vs [40.961] Amitriptylin hydroclorid",
@@ -1543,8 +1543,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_114",
-      "MA_TUONG_TAC": "TUONGTAC_114",
+      "id": "tt-TUONGTAC_194",
+      "MA_TUONG_TAC": "TUONGTAC_194",
       "MA_THUOC_A": "40.336",
       "MA_THUOC_B": "40.690",
       "NOI_DUNG_TUONG_TAC": "[40.336] Flunarizin vs [40.690] Metoclopramid hydroclorid",
@@ -1553,8 +1553,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_115",
-      "MA_TUONG_TAC": "TUONGTAC_115",
+      "id": "tt-TUONGTAC_195",
+      "MA_TUONG_TAC": "TUONGTAC_195",
       "MA_THUOC_A": "40.1055",
       "MA_THUOC_B": "40.519",
       "NOI_DUNG_TUONG_TAC": "[40.1055] Vitamin B6 + magnesi lactat vs [40.519] Nifedipin",
@@ -1563,8 +1563,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_116",
-      "MA_TUONG_TAC": "TUONGTAC_116",
+      "id": "tt-TUONGTAC_10",
+      "MA_TUONG_TAC": "TUONGTAC_10",
       "MA_THUOC_A": "40.528",
       "MA_THUOC_B": "40.775",
       "NOI_DUNG_TUONG_TAC": "[40.528] Valsartan vs [40.775] Methylprednisolon",
@@ -1573,8 +1573,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_117",
-      "MA_TUONG_TAC": "TUONGTAC_117",
+      "id": "tt-TUONGTAC_11",
+      "MA_TUONG_TAC": "TUONGTAC_11",
       "MA_THUOC_A": "40.666",
       "MA_THUOC_B": "40.177",
       "NOI_DUNG_TUONG_TAC": "[40.666] Famotidin vs [40.177] Cefpodoxim",
@@ -1583,8 +1583,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_118",
-      "MA_TUONG_TAC": "TUONGTAC_118",
+      "id": "tt-TUONGTAC_12",
+      "MA_TUONG_TAC": "TUONGTAC_12",
       "MA_THUOC_A": "40.806",
       "MA_THUOC_B": "40.493",
       "NOI_DUNG_TUONG_TAC": "[40.806] Insulin glargine vs [40.493] Bisoprolol",
@@ -1593,8 +1593,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_119",
-      "MA_TUONG_TAC": "TUONGTAC_119",
+      "id": "tt-TUONGTAC_13",
+      "MA_TUONG_TAC": "TUONGTAC_13",
       "MA_THUOC_A": "40.485",
       "MA_THUOC_B": "40.519",
       "NOI_DUNG_TUONG_TAC": "[40.485] Ivabradin vs [40.519] Nifedipin",
@@ -1603,8 +1603,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_120",
-      "MA_TUONG_TAC": "TUONGTAC_120",
+      "id": "tt-TUONGTAC_14",
+      "MA_TUONG_TAC": "TUONGTAC_14",
       "MA_THUOC_A": "40.998",
       "MA_THUOC_B": "40.991",
       "NOI_DUNG_TUONG_TAC": "[40.998] N-Acetylcystein vs [40.991] Dorocodon (Chứa Codein)",
@@ -1613,8 +1613,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_121",
-      "MA_TUONG_TAC": "TUONGTAC_121",
+      "id": "tt-TUONGTAC_15",
+      "MA_TUONG_TAC": "TUONGTAC_15",
       "MA_THUOC_A": "40.48",
       "MA_THUOC_B": "40.288",
       "NOI_DUNG_TUONG_TAC": "[40.48] Paracetamol vs [40.288] Fluconazol",
@@ -1623,8 +1623,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_122",
-      "MA_TUONG_TAC": "TUONGTAC_122",
+      "id": "tt-TUONGTAC_16",
+      "MA_TUONG_TAC": "TUONGTAC_16",
       "MA_THUOC_A": "40.145",
       "MA_THUOC_B": "40.288",
       "NOI_DUNG_TUONG_TAC": "[40.145] Albendazol vs [40.288] Fluconazol",
@@ -1633,8 +1633,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_123",
-      "MA_TUONG_TAC": "TUONGTAC_123",
+      "id": "tt-TUONGTAC_17",
+      "MA_TUONG_TAC": "TUONGTAC_17",
       "MA_THUOC_A": "40.12",
       "MA_THUOC_B": "40.493",
       "NOI_DUNG_TUONG_TAC": "[40.12] Lidocain hydroclodrid vs [40.493] Bisoprolol",
@@ -1643,8 +1643,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_124",
-      "MA_TUONG_TAC": "TUONGTAC_124",
+      "id": "tt-TUONGTAC_18",
+      "MA_TUONG_TAC": "TUONGTAC_18",
       "MA_THUOC_A": "40.79",
       "MA_THUOC_B": "40.84",
       "NOI_DUNG_TUONG_TAC": "[40.79] Cetirizin vs [40.84] Diphenhydramin hydroclorid",
@@ -1653,8 +1653,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_125",
-      "MA_TUONG_TAC": "TUONGTAC_125",
+      "id": "tt-TUONGTAC_19",
+      "MA_TUONG_TAC": "TUONGTAC_19",
       "MA_THUOC_A": "40.722",
       "MA_THUOC_B": "40.540",
       "NOI_DUNG_TUONG_TAC": "[40.722] Diosmectit vs [40.540] Clopidogrel",
@@ -1663,8 +1663,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_126",
-      "MA_TUONG_TAC": "TUONGTAC_126",
+      "id": "tt-TUONGTAC_20",
+      "MA_TUONG_TAC": "TUONGTAC_20",
       "MA_THUOC_A": "40.47",
       "MA_THUOC_B": "40.961",
       "NOI_DUNG_TUONG_TAC": "[40.47] Nefopam hydroclorid vs [40.961] Amitriptylin hydroclorid",
@@ -1673,8 +1673,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_127",
-      "MA_TUONG_TAC": "TUONGTAC_127",
+      "id": "tt-TUONGTAC_21",
+      "MA_TUONG_TAC": "TUONGTAC_21",
       "MA_THUOC_A": "40.47",
       "MA_THUOC_B": "40.50",
       "NOI_DUNG_TUONG_TAC": "[40.47] Nefopam hydroclorid vs [40.50] Paracetamol + Codein",
@@ -1683,8 +1683,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_128",
-      "MA_TUONG_TAC": "TUONGTAC_128",
+      "id": "tt-TUONGTAC_22",
+      "MA_TUONG_TAC": "TUONGTAC_22",
       "MA_THUOC_A": "40.63",
       "MA_THUOC_B": "40.659",
       "NOI_DUNG_TUONG_TAC": "[40.63] Diacerein vs [40.659] Furosemid",
@@ -1693,8 +1693,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_129",
-      "MA_TUONG_TAC": "TUONGTAC_129",
+      "id": "tt-TUONGTAC_23",
+      "MA_TUONG_TAC": "TUONGTAC_23",
       "MA_THUOC_A": "40.899",
       "MA_THUOC_B": "40.987",
       "NOI_DUNG_TUONG_TAC": "[40.899] Betahistine vs [40.987] Alimemazin tartrat",
@@ -1703,8 +1703,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_130",
-      "MA_TUONG_TAC": "TUONGTAC_130",
+      "id": "tt-TUONGTAC_24",
+      "MA_TUONG_TAC": "TUONGTAC_24",
       "MA_THUOC_A": "40.934",
       "MA_THUOC_B": "40.961",
       "NOI_DUNG_TUONG_TAC": "[40.934] Etifoxin hydrochlorid vs [40.961] Amitriptylin hydroclorid",
@@ -1713,8 +1713,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_131",
-      "MA_TUONG_TAC": "TUONGTAC_131",
+      "id": "tt-TUONGTAC_25",
+      "MA_TUONG_TAC": "TUONGTAC_25",
       "MA_THUOC_A": "40.114",
       "MA_THUOC_B": "40.991",
       "NOI_DUNG_TUONG_TAC": "[40.114] Naloxon hydroclorid vs [40.991] Dorocodon (Chứa Codein)",
@@ -1723,8 +1723,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_132",
-      "MA_TUONG_TAC": "TUONGTAC_132",
+      "id": "tt-TUONGTAC_26",
+      "MA_TUONG_TAC": "TUONGTAC_26",
       "MA_THUOC_A": "40.983",
       "MA_THUOC_B": "40.659",
       "NOI_DUNG_TUONG_TAC": "[40.983] Terbutalin sulfat vs [40.659] Furosemid",
@@ -1733,8 +1733,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_133",
-      "MA_TUONG_TAC": "TUONGTAC_133",
+      "id": "tt-TUONGTAC_27",
+      "MA_TUONG_TAC": "TUONGTAC_27",
       "MA_THUOC_A": "40.483",
       "MA_THUOC_B": "40.12",
       "NOI_DUNG_TUONG_TAC": "[40.483] Amiodaron hydroclorid vs [40.12] Lidocain hydroclodrid",
@@ -1743,8 +1743,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_134",
-      "MA_TUONG_TAC": "TUONGTAC_134",
+      "id": "tt-TUONGTAC_28",
+      "MA_TUONG_TAC": "TUONGTAC_28",
       "MA_THUOC_A": "40.549",
       "MA_THUOC_B": "40.671",
       "NOI_DUNG_TUONG_TAC": "[40.549] Atorvastatin vs [40.671] Magnesi hydroxyd + nhôm hydroxyd",
@@ -1753,8 +1753,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_135",
-      "MA_TUONG_TAC": "TUONGTAC_135",
+      "id": "tt-TUONGTAC_29",
+      "MA_TUONG_TAC": "TUONGTAC_29",
       "MA_THUOC_A": "40.678",
       "MA_THUOC_B": "40.167",
       "NOI_DUNG_TUONG_TAC": "[40.678] Esomeprazol vs [40.167] Cefdinir",
@@ -1763,8 +1763,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_136",
-      "MA_TUONG_TAC": "TUONGTAC_136",
+      "id": "tt-TUONGTAC_30",
+      "MA_TUONG_TAC": "TUONGTAC_30",
       "MA_THUOC_A": "40.169",
       "MA_THUOC_B": "40.39",
       "NOI_DUNG_TUONG_TAC": "[40.169] Cefixim vs [40.39] Ketorolac",
@@ -1773,8 +1773,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_137",
-      "MA_TUONG_TAC": "TUONGTAC_137",
+      "id": "tt-TUONGTAC_31",
+      "MA_TUONG_TAC": "TUONGTAC_31",
       "MA_THUOC_A": "40.217",
       "MA_THUOC_B": "40.718",
       "NOI_DUNG_TUONG_TAC": "[40.217] Clindamycin vs [40.718] Bacillus subtilis",
@@ -1783,8 +1783,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_138",
-      "MA_TUONG_TAC": "TUONGTAC_138",
+      "id": "tt-TUONGTAC_32",
+      "MA_TUONG_TAC": "TUONGTAC_32",
       "MA_THUOC_A": "40.1061",
       "MA_THUOC_B": "40.540",
       "NOI_DUNG_TUONG_TAC": "[40.1061] Vitamin E vs [40.540] Clopidogrel",
@@ -1793,8 +1793,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_139",
-      "MA_TUONG_TAC": "TUONGTAC_139",
+      "id": "tt-TUONGTAC_33",
+      "MA_TUONG_TAC": "TUONGTAC_33",
       "MA_THUOC_A": "40.412",
       "MA_THUOC_B": "40.519",
       "NOI_DUNG_TUONG_TAC": "[40.412] Alfuzosin hydroclorid vs [40.519] Nifedipin",
@@ -1803,8 +1803,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_140",
-      "MA_TUONG_TAC": "TUONGTAC_140",
+      "id": "tt-TUONGTAC_34",
+      "MA_TUONG_TAC": "TUONGTAC_34",
       "MA_THUOC_A": "40.288",
       "MA_THUOC_B": "40.41",
       "NOI_DUNG_TUONG_TAC": "[40.288] Fluconazol vs [40.41] Meloxicam",
@@ -1813,8 +1813,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_141",
-      "MA_TUONG_TAC": "TUONGTAC_141",
+      "id": "tt-TUONGTAC_35",
+      "MA_TUONG_TAC": "TUONGTAC_35",
       "MA_THUOC_A": "40.800",
       "MA_THUOC_B": "40.497",
       "NOI_DUNG_TUONG_TAC": "[40.800] Gliclazid vs [40.497] Carvedilol",
@@ -1823,8 +1823,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_142",
-      "MA_TUONG_TAC": "TUONGTAC_142",
+      "id": "tt-TUONGTAC_36",
+      "MA_TUONG_TAC": "TUONGTAC_36",
       "MA_THUOC_A": "40.493",
       "MA_THUOC_B": "40.483",
       "NOI_DUNG_TUONG_TAC": "[40.493] Bisoprolol vs [40.483] Amiodaron hydroclorid",
@@ -1833,8 +1833,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_143",
-      "MA_TUONG_TAC": "TUONGTAC_143",
+      "id": "tt-TUONGTAC_37",
+      "MA_TUONG_TAC": "TUONGTAC_37",
       "MA_THUOC_A": "40.166",
       "MA_THUOC_B": "40.659",
       "NOI_DUNG_TUONG_TAC": "[40.166] Cefazolin vs [40.659] Furosemid",
@@ -1843,8 +1843,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_144",
-      "MA_TUONG_TAC": "TUONGTAC_144",
+      "id": "tt-TUONGTAC_38",
+      "MA_TUONG_TAC": "TUONGTAC_38",
       "MA_THUOC_A": "40.30.661",
       "MA_THUOC_B": "40.567",
       "NOI_DUNG_TUONG_TAC": "[40.30.661] Furosemid + spironolacton vs [40.567] Kali chloride",
@@ -1853,8 +1853,8 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_145",
-      "MA_TUONG_TAC": "TUONGTAC_145",
+      "id": "tt-TUONGTAC_39",
+      "MA_TUONG_TAC": "TUONGTAC_39",
       "MA_THUOC_A": "40.697",
       "MA_THUOC_B": "40.961",
       "NOI_DUNG_TUONG_TAC": "[40.697] Drotaverin hydrochlorid vs [40.961] Amitriptylin hydroclorid",
@@ -1863,412 +1863,12 @@
       "TRANG_THAI": "ON"
     },
     {
-      "id": "tt-TUONGTAC_146",
-      "MA_TUONG_TAC": "TUONGTAC_146",
+      "id": "tt-TUONGTAC_40",
+      "MA_TUONG_TAC": "TUONGTAC_40",
       "MA_THUOC_A": "40.154",
       "MA_THUOC_B": "40.59",
       "NOI_DUNG_TUONG_TAC": "[40.154] Amoxicillin vs [40.59] Allopurinol",
       "CANH_BAO_HE_THONG": "⚠️ Hội chứng ban da trầm trọng: Phối hợp này làm tăng nguy cơ nổi ban da (Maculopapular rash) lên tới 20%. Hệ thống cần cảnh báo y lệnh và yêu cầu ngừng thuốc nếu có dấu hiệu mẩn ngứa [33].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_147",
-      "MA_TUONG_TAC": "TUONGTAC_147",
-      "MA_THUOC_A": "40.30.497",
-      "MA_THUOC_B": "40.38",
-      "NOI_DUNG_TUONG_TAC": "[40.30.497] Amlodipin + Lisinopril vs [40.38] Ketoprofen",
-      "CANH_BAO_HE_THONG": "🚫 Hội chứng Triple Whammy: Phối hợp NSAID (Fastum Gel dùng toàn thân/kéo dài) với ACEI và CCB làm mất hoàn toàn cơ chế bù trừ tưới máu thận, dễ dẫn đến suy thận cấp vô niệu [1].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_148",
-      "MA_TUONG_TAC": "TUONGTAC_148",
-      "MA_THUOC_A": "40.491",
-      "MA_THUOC_B": "40.288",
-      "NOI_DUNG_TUONG_TAC": "[40.491] Amlodipin vs [40.288] Fluconazol",
-      "CANH_BAO_HE_THONG": "🚫 Tụt huyết áp kịch phát: Fluconazol ức chế mạnh men CYP3A4 tại gan, làm tăng đột biến nồng độ Amlodipin (Amlodipine Stella) trong máu. Nguy cơ tụt huyết áp tư thế và ngất xỉu [2].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_149",
-      "MA_TUONG_TAC": "TUONGTAC_149",
-      "MA_THUOC_A": "40.521",
-      "MA_THUOC_B": "40.659",
-      "NOI_DUNG_TUONG_TAC": "[40.521] Perindopril + amlodipin vs [40.659] Furosemid",
-      "CANH_BAO_HE_THONG": "⚠️ Tụt huyết áp liều đầu: Sự suy giảm thể tích do Furosemid (Vinzix) làm tăng cường mạnh mẽ tác dụng hạ áp của ACEI (VT-Amlopril) trong những liều đầu tiên. Cần khởi đầu liều thấp [3].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_150",
-      "MA_TUONG_TAC": "TUONGTAC_150",
-      "MA_THUOC_A": "40.429",
-      "MA_THUOC_B": "40.678",
-      "NOI_DUNG_TUONG_TAC": "[40.429] Sắt fumarat + Acid Folic vs [40.678] Esomeprazol",
-      "CANH_BAO_HE_THONG": "⚠️ Thiếu máu không đáp ứng: Esomeprazol (Stadnex) triệt tiêu môi trường acid dạ dày cần thiết để hấp thu Sắt (Prodertonic). Cần cân nhắc bổ sung Vitamin C hoặc uống cách xa cữ PPI [4].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_151",
-      "MA_TUONG_TAC": "TUONGTAC_151",
-      "MA_THUOC_A": "40.433",
-      "MA_THUOC_B": "40.666",
-      "NOI_DUNG_TUONG_TAC": "[40.433] Sắt protein succinylat vs [40.666] Famotidin",
-      "CANH_BAO_HE_THONG": "⚠️ Giảm hấp thu Sắt: Tương tự PPI, thuốc kháng H2 (Famotidine 40 inj) làm tăng pH dạ dày, cản trở việc giải phóng ion Sắt từ phức hợp protein. Nên uống Sắt trước khi tiêm/uống kháng H2 [4].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_152",
-      "MA_TUONG_TAC": "TUONGTAC_152",
-      "MA_THUOC_A": "40.724",
-      "MA_THUOC_B": "40.429",
-      "NOI_DUNG_TUONG_TAC": "[40.724] Kẽm gluconat vs [40.429] Sắt fumarat",
-      "CANH_BAO_HE_THONG": "⚠️ Cạnh tranh hấp thu tại ruột: Sắt và Kẽm (Grazincure) sử dụng chung một kênh vận chuyển qua niêm mạc tá tràng. Phối hợp đồng thời làm giảm hấp thu cả hai. Bắt buộc uống cách nhau 2-4 giờ [5].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_153",
-      "MA_TUONG_TAC": "TUONGTAC_153",
-      "MA_THUOC_A": "40.485",
-      "MA_THUOC_B": "40.229",
-      "NOI_DUNG_TUONG_TAC": "[40.485] Ivabradin vs [40.229] Levofloxacin",
-      "CANH_BAO_HE_THONG": "🚫 Rối loạn nhịp thất đe dọa tính mạng: Cả Ivabradin (SaVi Ivabradine) và Levofloxacin đều gây kéo dài khoảng QT độc lập. Phối hợp làm tăng nguy cơ xoắn đỉnh. Tránh kê đơn chung [6].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_154",
-      "MA_TUONG_TAC": "TUONGTAC_154",
-      "MA_THUOC_A": "40.806",
-      "MA_THUOC_B": "40.521",
-      "NOI_DUNG_TUONG_TAC": "[40.806] Insulin glargine vs [40.521] Perindopril",
-      "CANH_BAO_HE_THONG": "⚠️ Cơn hạ đường huyết cấp: Nhóm ACEI làm tăng đáng kể độ nhạy cảm của mô ngoại vi với Insulin (Basaglar). Nguy cơ hạ đường huyết cao nhất trong 1-2 tuần đầu phối hợp [7].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_155",
-      "MA_TUONG_TAC": "TUONGTAC_155",
-      "MA_THUOC_A": "40.1033",
-      "MA_THUOC_B": "40.167",
-      "NOI_DUNG_TUONG_TAC": "[40.1033] Calci carbonat + vitamin D3 vs [40.167] Cefdinir",
-      "CANH_BAO_HE_THONG": "⚠️ Kháng sinh mất tác dụng: Ion Canxi (Caldihasan) tạo phức Chelat không tan với Cefdinir (Osvimec 300), làm kháng sinh không thể hấp thu. Phải uống cách nhau ít nhất 2 giờ [8].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_156",
-      "MA_TUONG_TAC": "TUONGTAC_156",
-      "MA_THUOC_A": "40.1032",
-      "MA_THUOC_B": "40.519",
-      "NOI_DUNG_TUONG_TAC": "[40.1032] Calci carbonat vs [40.519] Nifedipin",
-      "CANH_BAO_HE_THONG": "⚠️ Mất tác dụng hạ huyết áp: Bổ sung Canxi liều cao (Calcium Stella 500) làm tăng Canxi huyết thanh, đối kháng trực tiếp cơ chế chẹn kênh Canxi của Nifedipin (Nifehexal 30 LA) [9].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_157",
-      "MA_TUONG_TAC": "TUONGTAC_157",
-      "MA_THUOC_A": "40.740",
-      "MA_THUOC_B": "40.1032",
-      "NOI_DUNG_TUONG_TAC": "[40.740] Protease + Amylase + Lipase vs [40.1032] Calci carbonat",
-      "CANH_BAO_HE_THONG": "⚠️ Bất hoạt men tiêu hóa: Môi trường kiềm do Canxi cacbonat tạo ra phá hủy lớp bao bảo vệ của viên men tụy (Pancres) tại dạ dày, khiến acid dạ dày phân hủy enzyme [10].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_158",
-      "MA_TUONG_TAC": "TUONGTAC_158",
-      "MA_THUOC_A": "40.698",
-      "MA_THUOC_B": "40.690",
-      "NOI_DUNG_TUONG_TAC": "[40.698] Hyoscin butylbromid vs [40.690] Metoclopramid",
-      "CANH_BAO_HE_THONG": "🚫 Triệt tiêu tác dụng: Hyoscin (Brocizin 20) gây liệt cơ trơn tiêu hóa, đối kháng hoàn toàn tác dụng kích thích nhu động dạ dày - ruột của Metoclopramid (Vincomid). Không dùng chung [11].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_159",
-      "MA_TUONG_TAC": "TUONGTAC_159",
-      "MA_THUOC_A": "40.260",
-      "MA_THUOC_B": "40.659",
-      "NOI_DUNG_TUONG_TAC": "[40.260] Aciclovir vs [40.659] Furosemid",
-      "CANH_BAO_HE_THONG": "⚠️ Ngộ độc ống thận cấp: Furosemid gây mất nước, làm nồng độ Aciclovir trong dịch lọc cầu thận tăng cao, dẫn đến kết tinh Aciclovir tại ống thận. Bắt buộc truyền đủ dịch [12].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_160",
-      "MA_TUONG_TAC": "TUONGTAC_160",
-      "MA_THUOC_A": "40.412",
-      "MA_THUOC_B": "40.961",
-      "NOI_DUNG_TUONG_TAC": "[40.412] Alfuzosin hydroclorid vs [40.961] Amitriptylin",
-      "CANH_BAO_HE_THONG": "🚫 Ngất do hạ huyết áp tư thế: Tác dụng chẹn Alpha-1 của Alfuzosin (Alanboss) hiệp đồng với tác dụng chẹn Alpha của thuốc trầm cảm 3 vòng. Gây hạ huyết áp sâu và nguy cơ té ngã gãy xương [13].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_161",
-      "MA_TUONG_TAC": "TUONGTAC_161",
-      "MA_THUOC_A": "40.937",
-      "MA_THUOC_B": "40.132",
-      "NOI_DUNG_TUONG_TAC": "[40.937] Rotundin vs [40.132] Gabapentin",
-      "CANH_BAO_HE_THONG": "🚫 Hôn mê & Suy hô hấp: Hiệp đồng ức chế thần kinh trung ương quá mức. Nguy cơ lú lẫn, mất ý thức và suy hô hấp đặc biệt trên bệnh nhân lớn tuổi. Cần giảm liều [14].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_162",
-      "MA_TUONG_TAC": "TUONGTAC_162",
-      "MA_THUOC_A": "40.82",
-      "MA_THUOC_B": "40.961",
-      "NOI_DUNG_TUONG_TAC": "[40.82] Desloratadin vs [40.961] Amitriptylin",
-      "CANH_BAO_HE_THONG": "⚠️ Hội chứng kháng Cholinergic: Mặc dù Desloratadin (Sosallergy) là thế hệ 2, nhưng khi kết hợp Amitriptylin vẫn tăng nhẹ nguy cơ khô miệng, bí tiểu, nhìn mờ [14].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_163",
-      "MA_TUONG_TAC": "TUONGTAC_163",
-      "MA_THUOC_A": "40.934",
-      "MA_THUOC_B": "40.80",
-      "NOI_DUNG_TUONG_TAC": "[40.934] Etifoxin hydrochlorid vs [40.80] Cinnarizin",
-      "CANH_BAO_HE_THONG": "🚫 Ức chế thần kinh sâu: Etifoxin (Stresam) kết hợp Cinnarizin gây buồn ngủ trầm trọng, mất điều hòa vận động. Cấm chỉ định lái xe, vận hành máy móc hoặc đi lại không có người dìu [14].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_164",
-      "MA_TUONG_TAC": "TUONGTAC_164",
-      "MA_THUOC_A": "40.30.567",
-      "MA_THUOC_B": "40.288",
-      "NOI_DUNG_TUONG_TAC": "[40.30.567] Atorvastatin + ezetimibe vs [40.288] Fluconazol",
-      "CANH_BAO_HE_THONG": "🚫 Tiêu cơ vân cấp (Rhabdomyolysis): Fluconazol ức chế quá trình giáng hóa Atorvastatin (Atovze 40/10), làm nồng độ Statin tăng vọt. Cần tạm ngưng thuốc mỡ máu khi trị nấm [15].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_165",
-      "MA_TUONG_TAC": "TUONGTAC_165",
-      "MA_THUOC_A": "40.527",
-      "MA_THUOC_B": "40.61",
-      "NOI_DUNG_TUONG_TAC": "[40.527] Telmisartan + hydroclorothiazid vs [40.61] Colchicin",
-      "CANH_BAO_HE_THONG": "⚠️ Ngộ độc Colchicin: Lợi tiểu Thiazid (HCTZ) làm giảm độ lọc cầu thận và tăng acid uric máu, cản trở sự đào thải Colchicin, dẫn đến tích lũy và độc tính trên cơ/tủy xương [16].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_166",
-      "MA_TUONG_TAC": "TUONGTAC_166",
-      "MA_THUOC_A": "40.155",
-      "MA_THUOC_B": "40.807",
-      "NOI_DUNG_TUONG_TAC": "[40.155] Amoxicilin vs [40.807] Metformin hydroclorid",
-      "CANH_BAO_HE_THONG": "⚠️ Giảm dung nạp tiêu hóa: Amoxicillin (Moxacin, Klamentin) làm thay đổi hệ vi sinh ruột, có thể làm trầm trọng thêm tác dụng phụ tiêu chảy do Metformin. Bệnh nhân cần được tư vấn [17].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_167",
-      "MA_TUONG_TAC": "TUONGTAC_167",
-      "MA_THUOC_A": "40.212",
-      "MA_THUOC_B": "40.288",
-      "NOI_DUNG_TUONG_TAC": "[40.212] Metronidazol vs [40.288] Fluconazol",
-      "CANH_BAO_HE_THONG": "⚠️ Kéo dài khoảng QT: Sự kết hợp hai nhóm thuốc kháng sinh/kháng nấm này làm tăng cộng hưởng nguy cơ loạn nhịp tim. Đánh giá ECG và điện giải đồ trước khi kê đơn [6].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_168",
-      "MA_TUONG_TAC": "TUONGTAC_168",
-      "MA_THUOC_A": "40.63",
-      "MA_THUOC_B": "40.748",
-      "NOI_DUNG_TUONG_TAC": "[40.63] Diacerein vs [40.748] Mesalamin",
-      "CANH_BAO_HE_THONG": "⚠️ Tiêu chảy ồ ạt: Diacerein (Cytan) có tác dụng phụ làm tăng nhu động đại tràng/tiêu chảy, có thể làm trôi mất thuốc Mesalamin (Vinsalamin) đang giải phóng tại ruột [18].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_169",
-      "MA_TUONG_TAC": "TUONGTAC_169",
-      "MA_THUOC_A": "40.336",
-      "MA_THUOC_B": "40.899",
-      "NOI_DUNG_TUONG_TAC": "[40.336] Flunarizin vs [40.899] Betahistine",
-      "CANH_BAO_HE_THONG": "🚫 Đối kháng dược lực: Flunarizin (chẹn kênh Canxi/kháng H1) đối kháng với Betahistine (chủ vận H1/đối kháng H3). Phối hợp làm mất tác dụng trị chóng mặt của cả hai [19].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_170",
-      "MA_TUONG_TAC": "TUONGTAC_170",
-      "MA_THUOC_A": "40.756",
-      "MA_THUOC_B": "40.553",
-      "NOI_DUNG_TUONG_TAC": "[40.756] Ursodeoxycholic acid vs [40.553] Fenofibrat",
-      "CANH_BAO_HE_THONG": "⚠️ Sỏi mật tiến triển: Fenofibrat (Mibefen NT) làm tăng bài tiết cholesterol vào mật, đối kháng trực tiếp với tác dụng hòa tan sỏi mật của Ursodeoxycholic acid (Cuellar) [20].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_171",
-      "MA_TUONG_TAC": "TUONGTAC_171",
-      "MA_THUOC_A": "40.807",
-      "MA_THUOC_B": "40.775",
-      "NOI_DUNG_TUONG_TAC": "[40.807] Metformin hydroclorid vs [40.775] Methylprednisolon",
-      "CANH_BAO_HE_THONG": "⚠️ Kháng Insulin nghiêm trọng: Corticosteroid (Medlon) gây tăng tân tạo đường tại gan, đối kháng hoàn toàn tác dụng của Metformin. Bệnh nhân cần tăng liều hạ đường huyết [7].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_172",
-      "MA_TUONG_TAC": "TUONGTAC_172",
-      "MA_THUOC_A": "40.817",
-      "MA_THUOC_B": "40.800",
-      "NOI_DUNG_TUONG_TAC": "[40.817] Thiamazol vs [40.800] Gliclazid",
-      "CANH_BAO_HE_THONG": "⚠️ Ức chế tủy xương: Cả Thiamazol (GLOCKNER-10) và nhóm Sulfonylurea đều có tác dụng phụ hiếm gặp là giảm bạch cầu hạt. Cần theo dõi công thức máu (XML4) định kỳ [21].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_173",
-      "MA_TUONG_TAC": "TUONGTAC_173",
-      "MA_THUOC_A": "40.483",
-      "MA_THUOC_B": "40.553",
-      "NOI_DUNG_TUONG_TAC": "[40.483] Amiodaron hydroclorid vs [40.553] Fenofibrat",
-      "CANH_BAO_HE_THONG": "⚠️ Tổn thương cơ vân: Amiodaron ức chế chuyển hóa của Fenofibrat tại gan, làm tăng nồng độ thuốc, tăng nguy cơ đau nhức cơ xương và tiêu cơ vân [15].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_174",
-      "MA_TUONG_TAC": "TUONGTAC_174",
-      "MA_THUOC_A": "40.485",
-      "MA_THUOC_B": "40.84",
-      "NOI_DUNG_TUONG_TAC": "[40.485] Ivabradin vs [40.84] Diphenhydramin hydroclorid",
-      "CANH_BAO_HE_THONG": "🚫 Loạn nhịp nhĩ thất: Diphenhydramin (Dimedrol tiêm) có thể gây kéo dài khoảng QT. Phối hợp với thuốc làm chậm nhịp tim như Ivabradin làm tăng đột biến nguy cơ xoắn đỉnh [6].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_175",
-      "MA_TUONG_TAC": "TUONGTAC_175",
-      "MA_THUOC_A": "40.688",
-      "MA_THUOC_B": "40.80",
-      "NOI_DUNG_TUONG_TAC": "[40.688] Domperidon vs [40.80] Cinnarizin",
-      "CANH_BAO_HE_THONG": "🚫 Hội chứng Parkinson do thuốc: Cả hai thuốc đều ức chế thụ thể Dopamine D2 trung ương và ngoại vi. Gây cứng cơ, run rẩy và rối loạn vận động muộn. Tránh kê đơn chung [22].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_176",
-      "MA_TUONG_TAC": "TUONGTAC_176",
-      "MA_THUOC_A": "40.132",
-      "MA_THUOC_B": "40.987",
-      "NOI_DUNG_TUONG_TAC": "[40.132] Gabapentin vs [40.987] Alimemazin tartrat",
-      "CANH_BAO_HE_THONG": "🚫 Ức chế hô hấp đe dọa tính mạng: Sự kết hợp giữa thuốc chống co giật (Neupencap) và kháng Histamin thế hệ cũ (Atilene) gây an thần sâu và ức chế trung tâm hô hấp [14].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_177",
-      "MA_TUONG_TAC": "TUONGTAC_177",
-      "MA_THUOC_A": "40.732",
-      "MA_THUOC_B": "40.30.497",
-      "NOI_DUNG_TUONG_TAC": "[40.732] Racecadotril vs [40.30.497] Amlodipin + Lisinopril",
-      "CANH_BAO_HE_THONG": "🚫 Cơn phù mạch (Angioedema): Racecadotril (Soshydra) ức chế enkephalinase. Dùng chung với Lisinopril (Lisonorm) làm tăng đột biến nguy cơ phù nề đường hô hấp gây ngạt thở [23].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_178",
-      "MA_TUONG_TAC": "TUONGTAC_178",
-      "MA_THUOC_A": "40.33",
-      "MA_THUOC_B": "40.30.501",
-      "NOI_DUNG_TUONG_TAC": "[40.33] Etoricoxib vs [40.30.501] Amlodipin + valsartan",
-      "CANH_BAO_HE_THONG": "⚠️ Tăng huyết áp kháng trị: Etoricoxib (Exibapc 120) giữ muối nước và gây co mạch thận, làm mất tác dụng hạ áp của phối hợp Wamlox, nguy cơ tổn thương thận cấp [24].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_179",
-      "MA_TUONG_TAC": "TUONGTAC_179",
-      "MA_THUOC_A": "40.659",
-      "MA_THUOC_B": "40.116",
-      "NOI_DUNG_TUONG_TAC": "[40.659] Furosemid vs [40.116] Natri hydrocarbonat",
-      "CANH_BAO_HE_THONG": "⚠️ Hạ Kali máu thứ phát: Kiềm hóa máu bằng Nabica kích thích tế bào trao đổi H+ lấy K+ vào nội bào, cộng hưởng với mất Kali qua nước tiểu do Furosemid gây hạ Kali máu nặng [25].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_180",
-      "MA_TUONG_TAC": "TUONGTAC_180",
-      "MA_THUOC_A": "40.116",
-      "MA_THUOC_B": "40.1032",
-      "NOI_DUNG_TUONG_TAC": "[40.116] Natri hydrocarbonat vs [40.1032] Calci carbonat",
-      "CANH_BAO_HE_THONG": "🚫 Hội chứng kiềm sữa (Milk-Alkali Syndrome): Phối hợp liều cao Nabica và Canxi sủi gây tăng Canxi huyết thanh ồ ạt, nhiễm kiềm chuyển hóa và suy thận cấp [26].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_181",
-      "MA_TUONG_TAC": "TUONGTAC_181",
-      "MA_THUOC_A": "40.698",
-      "MA_THUOC_B": "40.84",
-      "NOI_DUNG_TUONG_TAC": "[40.698] Hyoscin N-butylbromid vs [40.84] Diphenhydramin",
-      "CANH_BAO_HE_THONG": "🚫 Khủng hoảng kháng Cholinergic: Tác dụng cộng gộp gây liệt ruột cấp, cầu bàng quang, khô miệng niêm mạc và tăng nhãn áp ác tính ở người cao tuổi [14].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_182",
-      "MA_TUONG_TAC": "TUONGTAC_182",
-      "MA_THUOC_A": "40.497",
-      "MA_THUOC_B": "40.86",
-      "NOI_DUNG_TUONG_TAC": "[40.497] Carvedilol vs [40.86] Adrenalin",
-      "CANH_BAO_HE_THONG": "🚫 Cơn cao huyết áp kịch phát: Carvedilol chẹn thụ thể Beta. Khi tiêm Adrenalin, thụ thể Alpha (gây co mạch) không bị đối kháng, dẫn đến tăng huyết áp vọt và nhịp tim chậm phản xạ [27].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_183",
-      "MA_TUONG_TAC": "TUONGTAC_183",
-      "MA_THUOC_A": "40.829",
-      "MA_THUOC_B": "40.132",
-      "NOI_DUNG_TUONG_TAC": "[40.829] Eperison HCl vs [40.132] Gabapentin",
-      "CANH_BAO_HE_THONG": "⚠️ Nhược cơ & Ngã chấn thương: Eperison (Ryzonal) giãn cơ vân trung ương, Gabapentin ức chế dẫn truyền thần kinh. Bệnh nhân sẽ bị yếu cơ tứ chi và buồn ngủ quá mức [14].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_184",
-      "MA_TUONG_TAC": "TUONGTAC_184",
-      "MA_THUOC_A": "40.998",
-      "MA_THUOC_B": "40.155",
-      "NOI_DUNG_TUONG_TAC": "[40.998] N-Acetylcystein vs [40.155] Amoxicilin + acid clavulanic",
-      "CANH_BAO_HE_THONG": "⚠️ Phá hủy kháng sinh: N-Acetylcystein làm thay đổi môi trường pH dạ dày, làm phân hủy một phần Amoxicillin (Klamentin). Bắt buộc hướng dẫn uống cách nhau ít nhất 2 giờ [28].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_185",
-      "MA_TUONG_TAC": "TUONGTAC_185",
-      "MA_THUOC_A": "40.719",
-      "MA_THUOC_B": "40.229",
-      "NOI_DUNG_TUONG_TAC": "[40.719] Bacillus clausii vs [40.229] Levofloxacin",
-      "CANH_BAO_HE_THONG": "🚫 Tiêu diệt men vi sinh: Kháng sinh phổ rộng Levofloxacin sẽ tiêu diệt ngay lập tức lợi khuẩn Bacillus (Enterogolds). Uống men vi sinh cách kháng sinh 3-4 giờ [29].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "1",
-      "TRANG_THAI": "ON"
-    },
-    {
-      "id": "tt-TUONGTAC_186",
-      "MA_TUONG_TAC": "TUONGTAC_186",
-      "MA_THUOC_A": "40.989",
-      "MA_THUOC_B": "40.50",
-      "NOI_DUNG_TUONG_TAC": "[40.989] Bromhexin hydroclorid vs [40.50] Paracetamol + Codein",
-      "CANH_BAO_HE_THONG": "🚫 Ứ đờm & Xẹp phổi: Bromhexin (Novahexin) làm tăng tiết dịch nhầy đường hô hấp, trong khi Codein (Travicol codein F) ức chế ho. Gây ứ đọng dịch nhầy, nguy cơ viêm phổi nặng [30].",
       "DU_LIEU_CAP_DOI_DAY_DU": "1",
       "TRANG_THAI": "ON"
     },
