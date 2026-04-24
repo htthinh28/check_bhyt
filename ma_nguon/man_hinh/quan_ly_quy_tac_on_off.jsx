@@ -10,85 +10,27 @@ import { chuanTenSheetInAn, inHoacChiaSePdfTuBang } from '../tien_ich/in_an_chun
 import { useScaleGiaoDien } from '../tien_ich/diem_anh_man_hinh';
 import { quayLaiAnToan } from '../tien_ich/dieu_huong_an_toan';
 import { xoaCacheBoMayGiamDinh } from '../tien_ich/dong_co_giam_dinh';
-import { layDanhSachLuatCdhaHardcoded } from '../tien_ich/luat_cdha_hardcoded';
-import { layDanhSachLuatCongKhamHardcoded } from '../tien_ich/luat_cong_kham_hardcoded';
-import { layDanhSachLuatDuLieuHardcoded } from '../tien_ich/luat_du_lieu_hardcoded';
-import { layDanhSachLuatGiamDinhChuyenDeHardcoded } from '../tien_ich/luat_giam_dinh_chuyen_de_hardcoded';
-import { layDanhSachLuatGiuongHardcoded } from '../tien_ich/luat_giuong_hardcoded';
-import { layDanhSachLuatHanhChinhHardcoded } from '../tien_ich/luat_hanh_chinh_hardcoded';
-import { layDanhSachLuatHopDongHardcoded } from '../tien_ich/luat_hop_dong_hardcoded';
-import { layDanhSachLuatNhanSuHardcoded } from '../tien_ich/luat_nhan_su_hardcoded';
-import { layDanhSachLuatThuocHardcoded } from '../tien_ich/luat_thuoc_hardcoded';
 import {
-    apGhiDeChoDongNoiBo,
-    capNhatMapTrangThaiTuRowsNoiBo,
-    chuanHoaKhoaMaLuatOnOff,
-    isQuyTacNoiBoDangBat,
-    luuMapGhiDeNoiDungQuyTacNoiBo,
-    luuMapTrangThaiQuyTacNoiBo,
-    luuTapMaLuatAnKhoiQuanLyNoiBo,
-    suyRaThongTinQuanTriQuyTac,
-    taiMapGhiDeNoiDungQuyTacNoiBo,
-    taiMapTrangThaiQuyTacNoiBo,
-    taiTapMaLuatAnKhoiQuanLyNoiBo,
-    taoDanhSachQuyTacNoiBoTheoTab,
+  ALIAS_TAB_ID,
+  DANH_SACH_TAB_MAC_DINH,
+  NHOM_HIEN_THI,
+} from '../tien_ich/cau_hinh_tab_quy_tac_on_off';
+import {
+  capNhatMapTrangThaiTuRowsNoiBo,
+  chuanHoaKhoaMaLuatOnOff,
+  luuMapGhiDeNoiDungQuyTacNoiBo,
+  luuMapTrangThaiQuyTacNoiBo,
+  luuTapMaLuatAnKhoiQuanLyNoiBo,
+  taiMapGhiDeNoiDungQuyTacNoiBo,
+  taiMapTrangThaiQuyTacNoiBo,
 } from '../tien_ich/quy_tac_on_off_noi_bo';
 import { xoaCacheDvktOpGiamDinh } from '../tien_ich/dvkt_op_giam_dinh';
-import { damBaoSeedLuatPtttMuc11 } from '../tien_ich/seed_luat_pttt_muc11';
-import { hopNhatQuyTacTrungTheoDoiTuong } from '../tien_ich/hop_nhat_quy_tac_trung_lap';
-
-const DANH_SACH_TAB_MAC_DINH = [
-  { id: 'LUAT_DU_LIEU', ten: 'Cấu trúc XML' },
-  { id: 'LUAT_HANH_CHINH', ten: 'Hành chính' },
-  { id: 'LUAT_CHUYEN_TUYEN', ten: 'Chuyển tuyến' },
-  { id: 'LUAT_HOP_DONG', ten: 'Hợp đồng' },
-  { id: 'LUAT_CONG_KHAM', ten: 'Công khám' },
-  { id: 'LUAT_CDHA', ten: 'DVKT/CĐHA' },
-  { id: 'LUAT_MAU', ten: 'Máu' },
-  { id: 'LUAT_THUOC', ten: 'Thuốc' },
-  { id: 'LUAT_GIUONG', ten: 'Giường bệnh' },
-  { id: 'LUAT_NHAN_SU', ten: 'Nhân sự' },
-  { id: 'LUAT_PTTT', ten: 'Phẫu thuật/Thủ thuật' },
-];
-
-const ALIAS_TAB_ID = {
-  LUAT_DU_LIEU: 'XML_DATA',
-  XML_DATA: 'LUAT_DU_LIEU',
-  LUAT_HANH_CHINH: 'XML1',
-  XML1: 'LUAT_HANH_CHINH',
-  LUAT_CONG_KHAM: 'KHAM_BENH',
-  KHAM_BENH: 'LUAT_CONG_KHAM',
-  LUAT_CDHA: 'XML3',
-  XML3: 'LUAT_CDHA',
-  LUAT_THUOC: 'XML2',
-  XML2: 'LUAT_THUOC',
-  LUAT_CHUYEN_TUYEN: 'NHAP_VIEN',
-  NHAP_VIEN: 'LUAT_CHUYEN_TUYEN',
-  LUAT_GIUONG: 'NOI_TRU',
-  NOI_TRU: 'LUAT_GIUONG',
-  LUAT_PTTT: 'PTTT',
-  PTTT: 'LUAT_PTTT',
-  LUAT_MAU: 'GAY_ME',
-  GAY_ME: 'LUAT_MAU',
-  LUAT_NHAN_SU: 'HAU_PHAU',
-  HAU_PHAU: 'LUAT_NHAN_SU',
-  LUAT_HOP_DONG: 'XUAT_VIEN',
-  XUAT_VIEN: 'LUAT_HOP_DONG',
-};
-
-const NHOM_HIEN_THI = {
-  LUAT_DU_LIEU: 'Cấu trúc',
-  LUAT_HANH_CHINH: 'Hành chính',
-  LUAT_CHUYEN_TUYEN: 'Chuyển tuyến',
-  LUAT_HOP_DONG: 'Hợp đồng',
-  LUAT_CONG_KHAM: 'Công khám',
-  LUAT_CDHA: 'DVKT',
-  LUAT_MAU: 'Máu',
-  LUAT_THUOC: 'Thuốc',
-  LUAT_GIUONG: 'Giường bệnh',
-  LUAT_NHAN_SU: 'Nhân viên',
-  LUAT_PTTT: 'PTTT',
-};
+import {
+  lamGiauMetaQuanTriQuyTac as qt_lamGiauMeta,
+  layMaLuat as qt_layMaLuat,
+  layTenQuyTac as qt_layTenQuyTac,
+} from '../tien_ich/gop_quy_tac_theo_tab_on_off.jsx';
+import { taiVaHopNhatDuLieuTheoTabGiongManOnOff } from '../tien_ich/tai_va_gop_quy_tac_theo_tab';
 
 const parseJSONAnToan = (raw, fallback) => {
   try {
@@ -96,39 +38,6 @@ const parseJSONAnToan = (raw, fallback) => {
   } catch {
     return fallback;
   }
-};
-
-const chuanHoaTabId = (tabId) => String(tabId || '').toUpperCase().replace(/[^A-Z0-9]/g, '');
-
-const layTabIdTuStorageKey = (key) => {
-  if (key.includes('_CHUNK_') || key.endsWith('_CHUNKS')) return '';
-  if (key.startsWith('CDSS_DATA_')) return key.substring('CDSS_DATA_'.length);
-  return '';
-};
-
-const timTabUngVien = (tabId, tapTabTrongStorage) => {
-  const ungVien = new Set();
-  const aliasId = ALIAS_TAB_ID[tabId];
-  const normTab = chuanHoaTabId(tabId);
-  const normAlias = chuanHoaTabId(aliasId);
-
-  ungVien.add(tabId);
-  if (aliasId) ungVien.add(aliasId);
-
-  (tapTabTrongStorage || []).forEach((id) => {
-    const normId = chuanHoaTabId(id);
-    if (normId && (normId === normTab || (normAlias && normId === normAlias))) {
-      ungVien.add(id);
-    }
-  });
-
-  return Array.from(ungVien);
-};
-
-const chuanHoaDuLieuLuat = (raw) => {
-  if (Array.isArray(raw)) return raw;
-  if (raw && typeof raw === 'object' && Array.isArray(raw.data)) return raw.data;
-  return [];
 };
 
 const laBat = (v) => String(v || 'ON').toUpperCase() === 'ON';
@@ -139,9 +48,7 @@ const boMetaTam = (row) => {
   return clone;
 };
 
-const layTenQuyTac = (row) => String(row?.TEN_QUY_TAC || row?.ten_quy_tac || row?.TEN || row?.MA_LUAT || 'Quy tắc không tên');
-const layMaLuat = (row) => String(row?.MA_LUAT || row?.ma_luat || '').trim();
-const taoKhoaDong = (row, index) => `${layMaLuat(row) || 'RULE'}__${String(row?.id || index)}`;
+const taoKhoaDong = (row, index) => `${qt_layMaLuat(row) || 'RULE'}__${String(row?.id || index)}`;
 const chuanHoaTuKhoa = (value) => String(value || '').trim().toUpperCase();
 const taoDuLieuFormRong = () => ({
   MA_LUAT: '',
@@ -153,6 +60,8 @@ const taoDuLieuFormRong = () => ({
   TRANG_THAI: 'ON',
 });
 const COT_FILE_RULE = ['STT', 'MA_LUAT', 'TEN_QUY_TAC', 'DIEU_KIEN', 'CANH_BAO', 'NHOM_CANH_BAO', 'CHI_TIET_CANH_BAO', 'TRANG_THAI'];
+/** Cột export «tất cả tab»: thêm nhóm tab + phân loại BUILTIN/DATASET (không dùng cho import mẫu). */
+const COT_EXPORT_TAT_CA = ['NHOM_TAB', 'LOAI_QUY_TAC', ...COT_FILE_RULE];
 const BO_LOC_LOAI_QUY_TAC = [
   { id: 'TAT_CA', ten: 'Tất cả' },
   { id: 'XUAT_TOAN', ten: 'Xuất toán' },
@@ -164,43 +73,12 @@ const CUM_HIEN_THI_LOAI_QUY_TAC = [
   { id: 'CANH_BAO', ten: 'Quy tắc cảnh báo' },
 ];
 
-const lamGiauMetaQuanTriQuyTac = (row = {}) => {
-  const thongTinQuanTri = suyRaThongTinQuanTriQuyTac(row);
-  const nhomCanhBao = String(row?.NHOM_CANH_BAO || row?.nhom_canh_bao || thongTinQuanTri.nhom_canh_bao || 'CANH_BAO').toUpperCase() === 'XUAT_TOAN'
-    ? 'XUAT_TOAN'
-    : 'CANH_BAO';
-
-  return {
-    ...(row || {}),
-    NHOM_CANH_BAO: nhomCanhBao,
-    TAG_CANH_BAO: String(row?.TAG_CANH_BAO || row?.tag_canh_bao || thongTinQuanTri.tag_canh_bao || '').trim(),
-    TAG_NGUON_CANH_BAO: String(row?.TAG_NGUON_CANH_BAO || row?.tag_nguon_canh_bao || thongTinQuanTri.tag_nguon_canh_bao || '').trim(),
-    CHI_TIET_CANH_BAO: String(row?.CHI_TIET_CANH_BAO || row?.chi_tiet_canh_bao || thongTinQuanTri.chi_tiet_canh_bao || '').trim(),
-  };
-};
-
 const layNhomCanhBao = (row) => String(row?.NHOM_CANH_BAO || row?.nhom_canh_bao || 'CANH_BAO').toUpperCase() === 'XUAT_TOAN'
   ? 'XUAT_TOAN'
   : 'CANH_BAO';
 const layTagCanhBao = (row) => String(row?.TAG_CANH_BAO || row?.tag_canh_bao || '').trim();
 const layTagNguonCanhBao = (row) => String(row?.TAG_NGUON_CANH_BAO || row?.tag_nguon_canh_bao || '').trim();
 const layChiTietCanhBao = (row) => String(row?.CHI_TIET_CANH_BAO || row?.chi_tiet_canh_bao || '').trim();
-
-const taoDongNoiBoTuNguon = (row, index, prefixId, maMacDinh, mapTrangThaiNoiBo) => {
-  const maLuat = layMaLuat(row) || `${maMacDinh}_${index + 1}`;
-  const macDinhBat = row?.TRANG_THAI !== 'OFF';
-  return lamGiauMetaQuanTriQuyTac({
-    ...(row || {}),
-    id: row?.id || `${prefixId}-${index + 1}`,
-    MA_LUAT: maLuat,
-    TEN_QUY_TAC: layTenQuyTac(row),
-    DIEU_KIEN: String(row?.DIEU_KIEN || row?.dieu_kien || ''),
-    CANH_BAO: String(row?.CANH_BAO || row?.canh_bao || ''),
-    TRANG_THAI: isQuyTacNoiBoDangBat(maLuat, mapTrangThaiNoiBo, macDinhBat) ? 'ON' : 'OFF',
-    LOAI_QUY_TAC: 'BUILTIN',
-    _kind: 'BUILTIN',
-  });
-};
 
 const taoDongDuLieuTuImport = (row, index) => {
   const maLuat = String(row?.MA_LUAT || row?.ma_luat || '').trim();
@@ -209,7 +87,7 @@ const taoDongDuLieuTuImport = (row, index) => {
   const dieuKien = String(row?.DIEU_KIEN || row?.dieu_kien || '').trim();
   const canhBao = String(row?.CANH_BAO || row?.canh_bao || '').trim();
   const trangThai = String(row?.TRANG_THAI || row?.trang_thai || 'ON').toUpperCase() === 'OFF' ? 'OFF' : 'ON';
-  return lamGiauMetaQuanTriQuyTac({
+  return qt_lamGiauMeta({
     id: `imp_${Date.now()}_${index}_${Math.random().toString(36).slice(2, 8)}`,
     MA_LUAT: maLuat,
     TEN_QUY_TAC: tenQuyTac,
@@ -220,79 +98,6 @@ const taoDongDuLieuTuImport = (row, index) => {
     TRANG_THAI: trangThai,
     _kind: 'DATASET',
   });
-};
-
-const tronRuleKhongTrung = (...sources) => {
-  const seen = new Set();
-  const out = [];
-  sources.flat().forEach((row) => {
-    const ma = String(row?.MA_LUAT || row?.ma_luat || '').trim().toUpperCase();
-    const ten = String(row?.TEN_QUY_TAC || row?.ten_quy_tac || '').trim().toUpperCase();
-    const dk = String(row?.DIEU_KIEN || row?.dieu_kien || '').trim().toUpperCase();
-    const cb = String(row?.CANH_BAO || row?.canh_bao || '').trim().toUpperCase();
-    const signature = `${ma}||${ten}||${dk}||${cb}`;
-    if (!ma && !ten && !dk && !cb) return;
-    if (seen.has(signature)) return;
-    seen.add(signature);
-    out.push(row);
-  });
-  return out;
-};
-
-/** Gộp dataset + mẫu nội bộ + hardcoded theo từng tab (CPU — gọi song song theo tab khi tải). */
-const gopDuLieuMotTabQuyTac = (tab, dataRows, builtInRows, mapTrangThaiNoiBo, mapGhiDeNoiBo) => {
-  if (tab.id === 'LUAT_DU_LIEU') {
-    const dsHardcoded = layDanhSachLuatDuLieuHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-dulieu', 'DULIEU_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-    ));
-    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-  }
-  if (tab.id === 'LUAT_HANH_CHINH') {
-    const dsHardcoded = layDanhSachLuatHanhChinhHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-hanhchinh', 'HANHCHINH_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-    ));
-    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-  }
-  if (tab.id === 'LUAT_THUOC') {
-    const dsHardcoded = layDanhSachLuatThuocHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-thuoc', 'THUOC_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-    ));
-    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-  }
-  if (tab.id === 'LUAT_CDHA') {
-    const dsHardcoded = tronRuleKhongTrung(
-      layDanhSachLuatCdhaHardcoded(),
-      layDanhSachLuatGiamDinhChuyenDeHardcoded(),
-    ).map((row, index) => lamGiauMetaQuanTriQuyTac(
-      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-cdha', 'CDHA_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-    ));
-    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-  }
-  if (tab.id === 'LUAT_CONG_KHAM') {
-    const dsHardcoded = layDanhSachLuatCongKhamHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-congkham', 'CK_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-    ));
-    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-  }
-  if (tab.id === 'LUAT_NHAN_SU') {
-    const dsHardcoded = layDanhSachLuatNhanSuHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-nhansu', 'NS_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-    ));
-    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-  }
-  if (tab.id === 'LUAT_GIUONG') {
-    const dsHardcoded = layDanhSachLuatGiuongHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-giuong', 'GB_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-    ));
-    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-  }
-  if (tab.id === 'LUAT_HOP_DONG') {
-    const dsHardcoded = layDanhSachLuatHopDongHardcoded().map((row, index) => lamGiauMetaQuanTriQuyTac(
-      apGhiDeChoDongNoiBo(taoDongNoiBoTuNguon(row, index, 'hardcoded-hopdong', 'HD_HARDCODED', mapTrangThaiNoiBo), mapGhiDeNoiBo),
-    ));
-    return tronRuleKhongTrung(dataRows, builtInRows, dsHardcoded);
-  }
-  return tronRuleKhongTrung(dataRows, builtInRows);
 };
 
 const QuanLyQuyTacOnOff = ({ navigation, route }) => {
@@ -327,73 +132,8 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
     const hienSpinnerToanMan = dangTaiLanDauRef.current;
     if (hienSpinnerToanMan) setDangTai(true);
     try {
-      await damBaoSeedLuatPtttMuc11();
-
-      let allKeys = [];
-      if (Platform.OS === 'web') {
-        allKeys = Object.keys(window.localStorage || {}).filter((k) => String(k).startsWith('CDSS_DATA_'));
-      } else {
-        allKeys = (await AsyncStorage.getAllKeys()).filter((k) => String(k).startsWith('CDSS_DATA_'));
-      }
-
-      const tabIdsCoDinh = DANH_SACH_TAB_MAC_DINH.map((x) => x.id);
-      const tabIdsTrongStorage = Array.from(
-        new Set([...tabIdsCoDinh, ...allKeys.map(layTabIdTuStorageKey).filter(Boolean)]),
-      );
-
-      const [mapTrangThaiNoiBo, mapGhiDeNoiBo, tapAnKhoiQuanLy] = await Promise.all([
-        taiMapTrangThaiQuyTacNoiBo(),
-        taiMapGhiDeNoiDungQuyTacNoiBo(),
-        taiTapMaLuatAnKhoiQuanLyNoiBo(),
-      ]);
-      setTapMaLuatAnKhoiQuanLy(tapAnKhoiQuanLy);
-      const duLieuNoiBoTheoTab = taoDanhSachQuyTacNoiBoTheoTab(mapTrangThaiNoiBo);
-
-      const khoaDocStorage = [
-        ...new Set(
-          DANH_SACH_TAB_MAC_DINH.flatMap((tab) =>
-            timTabUngVien(tab.id, tabIdsTrongStorage).map((id) => `CDSS_DATA_${id}`),
-          ),
-        ),
-      ];
-      const rawTheoKhoa = {};
-      if (Platform.OS === 'web') {
-        khoaDocStorage.forEach((k) => {
-          rawTheoKhoa[k] = window.localStorage.getItem(k);
-        });
-      } else if (khoaDocStorage.length > 0) {
-        const cap = await AsyncStorage.multiGet(khoaDocStorage);
-        cap.forEach(([k, v]) => {
-          rawTheoKhoa[k] = v;
-        });
-      }
-
-      const ketQuaPairs = DANH_SACH_TAB_MAC_DINH.map((tab) => {
-        const dsUngVien = timTabUngVien(tab.id, tabIdsTrongStorage);
-        let dataLoaded = [];
-        for (const tabIdUngVien of dsUngVien) {
-          const raw = rawTheoKhoa[`CDSS_DATA_${tabIdUngVien}`];
-          const data = chuanHoaDuLieuLuat(parseJSONAnToan(raw, []));
-          if (Array.isArray(data) && data.length > 0) {
-            dataLoaded = data;
-            break;
-          }
-        }
-
-        const dataRows = (Array.isArray(dataLoaded) ? dataLoaded : []).map((row) => lamGiauMetaQuanTriQuyTac({
-          ...row,
-          TRANG_THAI: row?.TRANG_THAI === 'OFF' ? 'OFF' : 'ON',
-          _kind: 'DATASET',
-        }));
-        const builtInRows = (duLieuNoiBoTheoTab[tab.id] || []).map((row) => lamGiauMetaQuanTriQuyTac(
-          { ...apGhiDeChoDongNoiBo(row, mapGhiDeNoiBo), _kind: 'BUILTIN' },
-        ));
-        const merged = gopDuLieuMotTabQuyTac(tab, dataRows, builtInRows, mapTrangThaiNoiBo, mapGhiDeNoiBo);
-        const mergedGon = hopNhatQuyTacTrungTheoDoiTuong(merged, () => tab.id);
-        return [tab.id, mergedGon];
-      });
-      const ketQua = Object.fromEntries(ketQuaPairs);
-
+      const { duLieuTheoTab: ketQua, tapMaLuatAnKhoiQuanLy } = await taiVaHopNhatDuLieuTheoTabGiongManOnOff();
+      setTapMaLuatAnKhoiQuanLy(tapMaLuatAnKhoiQuanLy);
       setDuLieuTheoTab(ketQua);
       dangTaiLanDauRef.current = false;
     } catch (e) {
@@ -451,15 +191,15 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
         .map((row, index) => ({ row, index, key: taoKhoaDong(row, index) }))
         .filter(({ row }) => {
           if (!laRuleNoiBo(row)) return true;
-          const ma = chuanHoaKhoaMaLuatOnOff(layMaLuat(row));
+          const ma = chuanHoaKhoaMaLuatOnOff(qt_layMaLuat(row));
           return !tapMaLuatAnKhoiQuanLy.has(ma);
         });
       const rowsSauLoc = rowsCoIndex.filter(({ row }) => {
         if (boLocLoaiQuyTac !== 'TAT_CA' && layNhomCanhBao(row) !== boLocLoaiQuyTac) return false;
         if (!tuKhoa) return true;
         const noiDung = [
-          layMaLuat(row),
-          layTenQuyTac(row),
+          qt_layMaLuat(row),
+          qt_layTenQuyTac(row),
           String(row?.DIEU_KIEN || row?.dieu_kien || ''),
           String(row?.CANH_BAO || row?.canh_bao || ''),
           layChiTietCanhBao(row),
@@ -470,7 +210,7 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
       }).sort((a, b) => {
         const diffLoai = (layNhomCanhBao(a.row) === 'XUAT_TOAN' ? 0 : 1) - (layNhomCanhBao(b.row) === 'XUAT_TOAN' ? 0 : 1);
         if (diffLoai !== 0) return diffLoai;
-        return layMaLuat(a.row).localeCompare(layMaLuat(b.row), 'vi');
+        return qt_layMaLuat(a.row).localeCompare(qt_layMaLuat(b.row), 'vi');
       });
       const cumLoai = CUM_HIEN_THI_LOAI_QUY_TAC.map((item) => ({
         ...item,
@@ -643,10 +383,10 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
     if (!row) return;
     setTabQuanLyNoiDung(tabId);
     setDangSuaRule({ tabId, index, laNoiBo: laRuleNoiBo(row) });
-    const thongTinQuanTri = lamGiauMetaQuanTriQuyTac(row);
+    const thongTinQuanTri = qt_lamGiauMeta(row);
     setFormRule({
-      MA_LUAT: layMaLuat(row),
-      TEN_QUY_TAC: layTenQuyTac(row),
+      MA_LUAT: qt_layMaLuat(row),
+      TEN_QUY_TAC: qt_layTenQuyTac(row),
       DIEU_KIEN: String(row?.DIEU_KIEN || row?.dieu_kien || ''),
       CANH_BAO: String(row?.CANH_BAO || row?.canh_bao || ''),
       NHOM_CANH_BAO: layNhomCanhBao(thongTinQuanTri),
@@ -657,7 +397,7 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
 
   const luuNoiDungRule = async () => {
     const tabId = dangSuaRule?.tabId || tabQuanLyNoiDung;
-    const maLuat = layMaLuat(formRule);
+    const maLuat = qt_layMaLuat(formRule);
     if (!tabId || !maLuat) {
       Alert.alert('Thiếu dữ liệu', 'Cần nhập ít nhất mã luật trước khi lưu.');
       return;
@@ -688,7 +428,7 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
       return;
     }
 
-    const thongTinQuanTri = lamGiauMetaQuanTriQuyTac({
+    const thongTinQuanTri = qt_lamGiauMeta({
       MA_LUAT: maLuat,
       TEN_QUY_TAC: String(formRule?.TEN_QUY_TAC || '').trim() || maLuat,
       DIEU_KIEN: String(formRule?.DIEU_KIEN || '').trim(),
@@ -724,10 +464,10 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
     const row = (duLieuTheoTab[tabId] || [])[index];
     if (!row) return;
     if (laRuleNoiBo(row)) {
-      const ma = chuanHoaKhoaMaLuatOnOff(layMaLuat(row));
+      const ma = chuanHoaKhoaMaLuatOnOff(qt_layMaLuat(row));
       Alert.alert(
         'Ẩn quy tắc mẫu',
-        `Ẩn "${layMaLuat(row) || layTenQuyTac(row)}" khỏi danh sách quản trị? Trạng thái ON/OFF vẫn lưu; có thể hiện lại ở mục "Quy tắc mẫu đã ẩn" bên dưới.`,
+        `Ẩn "${qt_layMaLuat(row) || qt_layTenQuyTac(row)}" khỏi danh sách quản trị? Trạng thái ON/OFF vẫn lưu; có thể hiện lại ở mục "Quy tắc mẫu đã ẩn" bên dưới.`,
         [
           { text: 'Hủy', style: 'cancel' },
           {
@@ -753,7 +493,7 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
       );
       return;
     }
-    Alert.alert('Xác nhận xóa', `Xóa quy tắc ${layMaLuat(row) || layTenQuyTac(row)}?`, [
+    Alert.alert('Xác nhận xóa', `Xóa quy tắc ${qt_layMaLuat(row) || qt_layTenQuyTac(row)}?`, [
       { text: 'Hủy', style: 'cancel' },
       {
         text: 'Xóa',
@@ -894,8 +634,8 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
     try {
       const dataExport = rows.map((row, index) => ({
         STT: index + 1,
-        MA_LUAT: layMaLuat(row),
-        TEN_QUY_TAC: layTenQuyTac(row),
+        MA_LUAT: qt_layMaLuat(row),
+        TEN_QUY_TAC: qt_layTenQuyTac(row),
         DIEU_KIEN: String(row?.DIEU_KIEN || row?.dieu_kien || ''),
         CANH_BAO: String(row?.CANH_BAO || row?.canh_bao || ''),
         NHOM_CANH_BAO: layNhomCanhBao(row),
@@ -911,6 +651,79 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
     }
   };
 
+  const exportTatCaQuyTacOnOff = () => {
+    if (Platform.OS !== 'web') {
+      Alert.alert('Thông báo', 'Export hiện hỗ trợ trên Web.');
+      return;
+    }
+    try {
+      const wb = XLSX.utils.book_new();
+      const daDungTenSheet = new Set();
+      const taoTenSheetDuyNhat = (tab) => {
+        const raw = `${NHOM_HIEN_THI[tab.id] || tab.ten || tab.id}_${tab.id}`;
+        let n = chuanTenSheetInAn(raw);
+        if (!daDungTenSheet.has(n)) {
+          daDungTenSheet.add(n);
+          return n;
+        }
+        for (let i = 2; i < 100; i += 1) {
+          const cand = chuanTenSheetInAn(`${raw}_${i}`);
+          if (!daDungTenSheet.has(cand)) {
+            daDungTenSheet.add(cand);
+            return cand;
+          }
+        }
+        const fallback = chuanTenSheetInAn(`${tab.id}_${Date.now()}`);
+        daDungTenSheet.add(fallback);
+        return fallback;
+      };
+
+      let tongDong = 0;
+      for (const tab of DANH_SACH_TAB_MAC_DINH) {
+        const rowsGoc = duLieuTheoTab[tab.id] || [];
+        const hangHien = rowsGoc.filter((row) => {
+          if (!laRuleNoiBo(row)) return true;
+          const ma = chuanHoaKhoaMaLuatOnOff(qt_layMaLuat(row));
+          return !tapMaLuatAnKhoiQuanLy.has(ma);
+        });
+        if (hangHien.length === 0) continue;
+
+        hangHien.sort((a, b) => {
+          const diffLoai = (layNhomCanhBao(a) === 'XUAT_TOAN' ? 0 : 1) - (layNhomCanhBao(b) === 'XUAT_TOAN' ? 0 : 1);
+          if (diffLoai !== 0) return diffLoai;
+          return qt_layMaLuat(a).localeCompare(qt_layMaLuat(b), 'vi');
+        });
+
+        const dataExport = hangHien.map((row, index) => ({
+          NHOM_TAB: NHOM_HIEN_THI[tab.id] || tab.ten || tab.id,
+          LOAI_QUY_TAC: laRuleNoiBo(row) ? 'BUILTIN' : 'DATASET',
+          STT: index + 1,
+          MA_LUAT: qt_layMaLuat(row),
+          TEN_QUY_TAC: qt_layTenQuyTac(row),
+          DIEU_KIEN: String(row?.DIEU_KIEN || row?.dieu_kien || ''),
+          CANH_BAO: String(row?.CANH_BAO || row?.canh_bao || ''),
+          NHOM_CANH_BAO: layNhomCanhBao(row),
+          CHI_TIET_CANH_BAO: layChiTietCanhBao(row),
+          TRANG_THAI: laBat(row?.TRANG_THAI) ? 'ON' : 'OFF',
+        }));
+        const ws = XLSX.utils.json_to_sheet(dataExport, { header: COT_EXPORT_TAT_CA });
+        XLSX.utils.book_append_sheet(wb, ws, taoTenSheetDuyNhat(tab));
+        tongDong += hangHien.length;
+      }
+
+      if (tongDong === 0 || !wb.SheetNames?.length) {
+        Alert.alert('Thông báo', 'Không có quy tắc để export (mọi tab trống hoặc đã ẩn hết quy tắc mẫu).');
+        return;
+      }
+
+      const ts = new Date();
+      const stamp = `${ts.getFullYear()}${String(ts.getMonth() + 1).padStart(2, '0')}${String(ts.getDate()).padStart(2, '0')}_${String(ts.getHours()).padStart(2, '0')}${String(ts.getMinutes()).padStart(2, '0')}`;
+      XLSX.writeFile(wb, `QuyTac_ON_OFF_TatCa_${stamp}.xlsx`);
+    } catch (e) {
+      Alert.alert('Lỗi', `Không thể export toàn bộ: ${e.message || e}`);
+    }
+  };
+
   const inDanhSachQuyTacSauLoc = async () => {
     const cot = COT_FILE_RULE.map((k) => ({ key: k, label: k }));
     const sheets = [];
@@ -919,8 +732,8 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
       if (rules.length === 0) continue;
       const rows = rules.map(({ row }, index) => ({
         STT: index + 1,
-        MA_LUAT: layMaLuat(row),
-        TEN_QUY_TAC: layTenQuyTac(row),
+        MA_LUAT: qt_layMaLuat(row),
+        TEN_QUY_TAC: qt_layTenQuyTac(row),
         DIEU_KIEN: String(row?.DIEU_KIEN || row?.dieu_kien || ''),
         CANH_BAO: String(row?.CANH_BAO || row?.canh_bao || ''),
         NHOM_CANH_BAO: layNhomCanhBao(row),
@@ -1067,7 +880,7 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
       const on = laBat(rule.TRANG_THAI);
       const laNoiBo = laRuleNoiBo(rule);
       const daChon = new Set(chonXoaLoat?.[nhom.tabId] || []).has(ruleKey);
-      const duocHighlight = chuanHoaTuKhoa(maLuatCanHighlight) !== '' && chuanHoaTuKhoa(layMaLuat(rule)) === chuanHoaTuKhoa(maLuatCanHighlight);
+      const duocHighlight = chuanHoaTuKhoa(maLuatCanHighlight) !== '' && chuanHoaTuKhoa(qt_layMaLuat(rule)) === chuanHoaTuKhoa(maLuatCanHighlight);
       const nhomCanhBao = layNhomCanhBao(rule);
       const tagCanhBao = layTagCanhBao(rule) || (nhomCanhBao === 'XUAT_TOAN' ? 'QUY TẮC XUẤT TOÁN' : 'QUY TẮC CẢNH BÁO');
       const tagNguonCanhBao = layTagNguonCanhBao(rule);
@@ -1091,9 +904,9 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
             </View>
             <View style={styles.dong_rule_text_khoi} pointerEvents="none">
               <Text style={[styles.ten_rule, on ? styles.ten_rule_on : styles.ten_rule_off]} numberOfLines={2}>
-                {layTenQuyTac(rule)}
+                {qt_layTenQuyTac(rule)}
               </Text>
-              {!!layMaLuat(rule) && <Text style={styles.ma_luat}>{layMaLuat(rule)}</Text>}
+              {!!qt_layMaLuat(rule) && <Text style={styles.ma_luat}>{qt_layMaLuat(rule)}</Text>}
               <View style={styles.hang_tag_rule}>
                 {laNoiBo && <Text style={styles.tag_noi_bo}>MA NGUON</Text>}
                 <Text style={[styles.tag_loai_quy_tac, nhomCanhBao === 'XUAT_TOAN' ? styles.tag_xuat_toan : styles.tag_canh_bao]}>{tagCanhBao}</Text>
@@ -1279,6 +1092,9 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.btn_hanh_dong, styles.btn_file]} onPress={exportDuLieuTab}>
                   <Text style={styles.txt_btn}>EXPORT</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={[styles.btn_hanh_dong, styles.btn_file]} onPress={exportTatCaQuyTacOnOff}>
+                  <Text style={styles.txt_btn}>EXPORT TẤT CẢ</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={[styles.btn_hanh_dong, styles.btn_file]} onPress={() => void inDanhSachQuyTacSauLoc()}>
                   <Text style={styles.txt_btn}>IN / PDF</Text>

@@ -1,29 +1,21 @@
 /**
- * Tổng hợp quy tắc phân tầng giám định cho màn Thư viện (luật cứng trong bundle JS):
- * — Cùng nguồn hardcoded + DVKT-OP-* với engine / màn ON/OFF.
- * — Thêm seed PTTT mục 11 (`DU_LIEU_SEED_LUAT_PTTT_MUC11`) và danh mục mẫu ON/OFF (`DANH_MUC_QUY_TAC_NOI_BO`) để đồng bộ số lượng & phạm vi tra cứu với quản trị.
- * — Không nạp `dong_co_giam_dinh`; quy tắc chỉ do BV import (CDSS_DATA_*) vẫn chỉ xem/sửa ở màn ON/OFF.
- * — Cuối cùng hợp nhất trùng lặp cùng đối tượng + cùng điều kiện (`hop_nhat_quy_tac_trung_lap.js`).
+ * Tổng hợp quy tắc phân tầng giám định cho màn Thư viện — đồng bộ với màn Quản lý ON/OFF:
+ * — Cùng pipeline `tinhDuLieuTheoTabTuNguonGiongOnOff` (tronRuleKhongTrung + hopNhat theo tab,
+ *   CDHA + chuyên đề + DVKT-OP + seed PTTT mục 11 + danh mục nội bộ).
+ * — `layTatCaBanGhiQuyTacPhanLap(opts)`: sync, mặc định không đọc CDSS_DATA (chỉ bundle + map nếu truyền).
+ * — `taiTatCaBanGhiQuyTacPhanLapDongBoKho()`: async — đọc CDSS_DATA_* + seed PTTT như màn ON/OFF → số liệu khớp.
  */
-import { DU_LIEU_SEED_LUAT_PTTT_MUC11 } from './du_lieu_luat_pttt_muc11';
-import { layDanhSachLuatCdhaHardcoded } from './luat_cdha_hardcoded';
-import { layDanhSachLuatCongKhamHardcoded } from './luat_cong_kham_hardcoded';
-import { layDanhSachLuatDuLieuHardcoded } from './luat_du_lieu_hardcoded';
+import { DANH_SACH_TAB_MAC_DINH } from './cau_hinh_tab_quy_tac_on_off';
+import { tinhDuLieuTheoTabTuNguonGiongOnOff } from './gop_quy_tac_theo_tab_on_off.jsx';
+import { taiVaHopNhatDuLieuTheoTabGiongManOnOff } from './tai_va_gop_quy_tac_theo_tab';
 import {
   laDieuKienChuyenDeXml130Placeholder,
-  layDanhSachLuatGiamDinhChuyenDeHardcoded,
 } from './luat_giam_dinh_chuyen_de_hardcoded';
-import { layDanhSachLuatGiuongHardcoded } from './luat_giuong_hardcoded';
-import { layDanhSachLuatHanhChinhHardcoded } from './luat_hanh_chinh_hardcoded';
-import { layDanhSachLuatHopDongHardcoded } from './luat_hop_dong_hardcoded';
-import { layDanhSachLuatNhanSuHardcoded } from './luat_nhan_su_hardcoded';
-import { layDanhSachLuatThuocHardcoded } from './luat_thuoc_hardcoded';
-import { layQuyTacDvktOpMacDinh } from './dvkt_op_giam_dinh';
-import { DANH_MUC_QUY_TAC_NOI_BO } from './quy_tac_on_off_noi_bo.jsx';
-import { hopNhatQuyTacTrungTheoDoiTuong } from './hop_nhat_quy_tac_trung_lap';
 
 export const LOAI_NGUON = Object.freeze({
   LUAT_CUNG: 'LUAT_CUNG',
+  /** Dòng từ CDSS_DATA_* (đồng bộ màn ON/OFF). */
+  DATASET: 'DATASET',
 });
 
 /** Thứ tự hiển thị nhóm; key = mã nội bộ PHAN_HE / engine */
@@ -110,9 +102,11 @@ const ghepGhiChuRuiRo = (row, loaiNguon) => {
 const toRecordLuatCung = (row, nhomIdMacDinh) => {
   const ph = String(row.PHAN_HE || row.phan_he || nhomIdMacDinh || '').trim() || nhomIdMacDinh;
   const ma = String(row.MA_LUAT || row.ma_luat || '').trim();
+  const kind = String(row._kind || row.LOAI_QUY_TAC || '').toUpperCase();
+  const loaiNguon = kind === 'DATASET' ? LOAI_NGUON.DATASET : LOAI_NGUON.LUAT_CUNG;
   return {
-    id: `CUNG|${ph}|${ma || String(row.id || '').trim() || '?'}`,
-    loai_nguon: LOAI_NGUON.LUAT_CUNG,
+    id: `${loaiNguon === LOAI_NGUON.DATASET ? 'DATA' : 'CUNG'}|${ph}|${ma || String(row.id || '').trim() || '?'}`,
+    loai_nguon: loaiNguon,
     phan_nhom_id: ph,
     ten_nhom_hien_thi: ghiNhomTuPhanHe(ph),
     ma_luat: ma,
@@ -123,114 +117,158 @@ const toRecordLuatCung = (row, nhomIdMacDinh) => {
     ).trim() || '— (Không mô tả biểu thức; xử lý trong engine tương ứng.)',
     trang_thai: String(row.TRANG_THAI || row.trang_thai || 'ON').toUpperCase() === 'OFF' ? 'OFF' : 'ON',
     phan_tang: tinhTangPhanLapGon({ ...row, PHAN_HE: ph, MA_LUAT: ma }),
-    ghi_chu_rui_ro: ghepGhiChuRuiRo(row, LOAI_NGUON.LUAT_CUNG),
+    ghi_chu_rui_ro: ghepGhiChuRuiRo(row, loaiNguon === LOAI_NGUON.DATASET ? null : LOAI_NGUON.LUAT_CUNG),
   };
 };
 
-/** Map DEFAULT_DVKT_RULES → cùng schema hàng luật cứng (PHAN_HE LUAT_CDHA). */
-const dvktOpRuleThanhHangLuatCung = (r) => {
-  const code = String(r.RULE_CODE || r.RULE_NAME || '').trim() || 'DVKT-OP-?';
-  const op = String(r.OPERATOR || '').trim();
-  const sev = String(r.SEVERITY || '').trim();
-  return {
-    MA_LUAT: code,
-    TEN_QUY_TAC: String(r.RULE_NAME || code).trim(),
-    CANH_BAO: String(r.ALERT_MESSAGE || '').trim(),
-    DIEU_KIEN: [`Toán tử: ${op || '—'}`, `Mức: ${sev || '—'}`].join('\n'),
-    TRANG_THAI: String(r.STATUS || 'ON').toUpperCase() === 'OFF' ? 'OFF' : 'ON',
-    PHAN_HE: 'LUAT_CDHA',
-    NGUON_DU_LIEU: 'dvkt_op_giam_dinh.jsx (DEFAULT_DVKT_RULES)',
-  };
+
+
+const duLieuTheoTabSangBanGhiThuVien = (duLieuTheoTab) => {
+
+  const out = [];
+
+  for (const tab of DANH_SACH_TAB_MAC_DINH) {
+
+    const rows = duLieuTheoTab[tab.id] || [];
+
+    rows.forEach((row) => {
+
+      const ph = String(row.PHAN_HE || row.phan_he || tab.id).trim() || tab.id;
+
+      out.push(toRecordLuatCung({ ...row, PHAN_HE: ph }, ph));
+
+    });
+
+  }
+
+  return out;
+
 };
+
+
 
 /**
- * Tải toàn bộ bản ghi tra cứu (đồng bộ, ~vài nghìn dòng; gọi một lần rồi cache phía UI).
+
+ * @param {object} [opts]
+
+ * @param {Record<string, object[]>} [opts.dataTheoTab] — CDSS_DATA đã tách theo tab (raw row), optional
+
+ * @param {Record<string, string>} [opts.mapTrangThaiQuyTacNoiBo]
+
+ * @param {Record<string, object>} [opts.mapGhiDeNoiDungQuyTacNoiBo]
+
  */
-export const layTatCaBanGhiQuyTacPhanLap = () => {
-  const out = [];
-  const pushList = (fn, nhom) => {
-    (fn() || []).forEach((row) => {
-      const ph = String(row.PHAN_HE || nhom).trim();
-      out.push(toRecordLuatCung({ ...row, PHAN_HE: ph }, nhom));
-    });
-  };
-  pushList(layDanhSachLuatDuLieuHardcoded, 'LUAT_DU_LIEU');
-  pushList(layDanhSachLuatHanhChinhHardcoded, 'LUAT_HANH_CHINH');
-  pushList(layDanhSachLuatCongKhamHardcoded, 'LUAT_CONG_KHAM');
-  pushList(layDanhSachLuatThuocHardcoded, 'LUAT_THUOC');
-  pushList(layDanhSachLuatCdhaHardcoded, 'LUAT_CDHA');
-  (layQuyTacDvktOpMacDinh() || []).forEach((r) => {
-    out.push(toRecordLuatCung(dvktOpRuleThanhHangLuatCung(r), 'LUAT_CDHA'));
-  });
-  pushList(layDanhSachLuatNhanSuHardcoded, 'LUAT_NHAN_SU');
-  pushList(layDanhSachLuatGiuongHardcoded, 'LUAT_GIUONG');
-  pushList(layDanhSachLuatHopDongHardcoded, 'LUAT_HOP_DONG');
-  (layDanhSachLuatGiamDinhChuyenDeHardcoded() || []).forEach((row) => {
-    out.push(toRecordLuatCung({ ...row, PHAN_HE: 'LUAT_GIAM_DINH_CHUYEN_DE' }, 'LUAT_GIAM_DINH_CHUYEN_DE'));
-  });
-  (DU_LIEU_SEED_LUAT_PTTT_MUC11 || []).forEach((row) => {
-    const ph = 'LUAT_PTTT';
-    out.push(toRecordLuatCung({ ...row, PHAN_HE: ph }, ph));
-  });
-  (DANH_MUC_QUY_TAC_NOI_BO || []).forEach((item) => {
-    const tab = String(item.tab_id || '').trim();
-    const ma = String(item.ma_luat || '').trim();
-    if (!tab || !ma) return;
-    out.push(
-      toRecordLuatCung(
-        {
-          MA_LUAT: ma,
-          TEN_QUY_TAC: String(item.ten_quy_tac || ma).trim(),
-          CANH_BAO: 'Nhóm điều khiển ON/OFF — bật/tắt tại màn Quản lý quy tắc ON/OFF.',
-          DIEU_KIEN: '— (Khớp mã / mẫu wildcard theo cấu hình BV.)',
-          PHAN_HE: tab,
-          TRANG_THAI: 'ON',
-        },
-        tab,
-      ),
-    );
+
+export const layTatCaBanGhiQuyTacPhanLap = (opts = {}) => {
+
+  const {
+
+    dataTheoTab = {},
+
+    mapTrangThaiQuyTacNoiBo = {},
+
+    mapGhiDeNoiDungQuyTacNoiBo = {},
+
+  } = opts;
+
+  const theoTab = tinhDuLieuTheoTabTuNguonGiongOnOff({
+
+    dataTheoTab,
+
+    mapTrangThaiNoiBo: mapTrangThaiQuyTacNoiBo,
+
+    mapGhiDeNoiBo: mapGhiDeNoiDungQuyTacNoiBo,
+
   });
 
-  const theoId = new Map();
-  out.forEach((r) => {
-    if (!theoId.has(r.id)) theoId.set(r.id, r);
-  });
-  return hopNhatQuyTacTrungTheoDoiTuong(Array.from(theoId.values()), (r) => r.phan_nhom_id);
+  return sapXepNhomRoiMa(duLieuTheoTabSangBanGhiThuVien(theoTab));
+
 };
+
+
+
+/** Giống dữ liệu đã gộp trên màn ON/OFF (gồm import CDSS_DATA). */
+
+export const taiTatCaBanGhiQuyTacPhanLapDongBoKho = async () => {
+
+  const { duLieuTheoTab } = await taiVaHopNhatDuLieuTheoTabGiongManOnOff();
+
+  return sapXepNhomRoiMa(duLieuTheoTabSangBanGhiThuVien(duLieuTheoTab));
+
+};
+
+
 
 const chuanHoa = (s) =>
+
   String(s || '')
+
     .normalize('NFD')
+
     .replace(/[\u0300-\u036f]/g, '')
+
     .replace(/đ/g, 'd')
+
     .replace(/Đ/g, 'D')
+
     .toLowerCase()
+
     .trim();
 
+
+
 export const locBanGhiQuyTac = (tatCa, { tuKhoa, loaiNguonLoc, nhomIdLoc }) => {
+
   let rows = Array.isArray(tatCa) ? tatCa : [];
+
   if (loaiNguonLoc === LOAI_NGUON.LUAT_CUNG) rows = rows.filter((r) => r.loai_nguon === LOAI_NGUON.LUAT_CUNG);
+  if (loaiNguonLoc === LOAI_NGUON.DATASET) rows = rows.filter((r) => r.loai_nguon === LOAI_NGUON.DATASET);
+
   if (nhomIdLoc) rows = rows.filter((r) => r.phan_nhom_id === nhomIdLoc);
+
   const q = chuanHoa(tuKhoa);
+
   if (q) {
+
     rows = rows.filter((r) => {
+
       const s = chuanHoa(
+
         [r.ma_luat, r.ten_quy_tac, r.canh_bao, r.nguyen_tac_lam_viec, r.ghi_chu_rui_ro, r.phan_tang].join(' '),
+
       );
+
       return s.includes(q) || q.split(/\s+/).filter(Boolean).every((t) => s.includes(t));
+
     });
+
   }
+
   return rows;
+
 };
+
+
 
 export const sapXepNhomRoiMa = (rows) => {
+
   const thuTu = new Map(NHOM_GIAM_DINH_META.map((x) => [x.id, x.thu_tu]));
+
   return [...rows].sort((a, b) => {
+
     const oa = thuTu.get(a.phan_nhom_id) ?? 99;
+
     const ob = thuTu.get(b.phan_nhom_id) ?? 99;
+
     if (oa !== ob) return oa - ob;
+
     return String(a.ma_luat || '').localeCompare(String(b.ma_luat || ''), 'vi', { sensitivity: 'base' });
+
   });
+
 };
 
+
+
 export { chuanHoa as chuanHoaTuKhoaTim };
+

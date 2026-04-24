@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-24T06:40:15.191Z",
+  "generatedAt": "2026-04-24T09:16:49.334Z",
   "items": [
     {
       "id": "txt:_extract_cv266/PL1_plain.txt",
@@ -1336,6 +1336,18 @@
       "tags": [
         "hanh_chinh",
         "xml_chuyen_de"
+      ]
+    },
+    {
+      "id": "md:Tri_thuc_bo_177_04_2026_pipeline_giam_dinh_AI.md",
+      "relPath": "Tri_thuc_bo_177_04_2026_pipeline_giam_dinh_AI.html",
+      "title": "Tri thức — Bộ 177 (04/2026): pipeline giám định & cập nhật quy tắc",
+      "nguon": "markdown",
+      "tags": [
+        "kiem_thu_quy_tac",
+        "ai_huan_luyen",
+        "xml_chuyen_de",
+        "the_tri_thuc"
       ]
     }
   ]

@@ -106,6 +106,11 @@ function inferTagsForItem(relPath, title, validIds) {
   if (/ban_ghi.*kiem|rasoat.*quy_tac|audit|on_off|thuc_trang_quy_tac|kiem_thu/i.test(blob)) {
     add(tags, 'kiem_thu_quy_tac');
   }
+  if (/bo_177|177_04|177-04|doi_chieu.*177|thu_muc_177/i.test(blob)) {
+    add(tags, 'kiem_thu_quy_tac');
+    add(tags, 'ai_huan_luyen');
+    add(tags, 'xml_chuyen_de');
+  }
 
   return [...tags];
 }

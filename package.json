@@ -42,6 +42,7 @@
     "qa:danh-muc-xml-mau": "node ./scripts/qa_danh_muc_xml_vs_mau.mjs",
     "qa:tuong-tac-audit-xml-dir": "node ./scripts/run_claim_audit.js --dir=tai_nguyen/xml --out=test_xml/audit_tuong_tac_tai_nguyen_xml.json --tuong-tac-only",
     "qa:claim-audit-tai-nguyen-xml-layers": "node ./scripts/run_claim_audit.js --dir=tai_nguyen/xml --out=test_xml/audit_tai_nguyen_xml_layers.json",
+    "qa:claim-audit-177": "node ./scripts/huan_luyen_audit_thu_muc_177.mjs",
     "qa:audit-t3-chuagui-17": "node ./scripts/run_claim_audit.js --files-from=scripts/manifests/t3_chuagui_audit_17.txt --out=test_xml/audit_t3_chuagui_17.json",
     "qa:off-unknown-fields": "node ./scripts/off_unknown_field_rules.mjs",
     "qa:analyze-muc8": "node ./scripts/analyze_muc8_off_rules.mjs",

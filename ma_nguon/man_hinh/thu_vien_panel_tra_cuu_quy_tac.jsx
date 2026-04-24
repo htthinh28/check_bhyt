@@ -1,5 +1,6 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import {
+  ActivityIndicator,
   Platform,
   ScrollView,
   SectionList,
@@ -15,6 +16,7 @@ import {
   NHOM_GIAM_DINH_META,
   layTatCaBanGhiQuyTacPhanLap,
   locBanGhiQuyTac,
+  taiTatCaBanGhiQuyTacPhanLapDongBoKho,
 } from '../tien_ich/tra_cuu_quy_tac_phan_lap';
 
 const RONG_SIDEBAR = 300;
@@ -71,8 +73,8 @@ const TheQuyTac = ({ item }) => {
           <View style={[NStyle.badge, on ? NStyle.badgeOn : NStyle.badgeOff]}>
             <Text style={NStyle.badgeTxt}>{on ? 'BẬT' : 'TẮT'}</Text>
           </View>
-          <View style={[NStyle.badge, NStyle.badgeCung]}>
-            <Text style={NStyle.badgeTxt}>Cứng</Text>
+          <View style={[NStyle.badge, item.loai_nguon === LOAI_NGUON.DATASET ? NStyle.badgeNhap : NStyle.badgeCung]}>
+            <Text style={NStyle.badgeTxt}>{item.loai_nguon === LOAI_NGUON.DATASET ? 'Nhập tay' : 'Cứng'}</Text>
           </View>
           {item.phan_tang ? (
             <View style={NStyle.badgeL}>
@@ -107,11 +109,31 @@ const ThuVienPanelTraCuuQuyTac = () => {
   const [tuKhoa, setTuKhoa] = useState('');
   const [loaiLoc, setLoaiLoc] = useState('');
   const [nhomLoc, setNhomLoc] = useState('');
+  const [tatCaGoc, setTatCaGoc] = useState([]);
+  const [dangTaiQuyTac, setDangTaiQuyTac] = useState(true);
 
-  const tatCaGoc = useMemo(() => layTatCaBanGhiQuyTacPhanLap(), []);
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        setDangTaiQuyTac(true);
+        const ds = await taiTatCaBanGhiQuyTacPhanLapDongBoKho();
+        if (alive) setTatCaGoc(ds);
+      } catch {
+        if (alive) setTatCaGoc(layTatCaBanGhiQuyTacPhanLap());
+      } finally {
+        if (alive) setDangTaiQuyTac(false);
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, []);
 
   const locSauKhoaVaNguon = useMemo(() => {
-    const loai = loaiLoc === 'cung' ? LOAI_NGUON.LUAT_CUNG : null;
+    let loai = null;
+    if (loaiLoc === 'cung') loai = LOAI_NGUON.LUAT_CUNG;
+    else if (loaiLoc === 'dataset') loai = LOAI_NGUON.DATASET;
     return locBanGhiQuyTac(tatCaGoc, {
       tuKhoa,
       loaiNguonLoc: loai,
@@ -129,7 +151,9 @@ const ThuVienPanelTraCuuQuyTac = () => {
   }, [locSauKhoaVaNguon]);
 
   const sections = useMemo(() => {
-    const loai = loaiLoc === 'cung' ? LOAI_NGUON.LUAT_CUNG : null;
+    let loai = null;
+    if (loaiLoc === 'cung') loai = LOAI_NGUON.LUAT_CUNG;
+    else if (loaiLoc === 'dataset') loai = LOAI_NGUON.DATASET;
     const loc = locBanGhiQuyTac(tatCaGoc, {
       tuKhoa,
       loaiNguonLoc: loai,
@@ -199,9 +223,8 @@ const ThuVienPanelTraCuuQuyTac = () => {
       <View style={NStyle.dauPhai}>
         <Text style={NStyle.tieuDePanel}>Quy tắc theo phân tầng giám định (L0…L5)</Text>
         <Text style={NStyle.phuDe}>
-          Sắp theo nhóm nghiệp vụ; gồm luật cứng bundle (CDHA_*, DVKT-OP-*, thuốc, hành chính…), seed PTTT mục 11 và
-          danh mục mẫu ON/OFF — cùng nguồn định nghĩa với màn Quản lý quy tắc ON/OFF (trừ quy tắc chỉ do BV import qua
-          Excel). Tìm theo từ khóa; BẬT/TẮT hiển thị theo mặc định trong mã.
+          Cùng pipeline gộp/hợp nhất với màn Quản lý quy tắc ON/OFF (gồm CDSS_DATA_*, seed PTTT, DVKT-OP, map BẬT/TẮT
+          và ghi đè nội dung). Tìm theo từ khóa; lọc «Luật cứng» / «Nhập tay» theo nguồn dòng.
         </Text>
         <TextInput
           value={tuKhoa}
@@ -218,13 +241,25 @@ const ThuVienPanelTraCuuQuyTac = () => {
           <ChipNguon chon={loaiLoc === ''} onPress={() => setLoaiLoc('')}>
             Tất cả
           </ChipNguon>
-          <ChipNguon chon={loaiLoc === 'cung'} onPress={() => setLoaiLoc('cung')}>
+          <ChipNguon chon={loaiLoc === 'cung'} onPress={() => setLoaiLoc(loaiLoc === 'cung' ? '' : 'cung')}>
             Luật cứng
+          </ChipNguon>
+          <ChipNguon chon={loaiLoc === 'dataset'} onPress={() => setLoaiLoc(loaiLoc === 'dataset' ? '' : 'dataset')}>
+            Nhập tay
           </ChipNguon>
         </View>
         <Text style={NStyle.demKq}>
-          Kết quả: {soMuc} mục (từ {tatCaGoc.length} quy tắc; đang lọc:{' '}
-          {nhomLoc ? (NHOM_GIAM_DINH_META.find((x) => x.id === nhomLoc)?.ten || nhomLoc) : 'mọi nhóm'})
+          {dangTaiQuyTac ? (
+            <View style={NStyle.hangTai}>
+              <ActivityIndicator size="small" color={N.accent} />
+              <Text style={NStyle.txtTai}>Đang đồng bộ danh sách với ON/OFF…</Text>
+            </View>
+          ) : (
+            <>
+              Kết quả: {soMuc} mục (từ {tatCaGoc.length} quy tắc; đang lọc:{' '}
+              {nhomLoc ? (NHOM_GIAM_DINH_META.find((x) => x.id === nhomLoc)?.ten || nhomLoc) : 'mọi nhóm'})
+            </>
+          )}
         </Text>
       </View>
       <SectionList
@@ -401,6 +436,9 @@ const NStyle = StyleSheet.create({
   badgeOn: { backgroundColor: 'rgba(46, 125, 50, 0.12)' },
   badgeOff: { backgroundColor: 'rgba(198, 40, 40, 0.1)' },
   badgeCung: { backgroundColor: 'rgba(121, 85, 72, 0.1)' },
+  badgeNhap: { backgroundColor: 'rgba(13, 71, 161, 0.12)' },
+  hangTai: { flexDirection: 'row', alignItems: 'center', gap: 8, marginTop: 2 },
+  txtTai: { color: N.chuNhat, fontSize: 11, fontFamily: 'Arial' },
   badgeL: { backgroundColor: '#E2E8F0', paddingHorizontal: 6, borderRadius: 4 },
   badgeTxt: { fontSize: 9, fontWeight: '800', color: N.chu, fontFamily: 'Arial' },
   badgeTxtL: { fontSize: 9, fontWeight: '800', color: N.chuNhat, fontFamily: 'Arial' },
