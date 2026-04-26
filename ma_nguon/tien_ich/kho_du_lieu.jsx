@@ -13,6 +13,10 @@
  * LƯU Ý: Phiên bản này tự động chuyển đổi (migrate) dữ liệu cũ từ localStorage
  * sang IndexedDB trong lần chạy đầu tiên, giải phóng toàn bộ localStorage cho
  * các module khác (Quản lý luật, v.v.).
+ *
+ * Lịch sử phiên giám định (tóm tắt + danh sách MA_LUAT theo từng lần lưu kho):
+ *   store `lich_su_phien_gd` (web) / key `CDSS_LSGDMLK_*` (mobile). Không xóa
+ *   khi xóa kho làm việc; có API xóa tập trung nếu cần reset quyền riêng tư.
  * ============================================================================
  */
 
@@ -32,13 +36,26 @@ const IDB_STORE = 'ho_so';
 const IDB_STORE_DANH_MUC = 'danh_muc';
 /** Lịch sử các lần giám định theo MA_BN (cùng IndexedDB/ổ đĩa như trên) — không xóa khi xóa kho làm việc. */
 const IDB_STORE_LICH_SU = 'lich_su_bn';
-const IDB_VERSION = 3;
+/** Từng phiên chạy engine theo MA_LK (append khi `luuHoSoVaoKho` có `ket_qua_giam_dinh`). */
+const IDB_STORE_PHIEN_GD = 'lich_su_phien_gd';
+const IDB_VERSION = 4;
 const MAX_LAN_LICH_SU_PER_BN = 48;
+const MAX_PHIEN_GD_PER_MA_LK = 48;
 
 let _dbCache = null;
 
 const _openDB = () => {
-  if (_dbCache) return Promise.resolve(_dbCache);
+  if (_dbCache && _dbCache.version === IDB_VERSION) {
+    return Promise.resolve(_dbCache);
+  }
+  if (_dbCache) {
+    try {
+      _dbCache.close();
+    } catch {
+      /* ignore */
+    }
+    _dbCache = null;
+  }
   return new Promise((resolve, reject) => {
     const indexedDb = getIndexedDb();
     if (!indexedDb) {
@@ -57,6 +74,9 @@ const _openDB = () => {
       }
       if (!db.objectStoreNames.contains(IDB_STORE_LICH_SU)) {
         db.createObjectStore(IDB_STORE_LICH_SU, { keyPath: 'ma_bn' });
+      }
+      if (!db.objectStoreNames.contains(IDB_STORE_PHIEN_GD)) {
+        db.createObjectStore(IDB_STORE_PHIEN_GD, { keyPath: 'ma_lk' });
       }
     };
     req.onsuccess = (e) => {
@@ -199,6 +219,27 @@ const idbLichSu = {
   },
 };
 
+const idbPhienGd = {
+  get: async (ma_lk) => {
+    const db = await _openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE_PHIEN_GD, 'readonly');
+      const req = tx.objectStore(IDB_STORE_PHIEN_GD).get(ma_lk);
+      req.onsuccess = () => resolve(req.result || null);
+      tx.onerror = () => reject(tx.error);
+    });
+  },
+  put: async (record) => {
+    const db = await _openDB();
+    return new Promise((resolve, reject) => {
+      const tx = db.transaction(IDB_STORE_PHIEN_GD, 'readwrite');
+      tx.objectStore(IDB_STORE_PHIEN_GD).put(record);
+      tx.oncomplete = () => resolve(true);
+      tx.onerror = () => reject(tx.error);
+    });
+  },
+};
+
 const idbDanhMuc = {
   put: async (record) => {
     const db = await _openDB();
@@ -303,6 +344,7 @@ const chuanHoaBanGhiHoSo = (hoSo) => chuanHoaHoSoCanhBao(hoSo);
 
 const PREFIX_LICH_SU_MOBILE = 'CDSS_LSBN_';
 const KHO_LICH_SU_INDEX_MOBILE = 'CDSS_LSBN_INDEX_MA_BN';
+const PREFIX_PHIEN_GD_MOBILE = 'CDSS_LSGDMLK_';
 
 const parseNgayXml130 = (val) => {
   const digits = String(val || '').replace(/\D/g, '');
@@ -384,6 +426,74 @@ const ghiMotLanLichSu = async (hoSo) => {
   if (!idx.includes(ma_bn)) {
     idx.push(ma_bn);
     await AsyncStorage.setItem(KHO_LICH_SU_INDEX_MOBILE, JSON.stringify(idx));
+  }
+};
+
+const tomTatPhienGiamDinh = (ketQuaGiamDinh) => {
+  const ds = Array.isArray(ketQuaGiamDinh) ? ketQuaGiamDinh : [];
+  const demMucDo = { Error: 0, Warning: 0, Info: 0, Khac: 0 };
+  const maLuatSet = new Set();
+  for (let i = 0; i < ds.length; i += 1) {
+    const row = ds[i] || {};
+    const m = String(row.ma_luat || row.MA_LUAT || '').trim();
+    if (m) maLuatSet.add(m);
+    const md = String(row.muc_do || row.MUC_DO || '').trim();
+    if (md === 'Error') demMucDo.Error += 1;
+    else if (md === 'Warning') demMucDo.Warning += 1;
+    else if (md === 'Info') demMucDo.Info += 1;
+    else demMucDo.Khac += 1;
+  }
+  const ma_luat_lap = [...maLuatSet].sort();
+  return {
+    so_dong_canh_bao: ds.length,
+    so_ma_luat_khac_biet: ma_luat_lap.length,
+    dem_muc_do: demMucDo,
+    ma_luat_lap: ma_luat_lap.slice(0, 400),
+  };
+};
+
+/** Ghi một phiên giám định (sau khi hồ sơ đã chuẩn hóa cảnh báo). Bỏ qua nếu chưa có mảng ket_qua_giam_dinh. */
+const ghiMotPhienGiamDinh = async (hoSoChuan) => {
+  const ma_lk = String(hoSoChuan?.ma_lk || '').trim();
+  const kq = hoSoChuan?.ket_qua_giam_dinh;
+  if (!ma_lk || !Array.isArray(kq)) return;
+
+  const phien = {
+    id_phien: `${Date.now()}_${Math.random().toString(36).slice(2, 10)}`,
+    ghi_luc_iso: new Date().toISOString(),
+    tom_tat: tomTatPhienGiamDinh(kq),
+  };
+
+  if (Platform.OS === 'web') {
+    const cur = await idbPhienGd.get(ma_lk);
+    const cac_phien = Array.isArray(cur?.cac_phien) ? [...cur.cac_phien] : [];
+    cac_phien.unshift(phien);
+    await idbPhienGd.put({
+      ma_lk,
+      cac_phien: cac_phien.slice(0, MAX_PHIEN_GD_PER_MA_LK),
+      cap_nhat: Date.now(),
+    });
+    return;
+  }
+
+  const key = `${PREFIX_PHIEN_GD_MOBILE}${ma_lk}`;
+  const raw = await AsyncStorage.getItem(key);
+  let rec = raw ? parseJsonAnToan(raw) : null;
+  if (!rec || !Array.isArray(rec.cac_phien)) rec = { ma_lk, cac_phien: [] };
+  rec.cac_phien.unshift(phien);
+  rec.cac_phien = rec.cac_phien.slice(0, MAX_PHIEN_GD_PER_MA_LK);
+  rec.cap_nhat = Date.now();
+  await AsyncStorage.setItem(key, JSON.stringify(rec));
+};
+
+/** Gọi từ module lưu kho khác (ví dụ kho EMR) khi đã có `ket_qua_giam_dinh` + MA_LK. */
+export const ghiPhienGiamDinhSauLuuKho = async (hoSo) => {
+  try {
+    const maLK = hoSo?.ma_lk || hoSo?.XML1?.MA_LK || hoSo?.xml1?.MA_LK;
+    if (!maLK) return;
+    await ghiMotPhienGiamDinh(chuanHoaBanGhiHoSo({ ...hoSo, ma_lk: maLK }));
+  } catch (e) {
+    console.warn('[KHO_DU_LIEU] ghiPhienGiamDinhSauLuuKho:', e?.message || e);
   }
 };
 
@@ -696,9 +806,11 @@ export const luuHoSoVaoKho = async (danhSachHoSoMoi) => {
       try {
         const maLK = hoSo.ma_lk || hoSo.XML1?.MA_LK || hoSo.xml1?.MA_LK;
         if (!maLK) continue;
-        await ghiMotLanLichSu(chuanHoaBanGhiHoSo({ ...hoSo, ma_lk: maLK }));
+        const hoSoCh = chuanHoaBanGhiHoSo({ ...hoSo, ma_lk: maLK });
+        await ghiMotLanLichSu(hoSoCh);
+        await ghiMotPhienGiamDinh(hoSoCh);
       } catch (e) {
-        console.warn('[KHO_DU_LIEU] Không ghi được lịch sử điều trị (BN):', e?.message || e);
+        console.warn('[KHO_DU_LIEU] Không ghi được lịch sử điều trị / phiên giám định:', e?.message || e);
       }
     }
 
@@ -824,6 +936,52 @@ export const phanTichKhoangCachDieuTri = async (hoSo) => {
     trung_ma_thuoc: trung_thuoc,
     trung_ma_dvkt: trung_dvkt,
   };
+};
+
+/**
+ * Lịch sử các phiên giám định đã lưu (theo MA_LK): mới nhất trước, tối đa MAX_PHIEN_GD_PER_MA_LK.
+ * Mỗi phiên: id_phien, ghi_luc_iso, tom_tat { so_dong_canh_bao, dem_muc_do, ma_luat_lap }.
+ */
+export const layLichSuPhienGiamDinhTheoMaLK = async (ma_lk) => {
+  const m = String(ma_lk || '').trim();
+  if (!m) return { ma_lk: '', cac_phien: [] };
+  try {
+    if (Platform.OS === 'web') {
+      const r = await idbPhienGd.get(m);
+      return r && Array.isArray(r.cac_phien) ? r : { ma_lk: m, cac_phien: [] };
+    }
+    const raw = await AsyncStorage.getItem(`${PREFIX_PHIEN_GD_MOBILE}${m}`);
+    const rec = raw ? parseJsonAnToan(raw) : null;
+    return rec && Array.isArray(rec.cac_phien) ? rec : { ma_lk: m, cac_phien: [] };
+  } catch (e) {
+    console.warn('[KHO_DU_LIEU] layLichSuPhienGiamDinhTheoMaLK:', e);
+    return { ma_lk: m, cac_phien: [] };
+  }
+};
+
+/** Xóa toàn bộ log phiên giám định (quyền riêng tư). Không xóa khi xóa kho làm việc. */
+export const xoaToanBoLichSuPhienGiamDinh = async () => {
+  try {
+    if (Platform.OS === 'web') {
+      const db = await _openDB();
+      await new Promise((resolve, reject) => {
+        const tx = db.transaction(IDB_STORE_PHIEN_GD, 'readwrite');
+        tx.objectStore(IDB_STORE_PHIEN_GD).clear();
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => reject(tx.error);
+      });
+      return true;
+    }
+    const allKeys = await AsyncStorage.getAllKeys().catch(() => []);
+    const toRemove = (Array.isArray(allKeys) ? allKeys : []).filter(
+      (k) => typeof k === 'string' && k.startsWith(PREFIX_PHIEN_GD_MOBILE)
+    );
+    if (toRemove.length > 0) await AsyncStorage.multiRemove(toRemove);
+    return true;
+  } catch (e) {
+    console.error('[KHO_DU_LIEU] xoaToanBoLichSuPhienGiamDinh:', e);
+    return false;
+  }
 };
 
 /** Xóa toàn bộ lịch sử điều trị cục bộ (quyền riêng tư / reset sâu). Không xóa khi xóa kho làm việc. */
@@ -988,8 +1146,11 @@ const KhoDuLieu = {
   xoaHoSoKhoiKho,
   xoaToanBoKho,
   layLichSuDieuTriTheoMaBN,
+  layLichSuPhienGiamDinhTheoMaLK,
+  ghiPhienGiamDinhSauLuuKho,
   phanTichKhoangCachDieuTri,
   xoaToanBoLichSuDieuTri,
+  xoaToanBoLichSuPhienGiamDinh,
   layDanhMuc,
   docDanhMucTuKho,
   capNhatDanhMuc,

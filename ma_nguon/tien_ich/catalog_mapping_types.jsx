@@ -83,6 +83,16 @@ export const MAPPING_TYPE_CONFIG = [
     is_active: true,
   },
   {
+    mapping_type: 'ICD_DRUG_CONTRA',
+    display_name: 'ICD-10 chống chỉ định → Thuốc (M03)',
+    source_catalog: 'icd10',
+    target_catalog: 'drug_items',
+    cardinality: 'M:N',
+    allow_overlap: true,
+    require_approval: true,
+    is_active: true,
+  },
+  {
     mapping_type: 'ICD_DVKT',
     display_name: 'ICD-10 → DVKT (M05)',
     source_catalog: 'icd10',
@@ -127,6 +137,7 @@ export const MAPPING_TYPE_CONFIG = [
 /** Một bản ghi có thể gắn nhiều mã đích (lưu target_code dạng "A; B; C" + metadata.target_codes). */
 export const MAPPING_LOAI_NHIEU_MA_DICH = [
   'ICD_DRUG',
+  'ICD_DRUG_CONTRA',
   'ICD_DVKT',
   'DVKT_DRUG',
   'DVKT_VTYT',
@@ -140,7 +151,7 @@ export const laMappingNhieuMaDich = (mappingType) =>
   MAPPING_LOAI_NHIEU_MA_DICH.includes(String(mappingType || '').trim());
 
 /** Nhiều mã nguồn trên một bản ghi: ICD dùng metadata.source_icd_codes; nhân viên/DVKT↔máy dùng metadata.source_codes. */
-export const MAPPING_LOAI_NHIEU_MA_NGUON_ICD = ['ICD_DRUG', 'ICD_DVKT', 'ICD_VTYT'];
+export const MAPPING_LOAI_NHIEU_MA_NGUON_ICD = ['ICD_DRUG', 'ICD_DRUG_CONTRA', 'ICD_DVKT', 'ICD_VTYT'];
 
 export const MAPPING_LOAI_NHIEU_MA_NGUON = [
   ...MAPPING_LOAI_NHIEU_MA_NGUON_ICD,

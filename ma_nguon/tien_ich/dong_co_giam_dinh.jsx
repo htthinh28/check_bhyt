@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { chuanHoaMaIcdPhacDoCdss } from '../chuyen_mon/phac_do_benh_vien/phac_do_cdss_columns';
 import { chuanHoaBangTuongTacKhongTrungKey } from '../chuyen_mon/tuong_tac_thuoc/chuan_hoa_bang_tuong_tac';
 import tuongTacThuocSeed from '../chuyen_mon/tuong_tac_thuoc/du_lieu_tuong_tac_thuoc.seed.json';
+import seedIcdDrugContraBhyt from './seed_icd_drug_contra_bhyt.json';
 import { DANH_MUC_ICD10_CAP_CUU } from '../thanh_phan/icd10_nhap_vien_cap_cuu';
 import { BANG_ICD10_TT06, PHIEN_BAN_ICD10_TT06 } from '../thanh_phan/icd10_tt06_bang_ma';
 import { giamDinhCdssDmMatchingUpgrade } from './cdss_dm_matching_upgrade';
@@ -559,6 +560,7 @@ const CO_SO_PHAP_LY_THEO_PREFIX_MA_LUAT = Object.freeze({
     'DM-VTYT-': CO_SO_PHAP_LY_VTYT.DANH_MUC_NOI_BO,
     'CLN-THUOC-': CO_SO_PHAP_LY_THUOC.KE_DON_NGOAI_TRU,
     'CLN-CDHA-': CO_SO_PHAP_LY_DVKT.DANH_MUC_NOI_BO,
+    'CLN-DVKT-': CO_SO_PHAP_LY_DVKT.DANH_MUC_NOI_BO,
     'CLN-GIUONG-': CO_SO_PHAP_LY_DVKT.DANH_MUC_NOI_BO,
     'CLN-PTTT-': CO_SO_PHAP_LY_DVKT.DANH_MUC_NOI_BO,
     'CLN-CT-': `${VAN_BAN_HANH_CHINH_HIEN_HANH.TT_01} ${VAN_BAN_HANH_CHINH_HIEN_HANH.ND_188} ${TT_12_2026_BTC_DIEU10_K1}`,
@@ -696,8 +698,8 @@ export const suyRaNamespaceVaNguonQuyTac = (loi = {}) => {
         ganMeta('NHAN_SU_HARDCODED', 'luat_nhan_su_hardcoded', 'XML3 -> hardcoded/batch nhân sự', 'LUAT_NHAN_SU');
     } else if (/^CLN-PTTT-/.test(maLuat)) {
         ganMeta('PTTT_BUILTIN', 'dong_co_giam_dinh', 'XML3/XML5 -> built-in PTTT', 'LUAT_PTTT');
-    } else if (/^CLN-CDHA-/.test(maLuat)) {
-        ganMeta('CDHA_BUILTIN', 'dong_co_giam_dinh', 'XML3 -> built-in CDHA', 'LUAT_CDHA');
+    } else if (/^(CLN-CDHA-|CLN-DVKT-)/.test(maLuat)) {
+        ganMeta('CDHA_BUILTIN', 'dong_co_giam_dinh', 'XML3 -> built-in CDHA/DVKT', 'LUAT_CDHA');
     } else if (/^CLN-XDC-/.test(maLuat)) {
         ganMeta('XDC_BUILTIN', 'dong_co_giam_dinh', 'XML1↔XML2 đa tầng / đa biến', 'LUAT_DU_LIEU');
     } else if (/^ICD-TT06-/.test(maLuat)) {
@@ -980,8 +982,12 @@ const chonDongMau03KhopChiTietVsXml2 = (rowsCungMa, rowXml) => {
 
 const standardizeValue = (val, keyName) => {
     if (val === null || val === undefined) return "";
-    let cleaned = String(val).replace(/<!\[CDATA\[(.*?)\]\]>/is, '$1').trim();
     const keyUpper = String(keyName || "").toUpperCase();
+    /** CCCD / định danh: luôn chuỗi, không ép parseFloat (tránh mất số 0 đầu khi giá trị từng là số). */
+    if (keyUpper === 'SO_CCCD' || keyUpper === 'SO_DINH_DANH') {
+        return String(val).replace(/<!\[CDATA\[(.*?)\]\]>/is, '$1').trim().replace(/\s+/g, '');
+    }
+    let cleaned = String(val).replace(/<!\[CDATA\[(.*?)\]\]>/is, '$1').trim();
     const codePrefixes = ['MA_', 'SO_', 'NGAY_'];
     if (codePrefixes.some(p => keyUpper.startsWith(p)) && !keyUpper.includes('TEN') && !keyUpper.includes('DIA_CHI') && !keyUpper.includes('GHI_CHU')) {
         cleaned = cleaned.replace(/\s+/g, '');
@@ -1394,6 +1400,8 @@ const taoMetaTuongTacThuocTuBang = (rows) => {
 
 /** Thẻ mapping nghiệp vụ ICD-10 → thuốc (AsyncStorage CATALOG_MAP_V1__ICD_DRUG) */
 const KHOA_CATALOG_ICD_DRUG = 'CATALOG_MAP_V1__ICD_DRUG';
+/** ICD-10 chống chỉ định với thuốc — cùng schema dòng mapping (nguồn = ICD cấm, đích = MA_THUOC); shard riêng. */
+const KHOA_CATALOG_ICD_DRUG_CONTRA = 'CATALOG_MAP_V1__ICD_DRUG_CONTRA';
 
 const layMaThuocTuRowMappingIcdDrug = (row) => {
     const md = row.metadata && typeof row.metadata === 'object' ? row.metadata : {};
@@ -1404,8 +1412,11 @@ const layMaThuocTuRowMappingIcdDrug = (row) => {
 };
 
 const taoMetaTuBangMappingIcdThuoc = (rowsRaw) => {
-    const rows = Array.isArray(rowsRaw) ? rowsRaw : [];
+    const fromStorage = Array.isArray(rowsRaw) ? rowsRaw : [];
+    const seedArr = Array.isArray(seedIcdDrugContraBhyt) ? seedIcdDrugContraBhyt : [];
+    const rows = [...seedArr, ...fromStorage];
     const icdDrug = rows.filter((r) => String(r.mapping_type || '').trim().toUpperCase() === 'ICD_DRUG');
+    const icdDrugContra = rows.filter((r) => String(r.mapping_type || '').trim().toUpperCase() === 'ICD_DRUG_CONTRA');
     const setMa = new Set();
     icdDrug.forEach((row) => {
         if (row.is_active === false) return;
@@ -1413,19 +1424,33 @@ const taoMetaTuBangMappingIcdThuoc = (rowsRaw) => {
             if (t) setMa.add(t);
         });
     });
+    const setMaCd = new Set();
+    icdDrugContra.forEach((row) => {
+        if (row.is_active === false) return;
+        layMaThuocTuRowMappingIcdDrug(row).forEach((t) => {
+            if (t) setMaCd.add(t);
+        });
+    });
     return {
         DM_MAPPING_ICD_THUOC_ROWS: icdDrug,
+        DM_MAPPING_ICD_THUOC_CD_ROWS: icdDrugContra,
         SET_MA_THUOC_CO_MAPPING_ICD: setMa,
+        SET_MA_THUOC_CO_MAPPING_ICD_CD: setMaCd,
     };
 };
 
 const taiDanhMucHeThong = async () => {
     if (cache_DanhMucHeThong) {
-        const [phacRows, tuongTacRowsRaw, mappingRows] = await Promise.all([
+        const [phacRows, tuongTacRowsRaw, mappingRowsDrug, mappingRowsCd] = await Promise.all([
             fetchChunkedData('CDSS_DATA_PHAC_DO_V3'),
             fetchChunkedData('DANH_MUC_TUONG_TAC_THUOC'),
             fetchChunkedData(KHOA_CATALOG_ICD_DRUG),
+            fetchChunkedData(KHOA_CATALOG_ICD_DRUG_CONTRA),
         ]);
+        const mappingRows = [
+            ...(Array.isArray(mappingRowsDrug) ? mappingRowsDrug : []),
+            ...(Array.isArray(mappingRowsCd) ? mappingRowsCd : []),
+        ];
         let tuongTacRows = tuongTacRowsRaw;
         if (!Array.isArray(tuongTacRows) || tuongTacRows.length === 0) {
             tuongTacRows = Array.isArray(tuongTacThuocSeed?.data) ? tuongTacThuocSeed.data : [];
@@ -1499,7 +1524,14 @@ const taiDanhMucHeThong = async () => {
         tuongTacRows = chuanHoaBangTuongTacKhongTrungKey(tuongTacRows);
         const metaTuongTac = taoMetaTuongTacThuocTuBang(tuongTacRows);
 
-        const mappingRows = await fetchChunkedData(KHOA_CATALOG_ICD_DRUG);
+        const [mappingRowsDrug, mappingRowsCd] = await Promise.all([
+            fetchChunkedData(KHOA_CATALOG_ICD_DRUG),
+            fetchChunkedData(KHOA_CATALOG_ICD_DRUG_CONTRA),
+        ]);
+        const mappingRows = [
+            ...(Array.isArray(mappingRowsDrug) ? mappingRowsDrug : []),
+            ...(Array.isArray(mappingRowsCd) ? mappingRowsCd : []),
+        ];
         const metaMappingIcdThuoc = taoMetaTuBangMappingIcdThuoc(mappingRows);
 
         cache_DanhMucHeThong = {
@@ -1555,7 +1587,9 @@ const taiDanhMucHeThong = async () => {
             SO_CAP_TUONG_TAC: 0,
             CO_BANG_TUONG_TAC: false,
             DM_MAPPING_ICD_THUOC_ROWS: [],
+            DM_MAPPING_ICD_THUOC_CD_ROWS: [],
             SET_MA_THUOC_CO_MAPPING_ICD: new Set(),
+            SET_MA_THUOC_CO_MAPPING_ICD_CD: new Set(),
             DM_TUONG_TAC_THUOC_ROWS: [],
             DM_ICD10_CAP_CUU_ROWS: DANH_MUC_ICD10_CAP_CUU,
             DM_ICD10:[], DM_ICD10_KE_DON_TREN_30_NGAY:[], DM_BENH_MAN_TINH:[], DM_DVKT:[], DM_THUOC:[], DM_VTYT:[], DM_KHOA:[],
@@ -2653,8 +2687,39 @@ const isClaimAllowedPrescriptionOver30Days = (xml1, dm) => {
     if ((!ruleSet?.exact || ruleSet.exact.size === 0) && (!Array.isArray(ruleSet?.ranges) || ruleSet.ranges.length === 0)) {
         return false;
     }
-    const icdCodes = extractIcdCodesFromClaim(xml1?.MA_BENH_CHINH, xml1?.MA_BENH_KT);
+    const icdCodes = extractIcdCodesFromClaim(
+        xml1?.MA_BENH_CHINH,
+        xml1?.MA_BENH_KT,
+        xml1?.MA_BENH,
+        xml1?.MA_BENHKEM,
+        xml1?.MA_BENHKT,
+    );
     return icdCodes.some((code) => isIcdInAllowed30DayCatalog(code, ruleSet));
+};
+
+/**
+ * Đường dùng tiêm / chích / truyền theo XML2 (MA_DUONG_DUNG PL BYT — nhóm 2.x; bổ sung từ khóa DUONG_DUNG).
+ * Dùng để ngoại lệ gợi ý kê đơn >30 ngày theo danh mục ICD (thuốc tiêm thường tách luồng nghiệp vụ).
+ */
+const laMaDuongDungTiêmHoặcChích = (e) => {
+    if (!e || typeof e !== 'object') return false;
+    const md = String(e.MA_DUONG_DUNG || '').trim().replace(/\s+/g, '');
+    if (md && md.startsWith('2.')) return true;
+    const blob = normalizeTextNoAccent(
+        `${e.DUONG_DUNG || ''} ${e.TEN_DUONG_DUNG || ''} ${e.LIEU_DUNG || ''}`,
+    ).toUpperCase();
+    return /TIEM|CHICH|TRUYEN|TINH MACH|DUOI DA|PHA CO|CO TRUNG|DICH TRUYEN|INJECTION|\bIV\b|I\.V/.test(blob);
+};
+
+const coBHYTThuocTiêmChíchTrongHoSo = (hoSo) => {
+    const xml2 = hoSo.XML2 || hoSo.xml2 || [];
+    if (!Array.isArray(xml2)) return false;
+    for (let i = 0; i < xml2.length; i += 1) {
+        if (laBHYTKhôngThanhToan(xml2[i])) continue;
+        const row = enrichXML2Data(xml2[i]);
+        if (laMaDuongDungTiêmHoặcChích(row)) return true;
+    }
+    return false;
 };
 
 const layChiTietHuongBHYT = (hoSo) => ['XML2', 'XML3']
@@ -3656,6 +3721,8 @@ const giamDinhThuoc = (hoSo, dm) => {
     const laNgoaiTru = _laHoSoNgoaiTru(xml1);
     const laNoiTru = _laHoSoNoiTru(xml1);
     const duocKeDonQua30Ngay = laNgoaiTru && !laNoiTru && isClaimAllowedPrescriptionOver30Days(xml1, dm);
+    const coTiêmChíchBHYT = coBHYTThuocTiêmChíchTrongHoSo(hoSo);
+    let daGhiClnThuoc05 = false;
     const maThuocMap = new Map();
 
     xml2.forEach((row, idx) => {
@@ -3691,6 +3758,28 @@ const giamDinhThuoc = (hoSo, dm) => {
                 canh_bao: `Thuốc [${ma || 'N/A'}] có số ngày sử dụng ${soNgaySuDung} (>30 ngày) nhưng hồ sơ không thuộc danh mục ICD10 được phép kê ngoại trú quá 30 ngày.`,
                 muc_do: 'Warning', ma_luat: 'CLN-THUOC-04', ten_quy_tac: 'Số ngày sử dụng thuốc', dieu_kien: 'BUILT-IN',
                 co_so_phap_ly: CO_SO_PHAP_LY_THUOC.SO_NGAY_SU_DUNG });
+
+        if (
+            laNgoaiTru
+            && !laNoiTru
+            && duocKeDonQua30Ngay
+            && soNgaySuDung > 30
+            && !coTiêmChíchBHYT
+            && !daGhiClnThuoc05
+        ) {
+            daGhiClnThuoc05 = true;
+            ds.push({
+                phan_he: 'XML2',
+                index: idx,
+                truong_loi: 'SO_NGAY',
+                canh_bao: '💡 Ngoại trú — ICD thuộc danh mục cho phép kê đơn dài hơn 30 ngày: đơn hiện >30 ngày phù hợp khung danh mục nội bộ (ICD-10 kê đơn >30 ngày). Vẫn cần đối chiếu lâm sàng và quy định BV. Gợi ý này không hiển thị khi hồ sơ có thuốc BHYT đường tiêm/chích/truyền (MA_DUONG_DUNG nhóm 2.x hoặc mô tả tương đương trên XML2).',
+                muc_do: 'Info',
+                ma_luat: 'CLN-THUOC-05',
+                ten_quy_tac: 'ICD danh mục >30 ngày — gợi ý kê đơn',
+                dieu_kien: 'BUILT-IN',
+                co_so_phap_ly: CO_SO_PHAP_LY_THUOC.SO_NGAY_SU_DUNG,
+            });
+        }
 
     });
     return ds;
@@ -4175,6 +4264,7 @@ const SYS_KEYWORDS_RULE_DONG = Object.freeze([
     'CO_PHAC_DO_CDSS_CHO_ICD', 'CO_KHO_TRI_THUC_PHAC_DO',
     'CO_PHAC_DO_CDSS_CHO_BAT_CU_ICD_TREN_XML1', 'KHONG_CO_PHAC_DO_CDSS_CHO_MA_ICD_GOP_TREN_XML1',
     'CO_ICD_KHOP_MAPPING_THUOC', 'CO_CO_DONG_MAPPING_ICD_THUOC', 'CO_THUOC_TRONG_DM_BV',
+    'CO_CO_DONG_MAPPING_ICD_CD_THUOC', 'CO_ICD_VI_PHAM_CHONG_CHI_DINH_THUOC',
 ]);
 
 const MAX_RULE_DONG_EXPRESSION_LENGTH = 4000;
@@ -4245,6 +4335,114 @@ const layMaBacSiLienHoSo = (row = {}, xml1 = {}) => UPPER(
 const layMocThoiGianLienHoSo = (row = {}, xml1 = {}) => {
     const moc = row?.NGAY_YL || row?.NGAY_KQ || row?.NGAY_TH_YL || xml1?.NGAY_VAO || '';
     return normalizeDateKey(moc, '0').slice(0, 12);
+};
+
+/** Chuẩn hoá mốc datetime XML3 (số) về 12 ký tự đầu — đồng bộ với logic PTTT. */
+const chuanHoaMocDatetime12Xml3 = (v) => String(v || '').replace(/\D/g, '').padEnd(12, '0').slice(0, 12);
+
+/** Có đủ độ phân giải phút (YYYYMMDDHHmm) trên NGAY_TH_YL / NGAY_YL để so “cùng thời điểm”. */
+const coMocThucHienPhutXml3 = (row) => String(row?.NGAY_TH_YL || row?.NGAY_YL || '').replace(/\D/g, '').length >= 12;
+
+/**
+ * Mã hành nghề để đối chiếu: QĐ 3176 — NGUOI_THUC_HIEN (người thực hiện DVKT);
+ * nếu trống (thường gặp ở công khám) dùng MA_BAC_SI / MA_BS hoặc XML1 MA_BS_KHAM.
+ */
+const layMaHanhNgheThucHienXml3 = (row, xml1) => {
+    const nguoi = String(row?.NGUOI_THUC_HIEN || '').trim();
+    if (nguoi) return UPPER(nguoi);
+    return UPPER(String(row?.MA_BAC_SI || row?.MA_BS || xml1?.MA_BS_KHAM || xml1?.MA_BAC_SI || '').trim());
+};
+
+const layMocPhutThucHienXml3 = (row) => {
+    const raw = String(row?.NGAY_TH_YL || row?.NGAY_YL || '').replace(/\D/g, '');
+    return raw.length >= 12 ? raw.slice(0, 12) : '';
+};
+
+/**
+ * CLN-DVKT-01: cùng mã hành nghề thực hiện, cùng phút NGAY_TH_YL/NGAY_YL (≥12 số), vừa công khám (DM_KHAM) vừa DVKT khác.
+ * CLN-DVKT-02: DVKT không thuộc DM_KHAM có cả NGAY_KQ và NGAY_TH_YL trùng nhau (sau chuẩn hoá 12 ký tự).
+ */
+const giamDinhNguoiThucHienKhamVaDvktXml3 = (hoSo, danhMuc) => {
+    const ds = [];
+    const xml1 = _getXML1(hoSo);
+    const rawXml3 = hoSo.XML3 || hoSo.xml3 || [];
+    if (!Array.isArray(rawXml3) || rawXml3.length < 2) return ds;
+    const dmKham = taoTapDanhMucTuMang(danhMuc?.DM_KHAM);
+    if (!(dmKham instanceof Set) || dmKham.size === 0) return ds;
+
+    const prepared = rawXml3.map((row) => prepareData(row));
+    const seenCapKhamDv = new Set();
+    const seenKqTrungTh = new Set();
+
+    for (let i = 0; i < prepared.length; i += 1) {
+        if (laBHYTKhôngThanhToan(rawXml3[i])) continue;
+        const r = prepared[i];
+        const maI = UPPER(r.MA_DV || r.MA_DICH_VU || '');
+        if (!maI) continue;
+        const laKhamI = laMaDvThuocDanhMuc(r.MA_DV || r.MA_DICH_VU, dmKham);
+
+        if (!laKhamI) {
+            const nkq = String(r.NGAY_KQ || '').trim();
+            const nth = String(r.NGAY_TH_YL || '').trim();
+            if (
+                nkq
+                && nth
+                && chuanHoaMocDatetime12Xml3(nkq) === chuanHoaMocDatetime12Xml3(nth)
+                && !seenKqTrungTh.has(i)
+            ) {
+                seenKqTrungTh.add(i);
+                ds.push({
+                    phan_he: 'XML3',
+                    index: i,
+                    truong_loi: 'NGAY_KQ',
+                    canh_bao: `DVKT [${maI}] (ngoài danh mục công khám DM_KHAM): NGAY_KQ trùng NGAY_TH_YL [${nkq}] — cần phản ánh khác biệt thời điểm có kết quả và thời điểm thực hiện khi đủ dữ liệu (QĐ 3176/XML3).`,
+                    muc_do: 'Warning',
+                    ma_luat: 'CLN-DVKT-02',
+                    ten_quy_tac: 'NGAY_KQ trùng NGAY_TH_YL (DVKT)',
+                    dieu_kien: 'BUILT-IN',
+                    co_so_phap_ly: CO_SO_PHAP_LY_DVKT.DANH_MUC_NOI_BO,
+                });
+            }
+        }
+
+        if (!coMocThucHienPhutXml3(r)) continue;
+        const perfI = layMaHanhNgheThucHienXml3(r, xml1);
+        const timeI = layMocPhutThucHienXml3(r);
+        if (!perfI || !timeI) continue;
+
+        for (let j = i + 1; j < prepared.length; j += 1) {
+            if (laBHYTKhôngThanhToan(rawXml3[j])) continue;
+            const r2 = prepared[j];
+            const maJ = UPPER(r2.MA_DV || r2.MA_DICH_VU || '');
+            if (!maJ) continue;
+            if (!coMocThucHienPhutXml3(r2)) continue;
+            const perfJ = layMaHanhNgheThucHienXml3(r2, xml1);
+            const timeJ = layMocPhutThucHienXml3(r2);
+            if (!perfJ || perfJ !== perfI || timeJ !== timeI) continue;
+            const laKhamJ = laMaDvThuocDanhMuc(r2.MA_DV || r2.MA_DICH_VU, dmKham);
+            if (laKhamI === laKhamJ) continue;
+            if (!laKhamI && !laKhamJ) continue;
+            const cap = `${i}|${j}`;
+            if (seenCapKhamDv.has(cap)) continue;
+            seenCapKhamDv.add(cap);
+            const idxKham = laKhamI ? i : j;
+            const idxDv = laKhamI ? j : i;
+            const maKham = UPPER(prepared[idxKham].MA_DV || prepared[idxKham].MA_DICH_VU || '');
+            const maDvkt = UPPER(prepared[idxDv].MA_DV || prepared[idxDv].MA_DICH_VU || '');
+            ds.push({
+                phan_he: 'XML3',
+                index: idxDv,
+                truong_loi: 'NGUOI_THUC_HIEN',
+                canh_bao: `Cùng mã hành nghề thực hiện [${perfI}], cùng phút thực hiện (${timeI}): vừa công khám [${maKham}] (STT ${idxKham + 1}) vừa DVKT khác [${maDvkt}] (STT ${idxDv + 1}). Một người không thể đồng thời khám và thực hiện DVKT khác tại cùng mốc phút — kiểm tra NGUOI_THUC_HIEN / MA_BAC_SI và NGAY_TH_YL trên XML3.`,
+                muc_do: 'Warning',
+                ma_luat: 'CLN-DVKT-01',
+                ten_quy_tac: 'Trùng thời điểm công khám và DVKT (NGUOI_THUC_HIEN)',
+                dieu_kien: 'BUILT-IN',
+                co_so_phap_ly: CO_SO_PHAP_LY_DVKT.DANH_MUC_NOI_BO,
+            });
+        }
+    }
+    return ds;
 };
 
 const taoBatchContextGiamDinh = (danhSachHoSo = []) => {
@@ -5205,6 +5403,104 @@ const taoHamDieuKienLuatDong = (jsQuery = '') => {
                 const hs = layMaIcdGopChinhVaKemKhongTrung(XML1);
                 return hs.some((icd) => icdChoPhep.has(icd));
             };
+            const normalizeTextNoAccent = ${normalizeTextNoAccent.toString()};
+            const tachMapCdContra = (x) => String(x || '').trim().replace(/\\|/g,';').replace(/,/g,';').split(';').map(z=>String(z||'').trim()).filter(Boolean);
+            const parseIcdTokensToKeysCdContra = (tokRaw) => {
+                const t = String(tokRaw || '').trim().toUpperCase().replace(/\\s+/g, '');
+                if (!t) return [];
+                if (/^O00-O9A$/i.test(t) || /^O00-O99$/i.test(t)) return ['__O_CHAPTER__'];
+                const x = chuanHoaMaIcdPhacDoCdss(tokRaw);
+                const k = x ? String(x).replace(/\\./g,'').toUpperCase() : '';
+                return k ? [k] : [];
+            };
+            const themSrcIcdVaoTapCdContra = (tgt, srcBlob) => {
+                tachMapCdContra(srcBlob).forEach((tok) => {
+                    parseIcdTokensToKeysCdContra(tok).forEach((key) => { if (key) tgt.add(key); });
+                });
+            };
+            const dongThuocKhopDongCdContra = (mThuoc, tenT, hoatT, row, useTenHoat) => {
+                const md = row.metadata && typeof row.metadata === 'object' ? row.metadata : {};
+                let tgts = [];
+                if (Array.isArray(md.target_codes) && md.target_codes.length) tgts = md.target_codes.map(c=>String(c||'').trim()).filter(Boolean);
+                else tgts = tachMapCdContra(row.target_code);
+                const maHit = !!(mThuoc && tgts.indexOf(mThuoc) !== -1);
+                if (maHit) return true;
+                if (!useTenHoat || !md.khop_bang_ten_hoat_chat) return false;
+                const nTen = normalizeTextNoAccent(tenT || '').toLowerCase().replace(/\\s+/g, ' ').trim();
+                const nHoat = normalizeTextNoAccent(hoatT || '').toLowerCase().replace(/\\s+/g, ' ').trim();
+                const tens = Array.isArray(md.ten_thuoc_aliases) ? md.ten_thuoc_aliases : [];
+                const hoats = Array.isArray(md.hoat_chat_aliases) ? md.hoat_chat_aliases : [];
+                const minLen = 3;
+                for (let i = 0; i < tens.length; i++) {
+                    const s = normalizeTextNoAccent(String(tens[i] || '')).toLowerCase().replace(/\\s+/g, ' ').trim();
+                    if (s.length < minLen) continue;
+                    if (nTen.includes(s)) return true;
+                    if (nTen.length >= minLen && s.includes(nTen)) return true;
+                }
+                for (let j = 0; j < hoats.length; j++) {
+                    const s = normalizeTextNoAccent(String(hoats[j] || '')).toLowerCase().replace(/\\s+/g, ' ').trim();
+                    if (s.length < minLen) continue;
+                    if (nHoat.includes(s)) return true;
+                    if (nHoat.length >= minLen && s.includes(nHoat)) return true;
+                }
+                return false;
+            };
+            const bnCoIcdTrungTapCdContra = (icdCam) => {
+                const hsCd = layMaIcdGopChinhVaKemKhongTrung(XML1);
+                return hsCd.some((icdBnFlat) => {
+                    const icdBn = String(icdBnFlat || '').toUpperCase();
+                    if (!icdBn) return false;
+                    if (icdCam.has('__O_CHAPTER__') && icdBn.startsWith('O')) return true;
+                    if (icdCam.has(icdBn)) return true;
+                    for (const cam of icdCam) {
+                        if (cam === '__O_CHAPTER__') continue;
+                        const cs = String(cam || '');
+                        if (cs.length >= 3 && icdBn.length >= cs.length && icdBn.startsWith(cs)) return true;
+                    }
+                    return false;
+                });
+            };
+            const CO_CO_DONG_MAPPING_ICD_CD_THUOC = (maThuoc) => {
+                const st = danhMucHeThong && danhMucHeThong.SET_MA_THUOC_CO_MAPPING_ICD_CD;
+                const mm = String(maThuoc || '').trim();
+                return !!(st && typeof st.has === 'function' && mm && st.has(mm));
+            };
+            const CO_ICD_VI_PHAM_CHONG_CHI_DINH_THUOC = (maThuoc, tenThuoc, hoatChat) => {
+                const rowsAll = danhMucHeThong && danhMucHeThong.DM_MAPPING_ICD_THUOC_CD_ROWS;
+                const mThuoc = String(maThuoc || '').trim();
+                if (!Array.isArray(rowsAll)) return false;
+                const useTenHoat = arguments.length >= 2;
+                const tenT = useTenHoat ? tenThuoc : '';
+                const hoatT = arguments.length >= 3 ? hoatChat : '';
+                if (useTenHoat) {
+                    if (!mThuoc && !String(tenT || '').trim() && !String(hoatT || '').trim()) return false;
+                } else if (!mThuoc) return false;
+                let ngayT = Date.now();
+                try {
+                    const nx = XML1 && (XML1.NGAY_RA || XML1.NGAY_VAO || '');
+                    const ds = String(nx || '').trim();
+                    if (ds.length >= 8) {
+                        const d = new Date(ds.slice(0, 10));
+                        if (Number.isFinite(d.getTime())) ngayT = d.getTime();
+                    }
+                } catch (_e) {}
+                const icdCam = new Set();
+                rowsAll.forEach((row) => {
+                    const mType = String(row.mapping_type || 'ICD_DRUG_CONTRA').toUpperCase();
+                    if (mType !== 'ICD_DRUG_CONTRA') return;
+                    if (row.is_active === false) return;
+                    if (row.effective_from && new Date(row.effective_from).getTime() > ngayT) return;
+                    if (row.effective_to && new Date(row.effective_to).getTime() < ngayT) return;
+                    if (!dongThuocKhopDongCdContra(mThuoc, tenT, hoatT, row, useTenHoat)) return;
+                    const md = row.metadata && typeof row.metadata === 'object' ? row.metadata : {};
+                    let srcs = [];
+                    if (Array.isArray(md.source_icd_codes) && md.source_icd_codes.length) srcs = md.source_icd_codes.map(c=>String(c||'').trim()).filter(Boolean);
+                    else srcs = tachMapCdContra(row.source_code);
+                    srcs.forEach((icdRaw) => { themSrcIcdVaoTapCdContra(icdCam, icdRaw); });
+                });
+                if (icdCam.size === 0) return false;
+                return bnCoIcdTrungTapCdContra(icdCam);
+            };
             const CO_THUOC_TRONG_DM_BV = (maThuoc) => {
                 const m = danhMucHeThong && danhMucHeThong.MAP_THUOC_BV;
                 if (!m || typeof m.has !== 'function') return false;
@@ -5622,6 +5918,7 @@ export const chayGiamDinhToanDienV15 = async (hoSo) => {
     // LAYER 4: Lâm sàng
     allLỗi = allLỗi.concat(giamDinhThuoc(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhCDHA(hoSo));
+    allLỗi = allLỗi.concat(giamDinhNguoiThucHienKhamVaDvktXml3(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhGiuong(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhPTTT(hoSo));
     allLỗi = allLỗi.concat(giamDinhChuyenTuyen(hoSo));

@@ -1,7 +1,7 @@
 /**
  * Khung trò chuyện trợ lý tri thức (RAG nội bộ) — dùng chung: màn hình đầy đủ hoặc cửa sổ popup.
  */
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   KeyboardAvoidingView,
@@ -21,11 +21,151 @@ import { layDanhSachTriThucTuGiamDinh } from '../tien_ich/tri_thuc_tu_giam_dinh'
 import { traLoiTroLyTriThuc } from '../tien_ich/tro_ly_tri_thuc_engine';
 
 const GOI_Y_NHANH = [
-  { label: 'THUOC_417', text: 'Vì sao hệ thống báo THUOC_417? Căn cứ trong thư viện nội bộ?' },
-  { label: 'CK_41', text: 'Giải thích quy tắc CK_41 (công khám lần 2) theo tài liệu trong repo' },
-  { label: 'Phác đồ / ICD', text: 'Phác đồ CDSS chuyên môn và gợi ý theo ICD trong tài liệu nội bộ' },
-  { label: 'QĐ 4210 / XML', text: 'Cấu trúc XML theo QĐ 4210 và 7464: tài liệu thẻ tri thức nào trong thư viện nội bộ?' },
+  { label: 'THUOC_417', text: 'Vì sao hệ thống báo THUOC_417? Căn cứ trong thư viện / quy tắc luật đã tích hợp?' },
+  { label: 'CK_41', text: 'Giải thích CK_41 (công khám lần 2) theo tài liệu và quy tắc trong hệ thống' },
+  { label: 'Phác đồ / ICD', text: 'Phác đồ CDSS và gợi ý ICD trong mô-đun chuyên môn / thư viện' },
+  { label: 'QĐ 4210 / XML', text: 'Cấu trúc XML QĐ 4210, 7464: tài liệu nào trong thư viện và danh mục nội bộ?' },
 ];
+
+/** Inline **đậm** và `mã đường dẫn` trong một dòng (React Native Text). */
+const VanBanInlineTroLy = ({ line, textStyle, codeStyle }) => {
+  const parts = String(line || '').split(/(\*\*[^*]+\*\*|`[^`]+`)/g);
+  return (
+    <Text style={textStyle}>
+      {parts.map((part, i) => {
+        if (part.startsWith('**') && part.endsWith('**')) {
+          return (
+            <Text key={i} style={{ fontWeight: '800', color: textStyle.color }}>
+              {part.slice(2, -2)}
+            </Text>
+          );
+        }
+        if (part.startsWith('`') && part.endsWith('`')) {
+          return (
+            <Text key={i} style={codeStyle}>
+              {part.slice(1, -1)}
+            </Text>
+          );
+        }
+        return <Text key={i}>{part}</Text>;
+      })}
+    </Text>
+  );
+};
+
+/**
+ * Hiển thị câu trả lời trợ lý: tiêu đề, trích dẫn, gạch ngang, gọn hơn Markdown thô trong <Text>.
+ */
+const VanBanTraLoiTroLy = ({ text }) => {
+  const lines = useMemo(() => String(text || '').split('\n'), [text]);
+  return (
+    <View style={styles.vbt_root}>
+      {lines.map((rawLine, idx) => {
+        const key = `L${idx}`;
+        const t = rawLine.trimEnd();
+        const trim = t.trim();
+        if (!trim) {
+          return <View key={key} style={styles.vbt_spacer} />;
+        }
+        if (/^---+$/u.test(trim)) {
+          return <View key={key} style={styles.vbt_hr} />;
+        }
+        if (/^#{3}\s+/u.test(t)) {
+          return (
+            <Text key={key} style={styles.vbt_h3}>
+              {t.replace(/^#{3}\s+/, '').trim()}
+            </Text>
+          );
+        }
+        if (/^#{4}\s+/u.test(t)) {
+          return (
+            <Text key={key} style={styles.vbt_h4}>
+              {t.replace(/^#{4}\s+/, '').trim()}
+            </Text>
+          );
+        }
+        if (/^>\s?/.test(t)) {
+          return (
+            <View key={key} style={styles.vbt_quote}>
+              <Text style={styles.vbt_quote_txt}>{t.replace(/^>\s?/, '')}</Text>
+            </View>
+          );
+        }
+        if (/^\s*[-*]\s+/.test(t)) {
+          return (
+            <Text key={key} style={styles.vbt_li}>
+              <Text style={styles.vbt_bullet}>• </Text>
+              <VanBanInlineTroLy line={t.replace(/^\s*[-*]\s+/, '')} textStyle={styles.vbt_li_inner} codeStyle={styles.vbt_code_inline} />
+            </Text>
+          );
+        }
+        if (/^\d+\.\s/.test(trim)) {
+          return (
+            <Text key={key} style={styles.vbt_oli}>
+              <VanBanInlineTroLy line={trim} textStyle={styles.vbt_oli_inner} codeStyle={styles.vbt_code_inline} />
+            </Text>
+          );
+        }
+        if (/^\*[^*\n].+\*$/u.test(trim) && trim.startsWith('*')) {
+          return (
+            <Text key={key} style={styles.vbt_aside}>
+              {trim.slice(1, -1)}
+            </Text>
+          );
+        }
+        if (/^`[^`\n]+`$/u.test(trim)) {
+          return (
+            <Text key={key} style={styles.vbt_code_block} selectable>
+              {trim.slice(1, -1)}
+            </Text>
+          );
+        }
+        return (
+          <Text key={key} style={styles.vbt_p}>
+            <VanBanInlineTroLy line={t} textStyle={styles.vbt_p} codeStyle={styles.vbt_code_inline} />
+          </Text>
+        );
+      })}
+    </View>
+  );
+};
+
+const tomTatNguonTheoLoai = (nguon) => {
+  const by = {};
+  for (const n of nguon || []) {
+    const loai = n.loai || 'Khác';
+    const tit = (n.tieuDe || n.file || '').trim();
+    if (!tit) continue;
+    if (!by[loai]) by[loai] = [];
+    if (by[loai].length < 2) by[loai].push(tit.length > 52 ? `${tit.slice(0, 50)}…` : tit);
+  }
+  const entries = Object.entries(by);
+  const shownEntries = entries.slice(0, 6);
+  const rows = shownEntries.map(([loai, arr]) => `${loai}: ${arr.join(' · ')}`);
+  const shown = shownEntries.reduce((acc, [, arr]) => acc + arr.length, 0);
+  const total = (nguon || []).filter((n) => (n.tieuDe || n.file || '').trim()).length;
+  const parts = [];
+  if (total > shown) parts.push(`+${total - shown} tham chiếu`);
+  if (entries.length > 6) parts.push(`+${entries.length - 6} nhóm nguồn`);
+  const more = parts.join(' · ');
+  return { rows, more };
+};
+
+const DongNguonTroLy = ({ nguon }) => {
+  const { rows, more } = useMemo(() => tomTatNguonTheoLoai(nguon), [nguon]);
+  if (!nguon?.length) return null;
+  return (
+    <View style={styles.nguon_block}>
+      <Text style={styles.nguon_head}>Nguồn đã dùng</Text>
+      {rows.map((row, ri) => (
+        <Text key={ri} style={styles.nguon_row}>
+          {row}
+        </Text>
+      ))}
+      {more ? <Text style={styles.nguon_tail}>{more}</Text> : null}
+    </View>
+  );
+};
 
 /**
  * @param {object} props
@@ -131,7 +271,8 @@ const KhungTroLyTriThucChat = ({
       </View>
 
       <Text style={[styles.lead, laCuaSo && styles.lead_compact]}>
-        Trả lời từ thư viện <Text style={styles.mono}>tai_lieu/</Text>, thẻ phác đồ/chuyên môn (CDSS), tri thức đã lưu — không tra web.
+        Trích từ <Text style={styles.lead_em}>Thư viện</Text>, <Text style={styles.lead_em}>Chuyên môn</Text>,{' '}
+        <Text style={styles.lead_em}>Danh mục nội bộ</Text>, <Text style={styles.lead_em}>Quy tắc luật</Text> và tri thức giám định đã lưu — không tra web.
       </Text>
 
       <View style={[styles.chips, laCuaSo && styles.chips_compact]}>
@@ -155,8 +296,8 @@ const KhungTroLyTriThucChat = ({
         >
           {tinNhan.length === 0 ? (
             <Text style={styles.hint}>
-              Hỏi mã lỗi (THUOC_391…), nghiệp vụ BHYT, hoặc phác đồ/chuyên môn (ICD, CDSS). Tri thức từ giám định đã lưu:{' '}
-              <Text style={{ fontWeight: '800' }}>{triThuc.length}</Text> bản ghi.
+              Gõ mã lỗi (THUOC_391…), ICD, hoặc từ khóa nghiệp vụ — hệ thống quét thư viện và tài liệu gắn chuyên môn / quy tắc. Đã lưu{' '}
+              <Text style={{ fontWeight: '800' }}>{triThuc.length}</Text> bản ghi tri thức từ giám định.
             </Text>
           ) : null}
           {tinNhan.map((m, idx) => (
@@ -165,13 +306,12 @@ const KhungTroLyTriThucChat = ({
               style={[styles.bubble, m.role === 'user' ? styles.bubble_user : styles.bubble_bot]}
             >
               <Text style={styles.bubble_role}>{m.role === 'user' ? 'Bạn' : 'Trợ lý (RAG nội bộ)'}</Text>
-              <Text style={styles.bubble_text}>{m.text}</Text>
-              {m.nguon?.length ? (
-                <Text style={styles.nguon}>
-                  Nguồn: {m.nguon.slice(0, 6).map((n) => n.tieuDe || n.file).join(' · ')}
-                  {m.nguon.length > 6 ? '…' : ''}
-                </Text>
-              ) : null}
+              {m.role === 'assistant' ? (
+                <VanBanTraLoiTroLy text={m.text} />
+              ) : (
+                <Text style={styles.bubble_text}>{m.text}</Text>
+              )}
+              {m.nguon?.length ? <DongNguonTroLy nguon={m.nguon} /> : null}
               {m.role === 'assistant' && m.ok !== false ? (
                 <TouchableOpacity style={styles.speak_btn} onPress={() => docVanBan(m.text)}>
                   <Text style={styles.speak_btn_txt}>🔊 Đọc</Text>
@@ -250,6 +390,7 @@ const styles = StyleSheet.create({
     fontFamily: CD.font.family,
   },
   lead_compact: { paddingVertical: 6, fontSize: 11, lineHeight: 16 },
+  lead_em: { fontWeight: '800', color: CD.brand.mauDam },
   mono: { fontFamily: CD.font.mono, fontSize: 11, color: CD.text.table_cell },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, paddingHorizontal: 12, marginBottom: 6 },
   chips_compact: { marginBottom: 4, gap: 4 },
@@ -284,7 +425,73 @@ const styles = StyleSheet.create({
   },
   bubble_role: { fontSize: 10, fontWeight: '800', color: CD.text.muted, marginBottom: 4, fontFamily: CD.font.family },
   bubble_text: { fontSize: 13, lineHeight: 20, color: CD.text.table_cell, fontFamily: CD.font.family },
-  nguon: { marginTop: 8, fontSize: 10, color: CD.text.muted, fontFamily: CD.font.mono },
+  nguon_block: { marginTop: 10, paddingTop: 8, borderTopWidth: StyleSheet.hairlineWidth, borderTopColor: CD.border.glass },
+  nguon_head: { fontSize: 10, fontWeight: '800', color: CD.text.muted, marginBottom: 4, letterSpacing: 0.4, fontFamily: CD.font.family },
+  nguon_row: { fontSize: 11, lineHeight: 17, color: CD.text.secondary, marginBottom: 3, fontFamily: CD.font.family },
+  nguon_tail: { fontSize: 10, color: CD.text.muted, marginTop: 2, fontStyle: 'italic', fontFamily: CD.font.family },
+  vbt_root: { alignSelf: 'stretch' },
+  vbt_spacer: { height: 5 },
+  vbt_hr: {
+    height: 1,
+    backgroundColor: CD.border.glass_md,
+    marginVertical: 10,
+    opacity: 0.85,
+  },
+  vbt_h3: {
+    fontSize: 14,
+    fontWeight: '800',
+    color: CD.brand.mauDam,
+    marginTop: 4,
+    marginBottom: 2,
+    fontFamily: CD.font.family,
+  },
+  vbt_h4: {
+    fontSize: 13,
+    fontWeight: '800',
+    color: CD.text.table_cell,
+    marginTop: 6,
+    marginBottom: 2,
+    fontFamily: CD.font.family,
+  },
+  vbt_quote: {
+    borderLeftWidth: 3,
+    borderLeftColor: CD.brand.mauNhat,
+    paddingLeft: 10,
+    paddingVertical: 6,
+    marginVertical: 4,
+    backgroundColor: 'rgba(15, 23, 42, 0.04)',
+    borderRadius: 6,
+  },
+  vbt_quote_txt: { fontSize: 12, lineHeight: 18, color: CD.text.secondary, fontStyle: 'italic', fontFamily: CD.font.family },
+  vbt_li: { fontSize: 13, lineHeight: 20, color: CD.text.table_cell, marginBottom: 4, fontFamily: CD.font.family },
+  vbt_li_inner: { fontSize: 13, lineHeight: 20, color: CD.text.table_cell, fontFamily: CD.font.family },
+  vbt_bullet: { fontWeight: '800', color: CD.brand.mauChinh },
+  vbt_oli: { fontSize: 13, lineHeight: 20, color: CD.text.table_cell, marginBottom: 6, fontFamily: CD.font.family },
+  vbt_oli_inner: { fontSize: 13, lineHeight: 20, color: CD.text.table_cell, fontFamily: CD.font.family },
+  vbt_p: { fontSize: 13, lineHeight: 20, color: CD.text.table_cell, marginBottom: 3, fontFamily: CD.font.family },
+  vbt_aside: {
+    fontSize: 11,
+    lineHeight: 17,
+    color: CD.text.muted,
+    fontStyle: 'italic',
+    marginTop: 6,
+    fontFamily: CD.font.family,
+  },
+  vbt_code_inline: {
+    fontFamily: CD.font.mono,
+    fontSize: 12,
+    backgroundColor: 'rgba(15, 23, 42, 0.06)',
+    color: CD.text.table_cell,
+    paddingHorizontal: 4,
+    borderRadius: 4,
+  },
+  vbt_code_block: {
+    fontFamily: CD.font.mono,
+    fontSize: 11,
+    color: CD.brand.mauDam,
+    marginBottom: 4,
+    paddingVertical: 2,
+  },
   speak_btn: {
     alignSelf: 'flex-start',
     marginTop: 8,

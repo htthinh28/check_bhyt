@@ -9,6 +9,7 @@
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ghiPhienGiamDinhSauLuuKho } from '../tien_ich/kho_du_lieu';
 
 const KHO_KEY = 'CDSS_KHO_LUU_TRU_HOSO';
 const BHYT_KHO_VERSION = '3.8';
@@ -181,6 +182,21 @@ export const luuHoSoVaoKho = async (danhSachHoSoMoi, nguoiDung = 'Hệ thống C
     }
 
     await luuKhoAnToan(khoCapNhat);
+
+    for (const item of danhSachHoSoMoi) {
+      try {
+        const xml1Data = item.xml1 || item.XML1 || {};
+        const xml1 = Array.isArray(xml1Data) ? (xml1Data[0] || {}) : xml1Data;
+        const src = xml1.MA_LK ? xml1 : item;
+        const maLK =
+          src.MA_LK || src.MA_SO_HOSO || (src.MA_THE_BHYT ? `${src.MA_THE_BHYT}_${src.NGAY_VAO}` : null) || '';
+        if (!maLK || maLK === 'K_XD') continue;
+        await ghiPhienGiamDinhSauLuuKho({ ...item, ma_lk: maLK });
+      } catch (e) {
+        console.warn('[tien_ich_kho] Không ghi phiên giám định:', e?.message || e);
+      }
+    }
+
     return { thanh_cong: true, so_luong_da_luu: soLuongLuu, loi: null };
 
   } catch (error) {

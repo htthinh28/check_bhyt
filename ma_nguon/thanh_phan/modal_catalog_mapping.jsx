@@ -252,7 +252,7 @@ export default function ModalCatalogMapping({
   const [targetCodesThucHien, setTargetCodesThucHien] = useState([]);
   /** ICD↔thuốc, ICD↔DVKT, DVKT↔thuốc, DVKT↔VTYT, ICD↔VTYT: nhiều mã đích / một bản ghi */
   const [targetCodesNhieu, setTargetCodesNhieu] = useState([]);
-  /** ICD_DRUG / ICD_DVKT / ICD_VTYT: một dòng mapping = nhóm mã ICD nguồn → nhiều mã đích */
+  /** ICD_DRUG / ICD_DRUG_CONTRA / ICD_DVKT / ICD_VTYT: một dòng = nhóm mã ICD nguồn → nhiều mã đích (CONTRA: ICD nguồn = chống chỉ định với thuốc đích). */
   const [sourceCodesNhieu, setSourceCodesNhieu] = useState([]);
   const [effectiveFrom, setEffectiveFrom] = useState('');
   const [effectiveTo, setEffectiveTo] = useState('');

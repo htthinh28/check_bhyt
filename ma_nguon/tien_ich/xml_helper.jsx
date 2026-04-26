@@ -18,7 +18,8 @@ const TAP_TRUONG_DINH_DANH_CAN_GIU_SO_0 = new Set(['SO_CCCD', 'SO_DINH_DANH']);
 
 const lamSachTenTruong = (name) => String(name || '').replace(/^\uFEFF/, '').trim();
 const lamSachGiaTri = (value) => String(value || '').replace(/\u0000/g, '').trim();
-const chuanHoaGiaTriTheoTruong = (fieldName, value) => {
+/** Giữ nguyên chuỗi (không ép số): SO_CCCD / SO_DINH_DANH — không được mất số 0 đầu khi đọc XML hoặc import. */
+export const chuanHoaGiaTriTheoTruong = (fieldName, value) => {
   const cleaned = lamSachGiaTri(value);
   const tenTruong = lamSachTenTruong(fieldName).toUpperCase();
   if (TAP_TRUONG_DINH_DANH_CAN_GIU_SO_0.has(tenTruong)) {

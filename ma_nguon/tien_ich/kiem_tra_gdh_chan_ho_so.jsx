@@ -6,6 +6,7 @@
  * Mã hiển thị: GDH_{4210|9324}_{số_mã_trong_tài_liệu} để đối chiếu với cổng.
  *
  * Đã bao phủ (XML): 1,3–5,11,14–27,31,34,35–38,39–48,51,52,56,102–103 và nhánh 9324/4210 (mã 3 vs 47).
+ * Bổ sung so với bản trước: GT_THE_TU / GT_THE_DEN chính (GDH 18–19); stent N06.02.020 trên XML2 lẫn XML3; 9324 mã 5 thêm nhánh T_TONGCHI (legacy) vs T_BNTT+T_BHTT+T_NGUONKHAC (±1đ) khi có trường.
  * Chưa thể chặn khớp cổng chỉ từ XML: 8–10,12,49–50,53–55,58,60–61,101,104–106 (cần DM + DB/hợp đồng).
  * Rút gọn so với văn bản đầy đủ: 48,52 (trái tuyến/gói/TYT), 101 (tuyến BV), 102 (chi tiết gói).
  *
@@ -528,8 +529,8 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
     }
   });
 
-  // --- Mã 18 / 19: GT_THE_TU_KHAC / GT_THE_DEN_KHAC — «;» và từng ngày 8 số hợp lệ ---
-  const checkGtKhac = (rawField, maErr, tenTruong) => {
+  // --- Mã 18 / 19: GT_THE_TU(_KHAC) / GT_THE_DEN(_KHAC) — «;» và từng ngày 8 số hợp lệ (cổng áp cả thẻ chính) ---
+  const checkGtThe = (rawField, maErr, tenTruong) => {
     const raw = String(rawField ?? '').trim();
     if (!raw) return;
     if (!raw.includes(';') && raw.replace(/\D/g, '').length > 8) {
@@ -540,10 +541,7 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
         index: -1,
         truong: tenTruong,
         mucDo: 'Critical',
-        noiDung:
-          maErr === 18
-            ? 'Nhiều giá trị GT_THE_TU_KHAC phải cách nhau bằng «;» (GDH 18).'
-            : 'Nhiều giá trị GT_THE_DEN_KHAC phải cách nhau bằng «;» (GDH 19).',
+        noiDung: `Nhiều giá trị ${tenTruong} phải cách nhau bằng «;» (GDH ${maErr}).`,
       });
     }
     raw.split(';').forEach((piece, ti) => {
@@ -562,8 +560,10 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
       }
     });
   };
-  checkGtKhac(xml1.GT_THE_TU_KHAC, 18, 'GT_THE_TU_KHAC');
-  checkGtKhac(xml1.GT_THE_DEN_KHAC, 19, 'GT_THE_DEN_KHAC');
+  checkGtThe(xml1.GT_THE_TU_KHAC, 18, 'GT_THE_TU_KHAC');
+  checkGtThe(xml1.GT_THE_DEN_KHAC, 19, 'GT_THE_DEN_KHAC');
+  checkGtThe(xml1.GT_THE_TU, 18, 'GT_THE_TU');
+  checkGtThe(xml1.GT_THE_DEN, 19, 'GT_THE_DEN');
 
   // --- Mã 21: Ngày miễn cùng chi trả (NGAY_MIEN_CCT) ---
   if (!laRong(xml1.NGAY_MIEN_CCT) && !laNgay8HopLe(xml1.NGAY_MIEN_CCT)) {
@@ -585,21 +585,25 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
   const truoc2017 = Number.isFinite(yRaStent) && yRaStent < 2017;
   const theMienStent = /^(CC|TE|QN|CA|CY)/.test(maThe);
   if (!truoc2017 && !theMienStent) {
-    xml3.forEach((row, idx) => {
-      const maVt = String(row.MA_DICH_VU ?? row.MA_VAT_TU ?? row.MA_DV ?? '').trim();
+    const kiemTraStentDong = (row, idx, phanHe) => {
+      const maVt = String(
+        row.MA_DICH_VU ?? row.MA_VAT_TU ?? row.MA_DV ?? row.MA_THUOC ?? '',
+      ).trim();
       const slSt = toNum(row.SO_LUONG);
       if (maVt.includes(STENT_MA) && !Number.isNaN(slSt) && slSt > 1) {
         push(out, {
           maGdh: 14,
           phienBan,
-          phanHe: 'XML3',
+          phanHe,
           index: idx,
-          truong: 'MA_DICH_VU',
+          truong: phanHe === 'XML2' ? 'MA_THUOC' : 'MA_DICH_VU',
           mucDo: 'Critical',
           noiDung: `VTYT Stent (${STENT_MA}) không được SL > 1 (GDH 14, TT04/2017).`,
         });
       }
-    });
+    };
+    xml2.forEach((row, idx) => kiemTraStentDong(row, idx, 'XML2'));
+    xml3.forEach((row, idx) => kiemTraStentDong(row, idx, 'XML3'));
   }
 
   // --- Tổng tiền & chi tiết (9324 mã 3, 4; 4210 mã 34, 47) ---
@@ -1014,6 +1018,30 @@ export const kiemTraGdhChanHoSoChiTiet = (hoSo) => {
       mucDo: 'Critical',
       noiDung:
         'T_TONGCHI_BH không khớp T_BNCCT + T_BHTT + T_NGUONKHAC (±1–2đ) — GDH 9324 mã 5.',
+    });
+  }
+
+  // Cùng mã 5 theo văn bản cổng: T_TONGCHI (trường legacy) vs T_BNTT + T_BHTT + T_NGUONKHAC (±1đ)
+  const tongChiLegacy = toNum(xml1.T_TONGCHI);
+  if (
+    dung9324Bh &&
+    !nguon4210DaChuanHoa &&
+    !laRong(xml1.T_TONGCHI) &&
+    !Number.isNaN(tongChiLegacy) &&
+    !Number.isNaN(bntt) &&
+    !Number.isNaN(bhtt) &&
+    !Number.isNaN(ngkh) &&
+    !almostEq(tongChiLegacy, bntt + bhtt + ngkh, 1)
+  ) {
+    push(out, {
+      maGdh: 5,
+      phienBan: '9324',
+      phanHe: 'XML1',
+      index: -1,
+      truong: 'T_TONGCHI',
+      mucDo: 'Critical',
+      noiDung:
+        'T_TONGCHI không khớp T_BNTT + T_BHTT + T_NGUONKHAC (±1đ) — GDH 9324 mã 5 (theo mô tả T_TONGCHI trên cổng).',
     });
   }
 

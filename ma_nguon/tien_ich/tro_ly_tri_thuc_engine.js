@@ -74,10 +74,66 @@ const diemChunk = (chunk, tokens, maQuyTac) => {
     if (n > 0) score += Math.log1p(n) * (tok.length > 4 ? 1.4 : 1);
   }
   for (const ma of maQuyTac) {
-    const u = ma.toLowerCase();
+    const u = String(ma || '').toLowerCase();
+    if (!u) continue;
     if (c.includes(u)) score += 18;
+    else if (c.includes(u.replace(/_/g, ' '))) score += 16;
+    else if (u.includes('_') && u.replace(/_/g, '').length >= 5 && c.includes(u.replace(/_/g, ''))) score += 14;
   }
   return score;
+};
+
+/** Chunk có xuất hiện mã quy tắc trong nội dung không (gạch dưới / khoảng trắng) */
+const chunkCoMaQuyTac = (chunk, maQuyTac) => {
+  const c = String(chunk || '').toLowerCase().replace(/\s+/g, ' ');
+  return (maQuyTac || []).some((ma) => {
+    const u = String(ma || '').toLowerCase();
+    if (!u) return false;
+    if (c.includes(u)) return true;
+    if (c.includes(u.replace(/_/g, ' '))) return true;
+    const g = u.replace(/_/g, '');
+    return g.length >= 5 && c.includes(g);
+  });
+};
+
+/**
+ * Ngưỡng điểm chunk: không còn kiểu «có mã trong câu hỏi thì nhận hết mọi đoạn».
+ */
+const chunkDuocGiu = (scoreChunk, chunk, tokens, maQuyTac) => {
+  if (chunkCoMaQuyTac(chunk, maQuyTac)) return scoreChunk >= 0;
+  if (maQuyTac.length && !tokens.length) return false;
+  const nTok = Math.max(1, (tokens || []).length);
+  const nguong = 0.55 + 0.28 * Math.min(nTok, 6);
+  return scoreChunk >= nguong;
+};
+
+/** File manifest có khả năng liên quan câu hỏi (tránh quét bừa khi có THUOC_xxx). */
+const taiLieuKhaDiVoiCauHoi = (row, tokens, maQuyTac) => {
+  const s = row.score;
+  if (s >= 2) return true;
+  if (s >= 1.2 && (tokens || []).length >= 2) return true;
+  if (s >= 1.5 && (tokens || []).length >= 3) return true;
+  const blob = chuanHoaSoSanh(`${row.it?.title || ''} ${row.it?.relPath || ''}`);
+  const blobGoc = `${String(row.it?.title || '')} ${String(row.it?.relPath || '')}`.toLowerCase();
+  for (const ma of maQuyTac || []) {
+    const u = String(ma || '').toLowerCase();
+    if (!u) continue;
+    if (blob.includes(u.replace(/_/g, '')) || blob.includes(u.replace(/_/g, ' '))) return true;
+    if (blob.includes(u)) return true;
+    if (blobGoc.includes(u)) return true;
+  }
+  return false;
+};
+
+const banGhiTriThucKhaDi = (rec, score, maQuyTac) => {
+  if (score >= 2) return true;
+  if (!maQuyTac?.length) return score >= 1.5;
+  const ml = String(rec?.ma_luat_goi_y || '').toUpperCase().trim();
+  if (!ml) return false;
+  return maQuyTac.some((m) => {
+    const u = String(m || '').toUpperCase();
+    return ml === u || ml.includes(u) || u.includes(ml);
+  });
 };
 
 const chuanHoaSoSanh = (s) =>
@@ -86,6 +142,66 @@ const chuanHoaSoSanh = (s) =>
     .normalize('NFD')
     .replace(/[\u0300-\u036f]/g, '')
     .replace(/[^a-z0-9]+/g, ' ');
+
+/**
+ * Gắn nhãn nguồn theo module tích hợp (hiển thị trong RAG / popup).
+ * @param {string} relPath
+ * @param {string} title
+ * @returns {'Thư viện' | 'Chuyên môn' | 'Danh mục nội bộ' | 'Quy tắc luật'}
+ */
+export const phanLoaiNguonTaiLieu = (relPath, title) => {
+  const raw = `${String(relPath || '')} ${String(title || '')}`;
+  const h = raw.toLowerCase();
+  const a = chuanHoaSoSanh(raw);
+  if (
+    h.includes('phac_do') ||
+    h.includes('phác đồ') ||
+    h.includes('chuyen_mon') ||
+    h.includes('chuyên môn') ||
+    h.includes('/icd') ||
+    h.includes('icd10') ||
+    h.includes('cls') ||
+    h.includes('cdha') ||
+    h.includes('ebm') ||
+    a.includes('phac do') ||
+    a.includes('chuyen mon')
+  ) {
+    return 'Chuyên môn';
+  }
+  if (
+    h.includes('danh_muc') ||
+    h.includes('danh muc') ||
+    h.includes('mau_xml') ||
+    h.includes('catalog') ||
+    h.includes('noi_bo') ||
+    h.includes('noibo') ||
+    h.includes('xml_mau') ||
+    a.includes('danh muc')
+  ) {
+    return 'Danh mục nội bộ';
+  }
+  if (
+    h.includes('quy_tac') ||
+    h.includes('quytac') ||
+    h.includes('the_tri_thuc') ||
+    h.includes('checklist') ||
+    h.includes('tt12') ||
+    h.includes('tt_12') ||
+    h.includes('nghi_dinh') ||
+    h.includes('nghị định') ||
+    h.includes('thong_tu') ||
+    h.includes('thông tư') ||
+    h.includes('co_so_phap') ||
+    h.includes('qd_') ||
+    h.includes('qd4210') ||
+    h.includes('qd7464') ||
+    a.includes('the tri thuc') ||
+    a.includes('quy tac')
+  ) {
+    return 'Quy tắc luật';
+  }
+  return 'Thư viện';
+};
 
 /** Ưu tiên tài liệu phác đồ / chuyên môn / ICD trong thư viện (đường dẫn + tiêu đề). */
 const diemUuTienPhacDoChuyenMon = (title, relPath) => {
@@ -279,16 +395,20 @@ export const traLoiTroLyTriThuc = async ({
   };
 
   for (const row of scored) {
-    if (row.score > 0 || maQuyTac.length) pushItem(row);
+    if (taiLieuKhaDiVoiCauHoi(row, tokens, maQuyTac)) pushItem(row);
     if (chon.length >= gioiHan + 5) break;
   }
   for (const row of scored) {
-    pushItem(row);
+    if (taiLieuKhaDiVoiCauHoi(row, tokens, maQuyTac)) pushItem(row);
     if (chon.length >= gioiHan) break;
+  }
+  if (chon.length === 0) {
+    for (const row of scored.slice(0, 12)) {
+      pushItem(row);
+    }
   }
 
   const trichTuTaiLieu = [];
-  const nguon = [];
 
   for (const { it, score: titleScore } of chon.slice(0, gioiHan)) {
     const url = taoUrlMoTaiLieu(it.relPath);
@@ -305,10 +425,10 @@ export const traLoiTroLyTriThuc = async ({
           idx,
           score: diemChunk(ch, tokens, maQuyTac) + (titleScore > 0 ? 0.5 : 0),
         }))
-        .filter((x) => x.score > 0 || maQuyTac.length > 0)
+        .filter((x) => chunkDuocGiu(x.score, x.ch, tokens, maQuyTac))
         .sort((a, b) => b.score - a.score);
 
-      const top = (ranked.length ? ranked : [{ ch: chunks[0] || plain.slice(0, 1200), score: 0 }]).slice(0, 2);
+      const top = ranked.slice(0, ranked.length ? 2 : 0);
 
       for (const row of top) {
         if (!row.ch || row.ch.length < 20) continue;
@@ -319,7 +439,6 @@ export const traLoiTroLyTriThuc = async ({
           diem: row.score + titleScore * 0.1,
           doan: row.ch.length > 1600 ? `${row.ch.slice(0, 1600)}…` : row.ch,
         });
-        nguon.push({ loai: 'Thư viện', tieuDe: it.title, file: it.relPath });
       }
     } catch {
       /* bỏ qua file lỗi mạng */
@@ -328,12 +447,21 @@ export const traLoiTroLyTriThuc = async ({
 
   trichTuTaiLieu.sort((a, b) => b.diem - a.diem);
 
+  /** Bỏ các trích đoạn điểm quá thấp so với bản tốt nhất — tránh xen kẽ nội dung lạc đề. */
+  if (trichTuTaiLieu.length > 1) {
+    const dinh = trichTuTaiLieu[0]?.diem ?? 0;
+    const san = trichTuTaiLieu.filter((x) => x.diem >= Math.max(0.85, dinh * 0.38));
+    if (san.length >= 1) {
+      trichTuTaiLieu.splice(0, trichTuTaiLieu.length, ...san.slice(0, 8));
+    }
+  }
+
   const triThucScored = (Array.isArray(triThucGiamDinh) ? triThucGiamDinh : [])
     .map((rec) => ({
       rec,
       score: diemTriThucBanGhi(rec, tokens, maQuyTac),
     }))
-    .filter((x) => x.score > 0 || (maQuyTac.length && String(x.rec?.ma_luat_goi_y || '').length))
+    .filter((x) => banGhiTriThucKhaDi(x.rec, x.score, maQuyTac))
     .sort((a, b) => b.score - a.score)
     .slice(0, 5);
 
@@ -350,10 +478,28 @@ export const traLoiTroLyTriThuc = async ({
       diem: score,
       doan: snippet,
     });
+  }
+
+  const nguon = [];
+  const daThemPath = new Set();
+  for (const x of trichTuTaiLieu) {
+    const k = x.duongDan;
+    if (daThemPath.has(k)) continue;
+    daThemPath.add(k);
+    nguon.push({
+      loai: phanLoaiNguonTaiLieu(x.duongDan, x.tieuDe),
+      tieuDe: x.tieuDe,
+      file: x.duongDan,
+    });
+  }
+  for (const x of trichTriThuc) {
+    const k = `gd:${x.ma_lk || ''}:${x.tieuDe || ''}`;
+    if (daThemPath.has(k)) continue;
+    daThemPath.add(k);
     nguon.push({
       loai: 'Tri thức từ giám định (máy)',
-      tieuDe: rec.tom_tat || rec.ma_lk || '—',
-      file: rec.ma_lk ? `MA_LK ${rec.ma_lk}` : 'local',
+      tieuDe: x.tieuDe || '—',
+      file: x.ma_lk ? `MA_LK ${x.ma_lk}` : 'local',
     });
   }
 
@@ -361,42 +507,50 @@ export const traLoiTroLyTriThuc = async ({
   const tomTatYeuTo = doanDau
     ? String(doanDau.doan).replace(/\s+/g, ' ').trim().slice(0, 320)
     : '';
+  const hoiRutGon = hoi.length > 200 ? `${hoi.slice(0, 197)}…` : hoi;
+  const coKetQuaChatCheo = trichTuTaiLieu.length > 0 || trichTriThuc.length > 0;
 
   const lines = [];
-  lines.push('### Phân tích nhanh (từ dữ liệu có trong ứng dụng)');
+  lines.push('### Theo câu hỏi của bạn');
+  lines.push(`> ${hoiRutGon}`);
+  lines.push('');
+  lines.push('### Trả lời (trích nội bộ)');
   lines.push('');
   if (maQuyTac.length) {
-    lines.push(`**Mã quy tắc / từ khóa kỹ thuật nhận diện:** ${maQuyTac.join(', ')}`);
+    lines.push(`**Mã / từ khóa kỹ thuật:** ${maQuyTac.join(', ')}`);
     lines.push('');
   }
   if (tomTatYeuTo) {
-    lines.push('**Đoạn liên quan nhất (trích):**');
+    lines.push('**Đoạn khớp nhất với câu hỏi**');
     lines.push(`> ${tomTatYeuTo}${tomTatYeuTo.length >= 320 ? '…' : ''}`);
     lines.push('');
   } else {
     lines.push(
-      '**Không tìm thấy đoạn khớp mạnh** trong các tài liệu đã đóng gói. Hãy thử thêm từ khóa tiếng Việt (ví dụ “công khám”, “thanh toán thuốc”), hoặc mã lỗi đúng như trên báo cáo giám định.',
+      '**Không tìm thấy đoạn văn khớp đủ mạnh** với từ khóa / mã bạn nhập trong thư viện đang có. Gợi ý: dùng đúng mã trên báo cáo (VD THUOC_417), thêm từ khóa tiếng Việt ngắn, hoặc mở 📚 Thư viện / Quản lý luật để đối chiếu trực tiếp.',
     );
     lines.push('');
   }
 
-  lines.push('#### Vì sao cần tra cứu (logic nghiệp vụ)');
-  lines.push(
-    '- Hệ thống CDSS so khớp dữ liệu XML với **bộ luật/quy tắc** và **tài liệu tri thức** đã cấu hình trong repo.',
-  );
-  lines.push(
-    '- Trợ lý này **chỉ trích dẫn** văn bản đã có trong thư viện `tai_lieu/` (gồm thẻ phác đồ/chuyên môn/CDSS khi đã chuẩn bị), sau `npm run tai_lieu:prepare`, và các bản ghi “Tri thức từ giám định” bạn đã lưu — **không** lấy ý kiến từ Internet.',
-  );
-  if (generatedAt) {
-    lines.push(`- **Nhãn thời điểm thư viện:** ${generatedAt} (cập nhật khi build/chuẩn bị tài liệu).`);
+  if (coKetQuaChatCheo) {
+    lines.push(
+      '*Nguồn tra trong app: Thư viện · Chuyên môn · Danh mục nội bộ · Quy tắc luật · Tri thức giám định.*',
+    );
+    if (generatedAt) {
+      lines.push(`*Gói thư viện: ${generatedAt}.*`);
+    }
+    lines.push('');
+  } else if (generatedAt) {
+    lines.push(`*Gói thư viện: ${generatedAt}.*`);
+    lines.push('');
   }
-  lines.push('');
 
   if (trichTuTaiLieu.length) {
-    lines.push('#### Trích từ thư viện nội bộ');
+    lines.push('### Trích đoạn tài liệu (đã lọc theo độ liên quan)');
     lines.push('');
-    trichTuTaiLieu.slice(0, 6).forEach((x, i) => {
-      lines.push(`${i + 1}. **${x.tieuDe}** (\`${x.duongDan}\`)`);
+    trichTuTaiLieu.slice(0, 4).forEach((x, i) => {
+      const nhom = phanLoaiNguonTaiLieu(x.duongDan, x.tieuDe);
+      lines.push(`${i + 1}. **${x.tieuDe}** 〔${nhom}〕`);
+      lines.push(`\`${x.duongDan}\``);
       lines.push('');
       lines.push(x.doan);
       lines.push('');
@@ -404,7 +558,7 @@ export const traLoiTroLyTriThuc = async ({
   }
 
   if (trichTriThuc.length) {
-    lines.push('#### Tri thức tích lũy từ giám định (trên máy)');
+    lines.push('### Tri thức từ giám định (trên máy)');
     lines.push('');
     trichTriThuc.forEach((x, i) => {
       lines.push(`${i + 1}. **${x.tieuDe}**${x.ma_lk ? ` · MA_LK \`${x.ma_lk}\`` : ''}${x.ngay ? ` · ${String(x.ngay).slice(0, 10)}` : ''}`);
@@ -415,7 +569,7 @@ export const traLoiTroLyTriThuc = async ({
   }
 
   lines.push('---');
-  lines.push('*Đây là trợ lý tra cứu & trích dẫn nội bộ; không thay cho văn bản pháp lý hoặc quyết định thanh toán của cơ quan BHXH.*');
+  lines.push('*Trợ lý chỉ trích dẫn nội bộ; không thay cho văn bản pháp lý hay quyết định thanh toán của cơ quan BHXH.*');
 
   return {
     ok: true,

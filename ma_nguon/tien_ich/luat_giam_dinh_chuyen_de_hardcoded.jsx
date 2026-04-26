@@ -27,7 +27,7 @@
  */
 
 /** Đổi khi bắt đầu/ hoàn thành từng lô viết lại DIEU_KIEN XML130 (đồng bộ manifest). */
-export const CHUYEN_DE_XML130_CONVERSION_VERSION = '2026-04-19-chuyen-de-075-doppler-xml4-mo-ta';
+export const CHUYEN_DE_XML130_CONVERSION_VERSION = '2026-04-24-chuyen-de-653-654-hba1c-tt39-st38';
 
 /**
  * Điều kiện luôn sai trên hồ sơ có MA_LK — giữ chỗ khi chưa viết được biểu thức XML130/handler.
@@ -464,6 +464,33 @@ const CHUYEN_DE_XML130_CO_DV_KHAM_NOI_TIET =
 /** Thuốc gợi điều trị đái tháo đường (heuristic TEN_THUOC/TEN_HOAT_CHAT XML2 — Chuyen_de-023). */
 const CHUYEN_DE_XML130_CO_THUOC_GOI_DIEU_TRI_DTD =
   "(COUNT_IF(DS_XML2, item => { const t = UPPER(String(item.TEN_THUOC || '') + String(item.TEN_HOAT_CHAT || '')); return t.includes('METFORMIN') || t.includes('GLICLAZIDE') || t.includes('GLIBENCLAMIDE') || t.includes('GLIMEPIRIDE') || t.includes('SITAGLIPTIN') || t.includes('LINAGLIPTIN') || t.includes('SAXAGLIPTIN') || t.includes('EMPAGLIFLOZIN') || t.includes('DAPAGLIFLOZIN') || t.includes('CANAGLIFLOZIN') || t.includes('ACARBOSE') || t.includes('REPAGLINIDE') || t.includes('PIOGLITAZONE') || t.includes('ROSIGLITAZONE') || t.includes('LIRAGLUTIDE') || t.includes('SEMAGLUTIDE') || t.includes('DULAGLUTIDE') || t.includes('INSULIN'); }) > 0)";
+
+/** Mã thuốc điều trị ĐTĐ — Bảng 2 chuyên đề HbA1c / TT 39/2024/TT-BYT STT 38 danh mục 2 (MA_THUOC trên XML2). */
+const CHUYEN_DE_XML130_CO_THUOC_MA_CP_DTD_TT39_ST38_B2 =
+  "(COUNT_IF(DS_XML2, item => { const m = UPPER(String(item.MA_THUOC || '').trim()); return m === '40.30.771' || m === '40.30.772' || m === '40.30.775' || m === '40.30.777' || m === '40.30.785' || m === '40.30.786' || m === '40.30.787' || m === '40.30.791' || m === '40.30.793' || m === '40.30.795' || m === '40.798' || m === '40.799' || m === '40.800' || m === '40.801' || m === '40.802' || m === '40.803' || m === '40.804' || m === '40.30.805.1' || m === '40.805' || m === '40.30.805.2' || m === '40.806' || m === '40.807' || m === '40.808' || m === '40.809' || m === '40.810' || m === '40.811' || m === '40.812'; }) > 0)";
+
+/** ICD chẩn đoán ĐTĐ — Bảng 1 (E10–E14, O24): chính / kèm trên MA_BENH_CHINH, MA_BENH_KT, MA_BENH, MA_BENHKEM (XML1). */
+const CHUYEN_DE_XML130_XML1_ICD_CO_DTD_TT39_ST38_B1 =
+  '(XML1.MA_BENH_CHINH CONTAINS \'E10\' OR XML1.MA_BENH_CHINH CONTAINS \'E11\' OR XML1.MA_BENH_CHINH CONTAINS \'E12\' OR XML1.MA_BENH_CHINH CONTAINS \'E13\' OR XML1.MA_BENH_CHINH CONTAINS \'E14\' OR XML1.MA_BENH_CHINH CONTAINS \'O24\' OR XML1.MA_BENH_KT CONTAINS \'E10\' OR XML1.MA_BENH_KT CONTAINS \'E11\' OR XML1.MA_BENH_KT CONTAINS \'E12\' OR XML1.MA_BENH_KT CONTAINS \'E13\' OR XML1.MA_BENH_KT CONTAINS \'E14\' OR XML1.MA_BENH_KT CONTAINS \'O24\' OR XML1.MA_BENH CONTAINS \'E10\' OR XML1.MA_BENH CONTAINS \'E11\' OR XML1.MA_BENH CONTAINS \'E12\' OR XML1.MA_BENH CONTAINS \'E13\' OR XML1.MA_BENH CONTAINS \'E14\' OR XML1.MA_BENH CONTAINS \'O24\' OR XML1.MA_BENHKEM CONTAINS \'E10\' OR XML1.MA_BENHKEM CONTAINS \'E11\' OR XML1.MA_BENHKEM CONTAINS \'E12\' OR XML1.MA_BENHKEM CONTAINS \'E13\' OR XML1.MA_BENHKEM CONTAINS \'E14\' OR XML1.MA_BENHKEM CONTAINS \'O24\')';
+
+/** Dòng XML3 hiện tại là định lượng HbA1c (máu): mã BYT 23.0083.1523 + heuristic tên (STT 38 danh mục 2 TT 39/2024/TT-BYT). */
+const CHUYEN_DE_XML130_CURRENT_LA_DV_HBA1C_TT39_ST38 =
+  "((UPPER(CURRENT.MA_DICH_VU || CURRENT.MA_DV || '') == '23.0083.1523') OR (UPPER(CURRENT.TEN_DICH_VU || '') CONTAINS 'HBA1C') OR (UPPER(CURRENT.TEN_DICH_VU || '') CONTAINS 'HB A1C') OR (UPPER(CURRENT.TEN_DICH_VU || '') CONTAINS 'GLYCATED') OR (UPPER(CURRENT.TEN_DICH_VU || '') CONTAINS 'GLICOHEMOGLOBIN'))";
+
+/** XN HbA1c khi thiếu chỉ định ĐTĐ: không có ICD Bảng 1 trên mã bệnh chính/kèm và không có thuốc ĐTĐ (Bảng 2 + heuristic XML2). Không kiểm tra khoảng 90 ngày giữa các lần XN (Chuyen_de-653; khoảng cách xem Chuyen_de-654). */
+const CHUYEN_DE_XML130_VI_PHAM_HBA1C_KHONG_DTD_TT39_ST38 = `(${CHUYEN_DE_XML130_CURRENT_LA_DV_HBA1C_TT39_ST38}) && !(${CHUYEN_DE_XML130_XML1_ICD_CO_DTD_TT39_ST38_B1}) && !(${CHUYEN_DE_XML130_CO_THUOC_MA_CP_DTD_TT39_ST38_B2}) && !(${CHUYEN_DE_XML130_CO_THUOC_GOI_DIEU_TRI_DTD})`;
+
+/** Cùng hồ sơ có căn cứ ĐTĐ (Bảng 1 + Bảng 2 + heuristic XML2 — nguồn giống Chuyen_de-653). Dùng làm ngữ cảnh cho khoảng cách XN HbA1c (Chuyen_de-654). */
+const CHUYEN_DE_XML130_CO_DAU_HIEU_DTD_TREN_XML130_TT39_ST38 = `((${CHUYEN_DE_XML130_XML1_ICD_CO_DTD_TT39_ST38_B1}) || (${CHUYEN_DE_XML130_CO_THUOC_MA_CP_DTD_TT39_ST38_B2}) || (${CHUYEN_DE_XML130_CO_THUOC_GOI_DIEU_TRI_DTD}))`;
+
+/**
+ * Dòng XML3 hiện tại là HbA1c và tồn tại dòng HbA1c **trước** (ngày 8 ký tự nhỏ hơn, hoặc cùng ngày nhưng STT nhỏ hơn) sao cho chênh < 87 ngày (90−3) — đánh giá theo CURRENT để engine không lặp cảnh báo trên mọi dòng XML3.
+ */
+const CHUYEN_DE_XML130_CURRENT_HBA1C_CO_DOI_TAC_TRUOC_CACH_LT_87_NGAY_TT39_ST38 =
+  "((COUNT_IF(DS_XML3, item2 => { if (item2 === CURRENT) return false; const hba = (x) => { const m = UPPER(String(x.MA_DICH_VU || x.MA_DV || '').trim()); const u = UPPER(String(x.TEN_DICH_VU || '')); return m === '23.0083.1523' || u.includes('HBA1C') || u.includes('HB A1C') || u.includes('GLYCATED') || u.includes('GLICOHEMOGLOBIN'); }; if (!hba(item2)) return false; const d1 = String(item2.NGAY_YL || item2.NGAY_TH_YL || item2.NGAY_KQ || ''); const d2 = String(CURRENT.NGAY_YL || CURRENT.NGAY_TH_YL || CURRENT.NGAY_KQ || ''); if (LEN(d1) < 8 || LEN(d2) < 8) return false; const k1 = SUBSTR(d1, 1, 8); const k2 = SUBSTR(d2, 1, 8); const sauHonHoacCungNgaySauStt = TO_NUMBER(k2) > TO_NUMBER(k1) || (k1 === k2 && String(CURRENT.STT || '') > String(item2.STT || '')); if (!sauHonHoacCungNgaySauStt) return false; return DIFF_DAYS(k1, k2) < 87; }) > 0))";
+
+/** HbA1c: khoảng cách giữa các lần XN không đạt tối thiểu 90−3 ngày (TT 39/2024 STT 38) — tách khỏi quy tắc chỉ định Chuyen_de-653. */
+const CHUYEN_DE_XML130_VI_PHAM_HBA1C_KHOANG_CACH_DUOI_90_TRU_3_TT39_ST38 = `(${CHUYEN_DE_XML130_CO_DAU_HIEU_DTD_TREN_XML130_TT39_ST38}) && (${CHUYEN_DE_XML130_CURRENT_LA_DV_HBA1C_TT39_ST38}) && (${CHUYEN_DE_XML130_CURRENT_HBA1C_CO_DOI_TAC_TRUOC_CACH_LT_87_NGAY_TT39_ST38})`;
 
 /** XN men gan AST/ALT (heuristic tên XML3 — Chuyen_de-024). */
 const CHUYEN_DE_XML130_CO_DV_XN_MEN_GAN_AST_ALT =
@@ -2248,6 +2275,8 @@ const CACHE_RULES_HARDCODED = Object.freeze([
   { id: 'CHUYEN_DE-650', MA_LUAT: 'Chuyen_de_650', TEN_QUY_TAC: `Melanov-M / phối hợp làm sáng da không đúng chỉ định nám / tăng sắc tố (CV266 TH77)`, DIEU_KIEN: `${CHUYEN_DE_XML130_CO_THUOC_GOI_MELANOV_HOAC_LAM_SANG_DA_CV266_TH77} && !(${CHUYEN_DE_XML130_XML1_ICD_GOI_NAM_SAC_TO_CV266_TH77})`, CANH_BAO: `🚨 Cảnh báo xuất toán: Thanh toán Melanov-M / phối hợp tranexamic + vitamin C + glutathione (tiêm/truyền) ngoài chỉ định nám / rối loạn sắc tố da (L80/L81, sắc tố kết mạc H11 — heuristic; PL02 CV266 / TH77). (Heuristic XML130: có tên thuốc gợi Melanov hoặc phối hợp tranexamic+ascorbic/glutathione trên DS_XML2 nhưng không thấy ICD L80/L81/H11 trên XML1 — mục đích thẩm mỹ thuần túy có thể không thanh toán BHYT.)`, TRANG_THAI: 'ON' },
   { id: 'CHUYEN_DE-651', MA_LUAT: 'Chuyen_de_651', TEN_QUY_TAC: `Lysin + khoáng chất / vi chất không đúng chỉ định suy dinh dưỡng / hậu phẫu (CV266 TH84)`, DIEU_KIEN: `${CHUYEN_DE_XML130_CO_THUOC_GOI_LYSIN_KHOANG_CHAT_CV266_TH84} && !(${CHUYEN_DE_XML130_XML1_ICD_GOI_CHI_DINH_BO_SUNG_VI_CHAT_CV266_TH84})`, CANH_BAO: `🚨 Cảnh báo xuất toán: Thanh toán chế phẩm lysin kèm khoáng chất / đa vi chất ngoài chỉ định gợi ý (suy dinh dưỡng E40–E46, thiếu vi chất E55/E56/E63, hao mòn R53/R64, hậu phẫu Z54 — heuristic; PL02 CV266 / TH84). (Heuristic XML130: có lysine + khoáng/vi chất trên DS_XML2 nhưng không thấy ICD trên XML1 — đối chiếu chỉ số dinh dưỡng, cận lâm sàng.)`, TRANG_THAI: 'ON' },
   { id: 'CHUYEN_DE-652', MA_LUAT: 'Chuyen_de_652', TEN_QUY_TAC: `Magnesi hydroxyd kèm ICD hô hấp trên (J00–J06) nhưng không ICD kháng acid (CV266 TH60)`, DIEU_KIEN: `${CHUYEN_DE_XML130_VI_PHAM_MAGNE_HO_HAP_KHONG_ICD_KHANG_ACID_CV266_TH60}`, CANH_BAO: `🚨 Cảnh báo xuất toán: Thanh toán magnesi hydroxyd / kháng acid dạng magnesi khi hồ sơ ghi ICD nhóm viêm đường hô hấp trên (J00–J06) nhưng không thấy ICD gợi chỉ định kháng acid (K21/K25–K29/R10 — heuristic) — dễ gợi lạm dụng «kê kèm cảm cúm» ngoài chỉ định tiêu hóa; PL02 CV266 / TH60 (nhánh 2). Loại trừ N18/N19 (Chuyen_de_645). (Heuristic XML130: có Maalox/Milanta/magnesium hydroxide… trên DS_XML2; ICD chính/kèm J00–J06; không K21/K25–K29/R10 trên XML1 — đối chiếu triệu chứng dạ dày, nội soi.)`, TRANG_THAI: 'ON' },
+  { id: 'CHUYEN_DE-653', MA_LUAT: 'Chuyen_de_653', TEN_QUY_TAC: `HbA1c (máu): thiếu chỉ định ĐTĐ — chỉ bắt ICD/thuốc, không bắt khoảng 90 ngày (TT 39/2024 STT 38)`, DIEU_KIEN: `${CHUYEN_DE_XML130_VI_PHAM_HBA1C_KHONG_DTD_TT39_ST38}`, CANH_BAO: `🚨 Cảnh báo xuất toán: Định lượng HbA1c (máu) — TT 39/2024/TT-BYT (STT 38 danh mục 2, sửa bổ sung TT 35/2016/TT-BYT). Quy tắc này chỉ kiểm tra chỉ định trên XML130 (ICD/thuốc), không kiểm tra khoảng cách 90±3 ngày — quy tắc độc lập Chuyen_de_654 (CHUYEN_DE-654). Phải có ít nhất một trong hai: (1) mã bệnh ĐTĐ E10–E14 hoặc O24 trong MA_BENH_CHINH / MA_BENH_KT / MA_BENH / MA_BENHKEM; (2) bằng chứng điều trị ĐTĐ — MA_THUOC theo Bảng 2 chuyên đề hoặc hoạt chất gợi ĐTĐ trên XML2 (heuristic giống Chuyen_de-023). Nếu không có cả hai → nguy cơ không đủ căn cứ thanh toán theo hướng chỉ định.`, TRANG_THAI: 'ON' },
+  { id: 'CHUYEN_DE-654', MA_LUAT: 'Chuyen_de_654', TEN_QUY_TAC: `HbA1c (máu): 2 lần XN trong cùng hồ sơ cách nhau dưới 90−3 ngày (TT 39/2024 STT 38)`, DIEU_KIEN: `${CHUYEN_DE_XML130_VI_PHAM_HBA1C_KHOANG_CACH_DUOI_90_TRU_3_TT39_ST38}`, CANH_BAO: `🚨 Cảnh báo xuất toán: Định lượng HbA1c (máu) — khoảng cách tối thiểu giữa các lần XN theo hướng dẫn TT 39/2024/TT-BYT (STT 38 danh mục 2): heuristic coi vi phạm khi trên cùng XML130 có ≥2 dòng gợi HbA1c (mã 23.0083.1523 hoặc tên HbA1c/glycated hemoglobin) và chênh ngày (NGAY_YL / NGAY_TH_YL / NGAY_KQ, 8 ký tự đầu) nhỏ hơn 87 ngày (90−3), kể cả trùng ngày. Chỉ áp khi hồ sơ đã có căn cứ ĐTĐ (ICD Bảng 1 hoặc thuốc Bảng 2 / heuristic XML2 như Chuyen_de-653). Quy tắc tách biệt Chuyen_de_653 (chỉ định). Không đối chiếu XN các đợt khác ngoài payload hiện tại.`, TRANG_THAI: 'ON' },
 ]);
 
 export const layDanhSachLuatGiamDinhChuyenDeHardcoded = () => CACHE_RULES_HARDCODED.map((row) => ({ ...row }));

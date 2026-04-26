@@ -30,4 +30,24 @@ const toRuleRow = (row, index) => {
 
 const CACHE_RULES_HARDCODED = (Array.isArray(DU_LIEU_SEED_LUAT_THUOC_MUC8) ? DU_LIEU_SEED_LUAT_THUOC_MUC8 : []).map(toRuleRow);
 
-export const layDanhSachLuatThuocHardcoded = () => CACHE_RULES_HARDCODED.map((row) => ({ ...row }));
+/** Quy tắc chung theo thẻ ICD_DRUG_CONTRA (Mapping nghiệp vụ); mặc định OFF — bật sau khi BV đã nhập mapping. */
+const LUAT_ICD_DRUG_CONTRA_BO_SUNG = [
+  {
+    TRANG_THAI: 'ON',
+    MA_LUAT: 'THUOC_ICD_CONTRA_MAPPING',
+    TEN_QUY_TAC: '[Chung] ICD-10 chống chỉ định (thẻ ICD_DRUG_CONTRA)',
+    DIEU_KIEN:
+      "CO_THUOC_TRONG_DM_BV(XML2.MA_THUOC) AND CO_ICD_VI_PHAM_CHONG_CHI_DINH_THUOC(XML2.MA_THUOC, XML2.TEN_THUOC, (XML2.MA_HOAT_CHAT || XML2.TEN_HOAT_CHAT || ''))",
+    CANH_BAO:
+      '🚫 [CHỐNG CHỈ ĐỊNH]: Hồ sơ có mã ICD (XML1 chính/kèm) thuộc nhóm chống chỉ định với thuốc đang kê — đối chiếu mã/tên/hoạt chất XML2 với mapping ICD_DRUG_CONTRA (Quản lý → Mapping nghiệp vụ / seed BV).',
+    GHI_CHU: 'DSL: CO_ICD_VI_PHAM_CHONG_CHI_DINH_THUOC(ma, tenThuoc, hoatChat); seed seed_icd_drug_contra_bhyt.json.',
+    NGUON_DU_LIEU: 'engine_ICD_DRUG_CONTRA',
+  },
+];
+
+export const layDanhSachLuatThuocHardcoded = () => {
+  const base = CACHE_RULES_HARDCODED.map((row) => ({ ...row }));
+  const n0 = CACHE_RULES_HARDCODED.length;
+  const extra = LUAT_ICD_DRUG_CONTRA_BO_SUNG.map((row, i) => toRuleRow(row, n0 + i));
+  return [...base, ...extra];
+};

@@ -1,8 +1,10 @@
 /**
  * Module Mapping Danh mục — theo Đặc tả kỹ thuật v1.0:
- * bảng catalog_mapping (client), mapping_type_config, lọc + danh sách + thêm/sửa + xuất Excel.
+ * bảng catalog_mapping (client), mapping_type_config, lọc + danh sách + thêm/sửa + xuất/nhập Excel.
  */
 
+import * as DocumentPicker from 'expo-document-picker';
+import * as FileSystem from 'expo-file-system';
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import {
   ActivityIndicator,
@@ -35,6 +37,7 @@ import {
   layKhoaBackupCatalogMapping,
   taiTatCaCatalogMappingTuFirebase,
 } from '../tien_ich/catalog_mapping_firebase';
+import { workbookToJsonRows, sheetJsonToMappingRows } from '../tien_ich/catalog_mapping_excel_import';
 import {
   luuTatCaBanGhiMapping,
   mappingCoHieuLucTaiNgay,
@@ -61,6 +64,8 @@ const BO_LOC_TRANG_THAI = [
   { value: 'inactive', label: 'Đã vô hiệu' },
 ];
 
+const ID_INPUT_IMPORT_MAPPING = 'import-excel-catalog-mapping-input';
+
 const MappingNghiepVu = ({ navigation }) => {
   const { width: winW } = useWindowDimensions();
   const [hang, setHang] = useState([]);
@@ -77,6 +82,7 @@ const MappingNghiepVu = ({ navigation }) => {
   const [banGhiSua, setBanGhiSua] = useState(null);
   const [dangDongBoFirebase, setDangDongBoFirebase] = useState(false);
   const [dangTaiFirebase, setDangTaiFirebase] = useState(false);
+  const [dangNhapExcel, setDangNhapExcel] = useState(false);
 
   const coDuBangTrongStateChoLoai = (br, loai) => {
     const cfg = layCauHinhLoaiMapping(loai);
@@ -382,6 +388,105 @@ const MappingNghiepVu = ({ navigation }) => {
   /** Độ rộng tối thiểu bảng theo vùng phải (sau sidebar). */
   const rongBangToiThieu = Math.max(960, (winW || 800) - rongSidebarMapping - 52);
 
+  const xuLyNhapMappingTuJson = useCallback(
+    async (jsonRows) => {
+      const { rows: parsed, errors: parseErrs } = sheetJsonToMappingRows(jsonRows);
+      const valErrs = [];
+      const okRows = [];
+      for (const row of parsed) {
+        const combined = [...hang, ...okRows, row];
+        const v = validateMappingMoi({ rows: combined, rowMoi: row, boQuaId: row.id, bangTheoRef });
+        if (!v.ok) {
+          valErrs.push(`[${row.mapping_type}] ${v.message || 'Lỗi validation'}`);
+        } else {
+          okRows.push(row);
+        }
+      }
+      if (okRows.length === 0) {
+        const parts = [
+          ...parseErrs.map((e) => `Dòng ${e.line}: ${e.message}`),
+          ...valErrs,
+        ].slice(0, 14);
+        Alert.alert('Import Excel', `Không có dòng hợp lệ.\n\n${parts.join('\n')}`);
+        return;
+      }
+      try {
+        await taoBanSaoDuLieuHeThong({
+          reason: 'AUTO_BEFORE_IMPORT_CATALOG_MAPPING_EXCEL',
+          includeKeys: layKhoaBackupCatalogMapping(),
+        });
+      } catch (be) {
+        console.warn('Backup trước import mapping:', be);
+      }
+      const next = [...hang, ...okRows];
+      await luuTatCaBanGhiMapping(next);
+      invalidateBangCatalogMappingCache();
+      setHang(next);
+      const tail = [
+        ...parseErrs.map((e) => `Dòng ${e.line}: ${e.message}`),
+        ...valErrs,
+      ].slice(0, 10);
+      const msg =
+        `Đã thêm ${okRows.length} bản ghi.` +
+        (parseErrs.length || valErrs.length
+          ? ` Bỏ qua ${parseErrs.length} lỗi đọc dòng + ${valErrs.length} lỗi kiểm tra danh mục/trùng.`
+          : '');
+      Alert.alert('Import Excel', tail.length ? `${msg}\n\n${tail.join('\n')}` : msg);
+    },
+    [hang, bangTheoRef],
+  );
+
+  const handleImportExcelWeb = (e) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = async (evt) => {
+      try {
+        setDangNhapExcel(true);
+        const bstr = evt.target.result;
+        const wb = XLSX.read(bstr, { type: 'binary' });
+        const json = workbookToJsonRows(wb);
+        await xuLyNhapMappingTuJson(json);
+      } catch (err) {
+        Alert.alert('Import Excel', err?.message || String(err));
+      } finally {
+        setDangNhapExcel(false);
+        e.target.value = '';
+      }
+    };
+    reader.readAsBinaryString(file);
+  };
+
+  const moChonFileImportExcel = () => {
+    if (Platform.OS === 'web' && typeof document !== 'undefined') {
+      document.getElementById(ID_INPUT_IMPORT_MAPPING)?.click?.();
+      return;
+    }
+    void (async () => {
+      try {
+        setDangNhapExcel(true);
+        const result = await DocumentPicker.getDocumentAsync({
+          type: [
+            'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+            'application/vnd.ms-excel',
+          ],
+          copyToCacheDirectory: true,
+          multiple: false,
+        });
+        if (result.canceled || !result.assets?.[0]) return;
+        const asset = result.assets[0];
+        const b64 = await FileSystem.readAsStringAsync(asset.uri, { encoding: 'base64' });
+        const wb = XLSX.read(b64, { type: 'base64' });
+        const json = workbookToJsonRows(wb);
+        await xuLyNhapMappingTuJson(json);
+      } catch (err) {
+        Alert.alert('Import Excel', err?.message || String(err));
+      } finally {
+        setDangNhapExcel(false);
+      }
+    })();
+  };
+
   const xuatExcel = () => {
     if (hangLoc.length === 0) {
       Alert.alert('Thông báo', 'Không có dòng để xuất.');
@@ -663,8 +768,8 @@ const MappingNghiepVu = ({ navigation }) => {
 
         <View style={styles.khoi_noi_dung_phai}>
           <Text style={styles.moTa} numberOfLines={2}>
-            <Text style={styles.inDam}>catalog_mapping</Text> (M:N). <Text style={styles.inDam}>Lọc loại / trạng thái</Text> và{' '}
-            <Text style={styles.inDam}>Firebase</Text> ở cột trái; thêm dòng từ mục «Thêm mapping».
+            <Text style={styles.inDam}>catalog_mapping</Text> (M:N). <Text style={styles.inDam}>Nhập Excel</Text> cùng cột với xuất (sheet «mapping» nếu có).{' '}
+            <Text style={styles.inDam}>Lọc / Firebase</Text> bên trái; thêm từ «Thêm mapping».
           </Text>
 
           <View style={styles.khoi_loc}>
@@ -699,6 +804,26 @@ const MappingNghiepVu = ({ navigation }) => {
             style={styles.hang_hanh_dong_cuon}
             contentContainerStyle={styles.hang_hanh_dong_cuon_content}
           >
+            {Platform.OS === 'web' ? (
+              <input
+                id={ID_INPUT_IMPORT_MAPPING}
+                type="file"
+                accept=".xlsx,.xls"
+                style={{ display: 'none' }}
+                onChange={handleImportExcelWeb}
+              />
+            ) : null}
+            <TouchableOpacity
+              style={[styles.nut_phu2, dangNhapExcel && styles.nut_tac]}
+              onPress={moChonFileImportExcel}
+              disabled={dangNhapExcel || !taiXong}
+            >
+              {dangNhapExcel ? (
+                <ActivityIndicator color={CD.text.primary} size="small" />
+              ) : (
+                <Text style={styles.chu_nut_phu}>📤 NHẬP EXCEL</Text>
+              )}
+            </TouchableOpacity>
             <TouchableOpacity style={styles.nut_phu2} onPress={xuatExcel}>
               <Text style={styles.chu_nut_phu}>📥 XUẤT EXCEL</Text>
             </TouchableOpacity>

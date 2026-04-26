@@ -56,10 +56,7 @@ import {
 } from '../tien_ich/thong_ke_loi_dung_chung';
 
 // [CẬP NHẬT LÕI]: Thống nhất dùng kho_du_lieu để đồng bộ với man_hinh_kho_luu_tru
-import {
-  gomTrungLapCanhBaoTheoMaLuatVaNoiDung,
-  xoaCacheBoMayGiamDinh,
-} from '../tien_ich/dong_co_giam_dinh';
+import { gomTrungLapCanhBaoTheoMaLuatVaNoiDung, xoaCacheBoMayGiamDinh } from '../tien_ich/dong_co_giam_dinh';
 import {
   layDanhSachMaLKTuKho,
   layTatCaHoSoTuKho,
@@ -67,7 +64,7 @@ import {
   phanTichKhoangCachDieuTri,
   xoaToanBoKho,
 } from '../tien_ich/kho_du_lieu';
-import { xuatHoSoThanhXML130 } from '../tien_ich/xml_helper';
+import { chuanHoaGiaTriTheoTruong, xuatHoSoThanhXML130 } from '../tien_ich/xml_helper';
 import NhapFileXML, {
   chuyenKetQuaFileSangMangHoSoKho,
   taiNguonPhuThuocNhapXml,
@@ -331,7 +328,7 @@ const parseXMLToJSON = (xmlString) => {
       const record = {};
       let matchField;
       while ((matchField = leafRegex.exec(cleanXML)) !== null) {
-        record[matchField[1]] = matchField[2].trim();
+        record[matchField[1]] = chuanHoaGiaTriTheoTruong(matchField[1], matchField[2]);
       }
       if (Object.keys(record).length > 0) result.XML1.push(record);
     } else {
@@ -342,7 +339,7 @@ const parseXMLToJSON = (xmlString) => {
         const record = {};
         let matchField;
         while ((matchField = leafRegex.exec(blockContent)) !== null) {
-          record[matchField[1]] = matchField[2].trim();
+          record[matchField[1]] = chuanHoaGiaTriTheoTruong(matchField[1], matchField[2]);
         }
         if (Object.keys(record).length > 0) result[loaiXML].push(record);
       }
@@ -392,7 +389,7 @@ const ManHinhTongQuan = ({ navigation }) => {
     baseUrl: '',
     lanThu: 0,
   });
-  /** Chỉ Web: nhật ký từng file khi chạy giám định tự động cả thư mục (không dùng alert). */
+  /** Chỉ Web: nhật ký từng file/hồ sơ khi giám định tự động cả thư mục (mỗi hồ sơ xong engine + lưu kho thì ghi một dòng; không dùng alert). */
   const [logGiamDinhTuDongThuMuc, setLogGiamDinhTuDongThuMuc] = useState([]);
   /** Thu gọn thẻ nạp XML: mô tả dài + giám định cả thư mục (chủ yếu web) */
   const [importCardMoChiTietKt, setImportCardMoChiTietKt] = useState(false);
@@ -749,15 +746,15 @@ const ManHinhTongQuan = ({ navigation }) => {
       if (!tuyChon.boQuaThongBaoCuoi) {
         alert('Không có hồ sơ hợp lệ để giám định.');
       }
-      return;
+      return false;
     }
 
-    await tienHanhGiamDinh(danhSachHopLe, { soHoSoGhiDe, boQuaThongBaoCuoi: tuyChon.boQuaThongBaoCuoi });
+    return tienHanhGiamDinh(danhSachHopLe, { soHoSoGhiDe, boQuaThongBaoCuoi: tuyChon.boQuaThongBaoCuoi });
   };
 
   /**
-   * Web: chọn cả thư mục → xử lý tuần tự từng file .xml → giám định + lưu kho giống nút "Chuyển dữ liệu",
-   * không hiện alert từng bước; kết quả ghi vào log trên màn hình. Luồng "Chọn XML" thông thường không đổi.
+   * Web: chọn cả thư mục → xử lý tuần tự từng file .xml → mỗi hồ sơ: giám định + lưu kho (một lần engine/hồ sơ)
+   * giống nút "Chuyển dữ liệu"; không alert từng bước, nhật ký ghi ngay sau từng hồ sơ. Luồng "Chọn XML" đơn lẻ không đổi.
    */
   const chayGiamDinhTuDongTrenThuMuc = () => {
     if (Platform.OS !== 'web' || typeof document === 'undefined') return;
@@ -776,11 +773,11 @@ const ManHinhTongQuan = ({ navigation }) => {
         return;
       }
 
-      setLogGiamDinhTuDongThuMuc([`${new Date().toLocaleTimeString('vi-VN')}: Bắt đầu ${dsFile.length} file XML (thư mục).`]);
+      setLogGiamDinhTuDongThuMuc([`${new Date().toLocaleTimeString('vi-VN')}: Bắt đầu ${dsFile.length} file XML (thư mục) — giám định lần lượt từng hồ sơ (xong hồ sơ nào báo hồ sơ đó).`]);
 
       let { lichSuGiamDinh, danhSachMaLKDaCo } = await taiNguonPhuThuocNhapXml();
       const tong = dsFile.length;
-      let soLuuDuoc = 0;
+      let soThanhCong = 0;
       let soLoi = 0;
 
       for (let i = 0; i < dsFile.length; i += 1) {
@@ -800,39 +797,74 @@ const ManHinhTongQuan = ({ navigation }) => {
         }
 
         const maStr = String(hoSoGui[0]?.ma_lk || ketQua.ma_lk || '—');
-        await nhanDienHoSoTuFile(hoSoGui, { boQuaThongBaoCuoi: true });
-        soLuuDuoc += 1;
         const maNorm = String(maStr || '').trim().toUpperCase();
         if (maNorm && !danhSachMaLKDaCo.includes(maNorm)) {
           danhSachMaLKDaCo = [...danhSachMaLKDaCo, maNorm];
         }
 
         const engineNhan = cheDoGiamDinh === CHE_DO_GIAM_DINH.PYTHON ? 'Python' : 'JS';
-        setLogGiamDinhTuDongThuMuc((prev) => [
-          ...prev,
-          `✓ [${i + 1}/${tong}] ${file.name} → MA_LK ${maStr} · ${soLoiSoBo} cảnh báo (quét sơ bộ) · đã lưu kho (${engineNhan})`,
-        ]);
+        const daLuu = await nhanDienHoSoTuFile(hoSoGui, { boQuaThongBaoCuoi: true });
+        if (daLuu) {
+          soThanhCong += 1;
+          setLogGiamDinhTuDongThuMuc((prev) => [
+            ...prev,
+            `✓ [${i + 1}/${tong}] ${file.name} → MA_LK ${maStr} · ${soLoiSoBo} cảnh báo (quét sơ bộ) · đã giám định & lưu kho (${engineNhan}).`,
+          ]);
+        } else {
+          soLoi += 1;
+          setLogGiamDinhTuDongThuMuc((prev) => [
+            ...prev,
+            `✖ [${i + 1}/${tong}] ${file.name} → MA_LK ${maStr} · lỗi giám định hoặc không lưu được kho (${engineNhan}).`,
+          ]);
+        }
+
+        const refreshed = await taiNguonPhuThuocNhapXml();
+        lichSuGiamDinh = refreshed.lichSuGiamDinh;
+        danhSachMaLKDaCo = refreshed.danhSachMaLKDaCo;
       }
 
       setLogGiamDinhTuDongThuMuc((prev) => [
         ...prev,
-        `— Hoàn tất: ${soLuuDuoc} hồ sơ đã lưu, ${soLoi} file bỏ qua/lỗi / ${tong} file XML.`,
+        `— Hoàn tất: ${soThanhCong} hồ sơ đã giám định & lưu kho, ${soLoi} file/hồ sơ lỗi / ${tong} file XML.`,
       ]);
       if (ev.target) ev.target.value = '';
     };
     input.click();
   };
 
+  /** Cập nhật dashboard sau lưu kho — merge theo MA_LK, tránh đọc lại toàn bộ kho + RBAC (nhanh hơn cho 1 hồ sơ / lô nhỏ). */
+  const capNhatBangSauLuuKho = (danhSachLuuKho) => {
+    if (!Array.isArray(danhSachLuuKho) || danhSachLuuKho.length === 0) return;
+    setRawDanhSach((prev) => {
+      const map = new Map();
+      (prev || []).forEach((h) => {
+        const k = chuanHoaMaLK(h?.ma_lk || h?.xml1?.MA_LK || h?.XML1?.MA_LK);
+        if (k) map.set(k, h);
+      });
+      danhSachLuuKho.forEach((h) => {
+        const k = chuanHoaMaLK(h?.ma_lk || h?.xml1?.MA_LK || h?.XML1?.MA_LK);
+        if (k) map.set(k, h);
+      });
+      const next = [...map.values()];
+      tinhToanDashboard(next);
+      return next;
+    });
+  };
+
   const tienHanhGiamDinh = async (danhSachTienHanh, thongTinThem = {}) => {
     setDangTai(true);
-    setThongBaoDangTai('Đang chuẩn bị giám định nhiều hồ sơ...');
+    const n = (danhSachTienHanh || []).length;
+    setThongBaoDangTai(n > 1 ? `Đang chuẩn bị giám định ${n} hồ sơ...` : 'Đang giám định hồ sơ...');
     await choUICapNhat();
-    
+
+    let giamDinhLuuThanhCong = false;
     try {
-      try {
-        xoaCacheBoMayGiamDinh();
-      } catch (_e) {
-        /* cache rule engine — best-effort */
+      if (thongTinThem?.lamMoiCacheLuat) {
+        try {
+          xoaCacheBoMayGiamDinh();
+        } catch (_e) {
+          /* best-effort */
+        }
       }
 
       const danhSachDaCoKetQua = danhSachTienHanh.map((hoSo) => {
@@ -846,10 +878,10 @@ const ManHinhTongQuan = ({ navigation }) => {
         choUICapNhat,
         pythonSource: 'dashboard_tong_quan',
         onProgress: async ({ completed, total }) => {
-          setThongBaoDangTai(`Engine JS V15: ${completed}/${total}...`);
-          if (completed % 2 === 0 || completed === total) {
-            await choUICapNhat();
-          }
+          setThongBaoDangTai(total > 1 ? `Giám định: ${completed}/${total}…` : 'Đang chạy engine…');
+          const xong = completed === total;
+          const nhe = total > 6 ? completed % 3 === 0 : completed % 2 === 0;
+          if (xong || nhe) await choUICapNhat();
         },
       });
       const danhSachLuuKho = ketQuaHybrid.danhSachLuuKho;
@@ -859,8 +891,9 @@ const ManHinhTongQuan = ({ navigation }) => {
       // [CẬP NHẬT LÕI MẠNH MẼ NHẤT]: Gửi thẳng danh sách đã giám định vào hàm luuHoSoVaoKho chuẩn
       const ketQuaLuu = await luuHoSoVaoKho(danhSachLuuKho);
       if (ketQuaLuu) {
+        giamDinhLuuThanhCong = true;
         const soHoSoGhiDe = Number(thongTinThem?.soHoSoGhiDe) || 0;
-        fetchThongTinHeThong();
+        capNhatBangSauLuuKho(danhSachLuuKho);
         let msg = daFallbackTuPythonSangJs
           ? `Đã giám định ${danhSachLuuKho.length} hồ sơ: lớp Python không sẵn sàng hoặc lỗi (chế độ yêu cầu Python) — lưu kết quả engine JS (V15) cho đợt này.`
           : daHopNhatPythonVaJs
@@ -899,6 +932,7 @@ const ManHinhTongQuan = ({ navigation }) => {
       }
 
     } catch (err) {
+      giamDinhLuuThanhCong = false;
       if (!thongTinThem?.boQuaThongBaoCuoi) {
         const msg = err && typeof err.message === 'string' && err.message.trim() ? err.message.trim() : '';
         alert(msg ? `Lỗi xử lý giám định: ${msg}` : 'Lỗi xử lý giám định.');
@@ -908,6 +942,7 @@ const ManHinhTongQuan = ({ navigation }) => {
       setDangTai(false);
       setThongBaoDangTai('Đang giám định hồ sơ...');
     }
+    return giamDinhLuuThanhCong;
   };
 
   const handleResetKho = async () => {
@@ -1909,7 +1944,9 @@ ${phanDongKhoi.join('\n')}
                     <Text style={styles.tri_thuc_modal_close_txt}>✕</Text>
                   </TouchableOpacity>
                 </View>
-                <Text style={styles.tri_thuc_modal_sub}>Chọn chức năng — trích dẫn nội bộ, không tra web.</Text>
+                <Text style={styles.tri_thuc_modal_sub}>
+                  Trích từ Thư viện, Chuyên môn, Danh mục nội bộ, Quy tắc luật — nội bộ, không tra web.
+                </Text>
                 {menuTriThucPopup.map((item) => {
                   const cfg = MODULE_ICONS[item.id] || { icon: '📦', mau: '#607D8B', mauNhat: '#ECEFF1' };
                   const label =
@@ -1936,10 +1973,10 @@ ${phanDongKhoi.join('\n')}
                       </View>
                       <View style={{ flex: 1 }}>
                         <Text style={styles.tri_thuc_modal_row_title}>{label}</Text>
-                        <Text style={styles.tri_thuc_modal_row_hint} numberOfLines={2}>
+                        <Text style={styles.tri_thuc_modal_row_hint} numberOfLines={3}>
                           {item.id === 'MOD_TRO_LY_TRI_THUC'
-                            ? 'Cửa sổ chat — thư viện, phác đồ chuyên môn, tri thức đã lưu'
-                            : 'Bài học và xác nhận cảnh báo từ ca giám định (màn hình riêng)'}
+                            ? 'Chat RAG: Thư viện, chuyên môn, danh mục nội bộ, quy tắc luật + tri thức đã lưu'
+                            : 'Bài học và xác nhận đúng/sai cảnh báo từ ca giám định (màn riêng)'}
                         </Text>
                       </View>
                       <Text style={styles.tri_thuc_modal_row_chev}>→</Text>
@@ -2371,6 +2408,7 @@ const styles = StyleSheet.create({
     marginBottom: 14,
     lineHeight: 20,
     fontFamily: CD.font.family,
+    maxWidth: '100%',
   },
   tri_thuc_modal_row: {
     flexDirection: 'row',
@@ -2405,6 +2443,7 @@ const styles = StyleSheet.create({
     marginTop: 4,
     fontFamily: CD.font.family,
     lineHeight: 17,
+    flexShrink: 1,
   },
   tri_thuc_modal_row_chev: { fontSize: 18, color: '#94A3B8', fontWeight: '700' },
 

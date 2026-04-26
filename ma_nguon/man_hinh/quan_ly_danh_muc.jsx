@@ -892,7 +892,19 @@ const ManHinhQuanLyDanhMuc = ({ navigation, route }) => {
         const bstr = evt.target.result;
         const wb = XLSX.read(bstr, { type: 'binary' });
         const ws = wb.Sheets[wb.SheetNames[0]];
-        const importedData = XLSX.utils.sheet_to_json(ws, { defval: '' });
+        const importedData = XLSX.utils.sheet_to_json(ws, { defval: '', raw: false }).map((row) => {
+          if (!row || typeof row !== 'object') return row;
+          const next = { ...row };
+          Object.keys(next).forEach((k) => {
+            const ku = String(k).trim().toUpperCase().replace(/\s+/g, '_');
+            if (ku === 'SO_CCCD' || ku === 'SO_DINH_DANH' || ku === 'CCCD') {
+              const raw = next[k];
+              const ch = String(raw ?? '').trim().replace(/\s+/g, '');
+              next[k] = ch;
+            }
+          });
+          return next;
+        });
         const mergedCols = [...new Set([...columnsRef.current, ...Object.keys(importedData[0] || {})])];
         await xuLySauKhiNhapBang(importedData, mergedCols);
       } catch (err) {
