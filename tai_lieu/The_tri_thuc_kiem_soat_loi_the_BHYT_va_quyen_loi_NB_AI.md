@@ -1,9 +1,9 @@
-# THẺ TRI THỨC: KIỂM SOÁT LỖI THẺ BHYT VÀ QUYỀN LỢI NGƯỜI BỆNH — CHO AI GIÁM ĐỊNH
+# THẺ TRI THỨC: KIỂM SOÁT LỖI THẺ BHYT VÀ QUYỀN LỢI NGƯỜI BỆNH — CHO AI KIỂM TRA
 
 Phiên bản: 1.0  
 Ngày: 10/04/2026  
 
-**Khung tổng (4 tầng kiểm tra + quy trình giám định):** [Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md](./Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md).
+**Khung tổng (4 tầng kiểm tra + quy trình kiểm tra):** [Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md](./Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md).
 
 ## 1. Mục đích
 
@@ -20,7 +20,7 @@ Tài liệu nền dài hơn: [The_tri_thuc_mau_hanh_chinh_BHYT.md](./The_tri_thu
 
 ## 2. Định nghĩa làm việc (cho AI)
 
-| Thuật ngữ | Ý nghĩa trong CDSS / giám định |
+| Thuật ngữ | Ý nghĩa trong CDSS / kiểm tra |
 |-----------|----------------------------------|
 | **Thẻ BHYT** | Chuỗi mã trên thẻ — trường **`MA_THE_BHYT`** (XML1); kèm **`GT_THE_TU`**, **`GT_THE_DEN`** (hạn hiệu lực). |
 | **Hết hạn thẻ** | So sánh **ngày vào / ngày khám** với **`GT_THE_DEN`** — logic ví dụ trong `luat_hanh_chinh.jsx` (cảnh báo Critical nếu vào sau hạn). |

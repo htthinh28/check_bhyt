@@ -1,4 +1,4 @@
-# Bài tập phát triển kỹ năng giám định cho AI
+# Bài tập phát triển kỹ năng kiểm tra cho AI
 
 **Phiên bản:** 1.4  
 **Ngày:** 09/04/2026  
@@ -119,7 +119,7 @@
 
 ## Bài 11 — `XML1.T_VTYT` trong **dự án này** ≠ “chỉ tiền vật tư”
 
-**Tình huống:** Giám định viên thấy cảnh báo gắn `truong_loi: T_VTYT` / `CLN-CHI-02` và hỏi AI: “Có phải hồ sơ sai **vật tư**?”
+**Tình huống:** Kiểm tra viên thấy cảnh báo gắn `truong_loi: T_VTYT` / `CLN-CHI-02` và hỏi AI: “Có phải hồ sơ sai **vật tư**?”
 
 **Yêu cầu:** Giải thích theo [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) §**3**: trong `dong_co_giam_dinh.jsx`, `T_VTYT` XML1 đối chiếu với **tổng tiền XML3** theo quy ước dự án — **không** tự suy ra chỉ các dòng `MA_VAT_TU`.
 
@@ -131,7 +131,7 @@
 
 **Tình huống:** Người dùng đưa một `MA_VAT_TU` (hoặc tên vật tư) và yêu cầu AI **chốt %** và **điều kiện** theo VBHN 14.
 
-**Yêu cầu:** AI phải nêu rõ: (1) **Trong repo hiện tại không có** bộ seed giám định **`DM-VTYT-*`** — không thể “tra engine” như DVKT/thuốc; (2) để trả lời đúng nghiệp vụ cần **Phụ lục / bảng điều kiện** tại thời điểm hồ sơ hoặc tài liệu BYT ngoài phiên; (3) **không** bịa cột điều kiện hay %.
+**Yêu cầu:** AI phải nêu rõ: (1) **Trong repo hiện tại không có** bộ seed kiểm tra **`DM-VTYT-*`** — không thể “tra engine” như DVKT/thuốc; (2) để trả lời đúng nghiệp vụ cần **Phụ lục / bảng điều kiện** tại thời điểm hồ sơ hoặc tài liệu BYT ngoài phiên; (3) **không** bịa cột điều kiện hay %.
 
 **Gợi ý:** [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) §**0**; [Huan_luyen_phien_VTYT_du_phong_Cursor.md](./Huan_luyen_phien_VTYT_du_phong_Cursor.md) §**4.2** (khi sau này có CSDL).
 

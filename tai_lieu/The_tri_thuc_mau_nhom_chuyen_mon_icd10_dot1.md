@@ -11,7 +11,7 @@ Ngày cập nhật: 06/04/2026
 - `XML1.MA_BENH_KT`
 - mô tả chẩn đoán vào/ra viện
 
-Mục tiêu là để AI không chỉ đọc rule đơn lẻ, mà biết phân nhóm hồ sơ theo chuyên môn trước khi kết luận giám định.
+Mục tiêu là để AI không chỉ đọc rule đơn lẻ, mà biết phân nhóm hồ sơ theo chuyên môn trước khi kết luận kiểm tra.
 
 ## 2. Nguồn tri thức
 
@@ -51,7 +51,7 @@ AI phải làm theo thứ tự:
 
 ---
 
-## Thẻ ICD-CM2. MA_BENH_KT là lớp điều chỉnh quyết định giám định
+## Thẻ ICD-CM2. MA_BENH_KT là lớp điều chỉnh quyết định kiểm tra
 
 ### 1. Mệnh đề cốt lõi
 
@@ -76,7 +76,7 @@ AI phải làm theo thứ tự:
 
 ### 1. Mệnh đề cốt lõi
 
-- Khi giám định chuyên môn, thứ tự bằng chứng là:
+- Khi kiểm tra chuyên môn, thứ tự bằng chứng là:
   1) ICD10 có cấu trúc (`MA_BENH_CHINH`, `MA_BENH_KT`)  
   2) mô tả text (`CHAN_DOAN_VAO`, `CHAN_DOAN_RV`)
 
@@ -112,7 +112,7 @@ AI phải làm theo thứ tự:
 
 ### 1. Mệnh đề cốt lõi
 
-- Kết luận giám định theo ICD10 nên đi theo ma trận:
+- Kết luận kiểm tra theo ICD10 nên đi theo ma trận:
   - **Khớp chỉ định + không có chống chỉ định** -> ưu tiên thanh toán
   - **Không khớp chỉ định** -> nguy cơ xuất toán
   - **Khớp chỉ định nhưng có ICD chống chỉ định** -> cảnh báo an toàn/chuyên môn cao

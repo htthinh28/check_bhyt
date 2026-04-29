@@ -492,11 +492,11 @@ const VAN_BAN_HANH_CHINH_HIEN_HANH = Object.freeze({
     QD_3176: 'Quyết định 3176/QĐ-BYT: quy trình tiếp nhận và kiểm tra dữ liệu XML liên thông BHYT.',
     LUAT_BHYT: 'Luật BHYT (đã sửa đổi, bổ sung): điều kiện hưởng và nguyên tắc thanh toán BHYT.',
     LUAT_KCB:
-        'Luật Khám bệnh, chữa bệnh (15/2023/QH15; VBHN 26/VBHN-VPQH 2026 — hợp nhất): quyền/nghĩa vụ người bệnh; tổ chức KCB; người hành nghề; hồ sơ bệnh án; chất lượng và an toàn KCB — căn cứ chuyên môn khi giám định chủ động / độ hợp lý dịch vụ (kết hợp TT 12/2026 Điều 10 khoản 1 điểm e, g, i).',
+        'Luật Khám bệnh, chữa bệnh (15/2023/QH15; VBHN 26/VBHN-VPQH 2026 — hợp nhất): quyền/nghĩa vụ người bệnh; tổ chức KCB; người hành nghề; hồ sơ bệnh án; chất lượng và an toàn KCB — căn cứ chuyên môn khi kiểm tra chủ động / độ hợp lý dịch vụ (kết hợp TT 12/2026 Điều 10 khoản 1 điểm e, g, i).',
     ND_96_KCB:
         'Nghị định 96/2023/NĐ-CP: hướng dẫn Luật Khám bệnh, chữa bệnh (điều kiện hoạt động CSKCB, phạm vi hành nghề, phân tuyến kỹ thuật, quản lý chất lượng).',
     TT_32_KCB:
-        'Thông tư 32/2023/TT-BYT: hướng dẫn Luật Khám bệnh, chữa bệnh (quy trình KCB, bệnh án, biểu mẫu hồ sơ — đối chiếu QĐ 130/QĐ-BYT và giám định chủ động).',
+        'Thông tư 32/2023/TT-BYT: hướng dẫn Luật Khám bệnh, chữa bệnh (quy trình KCB, bệnh án, biểu mẫu hồ sơ — đối chiếu QĐ 130/QĐ-BYT và kiểm tra chủ động).',
     VBHN_17:
         '17/VBHN-BYT (31/12/2024): văn bản hợp nhất quy định danh mục và điều kiện thanh toán DVKT BHYT; gốc Thông tư 35/2016/TT-BYT, sửa đổi bổ sung tại Thông tư 13/2020/TT-BYT và Thông tư 39/2024/TT-BYT (HL 01/01/2025: một lượt KCB — khoản 7 Điều 4; Điều 4a–4d; hợp đồng KCB BHYT thể hiện số giường).',
     VBHN_VTYT:
@@ -707,7 +707,7 @@ export const suyRaNamespaceVaNguonQuyTac = (loi = {}) => {
     } else if (/^(DMBV-DVKT-|DM-DVKT-)/.test(maLuat)) {
         ganMeta('DVKT_DANH_MUC', 'dong_co_giam_dinh', 'XML3 -> kiểm tra danh mục DVKT', 'LUAT_CDHA');
     } else if (/^CHUYEN_DE[_-]/.test(maLuat)) {
-        ganMeta('GIAM_DINH_CHUYEN_DE', 'luat_giam_dinh_chuyen_de_hardcoded', 'XML3 -> hardcoded giám định chuyên đề', 'LUAT_GIAM_DINH_CHUYEN_DE');
+        ganMeta('GIAM_DINH_CHUYEN_DE', 'luat_giam_dinh_chuyen_de_hardcoded', 'XML3 -> hardcoded kiểm tra chuyên đề', 'LUAT_GIAM_DINH_CHUYEN_DE');
     } else if (/^CDHA_/.test(maLuat)) {
         ganMeta('CDHA_HARDCODED', 'luat_cdha_hardcoded', 'XML3 -> hardcoded CDHA', 'LUAT_CDHA');
     } else if (/^DVKT_/.test(maLuat)) {
@@ -1469,7 +1469,7 @@ const taiDanhMucHeThong = async () => {
         return base;
     }
     try {
-        const [icd10Arr, dvktArr, thuocArr, vtytArr, khoaArrRaw, icdKeDonTren30NgayArr, nhanSuArr, icdCapCuuArr] = await Promise.all([
+        const [icd10Arr, dvktArr, thuocArr, vtytArr, khoaArrRaw, icdKeDonTren30NgayArr, nhanSuArr, icdCapCuuArr, maTheQuyenLoiArr, thuocDieuKienTtArr] = await Promise.all([
             fetchChunkedData('DANH_MUC_ICD10'),
             fetchChunkedData('DANH_MUC_DVKT_M05'),
             fetchChunkedData('DANH_MUC_THUOC_MAU_M03'),
@@ -1478,6 +1478,8 @@ const taiDanhMucHeThong = async () => {
             fetchChunkedData('DANH_MUC_ICD10_KE_DON_TREN_30_NGAY'),
             fetchChunkedData('DANH_MUC_NHAN_SU'),
             fetchChunkedData('DANH_MUC_ICD10_CAP_CUU'),
+            fetchChunkedData('DANH_MUC_MA_THE_QUYEN_LOI'),
+            fetchChunkedData('DANH_MUC_THUOC_DIEU_KIEN_TT'),
         ]);
         const [pl1,pl2,pl3,pl4,pl5,pl6,pl7,pl8,pl9,pl10,pl11,pl12] = await Promise.all([
             fetchChunkedData('BYT_7603_PL1_DVKT'), fetchChunkedData('BYT_7603_PL2_KHAM'),
@@ -1571,6 +1573,9 @@ const taiDanhMucHeThong = async () => {
             BO_QUY_TAC_DOI_TUONG_KCB: boQuyTacDoiTuongKcb,
             MAP_KHOA_BV: buildMap(khoaArr, 'MA_KHOA'),
             MAP_NHAN_SU: buildAliasMap(nhanSuArr, 'MA_BHXH', 'MA_BAC_SI', 'MACCHN', 'MA_NV', 'ID', 'SO_CCCD', 'SO_DINH_DANH'),
+            DM_MA_THE_QUYEN_LOI_ROWS: Array.isArray(maTheQuyenLoiArr) ? maTheQuyenLoiArr : [],
+            MAP_MA_THE_QUYEN_LOI: taoMetaMaTheQuyenLoiTuDanhMuc(maTheQuyenLoiArr),
+            DM_THUOC_DIEU_KIEN_TT_ROWS: Array.isArray(thuocDieuKienTtArr) ? thuocDieuKienTtArr : [],
             // Maps O(1) BYT
             MAP_BYT_PL1: buildMapMulti(pl1, 'MÃ BỘ Y TẾ', 'MA_DVKT'),
             MAP_BYT_PL5: buildMapMulti(pl5, 'MÃ THUỐC', 'MA_THUOC'),
@@ -1598,6 +1603,9 @@ const taiDanhMucHeThong = async () => {
             PL10_DOI_TUONG:[],PL11_CLS:[],PL12_NHIEN_LIEU:[],
             MAP_DVKT_BV: new Map(), MAP_THUOC_BV: new Map(), DM_THUOC_M03_ROWS: [], MAP_VTYT_BV: new Map(),
             MAP_ICD10: new Map(), BO_QUY_TAC_ICD10_KE_DON_TREN_30_NGAY: { exact: new Set(), ranges: [] }, BO_QUY_TAC_DOI_TUONG_KCB: { validCodes: new Set(), byCode: new Map() }, MAP_KHOA_BV: new Map(), MAP_NHAN_SU: new Map(),
+            DM_MA_THE_QUYEN_LOI_ROWS: [],
+            MAP_MA_THE_QUYEN_LOI: new Map(),
+            DM_THUOC_DIEU_KIEN_TT_ROWS: [],
             MAP_BYT_PL1: new Map(), MAP_BYT_PL5: new Map(), MAP_BYT_PL8: new Map(), MAP_BYT_PL11: new Map()
         };
     }
@@ -1687,7 +1695,7 @@ const coChanDoanVaoRaCoTuViem = (xml1) => {
 };
 
 /**
- * THUOC_95 (40.177 Cefpodoxim / Vipocef): chỉ giám định chỉ định (ICD/chẩn đoán), không kiểm liều.
+ * THUOC_95 (40.177 Cefpodoxim / Vipocef): chỉ kiểm tra chỉ định (ICD/chẩn đoán), không kiểm liều.
  * Trả về true khi chỉ định không thuộc nhóm được phép.
  */
 const THUOC_95_VI_PHAM_CHI_DINH = (xml1, xml2) => {
@@ -2373,6 +2381,87 @@ const layThongTinMucHuongTuThe = (xml1) => {
     };
 };
 
+const CO_TU_KHOA_KHAM_SUC_KHOE_THEO_YEU_CAU = (xml1 = {}) => {
+    const noiDung = normalizeTextNoAccent([
+        xml1?.LY_DO_VV,
+        xml1?.LY_DO_VAO,
+        xml1?.CHAN_DOAN_VAO,
+    ].filter(Boolean).join(' ')).toUpperCase();
+    if (!noiDung) return false;
+    return (
+        noiDung.includes('KHAM SUC KHOE')
+        || noiDung.includes('THEO YEU CAU')
+        || noiDung.includes('KIEM TRA')
+    );
+};
+
+const chuanHoaCoKhong = (val) => {
+    const s = normalizeTextNoAccent(String(val || '')).toUpperCase().trim();
+    if (!s) return '';
+    if (['CO', 'C', 'YES', 'Y', 'TRUE', '1'].includes(s)) return 'CO';
+    if (['KHONG', 'K', 'NO', 'N', 'FALSE', '0'].includes(s)) return 'KHONG';
+    return s;
+};
+
+const chuanHoaTyLePhanTram = (val) => {
+    const n = TO_NUMBER(String(val || '').replace('%', ''));
+    if (!Number.isFinite(n) || n <= 0) return null;
+    if (n <= 1) return Math.round(n * 100);
+    return Math.round(n);
+};
+
+const taoMetaMaTheQuyenLoiTuDanhMuc = (rows = []) => {
+    const byMa = new Map();
+    for (const row of (Array.isArray(rows) ? rows : [])) {
+        const ma = UPPER(row?.MA || '');
+        if (!ma || ma === 'MÃ' || ma.length < 3) continue;
+        const maNhomThe = UPPER(row?.MA_NHOM_THE || SUBSTR(ma, 1, 2));
+        const maQuyenLoi = String(row?.MA_QUYEN_LOI || SUBSTR(ma, 3, 1) || '').trim();
+        if (!maNhomThe || !maQuyenLoi) continue;
+        const item = {
+            ma,
+            maNhomThe,
+            maQuyenLoi,
+            ten: String(row?.TEN || '').trim(),
+            nhomDoiTuong: String(row?.NHOM_DOI_TUONG_BHYT || '').trim(),
+            tyLeHuong: chuanHoaTyLePhanTram(row?.TY_LE_HUONG_BHYT),
+            huongChiPhiChuyenTuyen: chuanHoaCoKhong(row?.DOI_TUONG_HUONG_CHI_PHI_CHUYEN_TUYEN),
+            hieuLucThiHanh: chuanHoaCoKhong(row?.HIEU_LUC_THI_HANH),
+            tuNgay: normalizeDateKey(row?.TU_NGAY || '').slice(0, 8),
+            denNgay: normalizeDateKey(row?.DEN_NGAY || '', '9').slice(0, 8),
+            mieuTa: String(row?.MIEU_TA || '').trim(),
+        };
+        if (!byMa.has(ma)) byMa.set(ma, []);
+        byMa.get(ma).push(item);
+    }
+    return byMa;
+};
+
+const layQuyTacTheoMaTheVaQuyenLoi = (xml1 = {}, dm = {}) => {
+    const maThe = normalizeMaTheBHYT(xml1?.MA_THE_BHYT);
+    if (!MA_THE_BHYT_REGEX.test(maThe)) return null;
+    const maNhomThe = SUBSTR(maThe, 1, 2);
+    const maQuyenLoi = KY_HIEU_SO_THU_BA_THE_BHYT({ ...xml1, MA_THE_BHYT: maThe });
+    const maTong = `${maNhomThe}${maQuyenLoi}`;
+    const byMa = dm?.MAP_MA_THE_QUYEN_LOI instanceof Map
+        ? dm.MAP_MA_THE_QUYEN_LOI
+        : taoMetaMaTheQuyenLoiTuDanhMuc(dm?.DM_MA_THE_QUYEN_LOI_ROWS || []);
+    const bucket = byMa.get(maTong) || [];
+    if (bucket.length === 0) return null;
+    const ngayVao = normalizeDateKey(xml1?.NGAY_VAO || xml1?.NGAY_RA || xml1?.NGAY_TTOAN || '').slice(0, 8);
+    const trongHieuLuc = bucket.filter((rule) => {
+        if (!ngayVao) return true;
+        if (rule.tuNgay && ngayVao < rule.tuNgay) return false;
+        if (rule.denNgay && ngayVao > rule.denNgay) return false;
+        return true;
+    });
+    const candidates = trongHieuLuc.length > 0 ? trongHieuLuc : bucket;
+    return candidates.sort((a, b) => {
+        const s = (x) => (x.tuNgay ? Number(x.tuNgay) : 0);
+        return s(b) - s(a);
+    })[0] || null;
+};
+
 const laDieuTriNgoaiTru = (xml1 = {}) => {
     return laHoSoNgoaiTruTheoQd824(xml1);
 };
@@ -2499,6 +2588,117 @@ const laDichVuCDHA = (row) => {
 const coDichVuVanChuyen = (xml3 = []) => xml3.some((row) =>
     /(VAN[\s-]?CHUYEN|CHUYEN[\s-]?TUYEN|VAN CHUYEN|CHUYEN TUYEN)/i.test(UPPER(row?.TEN_DICH_VU || ''))
 );
+
+const tachDanhSachMaIcdTuRule = (raw = '') => String(raw || '')
+    .split(/[;,|]/)
+    .map((x) => String(x || '').trim().toUpperCase())
+    .filter(Boolean);
+
+const tachDanhSachTuKhoaTuRule = (raw = '') => String(raw || '')
+    .split(/[;,|]/)
+    .map((x) => normalizeTextNoAccent(String(x || '')).toUpperCase().trim())
+    .filter(Boolean);
+
+const layTuoiNamHoSo = (xml1 = {}) => {
+    const tuoiNam = TO_NUMBER(xml1?.TUOI);
+    if (Number.isFinite(tuoiNam) && tuoiNam > 0) return tuoiNam;
+    const tuoiNgay = TO_NUMBER(xml1?.TUOI_NGAY);
+    if (Number.isFinite(tuoiNgay) && tuoiNgay > 0) return tuoiNgay / 365;
+    if (!IS_EMPTY(xml1?.NGAY_SINH) && !IS_EMPTY(xml1?.NGAY_VAO)) return DIFF_YEARS(xml1.NGAY_SINH, xml1.NGAY_VAO);
+    return null;
+};
+
+const coCumTuChiDinhTuoiDuoi6 = (rule = {}, dongThuoc = {}) => {
+    const blob = normalizeTextNoAccent(
+        `${rule?.TEN_QUY_TAC || ''} ${rule?.TU_KHOA_YEU_CAU || ''} ${rule?.CANH_BAO_CDSS_ALERT || ''} ${dongThuoc?.HOAT_CHAT || ''}`,
+    ).toUpperCase();
+    return /(DUOI\s*6\s*TUOI|TRE\s*EM\s*DUOI\s*6|<=\s*6\s*TUOI|TU\s*6\s*TUOI\s*TRO\s*XUONG|TUOI\s*<=\s*6)/.test(blob);
+};
+
+const coIcdPhuHopThuocDieuKien = (icdChinh = '', icdKem = '', dsIcdRule = []) => {
+    if (!Array.isArray(dsIcdRule) || dsIcdRule.length === 0) return false;
+    const tapIcdHoSo = new Set([
+        UPPER(icdChinh || ''),
+        ...String(icdKem || '')
+            .split(/[;,\s|]+/)
+            .map((x) => String(x || '').trim().toUpperCase())
+            .filter(Boolean),
+    ]);
+    for (const icd of dsIcdRule) {
+        if (!icd) continue;
+        for (const h of tapIcdHoSo) {
+            if (!h) continue;
+            if (h === icd || h.startsWith(`${icd}.`) || icd.startsWith(`${h}.`)) return true;
+        }
+    }
+    return false;
+};
+
+const coTuKhoaChanDoanPhuHop = (xml1 = {}, rule = {}) => {
+    const textRv = normalizeTextNoAccent(String(xml1?.CHAN_DOAN_RV || '')).toUpperCase();
+    const tapTuKhoa = [
+        ...tachDanhSachTuKhoaTuRule(rule?.CHAN_DOAN || ''),
+        ...tachDanhSachTuKhoaTuRule(rule?.TU_KHOA_YEU_CAU || ''),
+    ];
+    const tapLoc = tapTuKhoa.filter((x) => x.length >= 3);
+    if (tapLoc.length === 0) return true;
+    return tapLoc.some((kw) => textRv.includes(kw));
+};
+
+const giamDinhThuocDieuKienThanhToan = (hoSo, dm) => {
+    const ds = [];
+    const xml1 = _getXML1(hoSo);
+    const xml2 = layDanhSachXml(hoSo, 'XML2');
+    const rules = Array.isArray(dm?.DM_THUOC_DIEU_KIEN_TT_ROWS) ? dm.DM_THUOC_DIEU_KIEN_TT_ROWS : [];
+    if (!xml1 || !Array.isArray(xml2) || xml2.length === 0 || rules.length === 0) return ds;
+
+    const byMaThuoc = new Map();
+    rules.forEach((r) => {
+        const ma = UPPER(r?.MA_THUOC_QD7603 || '');
+        if (!ma) return;
+        if (!byMaThuoc.has(ma)) byMaThuoc.set(ma, []);
+        byMaThuoc.get(ma).push(r);
+    });
+
+    const maBenhChinh = UPPER(xml1?.MA_BENH_CHINH || '');
+    const maBenhKt = String(xml1?.MA_BENH_KT || '');
+    const tuoiNam = layTuoiNamHoSo(xml1);
+
+    xml2.forEach((row, idx) => {
+        if (laBHYTKhôngThanhToan(row)) return;
+        const maThuoc = UPPER(row?.MA_THUOC || '');
+        if (!maThuoc) return;
+        const danhSachRule = byMaThuoc.get(maThuoc) || [];
+        if (danhSachRule.length === 0) return;
+
+        danhSachRule.forEach((rule, ridx) => {
+            const dsIcdRule = tachDanhSachMaIcdTuRule(rule?.MA_ICD10 || '');
+            const hopIcd = coIcdPhuHopThuocDieuKien(maBenhChinh, maBenhKt, dsIcdRule);
+            const hopChanDoan = coTuKhoaChanDoanPhuHop(xml1, rule);
+            const canDuoi6 = coCumTuChiDinhTuoiDuoi6(rule, row);
+            const hopTuoi = !canDuoi6 || (tuoiNam != null && tuoiNam <= 6);
+            const hopLe = hopIcd && hopChanDoan && hopTuoi;
+            if (hopLe) return;
+
+            const maLuat = String(rule?.MA_GIAM_DINH || '').trim() || `THUOC_DKTT_${ridx + 1}`;
+            const noiDungMacDinh = `[XUẤT TOÁN] Thuốc (${maThuoc}) không đủ điều kiện thanh toán theo danh mục thuốc điều kiện thanh toán (ICD-10/chẩn đoán ra/yêu cầu đi kèm).`;
+            const canhBao = String(rule?.CANH_BAO_CDSS_ALERT || '').trim() || noiDungMacDinh;
+            ds.push({
+                phan_he: 'XML2',
+                index: idx,
+                truong_loi: 'MA_THUOC',
+                canh_bao: canhBao,
+                muc_do: 'Critical',
+                ma_luat: maLuat,
+                ten_quy_tac: String(rule?.TEN_QUY_TAC || 'Thuốc điều kiện thanh toán').trim(),
+                dieu_kien: 'BUILT-IN',
+                co_so_phap_ly: CO_SO_PHAP_LY_THUOC.DANH_MUC_BHYT,
+            });
+        });
+    });
+
+    return ds;
+};
 
 const coDichVuSauNgayRa = (hoSo, xml1) => {
     const ngayRa = normalizeDateKey(xml1?.NGAY_RA, '9');
@@ -2755,6 +2955,25 @@ const giamDinhQuyenLoiTheoDoiTuongVaThe = (hoSo, dm) => {
         .filter((value) => value > 0);
     const coPhatSinhThanhToanBHYT = TO_NUMBER(xml1.T_BHTT) > 0 || TO_NUMBER(xml1.T_BNCCT) > 0 || chiTietHuong.length > 0;
     const thongTinThe = layThongTinMucHuongTuThe(xml1);
+    const quyTacMaThe = layQuyTacTheoMaTheVaQuyenLoi(xml1, dm);
+
+    if (quyTacMaThe) {
+        const xml3 = layDanhSachXml(hoSo, 'XML3');
+        const coHuongChiPhiChuyenTuyen = (
+            ['2', '3'].includes(String(xml1.MA_LOAI_RV || '').trim())
+            || !IS_EMPTY(xml1.GIAY_CHUYEN_TUYEN)
+            || coDichVuVanChuyen(xml3)
+        );
+        if (coHuongChiPhiChuyenTuyen && quyTacMaThe.huongChiPhiChuyenTuyen === 'KHONG') {
+            addLỗi(
+                'HC-06e',
+                'Quyền lợi chi phí chuyển tuyến theo mã thẻ',
+                `Mã [${quyTacMaThe.ma}] không thuộc nhóm được hưởng chi phí chuyển tuyến theo danh mục «Mã thẻ và quyền lợi», nhưng hồ sơ có dấu hiệu phát sinh chuyển tuyến/vận chuyển.`,
+                'Warning',
+                'GIAY_CHUYEN_TUYEN'
+            );
+        }
+    }
 
     if (rule.zeroCoverage && coPhatSinhThanhToanBHYT) {
         addLỗi(
@@ -3049,6 +3268,42 @@ const giamDinhHanhChinh = (hoSo, dm) => {
         if (thongTinThe.benefitCode && thongTinThe.benefitPercent === null) {
             addLỗi('HC-01c', 'Mã mức hưởng trên thẻ BHYT', `Ký tự mức hưởng trên thẻ BHYT [${thongTinThe.benefitCode}] chưa nằm trong nhóm mã hưởng chuẩn 1-5.`, 'Warning', 'MA_THE_BHYT');
         }
+        const coDanhMucMaThe = Array.isArray(dm?.DM_MA_THE_QUYEN_LOI_ROWS) && dm.DM_MA_THE_QUYEN_LOI_ROWS.length > 0;
+        if (coDanhMucMaThe) {
+            const quyTacThe = layQuyTacTheoMaTheVaQuyenLoi(x, dm);
+            if (!quyTacThe) {
+                const prefix = SUBSTR(normalizeMaTheBHYT(x.MA_THE_BHYT), 1, 2);
+                addLỗi(
+                    'HC-01d',
+                    'Danh mục mã thẻ và quyền lợi',
+                    `Không tìm thấy cấu hình cho mã thẻ [${prefix}${thongTinThe.benefitCode || '?'}] trong danh mục «Mã thẻ và quyền lợi».`,
+                    'Warning',
+                    'MA_THE_BHYT'
+                );
+            } else {
+                if (quyTacThe.hieuLucThiHanh === 'KHONG') {
+                    addLỗi(
+                        'HC-01e',
+                        'Danh mục mã thẻ và quyền lợi',
+                        `Mã thẻ [${quyTacThe.ma}] đang ở trạng thái không hiệu lực thi hành theo danh mục nội bộ.`,
+                        'Error',
+                        'MA_THE_BHYT'
+                    );
+                }
+                const mucHuongXml1 = TO_NUMBER(x.MUC_HUONG || x.MUC_HUONG_THE);
+                if (quyTacThe.tyLeHuong != null && !IS_EMPTY(x.MUC_HUONG || x.MUC_HUONG_THE)) {
+                    if (Math.abs(mucHuongXml1 - quyTacThe.tyLeHuong) >= 5) {
+                        addLỗi(
+                            'HC-01f',
+                            'Đối chiếu mức hưởng theo danh mục mã thẻ',
+                            `MUC_HUONG khai báo [${mucHuongXml1}%] lệch cấu hình danh mục [${quyTacThe.tyLeHuong}%] cho mã [${quyTacThe.ma}].`,
+                            'Warning',
+                            'MUC_HUONG'
+                        );
+                    }
+                }
+            }
+        }
     }
 
     // HC-02: Họ tên
@@ -3083,6 +3338,17 @@ const giamDinhHanhChinh = (hoSo, dm) => {
         addLỗi('HC-07', 'Chẩn đoán ICD-10', 'Mã bệnh chính (MA_BENH_CHINH) không được để trống.', 'Critical', 'MA_BENH_CHINH');
     } else if (dm.MAP_ICD10 && dm.MAP_ICD10.size > 0 && !dm.MAP_ICD10.has(UPPER(x.MA_BENH_CHINH))) {
         addLỗi('HC-07b', 'Chẩn đoán ICD-10', `Mã bệnh chính [${x.MA_BENH_CHINH}] không có trong danh mục ICD-10 của BYT.`, 'Error', 'MA_BENH_CHINH');
+    }
+    const maBenhChinhUpper = UPPER(x.MA_BENH_CHINH || '');
+    if (maBenhChinhUpper.startsWith('Z') && CO_TU_KHOA_KHAM_SUC_KHOE_THEO_YEU_CAU(x)) {
+        addLỗi(
+            'HC-07c',
+            'Điều kiện thanh toán BHYT với ICD nhóm Z',
+            '⛔ Vi phạm Điều 23 Luật BHYT: Chi phí khám, chữa bệnh của người tham gia BHYT tự đi khám ngoài nơi đăng ký KCB ban đầu không đúng quy định hoặc ngoài phạm vi hưởng (như khám sức khỏe/theo yêu cầu/kiểm tra) không thuộc phạm vi chi trả.',
+            'Critical',
+            'MA_BENH_CHINH',
+            `${VAN_BAN_HANH_CHINH_HIEN_HANH.LUAT_BHYT} ${TT_12_2026_BTC_DIEU10_K1}`
+        );
     }
 
     // HC-08: Số ngày điều trị
@@ -3242,6 +3508,8 @@ const giamDinhDanhMucNoiBo = (hoSo, dm) => {
             }
         }
     });
+
+    ds.push(...giamDinhThuocDieuKienThanhToan(hoSo, dm));
 
     // --- XML2: Tương tác thuốc — cùng đợt điều trị (XML1/MA_LK), bác sĩ kê cả A và B trên XML2 (BHYT);
     //     điều kiện đồng thời: ưu tiên cùng ngày y lệnh (NGAY_YL/NGAY_TH_YL); nếu hai thuốc đều có mốc ngày nhưng khác ngày thì không báo;
@@ -5871,7 +6139,7 @@ export const chayBoMayGiamDinhV3 = async (hoSo, options = {}) => {
 
 /**
  * Làm nóng cache trước batch: danh mục hệ thống (lần đầu đủ chunk), map ON/OFF / ghi đề quy tắc,
- * và nạp trọn luật động theo tab — giảm I/O & parse luật lặp cho từng hồ sơ trong cùng đợt giám định.
+ * và nạp trọn luật động theo tab — giảm I/O & parse luật lặp cho từng hồ sơ trong cùng đợt kiểm tra.
  */
 export const lamNongCoSoTruocBatchGiamDinh = async () => {
     await Promise.all([
@@ -5994,7 +6262,7 @@ export const chayGiamDinhToanDienV15 = async (hoSo) => {
     try {
         allLỗi = allLỗi.concat(await giamDinhCdssDmMatchingUpgrade(hoSo, danhMuc));
     } catch (_upgradeErr) {
-        /* không làm gián đoạn giám định chính */
+        /* không làm gián đoạn kiểm tra chính */
     }
 
     // Áp ON/OFF nội bộ cho mọi cảnh báo có ma_luat (gồm luật động + CHUYEN_DE_* / CDHA_* cứng, kể cả dieu_kien không phải BUILT-IN).
@@ -6023,7 +6291,7 @@ export const chayGiamDinhToanDienV15 = async (hoSo) => {
 };
 
 /**
- * Giám định hàng loạt — cùng pipeline với `chayGiamDinhToanDienV15` (CLI QA, chi tiết ca bệnh).
+ * Kiểm tra hàng loạt — cùng pipeline với `chayGiamDinhToanDienV15` (CLI QA, chi tiết ca bệnh).
  * Khác `chayBoMayGiamDinhNhieuHoSoV3`: gồm đủ L0–L5b (hành chính, danh mục, thuốc/GDH cứng, luật động, v.v.).
  */
 export const chayGiamDinhNhieuHoSoV15 = async (danhSachHoSo = [], options = {}) => {

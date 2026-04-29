@@ -1,6 +1,6 @@
 # Thẻ tri thức — Đối chiếu báo cáo vi phạm vs hồ sơ XML (gói 177, 04/03/2026)
 
-**Nguồn:** `Bao_Cao_Vi_Pham_1775831407982.xlsx` (sheet `DS_Loi`) và thư mục `tai_nguyen/177 - 04032026` (177 file XML giám định).
+**Nguồn:** `Bao_Cao_Vi_Pham_1775831407982.xlsx` (sheet `DS_Loi`) và thư mục `tai_nguyen/177 - 04032026` (177 file XML kiểm tra).
 
 **Mục tiêu huấn luyện AI:** Phân biệt cảnh báo đúng pháp lý BHYT / đúng nghiệp vụ kế toán XML với cảnh báo hợp đồng nội bộ, JCI, hoặc artefact kỹ thuật (dương tính giả).
 

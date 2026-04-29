@@ -30,7 +30,7 @@ Huấn luyện AI nhận diện rule **chỉ định thanh toán BHYT theo ICD**
 ## 5. Bài tập cho AI
 
 1. Vẽ **sơ đồ 4 cảnh báo** trên **cùng một dòng hoặc các dòng khác nhau** — không được gộp “một thuốc một lỗi” nếu thực tế là nhiều rule chồng lên **cùng index**.
-2. Giải thích vì sao **corticoid** thường bị **cổng ICD chặt** trong giám định BHYT (dạng học, không thay thế hướng dẫn BYT đầy đủ).
+2. Giải thích vì sao **corticoid** thường bị **cổng ICD chặt** trong kiểm tra BHYT (dạng học, không thay thế hướng dẫn BYT đầy đủ).
 3. Nếu `MA_BENH_KT` có `J44` nhưng `MA_BENH_CHINH` không phải J44 — rule có thể **tắt** cảnh báo nhờ nhánh `MA_BENH_KT` — AI phải **đọc đủ XML1**.
 
 ## 6. Liên kết

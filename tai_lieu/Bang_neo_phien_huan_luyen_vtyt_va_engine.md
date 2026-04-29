@@ -20,7 +20,7 @@
 
 | Nhóm | Có trong repo hiện tại? | Ghi chú |
 |------|-------------------------|---------|
-| **`DM-VTYT-*`** (giám định theo danh mục TT 04 / VBHN 14) | **Chưa** — chỉ có sẵn **căn cứ pháp lý** khi có `ma_luat` | Không mô tả như đã “tra được từng mã” trong engine |
+| **`DM-VTYT-*`** (kiểm tra theo danh mục TT 04 / VBHN 14) | **Chưa** — chỉ có sẵn **căn cứ pháp lý** khi có `ma_luat` | Không mô tả như đã “tra được từng mã” trong engine |
 | **VTYT gắn DVKT** (`checkGhiChu`, `DVKT-OP-08`) | **Có** (nhánh DVKT no-code) | Vẫn là rule **DVKT**, không thay thế bảng điều kiện VTYT đầy đủ |
 | **`MA_VAT_TU` trên XML3** | Có schema + parser | Điều kiện thanh toán theo Phụ lục: **văn bản BYT** + (sau này) seed |
 

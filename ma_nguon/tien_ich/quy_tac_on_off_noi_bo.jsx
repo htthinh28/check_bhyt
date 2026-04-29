@@ -53,7 +53,7 @@ const TU_KHOA_CANH_BAO = Object.freeze([
   'CẢNH BÁO',
   'CANH BAO',
   'JCI',
-  'GIÁM ĐỊNH',
+  'KIỂM TRA',
   'GIAM DINH',
   'QUẢN TRỊ',
   'QUAN TRI',
@@ -84,7 +84,7 @@ const layTagNguonCanhBao = (value = '') => {
 
   const text = normalizeCode(value);
   if (text.includes('JCI')) return 'JCI AUDIT';
-  if (text.includes('GIÁM ĐỊNH') || text.includes('GIAM DINH')) return 'GIÁM ĐỊNH';
+  if (text.includes('KIỂM TRA') || text.includes('GIAM DINH')) return 'KIỂM TRA';
   if (text.includes('QUẢN TRỊ') || text.includes('QUAN TRI')) return 'QUẢN TRỊ';
   if (text.includes('PHÁP LÝ') || text.includes('PHAP LY')) return 'PHÁP LÝ';
   if (text.includes('RỦI RO') || text.includes('RUI RO')) return 'RỦI RO';
@@ -97,7 +97,7 @@ const lamSachNoiDungCanhBao = (value = '') => {
 
   let cleaned = goc.replace(/\[[^\]]+\]\s*:?\s*/g, ' ');
   cleaned = cleaned.replace(/^(?:[^A-Za-z0-9\u00C0-\u1EF9\[]+\s*)+/, '');
-  cleaned = cleaned.replace(/^(?:CẢNH BÁO XUẤT TOÁN|CANH BAO XUAT TOAN|CẢNH BÁO LỖI|CANH BAO LOI|CẢNH BÁO|CANH BAO|VI PHẠM|VI PHAM|SAI LỆCH|SAI LECH|KHÔNG CHI TRẢ|KHONG CHI TRA|JCI AUDIT|JCI SAFETY|JCI TAT|GIÁM ĐỊNH|GIAM DINH|QUẢN TRỊ|QUAN TRI|PHÁP LÝ|PHAP LY|TỐI ƯU|TOI UU)\s*:?\s*/i, '');
+  cleaned = cleaned.replace(/^(?:CẢNH BÁO XUẤT TOÁN|CANH BAO XUAT TOAN|CẢNH BÁO LỖI|CANH BAO LOI|CẢNH BÁO|CANH BAO|VI PHẠM|VI PHAM|SAI LỆCH|SAI LECH|KHÔNG CHI TRẢ|KHONG CHI TRA|JCI AUDIT|JCI SAFETY|JCI TAT|KIỂM TRA|GIAM DINH|QUẢN TRỊ|QUAN TRI|PHÁP LÝ|PHAP LY|TỐI ƯU|TOI UU)\s*:?\s*/i, '');
   cleaned = rutGonKhoangTrang(cleaned.replace(/^[:\-]+/, ''));
   return cleaned || goc;
 };
@@ -173,6 +173,7 @@ const DANH_MUC_QUY_TAC_NOI_BO_THEO_NHOM = Object.freeze([
   { tab_id: 'LUAT_THUOC', ma_luat: 'DM-THUOC-*', ten_quy_tac: 'Danh mục thuốc nội bộ (DM-THUOC-*)' },
   { tab_id: 'LUAT_THUOC', ma_luat: 'DMBV-THUOC-*', ten_quy_tac: 'Chất lượng danh mục thuốc BV (DMBV-THUOC-*)' },
   { tab_id: 'LUAT_THUOC', ma_luat: 'CLN-THUOC-*', ten_quy_tac: 'Lâm sàng thuốc (CLN-THUOC-*)' },
+  { tab_id: 'LUAT_THUOC', ma_luat: 'THUOC_DKTT_*', ten_quy_tac: 'Thuốc có điều kiện thanh toán theo danh mục nội bộ (THUOC_DKTT_*)' },
 
   { tab_id: 'LUAT_CDHA', ma_luat: 'DM-DVKT-*', ten_quy_tac: 'Danh mục DVKT nội bộ (DM-DVKT-*)' },
   { tab_id: 'LUAT_CDHA', ma_luat: 'DMBV-DVKT-*', ten_quy_tac: 'Chất lượng danh mục DVKT BV (DMBV-DVKT-*)' },
@@ -194,7 +195,7 @@ const DANH_MUC_QUY_TAC_NOI_BO_THEO_NHOM = Object.freeze([
   { tab_id: 'LUAT_CDHA', ma_luat: 'DVKT-OP-14', ten_quy_tac: 'No-code DVKT: Danh mục DVKT phải có đơn giá' },
   { tab_id: 'LUAT_CDHA', ma_luat: 'DVKT-OP-15', ten_quy_tac: 'No-code DVKT: Danh mục DVKT phải có quyết định' },
   { tab_id: 'LUAT_CDHA', ma_luat: 'CDHA-*', ten_quy_tac: 'Bảng luật CĐHA/DVKT nạp từ Excel (CDHA-*)' },
-  { tab_id: 'LUAT_CDHA', ma_luat: 'CHUYEN_DE*', ten_quy_tac: 'Bảng luật Giám định chuyên đề nạp từ Excel (CHUYEN_DE*)' },
+  { tab_id: 'LUAT_CDHA', ma_luat: 'CHUYEN_DE*', ten_quy_tac: 'Bảng luật Kiểm tra chuyên đề nạp từ Excel (CHUYEN_DE*)' },
 
   { tab_id: 'LUAT_CONG_KHAM', ma_luat: 'CK-*', ten_quy_tac: 'Bảng luật Công khám nạp từ Excel (CK-*)' },
 
@@ -223,6 +224,7 @@ const DANH_MUC_QUY_TAC_NOI_BO_CHI_TIET = Object.freeze([
   { tab_id: 'LUAT_HANH_CHINH', ma_luat: 'HC-06d', ten_quy_tac: 'Đối chiếu mức hưởng theo mã thẻ BHYT' },
   { tab_id: 'LUAT_THUOC', ma_luat: 'CLN-THUOC-04', ten_quy_tac: 'Kê đơn ngoại trú quá 30 ngày ngoài danh mục cho phép' },
   { tab_id: 'LUAT_THUOC', ma_luat: 'CLN-THUOC-05', ten_quy_tac: 'Gợi ý ICD danh mục cho phép kê đơn >30 ngày (ngoại trú)' },
+  { tab_id: 'LUAT_THUOC', ma_luat: 'THUOC_DKTT_01', ten_quy_tac: 'Thuốc [27.67] Lysin + vitamin + khoáng chất — điều kiện ICD/chẩn đoán/tuổi' },
   { tab_id: 'LUAT_GIUONG', ma_luat: 'DM-KHOA-01', ten_quy_tac: 'Mã khoa ngoài danh mục nội bộ M01' },
   { tab_id: 'LUAT_GIUONG', ma_luat: 'DM-KHOA-02', ten_quy_tac: 'Phát sinh dịch vụ giường tại khoa chưa đăng ký giường' },
   { tab_id: 'LUAT_GIUONG', ma_luat: 'CLN-GIUONG-01', ten_quy_tac: 'Đối chiếu số ngày giường với số ngày điều trị' },
@@ -457,7 +459,7 @@ const tinhDoUuTienMauCoSao = (patternRaw) => {
 
 /**
  * Lấy object ghi đè nội dung cho MA_LUAT: khớp chính xác, sau đó mẫu * (ưu tiên prefix dài).
- * Dùng chung màn ON/OFF và áp vào kết quả giám định.
+ * Dùng chung màn ON/OFF và áp vào kết quả kiểm tra.
  */
 export const layGhiDeNoiDungTheoMaLuat = (maLuatRaw, mapGhiDe = {}) => {
   const ma = chuanHoaKhoaMaLuatOnOff(maLuatRaw);

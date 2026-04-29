@@ -8,9 +8,13 @@ import { tongHopMoHinhMuc5 } from './bao_cao_mo_hinh_muc5';
 import { tongHopBaoCaoQuanTriMuc6 } from './bao_cao_quan_tri_muc6';
 import { tongHopBaoCaoChuyenMonMuc7 } from './bao_cao_chuyen_mon_muc7';
 import { tongHopBaoCaoDoanhThuMuc8 } from './bao_cao_doanh_thu_muc8';
+import { taoTemplateMacDinhBaoCaoHub } from './bao_cao_dynamic_template';
 import { taoHienThiBaoCao } from './bao_cao_viz_meta';
 
 export const MA_DAC_TA_BAO_CAO = 'CDSS-BHYT-SPEC-BC-V1.0';
+
+/** Hợp đồng đặc tả dữ liệu v2.0 (Dynamic BI) — song song V1.0, không phá reader cũ. */
+export const MA_DAC_TA_DU_LIEU_V2 = 'CDSS-BHYT-DATA-SPEC-V2.0';
 
 const layXml1Local = (hoSo = {}) =>
   hoSo?.xml1 || hoSo?.XML1 || hoSo?.du_lieu_goc?.xml1 || hoSo?.du_lieu_goc?.XML1 || {};
@@ -95,6 +99,7 @@ const tongHopPayloadTuNguon = (nguon) => {
     muc8,
     soHoSo: nguon.so_ho_so_sau_gom,
   });
+  const thoi_diem_tao = new Date().toISOString();
   return {
     ...nguon,
     mo_hinh_muc5,
@@ -102,6 +107,11 @@ const tongHopPayloadTuNguon = (nguon) => {
     bao_cao_chuyen_mon_muc7: muc7,
     bao_cao_doanh_thu_muc8: muc8,
     hien_thi_bao_cao,
+    /** Đặc tả tài liệu v2.0 (Phương Châu Dynamic BI): snapshot + filter context + template registry */
+    ma_dac_ta_du_lieu_v2: MA_DAC_TA_DU_LIEU_V2,
+    thoi_diem_tao,
+    bo_loc_da_ap_dung: {},
+    dac_ta_dynamic_template: taoTemplateMacDinhBaoCaoHub(),
   };
 };
 

@@ -1,4 +1,4 @@
-# Chuẩn hóa kiến thức giám định dịch vụ kỹ thuật (DVKT) cho AI
+# Chuẩn hóa kiến thức kiểm tra dịch vụ kỹ thuật (DVKT) cho AI
 
 **Phiên bản:** 1.0  
 **Ngày:** 09/04/2026  
@@ -20,7 +20,7 @@
 |---|------------|----------------|
 | P1 | **Thời điểm hiệu lực** — đặc biệt **TT 39/2024** (nhiều điểm **01/01/2025**) | Luôn hỏi: chỉ định / ra viện / ngày y lệnh thuộc mốc nào trước khi áp khung **4a–4d**, **khoản 7 Điều 4**. |
 | P2 | **Danh mục 1 / 2 / 3** — đọc đúng **cột điều kiện** (thường **Cột 3**) | Có `MA_DICH_VU` **chưa đủ**; phải đối chiếu điều kiện dòng trong Phụ lục đính kèm VBHN (số cột lấy **đúng file** Excel). |
-| P3 | **Engine ≠ toàn bộ Phụ lục** | Chỉ một phần dòng được rule hóa; còn lại cần **giám định viên** + tài liệu đơn vị. |
+| P3 | **Engine ≠ toàn bộ Phụ lục** | Chỉ một phần dòng được rule hóa; còn lại cần **kiểm tra viên** + tài liệu đơn vị. |
 | P4 | **Giá đã/không kết cấu** (Điều **4a** + mô tả gói) | Khi đồng thời có ngày giường, DVKT, VTYT, thuốc — hỏi: khoản nào **đã gộp** trong giá DV/giường? |
 | P5 | **Kết luận pháp lý cuối** | AI chỉ **hỗ trợ**; người có thẩm quyền + BHXH quyết định thanh toán/xuất toán. |
 

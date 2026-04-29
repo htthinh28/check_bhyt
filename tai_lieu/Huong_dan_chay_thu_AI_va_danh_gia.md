@@ -84,7 +84,7 @@ YÊU CẦU AI:
 1. Xác định loại từng lỗi (hành chính, an toàn, chỉ định, thanh toán)
 2. Nêu căn cứ pháp lý cho mỗi lỗi (Luật/QĐ nào?)
 3. Quyết định xử lý (từ chối tạm, xuất toán bộ, xuất toán toàn)
-4. Viết quyết định giám định chi tiết theo mẫu Nghị định 188/2025
+4. Viết quyết định kiểm tra chi tiết theo mẫu Nghị định 188/2025
 ```
 
 ---
@@ -161,7 +161,7 @@ YÊU CẦU:
 2. Nêu mức độ lỗi (nặng/trung/nhẹ)
 3. Quyết định xử lý từng cái
 4. Tính tổng tiền xuất toán
-5. Viết quyết định giám định theo mẫu Nghị định 188
+5. Viết quyết định kiểm tra theo mẫu Nghị định 188
 
 TIÊU CHÍ ĐÁNH GIÁ:
 - ✅ Xác định chính xác 4 lỗi
@@ -390,7 +390,7 @@ Ca Test 3 (Phức tạp)
 ### Template báo cáo sau chạy thử
 
 ```
-BÁOCÁO CHẠY THỬ AI GIÁM ĐỊNH BHYT
+BÁOCÁO CHẠY THỬ AI KIỂM TRA BHYT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 THỜI GIAN: [Ngày]

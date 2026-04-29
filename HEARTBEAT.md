@@ -10,7 +10,7 @@
 ## Giao việc OpenClaw — bảo trì chất lượng huấn luyện (dán khi cần)
 
 ```text
-Workspace: ung_dung_cdss_bhyt (CDSS giám định BHYT).
+Workspace: ung_dung_cdss_bhyt (CDSS kiểm tra BHYT).
 
 Ranh giới: Cursor = sửa mã + chạy npm run qa:*; OpenClaw = tri thức, đối chiếu tài liệu — không giả định đã QA trừ khi có kết quả dán.
 

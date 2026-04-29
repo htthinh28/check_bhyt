@@ -1,4 +1,4 @@
-# THẺ TRI THỨC: KT105 — THAY BĂNG VẾT MỔ 15–30 CM SAU MỔ LẤY THAI (NỘI TRÚ, TỐI ĐA 3 LẦN) CHO AI GIÁM ĐỊNH
+# THẺ TRI THỨC: KT105 — THAY BĂNG VẾT MỔ 15–30 CM SAU MỔ LẤY THAI (NỘI TRÚ, TỐI ĐA 3 LẦN) CHO AI KIỂM TRA
 
 Phiên bản: 1.0  
 Ngày: 19/04/2026  

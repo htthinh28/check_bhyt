@@ -1,5 +1,5 @@
 /**
- * PHÂN HỆ: TRẠM GIÁM ĐỊNH & SỬA LỖI XML (PHƯƠNG CHÂU - JCI)
+ * PHÂN HỆ: TRẠM KIỂM TRA & SỬA LỖI XML (PHƯƠNG CHÂU - JCI)
  * Nâng cấp 5.0: 
  * 1. Đọc hàng loạt file XML cùng lúc và duyệt bằng Tab ngang.
  * 2. Layout chia đôi màn hình: Lưới dữ liệu (trái) - Sổ tay lỗi (phải) giúp xem full nội dung.
@@ -367,7 +367,7 @@ const ManHinhDocXML = ({ route }) => {
         };
         await luuHoSoVaoKho([hoSoCanLuu]);
       } catch (e) {
-        console.error("Lỗi Auto-save & Giám định:", e);
+        console.error("Lỗi Auto-save & Kiểm tra:", e);
       }
     }, 800);
   }, [hoSoDangXem]);
@@ -423,7 +423,7 @@ const ManHinhDocXML = ({ route }) => {
     const maLK = layMaLK(hoSoDangXem);
     const loi = await chayBoMayGiamDinhV3(hoSoDangXem);
     setKetQuaGiamDinhMap(prev => ({...prev, [maLK]: loi}));
-    Alert.alert("Hệ thống CDSS", `Đã cập nhật giám định: ${loi.length} lỗi.`);
+    Alert.alert("Hệ thống CDSS", `Đã cập nhật kiểm tra: ${loi.length} lỗi.`);
   };
 
   const layTabLoi = (loi) => String(loi?.phan_he || loi?.phan_loai || '').toUpperCase();
@@ -673,7 +673,7 @@ const ManHinhDocXML = ({ route }) => {
   const loiHeThong = currentLoi.length - loiSuaDuoc;
 
   // ============================================================================
-  // SỔ TAY GIÁM ĐỊNH CHI TIẾT – hiển thị toàn bộ lỗi nhóm theo bảng XML
+  // SỔ TAY KIỂM TRA CHI TIẾT – hiển thị toàn bộ lỗi nhóm theo bảng XML
   // ============================================================================
   const renderSoTayGiamDinh = () => {
     const tatCaLoi = locTheoTab ? loiTabHienTai : currentLoi;
@@ -929,7 +929,7 @@ const ManHinhDocXML = ({ route }) => {
              <View style={styles.audit_log_container_split}>
                 {/* Header sổ tay */}
                 <View style={styles.so_tay_header_row}>
-                  <Text style={styles.audit_title}>📒 SỔ TAY GIÁM ĐỊNH</Text>
+                  <Text style={styles.audit_title}>📒 SỔ TAY KIỂM TRA</Text>
                   <TouchableOpacity
                     style={[styles.so_tay_toggle_btn, locTheoTab && styles.so_tay_toggle_btn_on]}
                     onPress={() => setLocTheoTab(v => !v)}
@@ -1191,7 +1191,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255,205,210,0.5)', fontStyle: 'italic',
   },
 
-  // ============= SỔ TAY GIÁM ĐỊNH (nâng cấp) =============
+  // ============= SỔ TAY KIỂM TRA (nâng cấp) =============
   so_tay_header_row: {
     flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
     marginBottom: 10, paddingBottom: 8,

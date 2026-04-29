@@ -1,5 +1,5 @@
 /**
- * SCRIPT: Tạo file code cứng từ Excel cho 6 bảng luật (bao gồm Giám định chuyên đề)
+ * SCRIPT: Tạo file code cứng từ Excel cho 6 bảng luật (bao gồm Kiểm tra chuyên đề)
  * Chạy: node scripts/gen_hardcoded_rules.js
  */
 const XLSX = require('xlsx');

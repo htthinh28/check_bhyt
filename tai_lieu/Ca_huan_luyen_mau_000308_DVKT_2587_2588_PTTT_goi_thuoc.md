@@ -5,7 +5,7 @@ Ngày cập nhật: 09/04/2026
 
 ## 1. Mục tiêu
 
-Huấn luyện AI **phân tầng giám định DVKT** trên cùng một dòng **XML3** (gói phẫu thuật), kết hợp **XML1** (chẩn đoán) và **XML2** (thuốc), **không nhầm** với:
+Huấn luyện AI **phân tầng kiểm tra DVKT** trên cùng một dòng **XML3** (gói phẫu thuật), kết hợp **XML1** (chẩn đoán) và **XML2** (thuốc), **không nhầm** với:
 
 - cảnh báo thuốc **THUOC_391** (cùng hồ sơ — khác bảng dữ liệu và ý nghĩa);
 - rule hành chính **HC_*** / hợp đồng **HD_*** (khác phân hệ).

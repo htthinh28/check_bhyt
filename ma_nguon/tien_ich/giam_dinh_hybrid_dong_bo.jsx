@@ -207,7 +207,7 @@ export const chayGiamDinhNhieuHoSoHybridDongBo = async (danhSachDaCoKetQua = [],
     }
   }
 
-  setThongBaoDangTai('Đang chạy engine giám định JS (V15) — bắt buộc trong hybrid...');
+  setThongBaoDangTai('Đang chạy engine kiểm tra JS (V15) — bắt buộc trong hybrid...');
   await choUICapNhat();
   const danhSachGiamDinhJs = await chayNhieuHoSoV15(danhSachDaCoKetQua, {
     onProgress: options.onProgress,

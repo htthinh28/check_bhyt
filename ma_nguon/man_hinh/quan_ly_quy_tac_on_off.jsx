@@ -1147,7 +1147,7 @@ const QuanLyQuyTacOnOff = ({ navigation, route }) => {
               </View>
               <Text style={styles.txt_luu_y}>
                 {dangSuaRule?.laNoiBo
-                  ? 'Quy tắc gắn MA NGUỒN (luật cứng/seed/mẫu): sửa tên, điều kiện hiển thị, nội dung cảnh báo và chi tiết/ghi chú — lưu vào thiết bị và áp dụng khi giám định (không cần sửa file mã). Mã luật khóa để tránh lệch khóa. Nút Ẩn chỉ ẩn khỏi danh sách quản trị; ON/OFF vẫn lưu.'
+                  ? 'Quy tắc gắn MA NGUỒN (luật cứng/seed/mẫu): sửa tên, điều kiện hiển thị, nội dung cảnh báo và chi tiết/ghi chú — lưu vào thiết bị và áp dụng khi kiểm tra (không cần sửa file mã). Mã luật khóa để tránh lệch khóa. Nút Ẩn chỉ ẩn khỏi danh sách quản trị; ON/OFF vẫn lưu.'
                   : 'Quy tắc nhập tay (kho CDSS_DATA): sửa toàn bộ trường gồm mã luật, điều kiện và cảnh báo — lưu trực tiếp vào kho. Quy tắc MA NGUỒN dùng Sửa ở trên để ghi đè hiển thị khi trùng mã.'}
               </Text>
             </View>

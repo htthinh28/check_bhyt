@@ -28,7 +28,7 @@ npm run qa:rule-schema
 
 - Ghi `test_xml/rule_xml_schema_audit.json`; có thể in số trường tham chiếu ngoài schema (thông tin, không phải fail cứng).
 
-## 4. Giám định engine trên một XML (smoke)
+## 4. Kiểm tra engine trên một XML (smoke)
 
 ```bash
 npm run qa:claim-audit-smoke

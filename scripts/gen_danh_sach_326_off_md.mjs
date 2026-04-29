@@ -47,7 +47,7 @@ const NHOM = {
       'Một số CK_* OFF vì cần ngữ cảnh ngoài một hồ sơ (batch nhiều lượt, map chuyên môn, COUNT_VISIT) hoặc chờ chuẩn hóa DM_KHAM/DM_* — xem comment trong luat_cong_kham_hardcoded.jsx từng mã.',
   },
   'luat_giam_dinh_chuyen_de_hardcoded.jsx': {
-    ten: 'Luật giám định chuyên đề (Chuyen_de_*)',
+    ten: 'Luật kiểm tra chuyên đề (Chuyen_de_*)',
     ly_do_nhom:
       'Các mã Chuyen_de_* OFF trong seed: điều kiện nhạy hoặc cần kiểm thử vàng / tạm khóa theo rà soát nội bộ trước khi bật lại.',
   },

@@ -1,4 +1,4 @@
-# CHỈ MỤC: LUẬT BHYT → RULE GIÁM ĐỊNH (2024-2025)
+# CHỈ MỤC: LUẬT BHYT → RULE KIỂM TRA (2024-2025)
 
 Phiên bản: 1.0
 Ngày cập nhật: 06/04/2026
@@ -114,7 +114,7 @@ Tài liệu này là **bản đồ** giúp AI nhanh chóng tra cứu:
 
 ---
 
-### Nghị định 188/2025/NĐ-CP (Quy trình giám định mới)
+### Nghị định 188/2025/NĐ-CP (Quy trình kiểm tra mới)
 
 #### Điều 1: "Định nghĩa sai lạc: hành chính, chuyên môn, thanh toán"
 
@@ -269,7 +269,7 @@ GB_47 | HC_43 (NGAY_RA < NGAY_VAO)
 
 ## PHẦN 4: CÁCH DÙNG CHỈ MỤC NÀY
 
-### Khi giám định một hồ sơ:
+### Khi kiểm tra một hồ sơ:
 
 **Bước 1:** Xác định rule bị vi phạm
 - VD: THUOC_342 (Mekoferrat sai chẩn đoán)

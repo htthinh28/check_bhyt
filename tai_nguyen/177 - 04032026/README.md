@@ -1,6 +1,6 @@
 # Bộ số 177 — 04/2026 (kiểm thử quy tắc & huấn luyện AI)
 
-Thư mục này dùng làm **điểm đặt file mẫu** để chạy giám định batch giống môi trường thực (Claim / SOA).
+Thư mục này dùng làm **điểm đặt file mẫu** để chạy kiểm tra batch giống môi trường thực (Claim / SOA).
 
 ## Chuẩn bị dữ liệu
 

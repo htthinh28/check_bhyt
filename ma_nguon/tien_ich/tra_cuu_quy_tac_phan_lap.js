@@ -1,5 +1,5 @@
 /**
- * Tổng hợp quy tắc phân tầng giám định cho màn Thư viện — đồng bộ với màn Quản lý ON/OFF:
+ * Tổng hợp quy tắc phân tầng kiểm tra cho màn Thư viện — đồng bộ với màn Quản lý ON/OFF:
  * — Cùng pipeline `tinhDuLieuTheoTabTuNguonGiongOnOff` (tronRuleKhongTrung + hopNhat theo tab,
  *   CDHA + chuyên đề + DVKT-OP + seed PTTT mục 11 + danh mục nội bộ).
  * — `layTatCaBanGhiQuyTacPhanLap(opts)`: sync, mặc định không đọc CDSS_DATA (chỉ bundle + map nếu truyền).
@@ -31,7 +31,7 @@ export const NHOM_GIAM_DINH_META = Object.freeze([
   { id: 'LUAT_CHUYEN_TUYEN', ten: 'Nhập viện & chuyển tuyến', thu_tu: 9 },
   { id: 'LUAT_HOP_DONG', ten: 'Hợp đồng BHYT & tổng chi hồ sơ', thu_tu: 10 },
   { id: 'LUAT_MAU', ten: 'Máu & hóa dịch (XML nếu áp dụng)', thu_tu: 11 },
-  { id: 'LUAT_GIAM_DINH_CHUYEN_DE', ten: 'Giám định chuyên đề (CV 266, PL…)', thu_tu: 12 },
+  { id: 'LUAT_GIAM_DINH_CHUYEN_DE', ten: 'Kiểm tra chuyên đề (CV 266, PL…)', thu_tu: 12 },
 ]);
 
 const mapNhomTen = () => {

@@ -24,7 +24,7 @@ Có 2 hướng chính:
     Build Linux (AppImage):
       npm run desktop:build:linux
 
-    Ghi chú: Engine giám định mặc định trong app là JS nội bộ. Python service (cổng 8000)
+    Ghi chú: Engine kiểm tra mặc định trong app là JS nội bộ. Python service (cổng 8000)
     là tùy chọn — nếu cần, chạy riêng python_service trên cùng máy và cấu hình trong app.
 
 (2) BẢN WEB TĨNH — Thư mục dist/ sau lệnh:

@@ -1,11 +1,11 @@
-# THẺ TRI THỨC: NGHỊ ĐỊNH 188/2025 - QUY TRÌNH GIÁM ĐỊNH & PHÂN LOẠI LỖI BHYT
+# THẺ TRI THỨC: NGHỊ ĐỊNH 188/2025 - QUY TRÌNH KIỂM TRA & PHÂN LOẠI LỖI BHYT
 
 Phiên bản tài liệu: 1.0
 Ngày cập nhật: 06/04/2026
 
 ## 1. Mục Đích
 
-**Nghị Định 188/2025/NĐ-CP** là **quy trình giám định mới nhất (2025)** của Việt Nam về Bảo Hiểm Y Tế. Thẻ này dạy AI:
+**Nghị Định 188/2025/NĐ-CP** là **quy trình kiểm tra mới nhất (2025)** của Việt Nam về Bảo Hiểm Y Tế. Thẻ này dạy AI:
 
 - **5 Bước Kiểm Tra Giám Định** (quy trình tuần tự)
 - **4 Loại Lỗi** (hành chính, an toàn, chỉ định, thanh toán)
@@ -23,16 +23,16 @@ Ngày cập nhật: 06/04/2026
 | **Ngày duyệt** | 2025 |
 | **Má hiệu** | NĐ-CP (Nghị Định của Chính Phủ) |
 | **Phạm vi** | Toàn bộ BHYT Việt Nam |
-| **Đối tượng áp dụng** | BV, BHXH, bệnh nhân, giám định viên |
-| **Thay thế** | Luật 75/2014, Luật 07/2023 (phần giám định) |
+| **Đối tượng áp dụng** | BV, BHXH, bệnh nhân, kiểm tra viên |
+| **Thay thế** | Luật 75/2014, Luật 07/2023 (phần kiểm tra) |
 
 ---
 
-## 3. 5 BƯỚC QUY TRÌNH GIÁM ĐỊNH (Trọng Tâm Nhất)
+## 3. 5 BƯỚC QUY TRÌNH KIỂM TRA (Trọng Tâm Nhất)
 
 ### **Bước 1: Kiểm Tra Dữ Liệu & Hành Chính**
 
-**Câu hỏi:** "Hồ sơ có đủ dữ liệu hợp lệ để giám định không?"
+**Câu hỏi:** "Hồ sơ có đủ dữ liệu hợp lệ để kiểm tra không?"
 
 **Kiểm tra:**
 - ✅ Có tất cả các trường bắt buộc? (Ngày vào, ngày ra, chẩn đoán, thuốc, dịch vụ)
@@ -224,7 +224,7 @@ Ngày cập nhật: 06/04/2026
 
 ---
 
-### **Loại 3: Lỗi CHỈ ĐỊNH (3 điểm - giám định)**
+### **Loại 3: Lỗi CHỈ ĐỊNH (3 điểm - kiểm tra)**
 
 **Định nghĩa:** Chẩn đoán không rõ/mâu thuẫn, chỉ định dịch vụ không hợp lý, không do bệnh
 
@@ -419,7 +419,7 @@ Ngoài xuất toán, Nghị Định 188/2025 còn quy định **xử phạt hàn
 
 Sau khi đọc thẻ này, AI nên:
 
-1. **Hiểu rõ 5 bước** giám định (thứ tự quan trọng)
+1. **Hiểu rõ 5 bước** kiểm tra (thứ tự quan trọng)
 2. **Phân biệt 4 loại lỗi** (hành chính, an toàn, chỉ định, thanh toán)
 3. **Áp dụng 5 bước vào mỗi ca** hồ sơ
 4. **Nêu rõ lỗi từng bước** khi kết luận

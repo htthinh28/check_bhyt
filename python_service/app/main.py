@@ -620,7 +620,7 @@ def build_python_claim_results(claims: List[Dict[str, Any]], options: Dict[str, 
                 tao_canh_bao(
                     ma_luat="NS_01",
                     ten_quy_tac="Kiểm tra trùng mã liên kết (MA_LK)",
-                    canh_bao="⛔ [LỖI DỮ LIỆU]: Mã liên kết (MA_LK) bị trùng lặp trong cùng kỳ. Cổng giám định BHXH sẽ từ chối tiếp nhận hồ sơ.",
+                    canh_bao="⛔ [LỖI DỮ LIỆU]: Mã liên kết (MA_LK) bị trùng lặp trong cùng kỳ. Cổng kiểm tra BHXH sẽ từ chối tiếp nhận hồ sơ.",
                     noi_dung=(
                         f"MA_LK {entry['ma_lk']} bị trùng trong cùng cơ sở {entry['ma_cskcb']} "
                         f"và cùng tháng {entry['thang_vao']}."

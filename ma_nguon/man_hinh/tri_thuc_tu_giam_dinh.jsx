@@ -59,7 +59,7 @@ const ManHinhTriThucTuGiamDinh = ({ navigation }) => {
         Alert.alert('Đã copy', 'Nội dung Markdown đã copy vào clipboard. Dán vào file trong thư mục tai_lieu/ nếu cần đưa vào Thư viện.');
         return;
       }
-      await Share.share({ message: md, title: 'Tri thức giám định' });
+      await Share.share({ message: md, title: 'Tri thức kiểm tra' });
     } catch (e) {
       Alert.alert('Xuất', String(e?.message || e));
     }
@@ -71,7 +71,7 @@ const ManHinhTriThucTuGiamDinh = ({ navigation }) => {
         <TouchableOpacity onPress={() => navigation.navigate('TongQuan')} style={styles.btn_back}>
           <Text style={styles.txt_back}>⬅ TỔNG QUAN</Text>
         </TouchableOpacity>
-        <Text style={styles.title}>🧠 TRI THỨC TỪ GIÁM ĐỊNH</Text>
+        <Text style={styles.title}>🧠 TRI THỨC TỪ KIỂM TRA</Text>
         <View style={{ width: 120 }} />
       </View>
 

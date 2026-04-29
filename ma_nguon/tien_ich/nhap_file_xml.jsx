@@ -112,7 +112,7 @@ const luuLichSuGiamDinhAnToan = async (danhSach = []) => {
   return [];
 };
 
-const DEFAULT_TEXT_BUTTON = '📂 CHỌN HỒ SƠ XML ĐỂ GIÁM ĐỊNH';
+const DEFAULT_TEXT_BUTTON = '📂 CHỌN HỒ SƠ XML ĐỂ KIỂM TRA';
 
 const taoKhoaGopFile = (file = {}) => {
   const maLK = chuanHoaMaLK(file?.ma_lk);
@@ -158,7 +158,7 @@ const hopNhatDanhSachFile = (danhSachCu = [], danhSachMoi = [], { multiple = tru
 };
 
 /**
- * Nạp ngữ cảnh trùng MA_LK (lịch sử + kho) — dùng cho giám định tự động theo thư mục.
+ * Nạp ngữ cảnh trùng MA_LK (lịch sử + kho) — dùng cho kiểm tra tự động theo thư mục.
  */
 export const taiNguonPhuThuocNhapXml = async () => {
   try {
@@ -181,7 +181,7 @@ export const taiNguonPhuThuocNhapXml = async () => {
 };
 
 /**
- * Đọc một File (web), parse QĐ130, chạy kiểm tra tĩnh + engine giám định JS (cùng logic màn nhập file).
+ * Đọc một File (web), parse QĐ130, chạy kiểm tra tĩnh + engine kiểm tra JS (cùng logic màn nhập file).
  */
 export const xuLyMotFileXmlChoBanGiamDinh = (file, { lichSuGiamDinh = [], danhSachMaLKDaCo = [] } = {}) => {
   return new Promise((resolve) => {
@@ -371,7 +371,7 @@ const NhapFileXML = ({ onDuLieuSanSang, multiple = true, styleButton, textButton
       let ketQuaTong = [];
 
       for (let i = 0; i < mangFileHopLe.length; i += CHUNK_SIZE) {
-        setThongBaoTienDo(`Đang giám định: ${Math.min(i + CHUNK_SIZE, mangFileHopLe.length)} / ${mangFileHopLe.length}...`);
+        setThongBaoTienDo(`Đang kiểm tra: ${Math.min(i + CHUNK_SIZE, mangFileHopLe.length)} / ${mangFileHopLe.length}...`);
         
         const chunk = mangFileHopLe.slice(i, i + CHUNK_SIZE);
         const chunkResults = await Promise.all(chunk.map(file => processSingleFile(file)));
@@ -449,7 +449,7 @@ const NhapFileXML = ({ onDuLieuSanSang, multiple = true, styleButton, textButton
         const lichSuDaLuu = await luuLichSuGiamDinhAnToan(lichSuRutGon);
         setLichSuGiamDinh(lichSuDaLuu);
       } catch (storageError) {
-        console.warn('[NhapFileXML] Không thể lưu lịch sử giám định, tiếp tục chuyển dữ liệu:', storageError);
+        console.warn('[NhapFileXML] Không thể lưu lịch sử kiểm tra, tiếp tục chuyển dữ liệu:', storageError);
         setLichSuGiamDinh([]);
       }
       setDanhSachMaLKDaCo((prev) => Array.from(new Set([
@@ -460,7 +460,7 @@ const NhapFileXML = ({ onDuLieuSanSang, multiple = true, styleButton, textButton
       const tatCaDuLieu = dsDuocDuyet.flatMap((f) => chuyenKetQuaFileSangMangHoSoKho(f));
 
       if (tatCaDuLieu.length === 0) {
-        throw new Error('Không suy ra được MA_LK hợp lệ để chuyển sang bàn giám định.');
+        throw new Error('Không suy ra được MA_LK hợp lệ để chuyển sang bàn kiểm tra.');
       }
       
       // TRUYỀN DỮ LIỆU ĐÃ DUYỆT LÊN TỔNG QUAN, KHÔNG TỰ LƯU KHO
@@ -471,7 +471,7 @@ const NhapFileXML = ({ onDuLieuSanSang, multiple = true, styleButton, textButton
       if (dsKhongChuyenDuoc.length > 0) {
         hienThongBao(
           'Một số file không chuyển được',
-          `${dsKhongChuyenDuoc.length} file không có dữ liệu XML hợp lệ nên chưa thể đưa sang bàn giám định.`
+          `${dsKhongChuyenDuoc.length} file không có dữ liệu XML hợp lệ nên chưa thể đưa sang bàn kiểm tra.`
         );
       }
 
@@ -491,7 +491,7 @@ const NhapFileXML = ({ onDuLieuSanSang, multiple = true, styleButton, textButton
         <View style={styles.khung_danh_sach}>
           <View style={styles.thanh_tieu_de_ds}>
             <View>
-              <Text style={styles.chu_tieu_de_ds}>📋 KẾT QUẢ GIÁM ĐỊNH XML ({danhSachFile.length} FILE)</Text>
+              <Text style={styles.chu_tieu_de_ds}>📋 KẾT QUẢ KIỂM TRA XML ({danhSachFile.length} FILE)</Text>
               <Text style={styles.tom_tat}>Đối soát cấu trúc QĐ 130 & Quy tắc y khoa.</Text>
             </View>
             <View style={styles.nhom_nut_tieu_de_ds}>
@@ -536,11 +536,11 @@ const NhapFileXML = ({ onDuLieuSanSang, multiple = true, styleButton, textButton
                     )}
                     
                     {laHoSoTrungLap(file) && (
-                      <Text style={styles.chu_canh_bao}>⚠ Hồ sơ đã có trước đó, hệ thống sẽ giám định lại và ghi đè khi chuyển tiếp.</Text>
+                      <Text style={styles.chu_canh_bao}>⚠ Hồ sơ đã có trước đó, hệ thống sẽ kiểm tra lại và ghi đè khi chuyển tiếp.</Text>
                     )}
 
                     {laHoSoCoTheChuyenTiep(file) && (file.coCanhBao || (file.dsLoi?.length || 0) > 0) && (
-                      <Text style={[styles.chu_canh_bao, { color: '#E65100' }]}>⚠ Hồ sơ có lỗi/cảnh báo nhưng vẫn được chuyển sang bàn giám định để sửa và giám định lại.</Text>
+                      <Text style={[styles.chu_canh_bao, { color: '#E65100' }]}>⚠ Hồ sơ có lỗi/cảnh báo nhưng vẫn được chuyển sang bàn kiểm tra để sửa và kiểm tra lại.</Text>
                     )}
 
                     {!laHoSoCoTheChuyenTiep(file) && file.lyDoLoi ? (

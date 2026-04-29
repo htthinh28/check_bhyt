@@ -1,6 +1,6 @@
 # Phiên huấn luyện 03 — Đơn thuốc ngoại trú >30 ngày: THUOC_418 vs CLN-THUOC-04
 
-**Mục phiên:** AI và giám định viên phân biệt **hai lớp kiểm tra** cùng chủ đề “đơn dài ngày” ngoại trú: rule **seed** `THUOC_418` và rule **built-in** `CLN-THUOC-04`; tránh gộp nghĩa hoặc kết luận sai khi chỉ nhìn `SO_NGAY` trên XML2.
+**Mục phiên:** AI và kiểm tra viên phân biệt **hai lớp kiểm tra** cùng chủ đề “đơn dài ngày” ngoại trú: rule **seed** `THUOC_418` và rule **built-in** `CLN-THUOC-04`; tránh gộp nghĩa hoặc kết luận sai khi chỉ nhìn `SO_NGAY` trên XML2.
 
 **QA gợi ý trước/sau phiên:** `npm run qa:audit-fixtures` (snapshot 10 file chuẩn). **Ca + audit huấn luyện:** [Ca_huan_luyen_mau_TRAINHL03_THUOC_418_CLN_THUOC_04.md](./Ca_huan_luyen_mau_TRAINHL03_THUOC_418_CLN_THUOC_04.md) — `npm run qa:claim-audit` đã nạp seed `LUAT_THUOC` (xem `scripts/claim_audit_entry.jsx`).
 
@@ -52,7 +52,7 @@ Workspace: ung_dung_cdss_bhyt.
 Đọc tai_lieu/Huan_luyen_phien_03_THUOC_418_CLN_THUOC_04.md và tai_lieu/The_tri_thuc_chi_muc_giam_dinh_thuoc_engine_AI.md (§3.1).
 
 Xuất bảng: Tiêu chí | THUOC_418 | CLN-THUOC-04 (nguồn, điều kiện chính, mức độ cảnh báo nếu suy từ tài liệu).
-Thêm 4 câu hỏi phân biệt cho giám định viên.
+Thêm 4 câu hỏi phân biệt cho kiểm tra viên.
 Không PII; không sửa file.
 ```
 

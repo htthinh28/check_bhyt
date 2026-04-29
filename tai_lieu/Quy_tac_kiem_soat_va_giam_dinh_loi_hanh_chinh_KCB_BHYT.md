@@ -1,4 +1,4 @@
-# QUY TẮC KIỂM SOÁT VÀ GIÁM ĐỊNH CÁC LỖI HÀNH CHÍNH TRONG KHÁM CHỮA BỆNH BHYT
+# QUY TẮC KIỂM SOÁT VÀ KIỂM TRA CÁC LỖI HÀNH CHÍNH TRONG KHÁM CHỮA BỆNH BHYT
 
 Phiên bản: 1.0  
 Ngày: 10/04/2026  
@@ -11,7 +11,7 @@ Phạm vi: **KCB BHYT** (hồ sơ điện tử XML130 / luồng CDSS trong repo)
 Thiết lập **một khung thống nhất** để:
 
 1. **Kiểm soát** (phát hiện sớm): phân loại lỗi hành chính theo **tầng kiểm tra** và **nguồn rule** trong hệ thống.  
-2. **Giám định** (kết luận có kiểm soát): phân biệt **lỗi cấu trúc / dữ liệu**, **lỗi quyền lợi & thu chi**, **lỗi phạm vi KCB**; tránh gộp một cụm “sai hành chính” mơ hồ.
+2. **Kiểm tra** (kết luận có kiểm soát): phân biệt **lỗi cấu trúc / dữ liệu**, **lỗi quyền lợi & thu chi**, **lỗi phạm vi KCB**; tránh gộp một cụm “sai hành chính” mơ hồ.
 
 ---
 
@@ -43,11 +43,11 @@ Thiết lập **một khung thống nhất** để:
 
 ---
 
-## 4. Quy trình giám định (5 bước)
+## 4. Quy trình kiểm tra (5 bước)
 
 1. **Xác thực file:** Parser XML130, có lỗi cấu trúc nghiêm trọng → ghi nhận tầng **A** trước.  
 2. **Đọc XML1:** Thẻ, hạn, `MA_DOITUONG_KCB`, `MA_LOAI_KCB`, `MA_CSKCB`, mốc `NGAY_VAO` / `NGAY_RA`, các chỉ tiêu tổng chi.  
-3. **Áp tầng B:** Chạy / đọc kết quả rule từ `KIEM_TRA_LUAT_HANH_CHINH` (nếu có trong pipeline giám định).  
+3. **Áp tầng B:** Chạy / đọc kết quả rule từ `KIEM_TRA_LUAT_HANH_CHINH` (nếu có trong pipeline kiểm tra).  
 4. **Áp tầng C:** Với mỗi cảnh báo `HC_*`, đối chiếu **điều kiện seed** với dữ liệu thật; kiểm tra rule **OFF** (không có nghĩa hồ sơ “sạch”).  
 5. **Tổng hợp kết luận:** Tách **blocking** vs **cảnh báo**; nêu **chứng từ cần bổ sung** (giấy chuyển tuyến, miễn CCT, v.v.) khi engine chỉ gợi ý.
 
@@ -81,12 +81,12 @@ npm run qa:on-off-match
 
 ---
 
-## 8. Phân biệt “kiểm soát” và “giám định” (trong ngữ cảnh CDSS)
+## 8. Phân biệt “kiểm soát” và “kiểm tra” (trong ngữ cảnh CDSS)
 
 | Thuật ngữ | Ý nghĩa gọn |
 |-----------|------------|
 | **Kiểm soát** | Hệ thống / quy tắc **phát hiện** theo điều kiện đã cài — có thể false positive. |
-| **Giám định** | Người có năng lực nghiệp vụ (hoặc AI **có kiểm chứng**) **kết luận** sau khi đối chiếu quy định + chứng từ; có thể **bác** cảnh báo nếu đủ căn cứ. |
+| **Kiểm tra** | Người có năng lực nghiệp vụ (hoặc AI **có kiểm chứng**) **kết luận** sau khi đối chiếu quy định + chứng từ; có thể **bác** cảnh báo nếu đủ căn cứ. |
 
 ---
 

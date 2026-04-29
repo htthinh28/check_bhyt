@@ -2,7 +2,7 @@
 
 Phiên bản: 1.0  
 Ngày: 06/04/2026  
-Căn cứ pháp lý: **Thông tư 12/2026/TT-BTC**, **Điều 10 khoản 1** (các nội dung rà soát hồ sơ đề nghị thanh toán — giám định **tự động**).  
+Căn cứ pháp lý: **Thông tư 12/2026/TT-BTC**, **Điều 10 khoản 1** (các nội dung rà soát hồ sơ đề nghị thanh toán — kiểm tra **tự động**).  
 Tra cứu: [Thông tư 12/2026/TT-BTC](https://thuvienphapluat.vn/van-ban/Bao-hiem/Thong-tu-12-2026-TT-BTC-thu-tuc-giam-dinh-chi-phi-kham-chua-benh-bao-hiem-y-te-694954.aspx)
 
 Mục đích: map từng **điểm a–m** sang **lớp dữ liệu** trong hồ sơ điện tử (XML1…XML6 theo QĐ 130/BYT) để huấn luyện AI, viết rule và đối chiếu `co_so_phap_ly` trong CDSS. Đây là bản **tham chiếu kỹ thuật**, không thay thế văn bản gốc.
@@ -21,13 +21,13 @@ Mục đích: map từng **điểm a–m** sang **lớp dữ liệu** trong hồ
 | **e** | Phạm vi chuyên môn, thời gian KCB của **CSKCB** | **XML1**: `MA_LOAI_KCB`, `MA_KHOA`, `MA_NOI_CHUYEN`; metadata hợp đồng/danh mục CS (ngoài XML claim) | Liên quan NĐ 188, hợp đồng KCB BHYT |
 | **g** | Phạm vi hành nghề, thời gian làm việc **người hành nghề** | **XML2**: `MA_BS_CHI_DINH`; **XML3**: `MA_BS_CHI_DINH` / người thực hiện; **XML1**: `MA_BAC_SI` | Rule nhân sự / mapping DVKT–bác sĩ |
 | **h** | Thời gian giữa các lần KCB | **XML1**: `NGAY_VAO`, `NGAY_RA`, `NGAY_TTOAN`; lịch sử nhiều `MA_LK` (liên thông) | Cảnh báo tái khám/trùng đợt (cần thêm rule nội bộ) |
-| **i** | Dịch vụ KCB **hợp lý** theo tiêu chuẩn BYT (khoản 3 Điều 6 Luật BHYT) | Toàn bộ XML + hồ sơ lâm sàng; **XML4** CLS nếu có; chỉ định so với chẩn đoán | Giám định chủ động / chuyên môn; **điểm i** thường cần bổ sung tài liệu (khoản 2–3 Điều 10) |
+| **i** | Dịch vụ KCB **hợp lý** theo tiêu chuẩn BYT (khoản 3 Điều 6 Luật BHYT) | Toàn bộ XML + hồ sơ lâm sàng; **XML4** CLS nếu có; chỉ định so với chẩn đoán | Kiểm tra chủ động / chuyên môn; **điểm i** thường cần bổ sung tài liệu (khoản 2–3 Điều 10) |
 | **k** | Số liệu **thống nhất** trên Bảng kê chi tiết | Đối chiếu **XML1–6** với tổng hợp; `THANH_TIEN` các bảng vs XML6 / logic tổng | `XML_53`, cảnh báo lệch tổng |
 | **m** | Số lượng thuốc/TBYT khớp **đấu thầu / điều chuyển** (Điều 43 NĐ 188/2025) | **XML2** `SO_LUONG`, mã thuốc; danh mục mua sắm nội bộ / hợp đồng | Vượt khối lượng mua sắm → từ chối một phần |
 
 ---
 
-## Điểm cần giám định chủ động (gợi ý từ khoản 2–3 Điều 10)
+## Điểm cần kiểm tra chủ động (gợi ý từ khoản 2–3 Điều 10)
 
 - **đ** (tỷ lệ, điều kiện) và **i** (hợp lý): khi hệ thống **không đủ thông tin** tự động, Bảng kê có thể chuyển trạng thái cần **tài liệu chứng minh** / điều chỉnh (Mẫu 09/BH — Phụ lục I TT 12/2026).
 

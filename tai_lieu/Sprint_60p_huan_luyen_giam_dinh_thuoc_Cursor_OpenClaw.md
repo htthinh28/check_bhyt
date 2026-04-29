@@ -1,4 +1,4 @@
-# Sprint 60 phút — Một vòng huấn luyện giám định thuốc (Cursor + OpenClaw)
+# Sprint 60 phút — Một vòng huấn luyện kiểm tra thuốc (Cursor + OpenClaw)
 
 **Mục tiêu thực tế trong 60 phút:** Hoàn thành **một vòng** “tri thức → engine → ca/audit → QA → ghi nhận”, *không* phải toàn bộ nghiệp vụ thuốc BHYT. Dùng song song **Cursor** (sửa/đọc repo, trace mã) và **OpenClaw** (tóm tắt, đối chiếu nhiều file, checklist) nếu gateway đang chạy.
 
@@ -112,4 +112,4 @@ Bỏ bớt theo thứ tự: OpenClaw P4/P5 → QA thứ hai → trục A (giữ 
 
 ---
 
-*Phiên bản: 1.0 — đồng bộ quy trình Cursor + OpenClaw cho giám định thuốc.*
+*Phiên bản: 1.0 — đồng bộ quy trình Cursor + OpenClaw cho kiểm tra thuốc.*

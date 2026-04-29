@@ -5,7 +5,7 @@ Ngày cập nhật: 05/04/2026
 
 ## 1. Mục tiêu
 
-Tài liệu này là một ca huấn luyện mẫu để dạy AI cách phân tích một hồ sơ giám định thuốc từ dữ liệu audit thật trong repo.
+Tài liệu này là một ca huấn luyện mẫu để dạy AI cách phân tích một hồ sơ kiểm tra thuốc từ dữ liệu audit thật trong repo.
 
 Ca này dùng để huấn luyện 3 kỹ năng:
 
@@ -125,7 +125,7 @@ Diễn giải nghiệp vụ:
 
 Seed hiện hành:
 
-- Tên: `Giám định thuốc cấp dư (Dựa trên y lệnh)`
+- Tên: `Kiểm tra thuốc cấp dư (Dựa trên y lệnh)`
 - Điều kiện: `XML2.SO_LUONG > (XML2.SL_MOI_NGAY * XML2.SO_NGAY)`
 
 Điểm AI phải học:
@@ -248,4 +248,4 @@ Ca `000434` là một ca huấn luyện tốt vì nó dạy AI cùng lúc nhiề
 - phát hiện thuốc sai chỉ định thanh toán
 - nhận biết mẫu lỗi lặp do kê trùng hoặc nhập liệu chưa chuẩn
 
-Đây là loại ca nên dùng lặp lại trong quá trình huấn luyện AI giám định BHYT vì vừa có số liệu rõ, vừa có giá trị nghiệp vụ cao.
+Đây là loại ca nên dùng lặp lại trong quá trình huấn luyện AI kiểm tra BHYT vì vừa có số liệu rõ, vừa có giá trị nghiệp vụ cao.

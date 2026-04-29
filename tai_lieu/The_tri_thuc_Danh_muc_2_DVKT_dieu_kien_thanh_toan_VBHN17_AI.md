@@ -2,14 +2,14 @@
 
 Phiên bản: 1.0  
 Ngày: 10/04/2026  
-Đối tượng: huấn luyện AI giám định BHYT — **bổ sung** [The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md](./The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md) mục **4**; **không thay thế** Phụ lục Excel BYT / hợp đồng KCB.
+Đối tượng: huấn luyện AI kiểm tra BHYT — **bổ sung** [The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md](./The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md) mục **4**; **không thay thế** Phụ lục Excel BYT / hợp đồng KCB.
 
 ---
 
 ## 1. Định danh pháp lý và vai trò Danh mục 2
 
 - Trong **17/VBHN-BYT** (**Khoản 2 Điều 1**), **Danh mục 2** là danh mục DVKT có quy định **cụ thể điều kiện thanh toán** (trọng tâm là **điều kiện** được mô tả theo **từng dòng** trong Phụ lục).
-- **Ý nghĩa giám định:** Lỗi AI thường gặp là **“thấy `MA_DICH_VU` trùng mã trong DM2 → cho là đủ điều kiện TT”**. Đúng ra: mã chỉ là **điều kiện cần**; **điều kiện đủ** nằm ở **nội dung điều kiện dòng** (và các lớp **Điều 3 khoản 1**: phạm vi CS, QTDH, giá phê duyệt — khi tranh chấp).
+- **Ý nghĩa kiểm tra:** Lỗi AI thường gặp là **“thấy `MA_DICH_VU` trùng mã trong DM2 → cho là đủ điều kiện TT”**. Đúng ra: mã chỉ là **điều kiện cần**; **điều kiện đủ** nằm ở **nội dung điều kiện dòng** (và các lớp **Điều 3 khoản 1**: phạm vi CS, QTDH, giá phê duyệt — khi tranh chấp).
 
 **Đối chiếu nhanh với Danh mục 1:** [The_tri_thuc_Danh_muc_1_DVKT_dieu_kien_ty_le_gia_VBHN17_AI.md](./The_tri_thuc_Danh_muc_1_DVKT_dieu_kien_ty_le_gia_VBHN17_AI.md) — DM1 thêm **tỷ lệ + mức giá** theo cấu trúc Phụ lục; DM2 nhấn mạnh **điều kiện** nhưng **không** được hiểu là “không có ràng buộc tiền” — vẫn phải thỏa **Điều 2–4** khi đã TT.
 

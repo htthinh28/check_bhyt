@@ -50,7 +50,7 @@ File JSON audit có thể hiển thị `dieu_kien` rút gọn (thiếu cụm `MA
 ## 6. Bài tập cho AI
 
 1. Giải thích vì sao rule này mang nhãn **QUẢN TRỊ** chứ không phải **XUẤT TOÁN** thuần BHYT trong text cảnh báo.
-2. Liệt kê **ít nhất hai** lý do lâm sàng / vận hành hợp lý khiến MRI > 3 ngày sau vào viện **vẫn có thể** chấp nhận được (AI chỉ gợi ý — không kết luận thay giám định viên).
+2. Liệt kê **ít nhất hai** lý do lâm sàng / vận hành hợp lý khiến MRI > 3 ngày sau vào viện **vẫn có thể** chấp nhận được (AI chỉ gợi ý — không kết luận thay kiểm tra viên).
 3. Phân biệt một dòng với **`CLN-GIUONG-01`** trên cùng hồ sơ: khác **trường so sánh** và **mục đích** cảnh báo.
 
 ## 7. Liên kết

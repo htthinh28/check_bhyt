@@ -12,8 +12,8 @@
 
 | Mã | `TEN_QUY_TAC` (rút gọn) | `DIEU_KIEN` (ý niệm) |
 |----|-------------------------|----------------------|
-| **THUOC_416** | Giám định Thuốc cấp dư | `SO_LUONG > (CALC_SL_MOI_NGAY * SO_NGAY)` |
-| **THUOC_417** | Giám định thuốc cấp dư (Dựa trên y lệnh) | `XML2.SO_LUONG > (XML2.SL_MOI_NGAY * XML2.SO_NGAY)` |
+| **THUOC_416** | Kiểm tra Thuốc cấp dư | `SO_LUONG > (CALC_SL_MOI_NGAY * SO_NGAY)` |
+| **THUOC_417** | Kiểm tra thuốc cấp dư (Dựa trên y lệnh) | `XML2.SO_LUONG > (XML2.SL_MOI_NGAY * XML2.SO_NGAY)` |
 
 Nguồn: `ma_nguon/tien_ich/du_lieu_luat_thuoc_muc8.jsx` — `SEED_THUOC_416`, `SEED_THUOC_417`.
 
@@ -60,7 +60,7 @@ Xuất:
 Không sửa file.
 ```
 
-**Bước B — Giải thích cho giám định viên**
+**Bước B — Giải thích cho kiểm tra viên**
 
 ```text
 Giải thích tiếng Việt đơn giản (tối đa 8 câu): "Cấp dư theo CALC" vs "cấp dư theo SL trên XML", và vì sao audit vẫn có thể không có THUOC_417 sau lọc làm tròn.

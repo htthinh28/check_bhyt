@@ -29,7 +29,7 @@ Lập tài liệu⟡hồ sơ + hóa đơn + chứng từ
   ↓
 Gửi BHXH⟡hóa đơn điện tử + XML files
   ↓
-BHXH KIỂM⟡Giám định viên kiểm tra
+BHXH KIỂM⟡Kiểm tra viên kiểm tra
   ↓
 THANH TOÁN⟡BHXH chuyển tiền
 ```

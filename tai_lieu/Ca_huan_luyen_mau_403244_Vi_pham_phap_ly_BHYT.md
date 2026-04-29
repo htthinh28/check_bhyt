@@ -5,7 +5,7 @@ Ngày cập nhật: 06/04/2026
 
 ## 1. Mục đích
 
-Ca này dạy AI cách **áp dụng pháp luật vào quyết định giám định thực tế**, bằng cách:
+Ca này dạy AI cách **áp dụng pháp luật vào quyết định kiểm tra thực tế**, bằng cách:
 
 - Nhận diện loại vi phạm (hành chính, chuyên môn-an toàn, chuyên môn-chỉ định, thanh toán hình thức)
 - Tìm **căn cứ pháp lý rõ ràng** từ Luật BHYT và Nghị định 188/2025
@@ -268,19 +268,19 @@ THANH_TIEN: 90.000đ
 
 ---
 
-## 5. Quyết định giám định chi tiết
+## 5. Quyết định kiểm tra chi tiết
 
 ### Mẫu quyết định theo Nghị định 188/2025
 
 ```
 
-QUYẾT ĐỊNH GIÁM ĐỊNH BHYT
+QUYẾT ĐỊNH KIỂM TRA BHYT
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Hồ sơ: MA_LK 403244
 Cơ sở Y tế: [Bệnh viện X]
 Ngày phát hành: 06/04/2026
-Giám định viên: [AI CDSS]
+Kiểm tra viên: [AI CDSS]
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
@@ -502,7 +502,7 @@ dựa trên Luật BHYT 75/2014 và Quyết định 5631/QĐ-BYT"
 
 ### Prompt 3: Soạn quyết định chi tiết
 ```
-"Soạn quyết định giám định cho lỗi 'Aciclovir sai chỉ định',
+"Soạn quyết định kiểm tra cho lỗi 'Aciclovir sai chỉ định',
 theo mẫu quyết định ở mục 5, bao gồm: Luật, Phân tích, Xử lý, Hướng dẫn phúc đáp"
 ```
 
@@ -511,6 +511,6 @@ theo mẫu quyết định ở mục 5, bao gồm: Luật, Phân tích, Xử lý
 ## 8. Ghi chú
 
 - Tài liệu này là **ví dụ mẫu** - các số tiền/hồ sơ có thể thay đổi
-- **Quyết định thực tế** phải được **kiểm duyệt bởi giám định viên chuyên gia**
+- **Quyết định thực tế** phải được **kiểm duyệt bởi kiểm tra viên chuyên gia**
 - **Phúc đáp phải được trả lời** trong **30 ngày** theo Nghị định 188/2025
 - Nếu bệnh viện **phúc đáp thắng**, BHXH phải **thanh toán + lãi** trong **15 ngày**

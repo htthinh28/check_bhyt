@@ -1,4 +1,4 @@
-# THẺ TRI THỨC: GIÁM ĐỊNH THUỐC — DANH MỤC NỘI BỘ (DM-THUOC) VÀ ĐỐI CHIẾU TIỀN
+# THẺ TRI THỨC: KIỂM TRA THUỐC — DANH MỤC NỘI BỘ (DM-THUOC) VÀ ĐỐI CHIẾU TIỀN
 
 Phiên bản tài liệu: 1.2  
 Ngày cập nhật: 06/04/2026
@@ -16,7 +16,7 @@ Với mỗi dòng `XML2` (BHYT thanh toán), hệ thống xác định:
 - `trongBV`: mã có trong `MAP_THUOC_BV` hay không.
 - `trongBYT`: mã có trong danh mục thuốc BYT (`MAP_BYT_PL5`) hay không (khi map đã nạp).
 
-| Mã rule | Điều kiện tóm tắt | Mức độ | Ý nghĩa giám định |
+| Mã rule | Điều kiện tóm tắt | Mức độ | Ý nghĩa kiểm tra |
 |---------|-------------------|--------|-------------------|
 | **DM-THUOC-01** | Có trong BYT, **không** có trong DM nội bộ BV | Critical | Thuốc **chưa được BV phê duyệt** dùng/thanh toán — rủi ro xuất toán. |
 | **DM-THUOC-02** | Không trong BYT và không trong DM BV | Critical | Thuốc **ngoài cả hai** danh mục — rất nặng. |

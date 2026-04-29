@@ -1,4 +1,4 @@
-# CHỈ MỤC ENGINE: GIÁM ĐỊNH THUỐC (MÃ NGUỒN + LUỒNG CẢNH BÁO)
+# CHỈ MỤC ENGINE: KIỂM TRA THUỐC (MÃ NGUỒN + LUỒNG CẢNH BÁO)
 
 Phiên bản tài liệu: 1.0  
 Ngày cập nhật: 06/04/2026

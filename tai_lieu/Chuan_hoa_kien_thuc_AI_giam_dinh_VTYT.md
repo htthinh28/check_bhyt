@@ -1,4 +1,4 @@
-# Chuẩn hóa kiến thức giám định vật tư y tế (VTYT) cho AI
+# Chuẩn hóa kiến thức kiểm tra vật tư y tế (VTYT) cho AI
 
 **Phiên bản:** 1.2  
 **Ngày:** 09/04/2026  
@@ -8,13 +8,13 @@
 
 ## 0. Hiện trạng triển khai: **không có** bộ dữ liệu / rule seed **thanh toán VTYT** đầy đủ trong repo
 
-**Xác nhận kỹ thuật:** Trong `ma_nguon/`, **không** có bảng luật động (kiểu `du_lieu_luat_*.jsx`) nào sinh ra cảnh báo với tiền tố **`DM-VTYT-`** — chỉ có **ánh xạ căn cứ pháp lý** khi *có* `ma_luat` bắt đầu bằng `DM-VTYT-` trong `dong_co_giam_dinh.jsx` (`CO_SO_PHAP_LY_THEO_PREFIX_MA_LUAT`). Nghĩa là **CSDL giám định tự động theo từng mã vật tư / từng điều kiện VBHN 14** **chưa được nạp** như nhánh `DVKT_*` hay `THUOC_*`.
+**Xác nhận kỹ thuật:** Trong `ma_nguon/`, **không** có bảng luật động (kiểu `du_lieu_luat_*.jsx`) nào sinh ra cảnh báo với tiền tố **`DM-VTYT-`** — chỉ có **ánh xạ căn cứ pháp lý** khi *có* `ma_luat` bắt đầu bằng `DM-VTYT-` trong `dong_co_giam_dinh.jsx` (`CO_SO_PHAP_LY_THEO_PREFIX_MA_LUAT`). Nghĩa là **CSDL kiểm tra tự động theo từng mã vật tư / từng điều kiện VBHN 14** **chưa được nạp** như nhánh `DVKT_*` hay `THUOC_*`.
 
 **Hệ quả cho AI:**
 
 - **Không** giả định “engine đã tra Phụ lục VTYT giống thuốc/DVKT” — tra cứu **điều kiện thanh toán** theo văn bản **11.6 / VBHN 14** là việc **người + tài liệu BYT**, không phải output đầy đủ từ rule seed trong repo.  
 - Phần **có trong code** liên quan VTYT chủ yếu là: **cấu trúc XML3** (`MA_VAT_TU`, `GOI_VTYT`…), **đối chiếu tổng tiền** (`CLN-CHI-02` / `T_VTYT` — xem §3), **liên kết vật tư với DVKT** trong `dvkt_op_giam_dinh.jsx` (ví dụ khi DVKT đã bao gồm vật tư), và các rule **hardcoded / chuyên đề / CDHA** có chữ “VTYT” — mỗi nhóm cần đọc **trạng thái ON/OFF** và **điều kiện** riêng.  
-- **Danh mục PL8 / `DM_VTYT`** trong luồng load BYT 7603 **không** đồng nghĩa đã có **tập rule giám định VTYT** tương ứng trong seed.  
+- **Danh mục PL8 / `DM_VTYT`** trong luồng load BYT 7603 **không** đồng nghĩa đã có **tập rule kiểm tra VTYT** tương ứng trong seed.  
 - **Lộ trình khi bổ sung CSDL:** [Huan_luyen_phien_VTYT_du_phong_Cursor.md](./Huan_luyen_phien_VTYT_du_phong_Cursor.md) mục **4.2**.
 
 ---
@@ -55,7 +55,7 @@ Trong `dong_co_giam_dinh.jsx`, hàm `giamDinhTongChiPhi`:
 | Nguồn | Ví dụ / vị trí | Ghi chú |
 |--------|----------------|---------|
 | **Prefix `DM-VTYT-`** | `CO_SO_PHAP_LY_THEO_PREFIX_MA_LUAT` → `CO_SO_PHAP_LY_VTYT` | **Chỉ** chuẩn bị **căn cứ pháp lý** nếu sau này có rule mang tiền tố này — **hiện không có** rule seed tương ứng trong repo (**§0**). |
-| **Danh mục hệ thống** | `DM_VTYT`, `PL8_VTYT` (BYT 7603 PL8), `MAP_VTYT_BV` | Load trong `dong_co_giam_dinh.jsx`; **không** đồng nghĩa đã có **tập quy tắc giám định thanh toán VTYT** trong seed. |
+| **Danh mục hệ thống** | `DM_VTYT`, `PL8_VTYT` (BYT 7603 PL8), `MAP_VTYT_BV` | Load trong `dong_co_giam_dinh.jsx`; **không** đồng nghĩa đã có **tập quy tắc kiểm tra thanh toán VTYT** trong seed. |
 | **XML3 (QĐ 130)** | `MA_VAT_TU`, `TEN_VAT_TU`, `GOI_VTYT`, `TYLE_TT` / `TYLE_TT_BH`, `DON_GIA`, `TT_THAU`, `MA_HIEU_SP`… | Schema: `ma_nguon/quy_tac/quyluat_cautrucdulieu/xml3.jsx`. |
 | **Nhận dòng VTYT cho engine DVKT no-code** | `extractVtytLines` trong `dvkt_op_giam_dinh.jsx` | Dùng cho kiểm tra **vật tư đi kèm / trùng gói** với DVKT (ví dụ `checkGhiChu`). |
 | **Công khám / giường / XML5** | `CK_15` (vật tư thay thế — XML5 `MA_VTYT`), `GB_35` (ICU + VTYT) | Hardcoded; điều kiện theo từng file luật. |

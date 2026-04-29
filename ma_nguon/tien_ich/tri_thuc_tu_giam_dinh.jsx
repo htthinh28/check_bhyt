@@ -1,5 +1,5 @@
 /**
- * Kho tri thức tích lũy từ quá trình giám định — bài học do người ghi nhận,
+ * Kho tri thức tích lũy từ quá trình kiểm tra — bài học do người ghi nhận,
  * kèm snapshot cảnh báo và gợi ý soạn thảo từ dữ liệu có cấu trúc (không thay thế người).
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -16,7 +16,7 @@ const parseJson = (raw) => {
   }
 };
 
-/** Gợi ý nháp từ MA_LK, số lỗi, mã luật — phục vụ giám định viên chỉnh sửa trước khi lưu. */
+/** Gợi ý nháp từ MA_LK, số lỗi, mã luật — phục vụ kiểm tra viên chỉnh sửa trước khi lưu. */
 export const goiYTomTatTuKetQuaGiamDinh = ({ ma_lk, ma_bn, ho_ten, danhSachLoi }) => {
   const ds = Array.isArray(danhSachLoi) ? danhSachLoi : [];
   const n = ds.length;
@@ -41,7 +41,7 @@ export const goiYTomTatTuKetQuaGiamDinh = ({ ma_lk, ma_bn, ho_ten, danhSachLoi }
     lines.push(dongTom);
   }
   lines.push('');
-  lines.push('Bài học / kết luận giám định (điền thủ công): …');
+  lines.push('Bài học / kết luận kiểm tra (điền thủ công): …');
   return lines.join('\n');
 };
 
@@ -104,9 +104,9 @@ export const dongGoiPhanHoiXacNhanCanhBao = ({
   };
 
   const lines = [];
-  lines.push(`[Xác nhận tri thức giám định — MA_LK ${payload.ma_lk || '—'}]`);
+  lines.push(`[Xác nhận tri thức kiểm tra — MA_LK ${payload.ma_lk || '—'}]`);
   lines.push(
-    'Mục đích: ghi nhận đánh giá đúng/sai từ giám định viên để tích lũy tri thức, hỗ trợ cải thiện độ chính xác và huấn luyện AI (dữ liệu cục bộ).',
+    'Mục đích: ghi nhận đánh giá đúng/sai từ kiểm tra viên để tích lũy tri thức, hỗ trợ cải thiện độ chính xác và huấn luyện AI (dữ liệu cục bộ).',
   );
   if (payload.xac_nhan_khong_canh_bao === 'DUNG') {
     lines.push('— Hồ sơ không có cảnh báo: xác nhận đánh giá của hệ thống là ĐÚNG.');
@@ -174,7 +174,7 @@ export const xoaTriThucTheoId = async (id) => {
 
 export const xuatTriThucRaMarkdown = (items) => {
   const arr = Array.isArray(items) ? items : [];
-  const chunks = ['# Tri thức tích lũy từ giám định (xuất từ CDSS BHYT)', ''];
+  const chunks = ['# Tri thức tích lũy từ kiểm tra (xuất từ CDSS BHYT)', ''];
   arr.forEach((it, i) => {
     chunks.push(`## ${i + 1}. ${it.tom_tat || it.ma_lk || 'Ca'}`);
     chunks.push('');

@@ -2,7 +2,7 @@
 
 **Mục phiên:** AI (và người đào tạo) nắm **tầng hành chính–pháp lý** (thẻ BHYT, đối tượng, mức hưởng, loại KCB, cơ sở KCB, mốc thời gian, tổng chi) trước khi đi sâu lâm sàng/thuốc/DVKT; biết **neo** vào XML1/QĐ 3176 và nhóm luật **HC_** trong repo.
 
-**Bổ sung (phiên mở rộng):** khung **4 tầng + 5 bước giám định** — [Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md](./Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md); thẻ kiểm soát lỗi tập trung — [The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md](./The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md).
+**Bổ sung (phiên mở rộng):** khung **4 tầng + 5 bước kiểm tra** — [Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md](./Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md); thẻ kiểm soát lỗi tập trung — [The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md](./The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md).
 
 **Căn cứ chung:** Luật BHYT (hiện hành), hướng dẫn thi hành và đặc tả **XML130** — trong repo: **QĐ 3176/QĐ-BYT** + **QĐ 130** (bảng chỉ tiêu), không thay bằng “truyền miệng” hoặc form nội bộ cũ.
 
@@ -16,7 +16,7 @@ Danh mục cột chuẩn: `ma_nguon/quy_tac/quyluat_cautrucdulieu/xml1.jsx` — 
 
 AI khi giải thích “bắt buộc” cần phân biệt:
 
-- **Bắt buộc theo đặc tả XML / kiểm tra cấu trúc** (cổng BHXH / giám định file): xem `ma_nguon/tien_ich/kiem_tra_xml.jsx` — `TRUONG_BAT_BUOC_BO_SUNG` cho `XML1` (ví dụ `MA_LK`, `MA_BN`, `HO_TEN`, `NGAY_SINH`, `GIOI_TINH`, `MA_THE_BHYT`, `MA_DOITUONG_KCB`, `MA_BENH_CHINH`, `NGAY_VAO`, `NGAY_RA`, `MA_LOAI_KCB`, `MA_CSKCB`, `T_TONGCHI_BV`, `T_TONGCHI_BH`, …).
+- **Bắt buộc theo đặc tả XML / kiểm tra cấu trúc** (cổng BHXH / kiểm tra file): xem `ma_nguon/tien_ich/kiem_tra_xml.jsx` — `TRUONG_BAT_BUOC_BO_SUNG` cho `XML1` (ví dụ `MA_LK`, `MA_BN`, `HO_TEN`, `NGAY_SINH`, `GIOI_TINH`, `MA_THE_BHYT`, `MA_DOITUONG_KCB`, `MA_BENH_CHINH`, `NGAY_VAO`, `NGAY_RA`, `MA_LOAI_KCB`, `MA_CSKCB`, `T_TONGCHI_BV`, `T_TONGCHI_BH`, …).
 - **Bắt buộc theo nghiệp vụ BHYT** (mức hưởng, đối tượng, không thu sai cùng chi trả): thường được diễn giải trong luật/hướng dẫn và được **mô hình hóa** bằng các rule **HC_** trong `ma_nguon/tien_ich/du_lieu_luat_hanh_chinh_muc2.jsx` (kèm `luat_hanh_chinh_hardcoded.jsx`).
 
 ### 1.2. Nhóm luật hành chính (ví dụ neo)

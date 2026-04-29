@@ -184,7 +184,7 @@ Kho XML thật cho thấy hệ thống đã có nhiều nền tảng tốt, như
 - `nhóm thuốc được seed sâu`
 - và `nhóm thuốc xuất hiện thật trong hồ sơ`
 
-Nếu muốn AI hỗ trợ giám định kháng sinh tốt hơn, cần kết hợp 3 hướng cùng lúc:
+Nếu muốn AI hỗ trợ kiểm tra kháng sinh tốt hơn, cần kết hợp 3 hướng cùng lúc:
 
 1. làm giàu tri thức pháp lý và nhi khoa
 2. tăng độ phủ rule theo dữ liệu thật

@@ -1,5 +1,5 @@
 /**
- * Quy tắc giám định tương tác thuốc — đồng bộ với động cơ trong tien_ich/dong_co_giam_dinh.jsx
+ * Quy tắc kiểm tra tương tác thuốc — đồng bộ với động cơ trong tien_ich/dong_co_giam_dinh.jsx
  * (giamDinhDanhMucNoiBo → XML2, MAP_TUONG_TAC_CAP, danhGiaDongThoiThuocABtrenXML2).
  */
 
@@ -20,7 +20,7 @@ export const NOI_DUNG_QUY_TAC_HIEN_THI = [
     key: 'phan_vi',
     tieuDe: 'Phạm vi hồ sơ',
     dong: [
-      'Một lượt KCB (cùng MA_LK, cùng tập XML2 trong hồ sơ đang giám định): ngoại trú, nội trú hoặc nội trú ban ngày đều dùng chung logic (mô tả loại đợt theo MA_LOAI_KCB / XML1).',
+      'Một lượt KCB (cùng MA_LK, cùng tập XML2 trong hồ sơ đang kiểm tra): ngoại trú, nội trú hoặc nội trú ban ngày đều dùng chung logic (mô tả loại đợt theo MA_LOAI_KCB / XML1).',
       'Chỉ xét các dòng XML2 thuốc mà động cơ xác định là BHYT thanh toán; các dòng bị loại khỏi nhánh BHYT (không thanh toán theo quy ước nội bộ) không vào tập so khớp tương tác.',
     ],
   },
@@ -49,7 +49,7 @@ export const NOI_DUNG_QUY_TAC_HIEN_THI = [
   },
   {
     key: 'ket_qua',
-    tieuDe: 'Kết quả giám định',
+    tieuDe: 'Kết quả kiểm tra',
     dong: [
       'Mức độ trên hồ sơ: cột «Mức độ» (Warning / Error / Critical). Để trống hoặc chưa nhập: nếu «Cảnh báo hệ thống» có dấu hiệu chống chỉ định (ví dụ 🚫 hoặc chữ «chống chỉ định») thì mặc định Critical, ngược lại Warning.',
       'Mã quy tắc báo trên hồ sơ: lấy MA_TUONG_TAC trong bảng; nếu thiếu dùng CLN-TT-001.',

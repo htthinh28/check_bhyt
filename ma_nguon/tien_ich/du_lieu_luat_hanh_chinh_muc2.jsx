@@ -832,7 +832,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "MA_LUAT": "HC_90",
     "TEN_QUY_TAC": "Mã thuốc không có trong danh mục thầu",
     "DIEU_KIEN": "1 == 0",
-    "CANH_BAO": "⛔ Từ chối: Thuốc chưa được phê duyệt trúng thầu trên hệ thống giám định.",
+    "CANH_BAO": "⛔ Từ chối: Thuốc chưa được phê duyệt trúng thầu trên hệ thống kiểm tra.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
     "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: phụ thuộc danh mục DM_THAU_QUOC_GIA không thấy được nạp vào context engine hiện tại; để ON sẽ không chứng minh được đầu vào hợp lệ tại runtime. Điều kiện gốc: XML2.MA_THUOC NOT IN (DM_THAU_QUOC_GIA) AND IS_EMPTY(XML2.TT_THAU)"
   },
@@ -2268,7 +2268,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "MA_LUAT": "HC_244",
     "TEN_QUY_TAC": "Hồ sơ chưa qua bước kiểm soát nội bộ",
     "DIEU_KIEN": "1 == 0",
-    "CANH_BAO": "⚠️ Nhắc nhở: Hồ sơ chưa được bộ phận KHTH/Giám định nội bộ duyệt.",
+    "CANH_BAO": "⚠️ Nhắc nhở: Hồ sơ chưa được bộ phận KHTH/Kiểm tra nội bộ duyệt.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
     "GHI_CHU_SUA": "✏️ [Production review] Vô hiệu hóa trước deploy: tham chiếu HIS.* ngoài schema XML/QĐ130-QĐ3176 và không có trong engine hiện tại. Điều kiện gốc: HIS.INTERNAL_CHECK == FALSE"
   },

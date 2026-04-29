@@ -1,5 +1,5 @@
 /**
- * TỆP LÕI: HỆ QUẢN TRỊ QUY TẮC GIÁM ĐỊNH BHYT (CDSS) — BẢNG ĐỘNG
+ * TỆP LÕI: HỆ QUẢN TRỊ QUY TẮC KIỂM TRA BHYT (CDSS) — BẢNG ĐỘNG
  * Chức năng: Quản lý 11 tệp luật BHYT dưới dạng bảng dữ liệu động (cột/tùy biến).
  * Đột phá UX: Bảng tự động giãn Full màn hình, hỗ trợ SẮP XẾP (SORT) linh hoạt.
  * Tính năng MỚI: 
@@ -683,7 +683,7 @@ const ManHinhQuanLyLuat = ({ navigation }) => {
           <Text style={styles.chu_nut_header}>⬅ TRỞ VỀ</Text>
         </TouchableOpacity>
         <View style={styles.khoi_tieu_de_giua}>
-          <Text style={styles.chu_tieu_de}>⚙️ QUY TẮC GIÁM ĐỊNH BHYT (CDSS)</Text>
+          <Text style={styles.chu_tieu_de}>⚙️ QUY TẮC KIỂM TRA BHYT (CDSS)</Text>
           <Text style={styles.chu_tieu_de_phu}>
             Cấu hình bảng động — đầu vào XML: QĐ 130/3176 (ưu tiên); bổ sung chuẩn hóa QĐ 4210 + CV 7464/BYT-BH khi nhập file.
           </Text>

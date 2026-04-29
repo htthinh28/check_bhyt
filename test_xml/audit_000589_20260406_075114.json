@@ -92,7 +92,7 @@
       "muc_do": "Warning",
       "index": 1,
       "ma_luat": "THUOC_417",
-      "ten_quy_tac": "Giám định thuốc cấp dư (Dựa trên y lệnh)",
+      "ten_quy_tac": "Kiểm tra thuốc cấp dư (Dựa trên y lệnh)",
       "dieu_kien": "XML2.SO_LUONG > (XML2.SL_MOI_NGAY * XML2.SO_NGAY)",
       "co_so_phap_ly": "15/VBHN-BYT (2024) hợp nhất TT 20/2022/TT-BYT và TT 37/2024/TT-BYT: Điều 1, Điều 2, Điều 20; Thông tư 37/2024/TT-BYT: Điều 8 về nguyên tắc thanh toán thuốc BHYT.",
       "namespace_quy_tac": "THUOC_HARDCODED",

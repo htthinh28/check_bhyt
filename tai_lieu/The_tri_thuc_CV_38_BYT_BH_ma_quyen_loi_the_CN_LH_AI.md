@@ -1,4 +1,4 @@
-# THẺ TRI THỨC: CÔNG VĂN 38/BYT-BH — CHUYỂN MÃ QUYỀN LỢI THẺ BHYT (CN, LH) CHO AI GIÁM ĐỊNH
+# THẺ TRI THỨC: CÔNG VĂN 38/BYT-BH — CHUYỂN MÃ QUYỀN LỢI THẺ BHYT (CN, LH) CHO AI KIỂM TRA
 
 Phiên bản: 1.0  
 Ngày: 19/04/2026  
@@ -8,13 +8,13 @@ Ngày: 19/04/2026
 
 ---
 
-## 1. Căn cứ pháp lý (tóm tắt điều cần giám định)
+## 1. Căn cứ pháp lý (tóm tắt điều cần kiểm tra)
 
 - **Nghị quyết 261/2025/QH15**, hiệu lực **01/01/2026** — điểm **a** khoản **1** Điều **2**: người tham gia BHYT thuộc **hộ gia đình cận nghèo** và người **cao tuổi từ đủ 75 tuổi** trở lên **đang hưởng trợ cấp hưu trí xã hội** được áp dụng **100%** chi phí KCB **trong phạm vi** được hưởng.
 - **Công văn 38/BYT-BH**: đề nghị **BHXH Việt Nam** chuyển đổi **mã quyền lợi** (ký tự **thứ 3** trên chuỗi `MA_THE_BHYT` theo QĐ 130 / QĐ 1018):
   - Đối tượng **CN** (hộ cận nghèo): từ mã quyền lợi **3** (95%) → **2** (100%) kể từ **01/01/2026**.
   - Đối tượng **LH** (≥75 tuổi, trợ cấp hưu trí xã hội): từ mã quyền lợi **4** (80%) → **2** (100%) kể từ **01/01/2026**.
-- **Cơ sở KCB**: tra cứu thẻ, bảo đảm quyền lợi; vướng mắc phối hợp **giám định BHYT** và **BHXH** (theo CV).
+- **Cơ sở KCB**: tra cứu thẻ, bảo đảm quyền lợi; vướng mắc phối hợp **kiểm tra BHYT** và **BHXH** (theo CV).
 
 ---
 

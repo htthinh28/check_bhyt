@@ -178,10 +178,10 @@ Lý do: Liều quá cao 100%, không có bằng chứng chứng minh cần liề
 
 ---
 
-## 7. Quyết định giám định chi tiết
+## 7. Quyết định kiểm tra chi tiết
 
 ```
-QUYẾT ĐỊNH GIÁM ĐỊNH - LỖI CHUYÊN MÔN: LIỀU QUẢL CAO
+QUYẾT ĐỊNH KIỂM TRA - LỖI CHUYÊN MÔN: LIỀU QUẢL CAO
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Ma LK: OP26000908

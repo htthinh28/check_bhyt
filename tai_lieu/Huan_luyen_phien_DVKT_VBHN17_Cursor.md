@@ -1,8 +1,8 @@
-# Phiên huấn luyện — Giám định DVKT theo 17/VBHN-BYT (Cursor — đủ nội dung tri thức)
+# Phiên huấn luyện — Kiểm tra DVKT theo 17/VBHN-BYT (Cursor — đủ nội dung tri thức)
 
 **Phiên bản:** 1.7  
 **Ngày:** 10/04/2026  
-**Mục phiên:** Chuẩn hóa tư duy AI giám định **dịch vụ kỹ thuật (DVKT)** theo khung **17/VBHN-BYT** + **TT 39/2024** (HL 01/01/2025 cho nhiều điểm), neo **XML1/XML3** và **mã nguồn** có sẵn — **không thay thế** văn bản gốc BYT/BHXH.
+**Mục phiên:** Chuẩn hóa tư duy AI kiểm tra **dịch vụ kỹ thuật (DVKT)** theo khung **17/VBHN-BYT** + **TT 39/2024** (HL 01/01/2025 cho nhiều điểm), neo **XML1/XML3** và **mã nguồn** có sẵn — **không thay thế** văn bản gốc BYT/BHXH.
 
 **Nguồn tri thức bắt buộc trong repo:**
 
@@ -20,12 +20,12 @@
 
 ## A. Bảng: Lớp kiểm tra ↔ Điều / cụm VBHN (17 + TT 39)
 
-| Lớp / cụm | Câu hỏi giám định tối thiểu | Gợi ý dữ liệu XML / hồ sơ (mang tính gợi ý) |
+| Lớp / cụm | Câu hỏi kiểm tra tối thiểu | Gợi ý dữ liệu XML / hồ sơ (mang tính gợi ý) |
 |-----------|-----------------------------|-------------------------------------------|
 | **Điều 1** — Phạm vi DM DVKT được hưởng | Dịch vụ có thuộc **Danh mục 1/2** hay rơi **Danh mục 3**? Có thuộc nhóm **loại trừ** Luật BHYT (Điều 23) không? | XML1 (đối tượng, loại KCB); `MA_DICH_VU` đối chiếu Phụ lục |
 | **Điều 1 điểm a** — Tuyến / phạm vi kỹ thuật CS | CSKCB có **đủ tuyến và phạm vi kỹ thuật** để thực hiện DV không? | `MA_CSKCB`, hạng BV, nhóm dịch vụ / DM |
 | **Điều 1 điểm b** — PTTT | PTTT: đúng phân loại PT/TT, đủ điều kiện theo TT 50/2014 (kết hợp VBHN)? | XML3 + XML6; XML1 `MA_PTTT_QT` (tùy mẫu) |
-| **Điều 1 điểm c** — Kỹ thuật mới tại CS | Có **quyết định phê duyệt / chứng từ** kỹ thuật mới không? | Thường **giám định chủ động** + hồ sơ giấy tờ |
+| **Điều 1 điểm c** — Kỹ thuật mới tại CS | Có **quyết định phê duyệt / chứng từ** kỹ thuật mới không? | Thường **kiểm tra chủ động** + hồ sơ giấy tờ |
 | **Điều 2** — Tỷ lệ thanh toán | `TYLE_TT` và thành tiền BHYT có **bám cột Phụ lục** và mức hưởng thẻ không? Giá DV đã **bao / chưa bao** thuốc–VT trong giá? | XML3 `TYLE_TT`, `THANH_TIEN_BH`, `DON_GIA`; đối chiếu XML2 nếu tách thuốc/VT |
 | **Điều 3** — Điều kiện khung | (a) DV trong phạm vi được duyệt tại CS? (b) Theo **QTDH** đã ban hành? (c) Giá **được phê duyệt**? | DM BYT + HĐ KCB; XML5 / bệnh án khi tranh chấp chỉ định; XML3 giá |
 | **Điều 3 khoản 2 + Cột 3 DM** | Với từng dòng DV: **Cột 3** (và ghi chú) nêu điều kiện gì (chẩn đoán, tần suất, kèm DV khác…)? | `MA_DICH_VU` + đọc đúng **cột điều kiện** trong file Phụ lục đính kèm VBHN |
@@ -53,12 +53,12 @@
 
 ---
 
-## C. Năm phân tầng: Giám định “trên XML/mã” vs “chủ động / hồ sơ”
+## C. Năm phân tầng: Kiểm tra “trên XML/mã” vs “chủ động / hồ sơ”
 
 1. **Khớp mã – giá – tỷ lệ – thời điểm:** Engine và CDSS hỗ trợ mạnh khi có `MA_DICH_VU`, `DON_GIA`, `TYLE_TT`, ngày KCB và danh mục nội bộ **M05** — đây là lớp **có thể kiểm tra tự động có kiểm soát**.
 2. **Điều kiện Cột 3 / Điều 3:** Nhiều ý đòi **chẩn đoán, tần suất, phạm vi chuyên môn, chỉ định hợp lý** — XML có gợi ý (ICD, XML5) nhưng **kết luận cuối** thường cần **bệnh án / QTDH / người có thẩm quyền**.
 3. **Điều 4a–4d (TT 39):** Phân tách **gộp trong giá** vs **tách dòng**, khám, ngày giường, DV đặc thù — một phần **cấu trúc được mã hóa** trong rule, phần còn lại cần **đối chiếu giá & mô tả DV** tại CSKCB.
-4. **Kỹ thuật mới, PTTT ngoài khung 43/50, tranh chấp chỉ định:** Thuộc nhóm **giám định chủ động / chứng từ** — AI chỉ **gợi ý hướng tra cứu**, không thay **biên bản BHXH** hay quyết định pháp lý.
+4. **Kỹ thuật mới, PTTT ngoài khung 43/50, tranh chấp chỉ định:** Thuộc nhóm **kiểm tra chủ động / chứng từ** — AI chỉ **gợi ý hướng tra cứu**, không thay **biên bản BHXH** hay quyết định pháp lý.
 5. **Thời điểm hiệu lực:** Hồ sơ cắt qua **31/12/2024 → 01/01/2025** phải hỏi: điểm nào của **TT 39/2024** áp cho **phần viện phí / ngày chỉ định** nào — **không** gộp một mức cho cả đợt nếu văn bản phân tách mốc.
 
 ---
@@ -81,7 +81,7 @@
 
 ## E. Neo mã nguồn dự án (chỉ đọc — hiểu để huấn luyện AI)
 
-| Tệp / thành phần | Vai trò (một dòng) | Vì sao giám định viên / AI cần biết |
+| Tệp / thành phần | Vai trò (một dòng) | Vì sao kiểm tra viên / AI cần biết |
 |------------------|-------------------|--------------------------------------|
 | `ma_nguon/tien_ich/luat_cdha_hardcoded.jsx` + seed DVKT | Rule **mẫu** nhóm DVKT/CĐHA | Ví dụ mã `DVKT_*` / `CDHA_*` gắn điều kiện cụ thể |
 | `ma_nguon/tien_ich/dvkt_op_giam_dinh.jsx` | Engine DVKT **no-code**, **`VBHN_17_META`** | Giải thích cảnh báo bám **metadata VBHN 17**; không coi đủ thay Phụ lục |
@@ -107,7 +107,7 @@ Khi cần **xác nhận hành vi engine** (khác với đọc văn bản pháp l
 
 ## G. Biên bản phiên (tối đa 6 câu)
 
-Phiên huấn luyện **DVKT / 17/VBHN-BYT** đã củng cố **lớp kiểm tra theo từng Điều**, phân biệt **Danh mục 1–3**, và phân tầng **XML được hỗ trợ tự động** với **giám định chủ động**. Đã nhấn mạnh **mốc HL TT 39/2024 (01/01/2025)** và **một lượt KCB** (khoản 7 Điều 4). Neo mã nguồn **`dvkt_op_giam_dinh.jsx`** / **`dong_co_giam_dinh.jsx`** giúp AI giải thích **cơ sở pháp lý** không tách rời engine. Việc tiếp: **giám định viên** đối chiếu **Phụ lục Excel BYT + HĐ KCB** tại thời điểm hồ sơ; kỹ thuật chỉ chạy **QA & chỉnh rule** khi có yêu cầu và diff rõ.
+Phiên huấn luyện **DVKT / 17/VBHN-BYT** đã củng cố **lớp kiểm tra theo từng Điều**, phân biệt **Danh mục 1–3**, và phân tầng **XML được hỗ trợ tự động** với **kiểm tra chủ động**. Đã nhấn mạnh **mốc HL TT 39/2024 (01/01/2025)** và **một lượt KCB** (khoản 7 Điều 4). Neo mã nguồn **`dvkt_op_giam_dinh.jsx`** / **`dong_co_giam_dinh.jsx`** giúp AI giải thích **cơ sở pháp lý** không tách rời engine. Việc tiếp: **kiểm tra viên** đối chiếu **Phụ lục Excel BYT + HĐ KCB** tại thời điểm hồ sơ; kỹ thuật chỉ chạy **QA & chỉnh rule** khi có yêu cầu và diff rõ.
 
 ---
 

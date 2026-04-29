@@ -290,7 +290,7 @@ const CongTiepNhanHIS = ({ navigation }) => {
         <View style={styles.panel_phai}>
           <Text style={styles.tieu_de_panel}>📡 LOG TIỀN KIỂM HỒ SƠ REALTIME</Text>
           <Text style={styles.mo_ta_panel}>
-            Hồ sơ hợp lệ có thể đi tiếp xuống luồng giám định. Hồ sơ cảnh báo hoặc thiếu dữ liệu cần được sửa ngay tại HIS để tránh phát sinh lỗi dây chuyền.
+            Hồ sơ hợp lệ có thể đi tiếp xuống luồng kiểm tra. Hồ sơ cảnh báo hoặc thiếu dữ liệu cần được sửa ngay tại HIS để tránh phát sinh lỗi dây chuyền.
           </Text>
 
           <View style={styles.dong_tieu_de_bang}>

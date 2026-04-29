@@ -294,7 +294,7 @@ Một hồ sơ trong hệ thống là bản ghi tổng hợp chứa ít nhất:
 - Dữ liệu XML4
 - Dữ liệu XML5
 - Dữ liệu XML6
-- Kết quả giám định / danh sách lỗi
+- Kết quả kiểm tra / danh sách lỗi
 - Metadata lưu trữ và thời điểm xử lý
 
 Tùy màn hình, cấu trúc hồ sơ có thể được chuẩn hóa lại trước khi lưu để đảm bảo thống nhất văn bản và cảnh báo.
@@ -492,7 +492,7 @@ Ngoài DVKT no-code, hệ thống còn nhiều bộ luật hardcoded theo chuyê
 - Luật CDHA
 - Luật hợp đồng
 - Luật nhân sự
-- Luật giám định chuyên đề
+- Luật kiểm tra chuyên đề
 
 Lưu ý quan trọng khi xác định nguồn rule:
 
@@ -577,10 +577,10 @@ Kết quả mở rộng lớp tương thích ngoài XML5 trên hồ sơ `PC02260
 
 Phạm vi audit toàn hệ thống còn lại (ngoài phần dữ liệu/XML đã audit xong):
 
-- Bộ máy runtime `dong_co_giam_dinh.jsx` hiện nạp đồng thời các family hardcoded: dữ liệu, hành chính, thuốc, hợp đồng, công khám, giường, CDHA, nhân sự, giám định chuyên đề; đồng thời nạp seed động mức 1 và mức 11, và gọi thêm engine DVKT no-code.
+- Bộ máy runtime `dong_co_giam_dinh.jsx` hiện nạp đồng thời các family hardcoded: dữ liệu, hành chính, thuốc, hợp đồng, công khám, giường, CDHA, nhân sự, kiểm tra chuyên đề; đồng thời nạp seed động mức 1 và mức 11, và gọi thêm engine DVKT no-code.
 - Giao diện quản trị `bo_luat_bhyt.jsx` đang phản ánh 12 tab nghiệp vụ thực tế: dữ liệu XML, hành chính, khám bệnh, DVKT/CDHA, thuốc, nhập viện/chuyển tuyến, nội trú/giường, PTTT, gây mê, hậu phẫu/nhân sự, xuất viện/hợp đồng, tài liệu/khác.
-- Quy mô rule hiện có trong repo ở nhóm seed/hardcoded chính: dữ liệu/XML khoảng `112` rule, hành chính `248`, thuốc `539`, PTTT `2321`, hợp đồng `23`, công khám `58`, giường `77`, CDHA `332`, nhân sự `15`, giám định chuyên đề `603`, DVKT no-code `15` operator rule.
-- Riêng `luat_thuoc_hardcoded.jsx` đang là wrapper bọc lại seed `du_lieu_luat_thuoc_muc8.jsx`, tức họ thuốc đã có nguồn chuẩn tương đối rõ. Các họ khác như hợp đồng, công khám, giường, CDHA, nhân sự, giám định chuyên đề vẫn cần audit pháp lý family-by-family.
+- Quy mô rule hiện có trong repo ở nhóm seed/hardcoded chính: dữ liệu/XML khoảng `112` rule, hành chính `248`, thuốc `539`, PTTT `2321`, hợp đồng `23`, công khám `58`, giường `77`, CDHA `332`, nhân sự `15`, kiểm tra chuyên đề `603`, DVKT no-code `15` operator rule.
+- Riêng `luat_thuoc_hardcoded.jsx` đang là wrapper bọc lại seed `du_lieu_luat_thuoc_muc8.jsx`, tức họ thuốc đã có nguồn chuẩn tương đối rõ. Các họ khác như hợp đồng, công khám, giường, CDHA, nhân sự, kiểm tra chuyên đề vẫn cần audit pháp lý family-by-family.
 - Vì vậy, kết luận đúng ở thời điểm hiện tại là: phần audit dữ liệu/XML đã hoàn tất và đã kiểm thực tế trên hồ sơ mẫu; còn audit pháp lý toàn diện end-to-end cho toàn bộ family rule của hệ thống vẫn chưa hoàn tất.
 - Pha audit kế tiếp cần đi theo thứ tự ưu tiên: `thuốc -> DVKT/CDHA -> hợp đồng -> hành chính -> công khám/giường/PTTT/nhân sự/chuyên đề`, với đầu ra mỗi họ gồm: nguồn runtime, số rule, căn cứ pháp lý, tỷ lệ rule hardcoded, rule OFF, rule có nguy cơ dương tính giả, và mẫu hồ sơ kiểm thực tế.
 
@@ -627,15 +627,15 @@ Kết quả audit nhóm công khám, giường, PTTT, nhân sự, chuyên đề:
 - Giường (`GB_*`): runtime ưu tiên `CDSS_DATA_LUAT_GIUONG` hoặc alias `CDSS_DATA_NOI_TRU`, fallback về `luat_giuong_hardcoded.jsx`. Ngoài bộ rule hardcoded 77 dòng, engine còn có built-in `giamDinhGiuong()` và các hậu lọc riêng cho `GB_20`, `GB_36`. Đây là family có độ phụ thuộc ngữ cảnh điều trị nội trú, XML5, ngày điều trị và loại hình KCB rất cao. Prefix `GB_` hiện chưa được map pháp lý mặc định, nên đầu ra family hardcoded này cũng có nguy cơ rỗng căn cứ pháp lý như thuốc/CDHA.
 - PTTT: đây là family có governance storage tốt nhất trong các họ còn lại. Không có file `luat_pttt_hardcoded.jsx`; thay vào đó hệ thống dùng seed thật `du_lieu_luat_pttt_muc11.jsx` cộng migration `seed_luat_pttt_muc11.jsx`, đổ vào `CDSS_DATA_LUAT_PTTT` và alias `CDSS_DATA_PTTT`, có ghi version `LUAT_PTTT_MUC11`. Tuy nhiên family này vẫn tách đôi: rule seed có `MA_LUAT` dạng `DVKT_0001...`, còn built-in `giamDinhPTTT()` sinh cảnh báo `CLN-PTTT-*`. `CLN-PTTT-*` đã có map pháp lý mặc định, nhưng `DVKT_*` hiện chưa có map tương ứng, nên nếu seed PTTT phát cảnh báo thì đầu ra vẫn có nguy cơ thiếu căn cứ pháp lý.
 - Nhân sự (`NS_*`): runtime ưu tiên `CDSS_DATA_LUAT_NHAN_SU` hoặc alias `CDSS_DATA_HAU_PHAU`, fallback về `luat_nhan_su_hardcoded.jsx`. Đặc điểm quan trọng là toàn bộ 15 rule đang `OFF` mặc định và chính file hardcoded đã ghi rõ phụ thuộc vào dữ liệu nền chuẩn hóa về CCHN, phạm vi hành nghề, phân cấp chuyên môn và đối soát liên hồ sơ. Engine cũng có xử lý riêng cho `NS_01` và `NS_10`. Kết luận thực tế là family này chưa sẵn sàng bật rộng nếu chưa hoàn thiện dữ liệu nền.
-- Giám định chuyên đề (`Chuyen_de_*`): đây là family rủi ro cao nhất trong nhóm 3. Runtime tab `LUAT_GIAM_DINH_CHUYEN_DE/GIAM_DINH_CHUYEN_DE` và cả fallback của `LUAT_CDHA/XML3` đều có thể hợp nhất rule chuyên đề với CDHA. Nghĩa là 603 rule chuyên đề hiện không đứng độc lập mà còn chồng trực tiếp lên mặt trận `XML3` vốn đã phức tạp. `MA_LUAT` dạng `Chuyen_de_001...` chưa có map căn cứ pháp lý mặc định, trong khi file hardcoded cũng không mang `co_so_phap_ly` cấp dòng.
+- Kiểm tra chuyên đề (`Chuyen_de_*`): đây là family rủi ro cao nhất trong nhóm 3. Runtime tab `LUAT_GIAM_DINH_CHUYEN_DE/GIAM_DINH_CHUYEN_DE` và cả fallback của `LUAT_CDHA/XML3` đều có thể hợp nhất rule chuyên đề với CDHA. Nghĩa là 603 rule chuyên đề hiện không đứng độc lập mà còn chồng trực tiếp lên mặt trận `XML3` vốn đã phức tạp. `MA_LUAT` dạng `Chuyen_de_001...` chưa có map căn cứ pháp lý mặc định, trong khi file hardcoded cũng không mang `co_so_phap_ly` cấp dòng.
 - Mẫu kiểm thực tế đã thấy rule nhóm 3 xuất hiện trên hồ sơ đối chiếu, ví dụ `CK_03`, `CK_42`, `GB_20`, `GB_26`, `GB_36`, `GB_75`, cũng như các cảnh báo built-in `CLN-PTTT-02`, `CLN-PTTT-05`, `CLN-PTTT-12`. Điều này xác nhận nhóm này không còn là rule tồn kho; ít nhất công khám, giường và built-in PTTT đang thực sự tham gia đầu ra kiểm hồ sơ.
-- Kết luận nhóm 3: `PTTT` là family tốt nhất về version-control; `nhân sự` là family an toàn nhất về runtime hiện tại vì đang OFF gần như toàn bộ; `công khám` và `giường` có mức rủi ro trung bình-cao vì hardcoded thuần nhưng đã phụ thuộc nhiều vào logic engine; `giám định chuyên đề` là family rủi ro cao nhất còn lại do số rule lớn, chồng nguồn với CDHA và thiếu tuyến căn cứ pháp lý mặc định.
+- Kết luận nhóm 3: `PTTT` là family tốt nhất về version-control; `nhân sự` là family an toàn nhất về runtime hiện tại vì đang OFF gần như toàn bộ; `công khám` và `giường` có mức rủi ro trung bình-cao vì hardcoded thuần nhưng đã phụ thuộc nhiều vào logic engine; `kiểm tra chuyên đề` là family rủi ro cao nhất còn lại do số rule lớn, chồng nguồn với CDHA và thiếu tuyến căn cứ pháp lý mặc định.
 
 Ưu tiên sửa/xử lý sau audit toàn bộ các họ đã rà trong lượt này:
 
 - Bổ sung map căn cứ pháp lý mặc định cho các prefix family còn thiếu nhưng đang dùng thực tế: `CK_`, `GB_`, `NS_`, `CDHA_`, `THUOC_`, `DVKT_`, `Chuyen_de_`.
 - Tạo migration/version-control cho họ hành chính và thuốc, vì hiện cả hai đều có seed chuẩn nhưng chưa có lớp cưỡng bức cập nhật storage như PTTT.
-- Tách namespace và cơ chế giải trình giữa `CDHA`, `giám định chuyên đề`, `DVKT no-code` và `PTTT`, vì các family này đang cùng tranh chấp không gian `XML3` và rất dễ sinh chồng lấn trách nhiệm.
+- Tách namespace và cơ chế giải trình giữa `CDHA`, `kiểm tra chuyên đề`, `DVKT no-code` và `PTTT`, vì các family này đang cùng tranh chấp không gian `XML3` và rất dễ sinh chồng lấn trách nhiệm.
 - Rà riêng các rule hardcoded hợp đồng/công khám/giường còn dùng DSL hoặc field legacy để phân loại thành: còn dùng được, cần chuẩn hóa cú pháp, hoặc cần loại bỏ.
 
 Checklist kỹ thuật sau audit, trạng thái triển khai ngày `2026-04-05`:
@@ -644,7 +644,7 @@ Checklist kỹ thuật sau audit, trạng thái triển khai ngày `2026-04-05`:
 - `DONE` Bổ sung seed migration cho hành chính qua `seed_luat_hanh_chinh_muc2.jsx`, đồng bộ `CDSS_DATA_LUAT_HANH_CHINH/CDSS_DATA_XML1` theo version `LUAT_HANH_CHINH_MUC2`.
 - `DONE` Sửa bootstrap `taiDanhSachTabLuatDong()` để cleanup legacy chạy trước, seed chạy sau; tránh race condition giữa xóa storage cũ và ghi lại seed mới ở lần boot đầu.
 - `DONE` Mở rộng `CO_SO_PHAP_LY_THEO_PREFIX_MA_LUAT` cho các prefix đang dùng thực tế: `CK_`, `GB_`, `NS_`, `THUOC_`, `CDHA_`, `DVKT_`, `CHUYEN_DE_`.
-- `PENDING` Tách namespace giải trình giữa `CDHA`, `DVKT no-code`, `PTTT` và `giám định chuyên đề` để cùng `XML3` không còn sinh chồng lấn khó giải thích.
+- `PENDING` Tách namespace giải trình giữa `CDHA`, `DVKT no-code`, `PTTT` và `kiểm tra chuyên đề` để cùng `XML3` không còn sinh chồng lấn khó giải thích.
 - `PENDING` Rà thủ công các rule hardcoded/DSL legacy ở họ hợp đồng, công khám, giường để chuẩn hóa công thức và field runtime.
 
 ---
@@ -659,7 +659,7 @@ Firebase trong hệ thống hiện tại được dùng cho:
 - Phục hồi dataset từ cloud về máy
 - Kiểm tra trạng thái kết nối và quyền truy cập
 - Lưu metadata và xử lý chunk dữ liệu lớn
-- Hỗ trợ tải kết quả giám định lên cloud ở các luồng liên quan
+- Hỗ trợ tải kết quả kiểm tra lên cloud ở các luồng liên quan
 
 ### 11.2. Cấu hình
 
@@ -786,7 +786,7 @@ Cấu trúc cột hiện hành của sheet `DS_Loi`:
 Ý nghĩa sử dụng:
 
 - Phục vụ rà soát nhanh danh sách lỗi đầu ra theo từng hồ sơ.
-- Phù hợp gửi nội bộ giữa bộ phận giám định, CNTT và quản lý chất lượng.
+- Phù hợp gửi nội bộ giữa bộ phận kiểm tra, CNTT và quản lý chất lượng.
 - Không chứa số liệu KPI tổng hợp, chỉ tập trung vào danh sách vi phạm chi tiết.
 
 Quy tắc sinh dòng dữ liệu:
@@ -828,7 +828,7 @@ Khi yêu cầu “báo cáo theo mẫu”, ưu tiên thống nhất theo một t
 
 - Cả hai mẫu đang được sinh trực tiếp từ dữ liệu trong kho hồ sơ cục bộ.
 - Dữ liệu báo cáo không qua backend trung gian trước khi xuất file.
-- Chất lượng báo cáo phụ thuộc trực tiếp vào chất lượng dữ liệu XML đầu vào và kết quả giám định đã lưu trong kho.
+- Chất lượng báo cáo phụ thuộc trực tiếp vào chất lượng dữ liệu XML đầu vào và kết quả kiểm tra đã lưu trong kho.
 
 ---
 

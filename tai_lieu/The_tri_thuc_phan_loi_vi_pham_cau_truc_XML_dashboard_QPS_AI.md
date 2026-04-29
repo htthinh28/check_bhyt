@@ -8,7 +8,7 @@ Ngày cập nhật: 17/04/2026
 
 Chuẩn hóa tri thức để AI (và người vận hành) **không nhầm** giữa:
 
-- Cảnh báo **nghiệp vụ / CDSS** (xuất toán, cảnh báo, nhắc nhở theo quy tắc ON/OFF, mã `XML_*` trong engine giám định).
+- Cảnh báo **nghiệp vụ / CDSS** (xuất toán, cảnh báo, nhắc nhở theo quy tắc ON/OFF, mã `XML_*` trong engine kiểm tra).
 - Báo cáo **vi phạm cấu trúc / định dạng dữ liệu XML** theo lớp kiểm tra QĐ 3176 / QĐ 130 (bảng trường, kiểu dữ liệu, tiền xử lý `STRUCT-*`, mã dạng `XMLn-REQ-…`).
 
 Ứng dụng tách nhóm này thành **`CAU_TRUC_XML`** trên dashboard **Danh mục vi phạm phát hiện (QPS)** và trong **tra cứu lỗi chi tiết**.

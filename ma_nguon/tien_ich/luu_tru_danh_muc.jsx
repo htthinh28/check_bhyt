@@ -161,6 +161,25 @@ const CODE_CATALOG_SEEDS = {
     rows: DU_LIEU_TUONG_TAC_THUOC_SEED.data,
     columns: DU_LIEU_TUONG_TAC_THUOC_SEED.columns,
   },
+  DANH_MUC_THUOC_DIEU_KIEN_TT: {
+    version: '2026-04-28-thuoc-dieu-kien-thanh-toan-v1',
+    rows: [],
+    columns: [
+      'MA_GIAM_DINH', 'TEN_QUY_TAC', 'MA_THUOC_QD7603', 'HOAT_CHAT', 'DUONG_DUNG',
+      'MA_ICD10', 'CHAN_DOAN', 'TU_KHOA_YEU_CAU', 'CANH_BAO_CDSS_ALERT',
+    ],
+  },
+  /** Danh mục mã thẻ BHYT + quyền lợi + chi phí chuyển tuyến + hiệu lực thi hành (nạp từ file BV). */
+  DANH_MUC_MA_THE_QUYEN_LOI: {
+    version: '2026-04-28-ma-the-quyen-loi-v1',
+    rows: [],
+    columns: [
+      'STT', 'MA', 'MA_NHOM_THE', 'MA_QUYEN_LOI', 'TEN',
+      'NHOM_DOI_TUONG_BHYT', 'TY_LE_HUONG_BHYT',
+      'DOI_TUONG_HUONG_CHI_PHI_CHUYEN_TUYEN', 'HIEU_LUC_THI_HANH',
+      'TU_NGAY', 'DEN_NGAY', 'MIEU_TA',
+    ],
+  },
 };
 const LEGACY_INTERNAL_KHOA_CODES = new Set(['K01', 'K03']);
 const LEGACY_INTERNAL_DVKT_CODES = new Set(['PT.001', 'HA.02']);

@@ -3,7 +3,7 @@
 Phiên bản dữ liệu: `version` **2026-04-11** trong `du_lieu_phac_do_cdss_guidelines.seed.json` — nguồn **`FileMau_PhacDo_CDSS 4.xlsx`** (sheet `Template`) **gộp** với kho seed trước đó (`npm run phac-do:rebuild-seed`); **348** mã ICD duy nhất (đã loại dòng mẫu placeholder `icd10` / `diseaseName`).  
 Ngày cập nhật thẻ tri thức: 11/04/2026  
 
-**Phạm vi:** hướng dẫn AI và giám định viên dùng **kho phác đồ nội bộ** (mục tiêu điều trị, điều trị đặc hiệu/triệu chứng, dự phòng, tái khám…) gắn với **mã ICD-10** trên hồ sơ. **Không** thay thế Phụ lục thanh toán DVKT (17/VBHN-BYT), danh mục thuốc BYT, hay hợp đồng KCB.
+**Phạm vi:** hướng dẫn AI và kiểm tra viên dùng **kho phác đồ nội bộ** (mục tiêu điều trị, điều trị đặc hiệu/triệu chứng, dự phòng, tái khám…) gắn với **mã ICD-10** trên hồ sơ. **Không** thay thế Phụ lục thanh toán DVKT (17/VBHN-BYT), danh mục thuốc BYT, hay hợp đồng KCB.
 
 ---
 
@@ -46,7 +46,7 @@ Cột hiển thị chuẩn (tiếng Việt) tương ứng khóa import tiếng A
 
 ---
 
-## 4. Quy tắc giám định dữ liệu (LUẬT DỮ LIỆU — seed)
+## 4. Quy tắc kiểm tra dữ liệu (LUẬT DỮ LIỆU — seed)
 
 | Mã luật | Mặc định | Ý nghĩa (đã chuẩn hóa phạm vi) |
 |---------|----------|--------------------------------|
@@ -68,7 +68,7 @@ Cột hiển thị chuẩn (tiếng Việt) tương ứng khóa import tiếng A
 | Thu thập ICD từ **XML5/XML6** hoặc văn bản chẩn đoán tự do | **Không** — chỉ XML1 | `layMaIcdGopChinhVaKemKhongTrung` chỉ đọc `MA_BENH_CHINH`, `MA_BENH_KT`, `MA_BENHKEM`. |
 | Đối chiếu **tái khám / theo dõi** trong phác đồ với `NGAY_HEN_TAI_KHAM` | **Không** có rule CDSS_CM tích hợp | Có thể làm rule tùy chỉnh khác nếu cần; không nằm trong CDSS_CM_01/02. |
 
-**Tóm lại:** Quy tắc chuyên môn gắn phác đồ CDSS trong hệ thống hiện tại = **lớp nhắc “có/không có dòng phác đồ cho mã ICD trên XML1”**. Mọi đánh giá **tuân thủ nội dung** phác đồ vẫn do **giám định viên / AI tra cứu** trên module Chuyên môn, không thay bằng cảnh báo tự động từ engine.
+**Tóm lại:** Quy tắc chuyên môn gắn phác đồ CDSS trong hệ thống hiện tại = **lớp nhắc “có/không có dòng phác đồ cho mã ICD trên XML1”**. Mọi đánh giá **tuân thủ nội dung** phác đồ vẫn do **kiểm tra viên / AI tra cứu** trên module Chuyên môn, không thay bằng cảnh báo tự động từ engine.
 
 ---
 

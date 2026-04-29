@@ -30,7 +30,7 @@ Hai kênh **không tự nối API** với nhau. **Bạn** giữ vai trò trung t
 
 ---
 
-## 2. Nhiệm vụ phiên mẫu: “Khóa vòng huấn luyện giám định thuốc (THUOC_417 + QA)”
+## 2. Nhiệm vụ phiên mẫu: “Khóa vòng huấn luyện kiểm tra thuốc (THUOC_417 + QA)”
 
 ### Bước 1 — OpenClaw (dán ngay)
 
@@ -44,7 +44,7 @@ Workspace: ung_dung_cdss_bhyt.
 Xuất:
 (1) Bảng: nhóm mã CLN-THUOC / DM-THUOC / THUOC_ | vai trò | nguồn trong mã (tên file).
 (2) 5 bullet: khi nào cảnh báo THUOC_417 có thể bị lọc sau filter (theo đúng chỉ mục engine).
-(3) 3 câu hỏi kiểm tra cho giám định viên trước khi kết luận “cấp dư thuốc”.
+(3) 3 câu hỏi kiểm tra cho kiểm tra viên trước khi kết luận “cấp dư thuốc”.
 
 Không sửa file; không dữ liệu PII.
 ```
@@ -54,7 +54,7 @@ Không sửa file; không dữ liệu PII.
 Trích từ seed `ma_nguon/tien_ich/du_lieu_luat_thuoc_muc8.jsx` (bản ghi `SEED_THUOC_417`):
 
 - **MA_LUAT:** `THUOC_417`
-- **TEN_QUY_TAC:** Giám định thuốc cấp dư (Dựa trên y lệnh)
+- **TEN_QUY_TAC:** Kiểm tra thuốc cấp dư (Dựa trên y lệnh)
 - **DIEU_KIEN:** `XML2.SO_LUONG > (XML2.SL_MOI_NGAY * XML2.SO_NGAY)`
 - **CANH_BAO (mẫu):** Xuất toán khi số lượng kê vượt tích `SL_MOI_NGAY × SO_NGAY` (template có `{TEN_THUOC}`, `{DU_QTY}`, …).
 
@@ -65,7 +65,7 @@ Dựa trên trích seed THUOC_417 sau:
 """
 MA_LUAT: THUOC_417
 DIEU_KIEN: XML2.SO_LUONG > (XML2.SL_MOI_NGAY * XML2.SO_NGAY)
-TEN_QUY_TAC: Giám định thuốc cấp dư (Dựa trên y lệnh)
+TEN_QUY_TAC: Kiểm tra thuốc cấp dư (Dựa trên y lệnh)
 """
 
 Hãy lập bảng: Cột | Ý nghĩa | Ghi chú lọc ngữ cảnh (theo chỉ mục engine: đơn vị y lệnh vs cấp phát, làm tròn).
@@ -86,16 +86,16 @@ QA đã chạy:
 - qa:audit-fixtures → đủ 10 file, MA_LK khớp
 - qa:on-off-match → khớp mẫu ON/OFF ổn định
 
-Hãy cho checklist 5 bước “nếu sau này qa:audit-fixtures fail thì làm gì” (ưu tiên giám định thuốc / test_xml).
+Hãy cho checklist 5 bước “nếu sau này qa:audit-fixtures fail thì làm gì” (ưu tiên kiểm tra thuốc / test_xml).
 ```
 
 ### Bước 4 — OpenClaw: biên bản ngắn (P5)
 
 ```text
 Viết biên bản tối đa 8 câu, tiếng Việt đơn giản:
-- Chủ đề: huấn luyện giám định thuốc, mã THUOC_417
+- Chủ đề: huấn luyện kiểm tra thuốc, mã THUOC_417
 - QA: audit fixtures + on-off match đều pass trong phiên Cursor
-- Việc tiếp: giám định viên xác minh ca thực tế và Phụ lục I khi kết luận thanh toán
+- Việc tiếp: kiểm tra viên xác minh ca thực tế và Phụ lục I khi kết luận thanh toán
 
 Không ghi key API; không PII.
 ```
@@ -118,7 +118,7 @@ Không ghi key API; không PII.
 - Sprint 60 phút: [Sprint_60p_huan_luyen_giam_dinh_thuoc_Cursor_OpenClaw.md](./Sprint_60p_huan_luyen_giam_dinh_thuoc_Cursor_OpenClaw.md)
 - Prompt mẫu (P1–P5): [Prompt_mau_chuan_hoa_BHYT_Cursor_OpenClaw.md](./Prompt_mau_chuan_hoa_BHYT_Cursor_OpenClaw.md) — mục **M** (handoff)
 - Bảng neo phiên huấn luyện thuốc ↔ engine: [Bang_neo_phien_huan_luyen_thuoc_va_engine.md](./Bang_neo_phien_huan_luyen_thuoc_va_engine.md)
-- **Kỹ năng giám định AI (mọi nhóm rule):** [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md) · [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md) (bài **8–10** audit `test_xml/`; **11–13** VTYT / bảng neo)
+- **Kỹ năng kiểm tra AI (mọi nhóm rule):** [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md) · [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md) (bài **8–10** audit `test_xml/`; **11–13** VTYT / bảng neo)
 - **VTYT:** [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) · [Bang_neo_phien_huan_luyen_vtyt_va_engine.md](./Bang_neo_phien_huan_luyen_vtyt_va_engine.md) · [Huan_luyen_phien_VTYT_du_phong_Cursor.md](./Huan_luyen_phien_VTYT_du_phong_Cursor.md) (chưa có fixture audit)
 - **DVKT (17/VBHN-BYT):** chuẩn hóa suy luận AI [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md); phiên + lộ trình ca [Huan_luyen_phien_DVKT_VBHN17_Cursor.md](./Huan_luyen_phien_DVKT_VBHN17_Cursor.md); bảng neo [Bang_neo_phien_huan_luyen_dvkt_va_engine.md](./Bang_neo_phien_huan_luyen_dvkt_va_engine.md)
 - Ví dụ regression cảnh báo THUOC/XML (ẩn danh): [Vi_du_regression_canh_bao_THUOC_XML_an_danh.md](./Vi_du_regression_canh_bao_THUOC_XML_an_danh.md)

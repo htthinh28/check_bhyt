@@ -286,7 +286,7 @@ const NHOM_FILE = {
   'luat_giuong_hardcoded.jsx': { tab: 'LUAT_GIUONG', ten: 'Giường (GB_*)' },
   'luat_hop_dong_hardcoded.jsx': { tab: 'LUAT_HOP_DONG', ten: 'Hợp đồng (HD_*)' },
   'luat_nhan_su_hardcoded.jsx': { tab: 'LUAT_NHAN_SU', ten: 'Nhân sự (NS_*)' },
-  'luat_giam_dinh_chuyen_de_hardcoded.jsx': { tab: 'LUAT_CDHA', ten: 'Giám định chuyên đề (Chuyen_de_* / CHUYEN_DE_*)' },
+  'luat_giam_dinh_chuyen_de_hardcoded.jsx': { tab: 'LUAT_CDHA', ten: 'Kiểm tra chuyên đề (Chuyen_de_* / CHUYEN_DE_*)' },
 };
 
 const NHOM_SEED = {
@@ -448,7 +448,7 @@ function main() {
   lines.push('══════════════════════════════════════════════════════════════════════════════');
   lines.push('PHẦN 3 — NHÓM RỦI RO ÂM GIẢ (ĐỊNH TÍNH)');
   lines.push('══════════════════════════════════════════════════════════════════════════════');
-  lines.push('- Giám định chuyên đề: nhiều DIEU_KIEN dùng heuristic tên DVKT/thuốc trên XML3/XML2; thiếu trường hoặc tên không chuẩn → dễ bỏ sót (âm giả). Xem phần đầu file ma_nguon/tien_ich/luat_giam_dinh_chuyen_de_hardcoded.jsx.');
+  lines.push('- Kiểm tra chuyên đề: nhiều DIEU_KIEN dùng heuristic tên DVKT/thuốc trên XML3/XML2; thiếu trường hoặc tên không chuẩn → dễ bỏ sót (âm giả). Xem phần đầu file ma_nguon/tien_ich/luat_giam_dinh_chuyen_de_hardcoded.jsx.');
   lines.push('- Quy tắc phụ thuộc hợp đồng BHXH, đăng ký SYT, đa cơ sở, giấy tờ ngoài XML130: thường ở trạng thái placeholder hoặc cần map mở rộng — âm giả khi chỉ nhìn XML.');
   lines.push('- DVKT-OP: kiểm tra phạm vi hành nghề, thiết bị, mapping nhân sự — thiếu danh mục nền tại BV → âm giả.');
   lines.push('');

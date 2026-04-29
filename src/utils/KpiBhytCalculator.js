@@ -19,7 +19,7 @@ export function toNumber(v) {
   return Number.isFinite(n) ? n : 0;
 }
 
-/** Chuẩn hóa MA_LOAI_KCB: '1' / '01' → '01' (khớp QĐ 130 & engine giám định) */
+/** Chuẩn hóa MA_LOAI_KCB: '1' / '01' → '01' (khớp QĐ 130 & engine kiểm tra) */
 export function normalizeMaLoaiKcb(val) {
   const raw = String(val ?? '').trim();
   if (!raw) return '';

@@ -3,7 +3,7 @@
  * MỤC ĐÍCH:
  * - Kết nối HIS đa giao thức: REST JSON, FHIR (REST), GraphQL (HTTP POST), SOAP/XML, WebSocket.
  * - Cấu hình qua app.json extra.his + biến môi trường EXPO_PUBLIC_HIS_* (xem getConfig).
- * - Tiền kiểm hồ sơ realtime (WebSocket) trước khi giám định.
+ * - Tiền kiểm hồ sơ realtime (WebSocket) trước khi kiểm tra.
  * Ghi chú: HL7 v2 qua TCP/MLLP, MQTT, gRPC cần máy chủ trung gian (không chạy trực tiếp trong trình duyệt).
  */
 
@@ -204,7 +204,7 @@ const normalizeRealtimeEvent = (rawInput) => {
   const khoaPhong = trimValue(payload?.khoa_phong || payload?.department || payload?.ma_khoa || xml1.MA_KHOA);
   const thongDiep = hopLe
     ? 'Hồ sơ HIS hợp lệ ở bước tiền kiểm.'
-    : (danhSachLoi[0] || 'Hồ sơ HIS cần bổ sung dữ liệu trước khi giám định.');
+    : (danhSachLoi[0] || 'Hồ sơ HIS cần bổ sung dữ liệu trước khi kiểm tra.');
 
   return {
     id: trimValue(payload?.event_id || payload?.id || `${Date.now()}`),

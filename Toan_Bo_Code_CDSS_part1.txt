@@ -1712,7 +1712,7 @@ FILE: \dich_vu\bo_kiem_tra_xml.jsx
 ============================================================
 
 /**
- * BỘ GIÁM ĐỊNH LÕI: RÀ SOÁT DỮ LIỆU XML CHUẨN QĐ 3176/QĐ-BYT
+ * BỘ KIỂM TRA LÕI: RÀ SOÁT DỮ LIỆU XML CHUẨN QĐ 3176/QĐ-BYT
  * Tiêu chuẩn JCI: MCI.3 (Toàn vẹn dữ liệu) & QPS (Cải thiện chất lượng)
  */
 
@@ -2076,7 +2076,7 @@ import ManHinhDangNhap from '../man_hinh/dang_nhap';
 import ManHinhKhoLuuTru from '../man_hinh/man_hinh_kho_luu_tru';
 import ManHinhTongQuan from '../man_hinh/tong_quan';
 
-// 2. NHÓM MÀN HÌNH GIÁM ĐỊNH & CHI TIẾT HỒ SƠ
+// 2. NHÓM MÀN HÌNH KIỂM TRA & CHI TIẾT HỒ SƠ
 import ManHinhChiTiet from '../man_hinh/chi_tiet_ca_benh';
 import ManHinhDocXML from '../man_hinh/doc_file_xml';
 import SuaFileXML from '../man_hinh/sua_file_xml';
@@ -2129,7 +2129,7 @@ const DieuHuongChinh = () => {
         <Stack.Screen name="DangNhap" component={ManHinhDangNhap} />
         <Stack.Screen name="TongQuan" component={ManHinhTongQuan} />
         
-        {/* --- PHÂN HỆ GIÁM ĐỊNH LÂM SÀNG --- */}
+        {/* --- PHÂN HỆ KIỂM TRA LÂM SÀNG --- */}
         <Stack.Screen name="DocXML" component={ManHinhDocXML} />
         <Stack.Screen name="ChiTiet" component={ManHinhChiTiet} />
         <Stack.Screen name="SuaFileXML" component={SuaFileXML} />
@@ -2199,7 +2199,7 @@ export const KIEU_CHU = {
     chu_nho:          20,  // Phụ đề, ghi chú, mô tả bổ sung — vẫn >= 20px
     tag_trang_thai:   20,  // Badge: HỢP LỆ / TRÙNG LẶP / LỖI
     ma_icd:           22,  // Mã ICD-10, mã BHYT (dùng font_ma)
-    canh_bao:         20,  // Thông báo lỗi giám định, cảnh báo CDSS
+    canh_bao:         20,  // Thông báo lỗi kiểm tra, cảnh báo CDSS
     bang_tieu_de:     20,  // Header hàng/cột trong bảng dữ liệu
     bang_noi_dung:    22,  // Nội dung ô bảng (TextInput trong bảng)
     trich_dan:        18,  // Trích dẫn pháp lý cuối trang (ngoại lệ < 20px)
@@ -2229,7 +2229,7 @@ export const KIEU_CHU = {
   // ============================================================
   gian_chu: {
     tieu_de: 1.0,  // Tiêu đề màn hình — thoáng, dễ đọc từ xa
-    nut:     0.8,  // Nút CTA (VD: "XÁC THỰC HỆ THỐNG", "GIÁM ĐỊNH")
+    nut:     0.8,  // Nút CTA (VD: "XÁC THỰC HỆ THỐNG", "KIỂM TRA")
     thuong:  0,    // Văn bản thông thường
   },
 };
@@ -2264,7 +2264,7 @@ export const stylesTieuDePanel = (mauChu = '#1976D2') => ({
 
 /**
  * Style cho nội dung văn bản chính (đoạn văn, mô tả)
- * Dùng tại: nội dung phác đồ, hướng dẫn điều trị, kết quả giám định
+ * Dùng tại: nội dung phác đồ, hướng dẫn điều trị, kết quả kiểm tra
  */
 export const stylesNhanVanBan = (mauChu = '#333333') => ({
   fontFamily:  KIEU_CHU.font_chinh,
@@ -2288,7 +2288,7 @@ export const stylesChuNut = (mauChu = '#FFFFFF') => ({
 
 /**
  * Style cho mã ICD-10, mã BHYT, mã dịch vụ kỹ thuật
- * Dùng tại: bảng dữ liệu, kết quả giám định, chi tiết hồ sơ
+ * Dùng tại: bảng dữ liệu, kết quả kiểm tra, chi tiết hồ sơ
  */
 export const stylesMaCode = (mauChu = '#1976D2') => ({
   fontFamily: KIEU_CHU.font_ma,
@@ -2386,7 +2386,7 @@ export const MAU_SAC = {
   },
 
   // --- TRẠNG THÁI LÂM SÀNG (Clinical Status Colors) ---
-  // Dùng cho cảnh báo giám định BHYT, kết quả CDSS
+  // Dùng cho cảnh báo kiểm tra BHYT, kết quả CDSS
   trang_thai: {
     hop_le:       '#388E3C',  // Xanh lá — HỢP LỆ, đã xác nhận
     canh_bao:     '#F57C00',  // Cam — CẢNH BÁO, cần kiểm tra
@@ -2854,7 +2854,7 @@ FILE: \man_hinh\chi_tiet_ca_benh.jsx
  * Chức năng: 
  * 1. Truy xuất dữ liệu từ Kho lưu trữ dựa trên MA_LK.
  * 2. Hiển thị toàn diện từ XML1 đến XML6.
- * 3. Tổng hợp các vi phạm giám định để bác sĩ đối soát.
+ * 3. Tổng hợp các vi phạm kiểm tra để bác sĩ đối soát.
  * Giao diện: Pink Theme Phương Châu, Arial > 20px.
  */
 
@@ -2871,7 +2871,7 @@ const ManHinhChiTiet = ({ route, navigation }) => {
   useEffect(() => {
     const taiDuLieu = async () => {
       if (maLK) {
-        const data = await layHoSoTheoMaLK(maLK, 'Bác sĩ Giám định');
+        const data = await layHoSoTheoMaLK(maLK, 'Bác sĩ Kiểm tra');
         setHoSo(data);
       }
       setDangTai(false);
@@ -2952,9 +2952,9 @@ const ManHinhChiTiet = ({ route, navigation }) => {
           </View>
         </View>
 
-        {/* KHỐI 2: KẾT QUẢ GIÁM ĐỊNH CDSS */}
+        {/* KHỐI 2: KẾT QUẢ KIỂM TRA CDSS */}
         <View style={styles.section}>
-          <Text style={styles.tieu_de_section}>⚠️ CẢNH BÁO VI PHẠM (GIÁM ĐỊNH CHI TIẾT)</Text>
+          <Text style={styles.tieu_de_section}>⚠️ CẢNH BÁO VI PHẠM (KIỂM TRA CHI TIẾT)</Text>
           <View style={styles.card_error_container}>
             {danhSachLoi && danhSachLoi.length > 0 ? (
               danhSachLoi.map((loi, index) => {
@@ -2980,7 +2980,7 @@ const ManHinhChiTiet = ({ route, navigation }) => {
                         Alert.alert(
                           '💡 Truy vấn & Đề nghị sửa lỗi',
                           isFixable 
-                            ? `TỌA ĐỘ LỖI:\n- Bảng: ${loi.phan_he}\n- Cột dữ liệu: [${loi.truong_loi}]\n- Dòng: ${(loi.index || 0) + 1}\n\nĐỀ NGHỊ:\nVui lòng quay lại Bàn làm việc Giám định viên, chọn tab ${loi.phan_he} để chỉnh sửa trực tiếp giá trị tại ô đang bị bôi đỏ.`
+                            ? `TỌA ĐỘ LỖI:\n- Bảng: ${loi.phan_he}\n- Cột dữ liệu: [${loi.truong_loi}]\n- Dòng: ${(loi.index || 0) + 1}\n\nĐỀ NGHỊ:\nVui lòng quay lại Bàn làm việc Kiểm tra viên, chọn tab ${loi.phan_he} để chỉnh sửa trực tiếp giá trị tại ô đang bị bôi đỏ.`
                             : `TỌA ĐỘ LỖI:\nLỗi logic toàn cục hoặc thiếu dữ liệu hệ thống (Không xác định được trường cụ thể).\n\nĐỀ NGHỊ:\nLỗi này không thể sửa trực tiếp trên lưới dữ liệu. Bác sĩ cần đối chiếu quy trình trích xuất XML từ HIS để bổ sung dữ liệu gốc.`
                         );
                       }}
@@ -3216,7 +3216,7 @@ const CongTiepNhanHIS = ({ navigation }) => {
           </View>
         </View>
 
-        {/* PANEL PHẢI: LOG GIÁM ĐỊNH REAL-TIME */}
+        {/* PANEL PHẢI: LOG KIỂM TRA REAL-TIME */}
         <View style={styles.panel_phai}>
           <Text style={styles.tieu_de_panel}>📡 LOG NHẬN DỮ LIỆU THỜI GIAN THỰC</Text>
           <View style={styles.dong_tieu_de_bang}>
@@ -3224,7 +3224,7 @@ const CongTiepNhanHIS = ({ navigation }) => {
             <Text style={[styles.cot_bang, { width: 150 }]}>MÃ LƯỢT KHÁM</Text>
             <Text style={[styles.cot_bang, { width: 200 }]}>KHOA PHÒNG</Text>
             <Text style={[styles.cot_bang, { width: 150 }]}>DUNG LƯỢNG</Text>
-            <Text style={[styles.cot_bang, { flex: 1 }]}>KẾT QUẢ GIÁM ĐỊNH</Text>
+            <Text style={[styles.cot_bang, { flex: 1 }]}>KẾT QUẢ KIỂM TRA</Text>
           </View>
 
           <ScrollView style={styles.khung_danh_sach_log}>
@@ -3308,7 +3308,7 @@ FILE: \man_hinh\dang_nhap.jsx
  * PHÂN HỆ: ĐĂNG NHẬP, QUẢN LÝ TÀI KHOẢN & PHÂN QUYỀN (PHƯƠNG CHÂU - JCI)
  * 1. Phân quyền:
  * - ADMIN: htthinh28@gmail.com | Pass: Tramanh@2010## (Toàn quyền).
- * - USER: Các tài khoản khác (Chỉ xem, giám định, không Thêm/Sửa/Xóa).
+ * - USER: Các tài khoản khác (Chỉ xem, kiểm tra, không Thêm/Sửa/Xóa).
  * 2. Chức năng mở rộng: Tạo tài khoản, Đổi mật khẩu, Khôi phục mật khẩu.
  * 3. JCI Standard SQE.1
  */
@@ -3737,7 +3737,7 @@ FILE: \man_hinh\doc_file_xml.jsx
 ============================================================
 
 /**
- * PHÂN HỆ: TRẠM GIÁM ĐỊNH & SỬA LỖI XML (PHƯƠNG CHÂU - JCI)
+ * PHÂN HỆ: TRẠM KIỂM TRA & SỬA LỖI XML (PHƯƠNG CHÂU - JCI)
  * Nâng cấp 5.0: 
  * 1. Đọc hàng loạt file XML cùng lúc và duyệt bằng Tab ngang.
  * 2. Layout chia đôi màn hình: Lưới dữ liệu (trái) - Sổ tay lỗi (phải) giúp xem full nội dung.
@@ -3915,7 +3915,7 @@ const ManHinhDocXML = () => {
     const maLK = hoSoDangXem.xml1?.MA_LK;
     const loi = await chayBoMayGiamDinhV3(hoSoDangXem);
     setKetQuaGiamDinhMap(prev => ({...prev, [maLK]: loi}));
-    Alert.alert("Hệ thống CDSS", `Đã cập nhật giám định: ${loi.length} lỗi.`);
+    Alert.alert("Hệ thống CDSS", `Đã cập nhật kiểm tra: ${loi.length} lỗi.`);
   };
 
   const handleDongHoSo = async (maLKDong) => {
@@ -4072,7 +4072,7 @@ const ManHinhDocXML = () => {
            <TouchableOpacity onPress={() => navigation.goBack()} style={styles.back_btn}>
              <Text style={styles.back_txt}>⬅ TRỞ VỀ</Text>
            </TouchableOpacity>
-           <Text style={styles.main_title}>🛠 TRẠM GIÁM ĐỊNH</Text>
+           <Text style={styles.main_title}>🛠 TRẠM KIỂM TRA</Text>
         </View>
 
         <View style={styles.top_nav_right}>
@@ -4282,7 +4282,7 @@ FILE: \man_hinh\man_hinh_kho_luu_tru.jsx
 /**
  * MODULE: KHO LƯU TRỮ HỒ SƠ LÂM SÀNG & NHẬT KÝ TRUY VẾT (EMR & AUDIT TRAIL)
  * Chức năng: 
- * 1. Truy xuất hồ sơ: Đọc chuẩn xác dữ liệu các ca bệnh đã giám định từ kho lưu trữ.
+ * 1. Truy xuất hồ sơ: Đọc chuẩn xác dữ liệu các ca bệnh đã kiểm tra từ kho lưu trữ.
  * 2. Nhật ký truy vết: Hiển thị chi tiết lịch sử thay đổi hồ sơ (Audit Trail).
  * 3. Giao diện tối ưu: Bảng bung rộng đúng 1 màn hình (không kéo ngang), thu hẹp cột Chẩn đoán.
  * 4. Xuất dữ liệu: Xuất hàng loạt file XML và báo cáo Excel.
@@ -4632,7 +4632,7 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
               </View>
             )) : (
               <View style={styles.dong_nhat_ky}>
-                <Text style={styles.chu_thuong}>• <Text style={styles.chu_dam}>{hoSoDangXem.thoi_gian}:</Text> Nạp hồ sơ gốc và Giám định lần đầu.</Text>
+                <Text style={styles.chu_thuong}>• <Text style={styles.chu_dam}>{hoSoDangXem.thoi_gian}:</Text> Nạp hồ sơ gốc và Kiểm tra lần đầu.</Text>
                 <Text style={styles.chu_nho}>- Ghi chú: Hồ sơ được khởi tạo tự động từ file XML.</Text>
               </View>
             )}
@@ -6995,7 +6995,7 @@ import {
 import { layDanhSachCot } from '../quy_tac/quyluat_cautrucdulieu/quyluat_cau_truc_du_lieu';
 
 const SuaFileXML = ({ route, navigation }) => {
-    // Nhận dữ liệu từ trạm giám định hoặc kho lưu trữ
+    // Nhận dữ liệu từ trạm kiểm tra hoặc kho lưu trữ
     const { duLieuGoc, loaiBang } = route.params || { duLieuGoc: {}, loaiBang: 'XML1' };
 
     const [duLieuSua, setDuLieuSua] = useState(duLieuGoc);
@@ -7212,7 +7212,7 @@ FILE: \man_hinh\tong_quan.jsx
 ============================================================
 
 /**
- * PHÂN HỆ: DASHBOARD TỔNG QUAN & QUẢN TRỊ GIÁM ĐỊNH (MASTER CONTROL)
+ * PHÂN HỆ: DASHBOARD TỔNG QUAN & QUẢN TRỊ KIỂM TRA (MASTER CONTROL)
  * Nâng cấp: 
  * 1. Bổ sung chức năng Xuất báo cáo Excel chi tiết các lỗi kiểm tra.
  * 2. Giữ nguyên 100% giao diện Pink Theme, Logic đếm lỗi và Navigation.
@@ -7303,9 +7303,9 @@ const ManHinhTongQuan = ({ navigation }) => {
       await AsyncStorage.setItem('KHO_HO_SO_BHYT', JSON.stringify(khoHienTai));
       setRawDanhSach(khoHienTai);
       tinhToanDashboard(khoHienTai);
-      alert(`✅ Đã giám định & lưu kho ${danhSachHoSoTuFile.length} hồ sơ mới.`);
+      alert(`✅ Đã kiểm tra & lưu kho ${danhSachHoSoTuFile.length} hồ sơ mới.`);
     } catch (err) {
-      alert("Lỗi xử lý giám định.");
+      alert("Lỗi xử lý kiểm tra.");
     } finally {
       setDangTai(false);
     }
@@ -7392,7 +7392,7 @@ const ManHinhTongQuan = ({ navigation }) => {
         <View style={styles.kpi_container}>
           <View style={[styles.kpi_card, { borderTopColor: '#0288D1' }]}>
             <View style={styles.icon_bg_blue}><Text style={styles.icon_txt}>📑</Text></View>
-            <Text style={styles.kpi_label}>TỔNG GIÁM ĐỊNH</Text>
+            <Text style={styles.kpi_label}>TỔNG KIỂM TRA</Text>
             <Text style={[styles.kpi_val, { color: '#0288D1' }]}>{thongKe.tong}</Text>
           </View>
           
@@ -7606,7 +7606,7 @@ export const DANH_SACH_COT_XML1 = [
   'MA_TTDV', 'DU_PHONG'
 ];
 
-// (Dự phòng mở rộng) Bộ quy tắc bắt lỗi trống, sai định dạng theo chuẩn giám định
+// (Dự phòng mở rộng) Bộ quy tắc bắt lỗi trống, sai định dạng theo chuẩn kiểm tra
 export const QUY_TAC_KIEM_TRA_XML1 = {
   MA_LK: { required: true, maxLength: 100, type: 'string' },
   HO_TEN: { required: true, maxLength: 255, type: 'string' },
@@ -7763,7 +7763,7 @@ export const QUY_TAC_KIEM_TRA_XML3 = {
 
 /**
  * TÀI LIỆU THAM KHẢO
- * [1] Bộ Y tế (2024), Quyết định 3176/QĐ-BYT về chuẩn định dạng dữ liệu đầu ra phục vụ quản lý, giám định, thanh toán BHYT.
+ * [1] Bộ Y tế (2024), Quyết định 3176/QĐ-BYT về chuẩn định dạng dữ liệu đầu ra phục vụ quản lý, kiểm tra, thanh toán BHYT.
  * [2] Joint Commission International (JCI), Chương COP & ASC - Đối chiếu thực hiện Y lệnh Lâm sàng.
  */
 
@@ -7868,7 +7868,7 @@ export const QUY_TAC_KIEM_TRA_XML4 = {
 
 /**
  * TÀI LIỆU THAM KHẢO
- * [1] Bộ Y tế (2024), Quyết định 3176/QĐ-BYT về chuẩn định dạng dữ liệu đầu ra phục vụ quản lý, giám định, thanh toán BHYT.
+ * [1] Bộ Y tế (2024), Quyết định 3176/QĐ-BYT về chuẩn định dạng dữ liệu đầu ra phục vụ quản lý, kiểm tra, thanh toán BHYT.
  * [2] Joint Commission International (JCI), Chương AOP - Đánh giá kết quả cận lâm sàng chính xác, kịp thời.
  */
 
@@ -7984,7 +7984,7 @@ FILE: \quy_tac\hopdong.jsx
 ============================================================
 
 /**
- * QUY TẮC GIÁM ĐỊNH HỢP ĐỒNG BHYT (CƠ CHẾ NO-CODE)
+ * QUY TẮC KIỂM TRA HỢP ĐỒNG BHYT (CƠ CHẾ NO-CODE)
  * Căn cứ: Hợp đồng KBCB BHYT ký hàng năm giữa CSYT và Cơ quan BHXH
  */
 
@@ -8597,7 +8597,7 @@ FILE: \thanh_phan\dm_index.jsx
 /**
  * FILE ĐIỀU HƯỚNG CHUNG - DANH MỤC PHÁP LÝ BHYT (MASTER DATA INDEX)
  * Quản lý tập trung các danh mục theo chuẩn Thông tư 12/2026/TT-BTC
- * Đảm bảo liên thông dữ liệu cho Động cơ Giám định CDSS
+ * Đảm bảo liên thông dữ liệu cho Động cơ Kiểm tra CDSS
  */
 
 // 1. Nhập (Import) các danh mục từ các file thành phần hiện có trong hệ thống
@@ -8611,7 +8611,7 @@ import { DANH_MUC_VAT_TU_M04 } from './vat_tu_y_te';
 
 // (Ghi chú: File danh_muc_phap_ly.jsx cũ không được import vào đây để hệ thống chạy nhẹ hơn và tránh xung đột dữ liệu)
 
-// 2. Xuất (Export) để màn hình Quản lý Danh mục và Động cơ Giám định sử dụng
+// 2. Xuất (Export) để màn hình Quản lý Danh mục và Động cơ Kiểm tra sử dụng
 export {
     DANH_MUC_DVKT_M05 as DANH_MUC_CHAN_DOAN_HINH_ANH, DANH_MUC_DVKT_M05 as DANH_MUC_DVKT, DANH_MUC_DVKT_M05, DANH_MUC_KHOA_LS_M01 as DANH_MUC_GIUONG_BENH,
     // --- ALIAS (BÍ DANH) BẢO TOÀN TÍNH TƯƠNG THÍCH NGƯỢC ---
@@ -9509,7 +9509,7 @@ FILE: \tien_ich\dong_co_giam_dinh.jsx
 ============================================================
 
 /**
- * AUDITING ENGINE V4.9 - SIÊU ĐỘNG CƠ GIÁM ĐỊNH (CHUẨN HÓA DỮ LIỆU TỐI ĐA)
+ * AUDITING ENGINE V4.9 - SIÊU ĐỘNG CƠ KIỂM TRA (CHUẨN HÓA DỮ LIỆU TỐI ĐA)
  * Khắc phục triệt để lỗi dương tính giả (False Positives) dựa trên thực tế:
  * 1. Smart Padding: Tự động khôi phục số "0" đứng đầu bị mất do XML Parser (SĐT, Mã Xã, Ngày giờ).
  * 2. Internal Space Stripper: Tự động xóa khoảng trắng bên trong các trường mã (MA_THE, SO_CCCD) để LEN đếm chuẩn 100%.
@@ -9735,7 +9735,7 @@ export const chayBoMayGiamDinhV3 = async (hoSo) => {
       });
     }
   } catch (error) {
-    console.error("[CDSS] Lỗi thực thi giám định:", error);
+    console.error("[CDSS] Lỗi thực thi kiểm tra:", error);
   }
 
   return danhSachCanhBao;
@@ -10032,7 +10032,7 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
             // 1. CHẠY KIỂM TRA TĨNH (Từ kiem_tra_xml.jsx)
             const ketQuaValidate = kiemTraDinhDangXML(hsDauTien);
             
-            // 2. CHẠY GIÁM ĐỊNH ĐỘNG (Từ dong_co_giam_dinh.jsx)
+            // 2. CHẠY KIỂM TRA ĐỘNG (Từ dong_co_giam_dinh.jsx)
             const dsCanhBaoCDSS = await chayBoMayGiamDinhV3(hsDauTien);
 
             if (!ketQuaValidate.hop_le || dsCanhBaoCDSS.length > 0) {
@@ -10075,7 +10075,7 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
       let ketQuaTong = [];
 
       for (let i = 0; i < mangFileHopLe.length; i += CHUNK_SIZE) {
-        setThongBaoTienDo(`Đang giám định: ${Math.min(i + CHUNK_SIZE, mangFileHopLe.length)} / ${mangFileHopLe.length}...`);
+        setThongBaoTienDo(`Đang kiểm tra: ${Math.min(i + CHUNK_SIZE, mangFileHopLe.length)} / ${mangFileHopLe.length}...`);
         const chunk = mangFileHopLe.slice(i, i + CHUNK_SIZE);
         const chunkResults = await Promise.all(chunk.map(file => processSingleFile(file)));
         ketQuaTong = [...ketQuaTong, ...chunkResults];
@@ -10137,7 +10137,7 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
       <View style={styles.khung_danh_sach}>
         <View style={styles.thanh_tieu_de_ds}>
           <View>
-            <Text style={styles.chu_tieu_de_ds}>📋 KẾT QUẢ GIÁM ĐỊNH XML ({danhSachFile.length} FILE)</Text>
+            <Text style={styles.chu_tieu_de_ds}>📋 KẾT QUẢ KIỂM TRA XML ({danhSachFile.length} FILE)</Text>
             <Text style={styles.tom_tat}>Đối soát cấu trúc QĐ 130 & Quy tắc y khoa.</Text>
           </View>
           <TouchableOpacity style={styles.nut_huy} onPress={() => setDanhSachFile([])}><Text style={styles.chu_nut_huy}>🔄 Làm mới</Text></TouchableOpacity>
@@ -10189,7 +10189,7 @@ const NhapFileXML = ({ onDuLieuSanSang }) => {
   return (
     <View style={styles.khung_chua}>
       <TouchableOpacity style={styles.nut_import} onPress={bamChonFile} disabled={dangXuLy}>
-        {dangXuLy ? <ActivityIndicator color="#FFF" size="large" /> : <Text style={styles.chu_nut}>📥 CHỌN HỒ SƠ XML ĐỂ GIÁM ĐỊNH</Text>}
+        {dangXuLy ? <ActivityIndicator color="#FFF" size="large" /> : <Text style={styles.chu_nut}>📥 CHỌN HỒ SƠ XML ĐỂ KIỂM TRA</Text>}
       </TouchableOpacity>
       <Text style={styles.chu_huong_dan}>Tự động đồng bộ chuẩn cấu trúc 66 trường của QĐ 130.</Text>
     </View>

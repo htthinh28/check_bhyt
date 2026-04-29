@@ -571,7 +571,7 @@ export const taoMoTaBanChatViPhamTuLoi = (loi = {}) => {
   if (noi && noi !== 'N/A') return `${head}${noi}`;
   if (cb) return `${head}${cb}`;
   if (ma) return `${head}Phát hiện theo mã quy tắc ${ma}.`;
-  return `${head}Vi phạm / cảnh báo theo kết quả giám định (không có mã tách).`;
+  return `${head}Vi phạm / cảnh báo theo kết quả kiểm tra (không có mã tách).`;
 };
 
 /** Gợi ý khắc phục: luồng giải trình, chi tiết quản trị, hoặc hướng dẫn chỉnh XML/HIS. */
@@ -667,6 +667,17 @@ export const taoBanGhiLoiChiTiet = (hoSo = {}, loi = {}, stt = 0) => {
     index,
     tab_quan_tri_goi_y: tabQuanTri,
   });
+  const bsTheoDong = layNgayYLenhNgayKqVaBacSiTuLoiHoSo(daChuan, hoSo);
+  const maBsDongRaw = String(bsTheoDong.bacSiChiDinh || bsTheoDong.bacSiThucHien || '').trim();
+  const maBsKhamXml1 = String(xml1?.MA_BS_KHAM || '').trim();
+  const ma_bac_si_dong = maBsDongRaw || maBsKhamXml1 || 'KHONG_RO';
+  const { row: rowDongXml } = layDongXmlLienQuanLoi(daChuan, hoSo);
+  const ma_thuoc_dong = rowDongXml && typeof rowDongXml === 'object'
+    ? String(rowDongXml.MA_THUOC || '').trim()
+    : '';
+  const ten_thuoc_dong = rowDongXml && typeof rowDongXml === 'object'
+    ? String(rowDongXml.TEN_THUOC || '').trim()
+    : '';
   const khoaNoiDung = taoKhoaNoiDungChiTietLoi({
     ma_lk: layMaLKHoSo(hoSo),
     ma_luat: maLuat,
@@ -690,6 +701,9 @@ export const taoBanGhiLoiChiTiet = (hoSo = {}, loi = {}, stt = 0) => {
     ma_khoa: maKhoaRaw || 'KHONG_RO',
     ma_khoa_chuan: maKhoaChuan,
     ma_bac_si: String(xml1?.MA_BS_KHAM || 'KHONG_RO'),
+    ma_bac_si_dong,
+    ma_thuoc_dong,
+    ten_thuoc_dong,
     ma_luat: coMaLuatHopLe(maLuat) ? maLuat : '',
     ten_quy_tac: tenQuyTac,
     canh_bao: canhBao,

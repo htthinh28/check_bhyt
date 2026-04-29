@@ -1,4 +1,4 @@
-# Kỹ năng cốt lõi giám định BHYT cho AI (đa nhóm rule)
+# Kỹ năng cốt lõi kiểm tra BHYT cho AI (đa nhóm rule)
 
 **Phiên bản:** 1.3  
 **Ngày:** 09/04/2026  
@@ -8,7 +8,7 @@
 
 ## 1. Mục tiêu
 
-Rèn cho AI các **thói quen suy luận** giống giám định viên có kinh nghiệm:
+Rèn cho AI các **thói quen suy luận** giống kiểm tra viên có kinh nghiệm:
 
 - Đọc **cảnh báo** như một **bản ghi có cấu trúc**, không như văn tự do.
 - Phân **loại vấn đề** trước khi “kết luận xuất toán”.

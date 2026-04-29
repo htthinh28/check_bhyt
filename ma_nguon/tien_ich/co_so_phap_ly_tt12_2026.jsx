@@ -12,7 +12,7 @@ export const CHUOI_TRICH_DAN_TT12_2026_D10_VA_D13 =
 
 export const CHUOI_DAY_DU_TT12_2026_D10_VA_D13 = [
     'Thông tư 12/2026/TT-BTC.',
-    'Điều 10. Trình tự giám định chi phí khám bệnh, chữa bệnh bảo hiểm y tế theo phương thức tự động — khoản 1. Các nội dung rà soát hồ sơ đề nghị thanh toán bao gồm:',
+    'Điều 10. Trình tự kiểm tra chi phí khám bệnh, chữa bệnh bảo hiểm y tế theo phương thức tự động — khoản 1. Các nội dung rà soát hồ sơ đề nghị thanh toán bao gồm:',
     'a) Thông tin thẻ bảo hiểm y tế;',
     'b) Mức hưởng và quyền lợi hưởng của người bệnh bảo hiểm y tế;',
     'c) Phạm vi thanh toán đối với thuốc, thiết bị y tế, dịch vụ khám bệnh, chữa bệnh theo danh mục sử dụng tại cơ sở khám bệnh, chữa bệnh;',

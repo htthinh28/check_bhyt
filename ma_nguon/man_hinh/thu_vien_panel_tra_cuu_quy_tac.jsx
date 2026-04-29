@@ -193,7 +193,7 @@ const ThuVienPanelTraCuuQuyTac = () => {
 
   const khoiSidebar = (
     <View style={dungHaiCot ? NStyle.sidebarCot : NStyle.sidebarCotDung}>
-      <Text style={NStyle.sdHead}>Nhóm giám định</Text>
+      <Text style={NStyle.sdHead}>Nhóm kiểm tra</Text>
       <Text style={NStyle.sdPhu}>Chọn để lọc bên phải</Text>
       <ScrollView
         style={NStyle.sdScroll}
@@ -221,7 +221,7 @@ const ThuVienPanelTraCuuQuyTac = () => {
   const khoiNoiDung = (
     <View style={NStyle.khungPhai}>
       <View style={NStyle.dauPhai}>
-        <Text style={NStyle.tieuDePanel}>Quy tắc theo phân tầng giám định (L0…L5)</Text>
+        <Text style={NStyle.tieuDePanel}>Quy tắc theo phân tầng kiểm tra (L0…L5)</Text>
         <Text style={NStyle.phuDe}>
           Cùng pipeline gộp/hợp nhất với màn Quản lý quy tắc ON/OFF (gồm CDSS_DATA_*, seed PTTT, DVKT-OP, map BẬT/TẮT
           và ghi đè nội dung). Tìm theo từ khóa; lọc «Luật cứng» / «Nhập tay» theo nguồn dòng.

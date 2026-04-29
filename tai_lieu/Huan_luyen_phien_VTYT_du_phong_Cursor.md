@@ -4,7 +4,7 @@
 **Ngày:** 09/04/2026  
 **Trạng thái:** **Chưa** có file `test_xml/audit_*` chuyên VTYT và ca mẫu `Ca_huan_luyen_mau_*VTYT*` — tài liệu này là **khung** để khi có hồ sơ + audit thì bổ sung theo cùng tinh thần phiên DVKT.
 
-**CSDL rule trong repo:** **Không** có seed **`DM-VTYT-*`** (giám định thanh toán VTYT theo danh mục như DVKT/thuốc) — xem [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) §**0**.
+**CSDL rule trong repo:** **Không** có seed **`DM-VTYT-*`** (kiểm tra thanh toán VTYT theo danh mục như DVKT/thuốc) — xem [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) §**0**.
 
 **Chuẩn hóa suy luận cho AI (đọc trước):** [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) — nguyên tắc P1–P5, ma trận nguồn rule, **§3** về nghĩa `XML1.T_VTYT` trong dự án.  
 **Bảng neo mã ↔ engine (VTYT + nhánh liên quan):** [Bang_neo_phien_huan_luyen_vtyt_va_engine.md](./Bang_neo_phien_huan_luyen_vtyt_va_engine.md).

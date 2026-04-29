@@ -497,7 +497,7 @@ export const traLoiTroLyTriThuc = async ({
     if (daThemPath.has(k)) continue;
     daThemPath.add(k);
     nguon.push({
-      loai: 'Tri thức từ giám định (máy)',
+      loai: 'Tri thức từ kiểm tra (máy)',
       tieuDe: x.tieuDe || '—',
       file: x.ma_lk ? `MA_LK ${x.ma_lk}` : 'local',
     });
@@ -533,7 +533,7 @@ export const traLoiTroLyTriThuc = async ({
 
   if (coKetQuaChatCheo) {
     lines.push(
-      '*Nguồn tra trong app: Thư viện · Chuyên môn · Danh mục nội bộ · Quy tắc luật · Tri thức giám định.*',
+      '*Nguồn tra trong app: Thư viện · Chuyên môn · Danh mục nội bộ · Quy tắc luật · Tri thức kiểm tra.*',
     );
     if (generatedAt) {
       lines.push(`*Gói thư viện: ${generatedAt}.*`);
@@ -558,7 +558,7 @@ export const traLoiTroLyTriThuc = async ({
   }
 
   if (trichTriThuc.length) {
-    lines.push('### Tri thức từ giám định (trên máy)');
+    lines.push('### Tri thức từ kiểm tra (trên máy)');
     lines.push('');
     trichTriThuc.forEach((x, i) => {
       lines.push(`${i + 1}. **${x.tieuDe}**${x.ma_lk ? ` · MA_LK \`${x.ma_lk}\`` : ''}${x.ngay ? ` · ${String(x.ngay).slice(0, 10)}` : ''}`);

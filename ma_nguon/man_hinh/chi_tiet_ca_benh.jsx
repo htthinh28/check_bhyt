@@ -136,7 +136,7 @@ const ManHinhChiTiet = ({ route, navigation }) => {
       ma_luat_goi_y: maLuat,
       snapshot_loi: snap,
     });
-    Alert.alert('Đã lưu', 'Bài học đã ghi vào kho tri thức. Xem tại Tổng quan → Tri thức từ giám định.');
+    Alert.alert('Đã lưu', 'Bài học đã ghi vào kho tri thức. Xem tại Tổng quan → Tri thức từ kiểm tra.');
   };
 
   const datKetLuanCanhBao = (index, ket_luan) => {
@@ -181,7 +181,7 @@ const ManHinhChiTiet = ({ route, navigation }) => {
       });
       Alert.alert(
         'Đã lưu',
-        'Xác nhận đã ghi vào thẻ tri thức (hồ sơ không cảnh báo). Mở Tri thức từ giám định để xem hoặc xuất Markdown.',
+        'Xác nhận đã ghi vào thẻ tri thức (hồ sơ không cảnh báo). Mở Tri thức từ kiểm tra để xem hoặc xuất Markdown.',
       );
       return;
     }
@@ -226,7 +226,7 @@ const ManHinhChiTiet = ({ route, navigation }) => {
     });
     Alert.alert(
       'Đã lưu',
-      'Phản hồi đúng/sai đã ghi vào thẻ tri thức. Dữ liệu có cấu trúc (JSON) phục vụ huấn luyện/cải thiện độ chính xác — xem tại Tri thức từ giám định.',
+      'Phản hồi đúng/sai đã ghi vào thẻ tri thức. Dữ liệu có cấu trúc (JSON) phục vụ huấn luyện/cải thiện độ chính xác — xem tại Tri thức từ kiểm tra.',
     );
   };
 
@@ -244,7 +244,7 @@ const ManHinhChiTiet = ({ route, navigation }) => {
       ? dsLoi.slice(0, 12).map((v) => `- [${v.phan_he || 'Tổng quát'}] ${v.canh_bao}`).join('\n')
       : 'Hồ sơ không có vi phạm theo bộ kiểm tra hiện hành.';
 
-    Alert.alert('Kết quả giám định', message);
+    Alert.alert('Kết quả kiểm tra', message);
   };
 
   if (dangTai) {
@@ -329,7 +329,7 @@ const ManHinhChiTiet = ({ route, navigation }) => {
                     </Text>
                     <Text style={styles.txt_log}>- {loi.canh_bao || loi.noi_dung || `Vi phạm tại trường: ${loi.truong_loi}`}</Text>
                     {!!coSoPhapLy && <Text style={styles.txt_log_phap_ly}>Cơ sở pháp lý: {coSoPhapLy}</Text>}
-                    <Text style={styles.xac_nhan_label}>Xác nhận kết quả giám định (tri thức học tập)</Text>
+                    <Text style={styles.xac_nhan_label}>Xác nhận kết quả kiểm tra (tri thức học tập)</Text>
                     <View style={styles.xac_nhan_row}>
                       <TouchableOpacity
                         style={[styles.xac_nhan_btn, kl === 'DUNG' && styles.xac_nhan_btn_active_dung]}
@@ -400,7 +400,7 @@ const ManHinhChiTiet = ({ route, navigation }) => {
             <TouchableOpacity style={styles.btn_chen_goi_y} onPress={() => setNoiDungBaiHoc(goiYHeThong)}>
               <Text style={styles.btn_chen_goi_y_txt}>Chèn gợi ý vào ô bài học</Text>
             </TouchableOpacity>
-            <Text style={styles.tri_thuc_label}>Bài học / kết luận giám định (bắt buộc khi lưu)</Text>
+            <Text style={styles.tri_thuc_label}>Bài học / kết luận kiểm tra (bắt buộc khi lưu)</Text>
             <TextInput
               style={styles.tri_thuc_input}
               multiline

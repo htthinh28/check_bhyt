@@ -211,14 +211,40 @@ export const taoBangBcQt03TuanThu = (factCanhBao = []) => {
 const MA_RULE_DOI_CHIEU = new Set(['XML_49', 'XML_53', 'XML_109', 'XML_143']);
 
 /** BC-QT-04 — Chất lượng dữ liệu. */
+const PLACEHOLDER_TEN_QUY_TAC_QT = 'Không có tên quy tắc';
+
+const tenQuyTacHopLeQt = (s) => {
+  const t = String(s || '').trim();
+  return t && t !== PLACEHOLDER_TEN_QUY_TAC_QT;
+};
+
+/** Top rule QT-04 — đồng bộ đặc tả v2.0 / DT-01: thêm ten_quy_tac (bỏ phiếu theo tần suất, locale vi). */
 export const taoBangBcQt04Top10Rule = (factCanhBao = []) => {
   const m = new Map();
   for (const c of factCanhBao) {
     const r = String(c.ma_rule || '').trim() || '(không mã)';
-    m.set(r, (m.get(r) || 0) + 1);
+    if (!m.has(r)) m.set(r, { ma_rule: r, so_loi: 0, _ten_votes: new Map() });
+    const o = m.get(r);
+    o.so_loi += 1;
+    const tn = String(c.ten_quy_tac || '').trim();
+    if (tn) o._ten_votes.set(tn, (o._ten_votes.get(tn) || 0) + 1);
   }
-  return [...m.entries()]
-    .map(([ma_rule, so_loi]) => ({ ma_rule, so_loi }))
+  return [...m.values()]
+    .map((x) => {
+      const entries = [...x._ten_votes];
+      const useful = entries.filter(([ten]) => tenQuyTacHopLeQt(ten));
+      const pool = useful.length ? useful : entries;
+      let bestTen = '';
+      let bestCnt = -1;
+      for (const [ten, cnt] of pool) {
+        if (cnt > bestCnt || (cnt === bestCnt && String(ten).localeCompare(String(bestTen), 'vi') < 0)) {
+          bestCnt = cnt;
+          bestTen = ten;
+        }
+      }
+      const { _ten_votes, ...rest } = x;
+      return { ...rest, ten_quy_tac: bestTen };
+    })
     .sort((a, b) => b.so_loi - a.so_loi)
     .slice(0, 10);
 };

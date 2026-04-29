@@ -1,6 +1,6 @@
-# Quy trình làm việc: Cursor (AI trợ lý mã & tài liệu) + OpenClaw (gateway tự động hóa) cho huấn luyện và vận hành AI giám định BHYT
+# Quy trình làm việc: Cursor (AI trợ lý mã & tài liệu) + OpenClaw (gateway tự động hóa) cho huấn luyện và vận hành AI kiểm tra BHYT
 
-Tài liệu mô tả **cách phối hợp** giữa trợ lý AI trong **Cursor** và **OpenClaw** nhằm xây dựng, kiểm thử và duy trì hệ thống hỗ trợ giám định bảo hiểm y tế (BHYT) một cách **đầy đủ, có thể lặp lại và áp dụng thực tế**.
+Tài liệu mô tả **cách phối hợp** giữa trợ lý AI trong **Cursor** và **OpenClaw** nhằm xây dựng, kiểm thử và duy trì hệ thống hỗ trợ kiểm tra bảo hiểm y tế (BHYT) một cách **đầy đủ, có thể lặp lại và áp dụng thực tế**.
 
 ## 0. Ranh giới cố định (mọi phiên)
 
@@ -22,7 +22,7 @@ Tài liệu mô tả **cách phối hợp** giữa trợ lý AI trong **Cursor**
 ## 1. Mục tiêu và phạm vi
 
 - **Mục tiêu:** Chuẩn hóa luồng từ *thẻ tri thức / quy định* → *quy tắc & mã* → *bộ ca kiểm thử* → *chạy engine / audit* → *rút kinh nghiệm cập nhật*.
-- **Phạm vi:** Repo `ung_dung_cdss_bhyt` (engine giám định, tài liệu `tai_lieu/`, dữ liệu thử `test_xml/`, script QA). OpenClaw đóng vai trò **gateway + agent** (mô hình Google Gemini, workspace trỏ repo, tự động hóa theo lịch hoặc tác vụ nền khi bạn cấu hình).
+- **Phạm vi:** Repo `ung_dung_cdss_bhyt` (engine kiểm tra, tài liệu `tai_lieu/`, dữ liệu thử `test_xml/`, script QA). OpenClaw đóng vai trò **gateway + agent** (mô hình Google Gemini, workspace trỏ repo, tự động hóa theo lịch hoặc tác vụ nền khi bạn cấu hình).
 - **Không mục tiêu:** Thay thế quyết định pháp lý của con người; AI chỉ hỗ trợ kiểm tra, gợi ý và tài liệu hóa lý do.
 
 ---
@@ -129,7 +129,7 @@ flowchart LR
 
 | Bước | Thực hiện tại | Hành động |
 |------|----------------|-----------|
-| 1 | Cursor | Dán cấu trúc dữ liệu đã khử nhạy cảm, mô tả lỗi giám định |
+| 1 | Cursor | Dán cấu trúc dữ liệu đã khử nhạy cảm, mô tả lỗi kiểm tra |
 | 2 | Cursor | Trace trong code rule tương ứng; đề xuất sửa |
 | 3 | Cursor | Cập nhật ca regression trong `tai_lieu/` |
 | 4 | OpenClaw | Có thể hỗ trợ đối chiếu nhanh nhiều đoạn tài liệu nếu bạn đính kèm file |
@@ -141,7 +141,7 @@ flowchart LR
 - **Không** đưa họ tên, Số thẻ BHYT, CCCD, địa chỉ đầy đủ vào prompt công khai hoặc log không kiểm soát.
 - **Không** commit `GEMINI_API_KEY`, token OpenClaw, hoặc `.env` vào git; `~\.openclaw\.env` chỉ trên máy cục bộ.
 - Phân loại môi trường: **dev** (dữ liệu giả) vs **UAT** (dữ liệu ẩn danh hóa) vs **production** (chính sách riêng của BV — thường ngoài phạm vi repo này).
-- Mọi **kết luận giám định** cuối cùng cần **người có thẩm quyền** xác nhận; AI chỉ là CDSS (hỗ trợ quyết định lâm sàng/quản trị theo định nghĩa nội bộ).
+- Mọi **kết luận kiểm tra** cuối cùng cần **người có thẩm quyền** xác nhận; AI chỉ là CDSS (hỗ trợ quyết định lâm sàng/quản trị theo định nghĩa nội bộ).
 
 ---
 
@@ -169,21 +169,21 @@ flowchart LR
 
 ## 11. Kết luận vận hành
 
-- **Cursor** là nơi **thiết kế, mã hóa và kiểm thử chặt** luồng giám định BHYT trong repo.
+- **Cursor** là nơi **thiết kế, mã hóa và kiểm thử chặt** luồng kiểm tra BHYT trong repo.
 - **OpenClaw** là lớp **tự động hóa và tương tác mô hình** trên cùng workspace, hữu ích khi bạn đã **chuẩn hóa lệnh và cấu trúc thư mục**.
 - **Huấn luyện đầy đủ** = vòng lặp **pháp lý → thẻ tri thức → rule → ca/QA → sửa → tài liệu hóa**, có người chuyên môn duyệt và có kiểm soát dữ liệu nhạy cảm.
 
 ---
 
 **Prompt mẫu chuẩn hóa (copy-paste):** [Prompt_mau_chuan_hoa_BHYT_Cursor_OpenClaw.md](./Prompt_mau_chuan_hoa_BHYT_Cursor_OpenClaw.md)  
-**Sprint 60 phút (giám định thuốc):** [Sprint_60p_huan_luyen_giam_dinh_thuoc_Cursor_OpenClaw.md](./Sprint_60p_huan_luyen_giam_dinh_thuoc_Cursor_OpenClaw.md)  
+**Sprint 60 phút (kiểm tra thuốc):** [Sprint_60p_huan_luyen_giam_dinh_thuoc_Cursor_OpenClaw.md](./Sprint_60p_huan_luyen_giam_dinh_thuoc_Cursor_OpenClaw.md)  
 **Phiên làm việc chung (Cursor + OpenClaw, copy prompt):** [Phien_lam_viec_chung_Cursor_va_OpenClaw.md](./Phien_lam_viec_chung_Cursor_va_OpenClaw.md)  
 **Phiên huấn luyện tiếp theo (THUOC_391):** [Huan_luyen_phien_02_THUOC_391_Cursor_OpenClaw.md](./Huan_luyen_phien_02_THUOC_391_Cursor_OpenClaw.md)  
 **Phiên 03 (đơn >30 ngày — THUOC_418 vs CLN-THUOC-04):** [Huan_luyen_phien_03_THUOC_418_CLN_THUOC_04.md](./Huan_luyen_phien_03_THUOC_418_CLN_THUOC_04.md)  
 **Phiên 04 (hạng BV — THUOC_419):** [Huan_luyen_phien_04_THUOC_419_hang_BV.md](./Huan_luyen_phien_04_THUOC_419_hang_BV.md)  
-**Kỹ năng cốt lõi / bài tập giám định (AI):** [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md) · [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md) (bài **8–10** = audit `test_xml/`; **11–13** = VTYT / neo)  
+**Kỹ năng cốt lõi / bài tập kiểm tra (AI):** [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md) · [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md) (bài **8–10** = audit `test_xml/`; **11–13** = VTYT / neo)  
 **VTYT — chuẩn hóa:** [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) · **bảng neo:** [Bang_neo_phien_huan_luyen_vtyt_va_engine.md](./Bang_neo_phien_huan_luyen_vtyt_va_engine.md) · **phiên dự phòng:** [Huan_luyen_phien_VTYT_du_phong_Cursor.md](./Huan_luyen_phien_VTYT_du_phong_Cursor.md)  
-**Chuẩn hóa kiến thức AI giám định DVKT:** [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md)  
+**Chuẩn hóa kiến thức AI kiểm tra DVKT:** [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md)  
 **Phiên DVKT (17/VBHN-BYT — đủ nội dung tri thức, Cursor):** [Huan_luyen_phien_DVKT_VBHN17_Cursor.md](./Huan_luyen_phien_DVKT_VBHN17_Cursor.md)  
 **Mẫu handoff Cursor → OpenClaw:** [Mau_handoff_Cursor_sang_OpenClaw.md](./Mau_handoff_Cursor_sang_OpenClaw.md)  
 **Ví dụ regression cảnh báo THUOC/XML (ẩn danh):** [Vi_du_regression_canh_bao_THUOC_XML_an_danh.md](./Vi_du_regression_canh_bao_THUOC_XML_an_danh.md)

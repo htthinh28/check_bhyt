@@ -4,7 +4,9 @@
  */
 
 import { suyRaNamespaceVaNguonQuyTac } from '../tien_ich/dong_co_giam_dinh';
-import { phangHoaDanhSachLoiChiTiet } from '../tien_ich/thong_ke_loi_dung_chung';
+import { taoMapMaNhanSuSangMacchn } from '../tien_ich/dinh_dang_cchn_bao_cao';
+import { phangHoaDanhSachLoiChiTiet, NHOM_VI_PHAM_IDS } from '../tien_ich/thong_ke_loi_dung_chung';
+import { DANH_MUC_NHAN_SU } from '../thanh_phan/nhan_su';
 
 const toNum = (v, fb = 0) => {
   const n = Number(String(v ?? '').replace(/,/g, '').trim());
@@ -288,7 +290,7 @@ const GOI_Y_CM04 = {
   CDHA_BUILTIN: 'Rà soát quy trình chỉ định của khoa CĐHA',
   PTTT_BUILTIN: 'Phòng mổ rà lại quy trình mã hoá',
   PTTT_SEED: 'Phòng mổ rà lại quy trình mã hoá',
-  GIAM_DINH_CHUYEN_DE: 'Chuyển cho Tổ giám định nội bộ để xử lý',
+  GIAM_DINH_CHUYEN_DE: 'Chuyển cho Tổ kiểm tra nội bộ để xử lý',
   LUAT_DU_LIEU: 'Chuyển cho BC-DT-03 phân tích chi tiết',
   TUONG_TAC_THUOC: 'Xem BC-CM-03',
   HANH_CHINH_BUILTIN: 'Rà XML1 — luồng hành chính built-in',
@@ -348,7 +350,7 @@ export const taoBangBcCm04ViPhamNamespace = (factCanhBao = []) => {
             : ns === 'PTTT_BUILTIN'
               ? 'PTTT — sai mã / nhóm / điều kiện thanh toán'
               : ns === 'GIAM_DINH_CHUYEN_DE'
-                ? 'Vi phạm giám định chuyên đề BHYT'
+                ? 'Vi phạm kiểm tra chuyên đề BHYT'
                 : ns === 'LUAT_DU_LIEU'
                   ? 'Đối chiếu chi phí (XML_49/53/109/143)'
                   : 'Cảnh báo DDI',
@@ -498,7 +500,186 @@ export const taoBangBcCm00TopKhoaTongLoi = (chiTiet = [], top = 12) => {
     .slice(0, top);
 };
 
-/** BC-CM-00 — Theo nhân viên y tế (MA_BS_KHAM trên XML1 / bản ghi chi tiết). */
+/** Lọc nhóm vi phạm «Hành chính» (XML1 / hợp đồng…) khỏi thống kê chuyên môn theo BS/CCHN. */
+const laNhomHanhChinh = (r) => String(r?.nhom_vi_pham || '') === NHOM_VI_PHAM_IDS.HANH_CHINH;
+
+/** Chỉ dòng lỗi nghiệp vụ (loại trừ nhóm Hành chính — XML1 thẻ BHYT/CCCD…). */
+export const locChiTietLoiChuyenMon = (chiTiet = []) =>
+  (Array.isArray(chiTiet) ? chiTiet : []).filter((r) => !laNhomHanhChinh(r));
+
+/** Dòng lỗi gắn thuốc (nhóm THUOC hoặc bảng XML2). */
+export const locChiTietLoiThuoc = (chiTiet = []) =>
+  (Array.isArray(chiTiet) ? chiTiet : []).filter((r) => {
+    const ph = String(r?.phan_he || '').toUpperCase();
+    return String(r?.nhom_vi_pham || '') === NHOM_VI_PHAM_IDS.THUOC || ph === 'XML2';
+  });
+
+/**
+ * BC-CM-00 — Gom theo chứng chỉ hành nghề (MACCHN) khi map được từ DM nhân sự;
+ * chỉ lỗi chuyên môn (không nhóm Hành chính). Chưa map → gom theo mã BS trên dòng.
+ */
+export const taoBangBcCm00TheoCchnChuyenMon = (chiTiet = [], mapBsToCchn, top = 40) => {
+  const map = new Map();
+  const demNhom = new Map();
+
+  for (const r of Array.isArray(chiTiet) ? chiTiet : []) {
+    const bsRaw = String(r.ma_bac_si_dong || r.ma_bac_si || '').trim();
+    const bsU = !bsRaw || bsRaw === 'KHONG_RO' ? '' : bsRaw.toUpperCase();
+    const macchn = bsU ? (mapBsToCchn.get(bsU) || '') : '';
+    const gomKey = macchn || (bsU ? `BS|${bsU}` : 'BS|');
+
+    if (!map.has(gomKey)) {
+      map.set(gomKey, {
+        ma_cchn: macchn,
+        ma_bs_tham_chieu: bsRaw === 'KHONG_RO' ? '' : bsRaw,
+        dinh_danh: macchn || (bsU ? `BS:${bsRaw}` : '(Chưa ghi BS)'),
+        so_loi: 0,
+        _hs: new Set(),
+        tong_cp_uoc: 0,
+      });
+    }
+    const o = map.get(gomKey);
+    o.so_loi += 1;
+    if (r.ma_lk) o._hs.add(String(r.ma_lk));
+    o.tong_cp_uoc += toNum(r.chi_phi_uoc_tinh, 0);
+    const id = String(r.nhom_vi_pham || 'KHAC').trim() || 'KHAC';
+    const kn = `${gomKey}\t${id}`;
+    demNhom.set(kn, (demNhom.get(kn) || 0) + 1);
+  }
+
+  const out = [...map.entries()].map(([gomKey, v]) => {
+    let bestN = '';
+    let bestC = 0;
+    for (const [kn, c] of demNhom.entries()) {
+      const parts = kn.split('\t');
+      if (parts[0] !== gomKey) continue;
+      if (c > bestC) {
+        bestC = c;
+        bestN = parts[1] || '';
+      }
+    }
+    const labelNhom = (() => {
+      const hit = Array.isArray(chiTiet)
+        ? chiTiet.find((x) => {
+            const bsR = String(x.ma_bac_si_dong || x.ma_bac_si || '').trim();
+            const bsUU = !bsR || bsR === 'KHONG_RO' ? '' : bsR.toUpperCase();
+            const mc = bsUU ? (mapBsToCchn.get(bsUU) || '') : '';
+            const gk = mc || (bsUU ? `BS|${bsUU}` : 'BS|');
+            return gk === gomKey && String(x.nhom_vi_pham || '') === bestN;
+          })
+        : null;
+      return hit?.nhan_nhom_vi_pham || bestN || '—';
+    })();
+
+    return {
+      ma_cchn: v.ma_cchn || '—',
+      ma_bs_tham_chieu: v.ma_bs_tham_chieu || '—',
+      dinh_danh: v.dinh_danh,
+      so_loi: v.so_loi,
+      so_ho_so: v._hs.size,
+      tong_cp_uoc: Math.round(v.tong_cp_uoc),
+      nhom_pho_bien_ma: bestN || '—',
+      nhom_pho_bien_ten: labelNhom,
+      ghi_chu: v.ma_cchn
+        ? 'Gom theo MACCHN từ DM nhân sự (khớp mã BS dòng/XML1).'
+        : 'Chưa khớp DM — hiển thị mã BS trên dòng lỗi; cập nhật DM để gom theo CCHN.',
+      label: v.dinh_danh,
+      value: v.so_loi,
+    };
+  });
+
+  return out.sort((a, b) => b.so_loi - a.so_loi).slice(0, top);
+};
+
+/** BC-CM-00 — Sai sót thuốc: chỉ nhóm thuốc / XML2, gom theo mã thuốc trên dòng XML. */
+export const taoBangBcCm00SaiSotThuoc = (chiTiet = [], top = 50) => {
+  const m = new Map();
+  for (const r of Array.isArray(chiTiet) ? chiTiet : []) {
+    const maT = String(r.ma_thuoc_dong || '').trim() || '(Không trích được mã thuốc)';
+    const tenT = String(r.ten_thuoc_dong || '').trim();
+    if (!m.has(maT)) {
+      m.set(maT, {
+        ma_thuoc: maT,
+        ten_thuoc: tenT || '—',
+        so_loi: 0,
+        _hs: new Set(),
+        tong_cp_uoc: 0,
+      });
+    }
+    const o = m.get(maT);
+    if (tenT && (o.ten_thuoc === '—' || !o.ten_thuoc)) o.ten_thuoc = tenT;
+    o.so_loi += 1;
+    if (r.ma_lk) o._hs.add(String(r.ma_lk));
+    o.tong_cp_uoc += toNum(r.chi_phi_uoc_tinh, 0);
+  }
+  return [...m.values()]
+    .map((x) => ({
+      ma_thuoc: x.ma_thuoc,
+      ten_thuoc: x.ten_thuoc,
+      so_loi: x.so_loi,
+      so_ho_so: x._hs.size,
+      tong_cp_uoc: Math.round(x.tong_cp_uoc),
+      label: x.ma_thuoc,
+      value: x.so_loi,
+    }))
+    .sort((a, b) => b.so_loi - a.so_loi)
+    .slice(0, top);
+};
+
+/** BC-CM-00 — Sai sót theo bác sĩ (mã trên dòng XML / y lệnh), chỉ lỗi chuyên môn. */
+export const taoBangBcCm00BacSiChuyenMon = (chiTiet = [], top = 50) => {
+  const byBs = new Map();
+  const demNhom = new Map();
+
+  for (const r of Array.isArray(chiTiet) ? chiTiet : []) {
+    const bs = String(r.ma_bac_si_dong || 'KHONG_RO').trim() || 'KHONG_RO';
+    const id = String(r.nhom_vi_pham || 'KHAC').trim() || 'KHAC';
+    if (!byBs.has(bs)) {
+      byBs.set(bs, { ma_bac_si: bs, so_loi: 0, _hs: new Set(), tong_cp_uoc: 0 });
+    }
+    const o = byBs.get(bs);
+    o.so_loi += 1;
+    if (r.ma_lk) o._hs.add(String(r.ma_lk));
+    o.tong_cp_uoc += toNum(r.chi_phi_uoc_tinh, 0);
+    const kn = `${bs}\t${id}`;
+    demNhom.set(kn, (demNhom.get(kn) || 0) + 1);
+  }
+
+  const out = [...byBs.entries()].map(([bs, v]) => {
+    let bestN = '';
+    let bestC = 0;
+    for (const [kn, c] of demNhom.entries()) {
+      const parts = kn.split('\t');
+      if (parts[0] !== bs) continue;
+      if (c > bestC) {
+        bestC = c;
+        bestN = parts[1] || '';
+      }
+    }
+    const labelNhom = (() => {
+      const hit = Array.isArray(chiTiet)
+        ? chiTiet.find((x) => String(x.ma_bac_si_dong || '').trim() === bs && String(x.nhom_vi_pham || '') === bestN)
+        : null;
+      return hit?.nhan_nhom_vi_pham || bestN || '—';
+    })();
+
+    return {
+      ma_bac_si: bs === 'KHONG_RO' ? '(Chưa ghi BS trên dòng lỗi)' : bs,
+      so_loi: v.so_loi,
+      so_ho_so: v._hs.size,
+      tong_cp_uoc: Math.round(v.tong_cp_uoc),
+      nhom_pho_bien_ma: bestN || '—',
+      nhom_pho_bien_ten: labelNhom,
+      ghi_chu: 'Ưu tiên MA_BAC_SI / MA_BS trên dòng XML gắn lỗi; không gồm nhóm Hành chính.',
+      label: bs === 'KHONG_RO' ? '(Chưa ghi BS)' : bs,
+      value: v.so_loi,
+    };
+  });
+
+  return out.sort((a, b) => b.so_loi - a.so_loi).slice(0, top);
+};
+
+/** BC-CM-00 — Theo nhân viên y tế (MA_BS_KHAM trên XML1 — mọi nhóm lỗi). */
 export const taoBangBcCm00NhanVienYTe = (chiTiet = [], top = 40) => {
   const byBs = new Map();
   const demNhom = new Map();
@@ -590,13 +771,19 @@ export const tongHopBaoCaoChuyenMonMuc7 = ({ moHinhMuc5 = {}, danhSachHoSo = [] 
   const fhs = moHinhMuc5.fact_ho_so || [];
   const fcb = moHinhMuc5.fact_canh_bao || [];
   const chiTietLoi = phangHoaDanhSachLoiChiTiet(danhSachHoSo);
+  const chiTietChuyenMon = locChiTietLoiChuyenMon(chiTietLoi);
+  const chiTietThuoc = locChiTietLoiThuoc(chiTietLoi);
+  const mapBsSangMacchn = taoMapMaNhanSuSangMacchn(DANH_MUC_NHAN_SU);
 
   return {
-    phien_ban: 'SPEC-BC-MUC7-V1.1',
+    phien_ban: 'SPEC-BC-MUC7-V1.2',
     bc_cm_00_nhom_vi_pham: taoBangBcCm00NhomViPham(chiTietLoi),
     bc_cm_00_khoa_nhom_loi: taoBangBcCm00KhoaNhomLoi(chiTietLoi, 220),
     bc_cm_00_top_khoa: taoBangBcCm00TopKhoaTongLoi(chiTietLoi, 14),
     bc_cm_00_nhan_vien_y_te: taoBangBcCm00NhanVienYTe(chiTietLoi, 50),
+    bc_cm_00_theo_cchn_chuyen_mon: taoBangBcCm00TheoCchnChuyenMon(chiTietChuyenMon, mapBsSangMacchn, 45),
+    bc_cm_00_sai_sot_thuoc: taoBangBcCm00SaiSotThuoc(chiTietThuoc, 55),
+    bc_cm_00_bac_si_chuyen_mon: taoBangBcCm00BacSiChuyenMon(chiTietChuyenMon, 55),
     bc_cm_01_kpi: taoBangBcCm01Kpi(fhs, fcb),
     bc_cm_01_phan_bo_khoa: taoBangBcCm01PhanBoKhoa(fhs, fcb, danhSachHoSo),
     bc_cm_02_cpw: taoBangBcCm02PhacDoCpw(),

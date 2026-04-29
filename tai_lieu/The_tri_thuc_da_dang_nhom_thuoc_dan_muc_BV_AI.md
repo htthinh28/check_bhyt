@@ -5,7 +5,7 @@ Ngày cập nhật: 06/04/2026
 
 ## 1. Mục đích
 
-Bệnh viện khai **hàng trăm đến hàng nghìn mã thuốc** (`MA_THUOC`, `TEN_THUOC`). AI giám định cần:
+Bệnh viện khai **hàng trăm đến hàng nghìn mã thuốc** (`MA_THUOC`, `TEN_THUOC`). AI kiểm tra cần:
 
 - không học “một thuốc một kiểu” rời rạc mà nắm **nhóm chức năng kiểm soát** (chỉ định ICD, liều, số lượng, giá, INN, kháng sinh…);
 - tra cứu nhanh: **thuốc ví dụ → mã → rule điển hình → file audit**;

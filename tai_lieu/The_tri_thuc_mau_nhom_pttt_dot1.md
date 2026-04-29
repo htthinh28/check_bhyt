@@ -12,7 +12,7 @@ Mục tiêu của đợt này là dạy AI cách nối:
 - XML1
 - XML3
 - XML5
-- built-in PTTT trong động cơ giám định
+- built-in PTTT trong động cơ kiểm tra
 - seed PTTT mức 11
 
 ## 2. Nguồn tri thức

@@ -8,7 +8,7 @@ Ngày cập nhật: 06/04/2026
 Thẻ tri thức này cung cấp cho AI:
 - **Lịch sử pháp lý** của Bảo Hiểm Y Tế Việt Nam từ 2008 đến 2024
 - **Các lần sửa đổi** và **thay đổi quy trình** quan trọng
-- **Căn cứ pháp lý** cho mỗi quy tắc giám định hiện tại
+- **Căn cứ pháp lý** cho mỗi quy tắc kiểm tra hiện tại
 - **Sự thay đổi từ lâu đến nay** để hiểu tại sao rule lại như vậy
 
 ---
@@ -28,12 +28,12 @@ Thẻ tri thức này cung cấp cho AI:
 #### Quyết Định 130/QĐ-BYT (2007)
 - **Tiêu đề:** Phê duyệt danh mục chỉ tiêu dữ liệu theo mẫu trong hóa đơn điện tử KCB BHYT
 - **Ý nghĩa:** Định nghĩa cấu trúc tập tin XML để gửi hóa đơn KCB BHYT cho BHXH
-- **Ảnh hưởng đến giám định:** Mọi quy tắc kiểm tra phải dựa trên dữ liệu trong XML (XML1, XML2, XML3, XML4, XML5)
+- **Ảnh hưởng đến kiểm tra:** Mọi quy tắc kiểm tra phải dựa trên dữ liệu trong XML (XML1, XML2, XML3, XML4, XML5)
 - **Các trường dữ liệu bắt buộc:** MA_BENH_CHINH, NGAY_VAO, NGAY_RA, danh sách thuốc/dịch vụ
 
 #### Thông Tư 20/2011/TT-BYT
 - Hướng dẫn quản lý, đánh giá, thanh toán chi phí KCB BHYT
-- **Nội dung:** Quy trình giám định đơn giản (chủ yếu kiểm tra văn bản, không có rule phức tạp)
+- **Nội dung:** Quy trình kiểm tra đơn giản (chủ yếu kiểm tra văn bản, không có rule phức tạp)
 
 ---
 
@@ -45,10 +45,10 @@ Thẻ tri thức này cung cấp cho AI:
   - Tăng phạm vi và mức độ che phủ BHYT
   - Định rõ **danh mục thuốc, dịch vụ kỹ thuật được BHYT thanh toán**
   - **Lần đầu tiên:** Quy định rõ ràng các **điều kiện thanh toán** cho từng loại dịch vụ
-  - Nêu rõ trách nhiệm của BV, BHXH trong giám định
+  - Nêu rõ trách nhiệm của BV, BHXH trong kiểm tra
 
-**Ảnh hưởng đến giám định:**
-- Từ đây, giám định không chỉ kiểm tra **tính hợp lệ hành chính** mà còn kiểm tra **tính hợp lệ nghiệp vụ**
+**Ảnh hưởng đến kiểm tra:**
+- Từ đây, kiểm tra không chỉ kiểm tra **tính hợp lệ hành chính** mà còn kiểm tra **tính hợp lệ nghiệp vụ**
 - Bắt đầu có **danh mục thuốc thanh toán** chi tiết
 - Bắt đầu có **danh mục dịch vụ kỹ thuật thanh toán**
 
@@ -68,7 +68,7 @@ Thẻ tri thức này cung cấp cho AI:
   - **Hạn chế lạm dụng kháng sinh**
   - Yêu cầu kiểm soát về liều, tần suất, ngày dùng
 
-**Ảnh hưởng đến giám định:**
+**Ảnh hưởng đến kiểm tra:**
 - Các rule về **an toàn kê đơn kháng sinh** (liều tối đa, tần suất tối đa, chống chỉ định)
 - Các rule kiểm tra **đúng loại kháng sinh** cho bệnh
 - **Rule THUOC_** trong repo hiện tại phần lớn dựa trên QĐ này
@@ -82,7 +82,7 @@ Thẻ tri thức này cung cấp cho AI:
   - Nêu rõ quyền lợi của bệnh nhân
   - Quy định rõ ràng trách nhiệm của BV, BHXH trong đấu tranh chống gian lận
 
-**Ảnh hưởng đến giám định:**
+**Ảnh hưởng đến kiểm tra:**
 - Bắt đầu **chú trọng phát hiện gian lận**
 - Bắt đầu có **xử phạt hành chính** rõ ràng
 
@@ -93,7 +93,7 @@ Thẻ tri thức này cung cấp cho AI:
 #### Nghị Định 188/2025/NĐ-CP (MỚI NHẤT)
 - **Tiêu đề:** Quy định về thanh toán chi phí khám chữa bệnh BHYT, thủ tục thanh toán, xử lý vi phạm hành chính
 - **Ngày có hiệu lực:** 2025
-- **Ý nghĩa:** **Thay đổi TOÀN DIỆN** quy trình giám định và xử phạt
+- **Ý nghĩa:** **Thay đổi TOÀN DIỆN** quy trình kiểm tra và xử phạt
 - **Nội dung chính (chi tiết trong thẻ tiếp):** Sẽ xem ở phần 3
 
 ---
@@ -103,11 +103,11 @@ Thẻ tri thức này cung cấp cho AI:
 | Yếu Tố | Luật 75/2014 | Luật 07/2023 | Nghị Định 188/2025 |
 |--------|--------------|--------------|-------------------|
 | **Phạm vi BHYT** | Cơ bản | Mở rộng | Mở rộng hơn |
-| **Quy trình giám định** | Đơn giản | Cấp bộ | **5 bước (chi tiết)** |
+| **Quy trình kiểm tra** | Đơn giản | Cấp bộ | **5 bước (chi tiết)** |
 | **Phân loại lỗi** | Chung chung | Chưa cụ thể | **4 loại (rõ ràng)** |
 | **Xử phạt gian lận** | Nhẹ nhàng | Bắt đầu | **Nặng, chi tiết** |
 | **Danh mục dịch vụ** | Cố định | Cập nhật | Cập nhật liên tục |
-| **Công cụ giám định** | Thủ công | Bán tự động | **Đầy đủ tự động** |
+| **Công cụ kiểm tra** | Thủ công | Bán tự động | **Đầy đủ tự động** |
 
 ---
 
@@ -133,7 +133,7 @@ Thẻ tri thức này cung cấp cho AI:
 
 ## 5. Cấu Trúc Một Quy Tắc Giám Định (Tuân Thủ Pháp Lý)
 
-Mỗi quy tắc giám định hiện tại đều phải:
+Mỗi quy tắc kiểm tra hiện tại đều phải:
 
 ```
 RULE = {
@@ -160,7 +160,7 @@ RULE = {
 
 ## 6. Cách AI Dùng Thẻ Này
 
-### Khi giám định một ca hồ sơ
+### Khi kiểm tra một ca hồ sơ
 
 **Câu hỏi AI phải tự trả lời:**
 
@@ -170,7 +170,7 @@ RULE = {
 2. "Căn cứ đó còn hiệu lực không?"
    → Tra cứu: Có bị sửa đổi bởi Luật 07/2023 không? Cập nhật bởi Nghị Định 188/2025 không?
 
-3. "Nếu căn cứ thay đổi, quy tắc giám định thay đổi thế nào?"
+3. "Nếu căn cứ thay đổi, quy tắc kiểm tra thay đổi thế nào?"
    → Ví dụ: QĐ 5631 (2020) → Nghị Định 188/2025 (2025), liều tối đa kháng sinh có thay đổi không?
 
 4. "Kết luận của tôi có đủ căn cứ pháp lý không?"
@@ -190,7 +190,7 @@ RULE = {
 
 ### Sửa Đổi 3: Nghị Định 188/2025 (LỚNHẤT)
 - Áp dụng: 2025-nay
-- **Ảnh hưởng:** THAY ĐỔI TOÀN DIỆN quy trình giám định
+- **Ảnh hưởng:** THAY ĐỔI TOÀN DIỆN quy trình kiểm tra
 - **Phải học kỹ phần này!**
 
 ---
@@ -244,5 +244,5 @@ Sau khi đọc thẻ này, AI nên:
 ## Ghi Chú
 
 - Thẻ này là **kiến thức nền tảng**
-- Thẻ tiếp theo sẽ chi tiết **Nghị Định 188/2025** (5 bước giám định, 4 loại lỗi, xử phạt)
+- Thẻ tiếp theo sẽ chi tiết **Nghị Định 188/2025** (5 bước kiểm tra, 4 loại lỗi, xử phạt)
 - Tất cả các rule hiện tại đều **có thể tra được** về căn cứ pháp lý của chúng

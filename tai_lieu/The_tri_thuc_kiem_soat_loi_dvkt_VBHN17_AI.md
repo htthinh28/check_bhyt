@@ -1,11 +1,11 @@
-# THẺ TRI THỨC: KIỂM SOÁT LỖI DỊCH VỤ KỸ THUẬT (DVKT) THEO 17/VBHN-BYT — CHO AI GIÁM ĐỊNH BHYT
+# THẺ TRI THỨC: KIỂM SOÁT LỖI DỊCH VỤ KỸ THUẬT (DVKT) THEO 17/VBHN-BYT — CHO AI KIỂM TRA BHYT
 
 Phiên bản tài liệu: 1.0  
 Ngày cập nhật: 10/04/2026
 
 ## 1. Mục đích
 
-“Lỗi DVKT” trong giám định BHYT **không** chỉ là “mã không nằm danh mục”. Theo tinh thần **17/VBHN-BYT** (và **TT 39/2024** cho nhiều điểm cấu trúc viện phí), AI cần:
+“Lỗi DVKT” trong kiểm tra BHYT **không** chỉ là “mã không nằm danh mục”. Theo tinh thần **17/VBHN-BYT** (và **TT 39/2024** cho nhiều điểm cấu trúc viện phí), AI cần:
 
 - phân tầng **lỗi thanh toán / xuất toán** vs **lỗi dữ liệu XML** vs **nghiệp vụ cần hồ sơ giấy / BHXH chủ động**;
 - không gom mọi cảnh báo `DVKT_*` / `CDHA_*` / `DVKT-OP-*` thành một kết luận “DV sai”;
@@ -24,7 +24,7 @@ Tài liệu này là **khung kiểm soát lỗi**; chi tiết từng Điều xem
 | **Sai tiền / tỷ lệ / gộp–tách** | `DON_GIA`, `TYLE_TT`, trùng công đoạn (**Điều 4 khoản 4**), hoặc **4a–4d** (giá đã kết cấu trong ngày giường / DV khác). |
 | **Sai thời điểm / một lượt KCB** | Mốc **HL TT 39** (nhiều điểm **01/01/2025**), “một lượt” (**khoản 7 Điều 4**) — không gán một mức cho cả đợt nếu hồ sơ cắt qua 31/12/2024. |
 | **Lỗi dữ liệu kỹ thuật (máy, mã, thời gian)** | Ví dụ `MA_MAY`, chờ MRI sau vào viện — nhóm `CDHA_*`: **chất lượng dữ liệu** khác **sai chỉ định lâm sàng**. |
-| **Giám định chủ động** | Kỹ thuật mới, tranh chấp chỉ định, thiếu chứng từ — AI chỉ **gợi ý hướng tra cứu**, không thay quyết định BHXH. |
+| **Kiểm tra chủ động** | Kỹ thuật mới, tranh chấp chỉ định, thiếu chứng từ — AI chỉ **gợi ý hướng tra cứu**, không thay quyết định BHXH. |
 
 ## 3. Phân loại kiểm soát (bảng tra nhanh)
 

@@ -1734,7 +1734,7 @@ Nguồn: `test_xml/rule_trang_thai_audit.json` (sinh bởi `node scripts/audit_q
 
 ---
 
-## Luật giám định chuyên đề (Chuyen_de_*)
+## Luật kiểm tra chuyên đề (Chuyen_de_*)
 
 **File:** `luat_giam_dinh_chuyen_de_hardcoded.jsx`  (10 mã)
 

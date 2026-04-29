@@ -1,4 +1,4 @@
-# MẪU THẺ TRI THỨC GIÁM ĐỊNH BHYT
+# MẪU THẺ TRI THỨC KIỂM TRA BHYT
 
 Sử dụng mẫu này để chuẩn hóa từng đơn vị tri thức trước khi nạp cho AI.
 
@@ -13,7 +13,7 @@ Sử dụng mẫu này để chuẩn hóa từng đơn vị tri thức trước 
 ## 2. Mệnh đề nghiệp vụ cốt lõi
 
 - Quy tắc hoặc nhận định chính:
-- Mục tiêu giám định:
+- Mục tiêu kiểm tra:
 
 ## 3. Phạm vi áp dụng
 

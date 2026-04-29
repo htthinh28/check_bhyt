@@ -8,13 +8,17 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   FlatList,
+  Modal,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
+  Switch,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native';
+import { docHubPrefs, luuHubPrefs, MAC_DINH_HUB_PREFS } from '../../dich_vu/bao_cao_hub_prefs';
 import { chuanHoaMaKhoaBaoCao, khoaDrillKhop } from '../../dich_vu/bao_cao_drill_chuan';
 import { layCacBangDeXuat } from '../../dich_vu/bao_cao_export_manifest';
 import { taiNguonVaMoHinhMuc5 } from '../../dich_vu/bao_cao_service';
@@ -58,6 +62,17 @@ const SURFACE = '#ffffff';
 const INK = '#0f172a';
 const PRIMARY = ACCENT;
 
+/** Sidebar — tách lớp khỏi nội dung; trung tính + accent (tránh “khối xanh đặc” lỗi thời). */
+const SIDEBAR_BG = '#eef2f6';
+const SIDEBAR_EDGE = 'rgba(15, 23, 42, 0.07)';
+const SIDEBAR_ITEM_BG = 'rgba(255, 255, 255, 0.92)';
+const SIDEBAR_ITEM_BORDER = 'rgba(15, 23, 42, 0.07)';
+const SIDEBAR_ITEM_ACTIVE_BG = 'rgba(37, 99, 235, 0.1)';
+const SIDEBAR_ITEM_ACTIVE_BORDER = 'rgba(37, 99, 235, 0.28)';
+const SIDEBAR_TEXT = '#334155';
+const SIDEBAR_MUTED = '#64748b';
+const SIDEBAR_ACTIVE = '#1d4ed8';
+
 const COT_FACT_HO_SO = [
   { key: 'ma_lk', label: 'ma_lk', width: 120 },
   { key: 'ma_bn', label: 'ma_bn', width: 90 },
@@ -92,6 +107,7 @@ const COT_FACT_CANH = [
   { key: 'id_canh_bao', label: 'id_canh_bao', width: 220 },
   { key: 'ma_lk', label: 'ma_lk', width: 120 },
   { key: 'ma_rule', label: 'ma_rule', width: 96 },
+  { key: 'ten_quy_tac', label: 'ten_quy_tac', width: 180 },
   { key: 'namespace_quy_tac', label: 'namespace_quy_tac', width: 130 },
   { key: 'muc_do', label: 'muc_do', width: 100 },
   { key: 'loai_loi', label: 'loai_loi', width: 120 },
@@ -156,8 +172,19 @@ const COT_BC_QT_04_TYLE = [
 
 const COT_TOP_RULE = [
   { key: 'ma_rule', label: 'ma_rule', width: 120 },
+  { key: 'ten_quy_tac', label: 'Tên quy tắc', width: 220 },
   { key: 'so_loi', label: 'so_loi', width: 72 },
 ];
+
+const COT_MODAL_FACT_RULE = [
+  { key: 'ma_lk', label: 'MA_LK', width: 120 },
+  { key: 'ma_rule', label: 'Rule', width: 88 },
+  { key: 'ten_quy_tac', label: 'Tên QT', width: 160 },
+  { key: 'chi_phi_anh_huong', label: 'CP ảnh hưởng', width: 96 },
+  { key: 'loai_loi', label: 'Loại', width: 100 },
+];
+
+const TRONG_SO_MODAL_FACT = COT_MODAL_FACT_RULE.map((c) => Math.max(44, Number(c.width) || 72));
 
 const COT_TOP_KHOA_CM = [
   { key: 'ma_khoa', label: 'ma_khoa', width: 100 },
@@ -204,6 +231,34 @@ const COT_BC_CM_00_NVYT = [
   { key: 'nhom_pho_bien_ten', label: 'Nhóm lỗi phổ biến', width: 200 },
   { key: 'nhom_pho_bien_ma', label: 'Mã nhóm PB', width: 96 },
   { key: 'tong_cp_uoc', label: 'Σ CP ước', width: 100 },
+];
+
+const COT_BC_CM_00_CCHN_CM = [
+  { key: 'ma_cchn', label: 'MACCHN (DM)', width: 140 },
+  { key: 'ma_bs_tham_chieu', label: 'Mã BS (dòng/XML1)', width: 120 },
+  { key: 'dinh_danh', label: 'Khóa gom', width: 160 },
+  { key: 'so_loi', label: 'Số dòng lỗi', width: 88 },
+  { key: 'so_ho_so', label: 'Số HS', width: 72 },
+  { key: 'nhom_pho_bien_ten', label: 'Nhóm lỗi PB', width: 160 },
+  { key: 'tong_cp_uoc', label: 'Σ CP ước', width: 100 },
+  { key: 'ghi_chu', label: 'Ghi chú', width: 220 },
+];
+
+const COT_BC_CM_00_THUOC = [
+  { key: 'ma_thuoc', label: 'Mã thuốc', width: 120 },
+  { key: 'ten_thuoc', label: 'Tên thuốc', width: 200 },
+  { key: 'so_loi', label: 'Số dòng lỗi', width: 88 },
+  { key: 'so_ho_so', label: 'Số HS', width: 72 },
+  { key: 'tong_cp_uoc', label: 'Σ CP ước', width: 100 },
+];
+
+const COT_BC_CM_00_BS_CM = [
+  { key: 'ma_bac_si', label: 'Mã BS (dòng lỗi)', width: 140 },
+  { key: 'so_loi', label: 'Số dòng lỗi', width: 88 },
+  { key: 'so_ho_so', label: 'Số HS', width: 72 },
+  { key: 'nhom_pho_bien_ten', label: 'Nhóm lỗi PB', width: 180 },
+  { key: 'tong_cp_uoc', label: 'Σ CP ước', width: 100 },
+  { key: 'ghi_chu', label: 'Ghi chú', width: 200 },
 ];
 
 const COT_BC_CM_01_KPI = [
@@ -374,7 +429,40 @@ const COT_DRILL_HS = [
   { key: 'ma_khoa', label: 'Khoa', width: 80 },
 ];
 
-const RONG_BANG_DRILL_HS = COT_DRILL_HS.reduce((s, c) => s + (c.width || 0), 0);
+const TRONG_SO_COT_DRILL_HS = COT_DRILL_HS.map((c) => Math.max(48, Number(c.width) || 72));
+
+/** Lineage KPI — đặt tả kiểm soát ảo giác / minh bạch nguồn (tóm tắt cho người dùng cuối). */
+const KPI_LINEAGE = {
+  ho_so: {
+    title: 'Hồ sơ kho',
+    lines: [
+      'Nguồn: so_ho_so_sau_gom sau bước ghepHoSoKhongTrungMaLK (giữ bản MA_LK mới nhất theo thời điểm cập nhật).',
+      'Không tự sinh thêm hồ sơ — chỉ đếm từ kho IndexedDB đã tải.',
+    ],
+  },
+  canh_bao: {
+    title: 'Cảnh báo (fact)',
+    lines: [
+      'Nguồn: số phần tử mảng mo_hinh_muc5.fact_canh_bao (grain: một dòng = một cảnh báo đã chuẩn hoá từ ChiTietLoi).',
+      'Khác với “số dòng lỗi” trong BC-CM-00 (có thể gom theo nhóm vi phạm).',
+    ],
+  },
+  bhtt: {
+    title: 'Σ T_BHTT',
+    lines: [
+      'Nguồn: SUM(fact_ho_so.t_bhtt) trên toàn kho sau gom MA_LK.',
+      'Trường từ XML1 (T_BHTT) — dùng đối chiếu tỷ lệ rủi ro trong BC-DT-01 KPI, không phải số đã quyết toán thực tế nếu chưa có luồng nộp BHYT.',
+    ],
+  },
+  cp_uoc: {
+    title: 'Σ CP ước (lỗi → hồ sơ)',
+    lines: [
+      'Nguồn: SUM(fact_ho_so.tong_chi_phi_rui_ro) trên snapshot hiện tại.',
+      'Mỗi tong_chi_phi_rui_ro = SUM(chi_phi_uoc_tinh) theo MA_LK trên ChiTietLoi đã phẳng (phangHoaDanhSachLoiChiTiet trong tongHopMoHinhMuc5).',
+      'chi_phi_uoc_tinh là heuristic nội bộ (xếp hạng / ưu tiên rà soát) — không phải quyết toán BHYT, không thay cho chi_phi_anh_huong trong DT-01 top rule.',
+    ],
+  },
+};
 
 export default function BaoCaoHub() {
   const navigation = useNavigation();
@@ -390,9 +478,17 @@ export default function BaoCaoHub() {
     muc8: null,
     hienThi: null,
     tuCache: false,
+    thoiDiemTao: null,
+    maDacTaDuLieuV2: null,
+    dacTaDynamic: null,
   });
   const [xuatDang, setXuatDang] = useState(false);
   const [drillCm00, setDrillCm00] = useState({ ma_khoa: null, ma_nhom: null });
+  /** Drill theo ma_rule (QT-04 / DT-01) → lọc FACT_CANH_BAO — SPEC-VIZ DT01_TOP_RULE_TO_FACT_CANH */
+  const [ruleInsight, setRuleInsight] = useState(null);
+  const [hubPrefs, setHubPrefs] = useState(MAC_DINH_HUB_PREFS);
+  const [prefsModal, setPrefsModal] = useState(false);
+  const [lineageKey, setLineageKey] = useState(null);
   const debTabRef = useRef(null);
   const TAB_DEB_MS = 120;
 
@@ -426,6 +522,9 @@ export default function BaoCaoHub() {
         muc8: kq.bao_cao_doanh_thu_muc8,
         hienThi: kq.hien_thi_bao_cao || null,
         tuCache: !!kq._tu_cache,
+        thoiDiemTao: kq.thoi_diem_tao || null,
+        maDacTaDuLieuV2: kq.ma_dac_ta_du_lieu_v2 || null,
+        dacTaDynamic: kq.dac_ta_dynamic_template || null,
       });
     } catch (e) {
       setTai({
@@ -438,6 +537,9 @@ export default function BaoCaoHub() {
         muc8: null,
         hienThi: null,
         tuCache: false,
+        thoiDiemTao: null,
+        maDacTaDuLieuV2: null,
+        dacTaDynamic: null,
       });
     }
   }, []);
@@ -445,6 +547,16 @@ export default function BaoCaoHub() {
   useEffect(() => {
     nap({});
   }, [nap]);
+
+  useEffect(() => {
+    let huy = false;
+    docHubPrefs().then((p) => {
+      if (!huy) setHubPrefs(p);
+    });
+    return () => {
+      huy = true;
+    };
+  }, []);
 
   const pollMs = tai.hienThi?.chu_ky_lam_moi_goi_y_ms ?? 0;
   useEffect(() => {
@@ -459,6 +571,16 @@ export default function BaoCaoHub() {
     if (nhanh !== 'CHUYEN_MON') setDrillCm00({ ma_khoa: null, ma_nhom: null });
   }, [nhanh]);
 
+  useEffect(() => {
+    setRuleInsight((ri) => {
+      if (!ri) return ri;
+      if (nhanh !== 'QUAN_TRI' && nhanh !== 'DOANH_THU_BHYT') return null;
+      if (nhanh === 'QUAN_TRI' && quanTriThe !== 'M6' && ri.source === 'QT04') return null;
+      if (nhanh !== 'DOANH_THU_BHYT' && ri.source === 'DT01') return null;
+      return ri;
+    });
+  }, [nhanh, quanTriThe]);
+
   const thongKe = useMemo(() => {
     const fcb = tai.moHinh?.fact_canh_bao;
     const fhs = tai.moHinh?.fact_ho_so;
@@ -469,9 +591,19 @@ export default function BaoCaoHub() {
           return s + (Number.isFinite(n) ? n : 0);
         }, 0)
       : null;
+    const tongRuiRoUoc = Array.isArray(fhs)
+      ? Math.round(
+          fhs.reduce((s, r) => {
+            const raw = String(r?.tong_chi_phi_rui_ro ?? '').replace(/,/g, '').trim();
+            const n = Number(raw);
+            return s + (Number.isFinite(n) ? n : 0);
+          }, 0),
+        )
+      : null;
     return {
       soCanh: Array.isArray(fcb) ? fcb.length : null,
       tongBhtt,
+      tongRuiRoUoc,
     };
   }, [tai.moHinh]);
 
@@ -504,6 +636,53 @@ export default function BaoCaoHub() {
     if (drillCm00.ma_khoa == null) return [];
     return fhs.filter((r) => khoaDrillKhop(r.ma_khoa, drillCm00.ma_khoa)).slice(0, 45);
   }, [tai.moHinh, drillCm00.ma_khoa]);
+
+  const factCanhTheoRuleInsight = useMemo(() => {
+    const fcb = tai.moHinh?.fact_canh_bao;
+    const mr = String(ruleInsight?.ma_rule || '').trim();
+    if (!mr || !Array.isArray(fcb)) return [];
+    return fcb.filter((c) => String(c.ma_rule || '').trim() === mr).slice(0, 200);
+  }, [tai.moHinh, ruleInsight]);
+
+  /** Pareto 80/20 trên 7 nhóm XML1 (đặc tả §8.4 / v2.0) */
+  const paretoDt04Model = useMemo(() => {
+    const raw = tai.muc8?.bc_dt_04_co_cau || [];
+    const rows = raw.filter(
+      (r) => r.nhom && String(r.nhom).indexOf('Benchmark') < 0 && String(r.nhom).indexOf('BHYT thanh toán') < 0,
+    );
+    const sorted = [...rows].sort((a, b) => (Number(b.tong_tien) || 0) - (Number(a.tong_tien) || 0));
+    const tot = sorted.reduce((s, r) => s + (Number(r.tong_tien) || 0), 0) || 1;
+    let cum = 0;
+    const list = sorted.map((r) => {
+      const v = Number(r.tong_tien) || 0;
+      cum += v;
+      return { ...r, _cum_pct: (cum / tot) * 100 };
+    });
+    const maxTien = list.length ? Math.max(...list.map((r) => Number(r.tong_tien) || 0), 1) : 1;
+    return { list, maxTien };
+  }, [tai.muc8]);
+
+  const onChonRuleQt04 = useCallback((row) => {
+    const mr = String(row?.ma_rule ?? '').trim();
+    if (!mr) return;
+    if (Platform.OS !== 'web') {
+      Haptics.selectionAsync().catch(() => {});
+    }
+    setRuleInsight((prev) =>
+      prev?.source === 'QT04' && prev?.ma_rule === mr ? null : { source: 'QT04', ma_rule: mr },
+    );
+  }, []);
+
+  const onChonRuleDt01 = useCallback((row) => {
+    const mr = String(row?.ma_rule ?? '').trim();
+    if (!mr) return;
+    if (Platform.OS !== 'web') {
+      Haptics.selectionAsync().catch(() => {});
+    }
+    setRuleInsight((prev) =>
+      prev?.source === 'DT01' && prev?.ma_rule === mr ? null : { source: 'DT01', ma_rule: mr },
+    );
+  }, []);
 
   const moHoSoGiamDinh = useCallback(
     (maLK) => {
@@ -591,11 +770,17 @@ export default function BaoCaoHub() {
 
   const rowsM6Qt04RuleChart = useMemo(
     () =>
-      (tai.muc6?.bc_qt_04_top10_rule || []).map((r) => ({
-        ...r,
-        label: String(r.ma_rule || '—').length > 16 ? `${String(r.ma_rule).slice(0, 14)}…` : String(r.ma_rule || '—'),
-        value: Number(r.so_loi) || 0,
-      })),
+      (tai.muc6?.bc_qt_04_top10_rule || []).map((r) => {
+        const ten = String(r.ten_quy_tac || '').trim();
+        const code = String(r.ma_rule || '—');
+        const base = ten && ten !== 'Không có tên quy tắc' ? ten : code;
+        const label = base.length > 16 ? `${base.slice(0, 14)}…` : base;
+        return {
+          ...r,
+          label,
+          value: Number(r.so_loi) || 0,
+        };
+      }),
     [tai.muc6],
   );
   const rowsM6Qt04KhoaChart = useMemo(
@@ -792,7 +977,7 @@ export default function BaoCaoHub() {
     if (!coDuLieuXuat || xuatDang) return;
     setXuatDang(true);
     try {
-      await xuatJsonSnapshotBaoCao({ nhanh, quanTriThe, tai });
+      await xuatJsonSnapshotBaoCao({ nhanh, quanTriThe, tai: { ...tai, hubPrefsSnapshot: hubPrefs } });
       if (Platform.OS !== 'web') {
         try {
           await Haptics.notificationAsync(Haptics.NotificationFeedbackType.Success);
@@ -803,7 +988,7 @@ export default function BaoCaoHub() {
     } finally {
       setXuatDang(false);
     }
-  }, [coDuLieuXuat, xuatDang, nhanh, quanTriThe, tai]);
+  }, [coDuLieuXuat, xuatDang, nhanh, quanTriThe, tai, hubPrefs]);
 
   const meta = NHANH.find((x) => x.id === nhanh) || NHANH[0];
 
@@ -811,24 +996,88 @@ export default function BaoCaoHub() {
     <View style={styles.container}>
       <View style={styles.hero}>
         <View style={styles.heroAccent} />
-        <Text style={styles.heroTitleCenter} accessibilityRole="header">
-          TRUNG TÂM BÁO CÁO
-        </Text>
+        <View style={styles.heroTitleRow}>
+          <View style={styles.heroTitleWrap}>
+            <Text style={styles.heroTitleCenter} accessibilityRole="header">
+              TRUNG TÂM BÁO CÁO
+            </Text>
+          </View>
+          {!tai.dangTai && !tai.loi ? (
+            <TouchableOpacity
+              style={styles.heroGear}
+              onPress={() => setPrefsModal(true)}
+              accessibilityRole="button"
+              accessibilityLabel="Tùy chọn hiển thị Hub"
+            >
+              <MaterialCommunityIcons name="cog-outline" size={22} color="#e2e8f0" />
+            </TouchableOpacity>
+          ) : null}
+        </View>
 
         {!tai.dangTai && !tai.loi ? (
           <View style={styles.statRow}>
-            <View style={styles.statCard}>
+            <TouchableOpacity
+              style={[styles.statCard, styles.statCardPress]}
+              onPress={() => setLineageKey('ho_so')}
+              accessibilityRole="button"
+              accessibilityLabel="Hồ sơ kho — xem nguồn dữ liệu"
+            >
+              <MaterialCommunityIcons name="information-outline" size={14} color="#94a3b8" style={styles.statInfoIcon} />
               <Text style={styles.statLabel}>Hồ sơ kho</Text>
               <Text style={styles.statValue}>{tai.soHoSo ?? 0}</Text>
-            </View>
-            <View style={styles.statCard}>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.statCard, styles.statCardPress]}
+              onPress={() => setLineageKey('canh_bao')}
+              accessibilityRole="button"
+              accessibilityLabel="Cảnh báo fact — xem nguồn dữ liệu"
+            >
+              <MaterialCommunityIcons name="information-outline" size={14} color="#94a3b8" style={styles.statInfoIcon} />
               <Text style={styles.statLabel}>Cảnh báo (fact)</Text>
               <Text style={styles.statValue}>{thongKe.soCanh ?? '—'}</Text>
-            </View>
-            <View style={styles.statCard}>
-              <Text style={styles.statLabel}>Σ T_BHTT (ước)</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.statCard, styles.statCardPress]}
+              onPress={() => setLineageKey('bhtt')}
+              accessibilityRole="button"
+              accessibilityLabel="Tổng T BHTT — xem nguồn dữ liệu"
+            >
+              <MaterialCommunityIcons name="information-outline" size={14} color="#94a3b8" style={styles.statInfoIcon} />
+              <Text style={styles.statLabel}>Σ T_BHTT</Text>
               <Text style={styles.statValueSmall}>{dinhDangTien(thongKe.tongBhtt)}</Text>
-            </View>
+            </TouchableOpacity>
+            {hubPrefs.hien_kpi_tong_cp_uoc ? (
+              <TouchableOpacity
+                style={[styles.statCard, styles.statCardPress]}
+                onPress={() => setLineageKey('cp_uoc')}
+                accessibilityRole="button"
+                accessibilityHint="Heuristic nội bộ, không phải quyết toán BHYT"
+                accessibilityLabel="Sigma chi phí ước theo lỗi tới hồ sơ — xem nguồn dữ liệu"
+              >
+                <MaterialCommunityIcons name="information-outline" size={14} color="#94a3b8" style={styles.statInfoIcon} />
+                <Text style={styles.statLabel}>Σ CP ước (lỗi→HS)</Text>
+                <Text style={styles.statValueSmall}>
+                  {thongKe.tongRuiRoUoc != null ? dinhDangTien(thongKe.tongRuiRoUoc) : '—'}
+                </Text>
+              </TouchableOpacity>
+            ) : null}
+          </View>
+        ) : null}
+
+        {!tai.dangTai &&
+        !tai.loi &&
+        hubPrefs.hien_chip_jci &&
+        Array.isArray(tai.hienThi?.goi_y_quan_tri_jci) &&
+        tai.hienThi.goi_y_quan_tri_jci.length ? (
+          <View style={styles.chipRow} accessibilityLabel="Gợi ý quản trị theo đặc tả">
+            {tai.hienThi.goi_y_quan_tri_jci.map((txt, i) => (
+              <View key={i} style={styles.chip}>
+                <MaterialCommunityIcons name="lightbulb-on-outline" size={14} color="#b45309" />
+                <Text style={styles.chipTxt} numberOfLines={3}>
+                  {txt}
+                </Text>
+              </View>
+            ))}
           </View>
         ) : null}
 
@@ -838,6 +1087,7 @@ export default function BaoCaoHub() {
               style={[styles.toolBtn, styles.toolBtnRefresh]}
               onPress={() => {
                 setDrillCm00({ ma_khoa: null, ma_nhom: null });
+                setRuleInsight(null);
                 nap({ boQuaCache: true });
               }}
               disabled={tai.dangTai || xuatDang}
@@ -902,12 +1152,14 @@ export default function BaoCaoHub() {
         ) : tai.loi ? (
           <Text style={styles.loi}>Không đọc được kho: {tai.loi}</Text>
         ) : (
-          <Text style={styles.metaLine} numberOfLines={3}>
+          <Text style={styles.metaLine} numberOfLines={4}>
             Gom MA_LK
+            {tai.maDacTaDuLieuV2 ? ` · ${tai.maDacTaDuLieuV2}` : ''}
             {tai.hienThi?.phien_ban ? ` · ${tai.hienThi.phien_ban}` : ''}
             {tai.hienThi?.thoi_diem_du_lieu
-              ? ` · ${new Date(tai.hienThi.thoi_diem_du_lieu).toLocaleString('vi-VN')}`
+              ? ` · DL ${new Date(tai.hienThi.thoi_diem_du_lieu).toLocaleString('vi-VN')}`
               : ''}
+            {tai.thoiDiemTao ? ` · tạo ${new Date(tai.thoiDiemTao).toLocaleTimeString('vi-VN')}` : ''}
             {tai.tuCache ? ' · cache' : ''}
             {pollMs > 0 ? ` · làm mới ~${Math.round(pollMs / 60000)}p` : ''}
           </Text>
@@ -940,7 +1192,7 @@ export default function BaoCaoHub() {
                 <MaterialCommunityIcons
                   name={t.icon}
                   size={20}
-                  color={active ? '#fff' : '#64748b'}
+                  color={active ? SIDEBAR_ACTIVE : SIDEBAR_MUTED}
                   style={styles.sidebarItemIcon}
                 />
                 <Text style={[styles.sidebarItemLabel, active && styles.sidebarItemLabelActive]} numberOfLines={3}>
@@ -962,7 +1214,7 @@ export default function BaoCaoHub() {
                 <MaterialCommunityIcons
                   name="database-outline"
                   size={18}
-                  color={quanTriThe === 'M5' ? '#fff' : ACCENT}
+                  color={quanTriThe === 'M5' ? SIDEBAR_ACTIVE : SIDEBAR_MUTED}
                 />
                 <Text
                   style={[styles.sidebarSubLabel, quanTriThe === 'M5' && styles.sidebarSubLabelActive]}
@@ -980,7 +1232,7 @@ export default function BaoCaoHub() {
                 <MaterialCommunityIcons
                   name="view-dashboard-variant"
                   size={18}
-                  color={quanTriThe === 'M6' ? '#fff' : ACCENT}
+                  color={quanTriThe === 'M6' ? SIDEBAR_ACTIVE : SIDEBAR_MUTED}
                 />
                 <Text
                   style={[styles.sidebarSubLabel, quanTriThe === 'M6' && styles.sidebarSubLabelActive]}
@@ -1144,12 +1396,15 @@ export default function BaoCaoHub() {
               <View style={styles.chartHalf}>
                 <BieuDoGiftedBarNgang
                   title="QT-04 — Top rule (số lỗi)"
-                  subtitle="Tương tác chạm; SPEC-VIZ widget qt04_bar_rule."
+                  subtitle="Chạm cột → xem FACT_CANH_BAO theo ma_rule (drill_registry QT04)."
                   rows={rowsM6Qt04RuleChart}
                   keyNhan="label"
                   keySo="value"
                   maxItems={8}
                   bangMau={bangMauQt04Rule}
+                  onChonDong={onChonRuleQt04}
+                  keyDongChon="ma_rule"
+                  maDongChon={ruleInsight?.source === 'QT04' ? ruleInsight.ma_rule : ''}
                 />
               </View>
               <View style={styles.chartHalf}>
@@ -1204,7 +1459,7 @@ export default function BaoCaoHub() {
               Gom từ danh sách lỗi đã phẳng hoá (cùng nguồn dashboard Tổng quan): nhóm vi phạm Hành chính / DVKT /
               Thuốc / …, ma trận khoa × nhóm, và mã BS điều trị trên XML1. Biểu đồ chuẩn hoá theo giá trị lớn nhất trong
               từng khung để so sánh nhanh; bảng dùng cỡ chữ tối thiểu 12pt. Chạm một dòng trên biểu đồ để lọc ma trận
-              (drill-down); chạm MA_LK dưới đây để mở giám định.
+              (drill-down); chạm MA_LK dưới đây để mở kiểm tra.
             </Text>
             {kpiTyLeLoi100 != null || kpiNghiem100 != null ? (
               <View style={styles.kpiHeroRow}>
@@ -1300,41 +1555,45 @@ export default function BaoCaoHub() {
             ) : null}
             {drillCm00.ma_khoa != null && hoSoDrillTheoKhoa.length > 0 ? (
               <View style={styles.drillHsWrap}>
-                <Text style={styles.drillHsTitle}>Hồ sơ tại khoa đã chọn — chạm MA_LK để mở giám định</Text>
-                <ScrollView horizontal nestedScrollEnabled showsHorizontalScrollIndicator>
-                  <View style={{ width: RONG_BANG_DRILL_HS }}>
-                    <View style={styles.drillHsHead}>
-                      {COT_DRILL_HS.map((c) => (
-                        <View key={c.key} style={[styles.drillHsCell, { width: c.width }]}>
-                          <Text style={styles.drillHsHeadTxt}>{c.label}</Text>
-                        </View>
-                      ))}
-                    </View>
-                    <FlatList
-                      data={hoSoDrillTheoKhoa}
-                      keyExtractor={(item, index) => `${item.ma_lk}-${index}`}
-                      nestedScrollEnabled
-                      scrollEnabled={hoSoDrillTheoKhoa.length > 5}
-                      style={styles.drillHsFlash}
-                      renderItem={({ item: r, index: ri }) => (
-                        <TouchableOpacity
-                          style={[styles.drillHsRow, ri % 2 === 1 && styles.drillHsRowAlt]}
-                          onPress={() => moHoSoGiamDinh(r.ma_lk)}
-                          accessibilityRole="button"
-                          accessibilityLabel={`Mở hồ sơ ${r.ma_lk}`}
-                        >
-                          {COT_DRILL_HS.map((c) => (
-                            <View key={c.key} style={[styles.drillHsCell, { width: c.width }]}>
-                              <Text style={styles.drillHsTxt} numberOfLines={2}>
-                                {String(r[c.key] ?? '')}
-                              </Text>
-                            </View>
-                          ))}
-                        </TouchableOpacity>
-                      )}
-                    />
+                <Text style={styles.drillHsTitle}>Hồ sơ tại khoa đã chọn — chạm MA_LK để mở kiểm tra</Text>
+                <View style={styles.drillHsTable}>
+                  <View style={[styles.drillHsHead, styles.drillHsRowFull]}>
+                    {COT_DRILL_HS.map((c, ci) => (
+                      <View
+                        key={c.key}
+                        style={[styles.drillHsCell, { flex: TRONG_SO_COT_DRILL_HS[ci], minWidth: 48 }]}
+                      >
+                        <Text style={styles.drillHsHeadTxt}>{c.label}</Text>
+                      </View>
+                    ))}
                   </View>
-                </ScrollView>
+                  <FlatList
+                    data={hoSoDrillTheoKhoa}
+                    keyExtractor={(item, index) => `${item.ma_lk}-${index}`}
+                    nestedScrollEnabled
+                    scrollEnabled={hoSoDrillTheoKhoa.length > 5}
+                    style={styles.drillHsFlash}
+                    renderItem={({ item: r, index: ri }) => (
+                      <TouchableOpacity
+                        style={[styles.drillHsRow, styles.drillHsRowFull, ri % 2 === 1 && styles.drillHsRowAlt]}
+                        onPress={() => moHoSoGiamDinh(r.ma_lk)}
+                        accessibilityRole="button"
+                        accessibilityLabel={`Mở hồ sơ ${r.ma_lk}`}
+                      >
+                        {COT_DRILL_HS.map((c, ci) => (
+                          <View
+                            key={c.key}
+                            style={[styles.drillHsCell, { flex: TRONG_SO_COT_DRILL_HS[ci], minWidth: 48 }]}
+                          >
+                            <Text style={styles.drillHsTxt} numberOfLines={2}>
+                              {String(r[c.key] ?? '')}
+                            </Text>
+                          </View>
+                        ))}
+                      </TouchableOpacity>
+                    )}
+                  />
+                </View>
               </View>
             ) : null}
             <BangMoHinhMuc5
@@ -1360,6 +1619,30 @@ export default function BaoCaoHub() {
               rows={tai.muc7.bc_cm_00_nhan_vien_y_te || []}
               maxRows={40}
               stableKeyPrefix="BC_CM_00_NV"
+            />
+            <BangMoHinhMuc5
+              title="7.0.4 — Theo chứng chỉ hành nghề (CCHN), chỉ lỗi chuyên môn"
+              subtitle="Loại trừ nhóm «Hành chính». Gom theo MACCHN khi mã BS trên dòng/XML1 khớp DM nhân sự; nếu không khớp thì gom theo mã BS."
+              columns={COT_BC_CM_00_CCHN_CM}
+              rows={tai.muc7?.bc_cm_00_theo_cchn_chuyen_mon || []}
+              maxRows={45}
+              stableKeyPrefix="BC_CM_00_CCHN"
+            />
+            <BangMoHinhMuc5
+              title="7.0.5 — Sai sót thuốc (nhóm THUOC / XML2)"
+              subtitle="Gom theo mã thuốc trích từ dòng XML gắn lỗi; gồm mọi mức cảnh báo trên bảng thuốc."
+              columns={COT_BC_CM_00_THUOC}
+              rows={tai.muc7?.bc_cm_00_sai_sot_thuoc || []}
+              maxRows={55}
+              stableKeyPrefix="BC_CM_00_THUOC"
+            />
+            <BangMoHinhMuc5
+              title="7.0.6 — Sai sót theo bác sĩ (chỉ chuyên môn)"
+              subtitle="Gom theo mã BS trên dòng lỗi (y lệnh / chỉ định); không gồm nhóm Hành chính."
+              columns={COT_BC_CM_00_BS_CM}
+              rows={tai.muc7?.bc_cm_00_bac_si_chuyen_mon || []}
+              maxRows={55}
+              stableKeyPrefix="BC_CM_00_BS_CM"
             />
 
             <Text style={styles.mucPhu}>7.1 — BC-CM-01: Lỗi chuyên môn theo khoa</Text>
@@ -1493,12 +1776,15 @@ export default function BaoCaoHub() {
             </View>
             <BieuDoGiftedBarNgang
               title="DT-01 — Top rule theo tổn thất tiền"
-              subtitle="Ưu tiên xử lý rule có Σ chi_phí_anh_huong cao; nhãn ưu tiên tên quy tắc (dataset_meta_viz)."
+              subtitle="Ưu tiên xử lý rule có Σ chi_phí_anh_huong cao; chạm cột → drill FACT_CANH (SPEC-VIZ DT01)."
               rows={rowsM8Dt01RuleRrChart}
               keyNhan="label"
               keySo="value"
               maxItems={10}
               bangMau={bangMauDtRuleRr}
+              onChonDong={onChonRuleDt01}
+              keyDongChon="ma_rule"
+              maDongChon={ruleInsight?.source === 'DT01' ? ruleInsight.ma_rule : ''}
             />
             <BieuDoGiftedCotDoc
               title="DT-05 — T_BHTT theo tháng (proxy NGAY_RA)"
@@ -1548,6 +1834,32 @@ export default function BaoCaoHub() {
               rows={tai.muc8.bc_dt_04_co_cau}
               maxRows={12}
             />
+            {paretoDt04Model.list.length ? (
+              <View style={styles.paretoCard}>
+                <Text style={styles.paretoTitle}>Pareto cơ cấu — tích luỹ % (mục 8.4 Dynamic BI)</Text>
+                <Text style={styles.paretoSub}>
+                  Xác định nhóm chiếm ~80% quy mô chi phí XML1 trong khoảng phân tích hiện tại.
+                </Text>
+                {paretoDt04Model.list.map((r) => (
+                  <View key={r.nhom} style={styles.paretoRow}>
+                    <Text style={styles.paretoLab} numberOfLines={1}>
+                      {r.nhom}
+                    </Text>
+                    <View style={styles.paretoTrack}>
+                      <View
+                        style={[
+                          styles.paretoFill,
+                          {
+                            width: `${Math.min(100, ((Number(r.tong_tien) || 0) / paretoDt04Model.maxTien) * 100)}%`,
+                          },
+                        ]}
+                      />
+                    </View>
+                    <Text style={styles.paretoPct}>{r._cum_pct != null ? `${r._cum_pct.toFixed(0)}%` : ''}</Text>
+                  </View>
+                ))}
+              </View>
+            ) : null}
 
             <Text style={styles.mucPhu}>8.5 — BC-DT-05: Xu hướng doanh thu & dự báo</Text>
             <Text style={styles.doanVan}>Route: /reports/doanh-thu/xu-huong</Text>
@@ -1586,6 +1898,128 @@ export default function BaoCaoHub() {
         ) : null}
         </ScrollView>
       </View>
+
+      <Modal
+        visible={!!ruleInsight}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setRuleInsight(null)}
+        accessibilityViewIsModal
+      >
+        <Pressable style={styles.modalOverlay} onPress={() => setRuleInsight(null)}>
+          <Pressable style={styles.modalCard} onPress={() => {}}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle} numberOfLines={2}>
+                FACT_CANH_BAO — {ruleInsight?.source === 'DT01' ? 'DT-01' : 'QT-04'} · {ruleInsight?.ma_rule}
+              </Text>
+              <TouchableOpacity onPress={() => setRuleInsight(null)} accessibilityRole="button" accessibilityLabel="Đóng">
+                <MaterialCommunityIcons name="close" size={26} color={INK} />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.modalHint}>
+              Ước tính nội bộ — không phải quyết toán BHYT. Chạm MA_LK để mở kiểm tra (tối đa 200 dòng).
+            </Text>
+            <FlatList
+              data={factCanhTheoRuleInsight}
+              keyExtractor={(item, idx) => `${item.id_canh_bao || item.ma_lk || 'x'}_${idx}`}
+              style={styles.modalList}
+              nestedScrollEnabled
+              ListEmptyComponent={<Text style={styles.modalEmpty}>Không có dòng fact cho mã rule này.</Text>}
+              renderItem={({ item }) => (
+                <TouchableOpacity
+                  style={[styles.modalRow, styles.modalRowFull]}
+                  onPress={() => moHoSoGiamDinh(item.ma_lk)}
+                  accessibilityRole="button"
+                >
+                  {COT_MODAL_FACT_RULE.map((c, ci) => (
+                    <View
+                      key={c.key}
+                      style={{ flex: TRONG_SO_MODAL_FACT[ci], minWidth: 44, flexShrink: 1, paddingHorizontal: 4 }}
+                    >
+                      <Text style={styles.modalCell} numberOfLines={2}>
+                        {String(item[c.key] ?? '—')}
+                      </Text>
+                    </View>
+                  ))}
+                </TouchableOpacity>
+              )}
+            />
+          </Pressable>
+        </Pressable>
+      </Modal>
+
+      <Modal
+        visible={!!lineageKey}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setLineageKey(null)}
+        accessibilityViewIsModal
+      >
+        <Pressable style={styles.modalOverlay} onPress={() => setLineageKey(null)}>
+          <Pressable style={[styles.modalCard, styles.lineageCard]} onPress={() => {}}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle} numberOfLines={2}>
+                {lineageKey && KPI_LINEAGE[lineageKey] ? KPI_LINEAGE[lineageKey].title : 'Lineage'}
+              </Text>
+              <TouchableOpacity onPress={() => setLineageKey(null)} accessibilityRole="button" accessibilityLabel="Đóng">
+                <MaterialCommunityIcons name="close" size={26} color={INK} />
+              </TouchableOpacity>
+            </View>
+            <Text style={styles.modalHint}>Minh bạch nguồn — theo pipeline M5 / đặc tả kiểm soát ảo giác.</Text>
+            <ScrollView style={styles.lineageScroll} contentContainerStyle={styles.lineageInner}>
+              {(lineageKey && KPI_LINEAGE[lineageKey] ? KPI_LINEAGE[lineageKey].lines : []).map((line, i) => (
+                <Text key={i} style={styles.lineageLine}>
+                  • {line}
+                </Text>
+              ))}
+            </ScrollView>
+          </Pressable>
+        </Pressable>
+      </Modal>
+
+      <Modal
+        visible={prefsModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setPrefsModal(false)}
+        accessibilityViewIsModal
+      >
+        <Pressable style={styles.modalOverlay} onPress={() => setPrefsModal(false)}>
+          <Pressable style={[styles.modalCard, styles.prefsCard]} onPress={() => {}}>
+            <View style={styles.modalHeader}>
+              <Text style={styles.modalTitle}>Tùy chọn hiển thị Hub</Text>
+              <TouchableOpacity onPress={() => setPrefsModal(false)} accessibilityRole="button" accessibilityLabel="Đóng">
+                <MaterialCommunityIcons name="close" size={26} color={INK} />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.prefRow}>
+              <Text style={styles.prefRowLabel}>Gợi ý JCI / quản trị (chip cam)</Text>
+              <Switch
+                value={!!hubPrefs.hien_chip_jci}
+                onValueChange={async (v) => {
+                  const n = await luuHubPrefs({ hien_chip_jci: v });
+                  setHubPrefs(n);
+                }}
+                trackColor={{ false: '#cbd5e1', true: '#93c5fd' }}
+                thumbColor={hubPrefs.hien_chip_jci ? '#2563eb' : '#f4f4f5'}
+              />
+            </View>
+            <View style={styles.prefRow}>
+              <Text style={styles.prefRowLabel}>KPI Σ CP ước (lỗi→HS)</Text>
+              <Switch
+                value={!!hubPrefs.hien_kpi_tong_cp_uoc}
+                onValueChange={async (v) => {
+                  const n = await luuHubPrefs({ hien_kpi_tong_cp_uoc: v });
+                  setHubPrefs(n);
+                }}
+                trackColor={{ false: '#cbd5e1', true: '#93c5fd' }}
+                thumbColor={hubPrefs.hien_kpi_tong_cp_uoc ? '#2563eb' : '#f4f4f5'}
+              />
+            </View>
+            <Text style={styles.prefFoot}>Lưu trên thiết bị (AsyncStorage). Snapshot JSON có thể ghi kèm trạng thái tùy chọn.</Text>
+          </Pressable>
+        </Pressable>
+      </Modal>
     </View>
   );
 }
@@ -1621,6 +2055,22 @@ const styles = StyleSheet.create({
     height: 3,
     backgroundColor: '#38bdf8',
   },
+  heroTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 8,
+    paddingVertical: 2,
+  },
+  heroTitleWrap: {
+    flex: 1,
+    minWidth: 0,
+  },
+  heroGear: {
+    padding: 6,
+    borderRadius: 10,
+    backgroundColor: 'rgba(30,41,59,0.5)',
+  },
   heroTitleCenter: {
     fontFamily: 'Arial',
     fontSize: 17,
@@ -1628,7 +2078,6 @@ const styles = StyleSheet.create({
     color: '#f8fafc',
     textAlign: 'center',
     letterSpacing: 0.8,
-    width: '100%',
     paddingVertical: 2,
   },
   statRow: {
@@ -1644,6 +2093,62 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     borderWidth: 1,
     borderColor: 'rgba(148,163,184,0.25)',
+  },
+  statCardPress: {
+    position: 'relative',
+  },
+  statInfoIcon: {
+    position: 'absolute',
+    top: 4,
+    right: 4,
+    zIndex: 1,
+    opacity: 0.85,
+  },
+  lineageCard: {
+    maxHeight: '70%',
+  },
+  lineageScroll: {
+    maxHeight: 360,
+  },
+  lineageInner: {
+    paddingHorizontal: 16,
+    paddingBottom: 16,
+  },
+  lineageLine: {
+    fontFamily: 'Arial',
+    fontSize: 13,
+    lineHeight: 20,
+    color: '#334155',
+    marginBottom: 10,
+  },
+  prefsCard: {
+    maxWidth: 420,
+    width: '100%',
+    alignSelf: 'center',
+  },
+  prefRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    borderBottomWidth: 1,
+    borderColor: '#f1f5f9',
+  },
+  prefRowLabel: {
+    flex: 1,
+    fontFamily: 'Arial',
+    fontSize: 14,
+    color: INK,
+    paddingRight: 12,
+  },
+  prefFoot: {
+    fontFamily: 'Arial',
+    fontSize: 11,
+    color: '#64748b',
+    paddingHorizontal: 16,
+    paddingTop: 10,
+    paddingBottom: 4,
   },
   statLabel: {
     fontFamily: 'Arial',
@@ -1758,17 +2263,19 @@ const styles = StyleSheet.create({
     maxWidth: 200,
     flexGrow: 0,
     flexShrink: 0,
-    backgroundColor: SURFACE,
+    backgroundColor: SIDEBAR_BG,
     borderRightWidth: 1,
-    borderRightColor: '#e2e8f0',
+    borderRightColor: SIDEBAR_EDGE,
     ...Platform.select({
-      web: { boxShadow: '2px 0 12px rgba(15,23,42,0.04)' },
+      web: {
+        boxShadow: 'inset -1px 0 0 rgba(15,23,42,0.04), 4px 0 24px rgba(15,23,42,0.04)',
+      },
       default: {
-        elevation: 2,
+        elevation: 1,
         shadowColor: '#0f172a',
-        shadowOffset: { width: 2, height: 0 },
-        shadowOpacity: 0.05,
-        shadowRadius: 6,
+        shadowOffset: { width: 1, height: 0 },
+        shadowOpacity: 0.04,
+        shadowRadius: 8,
       },
     }),
   },
@@ -1781,9 +2288,9 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     fontSize: 10,
     fontWeight: '800',
-    color: '#94a3b8',
+    color: SIDEBAR_MUTED,
     textTransform: 'uppercase',
-    letterSpacing: 0.8,
+    letterSpacing: 0.85,
     marginBottom: 8,
     marginTop: 4,
   },
@@ -1793,15 +2300,15 @@ const styles = StyleSheet.create({
     gap: 8,
     paddingVertical: 10,
     paddingHorizontal: 8,
-    borderRadius: 10,
-    backgroundColor: ACCENT_SOFT,
+    borderRadius: 12,
+    backgroundColor: SIDEBAR_ITEM_BG,
     marginBottom: 6,
     borderWidth: 1,
-    borderColor: 'transparent',
+    borderColor: SIDEBAR_ITEM_BORDER,
   },
   sidebarItemActive: {
-    backgroundColor: ACCENT,
-    borderColor: '#1d4ed8',
+    backgroundColor: SIDEBAR_ITEM_ACTIVE_BG,
+    borderColor: SIDEBAR_ITEM_ACTIVE_BORDER,
   },
   sidebarItemIcon: {
     marginTop: 1,
@@ -1811,14 +2318,14 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     fontSize: 12,
     fontWeight: '700',
-    color: '#475569',
+    color: SIDEBAR_TEXT,
   },
   sidebarItemLabelActive: {
-    color: '#fff',
+    color: SIDEBAR_ACTIVE,
   },
   sidebarDivider: {
-    height: 1,
-    backgroundColor: '#e2e8f0',
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: SIDEBAR_EDGE,
     marginVertical: 12,
   },
   sidebarSubItem: {
@@ -1828,24 +2335,24 @@ const styles = StyleSheet.create({
     paddingVertical: 9,
     paddingHorizontal: 8,
     borderRadius: 10,
-    backgroundColor: '#f8fafc',
+    backgroundColor: SIDEBAR_ITEM_BG,
     marginBottom: 6,
     borderWidth: 1,
-    borderColor: '#e2e8f0',
+    borderColor: SIDEBAR_ITEM_BORDER,
   },
   sidebarSubItemActive: {
-    backgroundColor: ACCENT,
-    borderColor: ACCENT,
+    backgroundColor: SIDEBAR_ITEM_ACTIVE_BG,
+    borderColor: SIDEBAR_ITEM_ACTIVE_BORDER,
   },
   sidebarSubLabel: {
     flex: 1,
     fontFamily: 'Arial',
     fontSize: 11,
     fontWeight: '700',
-    color: ACCENT,
+    color: SIDEBAR_TEXT,
   },
   sidebarSubLabelActive: {
-    color: '#fff',
+    color: SIDEBAR_ACTIVE,
   },
   mainScroll: {
     flex: 1,
@@ -1853,7 +2360,10 @@ const styles = StyleSheet.create({
     minHeight: 0,
   },
   scroll: {
-    paddingHorizontal: 12,
+    width: '100%',
+    maxWidth: '100%',
+    alignSelf: 'stretch',
+    paddingHorizontal: 10,
     paddingBottom: 32,
     paddingTop: 2,
   },
@@ -1988,11 +2498,18 @@ const styles = StyleSheet.create({
   },
   drillHsWrap: {
     marginBottom: 14,
+    width: '100%',
+    maxWidth: '100%',
+    alignSelf: 'stretch',
     backgroundColor: SURFACE,
     borderRadius: 14,
     borderWidth: 1,
     borderColor: '#e2e8f0',
     padding: 10,
+  },
+  drillHsTable: {
+    width: '100%',
+    alignSelf: 'stretch',
   },
   drillHsTitle: {
     fontFamily: 'Arial',
@@ -2011,9 +2528,14 @@ const styles = StyleSheet.create({
     paddingBottom: 6,
     marginBottom: 4,
   },
+  drillHsRowFull: {
+    width: '100%',
+    alignSelf: 'stretch',
+  },
   drillHsRow: {
     flexDirection: 'row',
-    paddingVertical: 8,
+    paddingVertical: 10,
+    minHeight: 44,
     borderBottomWidth: 1,
     borderColor: '#f1f5f9',
   },
@@ -2023,6 +2545,7 @@ const styles = StyleSheet.create({
   drillHsCell: {
     paddingHorizontal: 6,
     justifyContent: 'center',
+    flexShrink: 1,
   },
   drillHsHeadTxt: {
     fontFamily: 'Arial',
@@ -2034,5 +2557,155 @@ const styles = StyleSheet.create({
     fontFamily: 'Arial',
     fontSize: 12,
     color: INK,
+  },
+  chipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 8,
+    marginTop: 8,
+    paddingHorizontal: 2,
+  },
+  chip: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 6,
+    maxWidth: '100%',
+    backgroundColor: 'rgba(254,243,199,0.95)',
+    borderRadius: 10,
+    paddingVertical: 8,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(245,158,11,0.35)',
+  },
+  chipTxt: {
+    flex: 1,
+    fontFamily: 'Arial',
+    fontSize: 11,
+    color: '#78350f',
+    lineHeight: 15,
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(15,23,42,0.55)',
+    justifyContent: 'center',
+    padding: 16,
+  },
+  modalCard: {
+    backgroundColor: SURFACE,
+    borderRadius: 18,
+    maxHeight: '82%',
+    paddingBottom: 12,
+    ...Platform.select({
+      web: { maxWidth: 560, width: '100%', alignSelf: 'center' },
+      default: {},
+    }),
+  },
+  modalHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 16,
+    paddingTop: 14,
+    paddingBottom: 8,
+    borderBottomWidth: 1,
+    borderColor: '#e2e8f0',
+  },
+  modalTitle: {
+    flex: 1,
+    fontFamily: 'Arial',
+    fontSize: 15,
+    fontWeight: '800',
+    color: INK,
+    marginRight: 8,
+  },
+  modalHint: {
+    fontFamily: 'Arial',
+    fontSize: 11,
+    color: '#64748b',
+    paddingHorizontal: 16,
+    paddingTop: 8,
+    paddingBottom: 4,
+  },
+  modalList: {
+    maxHeight: 400,
+    width: '100%',
+    paddingHorizontal: 8,
+  },
+  modalRow: {
+    flexDirection: 'row',
+    paddingVertical: 10,
+    minHeight: 44,
+    borderBottomWidth: 1,
+    borderColor: '#f1f5f9',
+  },
+  modalRowFull: {
+    width: '100%',
+    alignSelf: 'stretch',
+  },
+  modalCell: {
+    fontFamily: 'Arial',
+    fontSize: 11,
+    color: INK,
+  },
+  modalEmpty: {
+    fontFamily: 'Arial',
+    fontSize: 13,
+    color: '#94a3b8',
+    padding: 24,
+    textAlign: 'center',
+  },
+  paretoCard: {
+    backgroundColor: SURFACE,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: '#e2e8f0',
+    padding: 12,
+    marginBottom: 14,
+  },
+  paretoTitle: {
+    fontFamily: 'Arial',
+    fontSize: 14,
+    fontWeight: '800',
+    color: INK,
+  },
+  paretoSub: {
+    fontFamily: 'Arial',
+    fontSize: 11,
+    color: '#64748b',
+    marginTop: 4,
+    marginBottom: 10,
+  },
+  paretoRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+    gap: 8,
+  },
+  paretoLab: {
+    width: 100,
+    fontFamily: 'Arial',
+    fontSize: 11,
+    fontWeight: '700',
+    color: '#334155',
+  },
+  paretoTrack: {
+    flex: 1,
+    height: 8,
+    backgroundColor: '#f1f5f9',
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  paretoFill: {
+    height: 8,
+    backgroundColor: '#0ea5e9',
+    borderRadius: 4,
+  },
+  paretoPct: {
+    width: 44,
+    textAlign: 'right',
+    fontFamily: 'Arial',
+    fontSize: 11,
+    fontWeight: '800',
+    color: '#0369a1',
   },
 });

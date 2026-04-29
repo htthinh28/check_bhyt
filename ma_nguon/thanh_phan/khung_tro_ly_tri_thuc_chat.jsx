@@ -272,7 +272,7 @@ const KhungTroLyTriThucChat = ({
 
       <Text style={[styles.lead, laCuaSo && styles.lead_compact]}>
         Trích từ <Text style={styles.lead_em}>Thư viện</Text>, <Text style={styles.lead_em}>Chuyên môn</Text>,{' '}
-        <Text style={styles.lead_em}>Danh mục nội bộ</Text>, <Text style={styles.lead_em}>Quy tắc luật</Text> và tri thức giám định đã lưu — không tra web.
+        <Text style={styles.lead_em}>Danh mục nội bộ</Text>, <Text style={styles.lead_em}>Quy tắc luật</Text> và tri thức kiểm tra đã lưu — không tra web.
       </Text>
 
       <View style={[styles.chips, laCuaSo && styles.chips_compact]}>
@@ -297,7 +297,7 @@ const KhungTroLyTriThucChat = ({
           {tinNhan.length === 0 ? (
             <Text style={styles.hint}>
               Gõ mã lỗi (THUOC_391…), ICD, hoặc từ khóa nghiệp vụ — hệ thống quét thư viện và tài liệu gắn chuyên môn / quy tắc. Đã lưu{' '}
-              <Text style={{ fontWeight: '800' }}>{triThuc.length}</Text> bản ghi tri thức từ giám định.
+              <Text style={{ fontWeight: '800' }}>{triThuc.length}</Text> bản ghi tri thức từ kiểm tra.
             </Text>
           ) : null}
           {tinNhan.map((m, idx) => (

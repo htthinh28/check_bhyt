@@ -224,6 +224,9 @@ export const xuatJsonSnapshotBaoCao = async ({ nhanh, quanTriThe = '', tai = {} 
           phien_ban: tai.muc7.phien_ban,
           so_dong_bc_cm_00_nhom: (tai.muc7.bc_cm_00_nhom_vi_pham || []).length,
           so_dong_bc_cm_00_khoa_nhom: (tai.muc7.bc_cm_00_khoa_nhom_loi || []).length,
+          so_dong_bc_cm_00_cchn_cm: (tai.muc7.bc_cm_00_theo_cchn_chuyen_mon || []).length,
+          so_dong_bc_cm_00_thuoc: (tai.muc7.bc_cm_00_sai_sot_thuoc || []).length,
+          so_dong_bc_cm_00_bs_cm: (tai.muc7.bc_cm_00_bac_si_chuyen_mon || []).length,
         }
       : null,
     tom_tat_muc8: tai?.muc8
@@ -233,6 +236,17 @@ export const xuatJsonSnapshotBaoCao = async ({ nhanh, quanTriThe = '', tai = {} 
           so_thang_dt05: (tai.muc8.bc_dt_05_thang || []).length,
         }
       : null,
+    ma_dac_ta_du_lieu_v2: tai?.maDacTaDuLieuV2 ?? null,
+    thoi_diem_tao_payload: tai?.thoiDiemTao ?? null,
+    dac_ta_dynamic_template: tai?.dacTaDynamic
+      ? {
+          phien_ban: tai.dacTaDynamic.phien_ban,
+          reportId: tai.dacTaDynamic.reportId,
+          version: tai.dacTaDynamic.version,
+        }
+      : null,
+    /** Tùy chọn hiển thị Hub (AsyncStorage) tại thời điểm xuất — audit UI */
+    hub_prefs_snapshot: tai?.hubPrefsSnapshot ?? null,
     ghi_chu:
       'Snapshot-3: meta SPEC-VIZ-2.0.3 (drill_registry, dataset_meta_viz_ids). Excel/ZIP/CSV cho fact (MAX_FACT_DONG_XUAT). Victory Skia: dev build.',
   };

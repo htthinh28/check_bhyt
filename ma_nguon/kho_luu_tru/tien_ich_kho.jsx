@@ -193,7 +193,7 @@ export const luuHoSoVaoKho = async (danhSachHoSoMoi, nguoiDung = 'Hệ thống C
         if (!maLK || maLK === 'K_XD') continue;
         await ghiPhienGiamDinhSauLuuKho({ ...item, ma_lk: maLK });
       } catch (e) {
-        console.warn('[tien_ich_kho] Không ghi phiên giám định:', e?.message || e);
+        console.warn('[tien_ich_kho] Không ghi phiên kiểm tra:', e?.message || e);
       }
     }
 

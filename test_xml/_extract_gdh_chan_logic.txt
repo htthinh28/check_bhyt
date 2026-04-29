@@ -1,7 +1,7 @@
-DANH SÁCH CÁC MÃ LỖI CHẶN HỒ SƠ TẠI HỆ THỐNG GIÁM ĐỊNH
-Khi hồ sơ được đề nghị sang hệ thống giám định, trước khi chạy qua quá trình giám định tự động, các hồ sơ sẽ được tự động chạy qua quá trình kiểm tra lỗi với danh sách các lỗi dưới đây, nếu có lỗi thì thực hiện trả lại CTN.
+DANH SÁCH CÁC MÃ LỖI CHẶN HỒ SƠ TẠI HỆ THỐNG KIỂM TRA
+Khi hồ sơ được đề nghị sang hệ thống kiểm tra, trước khi chạy qua quá trình kiểm tra tự động, các hồ sơ sẽ được tự động chạy qua quá trình kiểm tra lỗi với danh sách các lỗi dưới đây, nếu có lỗi thì thực hiện trả lại CTN.
 Logic xử lý
-Trong quá trình chạy giám định tự động thực hiện check các logic số học trên các bản ghi XML1, XML2 và 3, nếu gặp tình trạng không logic thì thực hiện call store. Store làm nhiệm vụ cập nhật trạng thái lỗi sang hồ sơ tương ứng bên Cổng TN (có ghi rõ mã lỗi giữa các trường hợp) sau đó thực hiện xóa bên HT Giám định, có ghi lại log xóa.
+Trong quá trình chạy kiểm tra tự động thực hiện check các logic số học trên các bản ghi XML1, XML2 và 3, nếu gặp tình trạng không logic thì thực hiện call store. Store làm nhiệm vụ cập nhật trạng thái lỗi sang hồ sơ tương ứng bên Cổng TN (có ghi rõ mã lỗi giữa các trường hợp) sau đó thực hiện xóa bên HT Kiểm tra, có ghi lại log xóa.
 Chú ý:
 Với luồng chạy lại hồ sơ, chỉ chạy qua các mã lỗi chặn hồ sơ khi hồ sơ thỏa mãn các điều kiện:
 Store
@@ -9,9 +9,9 @@ Input: ID của XML1.
 Process: Thực hiện xóa hồ sơ XML có ID đầu vào, ghi log việc xóa (có thể tạo bảng lịch sử) và call đến 1 store mà bên Cổng TN đã tạo
 Làm việc với Cổng TN để thống nhất store sẽ gọi.
 Output: Mã lối nếu có
-Cổng TN có chức năng liệt kê các hồ sơ bị sai lệch đã được cập nhật trạng thái ở bước trên (hiển thị rõ lý do mà giám định trả lại hồ sơ)Người dùng có thể xóa hồ sơ đi để đẩy lại.
+Cổng TN có chức năng liệt kê các hồ sơ bị sai lệch đã được cập nhật trạng thái ở bước trên (hiển thị rõ lý do mà kiểm tra trả lại hồ sơ)Người dùng có thể xóa hồ sơ đi để đẩy lại.
 Với mỗi hồ sơ, kiểm tra lần lượt tất cả các lỗi theo nghiệp vụ. Nếu có lỗi:
-Tại giám định:
+Tại kiểm tra:
 Xóa các XML12345 của hồ sơ khỉ db
 Lưu log việc trả lại hồ sơ:
 SELECT * FROM LOG_DELETE_XML WHERE LIST_XML1_ID ='ID_XML1 - TRA HS LOI';
@@ -63,7 +63,7 @@ Cơ sở KCB đăng ký khám Ngoại trú
 Trường hợp trong bảng LOG_LOAIHOPDONG ko có bản ghi thỏa mãn thì tìm cơ sở kcb đó trong Danh mục cơ sở KCB, cơ sở có LOAI_HOPDONG = 0).
 Mã lỗi 61: Trùng hồ sơ
 Phần này thực hiện đầu tiên trước khi làm các tác vụ khác, bộ key trùng: mã thẻ, họ tên, ngày vào, ngày ra, mã bệnh, mã cơ sở kcb, kỳ quyết toán, T_TONGCHI, T_BHTT.
-Nếu tồn tại 1 bản ghi đã có tại giám định với cả 2 tiền T_TONGCHI và T_BHTT lệch nhau không quá 2 đồng thì trả về hồ sơ.
+Nếu tồn tại 1 bản ghi đã có tại kiểm tra với cả 2 tiền T_TONGCHI và T_BHTT lệch nhau không quá 2 đồng thì trả về hồ sơ.
 Hồ sơ gửi theo 4210
 Mã lỗi 1: Sai lý do vào viện
 Hồ sơ vi phạm 1 trong các trường hợp sau sẽ bị trả về mã lỗi trên:
@@ -295,11 +295,11 @@ Mã loại KCB = 3 (nội trú)
 Cơ sở KCB đăng ký khám Ngoại trú
 (Trong bảng LOG_LOAIHOPDONG của cơ sở đó thỏa mãn: LOAI_HOPDONG = 0 và NGAY_VAO của hồ sơ nằm trong khoảng TU_NGAY, DEN_NGAY.
 Trường hợp trong bảng LOG_LOAIHOPDONG ko có bản ghi thỏa mãn thì tìm cơ sở kcb đó trong Danh mục cơ sở KCB, cơ sở có LOAI_HOPDONG = 0).
-Trên đây là danh sách toàn bộ các mã lỗi chặn hồ sơ, nếu các hồ sơ vi phạm các lỗi này, sẽ tự động bị xóa khỏi hệ thống giám định, đồng thời hệ thống giám định sẽ trả về mã lỗi và miêu tả cho tất cả các lỗi mà hồ sơ vi phạm về bên cổng tiếp nhận.
-Các hồ sơ không bị lỗi, không bị chặn lại qua quá trình kiểm tra lỗi hồ sơ sẽ tiếp tục chạy qua quá trình giám định tự động hiện tại.
+Trên đây là danh sách toàn bộ các mã lỗi chặn hồ sơ, nếu các hồ sơ vi phạm các lỗi này, sẽ tự động bị xóa khỏi hệ thống kiểm tra, đồng thời hệ thống kiểm tra sẽ trả về mã lỗi và miêu tả cho tất cả các lỗi mà hồ sơ vi phạm về bên cổng tiếp nhận.
+Các hồ sơ không bị lỗi, không bị chặn lại qua quá trình kiểm tra lỗi hồ sơ sẽ tiếp tục chạy qua quá trình kiểm tra tự động hiện tại.
 Mã lỗi 61: Trùng hồ sơ
 Phần này thực hiện đầu tiên trước khi làm các tác vụ khác, bộ key trùng: mã thẻ, họ tên, ngày vào, ngày ra, mã bệnh, mã cơ sở kcb, kỳ quyết toán, T_TONGCHI, T_BHTT.
-Nếu tồn tại 1 bản ghi đã có tại giám định với cả 2 tiền T_TONGCHI và T_BHTT lệch nhau không quá 2 đồng thì trả về hồ sơ.
+Nếu tồn tại 1 bản ghi đã có tại kiểm tra với cả 2 tiền T_TONGCHI và T_BHTT lệch nhau không quá 2 đồng thì trả về hồ sơ.
 Mã lỗi 101: (Bệnh nhân KCB ngoại trú trái tuyến, quỹ BHYT không thanh toán lý do vào viện Thông tuyến)
 1.Không thanh toán các hồ sơ ngoại trú có lý do vào viện là thông tuyến tại bệnh viện tuyến huyện, tuyến tỉnh, tuyến TW.
 2.Đối Với mã loại KCB (MA_LOAI_KCB) = 1,2 AND Lý do vào viện (MA_LYDO_VVIEN) = 4 mới check.

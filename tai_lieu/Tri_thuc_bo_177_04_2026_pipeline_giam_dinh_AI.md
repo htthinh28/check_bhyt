@@ -1,4 +1,4 @@
-# Tri thức — Bộ 177 (04/2026): pipeline giám định & cập nhật quy tắc
+# Tri thức — Bộ 177 (04/2026): pipeline kiểm tra & cập nhật quy tắc
 
 Tài liệu phục vụ **Thư viện** và **Trợ lý tri thức** (RAG nội bộ): mô tả cách dùng thư mục `tai_nguyen/177 - 04032026`, chạy audit batch, và gắn kết quả với vòng đời quy tắc trong CDSS.
 
@@ -6,7 +6,7 @@ Tài liệu phục vụ **Thư viện** và **Trợ lý tri thức** (RAG nội 
 
 - Kiểm thử quy tắc mới trên **cùng tập hồ sơ** (XML) mà BV đã xuất / cổng đã trả.
 - Tổng hợp **mã lỗi / mã luật** (`ma_luat`, `tang_V15`, `namespace_quy_tac`) để rà soát false positive và bổ sung luật ON/OFF hoặc luật cứng khi cần.
-- Cung cấp **ngữ cảnh huấn luyện AI**: không thay cho kết luận pháp lý; dùng cùng màn «Tri thức từ giám định» để ghi nhận xác nhận Đúng/Sai từng cảnh báo.
+- Cung cấp **ngữ cảnh huấn luyện AI**: không thay cho kết luận pháp lý; dùng cùng màn «Tri thức từ kiểm tra» để ghi nhận xác nhận Đúng/Sai từng cảnh báo.
 
 ## Luồng chuẩn
 
@@ -19,7 +19,7 @@ Tài liệu phục vụ **Thư viện** và **Trợ lý tri thức** (RAG nội 
 
 - Audit engine: `scripts/run_claim_audit.js` (bundle `claim_audit_entry.jsx`, cùng pipeline `chayGiamDinhToanDienV15HybridDongBo`).
 - Tổng hợp quy tắc cho UI Thư viện: `ma_nguon/tien_ich/tra_cuu_quy_tac_phan_lap.js`.
-- Ghi nhận bài học sau ca: màn **Tri thức từ giám định** (`tri_thuc_tu_giam_dinh`), xuất Markdown vào `tai_lieu/` nếu cần.
+- Ghi nhận bài học sau ca: màn **Tri thức từ kiểm tra** (`tri_thuc_tu_giam_dinh`), xuất Markdown vào `tai_lieu/` nếu cần.
 
 ## Kết quả run gần nhất
 

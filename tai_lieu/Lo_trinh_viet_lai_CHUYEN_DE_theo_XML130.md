@@ -97,4 +97,4 @@ Sau mỗi lô merge (đã bỏ placeholder, đã sync registry): **`npm run chuy
 
 ---
 
-*Các phiên làm việc sau: mở một PR theo đúng một lô; cập nhật manifest và phiên bản; chạy kiểm thử giám định trên mẫu XML trước khi merge.*
+*Các phiên làm việc sau: mở một PR theo đúng một lô; cập nhật manifest và phiên bản; chạy kiểm thử kiểm tra trên mẫu XML trước khi merge.*

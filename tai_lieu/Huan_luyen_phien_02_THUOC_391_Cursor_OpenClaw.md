@@ -60,7 +60,7 @@ Workspace: ung_dung_cdss_bhyt.
 Đọc tai_lieu/Huan_luyen_phien_02_THUOC_391_Cursor_OpenClaw.md và tai_lieu/The_tri_thuc_chi_muc_giam_dinh_thuoc_engine_AI.md (§4–§5).
 
 Xuất bảng 3 cột: Tiêu chí | THUOC_391 | THUOC_417.
-Thêm 5 câu hỏi phân biệt cho giám định viên (có/không có số cụ thể giả).
+Thêm 5 câu hỏi phân biệt cho kiểm tra viên (có/không có số cụ thể giả).
 Không PII; không sửa file.
 ```
 

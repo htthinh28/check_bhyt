@@ -52,7 +52,7 @@ Capture what matters. Decisions, context, things to remember. Skip the secrets u
 
 ## Đồng bộ luật CDSS khi sửa đổi quy tắc (mặc định)
 
-Khi **sửa đổi hoặc bổ sung bất kỳ quy tắc nào**, phải giữ **thống nhất** giữa các nguồn và luồng chạy giám định:
+Khi **sửa đổi hoặc bổ sung bất kỳ quy tắc nào**, phải giữ **thống nhất** giữa các nguồn và luồng chạy kiểm tra:
 
 - **Bundle seed** (`du_lieu_luat_*` / `DU_LIEU_SEED_*`) là nguồn đúng cho các `MA_LUAT` có trong seed; khi đổi nội dung có ý nghĩa nghiệp vụ nên **bump `PHIEN_BAN_SEED_*`** tương ứng.
 - Các **`seed_luat_*.jsx`** phải cùng nguyên tắc: ưu tiên nội dung bundle cho MA trong seed, giữ `TRANG_THAI` **OFF** nếu người dùng đã tắt, chỉ ghi AsyncStorage/localStorage khi nội dung (không dựa `id`) hoặc cột/migration thực sự lệch — tránh máy vẫn hiện cảnh báo cũ dù code mới đã đúng.

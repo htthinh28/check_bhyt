@@ -559,13 +559,13 @@ const TuongTacThuocChuyenMon = () => {
           <TouchableOpacity
             style={[styles.btn_quy_tac, moQuyTac ? styles.btn_quy_tac_mo : null]}
             onPress={() => setMoQuyTac((v) => !v)}
-            accessibilityLabel="Mở hoặc đóng khung quy tắc giám định"
+            accessibilityLabel="Mở hoặc đóng khung quy tắc kiểm tra"
           >
-            <Text style={styles.txt_btn_quy_tac}>{moQuyTac ? '▼' : '▶'} Quy tắc giám định</Text>
+            <Text style={styles.txt_btn_quy_tac}>{moQuyTac ? '▼' : '▶'} Quy tắc kiểm tra</Text>
           </TouchableOpacity>
         </ScrollView>
         <Text style={styles.ghi_chu} numberOfLines={3}>
-          ON mới giám định. «Nội dung» có « vs »: động cơ tạo tất cả cặp mã […] bên trái × bên phải (nhóm thuốc). Mức độ: Critical/Error/Warning — để trống thì suy từ cảnh báo (🚫/chống chỉ định → Critical). ⧉ sao chép dòng.
+          ON mới kiểm tra. «Nội dung» có « vs »: động cơ tạo tất cả cặp mã […] bên trái × bên phải (nhóm thuốc). Mức độ: Critical/Error/Warning — để trống thì suy từ cảnh báo (🚫/chống chỉ định → Critical). ⧉ sao chép dòng.
         </Text>
         <Text style={styles.thong_ke_dong} selectable>
           Tổng {thongKeBang.tong} dòng đã lưu · {thongKeBang.capPhanBiet} cặp mã khác nhau · Đủ A+B:{' '}

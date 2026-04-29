@@ -66,12 +66,12 @@ app.get('/', (req, res) => {
           <strong>💡 Hướng dẫn:</strong><br>
           ✅ Truy cập từ máy khác:<br>
           <code>http://${getLocalIP()}:${PORT}</code><br><br>
-          ✅ Python API (Giám định):<br>
+          ✅ Python API (Kiểm tra):<br>
           <code>http://${getLocalIP()}:8000</code>
         </div>
 
         <div class="footer">
-          <p>AI CDSS BHYT v1.0 | Giám định tự động hóa | © 2026</p>
+          <p>AI CDSS BHYT v1.0 | Kiểm tra tự động hóa | © 2026</p>
         </div>
       </div>
     </body>

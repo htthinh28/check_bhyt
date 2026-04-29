@@ -7,7 +7,7 @@
 
 ## 1. Tổng quan module
 
-Module **Báo Cáo & Thống Kê Chất Lượng BHYT** cung cấp công cụ thống kê đầu vào – đầu ra theo quy trình giám định, cho phép theo dõi tỷ lệ lỗi, chi phí ước tính, xu hướng theo thời gian và xuất báo cáo Excel đa trang.
+Module **Báo Cáo & Thống Kê Chất Lượng BHYT** cung cấp công cụ thống kê đầu vào – đầu ra theo quy trình kiểm tra, cho phép theo dõi tỷ lệ lỗi, chi phí ước tính, xu hướng theo thời gian và xuất báo cáo Excel đa trang.
 
 **Dữ liệu đầu vào:** Toàn bộ hồ sơ đã lưu trong kho cục bộ, lấy qua `layTatCaHoSoTuKho()`.
 
@@ -231,7 +231,7 @@ Kiểm tra kho lưu trữ đã có hồ sơ chưa. Vào module "Kho Lưu Trữ" 
 Trường `NGAY_VAO` trong `xml1` của hồ sơ có thể không có giá trị hoặc định dạng không nhận diện được. Kiểm tra dữ liệu XML gốc.
 
 **Q: Chip nhóm lỗi không xuất hiện?**  
-Các hồ sơ trong kỳ chưa có kết quả giám định (`ket_qua_giam_dinh` rỗng). Cần chạy kiểm tra / giám định hồ sơ trước.
+Các hồ sơ trong kỳ chưa có kết quả kiểm tra (`ket_qua_giam_dinh` rỗng). Cần chạy kiểm tra / kiểm tra hồ sơ trước.
 
 **Q: Biểu đồ xu hướng không hiển thị?**  
 Không có hồ sơ nào trong kỳ lọc. Chuyển sang "Toàn bộ" hoặc mở rộng khoảng ngày tùy chỉnh.

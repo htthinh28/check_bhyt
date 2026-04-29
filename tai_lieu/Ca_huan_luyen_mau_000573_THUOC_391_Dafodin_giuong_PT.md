@@ -27,7 +27,7 @@ Ví dụ snapshot `084557`:
 
 - `CLN-GIUONG-01`, `DVKT_2696`, `HC_171`, `HC_224`, `HC_97`, `HD_10`, `XML3-TIME-NGAY_TH_YL-AFTER-OUT`
 
-**Bài học:** Giám định thuốc là **một phần** checklist; báo cáo cho người dùng nên **nhóm theo phân hệ** (XML2 vs XML3 vs XML7/8).
+**Bài học:** Kiểm tra thuốc là **một phần** checklist; báo cáo cho người dùng nên **nhóm theo phân hệ** (XML2 vs XML3 vs XML7/8).
 
 ## 5. Bài tập cho AI
 

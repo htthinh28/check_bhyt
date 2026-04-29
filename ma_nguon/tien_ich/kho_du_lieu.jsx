@@ -14,7 +14,7 @@
  * sang IndexedDB trong lần chạy đầu tiên, giải phóng toàn bộ localStorage cho
  * các module khác (Quản lý luật, v.v.).
  *
- * Lịch sử phiên giám định (tóm tắt + danh sách MA_LUAT theo từng lần lưu kho):
+ * Lịch sử phiên kiểm tra (tóm tắt + danh sách MA_LUAT theo từng lần lưu kho):
  *   store `lich_su_phien_gd` (web) / key `CDSS_LSGDMLK_*` (mobile). Không xóa
  *   khi xóa kho làm việc; có API xóa tập trung nếu cần reset quyền riêng tư.
  * ============================================================================
@@ -34,7 +34,7 @@ const getLocalStorage = () => globalThis?.localStorage || null;
 const IDB_NAME = 'CDSS_HO_SO_DB';
 const IDB_STORE = 'ho_so';
 const IDB_STORE_DANH_MUC = 'danh_muc';
-/** Lịch sử các lần giám định theo MA_BN (cùng IndexedDB/ổ đĩa như trên) — không xóa khi xóa kho làm việc. */
+/** Lịch sử các lần kiểm tra theo MA_BN (cùng IndexedDB/ổ đĩa như trên) — không xóa khi xóa kho làm việc. */
 const IDB_STORE_LICH_SU = 'lich_su_bn';
 /** Từng phiên chạy engine theo MA_LK (append khi `luuHoSoVaoKho` có `ket_qua_giam_dinh`). */
 const IDB_STORE_PHIEN_GD = 'lich_su_phien_gd';
@@ -452,7 +452,7 @@ const tomTatPhienGiamDinh = (ketQuaGiamDinh) => {
   };
 };
 
-/** Ghi một phiên giám định (sau khi hồ sơ đã chuẩn hóa cảnh báo). Bỏ qua nếu chưa có mảng ket_qua_giam_dinh. */
+/** Ghi một phiên kiểm tra (sau khi hồ sơ đã chuẩn hóa cảnh báo). Bỏ qua nếu chưa có mảng ket_qua_giam_dinh. */
 const ghiMotPhienGiamDinh = async (hoSoChuan) => {
   const ma_lk = String(hoSoChuan?.ma_lk || '').trim();
   const kq = hoSoChuan?.ket_qua_giam_dinh;
@@ -810,7 +810,7 @@ export const luuHoSoVaoKho = async (danhSachHoSoMoi) => {
         await ghiMotLanLichSu(hoSoCh);
         await ghiMotPhienGiamDinh(hoSoCh);
       } catch (e) {
-        console.warn('[KHO_DU_LIEU] Không ghi được lịch sử điều trị / phiên giám định:', e?.message || e);
+        console.warn('[KHO_DU_LIEU] Không ghi được lịch sử điều trị / phiên kiểm tra:', e?.message || e);
       }
     }
 
@@ -871,7 +871,7 @@ export const xoaHoSoKhoiKho = async (maLK_CanXoa) => {
  * 4. XÓA TOÀN BỘ KHO
  */
 /**
- * Lịch sử giám định theo MA_BN (để so sánh lần điều trị). Xóa riêng — không gọi khi xóa kho làm việc.
+ * Lịch sử kiểm tra theo MA_BN (để so sánh lần điều trị). Xóa riêng — không gọi khi xóa kho làm việc.
  */
 export const layLichSuDieuTriTheoMaBN = async (ma_bn) => {
   const m = String(ma_bn || '').trim();
@@ -939,7 +939,7 @@ export const phanTichKhoangCachDieuTri = async (hoSo) => {
 };
 
 /**
- * Lịch sử các phiên giám định đã lưu (theo MA_LK): mới nhất trước, tối đa MAX_PHIEN_GD_PER_MA_LK.
+ * Lịch sử các phiên kiểm tra đã lưu (theo MA_LK): mới nhất trước, tối đa MAX_PHIEN_GD_PER_MA_LK.
  * Mỗi phiên: id_phien, ghi_luc_iso, tom_tat { so_dong_canh_bao, dem_muc_do, ma_luat_lap }.
  */
 export const layLichSuPhienGiamDinhTheoMaLK = async (ma_lk) => {
@@ -959,7 +959,7 @@ export const layLichSuPhienGiamDinhTheoMaLK = async (ma_lk) => {
   }
 };
 
-/** Xóa toàn bộ log phiên giám định (quyền riêng tư). Không xóa khi xóa kho làm việc. */
+/** Xóa toàn bộ log phiên kiểm tra (quyền riêng tư). Không xóa khi xóa kho làm việc. */
 export const xoaToanBoLichSuPhienGiamDinh = async () => {
   try {
     if (Platform.OS === 'web') {

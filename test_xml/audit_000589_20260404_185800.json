@@ -154,7 +154,7 @@
       "muc_do": "Warning",
       "index": 1,
       "ma_luat": "THUOC_417",
-      "ten_quy_tac": "Giám định thuốc cấp dư (Dựa trên y lệnh)",
+      "ten_quy_tac": "Kiểm tra thuốc cấp dư (Dựa trên y lệnh)",
       "dieu_kien": "XML2.SO_LUONG > (XML2.SL_MOI_NGAY * XML2.SO_NGAY)",
       "co_so_phap_ly": ""
     },

@@ -303,7 +303,7 @@ export const DANH_MUC_ICD10_CAP_CUU = [
     "Nhom_Benh": "Nhi ",
     "Tinh_Trang_Benh": "Bị xâm hại thân thể, lạm dụng có nguy cơ tiếp diễn",
     "ICD_Chinh": "T74 (Hội chứng bị ngược đãi)",
-    "Ly_Do_Nhap_Vien": "Cần nhập viện để giám định pháp y, bảo vệ an toàn cho trẻ và hỗ trợ tâm lý khẩn cấp.",
+    "Ly_Do_Nhap_Vien": "Cần nhập viện để kiểm tra pháp y, bảo vệ an toàn cho trẻ và hỗ trợ tâm lý khẩn cấp.",
     "ICD_Kem_Theo": "T74.1 (Lạm dụng thể chất)T74.2 (Lạm dụng tình dục)Z04.4 (Khám sau khi bị cưỡng hiếp)",
     "Ngoai_Le": "Nghi ngờ chưa có bằng chứng rõ ràng, trẻ an toàn trong vòng tay người bảo hộ tin cậy (cần báo công an/xã hội).",
     "Tu_Khoa": ""

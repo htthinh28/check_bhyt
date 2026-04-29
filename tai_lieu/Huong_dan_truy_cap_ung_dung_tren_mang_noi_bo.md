@@ -148,7 +148,7 @@ import requests
 # Xem tài liệu API
 response = requests.get('http://192.168.100.86:8000/docs')
 
-# Gửi yêu cầu giám định (ví dụ)
+# Gửi yêu cầu kiểm tra (ví dụ)
 claim_data = {
     "ma_lk": "000589",
     "xml_content": "..."

@@ -24,7 +24,7 @@ export const ANH_XA_COT_EXCEL_SANG_VI = Object.freeze({
 
 export const COT_MAC_DINH_PHAC_DO_CDSS = Object.freeze(Object.values(ANH_XA_COT_EXCEL_SANG_VI));
 
-/** Chuẩn hóa mã ICD — khớp engine giám định (`dong_co_giam_dinh`). */
+/** Chuẩn hóa mã ICD — khớp engine kiểm tra (`dong_co_giam_dinh`). */
 export function chuanHoaMaIcdPhacDoCdss(raw) {
   return String(raw ?? '')
     .replace(/\./g, '')

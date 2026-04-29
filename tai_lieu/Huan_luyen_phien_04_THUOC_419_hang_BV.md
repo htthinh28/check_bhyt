@@ -21,7 +21,7 @@
 | **DIEU_KIEN** | `DM_THUOC.HANG_BV_MIN < CSKCB.HANG_BV` |
 | **CANH_BAO** | `⛔ [VBHN 15]: Thuốc chỉ được sử dụng tại bệnh viện hạng Đặc biệt, hạng I. Bệnh viện hạng hiện tại không đủ điều kiện thanh toán.` |
 
-**Bài học huấn luyện:** Cảnh báo gốc nêu **Đặc biệt / I**; điều kiện kỹ thuật lại là **hai biến số** từ DM và CSKCB. AI **không** được giải thích ngược đời số hạng nếu chưa biết **quy ước mã số** trong danh mục nội bộ (thứ tự số nhỏ = hạng cao hay thấp). Khi huấn luyện, yêu cầu dev/giám định **chỉ rõ bảng tra** hoặc đoạn mã gán `CSKCB.HANG_BV`.
+**Bài học huấn luyện:** Cảnh báo gốc nêu **Đặc biệt / I**; điều kiện kỹ thuật lại là **hai biến số** từ DM và CSKCB. AI **không** được giải thích ngược đời số hạng nếu chưa biết **quy ước mã số** trong danh mục nội bộ (thứ tự số nhỏ = hạng cao hay thấp). Khi huấn luyện, yêu cầu dev/kiểm tra **chỉ rõ bảng tra** hoặc đoạn mã gán `CSKCB.HANG_BV`.
 
 **Gợi ý tra cứu trong repo:** Trong seed luật khác có dùng `CSKCB.HANG_BV == '1'` (ví dụ `du_lieu_luat_hanh_chinh_muc2.jsx`) — cho thấy `HANG_BV` thường là **mã dạng chuỗi** trong ngữ cảnh rule; riêng `THUOC_419` dùng toán tử **`<`** giữa `HANG_BV_MIN` và `HANG_BV` — cần xác nhận engine **so sánh số hay chuỗi** trước khi diễn giải nghiệp vụ.
 
@@ -57,7 +57,7 @@ Xuất:
 Không PII; không sửa file.
 ```
 
-**Bước B — Giải thích cho giám định viên**
+**Bước B — Giải thích cho kiểm tra viên**
 
 ```text
 Giải thích bằng tiếng Việt đơn giản (8 câu tối đa): THUOC_419 là gì, khác gì với việc chỉ nhìn MA_THUOC trên XML2.

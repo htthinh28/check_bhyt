@@ -63,4 +63,4 @@ Kết quả: `test_xml/rule_xml_schema_audit.json` (tổng hợp `UNKNOWN_FIELD`
 
 ---
 
-*Tài liệu này bổ sung cho `scripts/audit_rules.js` và pipeline QA hiện có; không thay thế quyết định nghiệp vụ của giám định viên.*
+*Tài liệu này bổ sung cho `scripts/audit_rules.js` và pipeline QA hiện có; không thay thế quyết định nghiệp vụ của kiểm tra viên.*

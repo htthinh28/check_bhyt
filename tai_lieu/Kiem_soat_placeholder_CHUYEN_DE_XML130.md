@@ -16,7 +16,7 @@ Một số quy tắc dùng `CHUYEN_DE_XML130_CHO_XU_LY_SAU` trong `ma_nguon/tien
 
    File sinh ra: `scripts/chuyen_de_placeholder_registry.json` (danh sách `rule_ids`, `placeholder_count`).
 
-2. **Ý nghĩa vận hành:** Quy tắc còn trong registry **không phát cảnh báo thật** trên XML điển hình (vì điều kiện luôn false). Việc để `TRANG_THAI: 'ON'` chỉ giữ quy tắc trong cấu hình — **không** đồng nghĩa đã giám định được theo nghiệp vụ.
+2. **Ý nghĩa vận hành:** Quy tắc còn trong registry **không phát cảnh báo thật** trên XML điển hình (vì điều kiện luôn false). Việc để `TRANG_THAI: 'ON'` chỉ giữ quy tắc trong cấu hình — **không** đồng nghĩa đã kiểm tra được theo nghiệp vụ.
 
 3. **Khuyến nghị sản phẩm:** Với quy tắc chỉ còn placeholder và chưa có lộ trình dữ liệu trong 1–2 sprint, cân nhắc chuyển `TRANG_THAI: 'OFF'` để tránh hiểu nhầm “đã bật là đã chạy”.
 

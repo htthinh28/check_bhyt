@@ -63,3 +63,22 @@ export const taiMapHoTenNhanSuBaoCao = async () => {
   });
   return taoMapHoTenTheoMaNhanSu(data);
 };
+
+const KHOA_ANH_XA_BS_SANG_CCHN = ['MA_BHXH', 'MA_BAC_SI', 'MA_NV', 'ID', 'SO_CCCD', 'SO_DINH_DANH'];
+
+/**
+ * Map mã định danh nhân sự (XML / nội bộ) → số chứng chỉ hành nghề (MACCHN trên DM).
+ * Dùng báo cáo gom theo CCHN; khớp phụ thuộc cách BV mã hoá MA_BS vs MA_BHXH.
+ */
+export const taoMapMaNhanSuSangMacchn = (rows = []) => {
+  const m = new Map();
+  for (const row of Array.isArray(rows) ? rows : []) {
+    const cchn = String(row?.MACCHN ?? '').trim();
+    if (!cchn) continue;
+    for (const k of KHOA_ANH_XA_BS_SANG_CCHN) {
+      const v = String(row?.[k] ?? '').trim();
+      if (v) m.set(v.toUpperCase(), cchn);
+    }
+  }
+  return m;
+};

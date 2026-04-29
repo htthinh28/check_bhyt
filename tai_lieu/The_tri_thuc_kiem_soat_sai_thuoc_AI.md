@@ -1,11 +1,11 @@
-# THẺ TRI THỨC: KIỂM SOÁT “SAI THUỐC” CHO AI GIÁM ĐỊNH BHYT
+# THẺ TRI THỨC: KIỂM SOÁT “SAI THUỐC” CHO AI KIỂM TRA BHYT
 
 Phiên bản tài liệu: 1.5  
 Ngày cập nhật: 06/04/2026
 
 ## 1. Mục đích
 
-Trong giám định BHYT, “sai thuốc” **không phải một khái niệm duy nhất**. AI cần phân tầng để:
+Trong kiểm tra BHYT, “sai thuốc” **không phải một khái niệm duy nhất**. AI cần phân tầng để:
 
 - không gom mọi cảnh báo thuốc thành một kết luận “chỉ định sai”;
 - phân biệt **rủi ro thanh toán / xuất toán** với **rủi ro an toàn lâm sàng** với **lỗi nhập liệu / nhất quán dữ liệu**;
@@ -77,7 +77,7 @@ Sau khi nạp audit JSON hoặc XML, có thể dùng:
 
 ## 7. Tài liệu nền trong repo
 
-- `The_tri_thuc_chi_muc_giam_dinh_thuoc_engine_AI.md` — luồng mã giám định thuốc và lọc cảnh báo.  
+- `The_tri_thuc_chi_muc_giam_dinh_thuoc_engine_AI.md` — luồng mã kiểm tra thuốc và lọc cảnh báo.  
 - `The_tri_thuc_giam_dinh_thuoc_DM_builtin_va_doi_chieu_tien_AI.md` — danh mục nội bộ thuốc và đối chiếu tổng tiền.
 - `The_tri_thuc_mau_thanh_toan_thuoc_BHYT.md` — thanh toán vs an toàn.
 - `The_tri_thuc_mau_nhom_thuoc_dot1.md` … `dot5` — từng đợt chi tiết.

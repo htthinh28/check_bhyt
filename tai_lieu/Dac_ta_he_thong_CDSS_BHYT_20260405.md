@@ -54,7 +54,7 @@ Ngoài phạm vi tài liệu này:
 
 - CDSS: Clinical Decision Support System, trong dự án này là hệ thống hỗ trợ kiểm soát và rà soát hồ sơ BHYT.
 - XML1 đến XML6: các bảng dữ liệu chuẩn tách ra từ hồ sơ XML BHYT mà ứng dụng đang quản lý trực tiếp trong màn hình nghiệp vụ hiện hành.
-- Rule engine: cơ chế đánh giá tập luật nhằm phát hiện lỗi dữ liệu, lỗi logic, bất thường chi phí và cảnh báo giám định.
+- Rule engine: cơ chế đánh giá tập luật nhằm phát hiện lỗi dữ liệu, lỗi logic, bất thường chi phí và cảnh báo kiểm tra.
 - Hardcoded rules: tập luật sinh từ Excel hoặc viết cố định theo chuyên đề, thường nằm trong các file `luat_*_hardcoded.jsx`.
 - Dynamic rules: tập luật dạng dữ liệu, lưu thành seed/dataset và được biên dịch theo DSL nội bộ bởi `dong_co_giam_dinh.jsx`.
 - Local-first: dữ liệu được ưu tiên lưu và xử lý tại máy người dùng trước, cloud đóng vai trò đồng bộ/phục hồi.
@@ -65,7 +65,7 @@ Ngoài phạm vi tài liệu này:
 Hệ thống được xây dựng để giải quyết các nhu cầu sau:
 
 - Giảm lỗi dữ liệu trong hồ sơ XML BHYT trước khi gửi hoặc đối soát.
-- Hỗ trợ rà soát các bất thường chi phí và quy tắc giám định ngay tại đơn vị.
+- Hỗ trợ rà soát các bất thường chi phí và quy tắc kiểm tra ngay tại đơn vị.
 - Tập trung hóa các bộ luật, danh mục và cấu hình quản trị trong một ứng dụng thống nhất.
 - Cho phép kiểm tra lại hồ sơ sau khi chỉnh sửa mà không phụ thuộc hoàn toàn vào hệ thống ngoài.
 - Theo dõi xu hướng lỗi theo khoa, bác sĩ, quy tắc và chi phí ảnh hưởng.
@@ -324,7 +324,7 @@ Chức năng chính:
 
 - Lưu toàn bộ hồ sơ theo mã liên kết.
 - Tìm kiếm, lọc, thống kê hồ sơ đang có.
-- Là nguồn dữ liệu cho báo cáo và tái giám định.
+- Là nguồn dữ liệu cho báo cáo và tái kiểm tra.
 
 ### 10.8. Quản lý luật và quy tắc ON/OFF
 
@@ -373,15 +373,15 @@ Chức năng chính:
 
 ### 10.13. Mapping nghiệp vụ (`MappingNghiepVu`)
 
-- Ánh xạ danh mục / mã nghiệp vụ giữa kho nội bộ và chuẩn dùng trong giám định (theo module triển khai).
+- Ánh xạ danh mục / mã nghiệp vụ giữa kho nội bộ và chuẩn dùng trong kiểm tra (theo module triển khai).
 
 ### 10.14. Thư viện (`ThuVien`)
 
 - Hiển thị tài liệu đã chuẩn bị trong `tai_lieu/` (sau `npm run tai_lieu:prepare`).
 
-### 10.15. Tri thức từ giám định (`TriThucTuGiamDinh`)
+### 10.15. Tri thức từ kiểm tra (`TriThucTuGiamDinh`)
 
-- Khai thác tri thức / gợi ý gắn với kết quả giám định (theo thiết kế màn hình).
+- Khai thác tri thức / gợi ý gắn với kết quả kiểm tra (theo thiết kế màn hình).
 
 ### 10.16. Trợ lý tri thức (`TroLyTriThuc`)
 

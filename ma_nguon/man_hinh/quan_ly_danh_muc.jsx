@@ -69,7 +69,9 @@ const DANH_SACH_TAB = [
   { id: 'DVKT_PHAMVI_MAPPING', ten: 'Mapping phạm vi – chức danh DVKT' },
   { id: 'DVKT_EQUIP_DVKT_MAP', ten: 'Mapping máy thiết bị ↔ prefix DVKT' },
   { id: 'DANH_MUC_THUOC_MAU_M03', ten: 'Mẫu 03 (Thuốc/Máu)' },
+  { id: 'DANH_MUC_THUOC_DIEU_KIEN_TT', ten: 'Thuốc điều kiện thanh toán' },
   { id: 'DANH_MUC_TUONG_TAC_THUOC', ten: 'Tương tác thuốc (BV)' },
+  { id: 'DANH_MUC_MA_THE_QUYEN_LOI', ten: 'Mã thẻ và quyền lợi' },
   { id: 'DANH_MUC_VAT_TU_M04', ten: 'Mẫu 04 (Vật tư)' },
   { id: 'DANH_MUC_DVKT_M05', ten: 'Mẫu 05 (DVKT)' },
   { id: 'DANH_MUC_GIUONG_BAN_KHAM_BV', ten: 'Giường & khám (mã BV mới)' },
@@ -883,6 +885,71 @@ const ManHinhQuanLyDanhMuc = ({ navigation, route }) => {
   };
 
   // 4. XỬ LÝ IMPORT EXCEL (chunking + phát hiện trùng khóa)
+  const chuanHoaImportMaTheQuyenLoi = (wb) => {
+    const ws = wb.Sheets[wb.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(ws, { header: 1, defval: '', raw: false });
+    if (!Array.isArray(rows) || rows.length < 3) return [];
+    const body = rows.slice(2);
+    const chuanNgay = (v) => {
+      const s = String(v || '').trim();
+      if (!s) return '';
+      const m = s.match(/^(\d{1,2})\/(\d{1,2})\/(\d{4})$/);
+      if (m) return `${m[3]}${m[2].padStart(2, '0')}${m[1].padStart(2, '0')}`;
+      return s.replace(/\D/g, '').slice(0, 8);
+    };
+    const chuanCoKhong = (v) => {
+      const s = String(v || '').trim().toUpperCase();
+      if (['CÓ', 'CO', 'YES', 'Y', 'TRUE', '1'].includes(s)) return 'CO';
+      if (['KHÔNG', 'KHONG', 'NO', 'N', 'FALSE', '0'].includes(s)) return 'KHONG';
+      return s;
+    };
+    return body
+      .map((r, idx) => {
+        const ma = String(r?.[1] || '').trim().toUpperCase();
+        if (!ma || ma === 'MÃ') return null;
+        return {
+          STT: Number(r?.[0]) || idx + 1,
+          MA: ma,
+          MA_NHOM_THE: ma.slice(0, 2),
+          MA_QUYEN_LOI: String(r?.[4] || ma.slice(2, 3) || '').trim(),
+          TEN: String(r?.[2] || '').trim(),
+          NHOM_DOI_TUONG_BHYT: String(r?.[3] || '').trim(),
+          TY_LE_HUONG_BHYT: String(r?.[5] || '').trim(),
+          MIEU_TA: String(r?.[6] || '').trim(),
+          TU_NGAY: chuanNgay(r?.[7]),
+          DEN_NGAY: chuanNgay(r?.[8]),
+          DOI_TUONG_HUONG_CHI_PHI_CHUYEN_TUYEN: chuanCoKhong(r?.[9]),
+          HIEU_LUC_THI_HANH: chuanCoKhong(r?.[10]),
+        };
+      })
+      .filter(Boolean);
+  };
+
+  const chuanHoaImportThuocDieuKienThanhToan = (wb) => {
+    const ws = wb.Sheets[wb.SheetNames[0]];
+    const rows = XLSX.utils.sheet_to_json(ws, { defval: '', raw: false });
+    const chuanMaLuat = (v) => String(v || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .replace(/Đ/g, 'D')
+      .replace(/đ/g, 'd')
+      .toUpperCase()
+      .replace(/[^A-Z0-9_]/g, '_')
+      .replace(/_+/g, '_')
+      .replace(/^_+|_+$/g, '');
+    return (Array.isArray(rows) ? rows : []).map((r) => ({
+      MA_GIAM_DINH: chuanMaLuat(r['Mã kiểm tra'] || r['Ma giam dinh'] || ''),
+      TEN_QUY_TAC: String(r['Tên quy tắc'] || r['Ten quy tac'] || '').trim(),
+      MA_THUOC_QD7603: String(r['Mã thuốc (QĐ 7603)'] || r['Ma thuoc (QD 7603)'] || r['Mã thuốc'] || '').trim(),
+      HOAT_CHAT: String(r['Hoạt chất'] || r['Hoat chat'] || '').trim(),
+      DUONG_DUNG: String(r['Đường dùng'] || r['Duong dung'] || '').trim(),
+      MA_ICD10: String(r['Mã ICD-10'] || r['Ma ICD-10'] || '').trim(),
+      CHAN_DOAN: String(r['Chẩn đoán'] || r['Chan doan'] || '').trim(),
+      TU_KHOA_YEU_CAU: String(r['Từ khóa/Yêu cầu'] || r['Tu khoa/Yeu cau'] || '').trim(),
+      CANH_BAO_CDSS_ALERT: String(r['Cảnh báo (CDSS Alert)'] || r['Canh bao (CDSS Alert)'] || '').trim(),
+    })).filter((x) => x.MA_THUOC_QD7603);
+  };
+
   const handleImportExcel = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -892,7 +959,12 @@ const ManHinhQuanLyDanhMuc = ({ navigation, route }) => {
         const bstr = evt.target.result;
         const wb = XLSX.read(bstr, { type: 'binary' });
         const ws = wb.Sheets[wb.SheetNames[0]];
-        const importedData = XLSX.utils.sheet_to_json(ws, { defval: '', raw: false }).map((row) => {
+        const importedDataRaw = danhMucHienTai === 'DANH_MUC_MA_THE_QUYEN_LOI'
+          ? chuanHoaImportMaTheQuyenLoi(wb)
+          : danhMucHienTai === 'DANH_MUC_THUOC_DIEU_KIEN_TT'
+            ? chuanHoaImportThuocDieuKienThanhToan(wb)
+            : XLSX.utils.sheet_to_json(ws, { defval: '', raw: false });
+        const importedData = importedDataRaw.map((row) => {
           if (!row || typeof row !== 'object') return row;
           const next = { ...row };
           Object.keys(next).forEach((k) => {

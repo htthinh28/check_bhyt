@@ -25,7 +25,7 @@ Theo cấu trúc JSON:
 ## 4. Ý nghĩa nghiệp vụ (cho AI trình bày)
 
 - Hệ thống **không kết luận** “ngoài danh mục BYT” trong nhánh này; mà báo **chưa xác minh trong DM nội bộ BV** (thường do map chưa nạp, mã mới, hoặc lệch mã).
-- Hướng xử lý: **đồng bộ danh mục thuốc nội bộ**, kiểm tra kỹ thuật `MAP_THUOC_BV`, rồi chạy lại giám định — khác với sửa ICD hay liều.
+- Hướng xử lý: **đồng bộ danh mục thuốc nội bộ**, kiểm tra kỹ thuật `MAP_THUOC_BV`, rồi chạy lại kiểm tra — khác với sửa ICD hay liều.
 
 ## 5. Bài tập
 

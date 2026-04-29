@@ -45,4 +45,4 @@
 ## 4. Giới hạn
 
 - Chỉ kiểm tra **mã** đã có trên XML2/XML3; không đọc văn bản phác đồ tự do.
-- Không thay thế giám định viên; mức **Info** — đối chiếu nghiệp vụ BV.
+- Không thay thế kiểm tra viên; mức **Info** — đối chiếu nghiệp vụ BV.

@@ -162,10 +162,10 @@ CHÊNH LỆCH:   7.932.000đ  (+161%)
 
 ---
 
-## 6. Quyết định giám định chi tiết
+## 6. Quyết định kiểm tra chi tiết
 
 ```
-QUYẾT ĐỊNH GIÁM ĐỊNH - LỖI HÀNH CHÍNH: CHÊNH LỆCH TỔNG TIỀN
+QUYẾT ĐỊNH KIỂM TRA - LỖI HÀNH CHÍNH: CHÊNH LỆCH TỔNG TIỀN
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 Ma LK: 000589
@@ -352,7 +352,7 @@ Tại sao? Cited Luật/QĐ nào?"
 
 ### Prompt 3: Soạn quyết định
 ```
-"Soạn quyết định giám định cho lỗi chênh lệch này,
+"Soạn quyết định kiểm tra cho lỗi chênh lệch này,
 bao gồm: Lỗi, Căn cứ pháp lý, Xử lý, Yêu cầu bệnh viện"
 ```
 

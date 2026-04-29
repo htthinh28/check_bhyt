@@ -1,17 +1,17 @@
-# LỘ TRÌNH HUẤN LUYỆN AI GIÁM ĐỊNH BHYT
+# LỘ TRÌNH HUẤN LUYỆN AI KIỂM TRA BHYT
 
 Phiên bản tài liệu: 2.1  
 Ngày cập nhật: 17/04/2026
 
 ## 1. Mục tiêu
 
-Tài liệu này mô tả cách huấn luyện AI từng bước để hỗ trợ tốt nghiệp vụ giám định BHYT trong bối cảnh dự án `ung_dung_cdss_bhyt`.
+Tài liệu này mô tả cách huấn luyện AI từng bước để hỗ trợ tốt nghiệp vụ kiểm tra BHYT trong bối cảnh dự án `ung_dung_cdss_bhyt`.
 
 Mục tiêu huấn luyện không phải là “nhồi hết mọi kiến thức một lần”, mà là xây dựng dần 4 năng lực:
 
 - Hiểu hệ thống đang chạy và luồng dữ liệu thật.
 - Hiểu luật, danh mục, quy tắc và điểm kiểm soát nghiệp vụ.
-- Hiểu quy trình xử lý hồ sơ từ nhập XML đến giám định, sửa và báo cáo.
+- Hiểu quy trình xử lý hồ sơ từ nhập XML đến kiểm tra, sửa và báo cáo.
 - Rút kinh nghiệm từ các ca thực tế để nâng chất lượng suy luận.
 
 ## 2. Nguyên tắc huấn luyện
@@ -21,11 +21,11 @@ Mục tiêu huấn luyện không phải là “nhồi hết mọi kiến thức
 - Mỗi lần huấn luyện nên xoay quanh một chủ đề, một loại lỗi, một nhóm rule hoặc một ca hồ sơ cụ thể.
 - AI chỉ đáng tin khi có thể chỉ ra được: nguồn tri thức, điều kiện áp dụng, ngoại lệ, và cách kiểm chứng.
 - Mọi kiến thức quan trọng nên được lưu thành tài liệu hoặc “thẻ tri thức”, không chỉ nằm trong hội thoại tạm thời.
-- **Kỹ năng giám định đa nhóm** (đọc cảnh báo, phân loại A–D, an toàn dữ liệu): [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md); **bài tập có gợi ý**: [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md).
+- **Kỹ năng kiểm tra đa nhóm** (đọc cảnh báo, phân loại A–D, an toàn dữ liệu): [Ky_nang_cot_loi_giam_dinh_AI_BHYT.md](./Ky_nang_cot_loi_giam_dinh_AI_BHYT.md); **bài tập có gợi ý**: [Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md](./Bai_tap_phat_trien_ky_nang_giam_dinh_AI.md).
 
 ## 3. Kiến trúc huấn luyện đề xuất
 
-Huấn luyện AI cho giám định BHYT nên đi theo 4 tầng tri thức.
+Huấn luyện AI cho kiểm tra BHYT nên đi theo 4 tầng tri thức.
 
 ### 3.1. Tầng 1: Nền hệ thống
 
@@ -56,7 +56,7 @@ AI phải nắm được lớp khái niệm nghiệp vụ cốt lõi:
 - Hồ sơ BHYT là gì.
 - Vai trò của XML1 đến XML6.
 - Mối liên hệ giữa chẩn đoán, dịch vụ kỹ thuật, thuốc, vật tư, ngày y lệnh, ngày kết quả, bác sĩ, khoa phòng, đối tượng, nơi đăng ký KCB.
-- Mục tiêu của giám định: phát hiện sai, thiếu, bất thường, không phù hợp quy định hoặc nguy cơ bị xuất toán.
+- Mục tiêu của kiểm tra: phát hiện sai, thiếu, bất thường, không phù hợp quy định hoặc nguy cơ bị xuất toán.
 
 Nguồn dùng để nạp:
 
@@ -72,11 +72,11 @@ Nguồn dùng để nạp:
 
 Kết quả mong muốn:
 
-- AI không chỉ đọc được cấu trúc dữ liệu mà còn hiểu dữ liệu đó ảnh hưởng gì về mặt giám định.
+- AI không chỉ đọc được cấu trúc dữ liệu mà còn hiểu dữ liệu đó ảnh hưởng gì về mặt kiểm tra.
 
 ### 3.3. Tầng 3: Tầng luật và quy tắc
 
-Đây là lớp quan trọng nhất cho nghiệp vụ giám định.
+Đây là lớp quan trọng nhất cho nghiệp vụ kiểm tra.
 
 AI cần được huấn luyện theo từng đơn vị luật nhỏ, mỗi đơn vị gồm:
 
@@ -168,7 +168,7 @@ Không huấn luyện một lần cho toàn bộ BHYT.
 Nên chia theo đợt:
 
 - Đợt 1: hiểu XML và luồng hệ thống.
-- Đợt 2: lỗi hành chính và dữ liệu cơ bản — **khung kiểm soát & giám định:** [Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md](./Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md); **thẻ BHYT, hạn thẻ, đối tượng, mức hưởng, đồng chi trả:** [The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md](./The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md); phiên [Huan_luyen_phien_hanh_chinh_BHYT_bat_buoc_Cursor.md](./Huan_luyen_phien_hanh_chinh_BHYT_bat_buoc_Cursor.md); quy trình hành chính [The_tri_thuc_mau_hanh_chinh_BHYT.md](./The_tri_thuc_mau_hanh_chinh_BHYT.md).
+- Đợt 2: lỗi hành chính và dữ liệu cơ bản — **khung kiểm soát & kiểm tra:** [Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md](./Quy_tac_kiem_soat_va_giam_dinh_loi_hanh_chinh_KCB_BHYT.md); **thẻ BHYT, hạn thẻ, đối tượng, mức hưởng, đồng chi trả:** [The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md](./The_tri_thuc_kiem_soat_loi_the_BHYT_va_quyen_loi_NB_AI.md); phiên [Huan_luyen_phien_hanh_chinh_BHYT_bat_buoc_Cursor.md](./Huan_luyen_phien_hanh_chinh_BHYT_bat_buoc_Cursor.md); quy trình hành chính [The_tri_thuc_mau_hanh_chinh_BHYT.md](./The_tri_thuc_mau_hanh_chinh_BHYT.md).
 - Đợt 3: thuốc (khung “sai thuốc”: `The_tri_thuc_kiem_soat_sai_thuoc_AI.md`; **chỉ mục engine** `CLN-THUOC-*` / lọc `THUOC_391|417`: `The_tri_thuc_chi_muc_giam_dinh_thuoc_engine_AI.md`; **đa dạng danh mục BV**: `The_tri_thuc_da_dang_nhom_thuoc_dan_muc_BV_AI.md`; **DM nội bộ + đối chiếu tiền + DMBV-THUOC-***: `The_tri_thuc_giam_dinh_thuoc_DM_builtin_va_doi_chieu_tien_AI.md`; **tương tác thuốc XML2 / cặp A–B / TUONGTAC_***: [The_tri_thuc_tuong_tac_thuoc_XML2_AI.md](./The_tri_thuc_tuong_tac_thuoc_XML2_AI.md) — audit: `npm run qa:tuong-tac-audit`; ca `Ca_huan_luyen_mau_*`, `Ca_huan_luyen_mau_000589_nhieu_nhom_thuoc_mot_ho_so.md`, `Ca_huan_luyen_mau_000589_DM_THUOC_03_danh_muc_noibo_snapshot.md`, `Ca_huan_luyen_mau_OP26000908_THUOC_267_Medlon_Methylprednisolon_ICD.md`, `Ca_huan_luyen_mau_ER26000392_THUOC_374_Magnesi_ICD_va_chong_lop.md`, `Ca_huan_luyen_mau_000573_THUOC_391_Dafodin_giuong_PT.md`, `Ca_huan_luyen_mau_IP26000139_DOMUVAR_THUOC_63_va_THUOC_417_noi_tru.md`).
 - Đợt 4: **dịch vụ kỹ thuật (DVKT)** — **chuẩn hóa suy luận AI** [Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_DVKT.md); **Danh mục 1 / 2 chi tiết** [The_tri_thuc_Danh_muc_1_DVKT_dieu_kien_ty_le_gia_VBHN17_AI.md](./The_tri_thuc_Danh_muc_1_DVKT_dieu_kien_ty_le_gia_VBHN17_AI.md) · [The_tri_thuc_Danh_muc_2_DVKT_dieu_kien_thanh_toan_VBHN17_AI.md](./The_tri_thuc_Danh_muc_2_DVKT_dieu_kien_thanh_toan_VBHN17_AI.md); **kiểm soát lỗi DVKT theo VBHN 17** [The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md](./The_tri_thuc_kiem_soat_loi_dvkt_VBHN17_AI.md); thẻ [The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md](./The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md); chuỗi văn bản mục **11.5** [The_tri_thuc_mau_luat_BHYT_2008_2025.md](./The_tri_thuc_mau_luat_BHYT_2008_2025.md); **phiên huấn luyện + lộ trình ca** [Huan_luyen_phien_DVKT_VBHN17_Cursor.md](./Huan_luyen_phien_DVKT_VBHN17_Cursor.md) (mục A–J); **bảng neo** [Bang_neo_phien_huan_luyen_dvkt_va_engine.md](./Bang_neo_phien_huan_luyen_dvkt_va_engine.md); ca mẫu theo thứ tự: `000308` (gói PTTT `DVKT_2587/2588`) → `000502` (`CDHA_164`) → `000538` (`CDHA_101`) → `000375` (`DVKT-OP-09`).
 - **VTYT (vật tư y tế):** **chuẩn hóa suy luận AI** [Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md](./Chuan_hoa_kien_thuc_AI_giam_dinh_VTYT.md) (§**0**: **chưa** có seed **`DM-VTYT-*`** trong CSDL); **bảng neo** [Bang_neo_phien_huan_luyen_vtyt_va_engine.md](./Bang_neo_phien_huan_luyen_vtyt_va_engine.md); trong repo **chưa** có `audit_*` chuyên VTYT trong `test_xml/` — **khung + lộ trình bổ sung rule** [Huan_luyen_phien_VTYT_du_phong_Cursor.md](./Huan_luyen_phien_VTYT_du_phong_Cursor.md) §**4** và mục **11.6** [The_tri_thuc_mau_luat_BHYT_2008_2025.md](./The_tri_thuc_mau_luat_BHYT_2008_2025.md); tạm **luyện đọc danh mục + điều kiện** qua Đợt 3 (thuốc) như đã neo ở 11.6.
@@ -270,7 +270,7 @@ Nếu huấn luyện đúng, AI nên làm tốt các việc sau:
 
 ## 7. Những việc không nên kỳ vọng quá sớm
 
-- Không nên kỳ vọng AI tự thay thế hoàn toàn chuyên gia giám định.
+- Không nên kỳ vọng AI tự thay thế hoàn toàn chuyên gia kiểm tra.
 - Không nên để AI tự diễn giải quy định pháp lý mà không có nguồn hoặc ca minh họa.
 - Không nên để AI sửa rule diện rộng nếu chưa có ca kiểm chứng.
 - Không nên dạy AI bằng dữ liệu lẫn lộn, không ghi rõ đúng sai và ngoại lệ.
@@ -312,7 +312,7 @@ Khi huấn luyện, anh nên dùng mẫu lệnh theo hướng sau:
 
 ## 10. Kết luận
 
-Muốn AI làm tốt nghiệp vụ giám định BHYT, cần huấn luyện theo hệ thống:
+Muốn AI làm tốt nghiệp vụ kiểm tra BHYT, cần huấn luyện theo hệ thống:
 
 - từ kiến trúc
 - sang nghiệp vụ

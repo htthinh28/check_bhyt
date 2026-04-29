@@ -1,22 +1,22 @@
 # Phương án triển khai: Kiểm soát phác đồ chuyên môn theo chuỗi lâm sàng — cận lâm sàng — chỉ định
 
-**Mục đích:** Làm rõ cách đáp ứng yêu cầu giám định **chuyên môn** (chẩn đoán / loại trừ → chỉ định CLS, thuốc, DVKT, theo dõi, tái khám) sao cho module Chuyên môn **có giá trị thực**, không dừng ở khớp mã ICD. Tài liệu này là **đặc tả kiến trúc + giao việc AI**; không thay văn bản pháp lý BYT/BHXH.
+**Mục đích:** Làm rõ cách đáp ứng yêu cầu kiểm tra **chuyên môn** (chẩn đoán / loại trừ → chỉ định CLS, thuốc, DVKT, theo dõi, tái khám) sao cho module Chuyên môn **có giá trị thực**, không dừng ở khớp mã ICD. Tài liệu này là **đặc tả kiến trúc + giao việc AI**; không thay văn bản pháp lý BYT/BHXH.
 
 **Ngày:** 11/04/2026  
 
 ---
 
-## 1. Nguyên tắc (giám định vs tự động)
+## 1. Nguyên tắc (kiểm tra vs tự động)
 
 | Nguyên tắc | Giải thích |
 |------------|------------|
-| **Không “phán xét lâm sàng” bằng một rule cứng** | Sai chỉ định trong biên bản giám định BHYT thường kết hợp **mã, ngữ cảnh, tần suất, tương tác thuốc, tuyến BV** — engine chỉ có thể kiểm tra **tập con** đã **mã hóa được**. |
+| **Không “phán xét lâm sàng” bằng một rule cứng** | Sai chỉ định trong biên bản kiểm tra BHYT thường kết hợp **mã, ngữ cảnh, tần suất, tương tác thuốc, tuyến BV** — engine chỉ có thể kiểm tra **tập con** đã **mã hóa được**. |
 | **Phác đồ nội bộ = nguồn gợi ý kiểm soát** | Bảng CDSS trong app là **tri thức BV**; muốn “so với hồ sơ” cần **cấu trúc hóa** (mã/thẻ) hoặc **AI có giám sát**. |
 | **Minh bạch tầng** | Phân biệt: (A) kiểm tra **có kiểm chứng được** trên XML, (B) gợi ý **cần người/AI** đọc phác đồ và hồ sơ. |
 
 ---
 
-## 2. Chuỗi nghiệp vụ mục tiêu (logic giám định chuyên môn)
+## 2. Chuỗi nghiệp vụ mục tiêu (logic kiểm tra chuyên môn)
 
 ```mermaid
 flowchart LR
@@ -52,7 +52,7 @@ flowchart LR
 | **XML3** | DVKT: `MA_DICH_VU`, ngày — chỉ định dịch vụ. |
 | **XML5 / XML6** | Diễn biến, xuất viện, `NGAY_HEN_TAI_KHAM` (khi có) — theo dõi / tái khám. |
 
-**Hạn chế:** Không phải mọi “theo dõi lâm sàng” đều có trường số hóa trên XML; một phần chỉ có trong văn bản — đó là chỗ cần **AI hoặc giám định viên**.
+**Hạn chế:** Không phải mọi “theo dõi lâm sàng” đều có trường số hóa trên XML; một phần chỉ có trong văn bản — đó là chỗ cần **AI hoặc kiểm tra viên**.
 
 ---
 
@@ -118,7 +118,7 @@ Ví dụ: *Nếu có ICD trong tập X và `COUNT_IF(XML3, điều kiện MA_DIC
 }
 ```
 
-**Tích hợp đề xuất:** Màn **Chi tiết ca bệnh** hoặc **Chuyên môn**: nút “**Phân tích phác đồ (AI)**” → gọi API (khi có) → lưu kết quả vào **Tri thức từ giám định** để tích lũy.  
+**Tích hợp đề xuất:** Màn **Chi tiết ca bệnh** hoặc **Chuyên môn**: nút “**Phân tích phác đồ (AI)**” → gọi API (khi có) → lưu kết quả vào **Tri thức từ kiểm tra** để tích lũy.  
 **Trợ lý tri thức nội bộ hiện tại** (`tro_ly_tri_thuc_engine.js`) là **RAG không LLM** — cần **module mới** hoặc **cổng API** nếu muốn suy luận sâu.
 
 ---
@@ -126,7 +126,7 @@ Ví dụ: *Nếu có ICD trong tập X và `COUNT_IF(XML3, điều kiện MA_DIC
 ## 5. Kết luận: Làm gì để module **không vô nghĩa**
 
 1. **Xác định chính sách BV:** Phác đồ nào được coi là “chuẩn kiểm soát” và **ánh xạ sang mã** (ít nhất DVKT/thuốc/CLS mẫu).  
-2. **Tầng A:** Thêm rule có cấu trúc theo danh mục gợi ý — đây là phần **sát quy định giám định có kiểm chứng**.  
+2. **Tầng A:** Thêm rule có cấu trúc theo danh mục gợi ý — đây là phần **sát quy định kiểm tra có kiểm chứng**.  
 3. **Tầng C:** Quy trình AI có **schema đầu ra**, lưu vết, **bắt buộc xác nhận GV** trước khi đưa vào “bài học” hệ thống.  
 4. **Không** hứa hẹn “engine một rule” suy ra đủ chuỗi lâm sàng từ văn bản phác đồ thuần — cần **cấu trúc hóa + AI có giám sát**.
 

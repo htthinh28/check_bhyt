@@ -11,7 +11,7 @@ Phạm vi của bộ này:
 
 - Dùng để huấn luyện AI hiểu cách đọc rule thuốc trong hệ thống.
 - Dùng làm mẫu để tiếp tục nhân rộng ra các rule thuốc khác.
-- Không thay thế thẩm định nghiệp vụ cuối cùng của chuyên gia giám định.
+- Không thay thế thẩm định nghiệp vụ cuối cùng của chuyên gia kiểm tra.
 
 ## 2. Nguồn gốc tri thức
 
@@ -43,14 +43,14 @@ Lưu ý quan trọng:
 ### 1. Thông tin chung
 
 - Chủ đề: Acetyl leucin / Gikanin
-- Nhóm nghiệp vụ: Thuốc, giám định chỉ định và an toàn kê đơn
+- Nhóm nghiệp vụ: Thuốc, kiểm tra chỉ định và an toàn kê đơn
 - Nguồn tài liệu: `THUOC_01`, `THUOC_02`, `THUOC_03` trong `du_lieu_luat_thuoc_muc8.jsx`
 - Độ tin cậy: cao trong phạm vi rule seed hiện có
 
 ### 2. Mệnh đề nghiệp vụ cốt lõi
 
 - Thuốc Gikanin được hệ thống theo dõi ở 3 góc: liều tối đa/ngày, chống chỉ định thai kỳ, và tính đúng chỉ định theo ICD/chẩn đoán.
-- Mục tiêu giám định: tránh quá liều, tránh dùng sai đối tượng, tránh thanh toán sai chẩn đoán.
+- Mục tiêu kiểm tra: tránh quá liều, tránh dùng sai đối tượng, tránh thanh toán sai chẩn đoán.
 
 ### 3. Phạm vi áp dụng
 
@@ -97,14 +97,14 @@ Lưu ý quan trọng:
 ### 1. Thông tin chung
 
 - Chủ đề: Aciclovir
-- Nhóm nghiệp vụ: Thuốc kháng virus, giám định liều, chỉ định và chống chỉ định
+- Nhóm nghiệp vụ: Thuốc kháng virus, kiểm tra liều, chỉ định và chống chỉ định
 - Nguồn tài liệu: `THUOC_04`, `THUOC_05`, `THUOC_06`, `THUOC_07`
 - Độ tin cậy: cao trong phạm vi rule seed hiện có
 
 ### 2. Mệnh đề nghiệp vụ cốt lõi
 
 - Hệ thống đang kiểm soát 4 mặt: liều tuyệt đối/24 giờ, chống chỉ định suy thận nặng, đúng chỉ định Herpes/Zona, và tần suất dùng đường uống.
-- Mục tiêu giám định: tránh nguy cơ độc tính và tránh thanh toán sai bệnh.
+- Mục tiêu kiểm tra: tránh nguy cơ độc tính và tránh thanh toán sai bệnh.
 
 ### 3. Phạm vi áp dụng
 
@@ -158,7 +158,7 @@ Lưu ý quan trọng:
 ### 2. Mệnh đề nghiệp vụ cốt lõi
 
 - Adrenalin được xem là thuốc cấp cứu, nên hệ thống kiểm tra chặt về chống chỉ định tương đối, số lượng sử dụng bất thường và chẩn đoán cấp cứu tương ứng.
-- Mục tiêu giám định: tránh thanh toán không phù hợp cho ca không có căn cứ cấp cứu.
+- Mục tiêu kiểm tra: tránh thanh toán không phù hợp cho ca không có căn cứ cấp cứu.
 
 ### 3. Phạm vi áp dụng
 
@@ -203,14 +203,14 @@ Lưu ý quan trọng:
 ### 1. Thông tin chung
 
 - Chủ đề: Albendazol
-- Nhóm nghiệp vụ: Thuốc tẩy giun, giám định liều và số lượng cấp phát
+- Nhóm nghiệp vụ: Thuốc tẩy giun, kiểm tra liều và số lượng cấp phát
 - Nguồn tài liệu: `THUOC_11`, `THUOC_12`
 - Độ tin cậy: cao trong phạm vi rule seed hiện có
 
 ### 2. Mệnh đề nghiệp vụ cốt lõi
 
 - Hệ thống kiểm tra Albendazol theo hai hướng: quá liều ở trẻ dưới 10kg và cấp phát dư số lượng so với y lệnh.
-- Mục tiêu giám định: chặn cấp thuốc vượt liều hoặc cấp không đúng chế độ dùng ngắn ngày.
+- Mục tiêu kiểm tra: chặn cấp thuốc vượt liều hoặc cấp không đúng chế độ dùng ngắn ngày.
 
 ### 3. Phạm vi áp dụng
 
@@ -254,7 +254,7 @@ Lưu ý quan trọng:
 ### 1. Thông tin chung
 
 - Chủ đề: Alfuzosin / Alanboss XL 10
-- Nhóm nghiệp vụ: Thuốc điều trị phì đại tuyến tiền liệt, giám định chỉ định và cách dùng
+- Nhóm nghiệp vụ: Thuốc điều trị phì đại tuyến tiền liệt, kiểm tra chỉ định và cách dùng
 - Nguồn tài liệu: `THUOC_13`, `THUOC_14`, `THUOC_15`
 - Độ tin cậy: cao trong phạm vi rule seed hiện có
 
@@ -304,7 +304,7 @@ Lưu ý quan trọng:
 ### 1. Thông tin chung
 
 - Chủ đề: Alimemazin tartrat / Atilene
-- Nhóm nghiệp vụ: Thuốc chống dị ứng/giảm ho, giám định chống chỉ định, chỉ định và nhất quán y lệnh
+- Nhóm nghiệp vụ: Thuốc chống dị ứng/giảm ho, kiểm tra chống chỉ định, chỉ định và nhất quán y lệnh
 - Nguồn tài liệu: `THUOC_16`, `THUOC_17`, `THUOC_18`
 - Độ tin cậy: cao trong phạm vi rule seed hiện có
 

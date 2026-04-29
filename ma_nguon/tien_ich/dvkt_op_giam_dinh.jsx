@@ -1,5 +1,5 @@
 /**
- * Giám định DVKT-OP-* (VBHN 17 / TT12 — căn cứ resolveLegalBasis): toán tử và điều kiện **cố định trong mã nguồn**;
+ * Kiểm tra DVKT-OP-* (VBHN 17 / TT12 — căn cứ resolveLegalBasis): toán tử và điều kiện **cố định trong mã nguồn**;
  * danh mục M05, thiết bị, nhân sự, Giường & khám BV… lấy từ AsyncStorage / Firebase / builtin.
  * Không còn gọi là “engine no-code” — rule mặc định là `DEFAULT_DVKT_RULES` trong repo.
  */

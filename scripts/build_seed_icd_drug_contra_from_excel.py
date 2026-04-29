@@ -5,7 +5,7 @@
 để gộp vào ICD_DRUG_CONTRA trong dong_co_giam_dinh.jsx.
 
 Cột mẫu: Loai, Mã thuốc, Tên hoạt chất, tên thuốc , ICD-10 chống chỉ định, Tên bệnh chống chỉ định,
-        Quy tắc giám định, Cảnh báo
+        Quy tắc kiểm tra, Cảnh báo
 
 Chạy:
   python scripts/build_seed_icd_drug_contra_from_excel.py
@@ -145,7 +145,7 @@ def main() -> int:
     idx_ten_thuoc = col("tên thuốc ", "tên thuốc", "Tên thuốc")
     idx_icd = col("ICD-10 chống chỉ định")
     idx_ten_benh = col("Tên bệnh chống chỉ định")
-    idx_qt = col("Quy tắc giám định")
+    idx_qt = col("Quy tắc kiểm tra")
     idx_cb = col("Cảnh báo")
     need = [idx_loai, idx_ma, idx_icd]
     if any(x is None for x in need):

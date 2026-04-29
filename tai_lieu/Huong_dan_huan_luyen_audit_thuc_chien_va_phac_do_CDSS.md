@@ -4,13 +4,13 @@ Phiên bản: 1.0 · Cập nhật: 11/04/2026
 
 ## 1. Mục đích
 
-Kết hợp **kết quả giám định xuất ra Excel** (sheet `DS_Loi`) với **hồ sơ XML thật** trong `tai_nguyen/ip/` và **kho phác đồ CDSS** (`du_lieu_phac_do_cdss_guidelines.seed.json`) để:
+Kết hợp **kết quả kiểm tra xuất ra Excel** (sheet `DS_Loi`) với **hồ sơ XML thật** trong `tai_nguyen/ip/` và **kho phác đồ CDSS** (`du_lieu_phac_do_cdss_guidelines.seed.json`) để:
 
 - Neo **mã lượt (`Mã LK`)** ↔ file XML ↔ **ICD chính** ↔ **có/không có phác đồ** cho ICD đó;
 - Phát hiện **cảnh báo hàng loạt** (cùng mã luật lặp lại nhiều lần) trước khi đưa vào huấn luyện;
 - Kiểm soát **dương tính giả** và quyết định **có nên ghi nhận** một loại lỗi làm “bài học hệ thống” hay không.
 
-**Không** thay thế quyết định của giám định viên; dữ liệu nhạy cảm (họ tên, số thẻ) **không** đưa vào file JSON sinh bởi script (chỉ `MA_LK`, mã luật, đường dẫn file).
+**Không** thay thế quyết định của kiểm tra viên; dữ liệu nhạy cảm (họ tên, số thẻ) **không** đưa vào file JSON sinh bởi script (chỉ `MA_LK`, mã luật, đường dẫn file).
 
 ---
 
@@ -72,4 +72,4 @@ Trường `canh_bao_hang_loat_de_ra_soat` trong JSON liệt kê các **mã luậ
 
 ---
 
-*Tài liệu cố định quy trình; file JSON nối báo cáo chỉ là công cụ — quyết định ghi nhận bài học thuộc giám định viên và chính sách đơn vị.*
+*Tài liệu cố định quy trình; file JSON nối báo cáo chỉ là công cụ — quyết định ghi nhận bài học thuộc kiểm tra viên và chính sách đơn vị.*

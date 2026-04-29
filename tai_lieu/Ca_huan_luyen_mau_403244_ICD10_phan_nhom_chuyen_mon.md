@@ -5,7 +5,7 @@ Ngày cập nhật: 06/04/2026
 
 ## 1. Mục tiêu
 
-Ca này dùng để huấn luyện AI cách giám định theo nhóm chuyên môn, dựa trên:
+Ca này dùng để huấn luyện AI cách kiểm tra theo nhóm chuyên môn, dựa trên:
 
 - `MA_BENH_CHINH`
 - `MA_BENH_KT`
@@ -62,7 +62,7 @@ Audit của ca này chủ yếu cảnh báo ở cụm PTTT/chứng từ thực h
    - tầng chuyên môn bệnh học (ICD10)
    - tầng chứng từ thực hiện kỹ thuật (PTTT, XML3/XML5/XML4)
 
-## 6. Kết luận giám định mẫu theo hướng chuyên môn
+## 6. Kết luận kiểm tra mẫu theo hướng chuyên môn
 
 1. Về chuyên môn bệnh học, hồ sơ phù hợp trục tiêu hóa có bệnh nền đi kèm.
 2. Rủi ro chính trong audit nằm ở chứng từ và mã hóa kỹ thuật, không phải do ICD10 chính/kèm mâu thuẫn trực tiếp.
@@ -77,7 +77,7 @@ Audit của ca này chủ yếu cảnh báo ở cụm PTTT/chứng từ thực h
 
 - ICD10 chính + ICD10 kèm dùng để xác định trục phân tích chuyên môn trước.
 
-### 7.2. Bài học giám định
+### 7.2. Bài học kiểm tra
 
 - Không phải cảnh báo nào cũng do sai chỉ định theo ICD10; nhiều lỗi là lỗi mã hóa và chứng từ.
 

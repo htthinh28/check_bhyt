@@ -1,4 +1,4 @@
-# THẺ TRI THỨC: KT08 — TỶ LỆ PHẪU THUẬT THỨ 2+ TRONG CÙNG MỘT LẦN MỔ (CV266) CHO AI GIÁM ĐỊNH
+# THẺ TRI THỨC: KT08 — TỶ LỆ PHẪU THUẬT THỨ 2+ TRONG CÙNG MỘT LẦN MỔ (CV266) CHO AI KIỂM TRA
 
 Phiên bản: 1.0  
 Ngày: 19/04/2026  

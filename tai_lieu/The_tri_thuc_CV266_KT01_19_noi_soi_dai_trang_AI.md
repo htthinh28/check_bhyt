@@ -1,4 +1,4 @@
-# THẺ TRI THỨC: KT01.19 — NỘI SOI ĐẠI TRÀNG / TRỰC TRÀNG (CHẨN ĐOÁN vs CAN THIỆP, CV266) CHO AI GIÁM ĐỊNH
+# THẺ TRI THỨC: KT01.19 — NỘI SOI ĐẠI TRÀNG / TRỰC TRÀNG (CHẨN ĐOÁN vs CAN THIỆP, CV266) CHO AI KIỂM TRA
 
 Phiên bản: 1.0  
 Ngày: 19/04/2026  

@@ -151,9 +151,9 @@ export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
     "MA_LUAT": "XML_18",
     "TEN_QUY_TAC": "Chi phí KCB BHYT chỉ định/thực hiện ngoài thời gian điều trị",
     "DIEU_KIEN": "COUNT_IF(XML3, item => !IS_EMPTY(item.NGAY_YL) AND !IS_EMPTY(XML1.NGAY_VAO) AND !IS_EMPTY(XML1.NGAY_RA) AND (TO_NUMBER(item.NGAY_YL) < TO_NUMBER(XML1.NGAY_VAO) OR TO_NUMBER(item.NGAY_YL) > TO_NUMBER(XML1.NGAY_RA))) > 0",
-    "CANH_BAO": "⛔ Giám định chi phí: Có chi phí KCB BHYT được chỉ định/thực hiện ngoài thời gian nằm viện hoặc ngoài thời gian điều trị ngoại trú. Đối chiếu NGAY_YL với NGAY_VAO và NGAY_RA.",
+    "CANH_BAO": "⛔ Kiểm tra chi phí: Có chi phí KCB BHYT được chỉ định/thực hiện ngoài thời gian nằm viện hoặc ngoài thời gian điều trị ngoại trú. Đối chiếu NGAY_YL với NGAY_VAO và NGAY_RA.",
     "DIEU_KIEN (Toán tử No-Code)": "",
-    "GHI_CHU_SUA": "✏️ Bổ sung lambda item => và chuẩn hóa so sánh NGAY_YL với NGAY_VAO/NGAY_RA để giám định chi phí ngoài thời gian điều trị.",
+    "GHI_CHU_SUA": "✏️ Bổ sung lambda item => và chuẩn hóa so sánh NGAY_YL với NGAY_VAO/NGAY_RA để kiểm tra chi phí ngoài thời gian điều trị.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_DU_LIEU (12).xlsx"
   },
   {
@@ -558,7 +558,7 @@ export const DU_LIEU_SEED_LUAT_DU_LIEU_MUC1 = [
     "MA_LUAT": "XML_64",
     "TEN_QUY_TAC": "NGAY_YL trước NGAY_VAO",
     "DIEU_KIEN": "COUNT_IF(XML3, item => TO_NUMBER(item.NGAY_YL) < TO_NUMBER(XML1.NGAY_VAO)) > 0",
-    "CANH_BAO": "⛔ Giám định chi phí: Có chỉ định dịch vụ trước thời điểm bắt đầu đợt KCB BHYT (NGAY_VAO).",
+    "CANH_BAO": "⛔ Kiểm tra chi phí: Có chỉ định dịch vụ trước thời điểm bắt đầu đợt KCB BHYT (NGAY_VAO).",
     "DIEU_KIEN (Toán tử No-Code)": "",
     "GHI_CHU_SUA": "✏️ Chuẩn hóa cảnh báo để tách rõ trường hợp NGAY_YL trước NGAY_VAO khỏi rule tổng quát XML_18.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_DU_LIEU (12).xlsx"

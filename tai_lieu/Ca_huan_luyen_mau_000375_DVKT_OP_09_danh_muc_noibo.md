@@ -16,7 +16,7 @@ Trọng tâm phiên này: **`DVKT-OP-09`** — toán tử **`CHECK_INTERNAL_APPR
 - Audit: `test_xml/audit_000375_20260405_065828.json`
 - XML gốc (meta): `…\ip\PC022112088_IP26000080.xml`
 - Engine: `ma_nguon/tien_ich/dvkt_op_giam_dinh.jsx` — `DEFAULT_DVKT_RULES` mục **DVKT-OP-09**; hàm xuất: `chayGiamDinhDvktOp` / `verifyClaimDvktOp`.
-- Tích hợp luồng giám định: `dong_co_giam_dinh.jsx` (meta **`DVKT_OP`** → nhánh `dvkt_op_giam_dinh`).
+- Tích hợp luồng kiểm tra: `dong_co_giam_dinh.jsx` (meta **`DVKT_OP`** → nhánh `dvkt_op_giam_dinh`).
 
 ## 3. Tóm tắt hồ sơ
 

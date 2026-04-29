@@ -29,7 +29,7 @@ A. MỤC ĐÍCH, PHẠM VI VÀ CĂN CỨ PHÂN TÍCH
 
 A.1 Mục đích
   Tài liệu mô tả cấu trúc dữ liệu phục vụ:
-    - Thống kê quản trị vận hành giám định (nhánh Quản trị — M5/M6).
+    - Thống kê quản trị vận hành kiểm tra (nhánh Quản trị — M5/M6).
     - Cải tiến chất lượng chuyên môn lâm sàng / CDSS (nhánh Chuyên môn — M7).
     - Theo dõi rủi ro xuất toán và cơ cấu chi phí BHYT (nhánh Doanh thu — M8).
     - Xuất đa sheet (Excel/PDF) và hiển thị tương thích UI.

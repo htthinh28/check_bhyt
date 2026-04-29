@@ -1,5 +1,5 @@
 /**
- * PHÂN HỆ: DASHBOARD TỔNG QUAN & QUẢN TRỊ GIÁM ĐỊNH (MASTER CONTROL)
+ * PHÂN HỆ: DASHBOARD TỔNG QUAN & QUẢN TRỊ KIỂM TRA (MASTER CONTROL)
  * Nâng cấp (Bản 8.9 - Chống Crash QuotaExceededError): 
  * 1. FIX BIG DATA: Đã kết nối thành công với Module KHO_LUU_TRU để dùng chung Chunking.
  * 2. GIẢI QUYẾT: Dùng chung luồng lưu trữ chuẩn từ tien_ich_kho.
@@ -360,7 +360,7 @@ const layKetQuaGiamDinhCoSan = (hoSo = {}) => {
 
 const ManHinhTongQuan = ({ navigation }) => {
   const [dangTai, setDangTai] = useState(false);
-  const [thongBaoDangTai, setThongBaoDangTai] = useState('Đang giám định hồ sơ...');
+  const [thongBaoDangTai, setThongBaoDangTai] = useState('Đang kiểm tra hồ sơ...');
   const [thongKe, setThongKe] = useState({ tong: 0, sach: 0, loi: 0, giamDinhLai: 0, danhMuc: [] });
   const [rawDanhSach, setRawDanhSach] = useState([]); 
   const [khoaQuyTacDangChon, setKhoaQuyTacDangChon] = useState('');
@@ -389,9 +389,9 @@ const ManHinhTongQuan = ({ navigation }) => {
     baseUrl: '',
     lanThu: 0,
   });
-  /** Chỉ Web: nhật ký từng file/hồ sơ khi giám định tự động cả thư mục (mỗi hồ sơ xong engine + lưu kho thì ghi một dòng; không dùng alert). */
+  /** Chỉ Web: nhật ký từng file/hồ sơ khi kiểm tra tự động cả thư mục (mỗi hồ sơ xong engine + lưu kho thì ghi một dòng; không dùng alert). */
   const [logGiamDinhTuDongThuMuc, setLogGiamDinhTuDongThuMuc] = useState([]);
-  /** Thu gọn thẻ nạp XML: mô tả dài + giám định cả thư mục (chủ yếu web) */
+  /** Thu gọn thẻ nạp XML: mô tả dài + kiểm tra cả thư mục (chủ yếu web) */
   const [importCardMoChiTietKt, setImportCardMoChiTietKt] = useState(false);
   const [importCardMoNangCao, setImportCardMoNangCao] = useState(false);
   const [popupTriThucVisible, setPopupTriThucVisible] = useState(false);
@@ -410,7 +410,7 @@ const ManHinhTongQuan = ({ navigation }) => {
     { id: 'MOD_CHUYEN_MON', route: 'QuanLyChuyenMon', ten: '🧠 CHUYÊN MÔN' },
     { id: 'MOD_THU_VIEN', route: 'ThuVien', ten: '📚 THƯ VIỆN' },
     { id: 'MOD_TRO_LY_TRI_THUC', route: 'TroLyTriThuc', ten: '🤖 TRỢ LÝ TRI THỨC (RAG)' },
-    { id: 'MOD_TRI_THUC_GD', route: 'TriThucTuGiamDinh', ten: '🧠 TRI THỨC TỪ GIÁM ĐỊNH' },
+    { id: 'MOD_TRI_THUC_GD', route: 'TriThucTuGiamDinh', ten: '🧠 TRI THỨC TỪ KIỂM TRA' },
     { id: 'MOD_DANH_MUC', route: 'QuanLyDanhMuc', ten: '📋 DM NỘI BỘ' },
     { id: 'MOD_MAPPING_DM', route: 'MappingNghiepVu', ten: '🔗 MAPPING DM' },
     { id: 'MOD_DANH_MUC_BYT', route: 'DanhMucBYTMain', ten: '🏥 DM BỘ Y TẾ' },
@@ -673,7 +673,7 @@ const ManHinhTongQuan = ({ navigation }) => {
   const xuatXmlChuanHisChoHoSo = (chiTiet) => {
     const hs = timHoSoTrongKhoTheoMaLK(chiTiet?.ma_lk);
     if (!hs) {
-      alert('Chưa tìm thấy hồ sơ trong kho để xuất XML. Hãy giám định lại hoặc mở hồ sơ từ Kho lưu trữ.');
+      alert('Chưa tìm thấy hồ sơ trong kho để xuất XML. Hãy kiểm tra lại hoặc mở hồ sơ từ Kho lưu trữ.');
       return;
     }
     if (Platform.OS !== 'web' || typeof document === 'undefined') {
@@ -744,7 +744,7 @@ const ManHinhTongQuan = ({ navigation }) => {
 
     if (danhSachHopLe.length === 0) {
       if (!tuyChon.boQuaThongBaoCuoi) {
-        alert('Không có hồ sơ hợp lệ để giám định.');
+        alert('Không có hồ sơ hợp lệ để kiểm tra.');
       }
       return false;
     }
@@ -753,7 +753,7 @@ const ManHinhTongQuan = ({ navigation }) => {
   };
 
   /**
-   * Web: chọn cả thư mục → xử lý tuần tự từng file .xml → mỗi hồ sơ: giám định + lưu kho (một lần engine/hồ sơ)
+   * Web: chọn cả thư mục → xử lý tuần tự từng file .xml → mỗi hồ sơ: kiểm tra + lưu kho (một lần engine/hồ sơ)
    * giống nút "Chuyển dữ liệu"; không alert từng bước, nhật ký ghi ngay sau từng hồ sơ. Luồng "Chọn XML" đơn lẻ không đổi.
    */
   const chayGiamDinhTuDongTrenThuMuc = () => {
@@ -773,7 +773,7 @@ const ManHinhTongQuan = ({ navigation }) => {
         return;
       }
 
-      setLogGiamDinhTuDongThuMuc([`${new Date().toLocaleTimeString('vi-VN')}: Bắt đầu ${dsFile.length} file XML (thư mục) — giám định lần lượt từng hồ sơ (xong hồ sơ nào báo hồ sơ đó).`]);
+      setLogGiamDinhTuDongThuMuc([`${new Date().toLocaleTimeString('vi-VN')}: Bắt đầu ${dsFile.length} file XML (thư mục) — kiểm tra lần lượt từng hồ sơ (xong hồ sơ nào báo hồ sơ đó).`]);
 
       let { lichSuGiamDinh, danhSachMaLKDaCo } = await taiNguonPhuThuocNhapXml();
       const tong = dsFile.length;
@@ -808,13 +808,13 @@ const ManHinhTongQuan = ({ navigation }) => {
           soThanhCong += 1;
           setLogGiamDinhTuDongThuMuc((prev) => [
             ...prev,
-            `✓ [${i + 1}/${tong}] ${file.name} → MA_LK ${maStr} · ${soLoiSoBo} cảnh báo (quét sơ bộ) · đã giám định & lưu kho (${engineNhan}).`,
+            `✓ [${i + 1}/${tong}] ${file.name} → MA_LK ${maStr} · ${soLoiSoBo} cảnh báo (quét sơ bộ) · đã kiểm tra & lưu kho (${engineNhan}).`,
           ]);
         } else {
           soLoi += 1;
           setLogGiamDinhTuDongThuMuc((prev) => [
             ...prev,
-            `✖ [${i + 1}/${tong}] ${file.name} → MA_LK ${maStr} · lỗi giám định hoặc không lưu được kho (${engineNhan}).`,
+            `✖ [${i + 1}/${tong}] ${file.name} → MA_LK ${maStr} · lỗi kiểm tra hoặc không lưu được kho (${engineNhan}).`,
           ]);
         }
 
@@ -825,7 +825,7 @@ const ManHinhTongQuan = ({ navigation }) => {
 
       setLogGiamDinhTuDongThuMuc((prev) => [
         ...prev,
-        `— Hoàn tất: ${soThanhCong} hồ sơ đã giám định & lưu kho, ${soLoi} file/hồ sơ lỗi / ${tong} file XML.`,
+        `— Hoàn tất: ${soThanhCong} hồ sơ đã kiểm tra & lưu kho, ${soLoi} file/hồ sơ lỗi / ${tong} file XML.`,
       ]);
       if (ev.target) ev.target.value = '';
     };
@@ -854,7 +854,7 @@ const ManHinhTongQuan = ({ navigation }) => {
   const tienHanhGiamDinh = async (danhSachTienHanh, thongTinThem = {}) => {
     setDangTai(true);
     const n = (danhSachTienHanh || []).length;
-    setThongBaoDangTai(n > 1 ? `Đang chuẩn bị giám định ${n} hồ sơ...` : 'Đang giám định hồ sơ...');
+    setThongBaoDangTai(n > 1 ? `Đang chuẩn bị kiểm tra ${n} hồ sơ...` : 'Đang kiểm tra hồ sơ...');
     await choUICapNhat();
 
     let giamDinhLuuThanhCong = false;
@@ -878,7 +878,7 @@ const ManHinhTongQuan = ({ navigation }) => {
         choUICapNhat,
         pythonSource: 'dashboard_tong_quan',
         onProgress: async ({ completed, total }) => {
-          setThongBaoDangTai(total > 1 ? `Giám định: ${completed}/${total}…` : 'Đang chạy engine…');
+          setThongBaoDangTai(total > 1 ? `Kiểm tra: ${completed}/${total}…` : 'Đang chạy engine…');
           const xong = completed === total;
           const nhe = total > 6 ? completed % 3 === 0 : completed % 2 === 0;
           if (xong || nhe) await choUICapNhat();
@@ -888,19 +888,19 @@ const ManHinhTongQuan = ({ navigation }) => {
       const daFallbackTuPythonSangJs = ketQuaHybrid.daFallbackTuPythonSangJs;
       const daHopNhatPythonVaJs = ketQuaHybrid.daHopNhatPythonVaJs;
 
-      // [CẬP NHẬT LÕI MẠNH MẼ NHẤT]: Gửi thẳng danh sách đã giám định vào hàm luuHoSoVaoKho chuẩn
+      // [CẬP NHẬT LÕI MẠNH MẼ NHẤT]: Gửi thẳng danh sách đã kiểm tra vào hàm luuHoSoVaoKho chuẩn
       const ketQuaLuu = await luuHoSoVaoKho(danhSachLuuKho);
       if (ketQuaLuu) {
         giamDinhLuuThanhCong = true;
         const soHoSoGhiDe = Number(thongTinThem?.soHoSoGhiDe) || 0;
         capNhatBangSauLuuKho(danhSachLuuKho);
         let msg = daFallbackTuPythonSangJs
-          ? `Đã giám định ${danhSachLuuKho.length} hồ sơ: lớp Python không sẵn sàng hoặc lỗi (chế độ yêu cầu Python) — lưu kết quả engine JS (V15) cho đợt này.`
+          ? `Đã kiểm tra ${danhSachLuuKho.length} hồ sơ: lớp Python không sẵn sàng hoặc lỗi (chế độ yêu cầu Python) — lưu kết quả engine JS (V15) cho đợt này.`
           : daHopNhatPythonVaJs
-            ? `Đã giám định ${danhSachLuuKho.length} hồ sơ theo hybrid: hợp nhất cảnh báo Python service + engine JS (V15).`
+            ? `Đã kiểm tra ${danhSachLuuKho.length} hồ sơ theo hybrid: hợp nhất cảnh báo Python service + engine JS (V15).`
             : soHoSoGhiDe > 0
-              ? `Đã giám định lại ${danhSachLuuKho.length} hồ sơ (JS V15). Trong đó ${soHoSoGhiDe} hồ sơ trùng MA_LK đã được ghi đè.`
-              : `Đã giám định và lưu ${danhSachLuuKho.length} hồ sơ (engine JS V15).${!laPythonServiceBatTrongCauHinh() ? ' Bật pythonService + service chạy để có hybrid với Python.' : ''}`;
+              ? `Đã kiểm tra lại ${danhSachLuuKho.length} hồ sơ (JS V15). Trong đó ${soHoSoGhiDe} hồ sơ trùng MA_LK đã được ghi đè.`
+              : `Đã kiểm tra và lưu ${danhSachLuuKho.length} hồ sơ (engine JS V15).${!laPythonServiceBatTrongCauHinh() ? ' Bật pythonService + service chạy để có hybrid với Python.' : ''}`;
 
         const goiYlichSu = [];
         for (const hs of danhSachLuuKho) {
@@ -935,19 +935,19 @@ const ManHinhTongQuan = ({ navigation }) => {
       giamDinhLuuThanhCong = false;
       if (!thongTinThem?.boQuaThongBaoCuoi) {
         const msg = err && typeof err.message === 'string' && err.message.trim() ? err.message.trim() : '';
-        alert(msg ? `Lỗi xử lý giám định: ${msg}` : 'Lỗi xử lý giám định.');
+        alert(msg ? `Lỗi xử lý kiểm tra: ${msg}` : 'Lỗi xử lý kiểm tra.');
       }
       console.error(err);
     } finally {
       setDangTai(false);
-      setThongBaoDangTai('Đang giám định hồ sơ...');
+      setThongBaoDangTai('Đang kiểm tra hồ sơ...');
     }
     return giamDinhLuuThanhCong;
   };
 
   const handleResetKho = async () => {
     if (confirm(
-      'Xóa KHO LÀM VIỆC (danh sách hồ sơ đang giám định trên màn hình)? '
+      'Xóa KHO LÀM VIỆC (danh sách hồ sơ đang kiểm tra trên màn hình)? '
       + 'Dữ liệu lưu trên trình duyệt/máy (IndexedDB hoặc bộ nhớ app) sẽ mất cho kho đó. '
       + 'Lịch sử điều trị theo bệnh nhân (để so sánh lần khám) vẫn được giữ trên máy trừ khi bạn xóa riêng trong Helper.',
     )) {
@@ -1023,7 +1023,7 @@ const ManHinhTongQuan = ({ navigation }) => {
   const handleExportLoiExcel = async () => {
     if (Platform.OS !== 'web') return;
     if (rawDanhSach.length === 0) {
-      alert('Chưa có hồ sơ giám định.');
+      alert('Chưa có hồ sơ kiểm tra.');
       return;
     }
     if (danhSachLoiChiTietSauLocXuat.length === 0) {
@@ -1057,7 +1057,7 @@ const ManHinhTongQuan = ({ navigation }) => {
       return;
     }
     if (rawDanhSach.length === 0) {
-      alert('Chưa có hồ sơ giám định.');
+      alert('Chưa có hồ sơ kiểm tra.');
       return;
     }
     if (danhSachLoiChiTietSauLocXuat.length === 0) {
@@ -1336,7 +1336,7 @@ ${phanDongKhoi.join('\n')}
         <View style={[styles.section_block, styles.section_block_import_tight]}>
           <View style={styles.import_section_head_row}>
             <View style={{ flex: 1, minWidth: 120 }}>
-              <Text style={styles.import_section_title}>Luồng giám định tổng quát</Text>
+              <Text style={styles.import_section_title}>Luồng kiểm tra tổng quát</Text>
               <Text style={styles.import_section_sub} numberOfLines={1}>
                 Nạp hồ sơ ở đây; cấu hình Python/Hybrid ở Helper.
               </Text>
@@ -1404,7 +1404,7 @@ ${phanDongKhoi.join('\n')}
                   {importCardMoChiTietKt ? (
                     <View style={styles.import_kt_block}>
                       <Text style={styles.import_kt_paragraph}>
-                        Giám định nhiều hồ sơ một lần. JS dùng pipeline V15; Python tùy cấu hình Helper — fallback vẫn V15.
+                        Kiểm tra nhiều hồ sơ một lần. JS dùng pipeline V15; Python tùy cấu hình Helper — fallback vẫn V15.
                       </Text>
                       <View style={styles.import_chips_tight_row}>
                         <View style={styles.import_chip_tight}>
@@ -1953,7 +1953,7 @@ ${phanDongKhoi.join('\n')}
                     item.id === 'MOD_TRO_LY_TRI_THUC'
                       ? 'Trợ lý tri thức (RAG)'
                       : item.id === 'MOD_TRI_THUC_GD'
-                        ? 'Tri thức từ giám định'
+                        ? 'Tri thức từ kiểm tra'
                         : item.ten;
                   return (
                     <TouchableOpacity
@@ -1976,7 +1976,7 @@ ${phanDongKhoi.join('\n')}
                         <Text style={styles.tri_thuc_modal_row_hint} numberOfLines={3}>
                           {item.id === 'MOD_TRO_LY_TRI_THUC'
                             ? 'Chat RAG: Thư viện, chuyên môn, danh mục nội bộ, quy tắc luật + tri thức đã lưu'
-                            : 'Bài học và xác nhận đúng/sai cảnh báo từ ca giám định (màn riêng)'}
+                            : 'Bài học và xác nhận đúng/sai cảnh báo từ ca kiểm tra (màn riêng)'}
                         </Text>
                       </View>
                       <Text style={styles.tri_thuc_modal_row_chev}>→</Text>

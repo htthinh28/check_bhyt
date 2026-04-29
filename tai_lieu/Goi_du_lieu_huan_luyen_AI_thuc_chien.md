@@ -11,8 +11,8 @@ Tài liệu này **gom kiến thức đã chuẩn hóa trong repo** và **kho tr
 | Tầng | Vị trí | Nội dung điển hình | Cách lấy cho AI |
 |------|--------|-------------------|-----------------|
 | **Kho tĩnh (repo)** | Thư mục `tai_lieu/` — `Ca_huan_luyen_mau_*.md`, `Bang_neo_*.md`, `Huan_luyen_phien_*.md`, `The_tri_thuc_*.md`, `Chuan_hoa_kien_thuc_*.md`, v.v. | Ca mẫu có MA_LK/rule, bảng neo phiên ↔ engine, thẻ tri thức VBHN/thuốc/DVKT/phác đồ | Đọc trực tiếp file; dùng **`tai_lieu/_index_kho_huan_luyen_AI.json`** (sinh bởi script, xem mục 4): **toàn bộ** `.md` trong `tai_lieu/` được liệt kê và gán `category` theo tiền tố; tên không khớp mẫu → `khac`. |
-| **XML thực (GIAMDINHHS)** | Thư mục **`tai_nguyen/`** — file `.xml` claim / hồ sơ giám định (XML1… trong Base64) | Huấn luyện đọc đúng cấu trúc thật, neo `MA_LK` với ca mẫu | **`npm run tai_lieu:index-tai-nguyen`** → `tai_lieu/_index_tai_nguyen_xml.json` (đường dẫn + `ma_lk`). Chi tiết: [Huong_dan_tai_nguyen_XML_thuc_chien_AI.md](./Huong_dan_tai_nguyen_XML_thuc_chien_AI.md). |
-| **Kho động (thiết bị)** | AsyncStorage key **`CDSS_TRI_THUC_GD_V1`** (tối đa 500 bản ghi) | Bài học tự soạn + **xác nhận Đúng/Sai** từng cảnh báo tại màn **Chi tiết ca bệnh** | Màn **🧠 Tri thức từ giám định** → **Copy / chia sẻ Markdown** — dán vào file trong `tai_lieu/` hoặc đưa vào phiên RAG ngoài repo. |
+| **XML thực (GIAMDINHHS)** | Thư mục **`tai_nguyen/`** — file `.xml` claim / hồ sơ kiểm tra (XML1… trong Base64) | Huấn luyện đọc đúng cấu trúc thật, neo `MA_LK` với ca mẫu | **`npm run tai_lieu:index-tai-nguyen`** → `tai_lieu/_index_tai_nguyen_xml.json` (đường dẫn + `ma_lk`). Chi tiết: [Huong_dan_tai_nguyen_XML_thuc_chien_AI.md](./Huong_dan_tai_nguyen_XML_thuc_chien_AI.md). |
+| **Kho động (thiết bị)** | AsyncStorage key **`CDSS_TRI_THUC_GD_V1`** (tối đa 500 bản ghi) | Bài học tự soạn + **xác nhận Đúng/Sai** từng cảnh báo tại màn **Chi tiết ca bệnh** | Màn **🧠 Tri thức từ kiểm tra** → **Copy / chia sẻ Markdown** — dán vào file trong `tai_lieu/` hoặc đưa vào phiên RAG ngoài repo. |
 
 **Tri thức runtime** được đóng gói trong `ma_nguon/tien_ich/tri_thuc_tu_giam_dinh.jsx`: hàm `xuatTriThucRaMarkdown`, `dongGoiPhanHoiXacNhanCanhBao`, `goiYTomTatTuKetQuaGiamDinh`.
 
@@ -68,7 +68,7 @@ Sau đó nên chạy `npm run tai_lieu:prepare` nếu cần đồng bộ `public
 
 - *“Đọc `tai_lieu/_index_kho_huan_luyen_AI.json`, chọn **một** file `Ca_huan_luyen_mau_*` cùng nhóm rule với `MA_LUAT` …, rồi áp dụng logic đó cho đoạn XML sau.”*  
 - *“Kết hợp [The_tri_thuc_Danh_muc_1…] với cảnh báo engine sau; nêu **ba** điểm cần kiểm chứng trên XML3/XML1 trước khi kết luận thanh toán.”*  
-- *“Dựa trên đoạn Markdown xuất từ Tri thức từ giám định (có `ket_luan` ĐÚNG/SAI), tóm tắt **một** bài học có thể đưa vào seed luật hoặc checklist.”*  
+- *“Dựa trên đoạn Markdown xuất từ Tri thức từ kiểm tra (có `ket_luan` ĐÚNG/SAI), tóm tắt **một** bài học có thể đưa vào seed luật hoặc checklist.”*  
 - *“Phân biệt lớp **phác đồ CDSS** (ICD, chuyên môn) với lớp **DM1 DVKT** (tỷ lệ/giá) cho cùng hồ sơ — không gộp hai luận điểm.”*
 
 ---

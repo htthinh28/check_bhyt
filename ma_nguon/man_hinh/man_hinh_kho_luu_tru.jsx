@@ -93,7 +93,7 @@ const COT_BAO_CAO_KHO = [
   { key: 't_bntt', label: 'BN thanh toán (VNĐ)' },
   { key: 'thoi_gian', label: 'Thời gian cập nhật' },
   { key: 'trang_thai', label: 'Trạng thái' },
-  { key: 'so_loi', label: 'Số lỗi giám định' },
+  { key: 'so_loi', label: 'Số lỗi kiểm tra' },
 ];
 
 const layDuLieuGocHoSo = (hs) => {
@@ -627,7 +627,7 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
           </View>
 
           <View style={styles.phan_muc}>
-            <Text style={[styles.tieu_de_muc, { color: '#FFE082', borderColor: 'rgba(255,224,130,0.35)' }]}>⚠️ KẾT QUẢ GIÁM ĐỊNH HIỆN TẠI</Text>
+            <Text style={[styles.tieu_de_muc, { color: '#FFE082', borderColor: 'rgba(255,224,130,0.35)' }]}>⚠️ KẾT QUẢ KIỂM TRA HIỆN TẠI</Text>
             {danhSachLoi.length > 0 ? danhSachLoi.map((loi, idx) => {
               const phanHe = String(loi?.phan_he || 'XML1').toUpperCase().match(/XML\d/);
               const xmlKey = phanHe ? phanHe[0] : 'XML1';
@@ -643,7 +643,7 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
                   </TouchableOpacity>
                 </View>
               );
-            }) : <Text style={styles.chu_nho}>Chưa ghi nhận lỗi giám định trên hồ sơ này.</Text>}
+            }) : <Text style={styles.chu_nho}>Chưa ghi nhận lỗi kiểm tra trên hồ sơ này.</Text>}
           </View>
 
           {thongTinXml.map((xmlItem) => {

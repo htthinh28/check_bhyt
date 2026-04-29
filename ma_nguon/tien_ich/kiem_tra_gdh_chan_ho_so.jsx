@@ -21,7 +21,7 @@
  */
 
 const CO_SO_PHAP_LY =
-  'Cổng giám định BHYT — kiểm tra chặn hồ sơ sai logic (đối chiếu GDH / Mức lỗi CTN)';
+  'Cổng kiểm tra BHYT — kiểm tra chặn hồ sơ sai logic (đối chiếu GDH / Mức lỗi CTN)';
 const TEN_QUY_TAC = 'Chặn GDH — sai logic XML';
 
 const laRong = (val) => val === undefined || val === null || String(val).trim() === '';

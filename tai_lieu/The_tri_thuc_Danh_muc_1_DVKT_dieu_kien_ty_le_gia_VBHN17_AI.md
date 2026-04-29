@@ -2,14 +2,14 @@
 
 Phiên bản: 1.0  
 Ngày: 10/04/2026  
-Đối tượng: huấn luyện AI giám định BHYT — **bổ sung** [The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md](./The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md) mục **4**; **không thay thế** Phụ lục Excel BYT / hợp đồng KCB.
+Đối tượng: huấn luyện AI kiểm tra BHYT — **bổ sung** [The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md](./The_tri_thuc_giam_dinh_DVKT_VBHN_17_BYT.md) mục **4**; **không thay thế** Phụ lục Excel BYT / hợp đồng KCB.
 
 ---
 
 ## 1. Định danh pháp lý và vai trò Danh mục 1
 
 - Trong **17/VBHN-BYT** (cơ sở **TT 35/2016/TT-BYT** và các TT sửa đổi được hợp nhất), **Khoản 2 Điều 1** phân loại: **Danh mục 1** là danh mục DVKT có quy định **điều kiện**, **tỷ lệ** thanh toán và **mức giá** thanh toán (và trong thực hành đọc bảng còn gặp cột **tham chiếu giá** hoặc **cách tính** theo giá DV khác — lấy **đúng dòng** Phụ lục).
-- **Ý nghĩa giám định:** Với **mỗi mã** thuộc DM1, thanh toán BHYT không chỉ hỏi “có mã không” mà phải hỏi tiếp: **điều kiện dòng** có thỏa không, **tỷ lệ** áp cho dòng đó là bao nhiêu, **giá** và **thành tiền** có bám **Phụ lục + mức hưởng thẻ + đồng chi trả** không.
+- **Ý nghĩa kiểm tra:** Với **mỗi mã** thuộc DM1, thanh toán BHYT không chỉ hỏi “có mã không” mà phải hỏi tiếp: **điều kiện dòng** có thỏa không, **tỷ lệ** áp cho dòng đó là bao nhiêu, **giá** và **thành tiền** có bám **Phụ lục + mức hưởng thẻ + đồng chi trả** không.
 
 **Đối chiếu nhanh với Danh mục 2:** [The_tri_thuc_Danh_muc_2_DVKT_dieu_kien_thanh_toan_VBHN17_AI.md](./The_tri_thuc_Danh_muc_2_DVKT_dieu_kien_thanh_toan_VBHN17_AI.md) — DM2 nhấn mạnh **điều kiện** thanh toán; DM1 thêm lớp **tỷ lệ + giá** theo cấu trúc Phụ lục.
 
@@ -57,7 +57,7 @@ Ngày: 10/04/2026
 3. Đã kiểm **tỷ lệ** trên XML với **cột tỷ lệ** Phụ lục + **mức hưởng** thẻ?
 4. Đã kiểm **giá** với **giá phê duyệt** tại CS và **4a** (phần đã gộp trong giá DV/giường khác)?
 5. Đã xem **trùng / gộp công đoạn** (Điều 4 khoản 4) khi có nhiều DV cùng kỳ?
-6. Ghi nhận giới hạn: **engine** chỉ rule hóa **một phần** dòng DM1 — phần còn lại là **giám định viên + tài liệu đơn vị**.
+6. Ghi nhận giới hạn: **engine** chỉ rule hóa **một phần** dòng DM1 — phần còn lại là **kiểm tra viên + tài liệu đơn vị**.
 
 ---
 

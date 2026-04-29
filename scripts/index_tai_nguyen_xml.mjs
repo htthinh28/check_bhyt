@@ -1,5 +1,5 @@
 /**
- * Quét thư mục tai_nguyen/ — file XML định dạng GIAMDINHHS (hồ sơ giám định),
+ * Quét thư mục tai_nguyen/ — file XML định dạng GIAMDINHHS (hồ sơ kiểm tra),
  * giải mã khối XML1 (base64 trong NOIDUNGFILE) để lấy MA_LK, MACSKCB.
  *
  * Sinh: tai_lieu/_index_tai_nguyen_xml.json (phục vụ huấn luyện AI — chọn ca theo MA_LK).

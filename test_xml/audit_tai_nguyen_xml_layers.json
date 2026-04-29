@@ -2707,7 +2707,7 @@
           "co_so_phap_ly": "17/VBHN-BYT (31/12/2024): văn bản hợp nhất quy định danh mục và điều kiện thanh toán DVKT BHYT; gốc Thông tư 35/2016/TT-BYT, sửa đổi bổ sung tại Thông tư 13/2020/TT-BYT và Thông tư 39/2024/TT-BYT (HL 01/01/2025: một lượt KCB — khoản 7 Điều 4; Điều 4a–4d; hợp đồng KCB BHYT thể hiện số giường). Nghị định 188/2025/NĐ-CP: quy định về thanh toán chi phí KCB BHYT, thủ tục thanh toán và xử lý vi phạm hành chính. Quyết định 3618/QĐ-BHXH: quy trình kiểm tra BHYT và bộ danh mục, chỉ tiêu dữ liệu phục vụ kiểm tra điện tử. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
           "namespace_quy_tac": "GIAM_DINH_CHUYEN_DE",
           "nguon_quy_tac": "luat_giam_dinh_chuyen_de_hardcoded",
-          "luong_giai_trinh": "XML3 -> hardcoded giám định chuyên đề",
+          "luong_giai_trinh": "XML3 -> hardcoded kiểm tra chuyên đề",
           "tab_quan_tri_goi_y": "LUAT_GIAM_DINH_CHUYEN_DE"
         },
         {
@@ -4774,7 +4774,7 @@
           "ma_luat": "TUONGTAC_136",
           "ten_quy_tac": "Tương tác thuốc (XML2 — cùng đợt, đồng thời A và B)",
           "dieu_kien": "BUILT-IN",
-          "co_so_phap_ly": "Luật Khám bệnh, chữa bệnh (15/2023/QH15; VBHN 26/VBHN-VPQH 2026 — hợp nhất): quyền/nghĩa vụ người bệnh; tổ chức KCB; người hành nghề; hồ sơ bệnh án; chất lượng và an toàn KCB — căn cứ chuyên môn khi giám định chủ động / độ hợp lý dịch vụ (kết hợp TT 12/2026 Điều 10 khoản 1 điểm e, g, i). Nghị định 96/2023/NĐ-CP: hướng dẫn Luật Khám bệnh, chữa bệnh (điều kiện hoạt động CSKCB, phạm vi hành nghề, phân tuyến kỹ thuật, quản lý chất lượng). Thông tư 32/2023/TT-BYT: hướng dẫn Luật Khám bệnh, chữa bệnh (quy trình KCB, bệnh án, biểu mẫu hồ sơ — đối chiếu QĐ 130/QĐ-BYT và giám định chủ động). Nghị định 188/2025/NĐ-CP: quy định về thanh toán chi phí KCB BHYT, thủ tục thanh toán và xử lý vi phạm hành chính. Quyết định 3618/QĐ-BHXH: quy trình kiểm tra BHYT và bộ danh mục, chỉ tiêu dữ liệu phục vụ kiểm tra điện tử. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
+          "co_so_phap_ly": "Luật Khám bệnh, chữa bệnh (15/2023/QH15; VBHN 26/VBHN-VPQH 2026 — hợp nhất): quyền/nghĩa vụ người bệnh; tổ chức KCB; người hành nghề; hồ sơ bệnh án; chất lượng và an toàn KCB — căn cứ chuyên môn khi kiểm tra chủ động / độ hợp lý dịch vụ (kết hợp TT 12/2026 Điều 10 khoản 1 điểm e, g, i). Nghị định 96/2023/NĐ-CP: hướng dẫn Luật Khám bệnh, chữa bệnh (điều kiện hoạt động CSKCB, phạm vi hành nghề, phân tuyến kỹ thuật, quản lý chất lượng). Thông tư 32/2023/TT-BYT: hướng dẫn Luật Khám bệnh, chữa bệnh (quy trình KCB, bệnh án, biểu mẫu hồ sơ — đối chiếu QĐ 130/QĐ-BYT và kiểm tra chủ động). Nghị định 188/2025/NĐ-CP: quy định về thanh toán chi phí KCB BHYT, thủ tục thanh toán và xử lý vi phạm hành chính. Quyết định 3618/QĐ-BHXH: quy trình kiểm tra BHYT và bộ danh mục, chỉ tiêu dữ liệu phục vụ kiểm tra điện tử. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
           "namespace_quy_tac": "QUY_TAC_NOI_BO",
           "nguon_quy_tac": "dong_co_giam_dinh",
           "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
@@ -7047,7 +7047,7 @@
           "ma_luat": "TUONGTAC_136",
           "ten_quy_tac": "Tương tác thuốc (XML2 — cùng đợt, đồng thời A và B)",
           "dieu_kien": "BUILT-IN",
-          "co_so_phap_ly": "Luật Khám bệnh, chữa bệnh (15/2023/QH15; VBHN 26/VBHN-VPQH 2026 — hợp nhất): quyền/nghĩa vụ người bệnh; tổ chức KCB; người hành nghề; hồ sơ bệnh án; chất lượng và an toàn KCB — căn cứ chuyên môn khi giám định chủ động / độ hợp lý dịch vụ (kết hợp TT 12/2026 Điều 10 khoản 1 điểm e, g, i). Nghị định 96/2023/NĐ-CP: hướng dẫn Luật Khám bệnh, chữa bệnh (điều kiện hoạt động CSKCB, phạm vi hành nghề, phân tuyến kỹ thuật, quản lý chất lượng). Thông tư 32/2023/TT-BYT: hướng dẫn Luật Khám bệnh, chữa bệnh (quy trình KCB, bệnh án, biểu mẫu hồ sơ — đối chiếu QĐ 130/QĐ-BYT và giám định chủ động). Nghị định 188/2025/NĐ-CP: quy định về thanh toán chi phí KCB BHYT, thủ tục thanh toán và xử lý vi phạm hành chính. Quyết định 3618/QĐ-BHXH: quy trình kiểm tra BHYT và bộ danh mục, chỉ tiêu dữ liệu phục vụ kiểm tra điện tử. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
+          "co_so_phap_ly": "Luật Khám bệnh, chữa bệnh (15/2023/QH15; VBHN 26/VBHN-VPQH 2026 — hợp nhất): quyền/nghĩa vụ người bệnh; tổ chức KCB; người hành nghề; hồ sơ bệnh án; chất lượng và an toàn KCB — căn cứ chuyên môn khi kiểm tra chủ động / độ hợp lý dịch vụ (kết hợp TT 12/2026 Điều 10 khoản 1 điểm e, g, i). Nghị định 96/2023/NĐ-CP: hướng dẫn Luật Khám bệnh, chữa bệnh (điều kiện hoạt động CSKCB, phạm vi hành nghề, phân tuyến kỹ thuật, quản lý chất lượng). Thông tư 32/2023/TT-BYT: hướng dẫn Luật Khám bệnh, chữa bệnh (quy trình KCB, bệnh án, biểu mẫu hồ sơ — đối chiếu QĐ 130/QĐ-BYT và kiểm tra chủ động). Nghị định 188/2025/NĐ-CP: quy định về thanh toán chi phí KCB BHYT, thủ tục thanh toán và xử lý vi phạm hành chính. Quyết định 3618/QĐ-BHXH: quy trình kiểm tra BHYT và bộ danh mục, chỉ tiêu dữ liệu phục vụ kiểm tra điện tử. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
           "namespace_quy_tac": "QUY_TAC_NOI_BO",
           "nguon_quy_tac": "dong_co_giam_dinh",
           "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
