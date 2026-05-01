@@ -11,12 +11,12 @@
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Platform, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { CD } from '../tien_ich/chu_de_giao_dien';
-import { chayBoMayGiamDinhV3 } from '../tien_ich/dong_co_giam_dinh';
+import { chayBoMayGiamDinhV3, enrichViTriCanhBaoXml } from '../tien_ich/dong_co_giam_dinh';
 import { layNhieuHoSoTuKho, luuHoSoVaoKho } from '../tien_ich/kho_du_lieu';
 import NhapFileXML from '../tien_ich/nhap_file_xml';
 import { xuatHoSoThanhXML130 } from '../tien_ich/xml_helper';
@@ -428,6 +428,13 @@ const ManHinhDocXML = ({ route }) => {
 
   const layTabLoi = (loi) => String(loi?.phan_he || loi?.phan_loai || '').toUpperCase();
 
+  const currentLK = layMaLK(hoSoDangXem);
+  const currentLoi = useMemo(() => {
+    const raw = ketQuaGiamDinhMap[currentLK] || [];
+    if (!hoSoDangXem) return raw;
+    return raw.map((l) => enrichViTriCanhBaoXml(hoSoDangXem, l));
+  }, [currentLK, ketQuaGiamDinhMap, hoSoDangXem]);
+
   const handleMoSuaHoSoBanSao = (loiChon = null) => {
     if (!layMaLK(hoSoDangXem)) return;
     const loiMacDinh = loiChon || currentLoi.find((item) => layTabLoi(item).startsWith(tabHienTai)) || currentLoi[0] || null;
@@ -473,13 +480,15 @@ const ManHinhDocXML = ({ route }) => {
   };
 
   const handleJumpToError = (index, truongLoi) => {
-    if (!truongLoi || truongLoi === 'UNKNOWN') {
-      Alert.alert("Thông báo", "Đây là lỗi cấu trúc hệ thống.");
-      return;
+    const idx = Number(index);
+    const coDong = Number.isFinite(idx) && idx >= 0;
+    if (mainScrollRef.current && coDong) {
+      mainScrollRef.current.scrollTo({ y: idx * 70, animated: true });
     }
-    if (mainScrollRef.current) {
-        // Tọa độ nhảy ước tính an toàn khi dùng Auto-Height
-        mainScrollRef.current.scrollTo({ y: index * 70, animated: true });
+    if (!truongLoi || truongLoi === 'UNKNOWN') {
+      if (!coDong) {
+        Alert.alert('Thông báo', 'Chưa xác định được dòng trên lưới XML — xem chi tiết trong sổ tay.');
+      }
     }
   };
 
@@ -518,9 +527,13 @@ const ManHinhDocXML = ({ route }) => {
     }
     if (params?.batLocTheoTab) setLocTheoTab(true);
 
-    if (loiDieuHuong?.truong_loi && loiDieuHuong.truong_loi !== 'UNKNOWN') {
+    if (loiDieuHuong && hoSoMucTieu) {
+      const enriched = enrichViTriCanhBaoXml(hoSoMucTieu, loiDieuHuong);
       setTimeout(() => {
-        handleJumpToError(Number.isFinite(loiDieuHuong?.index) ? loiDieuHuong.index : 0, loiDieuHuong.truong_loi);
+        handleJumpToError(
+          Number.isFinite(enriched?.index) ? enriched.index : 0,
+          enriched?.truong_loi || '',
+        );
       }, 120);
     }
   };
@@ -568,8 +581,7 @@ const ManHinhDocXML = ({ route }) => {
     );
     const mangDinhDang = Array.isArray(duLieu) ? duLieu : [duLieu];
     const cotHienThi = CHUAN_COT_XML[tabHienTai] || Object.keys(mangDinhDang[0] || {});
-    const maLK = layMaLK(hoSoDangXem);
-    const ketQuaLoiHienTai = ketQuaGiamDinhMap[maLK] || [];
+    const ketQuaLoiHienTai = currentLoi;
 
     // Tính số hàng có lỗi để hiển thị thống kê mini
     const hangCoLoi = new Set(
@@ -636,11 +648,11 @@ const ManHinhDocXML = ({ route }) => {
                           styles.cell_d,
                           laDongThongTinNguoiBenh && styles.cell_d_xml1,
                           { flex: isLongText ? 3 : 1, minWidth: minW, padding: 0 },
-                          loi && styles.cell_err,
+                          loi && (loi.vi_tri_uoc_luong ? styles.cell_err_uoc_luong : styles.cell_err),
                           !loi && giaTriRong && styles.cell_empty,
                         ]}>
                           <TextInput
-                            style={[styles.input_d, laDongThongTinNguoiBenh && styles.input_d_xml1, loi && { color: '#B71C1C', fontWeight: 'bold' }]}
+                            style={[styles.input_d, laDongThongTinNguoiBenh && styles.input_d_xml1, loi && { color: loi.vi_tri_uoc_luong ? '#E65100' : '#B71C1C', fontWeight: 'bold' }]}
                             value={String(row[col] ?? '')}
                             onChangeText={(val) => handleEditCell(rIdx, col, val)}
                             multiline={true}
@@ -649,7 +661,8 @@ const ManHinhDocXML = ({ route }) => {
                             placeholderTextColor={loi ? '#EF9A9A' : '#BDBDBD'}
                           />
                           {loi && (
-                            <Text style={styles.cell_err_hint} numberOfLines={1}>
+                            <Text style={styles.cell_err_hint} numberOfLines={loi.vi_tri_uoc_luong ? 2 : 1}>
+                              {loi.vi_tri_uoc_luong ? '📍 Neo ô gợi ý — đối chiếu sổ tay\n' : ''}
                               ⚠ {loi.canh_bao?.substring(0, 40)}{(loi.canh_bao?.length || 0) > 40 ? '…' : ''}
                             </Text>
                           )}
@@ -666,8 +679,6 @@ const ManHinhDocXML = ({ route }) => {
     );
   };
 
-  const currentLK = layMaLK(hoSoDangXem);
-  const currentLoi = ketQuaGiamDinhMap[currentLK] || [];
   const loiTabHienTai = currentLoi.filter((l) => layTabLoi(l).startsWith(tabHienTai));
   const loiSuaDuoc = currentLoi.filter(l => l.truong_loi && l.truong_loi !== 'UNKNOWN').length;
   const loiHeThong = currentLoi.length - loiSuaDuoc;
@@ -747,7 +758,9 @@ const ManHinhDocXML = ({ route }) => {
                 const cfg = MUC_DO_CONFIG[loi.muc_do] || MUC_DO_CONFIG['Info'];
                 const canFix = loi.truong_loi && loi.truong_loi !== 'UNKNOWN' && loi.truong_loi !== 'CAU_TRUC';
                 const nhanTruong = loi.truong_loi ? (NHAN_COT_XML[loi.truong_loi] || loi.truong_loi) : 'Cấu trúc';
-                const dongLoi = Number.isFinite(loi.index) ? `Dòng ${loi.index + 1}` : 'Hành chính';
+                const dongLoi = (Number.isFinite(loi.index) && loi.index >= 0)
+                  ? `${loi.vi_tri_uoc_luong ? '📍 ' : ''}Dòng ${loi.index + 1}`
+                  : 'Chưa neo ô / HC';
 
                 return (
                   <TouchableOpacity
@@ -756,7 +769,7 @@ const ManHinhDocXML = ({ route }) => {
                     onPress={() => {
                       // Chuyển sang tab có lỗi nếu đang ở tab khác
                       if (bang !== tabHienTai) setTabHienTai(bang);
-                      handleJumpToError(loi.index || 0, loi.truong_loi);
+                      handleJumpToError(loi.index ?? 0, loi.truong_loi || '');
                     }}
                     onLongPress={() => canFix && handleMoSuaHoSoBanSao(loi)}
                   >
@@ -1185,6 +1198,8 @@ const styles = StyleSheet.create({
     lineHeight: 28,
   },
   cell_err: { backgroundColor: 'rgba(244,67,54,0.13)', borderColor: '#F44336', borderWidth: 2 },
+  /** Ô neo theo heuristic (Chuyên đề DS_XML3…) — khác màu để tránh nhầm với lỗi trường khẳng định */
+  cell_err_uoc_luong: { backgroundColor: 'rgba(255,152,0,0.14)', borderColor: '#FB8C00', borderWidth: 2, borderStyle: 'dashed' },
   cell_empty: { backgroundColor: 'rgba(255,235,59,0.07)' },
   cell_err_hint: {
     fontSize: 14, color: '#B71C1C', paddingHorizontal: 6, paddingBottom: 4,

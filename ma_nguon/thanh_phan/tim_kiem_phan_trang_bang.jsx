@@ -23,12 +23,15 @@ export default function TimKiemPhanTrangBang({
   anPhanTrang = false,
   /** Ẩn ô tìm (điều khiển từ khóa ở thanh ngoài) — vẫn hiện tóm tắt + phân trang */
   anThanhTim = false,
+  /** 'doc' — xếp dọc (sidebar hẹp); mặc định 'ngang' */
+  bocucPhanTrang = 'ngang',
 }) {
   const coLoc = tongDongSauLoc < tongDongGoc;
   const hienThiPhanTrang = !anPhanTrang && tongDongGoc > 0;
+  const laDoc = bocucPhanTrang === 'doc';
 
   return (
-    <View style={styles.khung}>
+    <View style={[styles.khung, laDoc && styles.khungDoc]}>
       {!anThanhTim ? (
         <View style={styles.hang_tim}>
           <Text style={styles.nhanTim}>🔎</Text>
@@ -63,21 +66,21 @@ export default function TimKiemPhanTrangBang({
       </Text>
 
       {hienThiPhanTrang ? (
-        <View style={styles.hangPhanTrang}>
+        <View style={[styles.hangPhanTrang, laDoc && styles.hangPhanTrangDoc]}>
           <Text style={styles.nhanNho}>Số dòng/trang:</Text>
           <ScrollView
-            horizontal
+            horizontal={!laDoc}
             showsHorizontalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
             nestedScrollEnabled
-            contentContainerStyle={styles.cuonNut}
+            contentContainerStyle={[styles.cuonNut, laDoc && styles.cuonNutDoc]}
           >
             {TUY_CHON_SO_DONG_BANG.map((opt) => {
               const active = soDongMotTrang === opt.value;
               return (
                 <TouchableOpacity
                   key={String(opt.value)}
-                  style={[styles.nutKichThuoc, active && styles.nutKichThuocActive]}
+                  style={[styles.nutKichThuoc, laDoc && styles.nutKichThuocDoc, active && styles.nutKichThuocActive]}
                   onPress={() => onSoDongMotTrang(opt.value)}
                 >
                   <Text style={[styles.chuNutKichThuoc, active && styles.chuNutKichThuocActive]}>{opt.label}</Text>
@@ -86,7 +89,7 @@ export default function TimKiemPhanTrangBang({
             })}
           </ScrollView>
           {tongSoTrang > 1 ? (
-            <View style={styles.nhomPrevNext}>
+            <View style={[styles.nhomPrevNext, laDoc && styles.nhomPrevNextDoc]}>
               <TouchableOpacity
                 style={[styles.nutTrang, trangHienTai <= 1 && styles.nutTrangTat]}
                 disabled={trangHienTai <= 1}
@@ -117,6 +120,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: CD.border.glass_md,
     marginBottom: 6,
+  },
+  khungDoc: {
+    paddingHorizontal: 0,
+    borderBottomWidth: 0,
+    marginBottom: 0,
+    width: '100%',
   },
   hang_tim: {
     flexDirection: 'row',
@@ -152,8 +161,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 8,
   },
+  hangPhanTrangDoc: {
+    flexDirection: 'column',
+    alignItems: 'stretch',
+    gap: 10,
+  },
   nhanNho: { fontSize: 13, color: CD.text.muted, fontFamily: CD.font.family },
   cuonNut: { flexDirection: 'row', alignItems: 'center', gap: 6, flexWrap: 'wrap' },
+  cuonNutDoc: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 6,
+    width: '100%',
+  },
+  nutKichThuocDoc: { flexGrow: 1, flexBasis: 0, minWidth: 52, justifyContent: 'center' },
   nutKichThuoc: {
     paddingHorizontal: 12,
     paddingVertical: 6,
@@ -169,6 +190,7 @@ const styles = StyleSheet.create({
   chuNutKichThuoc: { fontSize: 13, fontWeight: '700', color: CD.text.primary, fontFamily: CD.font.family },
   chuNutKichThuocActive: { color: CD.text.primary },
   nhomPrevNext: { flexDirection: 'row', gap: 6, marginLeft: 'auto' },
+  nhomPrevNextDoc: { marginLeft: 0, alignSelf: 'flex-start' },
   nutTrang: {
     paddingHorizontal: 14,
     paddingVertical: 6,

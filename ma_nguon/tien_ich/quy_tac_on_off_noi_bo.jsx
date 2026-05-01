@@ -225,6 +225,11 @@ const DANH_MUC_QUY_TAC_NOI_BO_CHI_TIET = Object.freeze([
   { tab_id: 'LUAT_THUOC', ma_luat: 'CLN-THUOC-04', ten_quy_tac: 'Kê đơn ngoại trú quá 30 ngày ngoài danh mục cho phép' },
   { tab_id: 'LUAT_THUOC', ma_luat: 'CLN-THUOC-05', ten_quy_tac: 'Gợi ý ICD danh mục cho phép kê đơn >30 ngày (ngoại trú)' },
   { tab_id: 'LUAT_THUOC', ma_luat: 'THUOC_DKTT_01', ten_quy_tac: 'Thuốc [27.67] Lysin + vitamin + khoáng chất — điều kiện ICD/chẩn đoán/tuổi' },
+  {
+    tab_id: 'LUAT_THUOC',
+    ma_luat: 'THUOC_ICD_CONTRA_MAPPING',
+    ten_quy_tac: 'ICD-10 chống chỉ định thuốc (mapping ICD_DRUG_CONTRA / XUẤT TOÁN XML2)',
+  },
   { tab_id: 'LUAT_GIUONG', ma_luat: 'DM-KHOA-01', ten_quy_tac: 'Mã khoa ngoài danh mục nội bộ M01' },
   { tab_id: 'LUAT_GIUONG', ma_luat: 'DM-KHOA-02', ten_quy_tac: 'Phát sinh dịch vụ giường tại khoa chưa đăng ký giường' },
   { tab_id: 'LUAT_GIUONG', ma_luat: 'CLN-GIUONG-01', ten_quy_tac: 'Đối chiếu số ngày giường với số ngày điều trị' },

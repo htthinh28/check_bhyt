@@ -1233,6 +1233,16 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
+    "id": "SEED_THUOC_123A",
+    "TRANG_THAI": "ON",
+    "MA_LUAT": "THUOC_123a",
+    "TEN_QUY_TAC": "[Diacerein] Khuyến cáo người cao tuổi ≥ 65",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.63' AND XML1.TUOI_NAM >= 65",
+    "CANH_BAO": "⚠️ [KHUYẾN CÁO]: Người cao tuổi: Khuyến cáo không kê Diacerein cho bệnh nhân từ 65 tuổi trở lên.",
+    "GHI_CHU": "",
+    "NGUON_DU_LIEU": "Bo sung quy tac theo yeu cau 30/04/2026"
+  },
+  {
     "id": "SEED_THUOC_124",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_124",
@@ -2017,8 +2027,8 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_202",
     "TEN_QUY_TAC": "[Glucosamin] Kiểm tra Chỉ định ICD-10",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.64' AND CO_THUOC_TRONG_DM_BV(XML2.MA_THUOC) AND CO_CO_DONG_MAPPING_ICD_THUOC(XML2.MA_THUOC) AND NOT CO_ICD_KHOP_MAPPING_THUOC(XML2.MA_THUOC) AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(THOÁI HÓA KHỚP GỐI|THOÁI HOÁ KHỚP GỐI)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: [Glucosamin] — Thuốc trong danh mục BV; BV đã khai báo thẻ ICD_DRUG nhưng ICD/XML1 không khớp chỉ định trong mapping; đồng thời CHẨN ĐOÁN RA không chứa từ khóa ngoại lệ đã cấu hình trong quy tắc. Tham khảo chỉ định (đối chiếu TT/BYT): Thuốc Glucosamin chỉ được thanh toán cho chẩn đoán Thoái hóa khớp gối (M17).",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.64' AND NOT (((XML1.MA_BENH_CHINH REGEXP '^M16(\\\\.|$)|^M17(\\\\.|$)') OR (XML1.MA_BENH_KT REGEXP 'M16|M17') OR (XML1.CHAN_DOAN_VAO REGEXP '(?i)(THOÁI HÓA KHỚP GỐI|THOÁI HOÁ KHỚP GỐI|THOÁI HÓA KHỚP HÁNG|THOÁI HOÁ KHỚP HÁNG|THOAI HOA KHOP GOI|THOAI HOA KHOP HANG)') OR (XML1.CHAN_DOAN_RV REGEXP '(?i)(THOÁI HÓA KHỚP GỐI|THOÁI HOÁ KHỚP GỐI|THOÁI HÓA KHỚP HÁNG|THOÁI HOÁ KHỚP HÁNG|THOAI HOA KHOP GOI|THOAI HOA KHOP HANG)')) AND ((XML1.CHAN_DOAN_VAO REGEXP '(?i)(TRUNG BÌNH\\\\s*[-–]\\\\s*NHẸ|TRUNG BINH\\\\s*[-–]\\\\s*NHE|TRUNG BÌNH|TRUNG BINH|NHẸ|NHE)') OR (XML1.CHAN_DOAN_RV REGEXP '(?i)(TRUNG BÌNH\\\\s*[-–]\\\\s*NHẸ|TRUNG BINH\\\\s*[-–]\\\\s*NHE|TRUNG BÌNH|TRUNG BINH|NHẸ|NHE)')))",
+    "CANH_BAO": "⛔ [XUẤT TOÁN]: [Glucosamin] chỉ được thanh toán khi chẩn đoán phù hợp thoái hóa khớp gối/háng (ICD-10 M17 hoặc M16) và có mô tả mức độ \"trung bình - nhẹ\" trong chẩn đoán vào hoặc chẩn đoán ra.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
@@ -4378,8 +4388,8 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_440",
     "TEN_QUY_TAC": "Levocetirizin: Liều tối đa",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.90' AND (XML2.SO_LUONG * 10) > 10",
-    "CANH_BAO": "⛔ [SAI LIỀU]: Levocetirizin chỉ dùng 1 viên (10mg) mỗi 24 giờ.",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.90' AND (CALC_TAN_SUAT > 1 OR CALC_SL_MOI_NGAY > 1)",
+    "CANH_BAO": "⛔ [SAI LIỀU]: Levocetirizin chỉ dùng tối đa 1 viên (10mg)/ngày. Y lệnh kiểu \"Tối: 1 viên (uống)\" được tính là hợp lệ (1 viên/ngày).",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },

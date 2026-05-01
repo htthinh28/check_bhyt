@@ -173,20 +173,6 @@ const DieuHuongChinh = () => {
       onReady={() => {
         if (!daKiemTraKhoiDongRef.current) {
           daKiemTraKhoiDongRef.current = true;
-          const state = navRef.current?.getRootState();
-          const tenManHinh = layManHinhDangMo(state);
-          const laKhoiDongTaiBaoCao = Platform.OS === 'web' && tenManHinh === 'BaoCaoVaThongKe';
-
-          if (laKhoiDongTaiBaoCao) {
-            coPhienDangNhapHopLe()
-              .then((daDangNhap) => {
-                navRef.current?.resetRoot({
-                  index: 0,
-                  routes: [{ name: daDangNhap ? 'TongQuan' : 'DangNhap' }],
-                });
-              })
-              .catch(() => {});
-          }
         }
 
         baoVeDieuHuong(navRef.current?.getRootState()).catch(() => {});

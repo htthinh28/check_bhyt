@@ -70,7 +70,6 @@ const DANH_SACH_TAB = [
   { id: 'DVKT_EQUIP_DVKT_MAP', ten: 'Mapping máy thiết bị ↔ prefix DVKT' },
   { id: 'DANH_MUC_THUOC_MAU_M03', ten: 'Mẫu 03 (Thuốc/Máu)' },
   { id: 'DANH_MUC_THUOC_DIEU_KIEN_TT', ten: 'Thuốc điều kiện thanh toán' },
-  { id: 'DANH_MUC_TUONG_TAC_THUOC', ten: 'Tương tác thuốc (BV)' },
   { id: 'DANH_MUC_MA_THE_QUYEN_LOI', ten: 'Mã thẻ và quyền lợi' },
   { id: 'DANH_MUC_VAT_TU_M04', ten: 'Mẫu 04 (Vật tư)' },
   { id: 'DANH_MUC_DVKT_M05', ten: 'Mẫu 05 (DVKT)' },
@@ -224,7 +223,11 @@ const ManHinhQuanLyDanhMuc = ({ navigation, route }) => {
           return;
         }
         const tabLuuTru = await AsyncStorage.getItem('TAB_DANG_MO');
-        if (tabLuuTru) setDanhMucHienTai(tabLuuTru);
+        if (tabLuuTru && DANH_SACH_TAB.some((t) => t.id === tabLuuTru)) {
+          setDanhMucHienTai(tabLuuTru);
+        } else if (tabLuuTru) {
+          await AsyncStorage.setItem('TAB_DANG_MO', DANH_SACH_TAB[0].id);
+        }
       } catch (error) { console.error(error); }
     };
     khoiTao();
@@ -1004,6 +1007,33 @@ const ManHinhQuanLyDanhMuc = ({ navigation, route }) => {
     });
   };
 
+  const danhSachNutCongCu = [
+    { key: 'tai-mau', icon: '⬇', label: 'Mẫu', onPress: handleTaiFileMau, style: 'xanhLa' },
+    ...(Platform.OS === 'web'
+      ? [{ key: 'import-excel', icon: '📤', label: 'Import', onPress: () => document.getElementById('import-excel-danhmuc')?.click(), style: 'cam' }]
+      : []),
+    { key: 'kiem-tra-trung', icon: '🔎', label: 'Trùng', onPress: handleKiemTraTrungTrongBang, style: 'xanhLa' },
+    { key: 'export-excel', icon: '📥', label: 'Export', onPress: handleExportXLSX, style: 'xanhDuong' },
+    { key: 'in-pdf', icon: '🖨', label: 'PDF', onPress: () => void handleInPdfBang(), style: 'xanhDuong' },
+    ...(Platform.OS === 'web'
+      ? [
+          { key: 'nhap-xml', icon: '📤', label: 'XML', onPress: () => document.getElementById('import-xml-danhmuc-qd326')?.click(), style: 'xanhDuong' },
+          { key: 'xuat-xml', icon: '📥', label: 'Xuất XML', onPress: handleExportXmlQd326, style: 'xanhDuong' },
+          { key: 'mau-xml', icon: '🧩', label: 'Mẫu XML', onPress: handleTaiFileMauXml, style: 'xanhLa' },
+        ]
+      : []),
+    { key: 'doi-soat', icon: '☁', label: 'Đối soát', onPress: handleDoiSoatFirebase, style: 'xanhDuong' },
+    { key: 'doi-soat-all', icon: '☁', label: 'Đối soát tất cả', onPress: handleDoiSoatTatCaFirebase, style: 'xanhDuong' },
+    { key: 'tai-tu-firebase', icon: '☁', label: 'Tải FB', onPress: handleTaiTuFirebase, style: 'cam' },
+    { key: 'tai-tat-ca-firebase', icon: '☁', label: 'Tải tất cả', onPress: handleTaiTatCaTuFirebase, style: 'cam' },
+    { key: 'sao-luu', icon: '💾', label: 'Sao lưu', onPress: handleTaoSaoLuuThuCong, style: 'xanhDuong' },
+    { key: 'phuc-hoi', icon: '↩', label: 'Phục hồi', onPress: handlePhucHoiBanGanNhat, style: 'phucHoi' },
+    { key: 'them-dong', icon: '＋', label: 'Dòng', onPress: handleAddRow, style: 'xanh' },
+    { key: 'bo-chon', icon: '◻', label: `Bỏ (${soDongDangChon})`, onPress: handleBoChonTatCa, style: 'xoaNhat', disabled: soDongDangChon === 0 },
+    { key: 'xoa-da-chon', icon: '🗑', label: `Xóa (${soDongDangChon})`, onPress: () => { void handleXoaDaChon(); }, style: 'xoaDo', disabled: soDongDangChon === 0 },
+    { key: 'da-tu-luu', icon: '✅', label: 'Đã lưu', onPress: () => alert(`Đang hiển thị ${data.length} dòng. Hệ thống tự động ghi nhớ mọi thay đổi!`), style: 'xanhDuong' },
+  ];
+
   return (
     <SafeAreaView style={styles.vung_an_toan}>
       <View style={styles.thanh_tieu_de}>
@@ -1057,112 +1087,54 @@ const ManHinhQuanLyDanhMuc = ({ navigation, route }) => {
         </View>
 
         <View style={styles.khoi_noi_dung_phai}>
-        <View style={styles.thanh_cong_cu}>
-          <View style={styles.khoi_them_cot}>
-            <TextInput style={styles.o_nhap_cot} placeholder="Tên cột (VD: MA_KHOA)" value={newColumnName} onChangeText={setNewColumnName} outlineStyle="none" />
-            <TouchableOpacity style={styles.nut_xanh} onPress={handleAddColumn}>
-              <Text style={styles.chu_nut}>+ THÊM CỘT</Text>
+        <View style={styles.thanh_cong_cu_mot_hang}>
+          {Platform.OS === 'web' && (
+            <React.Fragment>
+              <input type="file" accept=".xlsx, .xls, .csv" onChange={handleImportExcel} style={{ display: 'none' }} id="import-excel-danhmuc" />
+              <input
+                type="file"
+                accept=".xml,application/xml,text/xml"
+                onChange={handleImportXmlQd326}
+                style={{ display: 'none' }}
+                id="import-xml-danhmuc-qd326"
+              />
+            </React.Fragment>
+          )}
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.hang_cu_cong_cu}>
+            <TextInput
+              style={styles.o_nhap_cot_mini}
+              placeholder="Tên cột..."
+              value={newColumnName}
+              onChangeText={setNewColumnName}
+              outlineStyle="none"
+            />
+            <TouchableOpacity style={[styles.nut_mini, styles.nut_mini_xanh]} onPress={handleAddColumn}>
+              <Text style={styles.chu_nut_mini}>＋ Cột</Text>
             </TouchableOpacity>
-          </View>
-          
-          <View style={styles.khoi_hanh_dong}>
-            <TouchableOpacity style={styles.nut_xanh_la} onPress={handleTaiFileMau}>
-              <Text style={styles.chu_nut}>⬇ TẢI FILE MẪU</Text>
-            </TouchableOpacity>
-            
-            {Platform.OS === 'web' && (
-              <React.Fragment>
-                <input type="file" accept=".xlsx, .xls, .csv" onChange={handleImportExcel} style={{ display: 'none' }} id="import-excel-danhmuc" />
-                <TouchableOpacity style={styles.nut_cam} onPress={() => document.getElementById('import-excel-danhmuc').click()}>
-                  <Text style={styles.chu_nut}>📤 IMPORT EXCEL</Text>
-                </TouchableOpacity>
-              </React.Fragment>
-            )}
-
-            <TouchableOpacity style={styles.nut_xanh_la} onPress={handleKiemTraTrungTrongBang}>
-              <Text style={styles.chu_nut}>🔎 KIỂM TRA TRÙNG</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.nut_xanh_duong} onPress={handleExportXLSX}>
-              <Text style={styles.chu_nut}>📥 EXPORT BẢNG</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.nut_xanh_duong} onPress={() => void handleInPdfBang()}>
-              <Text style={styles.chu_nut}>🖨 IN / PDF</Text>
-            </TouchableOpacity>
-
-            {Platform.OS === 'web' && (
-              <React.Fragment>
-                <input
-                  type="file"
-                  accept=".xml,application/xml,text/xml"
-                  onChange={handleImportXmlQd326}
-                  style={{ display: 'none' }}
-                  id="import-xml-danhmuc-qd326"
-                />
-                <TouchableOpacity
-                  style={styles.nut_xanh_duong}
-                  onPress={() => document.getElementById('import-xml-danhmuc-qd326').click()}
-                >
-                  <Text style={styles.chu_nut}>📤 NHẬP XML (TT12)</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.nut_xanh_duong} onPress={handleExportXmlQd326}>
-                  <Text style={styles.chu_nut}>📥 XUẤT XML (TT12)</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.nut_xanh_la} onPress={handleTaiFileMauXml}>
-                  <Text style={styles.chu_nut}>⬇ MẪU XML</Text>
-                </TouchableOpacity>
-              </React.Fragment>
-            )}
-
-            <TouchableOpacity style={styles.nut_xanh_duong} onPress={handleDoiSoatFirebase}>
-              <Text style={styles.chu_nut}>☁ ĐỐI SOÁT FIREBASE</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.nut_xanh_duong} onPress={handleDoiSoatTatCaFirebase}>
-              <Text style={styles.chu_nut}>☁ ĐỐI SOÁT TẤT CẢ</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.nut_cam} onPress={handleTaiTuFirebase}>
-              <Text style={styles.chu_nut}>☁ TẢI TỪ FIREBASE</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.nut_cam} onPress={handleTaiTatCaTuFirebase}>
-              <Text style={styles.chu_nut}>☁ TẢI TẤT CẢ</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.nut_xanh_duong} onPress={handleTaoSaoLuuThuCong}>
-              <Text style={styles.chu_nut}>💾 SAO LƯU</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.nut_phuc_hoi} onPress={handlePhucHoiBanGanNhat}>
-              <Text style={styles.chu_nut}>↩ PHỤC HỒI GẦN NHẤT</Text>
-            </TouchableOpacity>
-            
-            <TouchableOpacity style={styles.nut_hong} onPress={handleAddRow}>
-              <Text style={styles.chu_nut}>+ THÊM DÒNG</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.nut_xoa_hang_loat, soDongDangChon === 0 && styles.nut_xoa_hang_loat_tat]}
-              onPress={handleBoChonTatCa}
-              disabled={soDongDangChon === 0}
-            >
-              <Text style={styles.chu_nut_xoa_loat}>BỎ CHỌN ({soDongDangChon})</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={[styles.nut_xoa_hang_loat_do, soDongDangChon === 0 && styles.nut_xoa_hang_loat_tat]}
-              onPress={() => { void handleXoaDaChon(); }}
-              disabled={soDongDangChon === 0}
-            >
-              <Text style={styles.chu_nut_xoa_loat_bold}>🗑 XÓA ĐÃ CHỌN ({soDongDangChon})</Text>
-            </TouchableOpacity>
-
-            <TouchableOpacity style={styles.nut_do} onPress={() => alert(`Đang hiển thị ${data.length} dòng. Hệ thống tự động ghi nhớ mọi thay đổi!`)}>
-              <Text style={styles.chu_nut}>💾 ĐÃ TỰ LƯU</Text>
-            </TouchableOpacity>
-          </View>
+            {danhSachNutCongCu.map((nut) => (
+              <TouchableOpacity
+                key={nut.key}
+                style={[
+                  styles.nut_mini,
+                  nut.style === 'xanhLa' && styles.nut_mini_xanh_la,
+                  nut.style === 'cam' && styles.nut_mini_cam,
+                  nut.style === 'xanhDuong' && styles.nut_mini_xanh_duong,
+                  nut.style === 'xanh' && styles.nut_mini_xanh,
+                  nut.style === 'phucHoi' && styles.nut_mini_phuc_hoi,
+                  nut.style === 'xoaDo' && styles.nut_mini_xoa_do,
+                  nut.style === 'xoaNhat' && styles.nut_mini_xoa_nhat,
+                  nut.disabled && styles.nut_mini_tat,
+                ]}
+                onPress={nut.onPress}
+                disabled={!!nut.disabled}
+                activeOpacity={0.85}
+              >
+                <Text style={[styles.chu_nut_mini, nut.style === 'xoaDo' && styles.chu_nut_mini_trang]}>
+                  {nut.icon} {nut.label}
+                </Text>
+              </TouchableOpacity>
+            ))}
+          </ScrollView>
         </View>
 
         {/* BẢNG DỮ LIỆU ĐỘNG FULLSCREEN */}
@@ -1427,15 +1399,78 @@ const styles = StyleSheet.create({
     }),
   },
 
-  /** Cột: hàng 1 = thêm cột; hàng 2 = nút công cụ (wrap 2+ hàng, không tràn ngang màn hình). */
-  thanh_cong_cu: {
-    flexDirection: 'column',
-    marginBottom: 18,
-    gap: 12,
+  thanh_cong_cu_mot_hang: {
+    marginBottom: 12,
     width: '100%',
-    alignItems: 'stretch',
     minWidth: 0,
   },
+  hang_cu_cong_cu: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingBottom: 2,
+    paddingRight: 8,
+  },
+  o_nhap_cot_mini: {
+    width: 180,
+    height: 40,
+    backgroundColor: CD.bg.glass_input,
+    borderWidth: 1,
+    borderColor: CD.border.input,
+    borderRadius: 10,
+    color: CD.text.primary,
+    fontSize: 13,
+    paddingHorizontal: 10,
+    fontFamily: CD.font.family,
+    ...Platform.select({ web: { outlineStyle: 'none' } }),
+  },
+  nut_mini: {
+    height: 40,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: CD.border.glass_md,
+    backgroundColor: CD.bg.glass_input,
+    ...Platform.select({ web: { cursor: 'pointer' } }),
+  },
+  nut_mini_xanh: {
+    backgroundColor: CD.brand.mauChinh,
+    borderColor: CD.brand.mauDam,
+  },
+  nut_mini_xanh_la: {
+    backgroundColor: '#388E3C',
+    borderColor: '#2E7D32',
+  },
+  nut_mini_cam: {
+    backgroundColor: '#2E7D32',
+    borderColor: '#1B5E20',
+  },
+  nut_mini_xanh_duong: {
+    backgroundColor: CD.bg.glass_input,
+    borderColor: CD.border.glass_md,
+  },
+  nut_mini_phuc_hoi: {
+    backgroundColor: '#F9A825',
+    borderColor: '#F57F17',
+  },
+  nut_mini_xoa_do: {
+    backgroundColor: '#C62828',
+    borderColor: '#B71C1C',
+  },
+  nut_mini_xoa_nhat: {
+    backgroundColor: CD.bg.glass_input,
+    borderColor: CD.border.glass_md,
+  },
+  nut_mini_tat: { opacity: 0.45 },
+  chu_nut_mini: {
+    color: CD.text.primary,
+    fontWeight: '700',
+    fontSize: 12,
+    fontFamily: CD.font.family,
+  },
+  chu_nut_mini_trang: { color: '#fff' },
   khoi_them_cot: {
     flexDirection: 'row',
     alignItems: 'center',

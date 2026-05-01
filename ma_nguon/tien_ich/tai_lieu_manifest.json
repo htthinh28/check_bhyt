@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-28T14:17:06.902Z",
+  "generatedAt": "2026-04-30T13:15:16.124Z",
   "items": [
     {
       "id": "txt:_extract_cv266/PL1_plain.txt",
@@ -85,6 +85,16 @@
         "bang_neo",
         "ai_huan_luyen",
         "vtyt"
+      ]
+    },
+    {
+      "id": "html:Bao_cao_ma_quy_tac_ICD_chong_chi_dinh_thuoc.html",
+      "relPath": "Bao_cao_ma_quy_tac_ICD_chong_chi_dinh_thuoc.html",
+      "title": "Bao cao ma quy tac ICD chong chi dinh thuoc",
+      "nguon": "html",
+      "tags": [
+        "thuoc",
+        "icd_chuyen_mon"
       ]
     },
     {
@@ -512,6 +522,15 @@
       "relPath": "DANH_SACH_DUONG_DAN_TRUY_CAP.txt",
       "title": "DANH SACH DUONG DAN TRUY CAP",
       "nguon": "text"
+    },
+    {
+      "id": "txt:Danh_sach_rule_thuoc_chong_chi_dinh.txt",
+      "relPath": "Danh_sach_rule_thuoc_chong_chi_dinh.txt",
+      "title": "Danh sach rule thuoc chong chi dinh",
+      "nguon": "text",
+      "tags": [
+        "thuoc"
+      ]
     },
     {
       "id": "docx:Giao_ban_ket_noi_Python_service_CDSS.docx",

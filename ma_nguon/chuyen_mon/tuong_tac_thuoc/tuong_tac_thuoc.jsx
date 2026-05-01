@@ -20,6 +20,7 @@ import { locDongTheoTuKhoa, SO_DONG_TRANG_MAC_DINH, tinhChiSoPhanTrang } from '.
 import { ghiMangDanhMucVaoStorage, taiBoDuLieuDanhMuc } from '../../tien_ich/luu_tru_danh_muc';
 import { xoaCacheBoMayGiamDinh } from '../../tien_ich/dong_co_giam_dinh';
 import TimKiemPhanTrangBang from '../../thanh_phan/tim_kiem_phan_trang_bang';
+import { useEbmPhuSidebar } from '../ebm_phu_sidebar_context';
 import seed from './du_lieu_tuong_tac_thuoc.seed.json';
 import { chuanHoaBangTuongTacKhongTrungKey, coTrungIdHoacTrungNoiDungBangTuongTac } from './chuan_hoa_bang_tuong_tac';
 import { NOI_DUNG_QUY_TAC_HIEN_THI } from './quy_tac_giam_dinh_tuong_tac';
@@ -123,6 +124,7 @@ const escapeHtml = (s) => String(s ?? '')
   .replace(/"/g, '&quot;');
 
 const TuongTacThuocChuyenMon = () => {
+  const { datNoiDungPhu } = useEbmPhuSidebar();
   const { width: winW } = useWindowDimensions();
   const [data, setData] = useState([]);
   const dataRef = useRef([]);
@@ -398,6 +400,85 @@ const TuongTacThuocChuyenMon = () => {
     return { tong: data.length, duCap, batOn, capPhanBiet };
   }, [data]);
 
+  useEffect(() => {
+    datNoiDungPhu(
+      <View style={styles.khoi_dieu_khien_ebm}>
+        <Text style={styles.tieu_de} numberOfLines={1}>💊 Tương tác thuốc (danh mục nội bộ)</Text>
+        <TouchableOpacity style={styles.btn_add} onPress={handleAddRow}>
+          <Text style={styles.txt_btn}>➕ Thêm</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn_del} onPress={handleDeleteBulk}>
+          <Text style={styles.txt_btn}>🗑 Xóa ({selectedRows.length})</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn_mute} onPress={() => datTrangThaiHangLoat('ON')}>
+          <Text style={styles.txt_btn_dark}>Bật chọn</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn_mute} onPress={() => datTrangThaiHangLoat('OFF')}>
+          <Text style={styles.txt_btn_dark}>Tắt chọn</Text>
+        </TouchableOpacity>
+        {Platform.OS === 'web' ? (
+          <>
+            <input type="file" accept=".xlsx,.xls" onChange={handleImport} style={{ display: 'none' }} id="import-tt-thuoc-ebm" />
+            <TouchableOpacity style={styles.btn_imp} onPress={() => document.getElementById('import-tt-thuoc-ebm').click()}>
+              <Text style={styles.txt_btn_small}>📤 Import</Text>
+            </TouchableOpacity>
+          </>
+        ) : null}
+        <TouchableOpacity style={styles.btn_exp} onPress={handleExport}>
+          <Text style={styles.txt_btn_small}>📥 Export</Text>
+        </TouchableOpacity>
+        {Platform.OS === 'web' ? (
+          <TouchableOpacity style={styles.btn_print} onPress={handlePrint}>
+            <Text style={styles.txt_btn_small}>🖨 In</Text>
+          </TouchableOpacity>
+        ) : null}
+        <TouchableOpacity
+          style={[styles.btn_quy_tac, moQuyTac ? styles.btn_quy_tac_mo : null]}
+          onPress={() => setMoQuyTac((v) => !v)}
+          accessibilityLabel="Mở hoặc đóng khung quy tắc kiểm tra"
+        >
+          <Text style={styles.txt_btn_quy_tac}>{moQuyTac ? '▼' : '▶'} Quy tắc kiểm tra</Text>
+        </TouchableOpacity>
+        <Text style={styles.ghi_chu} numberOfLines={6}>
+          ON mới kiểm tra. «Nội dung» có « vs »: động cơ tạo tất cả cặp mã […] bên trái × bên phải (nhóm thuốc). Mức độ: Critical/Error/Warning — để trống thì suy từ cảnh báo (🚫/chống chỉ định → Critical). ⧉ sao chép dòng.
+        </Text>
+        <Text style={styles.thong_ke_dong} selectable>
+          Tổng {thongKeBang.tong} dòng đã lưu · {thongKeBang.capPhanBiet} cặp mã khác nhau · Đủ A+B:{' '}
+          {thongKeBang.duCap} · Đang bật ON: {thongKeBang.batOn}.
+        </Text>
+        <TimKiemPhanTrangBang
+          bocucPhanTrang="doc"
+          tuKhoa={tuKhoaTim}
+          onTuKhoa={setTuKhoaTim}
+          placeholder="Tìm theo mã TT, mã thuốc, nội dung… (không phân biệt dấu)"
+          tongDongGoc={data.length}
+          tongDongSauLoc={nSauLoc}
+          soDongMotTrang={soDongMotTrang}
+          onSoDongMotTrang={setSoDongMotTrang}
+          trangHienTai={trangDangXem}
+          onTrangHienTai={setTrangHienTai}
+          tongSoTrang={tongSoTrang}
+          chiSoBatDau={chiSoBatDau}
+          chiSoKetThuc={chiSoKetThuc}
+        />
+      </View>,
+    );
+    return () => datNoiDungPhu(null);
+  }, [
+    datNoiDungPhu,
+    selectedRows.length,
+    thongKeBang,
+    moQuyTac,
+    tuKhoaTim,
+    data.length,
+    nSauLoc,
+    soDongMotTrang,
+    trangDangXem,
+    tongSoTrang,
+    chiSoBatDau,
+    chiSoKetThuc,
+  ]);
+
   const gopImportVoiBangHienTai = (current, importedRows) => {
     const map = new Map();
     const keyOf = (r) => {
@@ -519,60 +600,6 @@ const TuongTacThuocChuyenMon = () => {
 
   return (
     <View style={styles.root}>
-      <View style={styles.thanh_cong_cu}>
-        <Text style={styles.tieu_de} numberOfLines={1}>💊 Tương tác thuốc (danh mục nội bộ)</Text>
-        <ScrollView
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyboardShouldPersistTaps="handled"
-          style={styles.hang_nut_scroll}
-          contentContainerStyle={styles.mot_hang_nut}
-        >
-          <TouchableOpacity style={styles.btn_add} onPress={handleAddRow}>
-            <Text style={styles.txt_btn}>➕ Thêm</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn_del} onPress={handleDeleteBulk}>
-            <Text style={styles.txt_btn}>🗑 Xóa ({selectedRows.length})</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn_mute} onPress={() => datTrangThaiHangLoat('ON')}>
-            <Text style={styles.txt_btn_dark}>Bật chọn</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn_mute} onPress={() => datTrangThaiHangLoat('OFF')}>
-            <Text style={styles.txt_btn_dark}>Tắt chọn</Text>
-          </TouchableOpacity>
-          {Platform.OS === 'web' && (
-            <>
-              <input type="file" accept=".xlsx,.xls" onChange={handleImport} style={{ display: 'none' }} id="import-tt-thuoc" />
-              <TouchableOpacity style={styles.btn_imp} onPress={() => document.getElementById('import-tt-thuoc').click()}>
-                <Text style={styles.txt_btn_small}>📤 Import</Text>
-              </TouchableOpacity>
-            </>
-          )}
-          <TouchableOpacity style={styles.btn_exp} onPress={handleExport}>
-            <Text style={styles.txt_btn_small}>📥 Export</Text>
-          </TouchableOpacity>
-          {Platform.OS === 'web' && (
-            <TouchableOpacity style={styles.btn_print} onPress={handlePrint}>
-              <Text style={styles.txt_btn_small}>🖨 In</Text>
-            </TouchableOpacity>
-          )}
-          <TouchableOpacity
-            style={[styles.btn_quy_tac, moQuyTac ? styles.btn_quy_tac_mo : null]}
-            onPress={() => setMoQuyTac((v) => !v)}
-            accessibilityLabel="Mở hoặc đóng khung quy tắc kiểm tra"
-          >
-            <Text style={styles.txt_btn_quy_tac}>{moQuyTac ? '▼' : '▶'} Quy tắc kiểm tra</Text>
-          </TouchableOpacity>
-        </ScrollView>
-        <Text style={styles.ghi_chu} numberOfLines={3}>
-          ON mới kiểm tra. «Nội dung» có « vs »: động cơ tạo tất cả cặp mã […] bên trái × bên phải (nhóm thuốc). Mức độ: Critical/Error/Warning — để trống thì suy từ cảnh báo (🚫/chống chỉ định → Critical). ⧉ sao chép dòng.
-        </Text>
-        <Text style={styles.thong_ke_dong} selectable>
-          Tổng {thongKeBang.tong} dòng đã lưu · {thongKeBang.capPhanBiet} cặp mã khác nhau · Đủ A+B:{' '}
-          {thongKeBang.duCap} · Đang bật ON: {thongKeBang.batOn}. Dùng ô tìm kiếm và phân trang ngay trên bảng để lọc và chuyển trang.
-        </Text>
-      </View>
-
       {moQuyTac ? (
         <View style={styles.khung_quy_tac} accessibilityRole="summary">
           <ScrollView
@@ -595,24 +622,6 @@ const TuongTacThuocChuyenMon = () => {
           </ScrollView>
         </View>
       ) : null}
-
-      {/* Tách khỏi khung đo chiều cao bảng: gộp chung làm onLayout gồm cả thanh tìm rồi gán height cho bang → lỗi ScrollView dọc / phân trang */}
-      <View style={styles.khung_tim_bang}>
-        <TimKiemPhanTrangBang
-          tuKhoa={tuKhoaTim}
-          onTuKhoa={setTuKhoaTim}
-          placeholder="Tìm theo mã TT, mã thuốc, nội dung… (không phân biệt dấu)"
-          tongDongGoc={data.length}
-          tongDongSauLoc={nSauLoc}
-          soDongMotTrang={soDongMotTrang}
-          onSoDongMotTrang={setSoDongMotTrang}
-          trangHienTai={trangDangXem}
-          onTrangHienTai={setTrangHienTai}
-          tongSoTrang={tongSoTrang}
-          chiSoBatDau={chiSoBatDau}
-          chiSoKetThuc={chiSoKetThuc}
-        />
-      </View>
 
       <View
         style={styles.khung_bang_outer}
@@ -685,6 +694,7 @@ const TuongTacThuocChuyenMon = () => {
 };
 
 const styles = StyleSheet.create({
+  khoi_dieu_khien_ebm: { width: '100%', gap: 8 },
   root: { flex: 1, minHeight: 0, width: '100%', flexDirection: 'column' },
   /** Không dùng ScrollView bọc toolbar — tránh khoảng đen giữa toolbar và bảng trên web */
   thanh_cong_cu: {

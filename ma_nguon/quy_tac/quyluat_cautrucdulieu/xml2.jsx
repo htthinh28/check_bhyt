@@ -52,7 +52,7 @@ export const QUY_TAC_KIEM_TRA_XML2 = {
   MA_KHOA: { required: true, maxLength: 50, type: 'string', mo_ta: 'Mã khoa chỉ định' },
   MA_BAC_SI: { required: true, maxLength: 255, type: 'string', mo_ta: 'Mã bác sỹ khám, chỉ định thuốc' },
   MA_DICH_VU: { required: false, maxLength: 255, type: 'string', mo_ta: 'Mã dịch vụ kỹ thuật kèm theo chỉ định thuốc' },
-  NGAY_YL: { required: true, maxLength: 12, type: 'string', mo_ta: 'Thời điểm ra y lệnh (YYYYMMDDHHMI)' },
+  NGAY_YL: { required: true, maxLength: 12, type: 'string', mo_ta: 'Thời điểm ra y lệnh (YYYYMMDDHHMM)' },
   NGAY_TH_YL: { required: false, maxLength: 12, type: 'string', mo_ta: 'Thời điểm thực hiện y lệnh' },
   MA_PTTT: { required: false, maxLength: 1, type: 'number', mo_ta: 'Mã phương thức thanh toán đối với thuốc' },
   NGUON_CTRA: { required: false, maxLength: 1, type: 'number', mo_ta: 'Mã xác định nguồn thuốc chi trả' },

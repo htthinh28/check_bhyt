@@ -114,16 +114,18 @@ const MappingNghiepVu = ({ navigation }) => {
     return Number.isNaN(d.getTime()) ? new Date() : d;
   }, [locNgay]);
 
-  const layNhomDvktStaff = (r) => {
+  /** STAFF_DVKT: một danh sách mã DVKT (legacy chỉ định đã gộp). */
+  const layMaDvktStaff = (r) => {
+    if (r.mapping_type !== 'STAFF_DVKT') return [];
     const md = r.metadata && typeof r.metadata === 'object' ? r.metadata : {};
     const norm = (a) => (Array.isArray(a) ? a.map((x) => String(x || '').trim()).filter(Boolean) : []);
-    let chi = norm(md.target_codes_chi_dinh);
-    let thuc = norm(md.target_codes_thuc_hien);
-    if (chi.length || thuc.length) return { chi, thuc };
-    if (Array.isArray(md.target_codes) && md.target_codes.length) return { chi: [], thuc: norm(md.target_codes) };
+    const chi = norm(md.target_codes_chi_dinh);
+    const thuc = norm(md.target_codes_thuc_hien);
+    if (chi.length || thuc.length) return [...new Set([...chi, ...thuc])];
+    if (Array.isArray(md.target_codes) && md.target_codes.length) return [...new Set(norm(md.target_codes))];
     const tc = String(r.target_code || '').trim();
-    if (!tc) return { chi: [], thuc: [] };
-    return { chi: [], thuc: tachChuoiNhieuMa(tc) };
+    if (!tc) return [];
+    return [...new Set(tachChuoiNhieuMa(tc))];
   };
 
   /** ICD↔thuốc/DVKT/VTYT…: danh sách mã đích (một dòng có thể nhiều mã). */
@@ -205,9 +207,8 @@ const MappingNghiepVu = ({ navigation }) => {
         if (!mappingCoHieuLucTaiNgay(r, ngayLoc)) return false;
       }
       if (!tk) return true;
-      const { chi, thuc } = r.mapping_type === 'STAFF_DVKT' ? layNhomDvktStaff(r) : { chi: [], thuc: [] };
       const extraParts = [];
-      if (r.mapping_type === 'STAFF_DVKT') extraParts.push(...chi, ...thuc);
+      if (r.mapping_type === 'STAFF_DVKT') extraParts.push(...layMaDvktStaff(r));
       else {
         if (laMappingNhieuMaDich(r.mapping_type)) extraParts.push(...layMaDichMultiNghiepVu(r));
         if (laMappingNhieuMaNguon(r.mapping_type)) extraParts.push(...layMaNguonMulti(r));
@@ -230,25 +231,15 @@ const MappingNghiepVu = ({ navigation }) => {
     if (!c) return '';
     const ds = bangTheoRef[c.target_catalog] || [];
     if (r.mapping_type === 'STAFF_DVKT') {
-      const { chi, thuc } = layNhomDvktStaff(r);
-      const a = timTenNhieuMa(ds, chi);
-      const b = timTenNhieuMa(ds, thuc);
-      return [a && `CD: ${a}`, b && `TH: ${b}`].filter(Boolean).join(' · ');
+      return timTenNhieuMa(ds, layMaDvktStaff(r));
     }
     if (laMappingNhieuMaDich(r.mapping_type)) {
       return timTenNhieuMa(ds, layMaDichMultiNghiepVu(r));
     }
     return timTenTheoMa(ds, r.target_code);
   };
-  const maDichChiDinh = (r) => (r.mapping_type === 'STAFF_DVKT' ? noiChuoiNhieuMa(layNhomDvktStaff(r).chi) : '');
-  const tenDichChiDinh = (r) => {
-    if (r.mapping_type !== 'STAFF_DVKT') return '';
-    const c = layCauHinhLoaiMapping(r.mapping_type);
-    if (!c) return '';
-    return timTenNhieuMa(bangTheoRef[c.target_catalog] || [], layNhomDvktStaff(r).chi);
-  };
   const maDichThucHien = (r) => {
-    if (r.mapping_type === 'STAFF_DVKT') return noiChuoiNhieuMa(layNhomDvktStaff(r).thuc);
+    if (r.mapping_type === 'STAFF_DVKT') return noiChuoiNhieuMa(layMaDvktStaff(r));
     if (laMappingNhieuMaDich(r.mapping_type)) return noiChuoiNhieuMa(layMaDichMultiNghiepVu(r));
     return r.target_code || '';
   };
@@ -256,7 +247,7 @@ const MappingNghiepVu = ({ navigation }) => {
     const c = layCauHinhLoaiMapping(r.mapping_type);
     if (!c) return '';
     const ds = bangTheoRef[c.target_catalog] || [];
-    if (r.mapping_type === 'STAFF_DVKT') return timTenNhieuMa(ds, layNhomDvktStaff(r).thuc);
+    if (r.mapping_type === 'STAFF_DVKT') return timTenNhieuMa(ds, layMaDvktStaff(r));
     if (laMappingNhieuMaDich(r.mapping_type)) return timTenNhieuMa(ds, layMaDichMultiNghiepVu(r));
     return timTenTheoMa(ds, r.target_code);
   };
@@ -497,8 +488,6 @@ const MappingNghiepVu = ({ navigation }) => {
       Loai: r.mapping_type,
       Ma_nguon: maNguonHienThi(r),
       Ten_nguon: tenNguon(r),
-      Ma_chi_dinh: maDichChiDinh(r),
-      Ten_chi_dinh: tenDichChiDinh(r),
       Ma_thuc_hien: maDichThucHien(r),
       Ten_thuc_hien: tenDichThucHien(r),
       Hieu_luc_tu: r.effective_from || '',
@@ -525,8 +514,6 @@ const MappingNghiepVu = ({ navigation }) => {
       Loai: r.mapping_type,
       Ma_nguon: maNguonHienThi(r),
       Ten_nguon: tenNguon(r),
-      Ma_chi_dinh: maDichChiDinh(r),
-      Ten_chi_dinh: tenDichChiDinh(r),
       Ma_thuc_hien: maDichThucHien(r),
       Ten_thuc_hien: tenDichThucHien(r),
       Hieu_luc_tu: r.effective_from || '',
@@ -540,8 +527,6 @@ const MappingNghiepVu = ({ navigation }) => {
       { key: 'Loai', label: 'Loại' },
       { key: 'Ma_nguon', label: 'Mã nguồn' },
       { key: 'Ten_nguon', label: 'Tên nguồn' },
-      { key: 'Ma_chi_dinh', label: 'Mã chỉ định' },
-      { key: 'Ten_chi_dinh', label: 'Tên chỉ định' },
       { key: 'Ma_thuc_hien', label: 'Mã TH' },
       { key: 'Ten_thuc_hien', label: 'Tên TH' },
       { key: 'Hieu_luc_tu', label: 'Hiệu lực từ' },
@@ -852,8 +837,6 @@ const MappingNghiepVu = ({ navigation }) => {
                     <Text style={[styles.cot, styles.cot_loai]}>Loại</Text>
                     <Text style={[styles.cot, styles.cot_ma]}>Mã NC</Text>
                     <Text style={[styles.cot, styles.cot_ten]}>Tên NC</Text>
-                    <Text style={[styles.cot, styles.cot_ma_cd]}>Mã chỉ định</Text>
-                    <Text style={[styles.cot, styles.cot_ten_nhom]}>Tên chỉ định</Text>
                     <Text style={[styles.cot, styles.cot_ma_cd]}>Mã TH</Text>
                     <Text style={[styles.cot, styles.cot_ten_nhom]}>Tên TH</Text>
                     <Text style={[styles.cot, styles.cot_hl]}>Hiệu lực</Text>
@@ -867,8 +850,6 @@ const MappingNghiepVu = ({ navigation }) => {
                         <Text style={[styles.cot, styles.cot_loai]}>{r.mapping_type}</Text>
                         <Text style={[styles.cot, styles.cot_ma]}>{maNguonHienThi(r)}</Text>
                         <Text style={[styles.cot, styles.cot_ten]}>{tenNguon(r) || '—'}</Text>
-                        <Text style={[styles.cot, styles.cot_ma_cd]}>{maDichChiDinh(r) || '—'}</Text>
-                        <Text style={[styles.cot, styles.cot_ten_nhom]}>{tenDichChiDinh(r) || '—'}</Text>
                         <Text style={[styles.cot, styles.cot_ma_cd]}>{maDichThucHien(r) || '—'}</Text>
                         <Text style={[styles.cot, styles.cot_ten_nhom]}>{tenDichThucHien(r) || '—'}</Text>
                         <Text style={[styles.cot, styles.cot_hl]}>

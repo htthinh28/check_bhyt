@@ -115,18 +115,17 @@ function chuanHoaMangMa(arr) {
   return arr.map((c) => String(c || '').trim()).filter(Boolean);
 }
 
-/** Hai nhóm DVKT; bản ghi cũ chỉ có target_codes → gán hết vào thực hiện */
-function layHaiNhomDvktTuMeta(md, targetCode) {
+/** STAFF_DVKT: một danh sách mã DVKT (legacy chỉ định + thực hiện gộp lại). */
+function layDvktThucHienTuMeta(md, targetCode) {
   const chi = chuanHoaMangMa(md?.target_codes_chi_dinh);
   const thuc = chuanHoaMangMa(md?.target_codes_thuc_hien);
-  if (chi.length || thuc.length) return { chi, thuc };
+  if (chi.length || thuc.length) return [...new Set([...chi, ...thuc])];
   if (Array.isArray(md?.target_codes) && md.target_codes.length) {
-    return { chi: [], thuc: chuanHoaMangMa(md.target_codes) };
+    return chuanHoaMangMa(md.target_codes);
   }
   const tc = String(targetCode || '').trim();
-  if (!tc) return { chi: [], thuc: [] };
-  const parts = tachChuoiNhieuMa(tc);
-  return { chi: [], thuc: parts };
+  if (!tc) return [];
+  return [...new Set(tachChuoiNhieuMa(tc))];
 }
 
 function sapXepDvktTheoMaTuongDuong(ds) {
@@ -247,8 +246,7 @@ export default function ModalCatalogMapping({
   const [mappingType, setMappingType] = useState('STAFF_DVKT');
   const [sourceCode, setSourceCode] = useState('');
   const [targetCode, setTargetCode] = useState('');
-  /** STAFF_DVKT: DV theo vai trò chỉ định / thực hiện */
-  const [targetCodesChiDinh, setTargetCodesChiDinh] = useState([]);
+  /** STAFF_DVKT: danh sách mã DVKT (thực hiện; bản ghi cũ có nhóm chỉ định → gộp khi mở). */
   const [targetCodesThucHien, setTargetCodesThucHien] = useState([]);
   /** ICD↔thuốc, ICD↔DVKT, DVKT↔thuốc, DVKT↔VTYT, ICD↔VTYT: nhiều mã đích / một bản ghi */
   const [targetCodesNhieu, setTargetCodesNhieu] = useState([]);
@@ -326,14 +324,11 @@ export default function ModalCatalogMapping({
       setTuKhoaDich('');
       const md = banGhiChinhSua.metadata && typeof banGhiChinhSua.metadata === 'object' ? banGhiChinhSua.metadata : {};
       if (banGhiChinhSua.mapping_type === 'STAFF_DVKT') {
-        const hai = layHaiNhomDvktTuMeta(md, banGhiChinhSua.target_code);
-        setTargetCodesChiDinh(hai.chi);
-        setTargetCodesThucHien(hai.thuc);
+        setTargetCodesThucHien(layDvktThucHienTuMeta(md, banGhiChinhSua.target_code));
         setLichGioTuan(hopNhatLichGio(md.lich_hanh_nghe_tuan));
         setTrucGio(hopNhatTrucGio(md));
         setTargetCodesNhieu([]);
       } else {
-        setTargetCodesChiDinh([]);
         setTargetCodesThucHien([]);
         setLichGioTuan(taoLichGioRong());
         setTrucGio([]);
@@ -378,7 +373,6 @@ export default function ModalCatalogMapping({
       setMappingType(mappingTypeCoDinh || 'STAFF_DVKT');
       setSourceCode('');
       setTargetCode('');
-      setTargetCodesChiDinh([]);
       setTargetCodesThucHien([]);
       setEffectiveFrom('');
       setEffectiveTo('');
@@ -406,10 +400,9 @@ export default function ModalCatalogMapping({
   const tenNguon = laMultiSource
     ? timTenNhieuMa(dsNguon, sourceCodesNhieu)
     : timTenTheoMa(dsNguon, sourceCode);
-  const tenDichChi = laStaffDvkt ? timTenNhieuMa(dsDich, targetCodesChiDinh) : '';
   const tenDichThuc = laStaffDvkt ? timTenNhieuMa(dsDich, targetCodesThucHien) : '';
   const tenDich = laStaffDvkt
-    ? [tenDichChi && `Chỉ định: ${tenDichChi}`, tenDichThuc && `Thực hiện: ${tenDichThuc}`].filter(Boolean).join(' · ')
+    ? tenDichThuc || ''
     : laMultiTarget
       ? timTenNhieuMa(dsDich, targetCodesNhieu)
       : timTenTheoMa(dsDich, targetCode);
@@ -427,22 +420,17 @@ export default function ModalCatalogMapping({
     let maDichLuu = String(targetCode || '').trim();
 
     if (mappingType === 'STAFF_DVKT') {
-      const chi = [...new Set((targetCodesChiDinh || []).map((c) => String(c || '').trim()).filter(Boolean))].sort((a, b) =>
-        a.localeCompare(b, 'vi', { numeric: true, sensitivity: 'base' }),
-      );
       const thuc = [...new Set((targetCodesThucHien || []).map((c) => String(c || '').trim()).filter(Boolean))].sort((a, b) =>
         a.localeCompare(b, 'vi', { numeric: true, sensitivity: 'base' }),
       );
-      if (chi.length === 0 && thuc.length === 0) {
-        setLoi('Chọn ít nhất một DVKT ở nhóm được chỉ định hoặc thực hiện.');
+      if (thuc.length === 0) {
+        setLoi('Chọn ít nhất một DVKT (thực hiện).');
         return;
       }
-      const badChi = timMaKhongThuocDanhMuc(dsDich, chi, 'dvkt_items');
       const badThuc = timMaKhongThuocDanhMuc(dsDich, thuc, 'dvkt_items');
-      const badDvkt = [...new Set([...badChi, ...badThuc])];
-      if (badDvkt.length) {
+      if (badThuc.length) {
         setLoi(
-          `Mã DVKT không có trong danh mục M05 — chỉ định/thực hiện phải có mã tương ứng trong DM (thiếu → mapping sai): ${badDvkt.join(', ')}`,
+          `Mã DVKT không có trong danh mục M05 — mã phải tương ứng trong DM (thiếu → mapping sai): ${badThuc.join(', ')}`,
         );
         return;
       }
@@ -451,12 +439,9 @@ export default function ModalCatalogMapping({
         setLoi(`Mã nhân sự không có trong danh mục Mẫu 02: ${badNv.join(', ')}`);
         return;
       }
-      const codes = [...new Set([...chi, ...thuc])].sort((a, b) =>
-        a.localeCompare(b, 'vi', { numeric: true, sensitivity: 'base' }),
-      );
-      maDichLuu = noiChuoiNhieuMa(codes);
-      metadata.target_codes_chi_dinh = chi;
+      maDichLuu = noiChuoiNhieuMa(thuc);
       metadata.target_codes_thuc_hien = thuc;
+      delete metadata.target_codes_chi_dinh;
       delete metadata.target_codes;
       const lichMeta = {};
       THU_TUAN_KEYS.forEach((k) => {
@@ -575,11 +560,48 @@ export default function ModalCatalogMapping({
     setSourceCodesNhieu((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
   };
 
-  const toggleDvkt = (code, nhom) => {
+  const toggleDvkt = (code) => {
     const c = String(code || '').trim();
     if (!c) return;
-    const setFn = nhom === 'chi' ? setTargetCodesChiDinh : setTargetCodesThucHien;
-    setFn((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
+    setTargetCodesThucHien((prev) => (prev.includes(c) ? prev.filter((x) => x !== c) : [...prev, c]));
+  };
+
+  /** Mã từ danh sách đã lọc (DVKT / bất kỳ dòng có .code) — phục vụ chọn hàng loạt. */
+  const layMaTuDsLoc = (ds) =>
+    [...new Set((ds || []).map((x) => String(x?.code || '').trim()).filter(Boolean))];
+
+  const chonHetDvktStaffTheoLoc = () => {
+    const them = layMaTuDsLoc(dsDvktDayDu);
+    if (!them.length) return;
+    setTargetCodesThucHien((prev) => [...new Set([...prev, ...them])]);
+  };
+
+  const boChonDvktStaffTheoLoc = () => {
+    const bo = new Set(layMaTuDsLoc(dsDvktDayDu));
+    if (!bo.size) return;
+    setTargetCodesThucHien((prev) => prev.filter((c) => !bo.has(c)));
+  };
+
+  const chonHetNguonMultiTheoLoc = () => {
+    const them = layMaTuDsLoc(dsNguonHet);
+    if (!them.length) return;
+    setSourceCodesNhieu((prev) => [...new Set([...prev, ...them])]);
+  };
+
+  const boChonNguonMultiTheoLoc = () => {
+    const bo = new Set(layMaTuDsLoc(dsNguonHet));
+    setSourceCodesNhieu((prev) => prev.filter((c) => !bo.has(c)));
+  };
+
+  const chonHetDichMultiTheoLoc = () => {
+    const them = layMaTuDsLoc(dsDichHet);
+    if (!them.length) return;
+    setTargetCodesNhieu((prev) => [...new Set([...prev, ...them])]);
+  };
+
+  const boChonDichMultiTheoLoc = () => {
+    const bo = new Set(layMaTuDsLoc(dsDichHet));
+    setTargetCodesNhieu((prev) => prev.filter((c) => !bo.has(c)));
   };
 
   const toggleGioThu = (thu, gio) => {
@@ -713,7 +735,9 @@ export default function ModalCatalogMapping({
 
                 <View style={styles.cotDvkt}>
                   <Text style={styles.nhan}>Danh mục dịch vụ (DVKT)</Text>
-                  <Text style={styles.nhanNho}>Mẫu 05 · sắp theo mã tương đương — hai nhóm vai trò</Text>
+                  <Text style={styles.nhanNho}>
+                    Mẫu 05 · sắp theo mã tương đương. Chọn DVKT nhân viên được phép thực hiện; có thể chọn hàng loạt theo kết quả lọc.
+                  </Text>
                   <TextInput
                     style={styles.oLoc}
                     value={tuKhoaDich}
@@ -721,85 +745,62 @@ export default function ModalCatalogMapping({
                     placeholder="Lọc chung: tên, mã DV hoặc mã tương đương…"
                     placeholderTextColor={CD.text.placeholder}
                   />
-                  <View style={styles.haiNhomDvkt}>
-                    <View style={styles.cotDvktNhom}>
-                      <Text style={styles.nhanNhomDvkt}>NVYT được chỉ định</Text>
-                      <Text style={styles.demDaChon}>Đã chọn: {targetCodesChiDinh.length}</Text>
-                      <FlatList
-                        data={dsDvktDayDu}
-                        keyExtractor={(item, index) => `dv_chi_${item.code}_${index}`}
-                        style={[styles.listBoxDvktNhom, styles.listBoxDvktChiDinh]}
-                        nestedScrollEnabled
-                        keyboardShouldPersistTaps="handled"
-                        initialNumToRender={12}
-                        maxToRenderPerBatch={20}
-                        windowSize={5}
-                        removeClippedSubviews={Platform.OS === 'android'}
-                        ListEmptyComponent={<Text style={styles.chuTrongList}>Không có DVKT.</Text>}
-                        renderItem={({ item: x }) => {
-                          const chon = targetCodesChiDinh.includes(x.code);
-                          return (
-                            <TouchableOpacity
-                              style={[styles.dongListBoxDvkt, styles.dongListDvktCoCheckbox, chon && styles.dongListChonChi]}
-                              onPress={() => toggleDvkt(x.code, 'chi')}
-                              activeOpacity={0.75}
-                            >
-                              <View style={[styles.vuongCheckbox, chon && styles.vuongCheckboxChonChi]}>
-                                <Text style={styles.dauTick}>{chon ? '✓' : ' '}</Text>
-                              </View>
-                              <View style={styles.cotTextDvkt}>
-                                <Text style={styles.tenDvktChinh} numberOfLines={3}>{x.name}</Text>
-                                <Text style={styles.maDvktPhu}>{x.code}</Text>
-                                {x.maTuongDuong ? (
-                                  <Text style={styles.maTuongDuongPhu}>TTĐ: {x.maTuongDuong}</Text>
-                                ) : null}
-                              </View>
-                            </TouchableOpacity>
-                          );
-                        }}
-                      />
+                  <View style={styles.cotDvktNhom}>
+                    <Text style={styles.nhanNhomDvkt}>DVKT thực hiện</Text>
+                    <Text style={styles.demDaChon}>Đã chọn: {targetCodesThucHien.length}</Text>
+                    <View style={styles.hangChonHangLoatDvkt}>
+                      <TouchableOpacity
+                        style={styles.nutChonHangLoatDvkt}
+                        onPress={chonHetDvktStaffTheoLoc}
+                        activeOpacity={0.8}
+                      >
+                        <Text style={styles.chuNutChonHangLoatDvkt}>Chọn tất cả (lọc)</Text>
+                      </TouchableOpacity>
+                      <TouchableOpacity
+                        style={styles.nutChonHangLoatDvktPhu}
+                        onPress={boChonDvktStaffTheoLoc}
+                        activeOpacity={0.8}
+                      >
+                        <Text style={styles.chuNutChonHangLoatDvkt}>Bỏ chọn (lọc)</Text>
+                      </TouchableOpacity>
                     </View>
-                    <View style={styles.cotDvktNhom}>
-                      <Text style={styles.nhanNhomDvkt}>NVYT thực hiện</Text>
-                      <Text style={styles.demDaChon}>Đã chọn: {targetCodesThucHien.length}</Text>
-                      <FlatList
-                        data={dsDvktDayDu}
-                        keyExtractor={(item, index) => `dv_th_${item.code}_${index}`}
-                        style={styles.listBoxDvktNhom}
-                        nestedScrollEnabled
-                        keyboardShouldPersistTaps="handled"
-                        initialNumToRender={12}
-                        maxToRenderPerBatch={20}
-                        windowSize={5}
-                        removeClippedSubviews={Platform.OS === 'android'}
-                        ListEmptyComponent={<Text style={styles.chuTrongList}>Không có DVKT.</Text>}
-                        renderItem={({ item: x }) => {
-                          const chon = targetCodesThucHien.includes(x.code);
-                          return (
-                            <TouchableOpacity
-                              style={[styles.dongListBoxDvkt, styles.dongListDvktCoCheckbox, chon && styles.dongListChon]}
-                              onPress={() => toggleDvkt(x.code, 'th')}
-                              activeOpacity={0.75}
-                            >
-                              <View style={[styles.vuongCheckbox, chon && styles.vuongCheckboxChon]}>
-                                <Text style={styles.dauTick}>{chon ? '✓' : ' '}</Text>
-                              </View>
-                              <View style={styles.cotTextDvkt}>
-                                <Text style={styles.tenDvktChinh} numberOfLines={3}>{x.name}</Text>
-                                <Text style={styles.maDvktPhu}>{x.code}</Text>
-                                {x.maTuongDuong ? (
-                                  <Text style={styles.maTuongDuongPhu}>TTĐ: {x.maTuongDuong}</Text>
-                                ) : null}
-                              </View>
-                            </TouchableOpacity>
-                          );
-                        }}
-                      />
-                    </View>
+                    <FlatList
+                      data={dsDvktDayDu}
+                      keyExtractor={(item, index) => `dv_th_${item.code}_${index}`}
+                      style={styles.listBoxDvktNhom}
+                      nestedScrollEnabled
+                      keyboardShouldPersistTaps="handled"
+                      initialNumToRender={12}
+                      maxToRenderPerBatch={20}
+                      windowSize={5}
+                      removeClippedSubviews={Platform.OS === 'android'}
+                      ListEmptyComponent={<Text style={styles.chuTrongList}>Không có DVKT.</Text>}
+                      renderItem={({ item: x }) => {
+                        const chon = targetCodesThucHien.includes(x.code);
+                        return (
+                          <TouchableOpacity
+                            style={[styles.dongListBoxDvkt, styles.dongListDvktCoCheckbox, chon && styles.dongListChon]}
+                            onPress={() => toggleDvkt(x.code)}
+                            activeOpacity={0.75}
+                          >
+                            <View style={[styles.vuongCheckbox, chon && styles.vuongCheckboxChon]}>
+                              <Text style={styles.dauTick}>{chon ? '✓' : ' '}</Text>
+                            </View>
+                            <View style={styles.cotTextDvkt}>
+                              <Text style={styles.tenDvktChinh} numberOfLines={3}>{x.name}</Text>
+                              <Text style={styles.maDvktPhu}>{x.code}</Text>
+                              {x.maTuongDuong ? (
+                                <Text style={styles.maTuongDuongPhu}>TTĐ: {x.maTuongDuong}</Text>
+                              ) : null}
+                            </View>
+                          </TouchableOpacity>
+                        );
+                      }}
+                    />
                   </View>
                 </View>
               </View>
-              {(sourceCode || targetCodesChiDinh.length || targetCodesThucHien.length) ? (
+              {(sourceCode || targetCodesThucHien.length) ? (
                 <Text style={styles.tomTatChon}>
                   Đã chọn: {tenNguon || '—'} ({sourceCode || '…'}) → {tenDich || '—'}
                 </Text>
@@ -909,6 +910,16 @@ export default function ModalCatalogMapping({
                     ? ` · đã chọn nguồn: ${sourceCodesNhieu.length}${cfg?.source_catalog === 'icd10' ? ' (ICD)' : ''}`
                     : ''}
                 </Text>
+                {laMultiSource && cfg?.source_catalog === 'dvkt_items' ? (
+                  <View style={styles.hangChonHangLoatDvkt}>
+                    <TouchableOpacity style={styles.nutChonHangLoatDvkt} onPress={chonHetNguonMultiTheoLoc} activeOpacity={0.8}>
+                      <Text style={styles.chuNutChonHangLoatDvkt}>DVKT: chọn tất cả (lọc)</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.nutChonHangLoatDvktPhu} onPress={boChonNguonMultiTheoLoc} activeOpacity={0.8}>
+                      <Text style={styles.chuNutChonHangLoatDvkt}>DVKT: bỏ chọn (lọc)</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
                 <FlatList
                   data={dsNguonHet}
                   keyExtractor={(item, index) => `src_${item.code}_${index}`}
@@ -988,6 +999,16 @@ export default function ModalCatalogMapping({
                   {laMultiTarget ? ` · đã chọn đích: ${targetCodesNhieu.length}` : ''}
                   {laMultiTarget && cfg?.target_catalog === 'drug_items' ? ' · sắp A→Z (mã / hoạt chất / tên)' : ''}
                 </Text>
+                {laMultiTarget && cfg?.target_catalog === 'dvkt_items' ? (
+                  <View style={styles.hangChonHangLoatDvkt}>
+                    <TouchableOpacity style={styles.nutChonHangLoatDvkt} onPress={chonHetDichMultiTheoLoc} activeOpacity={0.8}>
+                      <Text style={styles.chuNutChonHangLoatDvkt}>DVKT: chọn tất cả (lọc)</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.nutChonHangLoatDvktPhu} onPress={boChonDichMultiTheoLoc} activeOpacity={0.8}>
+                      <Text style={styles.chuNutChonHangLoatDvkt}>DVKT: bỏ chọn (lọc)</Text>
+                    </TouchableOpacity>
+                  </View>
+                ) : null}
                 <FlatList
                   data={dsDichHet}
                   keyExtractor={(item, index) => `tgt_${item.code}_${index}`}
@@ -1236,11 +1257,6 @@ const styles = StyleSheet.create({
   },
   cotNhanSu: { flex: 1, minWidth: 260 },
   cotDvkt: { flex: 1, minWidth: 280 },
-  haiNhomDvkt: {
-    flexDirection: Platform.OS === 'web' ? 'row' : 'column',
-    gap: 12,
-    alignItems: 'stretch',
-  },
   cotDvktNhom: { flex: 1, minWidth: 220 },
   nhanNhomDvkt: {
     fontSize: 13,
@@ -1256,9 +1272,6 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(216,27,96,0.45)',
     backgroundColor: 'rgba(0,0,0,0.2)',
     ...Platform.select({ web: { boxShadow: 'inset 0 1px 4px rgba(0,0,0,0.25)' } }),
-  },
-  listBoxDvktChiDinh: {
-    borderColor: 'rgba(0,131,143,0.55)',
   },
   nhanNho: {
     fontSize: 12,
@@ -1312,20 +1325,40 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   vuongCheckboxChon: { backgroundColor: 'rgba(216,27,96,0.45)', borderColor: '#D81B60' },
-  vuongCheckboxChonChi: { backgroundColor: 'rgba(0,151,167,0.45)', borderColor: '#00838F' },
   dauTick: { fontSize: 13, color: CD.text.primary, fontWeight: '800', fontFamily: CD.font.family },
   cotTextDvkt: { flex: 1, minWidth: 0 },
   maTuongDuongPhu: { fontSize: 11, color: CD.text.muted, marginTop: 2, fontFamily: CD.font.family },
   demDaChon: { fontSize: 12, color: CD.text.success, marginBottom: 6, fontFamily: CD.font.family },
+  hangChonHangLoatDvkt: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 8,
+  },
+  nutChonHangLoatDvkt: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
+    backgroundColor: 'rgba(0,151,167,0.28)',
+    borderWidth: 1,
+    borderColor: 'rgba(0,131,143,0.65)',
+    ...Platform.select({ web: { cursor: 'pointer' } }),
+  },
+  nutChonHangLoatDvktPhu: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: 8,
+    backgroundColor: CD.bg.glass_input,
+    borderWidth: 1,
+    borderColor: CD.border.input,
+    ...Platform.select({ web: { cursor: 'pointer' } }),
+  },
+  chuNutChonHangLoatDvkt: { fontSize: 11, color: CD.text.primary, fontWeight: '700', fontFamily: CD.font.family },
   dongListChon: {
     backgroundColor: 'rgba(216,27,96,0.35)',
     borderLeftWidth: 4,
     borderLeftColor: '#D81B60',
-  },
-  dongListChonChi: {
-    backgroundColor: 'rgba(0,151,167,0.22)',
-    borderLeftWidth: 4,
-    borderLeftColor: '#00838F',
   },
   tenNhanSuChinh: { fontSize: 16, fontWeight: '700', color: CD.text.primary, fontFamily: CD.font.family },
   maNhanSuPhu: { fontSize: 13, color: CD.text.secondary, marginTop: 4, fontFamily: CD.font.family },

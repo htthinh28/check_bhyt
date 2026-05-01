@@ -1,6 +1,7 @@
 /**
  * Import catalog_mapping từ Excel (.xlsx) — cùng cột với xuất từ màn Mapping nghiệp vụ
- * (Loai, Ma_nguon, Ma_chi_dinh, Ma_thuc_hien, Hieu_luc_tu, Hieu_luc_den, Trang_thai, Duyet, Uu_tien).
+ * (Loai, Ma_nguon, Ma_thuc_hien, Hieu_luc_tu, Hieu_luc_den, Trang_thai, Duyet, Uu_tien).
+ * STAFF_DVKT: cột Ma_chi_dinh (nếu có trong file cũ) được gộp vào Ma_thuc_hien, không lưu riêng.
  */
 import * as XLSX from 'xlsx';
 import { noiChuoiNhieuMa, tachChuoiNhieuMa } from './catalog_mapping_chuoi_ma';
@@ -75,6 +76,13 @@ const chuanHoaDuyet = (s, requireApproval) => {
   return requireApproval ? 'PENDING' : 'APPROVED';
 };
 
+/** Tách tên thuốc theo `;` (giữ dấu phẩy trong từng tên, ví dụ nồng độ 0,10g/ml). */
+const tachTenThuocMappingExport = (s) =>
+  String(s || '')
+    .split(';')
+    .map((x) => x.trim())
+    .filter(Boolean);
+
 /**
  * Một dòng sheet (object từ sheet_to_json) → bản ghi catalog_mapping.
  * @returns {{ row?: object, error?: string }}
@@ -83,7 +91,8 @@ export const dongExcelThanhBanGhiMapping = (raw) => {
   const loai = layGiaTriTheoTenCot(raw, ['Loai', 'Loại', 'mapping_type', 'MAPPING_TYPE', 'loai_mapping']);
   if (!loai) return { error: 'Thiếu cột loại (Loai / mapping_type).' };
   const mtRaw = loai.trim().toUpperCase().replace(/\s+/g, '_');
-  const mt = mtRaw.startsWith('ICD_DRUG_CONTRA') ? 'ICD_DRUG_CONTRA' : mtRaw;
+  const mt =
+    mtRaw.startsWith('ICD_DRUG_CONTRA') || mtRaw.startsWith('THUOC_CCD') ? 'ICD_DRUG_CONTRA' : mtRaw;
   const cfg = layCauHinhLoaiMapping(mt);
   if (!cfg) return { error: `Loại mapping không hợp lệ: ${loai}` };
 
@@ -98,12 +107,11 @@ export const dongExcelThanhBanGhiMapping = (raw) => {
   if (mt === 'STAFF_DVKT') {
     if (!maNguon) return { error: 'STAFF_DVKT: thiếu Ma_nguon (mã nhân sự).' };
     source_code = maNguon;
-    const chi = tachChuoiNhieuMa(maChiDinh);
+    const chiLegacy = tachChuoiNhieuMa(maChiDinh);
     const thuc = tachChuoiNhieuMa(maThucHien);
-    if (!chi.length && !thuc.length) return { error: 'STAFF_DVKT: cần Ma_chi_dinh và/hoặc Ma_thuc_hien.' };
-    if (chi.length) metadata.target_codes_chi_dinh = chi;
-    if (thuc.length) metadata.target_codes_thuc_hien = thuc;
-    const codes = [...new Set([...chi, ...thuc])];
+    const codes = [...new Set([...chiLegacy, ...thuc])];
+    if (!codes.length) return { error: 'STAFF_DVKT: cần Ma_thuc_hien (hoặc cột Ma_chi_dinh cũ — sẽ gộp vào mã thực hiện).' };
+    metadata.target_codes_thuc_hien = codes;
     target_code = noiChuoiNhieuMa(codes);
   } else if (laMappingNhieuMaNguonIcd(mt)) {
     const srcs = tachChuoiNhieuMa(maNguon);
@@ -114,6 +122,19 @@ export const dongExcelThanhBanGhiMapping = (raw) => {
     if (!tgts.length) return { error: `${mt}: thiếu Ma_thuc_hien (mã đích — thuốc/DVKT/VTYT).` };
     metadata.target_codes = tgts;
     target_code = noiChuoiNhieuMa(tgts);
+    if (mt === 'ICD_DRUG_CONTRA') {
+      const tenTh = layGiaTriTheoTenCot(raw, [
+        'Ten_thuc_hien',
+        'Tên TH',
+        'ten_thuc_hien',
+        'TEN_THUC_HIEN',
+      ]);
+      const parts = tachTenThuocMappingExport(tenTh);
+      if (parts.length) {
+        metadata.khop_bang_ten_hoat_chat = true;
+        metadata.ten_thuoc_aliases = parts;
+      }
+    }
   } else if (mt === 'STAFF_EQUIPMENT' || mt === 'DVKT_EQUIPMENT') {
     const srcs = tachChuoiNhieuMa(maNguon);
     if (!srcs.length) return { error: `${mt}: thiếu Ma_nguon (mã nguồn).` };
@@ -172,6 +193,37 @@ export const dongExcelThanhBanGhiMapping = (raw) => {
 };
 
 /**
+ * Một dòng Excel ICD_DRUG_CONTRA với nhiều mã thuốc + cùng số cụm tên → tách thành nhiều bản ghi (khớp mã–tên đúng cặp).
+ */
+const tachDongIcdDrugContraNhieuThuoc = (row, raw) => {
+  if (!row || String(row.mapping_type || '').toUpperCase() !== 'ICD_DRUG_CONTRA') return [row];
+  const md = row.metadata && typeof row.metadata === 'object' ? row.metadata : {};
+  const tgts = Array.isArray(md.target_codes) ? md.target_codes.map((c) => String(c || '').trim()).filter(Boolean) : [];
+  if (tgts.length <= 1) return [row];
+  const tenTh = layGiaTriTheoTenCot(raw, [
+    'Ten_thuc_hien',
+    'Tên TH',
+    'ten_thuc_hien',
+    'TEN_THUC_HIEN',
+  ]);
+  const aliases = tachTenThuocMappingExport(tenTh);
+  if (aliases.length !== tgts.length) return [row];
+  const srcIcd = Array.isArray(md.source_icd_codes) ? md.source_icd_codes : [];
+  return tgts.map((code, idx) => ({
+    ...row,
+    id: taoIdMapping(),
+    target_code: code,
+    metadata: {
+      ...md,
+      target_codes: [code],
+      ten_thuoc_aliases: aliases[idx] ? [aliases[idx]] : [],
+      khop_bang_ten_hoat_chat: true,
+      source_icd_codes: srcIcd,
+    },
+  }));
+};
+
+/**
  * @param {object[]} jsonRows — XLSX.utils.sheet_to_json
  * @returns {{ rows: object[], errors: { line: number, message: string }[] }}
  */
@@ -186,7 +238,7 @@ export const sheetJsonToMappingRows = (jsonRows) => {
     const line = i + 2;
     const { row, error } = dongExcelThanhBanGhiMapping(raw);
     if (error) errors.push({ line, message: error });
-    else rows.push(row);
+    else tachDongIcdDrugContraNhieuThuoc(row, raw).forEach((r) => rows.push(r));
   });
   return { rows, errors };
 };

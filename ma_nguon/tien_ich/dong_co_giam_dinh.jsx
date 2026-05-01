@@ -2395,6 +2395,12 @@ const CO_TU_KHOA_KHAM_SUC_KHOE_THEO_YEU_CAU = (xml1 = {}) => {
     );
 };
 
+/** ICD-10 Z34* — Giám sát thai kỳ bình thường (khám thai định kỳ); không áp HC-07c cùng cờ từ khóa Điều 23 như các mã Z khác. */
+const LA_ICD_Z34_KHAM_THAI_BINH_THUONG = (maBenhChinhUpper = '') => {
+    const m = String(maBenhChinhUpper || '').trim().replace(/\./g, '');
+    return /^Z34/i.test(m);
+};
+
 const chuanHoaCoKhong = (val) => {
     const s = normalizeTextNoAccent(String(val || '')).toUpperCase().trim();
     if (!s) return '';
@@ -3042,7 +3048,79 @@ const layDongTheoLỗi = (hoSo, loi) => {
     return phanHe === 'XML2' ? enrichXML2Data(ds[idx]) : prepareData(ds[idx]);
 };
 
-const boSungChiTietCanhBaoGiaiTrinh = (hoSo, dsLỗi, dm) => (Array.isArray(dsLỗi) ? dsLỗi : []).map((loi) => {
+const laTenDvGoiPhauThuatThuThuat = (tenDv) => {
+    const t = UPPER(String(tenDv || ''));
+    return (
+        t.includes('PHẪU THUẬT') || t.includes('PHAU THUAT')
+        || t.includes('THỦ THUẬT') || t.includes('THU THUAT')
+    );
+};
+
+/**
+ * Tìm dòng XML3 gợi ý cho quy tắc Chuyên đề khi điều kiện dùng COUNT_IF(DS_XML3) nhưng engine
+ * vẫn neo nhầm XML1 — để UI lưới đánh dấu đúng ô.
+ */
+const timChiSoDongXml3TheoHeuristicChuyenDe = (loi, xml3) => {
+    if (!Array.isArray(xml3) || xml3.length === 0) return null;
+    const cb = normalizeTextNoAccent(String(loi?.canh_bao || '')).toUpperCase();
+    const dk = normalizeTextNoAccent(String(loi?.dieu_kien || '')).toUpperCase();
+    const maLuat = String(loi?.ma_luat || '');
+
+    if (
+        cb.includes('PHAU THUAT') || cb.includes('PHẪU THUẬT') || cb.includes('THU THUAT') || cb.includes('THỦ THUẬT')
+        || dk.includes('PHAU THUAT') || dk.includes('THU THUAT')
+        || /Chuyen_de_145/i.test(maLuat)
+    ) {
+        const ix = xml3.findIndex((r) => laTenDvGoiPhauThuatThuThuat(r?.TEN_DICH_VU));
+        if (ix >= 0) return { index: ix, truong_loi: 'TEN_DICH_VU', ly_do: 'PT_TT' };
+    }
+    if (cb.includes('SIEU AM') || cb.includes('SIÊU ÂM')) {
+        const ix = xml3.findIndex((r) => {
+            const t = UPPER(String(r?.TEN_DICH_VU || ''));
+            return t.includes('SIÊU ÂM') || t.includes('SIEU AM');
+        });
+        if (ix >= 0) return { index: ix, truong_loi: 'TEN_DICH_VU', ly_do: 'SIEU_AM' };
+    }
+    if (cb.includes('GAY ME') || cb.includes('GÂY MÊ')) {
+        const ix = xml3.findIndex((r) => {
+            const t = UPPER(String(r?.TEN_DICH_VU || ''));
+            return t.includes('GÂY MÊ') || t.includes('GAY ME');
+        });
+        if (ix >= 0) return { index: ix, truong_loi: 'TEN_DICH_VU', ly_do: 'GAY_ME' };
+    }
+    return null;
+};
+
+/**
+ * Bổ sung phan_he / index / truong_loi cho cảnh báo chưa neo ô trên lưới XML (đặc biệt Chuyen_de_*).
+ * Idempotent: không ghi đè khi đã có index + trường hợp lệ.
+ */
+export const enrichViTriCanhBaoXml = (hoSo, loi) => {
+    if (!loi || !hoSo) return loi;
+    const idx0 = Number(loi.index);
+    const tr = String(loi.truong_loi || '').trim().toUpperCase();
+    const daCoNeo = Number.isFinite(idx0) && idx0 >= 0 && tr && tr !== 'UNKNOWN' && tr !== 'CAU_TRUC';
+    if (daCoNeo) return loi;
+
+    const ma = String(loi.ma_luat || '').trim();
+    if (!/^Chuyen_de_/i.test(ma)) return loi;
+
+    const xml3 = layDanhSachXml(hoSo, 'XML3');
+    const hit = timChiSoDongXml3TheoHeuristicChuyenDe(loi, xml3);
+    if (!hit) return loi;
+
+    return {
+        ...loi,
+        phan_he: 'XML3',
+        index: hit.index,
+        truong_loi: hit.truong_loi,
+        vi_tri_uoc_luong: true,
+        vi_tri_uoc_ly_do: hit.ly_do,
+    };
+};
+
+const boSungChiTietCanhBaoGiaiTrinh = (hoSo, dsLỗi, dm) => (Array.isArray(dsLỗi) ? dsLỗi : []).map((loiRaw) => {
+    const loi = enrichViTriCanhBaoXml(hoSo, loiRaw);
     const phanHe = UPPER(loi?.phan_he || '');
     const truong = UPPER(loi?.truong_loi || '');
     const maLuat = UPPER(loi?.ma_luat || '');
@@ -3340,7 +3418,11 @@ const giamDinhHanhChinh = (hoSo, dm) => {
         addLỗi('HC-07b', 'Chẩn đoán ICD-10', `Mã bệnh chính [${x.MA_BENH_CHINH}] không có trong danh mục ICD-10 của BYT.`, 'Error', 'MA_BENH_CHINH');
     }
     const maBenhChinhUpper = UPPER(x.MA_BENH_CHINH || '');
-    if (maBenhChinhUpper.startsWith('Z') && CO_TU_KHOA_KHAM_SUC_KHOE_THEO_YEU_CAU(x)) {
+    if (
+        maBenhChinhUpper.startsWith('Z')
+        && !LA_ICD_Z34_KHAM_THAI_BINH_THUONG(maBenhChinhUpper)
+        && CO_TU_KHOA_KHAM_SUC_KHOE_THEO_YEU_CAU(x)
+    ) {
         addLỗi(
             'HC-07c',
             'Điều kiện thanh toán BHYT với ICD nhóm Z',
@@ -3685,6 +3767,7 @@ const taoPlaceholderCanhBaoThuoc = (row = {}) => {
     const soLuongYLenh = slMoiNgay > 0 && soNgay > 0 ? (slMoiNgay * soNgay) : 0;
     const duQty = Math.max(0, soLuongCap - soLuongYLenh);
     return {
+        MA_THUOC: lamSachChuoiHienThi(row?.MA_THUOC || ''),
         TEN_THUOC: lamSachChuoiHienThi(row?.TEN_THUOC || row?.MA_THUOC || 'thuốc'),
         DU_QTY: dinhDangSoGiaiTrinh(duQty),
         SO_LUONG: dinhDangSoGiaiTrinh(soLuongCap),

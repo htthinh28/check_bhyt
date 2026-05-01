@@ -165,26 +165,25 @@ function normArr(a) {
   return Array.isArray(a) ? a.map((x) => String(x || '').trim()).filter(Boolean) : [];
 }
 
-function docChiThucStaffDvkt(row) {
+/** STAFF_DVKT: một danh sách mã DVKT (legacy `target_codes_chi_dinh` được gộp vào khi đọc). */
+function docThucHienStaffDvkt(row) {
   const md = row.metadata && typeof row.metadata === 'object' ? row.metadata : {};
-  let chi = normArr(md.target_codes_chi_dinh);
-  let thuc = normArr(md.target_codes_thuc_hien);
-  if (chi.length || thuc.length) return { chi, thuc };
+  const chi = normArr(md.target_codes_chi_dinh);
+  const thuc = normArr(md.target_codes_thuc_hien);
+  if (chi.length || thuc.length) return [...new Set([...chi, ...thuc])];
   if (Array.isArray(md.target_codes) && md.target_codes.length) {
-    return { chi: [], thuc: normArr(md.target_codes) };
+    return [...new Set(normArr(md.target_codes))];
   }
   const tc = String(row.target_code || '').trim();
-  if (!tc) return { chi: [], thuc: [] };
-  const parts = tachChuoiNhieuMa(tc);
-  return { chi: [], thuc: parts };
+  if (!tc) return [];
+  return [...new Set(tachChuoiNhieuMa(tc))];
 }
 
-/** Mọi mã đích trên bản ghi (gồm chỉ định + thực hiện với STAFF_DVKT). */
+/** Mọi mã đích trên bản ghi (STAFF_DVKT: một nhóm mã thực hiện / DVKT sau gộp legacy). */
 export const layMaDichTuBanGhiMapping = (row) => {
   const mt = String(row?.mapping_type || '').trim();
   if (mt === 'STAFF_DVKT') {
-    const { chi, thuc } = docChiThucStaffDvkt(row);
-    return [...new Set([...chi, ...thuc])];
+    return docThucHienStaffDvkt(row);
   }
   if (MAPPING_LOAI_NHIEU_MA_DICH.includes(mt) && mt !== 'STAFF_DVKT') {
     const md = row.metadata && typeof row.metadata === 'object' ? row.metadata : {};
@@ -261,16 +260,9 @@ const kiemTraMaTuongUngDanhMuc = (rowMoi, bangTheoRef) => {
   }
   const badTgt = timMaKhongThuocDanhMuc(tgtRows, maDich, tgtKey);
   if (badTgt.length) {
-    const { chi, thuc } = rowMoi.mapping_type === 'STAFF_DVKT' ? docChiThucStaffDvkt(rowMoi) : { chi: [], thuc: [] };
-    const badChi = rowMoi.mapping_type === 'STAFF_DVKT' ? timMaKhongThuocDanhMuc(tgtRows, chi, tgtKey) : [];
-    const badThuc = rowMoi.mapping_type === 'STAFF_DVKT' ? timMaKhongThuocDanhMuc(tgtRows, thuc, tgtKey) : [];
-    let extra = '';
-    if (badChi.length) extra += ` Chỉ định: ${badChi.join(', ')}.`;
-    if (badThuc.length) extra += ` Thực hiện: ${badThuc.join(', ')}.`;
-    if (!extra) extra = ` ${badTgt.join(', ')}.`;
     return {
       ok: false,
-      message: `Mã đích không có trong danh mục tương ứng (chỉ định phải có mã khớp danh mục; thiếu → mapping sai):${extra}`.trim(),
+      message: `Mã đích không có trong danh mục tương ứng (mã DVKT phải khớp danh mục): ${badTgt.join(', ')}.`,
     };
   }
   return { ok: true };

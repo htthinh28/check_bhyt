@@ -11,6 +11,7 @@ import * as XLSX from 'xlsx';
 import { CD } from '../../tien_ich/chu_de_giao_dien';
 import TimKiemPhanTrangBang from '../../thanh_phan/tim_kiem_phan_trang_bang';
 import { locDongTheoTuKhoa, SO_DONG_TRANG_MAC_DINH, tinhChiSoPhanTrang } from '../../tien_ich/bo_loc_bang_du_lieu';
+import { useEbmPhuSidebar } from '../ebm_phu_sidebar_context';
 import InHuongDanByt, { inHoacChiaSeHuongDanBytMotDong } from './in_huong_dan_byt';
 
 const COT_MAC_DINH = [
@@ -59,6 +60,7 @@ const MOC_RONG_COT = [300, 400, 520, 640];
 const RONG_COT_THAO_TAC = 168;
 
 const HuongDanBoYTe = () => {
+  const { datNoiDungPhu } = useEbmPhuSidebar();
   const [columns, setColumns] = useState(COT_MAC_DINH);
   const [data, setData] = useState([]);
   const [selectedRows, setSelectedRows] = useState([]);
@@ -206,99 +208,112 @@ const HuongDanBoYTe = () => {
     e.target.value = null;
   };
 
-  const renderBangQuanTri = () => (
-    <View style={styles.layout_bang_quan_tri}>
-      <View style={styles.thanh_cong_cu_mot_hang}>
-        <ScrollView
-          horizontal
-          nestedScrollEnabled
-          keyboardShouldPersistTaps="handled"
-          showsHorizontalScrollIndicator={false}
-          style={styles.cuon_thanh_cong_cu}
-          contentContainerStyle={styles.cuon_thanh_cong_cu_content}
-        >
-          <View style={styles.khoi_tim_tu_khoa}>
-            <Text style={styles.icon_tim}>🔎</Text>
-            <TextInput
-              style={styles.o_tim_tu_khoa}
-              value={tuKhoaTim}
-              onChangeText={setTuKhoaTim}
-              placeholder="Tìm theo từ khóa (ICD-10, tên bệnh, cột…)"
-              placeholderTextColor={CD.text.muted}
-              autoCorrect={false}
-              autoCapitalize="none"
-              {...Platform.select({ web: { outlineStyle: 'none' } })}
-            />
-            {tuKhoaTim ? (
-              <TouchableOpacity onPress={() => setTuKhoaTim('')} style={styles.nut_xoa_tim} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
-                <Text style={styles.chu_xoa_tim}>✕</Text>
-              </TouchableOpacity>
-            ) : null}
-          </View>
-          <TouchableOpacity style={styles.btn_gon_pink} onPress={handleAddRow}>
-            <Text style={styles.txt_btn_gon}>➕ THÊM DÒNG</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.btn_gon_red} onPress={handleDeleteBulk}>
-            <Text style={styles.txt_btn_gon}>🗑 XÓA ({selectedRows.length})</Text>
-          </TouchableOpacity>
+  useEffect(() => {
+    if (viewMode !== 'table') {
+      datNoiDungPhu(null);
+      return undefined;
+    }
+    datNoiDungPhu(
+      <View style={styles.khoi_dieu_khien_ebm}>
+        <View style={styles.khoi_tim_tu_khoa}>
+          <Text style={styles.icon_tim}>🔎</Text>
           <TextInput
-            style={styles.o_nhap_ten_cot_gon}
-            placeholder="Tên trường mới…"
-            value={newColName}
-            onChangeText={setNewColName}
+            style={styles.o_tim_tu_khoa}
+            value={tuKhoaTim}
+            onChangeText={setTuKhoaTim}
+            placeholder="Tìm theo từ khóa (ICD-10, tên bệnh, cột…)"
             placeholderTextColor={CD.text.muted}
+            autoCorrect={false}
+            autoCapitalize="none"
             {...Platform.select({ web: { outlineStyle: 'none' } })}
           />
-          <TouchableOpacity style={styles.btn_gon_blue} onPress={handleAddColumn}>
-            <Text style={styles.txt_btn_gon}>+ TRƯỜNG</Text>
-          </TouchableOpacity>
-          {Platform.OS === 'web' && (
-            <>
-              <input type="file" accept=".xlsx, .csv" onChange={handleImport} style={{ display: 'none' }} id="import-excel-byt" />
-              <TouchableOpacity style={styles.btn_gon_orange} onPress={() => document.getElementById('import-excel-byt').click()}>
-                <Text style={styles.txt_btn_gon}>📥 IMPORT</Text>
-              </TouchableOpacity>
-            </>
-          )}
-          <TouchableOpacity style={styles.btn_gon_green} onPress={handleExport}>
-            <Text style={styles.txt_btn_gon}>📤 EXPORT</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.btn_gon_outline}
-            onPress={() => setChiSoRongCot((i) => Math.max(0, i - 1))}
-            disabled={chiSoRongCot <= 0}
-          >
-            <Text style={[styles.txt_btn_gon_outline, chiSoRongCot <= 0 && styles.txt_mo]}>◀ Cột</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.btn_gon_outline}
-            onPress={() => setChiSoRongCot((i) => Math.min(MOC_RONG_COT.length - 1, i + 1))}
-            disabled={chiSoRongCot >= MOC_RONG_COT.length - 1}
-          >
-            <Text style={[styles.txt_btn_gon_outline, chiSoRongCot >= MOC_RONG_COT.length - 1 && styles.txt_mo]}>Cột ▶</Text>
-          </TouchableOpacity>
-          <Text style={styles.nhan_rong_cot}>{rongCotDuLieu}px</Text>
-        </ScrollView>
-      </View>
-
-      <View style={styles.phan_bang_quan_tri} onLayout={(e) => setChieuCaoVungBang(e.nativeEvent.layout.height)}>
-        <View style={styles.khung_tim_bang_compact}>
-          <TimKiemPhanTrangBang
-            anThanhTim
-            tuKhoa={tuKhoaTim}
-            onTuKhoa={setTuKhoaTim}
-            tongDongGoc={data.length}
-            tongDongSauLoc={nSauLoc}
-            soDongMotTrang={soDongMotTrang}
-            onSoDongMotTrang={setSoDongMotTrang}
-            trangHienTai={trangDangXem}
-            onTrangHienTai={setTrangHienTai}
-            tongSoTrang={tongSoTrang}
-            chiSoBatDau={chiSoBatDau}
-            chiSoKetThuc={chiSoKetThuc}
-          />
+          {tuKhoaTim ? (
+            <TouchableOpacity onPress={() => setTuKhoaTim('')} style={styles.nut_xoa_tim} hitSlop={{ top: 8, bottom: 8, left: 8, right: 8 }}>
+              <Text style={styles.chu_xoa_tim}>✕</Text>
+            </TouchableOpacity>
+          ) : null}
         </View>
+        <TouchableOpacity style={styles.btn_gon_pink} onPress={handleAddRow}>
+          <Text style={styles.txt_btn_gon}>➕ THÊM DÒNG</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.btn_gon_red} onPress={handleDeleteBulk}>
+          <Text style={styles.txt_btn_gon}>🗑 XÓA ({selectedRows.length})</Text>
+        </TouchableOpacity>
+        <TextInput
+          style={styles.o_nhap_ten_cot_gon}
+          placeholder="Tên trường mới…"
+          value={newColName}
+          onChangeText={setNewColName}
+          placeholderTextColor={CD.text.muted}
+          {...Platform.select({ web: { outlineStyle: 'none' } })}
+        />
+        <TouchableOpacity style={styles.btn_gon_blue} onPress={handleAddColumn}>
+          <Text style={styles.txt_btn_gon}>+ TRƯỜNG</Text>
+        </TouchableOpacity>
+        {Platform.OS === 'web' ? (
+          <>
+            <input type="file" accept=".xlsx, .csv" onChange={handleImport} style={{ display: 'none' }} id="import-excel-byt-ebm" />
+            <TouchableOpacity style={styles.btn_gon_orange} onPress={() => document.getElementById('import-excel-byt-ebm').click()}>
+              <Text style={styles.txt_btn_gon}>📥 IMPORT</Text>
+            </TouchableOpacity>
+          </>
+        ) : null}
+        <TouchableOpacity style={styles.btn_gon_green} onPress={handleExport}>
+          <Text style={styles.txt_btn_gon}>📤 EXPORT</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btn_gon_outline}
+          onPress={() => setChiSoRongCot((i) => Math.max(0, i - 1))}
+          disabled={chiSoRongCot <= 0}
+        >
+          <Text style={[styles.txt_btn_gon_outline, chiSoRongCot <= 0 && styles.txt_mo]}>◀ Cột</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.btn_gon_outline}
+          onPress={() => setChiSoRongCot((i) => Math.min(MOC_RONG_COT.length - 1, i + 1))}
+          disabled={chiSoRongCot >= MOC_RONG_COT.length - 1}
+        >
+          <Text style={[styles.txt_btn_gon_outline, chiSoRongCot >= MOC_RONG_COT.length - 1 && styles.txt_mo]}>Cột ▶</Text>
+        </TouchableOpacity>
+        <Text style={styles.nhan_rong_cot}>{rongCotDuLieu}px</Text>
+        <TimKiemPhanTrangBang
+          anThanhTim
+          bocucPhanTrang="doc"
+          tuKhoa={tuKhoaTim}
+          onTuKhoa={setTuKhoaTim}
+          tongDongGoc={data.length}
+          tongDongSauLoc={nSauLoc}
+          soDongMotTrang={soDongMotTrang}
+          onSoDongMotTrang={setSoDongMotTrang}
+          trangHienTai={trangDangXem}
+          onTrangHienTai={setTrangHienTai}
+          tongSoTrang={tongSoTrang}
+          chiSoBatDau={chiSoBatDau}
+          chiSoKetThuc={chiSoKetThuc}
+        />
+      </View>,
+    );
+    return () => datNoiDungPhu(null);
+  }, [
+    viewMode,
+    datNoiDungPhu,
+    tuKhoaTim,
+    selectedRows.length,
+    newColName,
+    chiSoRongCot,
+    rongCotDuLieu,
+    data.length,
+    nSauLoc,
+    soDongMotTrang,
+    trangDangXem,
+    tongSoTrang,
+    chiSoBatDau,
+    chiSoKetThuc,
+  ]);
 
+  const renderBangQuanTri = () => (
+    <View style={styles.layout_bang_quan_tri}>
+      <View style={styles.phan_bang_quan_tri} onLayout={(e) => setChieuCaoVungBang(e.nativeEvent.layout.height)}>
         <ScrollView
           horizontal
           nestedScrollEnabled
@@ -419,6 +434,7 @@ const HuongDanBoYTe = () => {
 };
 
 const styles = StyleSheet.create({
+  khoi_dieu_khien_ebm: { width: '100%', gap: 8 },
   vung_goc: { flex: 1, backgroundColor: CD.bg.gradient_mobile, minHeight: 0 },
   vung_quan_tri_fill: { flex: 1, minHeight: 0 },
   layout_bang_quan_tri: { flex: 1, flexDirection: 'column', minHeight: 0 },

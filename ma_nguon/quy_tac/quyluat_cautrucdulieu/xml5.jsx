@@ -10,7 +10,7 @@ export const DANH_SACH_COT_XML5 = [
   'DIEN_BIEN',   // 3. Nội dung diễn biến lâm sàng
   'HOI_CHAN',    // 4. Nội dung hội chẩn (nếu có)
   'PHAU_THUAT',  // 5. Tóm tắt phẫu thuật/thủ thuật (nếu có)
-  'NGAY_YL',     // 6. Ngày giờ bác sĩ ghi nhận diễn biến (YYYYMMDDHHMI)
+  'NGAY_YL',     // 6. Ngày giờ bác sĩ ghi nhận diễn biến (YYYYMMDDHHMM)
   'MA_BAC_SI',   // 7. Mã bác sĩ ghi diễn biến (Mã CCHN)
   'MA_KHOA',     // 8. Mã khoa phòng tại thời điểm diễn biến
   'DU_PHONG'     // 9. Trường dự phòng
@@ -38,7 +38,7 @@ export const QUY_TAC_KIEM_TRA_XML5 = {
     required: true, 
     maxLength: 12, 
     type: 'string', 
-    mo_ta: 'Thời điểm ghi diễn biến phải đúng định dạng YYYYMMDDHHMI' 
+    mo_ta: 'Thời điểm ghi diễn biến phải đúng định dạng YYYYMMDDHHMM' 
   },
   MA_BAC_SI: { 
     required: true, 
