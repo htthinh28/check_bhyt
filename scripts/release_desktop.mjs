@@ -3,7 +3,7 @@
  *
  * Ví dụ:
  *   npm run release-desktop -- --win
- *   npm run release-desktop -- --win --bump patch
+ *   npm run release-desktop -- --win portable --bump patch
  *   npm run release-desktop -- --win --bump minor
  *   node scripts/release_desktop.mjs -- --linux --bump major --dry-run
  */
@@ -34,6 +34,8 @@ const parseArgs = () => {
   let bump = 'minor';
   let dry = false;
   const targets = [];
+  /** Tham số bổ sung cho electron-builder (vd: portable, nsis) */
+  const passthrough = [];
   for (let i = 0; i < raw.length; i++) {
     const a = raw[i];
     if (a === '--dry-run') dry = true;
@@ -43,15 +45,16 @@ const parseArgs = () => {
         console.error('--bump phải là patch | minor | major');
         process.exit(1);
       }
-    }     else if (['--win', '--mac', '--linux'].includes(a)) targets.push(a.replace('--', ''));
+    } else if (['--win', '--mac', '--linux'].includes(a)) targets.push(a.replace('--', ''));
     else if (a === 'win' || a === 'mac' || a === 'linux') targets.push(a);
+    else if (a === 'portable' || a === 'nsis') passthrough.push(a);
   }
   if (targets.length === 0) targets.push('win');
-  return { bump, dry, targets };
+  return { bump, dry, targets, passthrough };
 };
 
 const main = () => {
-  const { bump, dry, targets } = parseArgs();
+  const { bump, dry, targets, passthrough } = parseArgs();
 
   const pkg = JSON.parse(fs.readFileSync(pkgPath, 'utf8'));
   const registry = JSON.parse(fs.readFileSync(registryPath, 'utf8'));
@@ -71,7 +74,7 @@ const main = () => {
   pkg.version = next;
   fs.writeFileSync(pkgPath, `${JSON.stringify(pkg, null, 2)}\n`, 'utf8');
 
-  const extra = targets.map((t) => `--${t}`).join(' ');
+  const extra = [...targets.map((t) => `--${t}`), ...passthrough].join(' ');
   const cmd = `npm run desktop:export && node scripts/stage_desktop_pack.mjs -- ${extra}`;
   console.log(`[release-desktop] ${cmd}\n`);
 

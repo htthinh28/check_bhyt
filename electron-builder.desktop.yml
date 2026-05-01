@@ -49,3 +49,10 @@ compression: maximum
 nsis:
   oneClick: false
   allowToChangeInstallationDirectory: true
+  allowElevation: true
+  # Cùng appId → Windows nhận là cùng ứng dụng; chạy Setup mới ghi đè bản cũ (cùng thư mục cài).
+  deleteAppDataOnUninstall: false
+  shortcutName: "${productName}"
+  uninstallDisplayName: "${productName}"
+  # Khác tên file với bản portable (cùng pattern .exe)
+  artifactName: "${productName}-${version}-Setup-${arch}.${ext}"

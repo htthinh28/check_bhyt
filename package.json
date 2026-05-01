@@ -3,7 +3,7 @@
   "description": "CDSS BHYT — kiểm tra hồ sơ BHYT; web/mobile + portable Windows (export đủ tài liệu/chỉ mục nội bộ).",
   "author": "BV Phương Châu",
   "main": "index.js",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "scripts": {
     "prestart": "npm run chuyen-de:prepare-build",
     "start": "expo start --port 8081",

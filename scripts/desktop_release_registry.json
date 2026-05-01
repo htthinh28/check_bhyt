@@ -1,5 +1,5 @@
 {
-  "lastReleasedVersion": "1.1.0",
+  "lastReleasedVersion": "1.2.1",
   "history": [
     {
       "version": "1.0.0",
@@ -10,6 +10,11 @@
       "version": "1.1.0",
       "date": "2026-04-09",
       "note": "Desktop build (win)"
+    },
+    {
+      "version": "1.2.1",
+      "date": "2026-05-01",
+      "note": "Windows NSIS Setup (cài đè bản cùng appId)"
     }
   ]
 }
