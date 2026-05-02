@@ -18,6 +18,7 @@ import { dieuHuongMoTabMoi } from '../tien_ich/dieu_huong_mo_tab_moi';
 import { docVanBan, dungDoc } from '../tien_ich/giong_doc_tri_thuc';
 import taiLieuManifest from '../tien_ich/tai_lieu_manifest.json';
 import { layDanhSachTriThucTuGiamDinh } from '../tien_ich/tri_thuc_tu_giam_dinh';
+import { chatPythonService } from '../dich_vu/python_service_api';
 import { traLoiTroLyTriThuc } from '../tien_ich/tro_ly_tri_thuc_engine';
 
 const GOI_Y_NHANH = [
@@ -185,6 +186,8 @@ const KhungTroLyTriThucChat = ({
   const [nhap, setNhap] = useState('');
   const [dangXuLy, setDangXuLy] = useState(false);
   const [triThuc, setTriThuc] = useState([]);
+  /** false = RAG nội bộ (mặc định); true = LLM qua Python (Unsloth-compatible HF). */
+  const [cheDoLlm, setCheDoLlm] = useState(false);
   const scrollRef = useRef(null);
 
   useEffect(() => {
@@ -200,24 +203,48 @@ const KhungTroLyTriThucChat = ({
     setTinNhan((prev) => [...prev, userMsg]);
     setDangXuLy(true);
     try {
-      const freshTriThuc = await layDanhSachTriThucTuGiamDinh().catch(() => []);
-      const ketQua = await traLoiTroLyTriThuc({
-        cauHoi,
-        manifestItems: taiLieuManifest.items || [],
-        generatedAt: taiLieuManifest.generatedAt || '',
-        triThucGiamDinh: freshTriThuc,
-        gioiHanTaiFile: 12,
-      });
-      setTinNhan((prev) => [
-        ...prev,
-        {
-          role: 'assistant',
-          text: ketQua.markdown || ketQua.loi || 'Không có nội dung.',
-          ok: ketQua.ok,
-          nguon: ketQua.nguon || [],
-          ts: Date.now(),
-        },
-      ]);
+      if (cheDoLlm) {
+        const messages = [
+          ...tinNhan
+            .filter((m) => m.role === 'user' || m.role === 'assistant')
+            .map((m) => ({ role: m.role, content: m.text })),
+          { role: 'user', content: cauHoi },
+        ];
+        const ketQua = await chatPythonService({ messages, maxNewTokens: 512 });
+        const loi = ketQua?.status === 'error' ? (ketQua.message || 'Lỗi LLM') : null;
+        const text = loi || ketQua?.reply || ketQua?.detail || 'Không có phản hồi.';
+        setTinNhan((prev) => [
+          ...prev,
+          {
+            role: 'assistant',
+            text,
+            ok: !loi,
+            nguon: [],
+            ts: Date.now(),
+            cheDo: 'llm',
+          },
+        ]);
+      } else {
+        const freshTriThuc = await layDanhSachTriThucTuGiamDinh().catch(() => []);
+        const ketQua = await traLoiTroLyTriThuc({
+          cauHoi,
+          manifestItems: taiLieuManifest.items || [],
+          generatedAt: taiLieuManifest.generatedAt || '',
+          triThucGiamDinh: freshTriThuc,
+          gioiHanTaiFile: 12,
+        });
+        setTinNhan((prev) => [
+          ...prev,
+          {
+            role: 'assistant',
+            text: ketQua.markdown || ketQua.loi || 'Không có nội dung.',
+            ok: ketQua.ok,
+            nguon: ketQua.nguon || [],
+            ts: Date.now(),
+            cheDo: 'rag',
+          },
+        ]);
+      }
     } catch (e) {
       setTinNhan((prev) => [
         ...prev,
@@ -231,7 +258,7 @@ const KhungTroLyTriThucChat = ({
     } finally {
       setDangXuLy(false);
     }
-  }, [dangXuLy, nhap]);
+  }, [dangXuLy, nhap, tinNhan, cheDoLlm]);
 
   useEffect(() => {
     const t = setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 120);
@@ -270,9 +297,36 @@ const KhungTroLyTriThucChat = ({
         </View>
       </View>
 
+      <View style={styles.che_do_row}>
+        <TouchableOpacity
+          style={[styles.che_do_btn, !cheDoLlm && styles.che_do_btn_on]}
+          onPress={() => setCheDoLlm(false)}
+          disabled={dangXuLy}
+        >
+          <Text style={[styles.che_do_txt, !cheDoLlm && styles.che_do_txt_on]}>RAG nội bộ</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={[styles.che_do_btn, cheDoLlm && styles.che_do_btn_on]}
+          onPress={() => setCheDoLlm(true)}
+          disabled={dangXuLy}
+        >
+          <Text style={[styles.che_do_txt, cheDoLlm && styles.che_do_txt_on]}>LLM (Python)</Text>
+        </TouchableOpacity>
+      </View>
+
       <Text style={[styles.lead, laCuaSo && styles.lead_compact]}>
-        Trích từ <Text style={styles.lead_em}>Thư viện</Text>, <Text style={styles.lead_em}>Chuyên môn</Text>,{' '}
-        <Text style={styles.lead_em}>Danh mục nội bộ</Text>, <Text style={styles.lead_em}>Quy tắc luật</Text> và tri thức kiểm tra đã lưu — không tra web.
+        {cheDoLlm ? (
+          <>
+            Mô hình <Text style={styles.lead_em}>Unsloth-compatible</Text> (mặc định Qwen2.5-3B trên Python service). Cần{' '}
+            <Text style={styles.lead_em}>GPU + pip install -r requirements-ai.txt</Text>. Hoặc{' '}
+            <Text style={styles.lead_em}>CDSS_AI_MOCK=1</Text> để thử không GPU.
+          </>
+        ) : (
+          <>
+            Trích từ <Text style={styles.lead_em}>Thư viện</Text>, <Text style={styles.lead_em}>Chuyên môn</Text>,{' '}
+            <Text style={styles.lead_em}>Danh mục nội bộ</Text>, <Text style={styles.lead_em}>Quy tắc luật</Text> và tri thức kiểm tra đã lưu — không tra web.
+          </>
+        )}
       </Text>
 
       <View style={[styles.chips, laCuaSo && styles.chips_compact]}>
@@ -305,7 +359,9 @@ const KhungTroLyTriThucChat = ({
               key={`${m.ts}-${idx}`}
               style={[styles.bubble, m.role === 'user' ? styles.bubble_user : styles.bubble_bot]}
             >
-              <Text style={styles.bubble_role}>{m.role === 'user' ? 'Bạn' : 'Trợ lý (RAG nội bộ)'}</Text>
+              <Text style={styles.bubble_role}>
+                {m.role === 'user' ? 'Bạn' : (m.cheDo === 'llm' ? 'Trợ lý (LLM nội bộ)' : 'Trợ lý (RAG nội bộ)')}
+              </Text>
               {m.role === 'assistant' ? (
                 <VanBanTraLoiTroLy text={m.text} />
               ) : (
@@ -391,6 +447,27 @@ const styles = StyleSheet.create({
   },
   lead_compact: { paddingVertical: 6, fontSize: 11, lineHeight: 16 },
   lead_em: { fontWeight: '800', color: CD.brand.mauDam },
+  che_do_row: {
+    flexDirection: 'row',
+    gap: 8,
+    paddingHorizontal: 12,
+    paddingTop: 4,
+    paddingBottom: 2,
+  },
+  che_do_btn: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: CD.border.glass,
+    backgroundColor: CD.bg.glass_input,
+  },
+  che_do_btn_on: {
+    borderColor: CD.brand.mauDam,
+    backgroundColor: 'rgba(194, 24, 91, 0.1)',
+  },
+  che_do_txt: { fontSize: 12, color: CD.text.secondary, fontWeight: '600', fontFamily: CD.font.family },
+  che_do_txt_on: { color: CD.brand.mauDam, fontWeight: '800' },
   mono: { fontFamily: CD.font.mono, fontSize: 11, color: CD.text.table_cell },
   chips: { flexDirection: 'row', flexWrap: 'wrap', gap: 6, paddingHorizontal: 12, marginBottom: 6 },
   chips_compact: { marginBottom: 4, gap: 4 },

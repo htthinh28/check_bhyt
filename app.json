@@ -51,7 +51,8 @@
       "pythonService": {
         "enabled": true,
         "baseUrl": "",
-        "timeoutMs": 20000
+        "timeoutMs": 20000,
+        "chatTimeoutMs": 120000
       }
     },
     "plugins": [

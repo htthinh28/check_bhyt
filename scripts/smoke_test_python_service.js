@@ -36,6 +36,13 @@ const main = async () => {
   if (health?.status !== 'ok') fail('Health endpoint did not return status=ok');
   console.log(`[qa:python-service] Health OK at ${health.timestamp || 'N/A'}`);
 
+  try {
+    const ai = await fetchJson('/api/v1/ai/status');
+    console.log(`[qa:python-service] AI status: model_id=${ai?.model_id || 'N/A'} deps=${ai?.deps_installed} cuda=${ai?.cuda_available} mock=${ai?.mock_mode}`);
+  } catch (e) {
+    console.warn(`[qa:python-service] AI status skip: ${e?.message || e}`);
+  }
+
   const payload = {
     claims: [{
       ma_lk: 'SMOKE_IP_001',

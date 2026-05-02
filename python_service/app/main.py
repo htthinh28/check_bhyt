@@ -5,14 +5,27 @@ from pathlib import Path
 import re
 from typing import Any, Dict, List
 
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
+
+from .ai_unsloth_chat import sinh_tra_loi as ai_sinh_tra_loi
+from .ai_unsloth_chat import trang_thai_ai as ai_trang_thai
 
 
 class BatchAuditRequest(BaseModel):
     claims: List[Dict[str, Any]] = Field(default_factory=list)
     options: Dict[str, Any] = Field(default_factory=dict)
+
+
+class ChatMessage(BaseModel):
+    role: str = "user"
+    content: str = ""
+
+
+class ChatRequest(BaseModel):
+    messages: List[ChatMessage] = Field(default_factory=list)
+    max_new_tokens: int = Field(default=512, ge=1, le=2048)
 
 
 PYTHON_SOURCE = "PYTHON_SERVICE"
@@ -874,6 +887,12 @@ def root() -> Dict[str, Any]:
         "service": "cdss-bhyt-python-service",
         "status": "ok",
         "timestamp": tao_moc_thoi_gian_iso(),
+        "endpoints": [
+            "GET /health",
+            "POST /api/v1/audit/claims",
+            "GET /api/v1/ai/status",
+            "POST /api/v1/chat",
+        ],
     }
 
 
@@ -899,4 +918,42 @@ def audit_claims(payload: BatchAuditRequest) -> Dict[str, Any]:
         "coverage": batch_result["coverage"],
         "options_echo": payload.options,
         "timestamp": tao_moc_thoi_gian_iso(),
+    }
+
+
+@app.get("/api/v1/ai/status")
+def ai_status() -> Dict[str, Any]:
+    """Trạng thái tùy chọn LLM (Unsloth-compatible trên Hugging Face)."""
+    meta = ai_trang_thai()
+    return {
+        "status": "ok",
+        "timestamp": tao_moc_thoi_gian_iso(),
+        **meta,
+    }
+
+
+@app.post("/api/v1/chat")
+def chat_endpoint(payload: ChatRequest) -> Dict[str, Any]:
+    """
+    Chat với mô hình nội bộ (mặc định unsloth/Qwen2.5-3B-Instruct-bnb-4bit).
+    Cần GPU + requirements-ai.txt; hoặc CDSS_AI_MOCK=1 để thử luồng.
+    """
+    if not payload.messages:
+        raise HTTPException(status_code=400, detail="messages không được rỗng")
+    raw = [m.model_dump() for m in payload.messages]
+    try:
+        result = ai_sinh_tra_loi(raw, max_new_tokens=payload.max_new_tokens)
+    except Exception as e:
+        return {
+            "status": "error",
+            "message": str(e),
+            "timestamp": tao_moc_thoi_gian_iso(),
+            **ai_trang_thai(),
+        }
+    return {
+        "status": "ok",
+        "timestamp": tao_moc_thoi_gian_iso(),
+        "reply": result.get("reply", ""),
+        "model_id": result.get("model_id", ""),
+        "mock": bool(result.get("mock")),
     }

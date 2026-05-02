@@ -139,11 +139,23 @@ Use `ma_nguon/dich_vu/python_service_api.jsx`:
 
 - `healthCheckPythonService()`
 - `auditClaimsBangPythonService({ claims, options })`
+- `getPythonAiStatus()` — LLM / CUDA / mock
+- `chatPythonService({ messages, maxNewTokens })` — tùy chọn; timeout `expo.extra.pythonService.chatTimeoutMs`
 
-### 4. Current sample endpoints
+### 4. Optional: LLM nội bộ (Unsloth-compatible trên Hugging Face)
+
+- Mô hình mặc định trong code: `unsloth/Qwen2.5-3B-Instruct-bnb-4bit` (tải qua Hugging Face khi chạy lần đầu; **không** lưu trong Git).
+- Thư viện tối ưu huấn luyện: [unslothai/unsloth](https://github.com/unslothai/unsloth) — checkpoint phân phối qua tổ chức [unsloth trên Hugging Face](https://huggingface.co/unsloth).
+- Cài thêm: `npm run py:install:ai` (cần **GPU NVIDIA + CUDA** cho 4-bit). Đổi model: biến môi trường `CDSS_AI_MODEL_ID`.
+- Thử luồng không GPU: chạy service với `CDSS_AI_MOCK=1` (trả lời giả lập).
+- API: `GET /api/v1/ai/status`, `POST /api/v1/chat` — app: màn **Trợ lý tri thức** → chế độ **LLM (Python)**.
+
+### 5. Current sample endpoints
 
 - `GET /health`
 - `POST /api/v1/audit/claims`
+- `GET /api/v1/ai/status`
+- `POST /api/v1/chat`
 
 On the dashboard, you can also use the `Smoke test` button in the Python service card to verify that the React Native client can call the service with the same request path used by hybrid audit mode. The card now shows a small PASS/FAIL badge for the latest dashboard smoke test run.
 

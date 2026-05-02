@@ -88,6 +88,13 @@ const resolvePythonHealthTimeoutMs = () => {
   return Number.isFinite(timeoutMs) && timeoutMs > 0 ? timeoutMs : 12000;
 };
 
+/** Sinh LLM có thể mất vài phút lần đầu (tải weight); mặc định 120s. */
+const resolvePythonChatTimeoutMs = () => {
+  const extra = layExtraExpo();
+  const timeoutMs = Number(extra?.pythonService?.chatTimeoutMs);
+  return Number.isFinite(timeoutMs) && timeoutMs > 0 ? timeoutMs : 120000;
+};
+
 const fetchJsonWithTimeout = async (endpoint, options = {}) => {
   const baseUrl = resolvePythonServiceBaseUrl();
   const { timeoutMs: timeoutTuTuyChon, ...fetchOptions } = options;
@@ -146,6 +153,7 @@ export const pythonServiceConfig = () => ({
   baseUrl: resolvePythonServiceBaseUrl(),
   timeoutMs: resolvePythonServiceTimeoutMs(),
   healthTimeoutMs: resolvePythonHealthTimeoutMs(),
+  chatTimeoutMs: resolvePythonChatTimeoutMs(),
 });
 
 export const healthCheckPythonService = async (opts = {}) => fetchJsonWithTimeout('/health', {
@@ -158,5 +166,24 @@ export const auditClaimsBangPythonService = async ({ claims = [], options = {} }
   return fetchJsonWithTimeout('/api/v1/audit/claims', {
     method: 'POST',
     body: { claims, options },
+  });
+};
+
+/** Trạng thái tùy chọn LLM (Unsloth-compatible) trên Python service. */
+export const getPythonAiStatus = async (opts = {}) => fetchJsonWithTimeout('/api/v1/ai/status', {
+  timeoutMs: Number.isFinite(opts.timeoutMs) && opts.timeoutMs > 0
+    ? opts.timeoutMs
+    : resolvePythonHealthTimeoutMs(),
+});
+
+/**
+ * Chat LLM nội bộ — POST /api/v1/chat
+ * @param {{ messages: Array<{role?: string, content?: string}>, maxNewTokens?: number }} param0
+ */
+export const chatPythonService = async ({ messages = [], maxNewTokens = 512 } = {}) => {
+  return fetchJsonWithTimeout('/api/v1/chat', {
+    method: 'POST',
+    body: { messages, max_new_tokens: maxNewTokens },
+    timeoutMs: resolvePythonChatTimeoutMs(),
   });
 };
