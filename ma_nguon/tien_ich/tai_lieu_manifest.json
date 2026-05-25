@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T08:41:09.234Z",
+  "generatedAt": "2026-05-25T13:33:22.701Z",
   "items": [
     {
       "id": "txt:_extract_cv266/PL1_plain.txt",
@@ -1411,6 +1411,15 @@
         "ai_huan_luyen",
         "xml_chuyen_de",
         "the_tri_thuc"
+      ]
+    },
+    {
+      "id": "md:Trien_khai_da_benh_vien_ke_hoach_tung_buoc.md",
+      "relPath": "Trien_khai_da_benh_vien_ke_hoach_tung_buoc.html",
+      "title": "Kế hoạch triển khai đa bệnh viện — từng bước, lint/audit, và hồ sơ cần cung cấp",
+      "nguon": "markdown",
+      "tags": [
+        "kiem_thu_quy_tac"
       ]
     }
   ]

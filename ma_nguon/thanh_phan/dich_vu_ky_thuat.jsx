@@ -1,11 +1,12 @@
 /**
- * Seed danh muc dich vu ky thuat noi bo tu file Excel nguon.
- * Nguon chinh: C:\\Users\\admin\\Documents\\Google Drive\\BHYT\\danh muc benh vien\\DM\\FileMau_DANH_MUC_DVKT_M05 (2).xlsx
- * Merge bo sung cong kham: C:\\Users\\admin\\Documents\\Google Drive\\BHYT\\danh muc benh vien\\DM\\danh muc cong kham.xlsx (22 dong)
- * Cap nhat: 2026-04-04
+ * Seed danh muc dich vu ky thuat noi bo (Mau 05 — DANH_MUC_DVKT_M05).
+ * Nguon day du truoc do: C:\\Users\\admin\\Documents\\Google Drive\\ung_dung_cdss_bhyt\\ma_nguon\\thanh_phan\\dich_vu_ky_thuat.jsx (1623 ma).
+ * Bo sung: C:\\Users\\admin\\Downloads\\FileDichVuBV Cập nhật tháng 5 (1).xlsx (62 dong Excel).
+ * Giam dinh XML3: DM-DVKT-01..04, DMBV-DVKT-00..05 (dong_co_giam_dinh.jsx).
+ * Cap nhat: 2026-05-25
  */
 
-export const PHIEN_BAN_DANH_MUC_DVKT_M05 = '2026-04-04-m05-seed-1623';
+export const PHIEN_BAN_DANH_MUC_DVKT_M05 = '2026-05-25-m05-seed-1681';
 
 export const COT_DANH_MUC_DVKT_M05 = [
   "STT",
@@ -24,6 +25,7 @@ export const COT_DANH_MUC_DVKT_M05 = [
   "DEN_NGAY",
   "MA_CSKCB",
   "PHAN_LOAI_PTTT",
+  "MA_NHOM",
   "GHICHU",
   "QUYET_DINH"
 ];
@@ -47,6 +49,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94086"
   },
@@ -67,6 +70,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú; chưa bao gồm thuốc và dịch truyền.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94048"
   },
@@ -87,6 +91,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94571"
   },
@@ -107,6 +112,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94572"
   },
@@ -127,6 +133,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94839"
   },
@@ -147,6 +154,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94840"
   },
@@ -167,6 +175,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94636"
   },
@@ -187,6 +196,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94637"
   },
@@ -207,6 +217,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94013"
   },
@@ -227,6 +238,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94014"
   },
@@ -247,6 +259,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94566"
   },
@@ -267,6 +280,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94864"
   },
@@ -287,6 +301,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94936"
   },
@@ -307,6 +322,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94937"
   },
@@ -327,6 +343,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94938"
   },
@@ -347,6 +364,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú. Đối với người bệnh nội trú theo quy định của Bộ Y tế.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94182"
   },
@@ -367,6 +385,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94865"
   },
@@ -387,6 +406,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94611"
   },
@@ -407,6 +427,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc khí dung.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94050"
   },
@@ -427,6 +448,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc khí dung.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94051"
   },
@@ -447,6 +469,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94481"
   },
@@ -467,6 +490,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94878"
   },
@@ -487,6 +511,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94879"
   },
@@ -507,6 +532,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94482"
   },
@@ -527,6 +553,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94138"
   },
@@ -547,6 +574,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "Bao gồm cả bóng dùng nhiều lần.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94842"
   },
@@ -567,6 +595,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94313"
   },
@@ -587,6 +616,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94798"
   },
@@ -607,6 +637,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94799"
   },
@@ -627,6 +658,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94314"
   },
@@ -647,6 +679,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm hóa chất.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94544"
   },
@@ -667,6 +700,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94173"
   },
@@ -687,6 +721,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94315"
   },
@@ -707,6 +742,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94429"
   },
@@ -727,6 +763,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94873"
   },
@@ -747,6 +784,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94291"
   },
@@ -767,6 +805,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94292"
   },
@@ -787,6 +826,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94293"
   },
@@ -807,6 +847,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "Chưa bao gồm thuốc cầm máu, dụng cụ cầm máu (clip, bộ thắt tĩnh mạch thực quản...)",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94954"
   },
@@ -827,6 +868,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94140"
   },
@@ -847,6 +889,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94434"
   },
@@ -867,6 +910,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "Chưa bao gồm ống thông.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94903"
   },
@@ -887,6 +931,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94415"
   },
@@ -907,6 +952,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94492"
   },
@@ -927,6 +973,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94628"
   },
@@ -947,6 +994,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94022"
   },
@@ -967,6 +1015,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94111"
   },
@@ -987,6 +1036,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94542"
   },
@@ -1007,6 +1057,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94312"
   },
@@ -1027,6 +1078,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94141"
   },
@@ -1047,6 +1099,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94567"
   },
@@ -1067,6 +1120,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94509"
   },
@@ -1087,6 +1141,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94435"
   },
@@ -1107,6 +1162,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94447"
   },
@@ -1127,6 +1183,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94932"
   },
@@ -1138,17 +1195,18 @@ export const DANH_MUC_DVKT_M05 = [
     "DON_GIA": 144300,
     "QUY_TRINH": "",
     "CS_THUCHIEN": "",
-    "TINHTRANG_DV": "",
-    "MA_GIA": 103106445,
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093220,
     "TEN_GIA": "",
     "GIA_TT_BHYT": 144300,
     "MA_PTTT": "",
-    "TU_NGAY": 20260101,
+    "TU_NGAY": 20260412,
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "DVKT",
     "GHICHU": "",
-    "QUYET_DINH": "20241219_277/NQ-HĐND_94413"
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
   },
   {
     "STT": 57,
@@ -1167,6 +1225,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94483"
   },
@@ -1187,6 +1246,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Chưa bao gồm thuốc khí dung.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94052"
   },
@@ -1207,6 +1267,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94497"
   },
@@ -1227,6 +1288,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94142"
   },
@@ -1247,6 +1309,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94612"
   },
@@ -1267,6 +1330,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94638"
   },
@@ -1287,6 +1351,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94639"
   },
@@ -1307,6 +1372,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94640"
   },
@@ -1327,6 +1393,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94087"
   },
@@ -1347,6 +1414,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94527"
   },
@@ -1367,6 +1435,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94528"
   },
@@ -1387,6 +1456,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94529"
   },
@@ -1407,6 +1477,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94573"
   },
@@ -1427,6 +1498,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94574"
   },
@@ -1447,6 +1519,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94575"
   },
@@ -1467,6 +1540,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94729"
   },
@@ -1487,6 +1561,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94015"
   },
@@ -1507,6 +1582,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94576"
   },
@@ -1527,6 +1603,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94174"
   },
@@ -1547,6 +1624,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94416"
   },
@@ -1567,6 +1645,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94800"
   },
@@ -1587,6 +1666,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94386"
   },
@@ -1607,6 +1687,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94316"
   },
@@ -1627,6 +1708,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "Chưa bao gồm sonde niệu quản và dây dẫn Guide wire.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94984"
   },
@@ -1647,6 +1729,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94858"
   },
@@ -1667,6 +1750,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94859"
   },
@@ -1687,6 +1771,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94979"
   },
@@ -1707,6 +1792,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm hóa chất.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94545"
   },
@@ -1727,6 +1813,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94436"
   },
@@ -1747,6 +1834,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94437"
   },
@@ -1767,6 +1855,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94510"
   },
@@ -1787,6 +1876,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94317"
   },
@@ -1807,6 +1897,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94294"
   },
@@ -1827,6 +1918,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94633"
   },
@@ -1847,6 +1939,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94917"
   },
@@ -1867,6 +1960,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94524"
   },
@@ -1887,6 +1981,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94525"
   },
@@ -1907,6 +2002,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94720"
   },
@@ -1927,6 +2023,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94918"
   },
@@ -1947,6 +2044,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94828"
   },
@@ -1967,6 +2065,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "Chưa bao gồm thuốc cầm máu, dụng cụ cầm máu (clip, bộ thắt tĩnh mạch thực quản...)",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94955"
   },
@@ -1987,6 +2086,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94708"
   },
@@ -2007,6 +2107,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94657"
   },
@@ -2027,6 +2128,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95039"
   },
@@ -2047,6 +2149,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94457"
   },
@@ -2067,6 +2170,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94079"
   },
@@ -2087,6 +2191,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94634"
   },
@@ -2107,6 +2212,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94721"
   },
@@ -2127,6 +2233,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94829"
   },
@@ -2147,6 +2254,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94526"
   },
@@ -2167,6 +2275,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94715"
   },
@@ -2187,6 +2296,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94430"
   },
@@ -2207,6 +2317,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94143"
   },
@@ -2227,6 +2338,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "Chưa bao gồm ống thông.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94904"
   },
@@ -2247,6 +2359,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94862"
   },
@@ -2267,6 +2380,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94511"
   },
@@ -2287,6 +2401,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94863"
   },
@@ -2307,6 +2422,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94295"
   },
@@ -2327,6 +2443,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94296"
   },
@@ -2347,6 +2464,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94390"
   },
@@ -2367,6 +2485,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94391"
   },
@@ -2387,6 +2506,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94387"
   },
@@ -2407,6 +2527,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94463"
   },
@@ -2427,6 +2548,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94144"
   },
@@ -2447,6 +2569,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94145"
   },
@@ -2467,6 +2590,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94321"
   },
@@ -2487,6 +2611,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94322"
   },
@@ -2507,6 +2632,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94323"
   },
@@ -2527,6 +2653,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94324"
   },
@@ -2547,6 +2674,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94325"
   },
@@ -2567,6 +2695,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94326"
   },
@@ -2587,6 +2716,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94327"
   },
@@ -2607,6 +2737,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94328"
   },
@@ -2627,6 +2758,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94329"
   },
@@ -2647,6 +2779,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94730"
   },
@@ -2667,6 +2800,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94330"
   },
@@ -2687,6 +2821,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94331"
   },
@@ -2707,6 +2842,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94332"
   },
@@ -2727,6 +2863,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94333"
   },
@@ -2747,6 +2884,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94334"
   },
@@ -2767,6 +2905,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94335"
   },
@@ -2787,6 +2926,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94336"
   },
@@ -2807,6 +2947,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94337"
   },
@@ -2827,6 +2968,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94420"
   },
@@ -2847,6 +2989,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94421"
   },
@@ -2867,6 +3010,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94422"
   },
@@ -2887,6 +3031,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94423"
   },
@@ -2907,6 +3052,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94424"
   },
@@ -2927,6 +3073,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94425"
   },
@@ -2947,6 +3094,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94426"
   },
@@ -2967,6 +3115,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94427"
   },
@@ -2987,6 +3136,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94428"
   },
@@ -3007,6 +3157,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94080"
   },
@@ -3027,6 +3178,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94860"
   },
@@ -3047,6 +3199,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94577"
   },
@@ -3067,6 +3220,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94088"
   },
@@ -3087,6 +3241,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94874"
   },
@@ -3107,6 +3262,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94146"
   },
@@ -3127,6 +3283,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94866"
   },
@@ -3147,6 +3304,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94939"
   },
@@ -3167,6 +3325,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94438"
   },
@@ -3187,6 +3346,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94448"
   },
@@ -3207,6 +3367,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94568"
   },
@@ -3227,6 +3388,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94875"
   },
@@ -3247,6 +3409,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94876"
   },
@@ -3267,6 +3430,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94439"
   },
@@ -3287,6 +3451,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94880"
   },
@@ -3307,6 +3472,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Chưa bao gồm thuốc khí dung.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94053"
   },
@@ -3327,6 +3493,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc khí dung.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94054"
   },
@@ -3347,6 +3514,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94773"
   },
@@ -3367,6 +3535,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94841"
   },
@@ -3387,6 +3556,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94940"
   },
@@ -3407,6 +3577,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94867"
   },
@@ -3427,6 +3598,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94613"
   },
@@ -3447,6 +3619,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú. Đối với người bệnh nội trú theo quy định của Bộ Y tế.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94183"
   },
@@ -3467,6 +3640,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94139"
   },
@@ -3487,6 +3661,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "Bao gồm cả bóng dùng nhiều lần.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94843"
   },
@@ -3507,6 +3682,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94801"
   },
@@ -3527,6 +3703,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94318"
   },
@@ -3547,6 +3724,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94578"
   },
@@ -3567,6 +3745,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94175"
   },
@@ -3587,6 +3766,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95218"
   },
@@ -3607,6 +3787,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "Chưa bao gồm dụng cụ kẹp và clip cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94888"
   },
@@ -3627,6 +3808,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94440"
   },
@@ -3647,6 +3829,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94441"
   },
@@ -3667,6 +3850,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94319"
   },
@@ -3687,6 +3871,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94431"
   },
@@ -3707,6 +3892,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94297"
   },
@@ -3727,6 +3913,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94298"
   },
@@ -3747,6 +3934,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94023"
   },
@@ -3767,6 +3955,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Trường hợp chỉ nội soi Tai hoặc Mũi hoặc Họng thì thanh toán 40.000 đồng/ca.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94090"
   },
@@ -3787,6 +3976,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Trường hợp chỉ nội soi Tai hoặc Mũi hoặc Họng thì thanh toán 40.000 đồng/ca.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94091"
   },
@@ -3807,6 +3997,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Trường hợp chỉ nội soi Tai hoặc Mũi hoặc Họng thì thanh toán 40.000 đồng/ca.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94092"
   },
@@ -3827,6 +4018,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95219"
   },
@@ -3847,6 +4039,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94970"
   },
@@ -3867,6 +4060,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95000"
   },
@@ -3887,6 +4081,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm sonde JJ.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94982"
   },
@@ -3907,6 +4102,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94980"
   },
@@ -3927,6 +4123,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94958"
   },
@@ -3947,6 +4144,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94310"
   },
@@ -3967,6 +4165,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94974"
   },
@@ -3987,6 +4186,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94728"
   },
@@ -4007,6 +4207,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94264"
   },
@@ -4027,6 +4228,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94822"
   },
@@ -4047,6 +4249,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94956"
   },
@@ -4067,6 +4270,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94986"
   },
@@ -4087,6 +4291,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95003"
   },
@@ -4107,6 +4312,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94094"
   },
@@ -4127,6 +4333,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94129"
   },
@@ -4147,6 +4354,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94130"
   },
@@ -4167,6 +4375,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94131"
   },
@@ -4187,6 +4396,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94370"
   },
@@ -4207,6 +4417,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94102"
   },
@@ -4227,6 +4438,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94095"
   },
@@ -4247,6 +4459,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94127"
   },
@@ -4267,6 +4480,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94108"
   },
@@ -4287,6 +4501,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94265"
   },
@@ -4307,6 +4522,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94103"
   },
@@ -4327,6 +4543,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Áp dụng cho 1 mắt hoặc 2 mắt",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94124"
   },
@@ -4347,6 +4564,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94176"
   },
@@ -4367,6 +4585,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94177"
   },
@@ -4387,6 +4606,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94096"
   },
@@ -4407,6 +4627,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94202"
   },
@@ -4427,6 +4648,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94081"
   },
@@ -4447,6 +4669,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94731"
   },
@@ -4467,6 +4690,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94641"
   },
@@ -4487,6 +4711,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94642"
   },
@@ -4507,6 +4732,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94374"
   },
@@ -4527,6 +4753,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94530"
   },
@@ -4547,6 +4774,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94468"
   },
@@ -4567,6 +4795,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94732"
   },
@@ -4587,6 +4816,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94733"
   },
@@ -4607,6 +4837,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94378"
   },
@@ -4627,6 +4858,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94120"
   },
@@ -4647,6 +4879,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94121"
   },
@@ -4667,6 +4900,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94074"
   },
@@ -4687,6 +4921,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94643"
   },
@@ -4707,6 +4942,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94644"
   },
@@ -4727,6 +4963,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95042"
   },
@@ -4747,6 +4984,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94376"
   },
@@ -4767,11 +5005,138 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94804"
   },
   {
     "STT": 238,
+    "MA_DICH_VU": "03.2087.0984",
+    "TEN_DICH_VU": "Phẫu thuật tạo hình tai giữa, tai ngoài do dị tật bẩm sinh",
+    "TEN_DVKT_GIA": "Phẫu thuật tạo hình tai giữa, tai ngoài do dị tật bẩm sinh",
+    "DON_GIA": 5530000,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093348,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 5530000,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92004"
+  },
+  {
+    "STT": 239,
+    "MA_DICH_VU": "03.2104.0997",
+    "TEN_DICH_VU": "Vá nhĩ đơn thuần",
+    "TEN_DVKT_GIA": "Vá nhĩ đơn thuần",
+    "DON_GIA": 4058900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093221,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4058900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "Đã bao gồm chi phí mũi khoan",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 240,
+    "MA_DICH_VU": "03.2107.0934",
+    "TEN_DICH_VU": "Thủ thuật nong vòi nhĩ",
+    "TEN_DVKT_GIA": "Thủ thuật nong vòi nhĩ",
+    "DON_GIA": 45300,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093222,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 45300,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "T1",
+    "MA_NHOM": "PTTT-T1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 241,
+    "MA_DICH_VU": "03.2107.0935",
+    "TEN_DICH_VU": "Thủ thuật nong vòi nhĩ [có nội soi]",
+    "TEN_DVKT_GIA": "Thủ thuật nong vòi nhĩ [có nội soi]",
+    "DON_GIA": 132700,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093350,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 132700,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "T1",
+    "MA_NHOM": "PTTT-T1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 242,
+    "MA_DICH_VU": "03.2111.0981",
+    "TEN_DICH_VU": "Phẫu thuật tái tạo hệ thống truyền âm",
+    "TEN_DVKT_GIA": "Phẫu thuật tái tạo hệ thống truyền âm",
+    "DON_GIA": 6258000,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093223,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 6258000,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "Chưa bao gồm keo sinh học, xương con để thay thế hoặc Prothese.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 243,
+    "MA_DICH_VU": "03.2112.0984",
+    "TEN_DICH_VU": "Chỉnh hình tai giữa",
+    "TEN_DVKT_GIA": "Chỉnh hình tai giữa",
+    "DON_GIA": 5530000,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093224,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 5530000,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 244,
     "MA_DICH_VU": "03.2116.0992",
     "TEN_DICH_VU": "Thông vòi nhĩ",
     "TEN_DVKT_GIA": "Thông vòi nhĩ",
@@ -4787,11 +5152,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94309"
   },
   {
-    "STT": 239,
+    "STT": 245,
     "MA_DICH_VU": "03.2117.0901",
     "TEN_DICH_VU": "Lấy dị vật tai [đơn giản]",
     "TEN_DVKT_GIA": "Lấy dị vật tai [đơn giản]",
@@ -4807,11 +5173,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94200"
   },
   {
-    "STT": 240,
+    "STT": 246,
     "MA_DICH_VU": "03.2117.0902",
     "TEN_DICH_VU": "Lấy dị vật tai [kính hiển vi, gây mê]",
     "TEN_DVKT_GIA": "Lấy dị vật tai [kính hiển vi, gây mê]",
@@ -4827,11 +5194,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94836"
   },
   {
-    "STT": 241,
+    "STT": 247,
     "MA_DICH_VU": "03.2117.0903",
     "TEN_DICH_VU": "Lấy dị vật tai [kính hiển vi, gây tê]",
     "TEN_DVKT_GIA": "Lấy dị vật tai [kính hiển vi, gây tê]",
@@ -4847,11 +5215,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94459"
   },
   {
-    "STT": 242,
+    "STT": 248,
     "MA_DICH_VU": "03.2118.0882",
     "TEN_DICH_VU": "Chọc hút dịch tụ huyết vành tai",
     "TEN_DVKT_GIA": "Chọc hút dịch tụ huyết vành tai",
@@ -4867,11 +5236,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94184"
   },
   {
-    "STT": 243,
+    "STT": 249,
     "MA_DICH_VU": "03.2119.0505",
     "TEN_DICH_VU": "Trích nhọt ống tai ngoài",
     "TEN_DVKT_GIA": "Trích nhọt ống tai ngoài",
@@ -4887,11 +5257,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94532"
   },
   {
-    "STT": 244,
+    "STT": 250,
     "MA_DICH_VU": "03.2120.0899",
     "TEN_DICH_VU": "Làm thuốc tai",
     "TEN_DVKT_GIA": "Làm thuốc tai",
@@ -4907,11 +5278,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94028"
   },
   {
-    "STT": 245,
+    "STT": 251,
     "MA_DICH_VU": "03.2149.0916",
     "TEN_DICH_VU": "Nhét bấc mũi sau",
     "TEN_DVKT_GIA": "Nhét bấc mũi sau",
@@ -4927,11 +5299,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94404"
   },
   {
-    "STT": 246,
+    "STT": 252,
     "MA_DICH_VU": "03.2150.0916",
     "TEN_DICH_VU": "Nhét bấc mũi trước",
     "TEN_DVKT_GIA": "Nhét bấc mũi trước",
@@ -4947,11 +5320,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94405"
   },
   {
-    "STT": 247,
+    "STT": 253,
     "MA_DICH_VU": "03.2152.0867",
     "TEN_DICH_VU": "Bẻ cuốn dưới",
     "TEN_DVKT_GIA": "Bẻ cuốn dưới",
@@ -4967,11 +5341,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94450"
   },
   {
-    "STT": 248,
+    "STT": 254,
     "MA_DICH_VU": "03.2155.0869",
     "TEN_DICH_VU": "Cầm máu mũi bằng Meroxeo (2 bên)",
     "TEN_DVKT_GIA": "Cầm máu mũi bằng Meroxeo (2 bên)",
@@ -4987,11 +5362,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94658"
   },
   {
-    "STT": 249,
+    "STT": 255,
     "MA_DICH_VU": "03.2175.0879",
     "TEN_DICH_VU": "Trích áp xe thành sau họng [gây tê]",
     "TEN_DVKT_GIA": "Trích áp xe thành sau họng [gây tê]",
@@ -5007,11 +5383,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94666"
   },
   {
-    "STT": 250,
+    "STT": 256,
     "MA_DICH_VU": "03.2176.0892",
     "TEN_DICH_VU": "Áp lạnh Amidan",
     "TEN_DVKT_GIA": "Áp lạnh Amidan",
@@ -5027,11 +5404,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94543"
   },
   {
-    "STT": 251,
+    "STT": 257,
     "MA_DICH_VU": "03.2178.0900",
     "TEN_DICH_VU": "Lấy dị vật hạ họng",
     "TEN_DVKT_GIA": "Lấy dị vật hạ họng",
@@ -5047,51 +5425,75 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94113"
   },
   {
-    "STT": 252,
+    "STT": 258,
     "MA_DICH_VU": "03.2179.0870",
     "TEN_DICH_VU": "Phẫu thuật cắt Amidan gây tê hoặc gây mê [gây mê]",
     "TEN_DVKT_GIA": "Phẫu thuật cắt Amidan gây tê hoặc gây mê [gây mê]",
     "DON_GIA": 1217100,
     "QUY_TRINH": "",
     "CS_THUCHIEN": "",
-    "TINHTRANG_DV": "",
-    "MA_GIA": 103107487,
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093351,
     "TEN_GIA": "",
     "GIA_TT_BHYT": 1217100,
     "MA_PTTT": "",
-    "TU_NGAY": 20260101,
+    "TU_NGAY": 20260412,
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
-    "PHAN_LOAI_PTTT": 6,
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
     "GHICHU": "",
-    "QUYET_DINH": "20241219_277/NQ-HĐND_95002"
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
   },
   {
-    "STT": 253,
+    "STT": 259,
     "MA_DICH_VU": "03.2179.0937",
     "TEN_DICH_VU": "Phẫu thuật cắt Amidan gây tê hoặc gây mê [gây tê]",
     "TEN_DVKT_GIA": "Phẫu thuật cắt Amidan gây tê hoặc gây mê [gây tê]",
     "DON_GIA": 1761400,
     "QUY_TRINH": "",
     "CS_THUCHIEN": "",
-    "TINHTRANG_DV": "",
-    "MA_GIA": 103107283,
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093225,
     "TEN_GIA": "",
     "GIA_TT_BHYT": 1761400,
     "MA_PTTT": "",
-    "TU_NGAY": 20260101,
+    "TU_NGAY": 20260412,
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
-    "PHAN_LOAI_PTTT": 6,
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
     "GHICHU": "",
-    "QUYET_DINH": "20241219_277/NQ-HĐND_95040"
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
   },
   {
-    "STT": 254,
+    "STT": 260,
+    "MA_DICH_VU": "03.2180.0954",
+    "TEN_DICH_VU": "Phẫu thuật lấy đường rò luân nhĩ [gây mê]",
+    "TEN_DVKT_GIA": "Phẫu thuật lấy đường rò luân nhĩ [gây mê]",
+    "DON_GIA": 3209900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093226,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 3209900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "Đã bao gồm chi phí mũi khoan",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 261,
     "MA_DICH_VU": "03.2181.0878",
     "TEN_DICH_VU": "Trích áp xe quanh Amidan [gây tê]",
     "TEN_DVKT_GIA": "Trích áp xe quanh Amidan [gây tê]",
@@ -5107,11 +5509,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94667"
   },
   {
-    "STT": 255,
+    "STT": 262,
     "MA_DICH_VU": "03.2181.0995",
     "TEN_DICH_VU": "Trích áp xe quanh Amidan [gây mê]",
     "TEN_DVKT_GIA": "Trích áp xe quanh Amidan [gây mê]",
@@ -5127,11 +5530,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94950"
   },
   {
-    "STT": 256,
+    "STT": 263,
     "MA_DICH_VU": "03.2182.0895",
     "TEN_DICH_VU": "Đốt nhiệt họng hạt",
     "TEN_DVKT_GIA": "Đốt nhiệt họng hạt",
@@ -5147,11 +5551,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94283"
   },
   {
-    "STT": 257,
+    "STT": 264,
     "MA_DICH_VU": "03.2184.0899",
     "TEN_DICH_VU": "Làm thuốc tai, mũi, thanh quản",
     "TEN_DVKT_GIA": "Làm thuốc tai, mũi, thanh quản",
@@ -5167,11 +5572,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "Chưa bao gồm thuốc.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
   },
   {
-    "STT": 258,
+    "STT": 265,
     "MA_DICH_VU": "03.2191.0898",
     "TEN_DICH_VU": "Khí dung mũi họng",
     "TEN_DVKT_GIA": "Khí dung mũi họng",
@@ -5187,11 +5593,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "Chưa bao gồm thuốc khí dung.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94055"
   },
   {
-    "STT": 259,
+    "STT": 266,
     "MA_DICH_VU": "03.2240.0914",
     "TEN_DICH_VU": "Phẫu thuật nạo VA gây mê",
     "TEN_DVKT_GIA": "Phẫu thuật nạo VA gây mê",
@@ -5207,11 +5614,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94959"
   },
   {
-    "STT": 260,
+    "STT": 267,
     "MA_DICH_VU": "03.2241.0871",
     "TEN_DICH_VU": "Cắt Amidan bằng máy [Coblator]",
     "TEN_DVKT_GIA": "Cắt Amidan bằng máy [Coblator]",
@@ -5227,11 +5635,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Bao gồm cả Coblator.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95150"
   },
   {
-    "STT": 261,
+    "STT": 268,
     "MA_DICH_VU": "03.2245.0216",
     "TEN_DICH_VU": "Khâu vết thương phần mềm vùng đầu cổ [ tổn thương nông chiều dài < l0 cm]",
     "TEN_DVKT_GIA": "Khâu vết thương phần mềm vùng đầu cổ [ tổn thương nông chiều dài < l0 cm]",
@@ -5247,11 +5656,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94498"
   },
   {
-    "STT": 262,
+    "STT": 269,
     "MA_DICH_VU": "03.2245.0217",
     "TEN_DICH_VU": "Khâu vết thương phần mềm vùng đầu cổ [tổn thương nông chiều dài ≥ l0 cm]",
     "TEN_DVKT_GIA": "Khâu vết thương phần mềm vùng đầu cổ [tổn thương nông chiều dài ≥ l0 cm]",
@@ -5267,11 +5677,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94618"
   },
   {
-    "STT": 263,
+    "STT": 270,
     "MA_DICH_VU": "03.2245.0218",
     "TEN_DICH_VU": "Khâu vết thương phần mềm vùng đầu cổ [tổn thương sâu chiều dài < l0 cm]",
     "TEN_DVKT_GIA": "Khâu vết thương phần mềm vùng đầu cổ [tổn thương sâu chiều dài < l0 cm]",
@@ -5287,11 +5698,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94660"
   },
   {
-    "STT": 264,
+    "STT": 271,
     "MA_DICH_VU": "03.2245.0219",
     "TEN_DICH_VU": "Khâu vết thương phần mềm vùng đầu cổ [tổn thương sâu chiều dài ≥ l0 cm ]",
     "TEN_DVKT_GIA": "Khâu vết thương phần mềm vùng đầu cổ [tổn thương sâu chiều dài ≥ l0 cm ]",
@@ -5307,11 +5719,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94725"
   },
   {
-    "STT": 265,
+    "STT": 272,
     "MA_DICH_VU": "03.2249.0681",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt tử cung hoàn toàn",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt tử cung hoàn toàn",
@@ -5327,11 +5740,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95551"
   },
   {
-    "STT": 266,
+    "STT": 273,
     "MA_DICH_VU": "03.2249.0681_GT",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt tử cung hoàn toàn",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt tử cung hoàn toàn",
@@ -5347,11 +5761,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95397"
   },
   {
-    "STT": 267,
+    "STT": 274,
     "MA_DICH_VU": "03.2260.0606",
     "TEN_DICH_VU": "Chọc dò túi cùng Douglas",
     "TEN_DVKT_GIA": "Chọc dò túi cùng Douglas",
@@ -5367,11 +5782,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94704"
   },
   {
-    "STT": 268,
+    "STT": 275,
     "MA_DICH_VU": "03.2262.0630",
     "TEN_DICH_VU": "Lấy dị vật âm đạo",
     "TEN_DVKT_GIA": "Lấy dị vật âm đạo",
@@ -5387,11 +5803,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94886"
   },
   {
-    "STT": 269,
+    "STT": 276,
     "MA_DICH_VU": "03.2332.0078",
     "TEN_DICH_VU": "Chọc dò màng phổi dưới hướng dẫn của siêu âm",
     "TEN_DVKT_GIA": "Chọc dò màng phổi dưới hướng dẫn của siêu âm",
@@ -5407,11 +5824,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94512"
   },
   {
-    "STT": 270,
+    "STT": 277,
     "MA_DICH_VU": "03.2333.0078",
     "TEN_DICH_VU": "Chọc tháo dịch màng phổi dưới hướng dẫn của siêu âm",
     "TEN_DVKT_GIA": "Chọc tháo dịch màng phổi dưới hướng dẫn của siêu âm",
@@ -5427,11 +5845,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94513"
   },
   {
-    "STT": 271,
+    "STT": 278,
     "MA_DICH_VU": "03.2352.0087",
     "TEN_DICH_VU": "Chọc áp xe gan qua siêu âm",
     "TEN_DVKT_GIA": "Chọc áp xe gan qua siêu âm",
@@ -5447,11 +5866,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94464"
   },
   {
-    "STT": 272,
+    "STT": 279,
     "MA_DICH_VU": "03.2354.0077",
     "TEN_DICH_VU": "Chọc dịch màng bụng",
     "TEN_DVKT_GIA": "Chọc dịch màng bụng",
@@ -5467,11 +5887,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94442"
   },
   {
-    "STT": 273,
+    "STT": 280,
     "MA_DICH_VU": "03.2355.0077",
     "TEN_DICH_VU": "Dẫn lưu dịch màng bụng",
     "TEN_DVKT_GIA": "Dẫn lưu dịch màng bụng",
@@ -5487,11 +5908,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94443"
   },
   {
-    "STT": 274,
+    "STT": 281,
     "MA_DICH_VU": "03.2356.0505",
     "TEN_DICH_VU": "Chọc hút áp xe thành bụng",
     "TEN_DVKT_GIA": "Chọc hút áp xe thành bụng",
@@ -5507,11 +5929,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94533"
   },
   {
-    "STT": 275,
+    "STT": 282,
     "MA_DICH_VU": "03.2357.0211",
     "TEN_DICH_VU": "Thụt tháo phân",
     "TEN_DVKT_GIA": "Thụt tháo phân",
@@ -5527,11 +5950,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94299"
   },
   {
-    "STT": 276,
+    "STT": 283,
     "MA_DICH_VU": "03.2358.0211",
     "TEN_DICH_VU": "Đặt sonde hậu môn",
     "TEN_DVKT_GIA": "Đặt sonde hậu môn",
@@ -5547,11 +5971,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94300"
   },
   {
-    "STT": 277,
+    "STT": 284,
     "MA_DICH_VU": "03.2387.0212",
     "TEN_DICH_VU": "Tiêm trong da",
     "TEN_DVKT_GIA": "Tiêm trong da",
@@ -5567,11 +5992,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú; chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94017"
   },
   {
-    "STT": 278,
+    "STT": 285,
     "MA_DICH_VU": "03.2388.0212",
     "TEN_DICH_VU": "Tiêm dưới da",
     "TEN_DVKT_GIA": "Tiêm dưới da",
@@ -5587,11 +6013,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú; chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94018"
   },
   {
-    "STT": 279,
+    "STT": 286,
     "MA_DICH_VU": "03.2389.0212",
     "TEN_DICH_VU": "Tiêm bắp thịt",
     "TEN_DVKT_GIA": "Tiêm bắp thịt",
@@ -5607,11 +6034,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú; chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94019"
   },
   {
-    "STT": 280,
+    "STT": 287,
     "MA_DICH_VU": "03.2390.0212",
     "TEN_DICH_VU": "Tiêm tĩnh mạch",
     "TEN_DVKT_GIA": "Tiêm tĩnh mạch",
@@ -5627,11 +6055,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú; chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94020"
   },
   {
-    "STT": 281,
+    "STT": 288,
     "MA_DICH_VU": "03.2391.0215",
     "TEN_DICH_VU": "Truyền tĩnh mạch",
     "TEN_DVKT_GIA": "Truyền tĩnh mạch",
@@ -5647,11 +6076,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú; chưa bao gồm thuốc và dịch truyền.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94049"
   },
   {
-    "STT": 282,
+    "STT": 289,
     "MA_DICH_VU": "03.2442.1045",
     "TEN_DICH_VU": "Cắt u máu dưới da đầu có đường kính trên 10 cm",
     "TEN_DVKT_GIA": "Cắt u máu dưới da đầu có đường kính trên 10 cm",
@@ -5667,11 +6097,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95001"
   },
   {
-    "STT": 283,
+    "STT": 290,
     "MA_DICH_VU": "03.2451.1049",
     "TEN_DICH_VU": "Cắt u phần mềm vùng cổ",
     "TEN_DVKT_GIA": "Cắt u phần mềm vùng cổ",
@@ -5687,11 +6118,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95284"
   },
   {
-    "STT": 284,
+    "STT": 291,
     "MA_DICH_VU": "03.2456.1044",
     "TEN_DICH_VU": "Cắt u da đầu lành, đường kính dưới 5 cm",
     "TEN_DVKT_GIA": "Cắt u da đầu lành, đường kính dưới 5 cm",
@@ -5707,11 +6139,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94943"
   },
   {
-    "STT": 285,
+    "STT": 292,
     "MA_DICH_VU": "03.2457.1044",
     "TEN_DICH_VU": "Bóc, cắt u bã đậu, u mỡ dưới da đầu đường kính dưới 10 cm",
     "TEN_DVKT_GIA": "Bóc, cắt u bã đậu, u mỡ dưới da đầu đường kính dưới 10 cm",
@@ -5727,11 +6160,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94944"
   },
   {
-    "STT": 286,
+    "STT": 293,
     "MA_DICH_VU": "03.2458.1044",
     "TEN_DICH_VU": "Cắt u máu dưới da đầu có đường kính dưới 5 cm",
     "TEN_DVKT_GIA": "Cắt u máu dưới da đầu có đường kính dưới 5 cm",
@@ -5747,11 +6181,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94945"
   },
   {
-    "STT": 287,
+    "STT": 294,
     "MA_DICH_VU": "03.2508.1049",
     "TEN_DICH_VU": "Cắt u vùng hàm mặt đơn giản",
     "TEN_DVKT_GIA": "Cắt u vùng hàm mặt đơn giản",
@@ -5767,11 +6202,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95285"
   },
   {
-    "STT": 288,
+    "STT": 295,
     "MA_DICH_VU": "03.2532.1049",
     "TEN_DICH_VU": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính trên 5 cm [gây mê]",
     "TEN_DVKT_GIA": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính trên 5 cm [gây mê]",
@@ -5787,11 +6223,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95286"
   },
   {
-    "STT": 289,
+    "STT": 296,
     "MA_DICH_VU": "03.2533.1049",
     "TEN_DICH_VU": "Cắt u xơ vùng hàm mặt đường kính trên 3 cm",
     "TEN_DVKT_GIA": "Cắt u xơ vùng hàm mặt đường kính trên 3 cm",
@@ -5807,11 +6244,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95287"
   },
   {
-    "STT": 290,
+    "STT": 297,
     "MA_DICH_VU": "03.2535.1049",
     "TEN_DICH_VU": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính dưới 5 cm",
     "TEN_DVKT_GIA": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính dưới 5 cm",
@@ -5827,11 +6265,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95288"
   },
   {
-    "STT": 291,
+    "STT": 298,
     "MA_DICH_VU": "03.2536.1049",
     "TEN_DICH_VU": "Cắt u xơ vùng hàm mặt đường kính dưới 3 cm",
     "TEN_DVKT_GIA": "Cắt u xơ vùng hàm mặt đường kính dưới 3 cm",
@@ -5847,11 +6286,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95289"
   },
   {
-    "STT": 292,
+    "STT": 299,
     "MA_DICH_VU": "03.2613.0874",
     "TEN_DICH_VU": "Cắt polyp ống tai [gây mê]",
     "TEN_DVKT_GIA": "Cắt polyp ống tai [gây mê]",
@@ -5867,11 +6307,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95064"
   },
   {
-    "STT": 293,
+    "STT": 300,
     "MA_DICH_VU": "03.2613.0875",
     "TEN_DICH_VU": "Cắt polyp ống tai [gây tê]",
     "TEN_DVKT_GIA": "Cắt polyp ống tai [gây tê]",
@@ -5887,11 +6328,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94882"
   },
   {
-    "STT": 294,
+    "STT": 301,
     "MA_DICH_VU": "03.2640.0407",
     "TEN_DICH_VU": "Cắt u máu, u bạch huyết đường kính 5 - 10 cm",
     "TEN_DVKT_GIA": "Cắt u máu, u bạch huyết đường kính 5 - 10 cm",
@@ -5907,11 +6349,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95365"
   },
   {
-    "STT": 295,
+    "STT": 302,
     "MA_DICH_VU": "03.2640.0407_GT",
     "TEN_DICH_VU": "Cắt u máu, u bạch huyết đường kính 5 - 10 cm",
     "TEN_DVKT_GIA": "Cắt u máu, u bạch huyết đường kính 5 - 10 cm",
@@ -5927,11 +6370,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95147"
   },
   {
-    "STT": 296,
+    "STT": 303,
     "MA_DICH_VU": "03.2725.0681",
     "TEN_DICH_VU": "Cắt toàn bộ tử cung, đường bụng",
     "TEN_DVKT_GIA": "Cắt toàn bộ tử cung, đường bụng",
@@ -5947,11 +6391,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95552"
   },
   {
-    "STT": 297,
+    "STT": 304,
     "MA_DICH_VU": "03.2725.0681_GT",
     "TEN_DICH_VU": "Cắt toàn bộ tử cung, đường bụng",
     "TEN_DVKT_GIA": "Cắt toàn bộ tử cung, đường bụng",
@@ -5967,11 +6412,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95398"
   },
   {
-    "STT": 298,
+    "STT": 305,
     "MA_DICH_VU": "03.2730.0683",
     "TEN_DICH_VU": "Cắt u nang buồng trứng",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng",
@@ -5987,11 +6433,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95333"
   },
   {
-    "STT": 299,
+    "STT": 306,
     "MA_DICH_VU": "03.2730.0683_GT",
     "TEN_DICH_VU": "Cắt u nang buồng trứng",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng",
@@ -6007,11 +6454,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95189"
   },
   {
-    "STT": 300,
+    "STT": 307,
     "MA_DICH_VU": "03.2731.0683",
     "TEN_DICH_VU": "Cắt u nang buồng trứng và phần phụ",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng và phần phụ",
@@ -6027,11 +6475,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95334"
   },
   {
-    "STT": 301,
+    "STT": 308,
     "MA_DICH_VU": "03.2731.0683_GT",
     "TEN_DICH_VU": "Cắt u nang buồng trứng và phần phụ",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng và phần phụ",
@@ -6047,11 +6496,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95190"
   },
   {
-    "STT": 302,
+    "STT": 309,
     "MA_DICH_VU": "03.2732.0683",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt u buồng trứng hoặc cắt phần phụ",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt u buồng trứng hoặc cắt phần phụ",
@@ -6067,11 +6517,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95335"
   },
   {
-    "STT": 303,
+    "STT": 310,
     "MA_DICH_VU": "03.2732.0683_GT",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt u buồng trứng hoặc cắt phần phụ",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt u buồng trứng hoặc cắt phần phụ",
@@ -6087,11 +6538,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95191"
   },
   {
-    "STT": 304,
+    "STT": 311,
     "MA_DICH_VU": "03.2734.0589",
     "TEN_DICH_VU": "Bóc nang tuyến Bartholin",
     "TEN_DVKT_GIA": "Bóc nang tuyến Bartholin",
@@ -6107,11 +6559,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95011"
   },
   {
-    "STT": 305,
+    "STT": 312,
     "MA_DICH_VU": "03.2735.0653",
     "TEN_DICH_VU": "Cắt u vú lành tính",
     "TEN_DVKT_GIA": "Cắt u vú lành tính",
@@ -6127,11 +6580,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95305"
   },
   {
-    "STT": 306,
+    "STT": 313,
     "MA_DICH_VU": "03.2735.0653_GT",
     "TEN_DICH_VU": "Cắt u vú lành tính",
     "TEN_DVKT_GIA": "Cắt u vú lành tính",
@@ -6147,11 +6601,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95169"
   },
   {
-    "STT": 307,
+    "STT": 314,
     "MA_DICH_VU": "03.2736.0591",
     "TEN_DICH_VU": "Mổ bóc nhân xơ vú",
     "TEN_DVKT_GIA": "Mổ bóc nhân xơ vú",
@@ -6167,11 +6622,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94990"
   },
   {
-    "STT": 308,
+    "STT": 315,
     "MA_DICH_VU": "03.2820.0004",
     "TEN_DICH_VU": "Siêu âm tim tại giường",
     "TEN_DVKT_GIA": "Siêu âm tim tại giường",
@@ -6187,11 +6643,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94579"
   },
   {
-    "STT": 309,
+    "STT": 316,
     "MA_DICH_VU": "03.2923.0772",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ da thừa mi mắt",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ da thừa mi mắt",
@@ -6207,11 +6664,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94957"
   },
   {
-    "STT": 310,
+    "STT": 317,
     "MA_DICH_VU": "03.3025.1149",
     "TEN_DICH_VU": "Cắt lọc, loại bỏ dị vật vảy da, vảy tiết dưới 20% diện tích cơ thể",
     "TEN_DVKT_GIA": "Cắt lọc, loại bỏ dị vật vảy da, vảy tiết dưới 20% diện tích cơ thể",
@@ -6227,11 +6685,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94826"
   },
   {
-    "STT": 311,
+    "STT": 318,
     "MA_DICH_VU": "03.3026.1150",
     "TEN_DICH_VU": "Cắt lọc, loại bỏ dị vật vảy da, vảy tiết trên 20% diện tích cơ thể",
     "TEN_DVKT_GIA": "Cắt lọc, loại bỏ dị vật vảy da, vảy tiết trên 20% diện tích cơ thể",
@@ -6247,11 +6706,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94871"
   },
   {
-    "STT": 312,
+    "STT": 319,
     "MA_DICH_VU": "03.3034.0339",
     "TEN_DICH_VU": "Nạo vét lỗ đáo có viêm xương",
     "TEN_DVKT_GIA": "Nạo vét lỗ đáo có viêm xương",
@@ -6267,11 +6727,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94922"
   },
   {
-    "STT": 313,
+    "STT": 320,
     "MA_DICH_VU": "03.3035.0329",
     "TEN_DICH_VU": "Điều trị hạt cơm bằng đốt điện, plasma, laser, nitơ lỏng",
     "TEN_DVKT_GIA": "Điều trị hạt cơm bằng đốt điện, plasma, laser, nitơ lỏng",
@@ -6287,11 +6748,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94792"
   },
   {
-    "STT": 314,
+    "STT": 321,
     "MA_DICH_VU": "03.3039.0329",
     "TEN_DICH_VU": "Điều trị u mềm lây bằng đốt điện, plasma, laser, nitơ lỏng",
     "TEN_DVKT_GIA": "Điều trị u mềm lây bằng đốt điện, plasma, laser, nitơ lỏng",
@@ -6307,11 +6769,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94793"
   },
   {
-    "STT": 315,
+    "STT": 322,
     "MA_DICH_VU": "03.3042.0329",
     "TEN_DICH_VU": "Điều trị sùi mào gà ở phụ nữ bằng đốt điện, plasma, laser, nitơ lỏng",
     "TEN_DVKT_GIA": "Điều trị sùi mào gà ở phụ nữ bằng đốt điện, plasma, laser, nitơ lỏng",
@@ -6327,11 +6790,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94794"
   },
   {
-    "STT": 316,
+    "STT": 323,
     "MA_DICH_VU": "03.3043.0329",
     "TEN_DICH_VU": "Điều trị sùi mào gà ở nam giới bằng đốt điện, plasma, laser, nitơ lỏng",
     "TEN_DVKT_GIA": "Điều trị sùi mào gà ở nam giới bằng đốt điện, plasma, laser, nitơ lỏng",
@@ -6347,11 +6811,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94795"
   },
   {
-    "STT": 317,
+    "STT": 324,
     "MA_DICH_VU": "03.3083.0576",
     "TEN_DICH_VU": "Cắt lọc, khâu vết thương rách da đầu",
     "TEN_DVKT_GIA": "Cắt lọc, khâu vết thương rách da đầu",
@@ -6367,11 +6832,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95225"
   },
   {
-    "STT": 318,
+    "STT": 325,
     "MA_DICH_VU": "03.3083.0576_GT",
     "TEN_DICH_VU": "Cắt lọc, khâu vết thương rách da đầu",
     "TEN_DVKT_GIA": "Cắt lọc, khâu vết thương rách da đầu",
@@ -6387,11 +6853,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95071"
   },
   {
-    "STT": 319,
+    "STT": 326,
     "MA_DICH_VU": "03.3259.0583",
     "TEN_DICH_VU": "Khâu lại vết phẫu thuật lồng ngực bị nhiễm khuẩn",
     "TEN_DVKT_GIA": "Khâu lại vết phẫu thuật lồng ngực bị nhiễm khuẩn",
@@ -6407,11 +6874,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95125"
   },
   {
-    "STT": 320,
+    "STT": 327,
     "MA_DICH_VU": "03.3297.0491",
     "TEN_DICH_VU": "Mở thông dạ dày",
     "TEN_DVKT_GIA": "Mở thông dạ dày",
@@ -6427,11 +6895,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95198"
   },
   {
-    "STT": 321,
+    "STT": 328,
     "MA_DICH_VU": "03.3297.0491_GT",
     "TEN_DICH_VU": "Mở thông dạ dày",
     "TEN_DVKT_GIA": "Mở thông dạ dày",
@@ -6447,11 +6916,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95075"
   },
   {
-    "STT": 322,
+    "STT": 329,
     "MA_DICH_VU": "03.3298.0465",
     "TEN_DICH_VU": "Khâu lỗ thủng dạ dày, tá tràng đơn thuần",
     "TEN_DVKT_GIA": "Khâu lỗ thủng dạ dày, tá tràng đơn thuần",
@@ -6467,11 +6937,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95436"
   },
   {
-    "STT": 323,
+    "STT": 330,
     "MA_DICH_VU": "03.3313.0455",
     "TEN_DICH_VU": "Phẫu thuật điều trị tắc ruột do dính/dây chằng không cắt nối ruột",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị tắc ruột do dính/dây chằng không cắt nối ruột",
@@ -6487,11 +6958,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95213"
   },
   {
-    "STT": 324,
+    "STT": 331,
     "MA_DICH_VU": "03.3326.0506",
     "TEN_DICH_VU": "Tháo lồng bằng bơm khí/nước",
     "TEN_DVKT_GIA": "Tháo lồng bằng bơm khí/nước",
@@ -6507,11 +6979,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94458"
   },
   {
-    "STT": 325,
+    "STT": 332,
     "MA_DICH_VU": "03.3327.0459",
     "TEN_DICH_VU": "Phẫu thuật viêm ruột thừa",
     "TEN_DVKT_GIA": "Phẫu thuật viêm ruột thừa",
@@ -6527,11 +7000,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95228"
   },
   {
-    "STT": 326,
+    "STT": 333,
     "MA_DICH_VU": "03.3327.0459_GT",
     "TEN_DICH_VU": "Phẫu thuật viêm ruột thừa",
     "TEN_DVKT_GIA": "Phẫu thuật viêm ruột thừa",
@@ -6547,11 +7021,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95111"
   },
   {
-    "STT": 327,
+    "STT": 334,
     "MA_DICH_VU": "03.3328.0686",
     "TEN_DICH_VU": "Phẫu thuật viêm phúc mạc ruột thừa",
     "TEN_DVKT_GIA": "Phẫu thuật viêm phúc mạc ruột thừa",
@@ -6567,11 +7042,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95583"
   },
   {
-    "STT": 328,
+    "STT": 335,
     "MA_DICH_VU": "03.3328.0686_GT",
     "TEN_DICH_VU": "Phẫu thuật viêm phúc mạc ruột thừa",
     "TEN_DVKT_GIA": "Phẫu thuật viêm phúc mạc ruột thừa",
@@ -6587,11 +7063,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95432"
   },
   {
-    "STT": 329,
+    "STT": 336,
     "MA_DICH_VU": "03.3330.0493",
     "TEN_DICH_VU": "Phẫu thuật áp xe ruột thừa trong ổ bụng",
     "TEN_DVKT_GIA": "Phẫu thuật áp xe ruột thừa trong ổ bụng",
@@ -6607,11 +7084,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95315"
   },
   {
-    "STT": 330,
+    "STT": 337,
     "MA_DICH_VU": "03.3330.0493_GT",
     "TEN_DICH_VU": "Phẫu thuật áp xe ruột thừa trong ổ bụng",
     "TEN_DVKT_GIA": "Phẫu thuật áp xe ruột thừa trong ổ bụng",
@@ -6627,11 +7105,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95135"
   },
   {
-    "STT": 331,
+    "STT": 338,
     "MA_DICH_VU": "03.3332.0493",
     "TEN_DICH_VU": "Dẫn lưu áp xe ruột thừa",
     "TEN_DVKT_GIA": "Dẫn lưu áp xe ruột thừa",
@@ -6647,11 +7126,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95316"
   },
   {
-    "STT": 332,
+    "STT": 339,
     "MA_DICH_VU": "03.3332.0493_GT",
     "TEN_DICH_VU": "Dẫn lưu áp xe ruột thừa",
     "TEN_DVKT_GIA": "Dẫn lưu áp xe ruột thừa",
@@ -6667,31 +7147,33 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95136"
   },
   {
-    "STT": 333,
+    "STT": 340,
     "MA_DICH_VU": "03.3341.0495",
     "TEN_DICH_VU": "Phẫu thuật Longo",
     "TEN_DVKT_GIA": "Phẫu thuật Longo",
     "DON_GIA": 2507900,
     "QUY_TRINH": "",
     "CS_THUCHIEN": "",
-    "TINHTRANG_DV": "",
-    "MA_GIA": 103106603,
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093352,
     "TEN_GIA": "",
     "GIA_TT_BHYT": 2507900,
     "MA_PTTT": "",
-    "TU_NGAY": 20260101,
+    "TU_NGAY": 20260412,
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
-    "PHAN_LOAI_PTTT": 6,
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu trong máy.",
-    "QUYET_DINH": "20241219_277/NQ-HĐND_95166"
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
   },
   {
-    "STT": 334,
+    "STT": 341,
     "MA_DICH_VU": "03.3348.0494",
     "TEN_DICH_VU": "Phẫu thuật điều trị rò cạnh hậu môn",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị rò cạnh hậu môn",
@@ -6707,11 +7189,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95249"
   },
   {
-    "STT": 335,
+    "STT": 342,
     "MA_DICH_VU": "03.3348.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị rò cạnh hậu môn",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị rò cạnh hậu môn",
@@ -6727,11 +7210,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95085"
   },
   {
-    "STT": 336,
+    "STT": 343,
     "MA_DICH_VU": "03.3349.0494",
     "TEN_DICH_VU": "Phẫu thuật rò hậu môn phức tạp hay phẫu thuật lại",
     "TEN_DVKT_GIA": "Phẫu thuật rò hậu môn phức tạp hay phẫu thuật lại",
@@ -6747,11 +7231,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95250"
   },
   {
-    "STT": 337,
+    "STT": 344,
     "MA_DICH_VU": "03.3349.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật rò hậu môn phức tạp hay phẫu thuật lại",
     "TEN_DVKT_GIA": "Phẫu thuật rò hậu môn phức tạp hay phẫu thuật lại",
@@ -6767,11 +7252,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95086"
   },
   {
-    "STT": 338,
+    "STT": 345,
     "MA_DICH_VU": "03.3350.0494",
     "TEN_DICH_VU": "Phẫu thuật áp xe hậu môn, có mở lỗ rò",
     "TEN_DVKT_GIA": "Phẫu thuật áp xe hậu môn, có mở lỗ rò",
@@ -6787,11 +7273,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95251"
   },
   {
-    "STT": 339,
+    "STT": 346,
     "MA_DICH_VU": "03.3350.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật áp xe hậu môn, có mở lỗ rò",
     "TEN_DVKT_GIA": "Phẫu thuật áp xe hậu môn, có mở lỗ rò",
@@ -6807,11 +7294,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95087"
   },
   {
-    "STT": 340,
+    "STT": 347,
     "MA_DICH_VU": "03.3364.0494",
     "TEN_DICH_VU": "Cắt cơ tròn trong",
     "TEN_DVKT_GIA": "Cắt cơ tròn trong",
@@ -6827,11 +7315,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95252"
   },
   {
-    "STT": 341,
+    "STT": 348,
     "MA_DICH_VU": "03.3364.0494_GT",
     "TEN_DICH_VU": "Cắt cơ tròn trong",
     "TEN_DVKT_GIA": "Cắt cơ tròn trong",
@@ -6847,11 +7336,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95088"
   },
   {
-    "STT": 342,
+    "STT": 349,
     "MA_DICH_VU": "03.3365.0494",
     "TEN_DICH_VU": "Cắt trĩ từ 2 búi trở lên",
     "TEN_DVKT_GIA": "Cắt trĩ từ 2 búi trở lên",
@@ -6867,11 +7357,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95253"
   },
   {
-    "STT": 343,
+    "STT": 350,
     "MA_DICH_VU": "03.3365.0494_GT",
     "TEN_DICH_VU": "Cắt trĩ từ 2 búi trở lên",
     "TEN_DVKT_GIA": "Cắt trĩ từ 2 búi trở lên",
@@ -6887,11 +7378,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95089"
   },
   {
-    "STT": 344,
+    "STT": 351,
     "MA_DICH_VU": "03.3366.0494",
     "TEN_DICH_VU": "Phẫu thuật trĩ độ 3",
     "TEN_DVKT_GIA": "Phẫu thuật trĩ độ 3",
@@ -6907,11 +7399,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95254"
   },
   {
-    "STT": 345,
+    "STT": 352,
     "MA_DICH_VU": "03.3366.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật trĩ độ 3",
     "TEN_DVKT_GIA": "Phẫu thuật trĩ độ 3",
@@ -6927,11 +7420,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95090"
   },
   {
-    "STT": 346,
+    "STT": 353,
     "MA_DICH_VU": "03.3367.0494",
     "TEN_DICH_VU": "Phẫu thuật trĩ độ 3",
     "TEN_DVKT_GIA": "Phẫu thuật trĩ độ 3",
@@ -6947,11 +7441,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95255"
   },
   {
-    "STT": 347,
+    "STT": 354,
     "MA_DICH_VU": "03.3367.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật trĩ độ 3",
     "TEN_DVKT_GIA": "Phẫu thuật trĩ độ 3",
@@ -6967,11 +7462,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95091"
   },
   {
-    "STT": 348,
+    "STT": 355,
     "MA_DICH_VU": "03.3368.0494",
     "TEN_DICH_VU": "Phẫu thuật trĩ độ 1",
     "TEN_DVKT_GIA": "Phẫu thuật trĩ độ 1",
@@ -6987,11 +7483,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95256"
   },
   {
-    "STT": 349,
+    "STT": 356,
     "MA_DICH_VU": "03.3368.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật trĩ độ 1",
     "TEN_DVKT_GIA": "Phẫu thuật trĩ độ 1",
@@ -7007,11 +7504,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95092"
   },
   {
-    "STT": 350,
+    "STT": 357,
     "MA_DICH_VU": "03.3369.0494",
     "TEN_DICH_VU": "Cắt bỏ trĩ vòng",
     "TEN_DVKT_GIA": "Cắt bỏ trĩ vòng",
@@ -7027,11 +7525,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95257"
   },
   {
-    "STT": 351,
+    "STT": 358,
     "MA_DICH_VU": "03.3369.0494_GT",
     "TEN_DICH_VU": "Cắt bỏ trĩ vòng",
     "TEN_DVKT_GIA": "Cắt bỏ trĩ vòng",
@@ -7047,11 +7546,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95093"
   },
   {
-    "STT": 352,
+    "STT": 359,
     "MA_DICH_VU": "03.3371.0494",
     "TEN_DICH_VU": "Phẫu thuật trĩ nhồi máu phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật trĩ nhồi máu phức tạp",
@@ -7067,11 +7567,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95258"
   },
   {
-    "STT": 353,
+    "STT": 360,
     "MA_DICH_VU": "03.3371.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật trĩ nhồi máu phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật trĩ nhồi máu phức tạp",
@@ -7087,11 +7588,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95094"
   },
   {
-    "STT": 354,
+    "STT": 361,
     "MA_DICH_VU": "03.3377.0494",
     "TEN_DICH_VU": "Phẫu thuật rò hậu môn thể đơn giản",
     "TEN_DVKT_GIA": "Phẫu thuật rò hậu môn thể đơn giản",
@@ -7107,11 +7609,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95259"
   },
   {
-    "STT": 355,
+    "STT": 362,
     "MA_DICH_VU": "03.3377.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật rò hậu môn thể đơn giản",
     "TEN_DVKT_GIA": "Phẫu thuật rò hậu môn thể đơn giản",
@@ -7127,11 +7630,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95095"
   },
   {
-    "STT": 356,
+    "STT": 363,
     "MA_DICH_VU": "03.3378.0494",
     "TEN_DICH_VU": "Thắt trĩ có kèm bóc tách, cắt một bó trĩ",
     "TEN_DVKT_GIA": "Thắt trĩ có kèm bóc tách, cắt một bó trĩ",
@@ -7147,11 +7651,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95260"
   },
   {
-    "STT": 357,
+    "STT": 364,
     "MA_DICH_VU": "03.3378.0494_GT",
     "TEN_DICH_VU": "Thắt trĩ có kèm bóc tách, cắt một bó trĩ",
     "TEN_DVKT_GIA": "Thắt trĩ có kèm bóc tách, cắt một bó trĩ",
@@ -7167,11 +7672,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95096"
   },
   {
-    "STT": 358,
+    "STT": 365,
     "MA_DICH_VU": "03.3379.0494",
     "TEN_DICH_VU": "Phẫu thuật trĩ nhồi máu nhỏ",
     "TEN_DVKT_GIA": "Phẫu thuật trĩ nhồi máu nhỏ",
@@ -7187,11 +7693,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95261"
   },
   {
-    "STT": 359,
+    "STT": 366,
     "MA_DICH_VU": "03.3379.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật trĩ nhồi máu nhỏ",
     "TEN_DVKT_GIA": "Phẫu thuật trĩ nhồi máu nhỏ",
@@ -7207,11 +7714,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95097"
   },
   {
-    "STT": 360,
+    "STT": 367,
     "MA_DICH_VU": "03.3380.0498",
     "TEN_DICH_VU": "Cắt polyp trực tràng",
     "TEN_DVKT_GIA": "Cắt polyp trực tràng",
@@ -7227,11 +7735,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94994"
   },
   {
-    "STT": 361,
+    "STT": 368,
     "MA_DICH_VU": "03.3383.0584",
     "TEN_DICH_VU": "Cắt nang/polyp rốn",
     "TEN_DVKT_GIA": "Cắt nang/polyp rốn",
@@ -7247,11 +7756,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95018"
   },
   {
-    "STT": 362,
+    "STT": 369,
     "MA_DICH_VU": "03.3391.0683",
     "TEN_DICH_VU": "Cắt u nang buồng trứng",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng",
@@ -7267,11 +7777,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95336"
   },
   {
-    "STT": 363,
+    "STT": 370,
     "MA_DICH_VU": "03.3391.0683_GT",
     "TEN_DICH_VU": "Cắt u nang buồng trứng",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng",
@@ -7287,11 +7798,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95192"
   },
   {
-    "STT": 364,
+    "STT": 371,
     "MA_DICH_VU": "03.3395.0492",
     "TEN_DICH_VU": "Phẫu thuật thoát vị bẹn nghẹt",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị bẹn nghẹt",
@@ -7307,11 +7819,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95381"
   },
   {
-    "STT": 365,
+    "STT": 372,
     "MA_DICH_VU": "03.3395.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật thoát vị bẹn nghẹt",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị bẹn nghẹt",
@@ -7327,11 +7840,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95234"
   },
   {
-    "STT": 366,
+    "STT": 373,
     "MA_DICH_VU": "03.3397.0492",
     "TEN_DICH_VU": "Phẫu thuật thoát vị vết mổ cũ thành bụng",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị vết mổ cũ thành bụng",
@@ -7347,11 +7861,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95382"
   },
   {
-    "STT": 367,
+    "STT": 374,
     "MA_DICH_VU": "03.3397.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật thoát vị vết mổ cũ thành bụng",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị vết mổ cũ thành bụng",
@@ -7367,11 +7882,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95235"
   },
   {
-    "STT": 368,
+    "STT": 375,
     "MA_DICH_VU": "03.3399.0600",
     "TEN_DICH_VU": "Dẫn lưu áp xe hậu môn đơn giản",
     "TEN_DVKT_GIA": "Dẫn lưu áp xe hậu môn đơn giản",
@@ -7387,11 +7903,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94960"
   },
   {
-    "STT": 369,
+    "STT": 376,
     "MA_DICH_VU": "03.3400.0632",
     "TEN_DICH_VU": "Lấy máu tụ tầng sinh môn",
     "TEN_DVKT_GIA": "Lấy máu tụ tầng sinh môn",
@@ -7407,11 +7924,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95165"
   },
   {
-    "STT": 370,
+    "STT": 377,
     "MA_DICH_VU": "03.3400.0632_GT",
     "TEN_DICH_VU": "Lấy máu tụ tầng sinh môn",
     "TEN_DVKT_GIA": "Lấy máu tụ tầng sinh môn",
@@ -7427,11 +7945,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95050"
   },
   {
-    "STT": 371,
+    "STT": 378,
     "MA_DICH_VU": "03.3401.0492",
     "TEN_DICH_VU": "Phẫu thuật thoát vị bẹn hay thành bụng thường",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị bẹn hay thành bụng thường",
@@ -7447,11 +7966,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95383"
   },
   {
-    "STT": 372,
+    "STT": 379,
     "MA_DICH_VU": "03.3401.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật thoát vị bẹn hay thành bụng thường",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị bẹn hay thành bụng thường",
@@ -7467,11 +7987,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95236"
   },
   {
-    "STT": 373,
+    "STT": 380,
     "MA_DICH_VU": "03.3402.0491",
     "TEN_DICH_VU": "Mở bụng thăm dò",
     "TEN_DVKT_GIA": "Mở bụng thăm dò",
@@ -7487,11 +8008,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95199"
   },
   {
-    "STT": 374,
+    "STT": 381,
     "MA_DICH_VU": "03.3402.0491_GT",
     "TEN_DICH_VU": "Mở bụng thăm dò",
     "TEN_DVKT_GIA": "Mở bụng thăm dò",
@@ -7507,11 +8029,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95076"
   },
   {
-    "STT": 375,
+    "STT": 382,
     "MA_DICH_VU": "03.3405.0606",
     "TEN_DICH_VU": "Chọc dò túi cùng Douglas",
     "TEN_DVKT_GIA": "Chọc dò túi cùng Douglas",
@@ -7527,11 +8050,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94705"
   },
   {
-    "STT": 376,
+    "STT": 383,
     "MA_DICH_VU": "03.3406.0600",
     "TEN_DICH_VU": "Trích áp xe tầng sinh môn",
     "TEN_DVKT_GIA": "Trích áp xe tầng sinh môn",
@@ -7547,11 +8071,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94961"
   },
   {
-    "STT": 377,
+    "STT": 384,
     "MA_DICH_VU": "03.3416.0493",
     "TEN_DICH_VU": "Phẫu thuật dẫn lưu áp xe gan",
     "TEN_DVKT_GIA": "Phẫu thuật dẫn lưu áp xe gan",
@@ -7567,11 +8092,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95317"
   },
   {
-    "STT": 378,
+    "STT": 385,
     "MA_DICH_VU": "03.3416.0493_GT",
     "TEN_DICH_VU": "Phẫu thuật dẫn lưu áp xe gan",
     "TEN_DVKT_GIA": "Phẫu thuật dẫn lưu áp xe gan",
@@ -7587,11 +8113,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95137"
   },
   {
-    "STT": 379,
+    "STT": 386,
     "MA_DICH_VU": "03.3427.0472",
     "TEN_DICH_VU": "Cắt túi mật",
     "TEN_DVKT_GIA": "Cắt túi mật",
@@ -7607,11 +8134,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95588"
   },
   {
-    "STT": 380,
+    "STT": 387,
     "MA_DICH_VU": "03.3430.0469",
     "TEN_DICH_VU": "Phẫu thuật điều trị thủng đường mật ngoài gan",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thủng đường mật ngoài gan",
@@ -7627,11 +8155,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm keo sinh học, đầu dao cắt gan siêu âm, dao cắt hàn mạch, hàn mô, Stent, chi phí DSA.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95599"
   },
   {
-    "STT": 381,
+    "STT": 388,
     "MA_DICH_VU": "03.3458.0493",
     "TEN_DICH_VU": "Dẫn lưu áp xe tụy",
     "TEN_DVKT_GIA": "Dẫn lưu áp xe tụy",
@@ -7647,11 +8176,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95318"
   },
   {
-    "STT": 382,
+    "STT": 389,
     "MA_DICH_VU": "03.3458.0493_GT",
     "TEN_DICH_VU": "Dẫn lưu áp xe tụy",
     "TEN_DVKT_GIA": "Dẫn lưu áp xe tụy",
@@ -7667,11 +8197,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95138"
   },
   {
-    "STT": 383,
+    "STT": 390,
     "MA_DICH_VU": "03.3531.0421",
     "TEN_DICH_VU": "Mổ lấy sỏi bàng quang",
     "TEN_DVKT_GIA": "Mổ lấy sỏi bàng quang",
@@ -7687,11 +8218,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95575"
   },
   {
-    "STT": 384,
+    "STT": 391,
     "MA_DICH_VU": "03.3531.0421_GT",
     "TEN_DICH_VU": "Mổ lấy sỏi bàng quang",
     "TEN_DVKT_GIA": "Mổ lấy sỏi bàng quang",
@@ -7707,11 +8239,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95403"
   },
   {
-    "STT": 385,
+    "STT": 392,
     "MA_DICH_VU": "03.3532.0121",
     "TEN_DICH_VU": "Mở thông bàng quang",
     "TEN_DVKT_GIA": "Mở thông bàng quang",
@@ -7727,11 +8260,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94802"
   },
   {
-    "STT": 386,
+    "STT": 393,
     "MA_DICH_VU": "03.3589.0492",
     "TEN_DICH_VU": "Phẫu thuật thoát vị bẹn bẹn nghẹt",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị bẹn bẹn nghẹt",
@@ -7747,11 +8281,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95384"
   },
   {
-    "STT": 387,
+    "STT": 394,
     "MA_DICH_VU": "03.3589.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật thoát vị bẹn bẹn nghẹt",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị bẹn bẹn nghẹt",
@@ -7767,11 +8302,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95237"
   },
   {
-    "STT": 388,
+    "STT": 395,
     "MA_DICH_VU": "03.3590.0492",
     "TEN_DICH_VU": "Phẫu thuật thoát vị đùi đùi nghẹt",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị đùi đùi nghẹt",
@@ -7787,11 +8323,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95385"
   },
   {
-    "STT": 389,
+    "STT": 396,
     "MA_DICH_VU": "03.3590.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật thoát vị đùi đùi nghẹt",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị đùi đùi nghẹt",
@@ -7807,11 +8344,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95238"
   },
   {
-    "STT": 390,
+    "STT": 397,
     "MA_DICH_VU": "03.3594.0218",
     "TEN_DICH_VU": "Khâu vết thương âm hộ, âm đạo",
     "TEN_DVKT_GIA": "Khâu vết thương âm hộ, âm đạo",
@@ -7827,11 +8365,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94661"
   },
   {
-    "STT": 391,
+    "STT": 398,
     "MA_DICH_VU": "03.3599.0492",
     "TEN_DICH_VU": "Phẫu thuật thoát vị bẹn thường 1 bên",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị bẹn thường 1 bên",
@@ -7847,11 +8386,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95386"
   },
   {
-    "STT": 392,
+    "STT": 399,
     "MA_DICH_VU": "03.3599.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật thoát vị bẹn thường 1 bên",
     "TEN_DVKT_GIA": "Phẫu thuật thoát vị bẹn thường 1 bên",
@@ -7867,11 +8407,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": "",
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95239"
   },
   {
-    "STT": 393,
+    "STT": 400,
     "MA_DICH_VU": "03.3606.0156",
     "TEN_DICH_VU": "Nong niệu đạo",
     "TEN_DVKT_GIA": "Nong niệu đạo",
@@ -7887,11 +8428,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94626"
   },
   {
-    "STT": 394,
+    "STT": 401,
     "MA_DICH_VU": "03.3607.0435",
     "TEN_DICH_VU": "Cắt bỏ tinh hoàn",
     "TEN_DVKT_GIA": "Cắt bỏ tinh hoàn",
@@ -7907,11 +8449,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95151"
   },
   {
-    "STT": 395,
+    "STT": 402,
     "MA_DICH_VU": "03.3607.0435_GT",
     "TEN_DICH_VU": "Cắt bỏ tinh hoàn",
     "TEN_DVKT_GIA": "Cắt bỏ tinh hoàn",
@@ -7927,11 +8470,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95052"
   },
   {
-    "STT": 396,
+    "STT": 403,
     "MA_DICH_VU": "03.3608.0505",
     "TEN_DICH_VU": "Dẫn lưu áp xe bìu/tinh hoàn",
     "TEN_DVKT_GIA": "Dẫn lưu áp xe bìu/tinh hoàn",
@@ -7947,11 +8491,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94534"
   },
   {
-    "STT": 397,
+    "STT": 404,
     "MA_DICH_VU": "03.3648.0534",
     "TEN_DICH_VU": "Tháo khớp vai",
     "TEN_DVKT_GIA": "Tháo khớp vai",
@@ -7967,11 +8512,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95448"
   },
   {
-    "STT": 398,
+    "STT": 405,
     "MA_DICH_VU": "03.3648.0534_GT",
     "TEN_DICH_VU": "Tháo khớp vai",
     "TEN_DVKT_GIA": "Tháo khớp vai",
@@ -7987,11 +8533,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95321"
   },
   {
-    "STT": 399,
+    "STT": 406,
     "MA_DICH_VU": "03.3649.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương điều trị gãy xương đòn",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương điều trị gãy xương đòn",
@@ -8007,11 +8554,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95458"
   },
   {
-    "STT": 400,
+    "STT": 407,
     "MA_DICH_VU": "03.3666.0550",
     "TEN_DICH_VU": "Phẫu thuật cứng duỗi khớp khuỷu",
     "TEN_DVKT_GIA": "Phẫu thuật cứng duỗi khớp khuỷu",
@@ -8027,11 +8575,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm đinh, nẹp, vít, gân nhân tạo, gân sinh học, khung cố định ngoài, xương nhân tạo hoặc sản phẩm sinh học thay thế xương.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95433"
   },
   {
-    "STT": 401,
+    "STT": 408,
     "MA_DICH_VU": "03.3666.0550_GT",
     "TEN_DICH_VU": "Phẫu thuật cứng duỗi khớp khuỷu",
     "TEN_DVKT_GIA": "Phẫu thuật cứng duỗi khớp khuỷu",
@@ -8047,11 +8596,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm đinh, nẹp, vít, gân nhân tạo, gân sinh học, khung cố định ngoài, xương nhân tạo hoặc sản phẩm sinh học thay thế xương.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95329"
   },
   {
-    "STT": 402,
+    "STT": 409,
     "MA_DICH_VU": "03.3668.0534",
     "TEN_DICH_VU": "Cắt đoạn khớp khuỷu",
     "TEN_DVKT_GIA": "Cắt đoạn khớp khuỷu",
@@ -8067,11 +8617,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95449"
   },
   {
-    "STT": 403,
+    "STT": 410,
     "MA_DICH_VU": "03.3668.0534_GT",
     "TEN_DICH_VU": "Cắt đoạn khớp khuỷu",
     "TEN_DVKT_GIA": "Cắt đoạn khớp khuỷu",
@@ -8087,11 +8638,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95322"
   },
   {
-    "STT": 404,
+    "STT": 411,
     "MA_DICH_VU": "03.3676.0556",
     "TEN_DICH_VU": "Nắn găm Kirschner trong gãy Pouteau-Colles",
     "TEN_DVKT_GIA": "Nắn găm Kirschner trong gãy Pouteau-Colles",
@@ -8107,11 +8659,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95459"
   },
   {
-    "STT": 405,
+    "STT": 412,
     "MA_DICH_VU": "03.3684.0556",
     "TEN_DICH_VU": "Phẫu thuật gãy lồi cầu ngoài xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật gãy lồi cầu ngoài xương cánh tay",
@@ -8127,11 +8680,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95460"
   },
   {
-    "STT": 406,
+    "STT": 413,
     "MA_DICH_VU": "03.3685.0571",
     "TEN_DICH_VU": "Phẫu thuật viêm xương cánh tay: đục, mổ, nạo, lấy xương chết, dẫn lưu",
     "TEN_DVKT_GIA": "Phẫu thuật viêm xương cánh tay: đục, mổ, nạo, lấy xương chết, dẫn lưu",
@@ -8147,11 +8701,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95342"
   },
   {
-    "STT": 407,
+    "STT": 414,
     "MA_DICH_VU": "03.3685.0571_GT",
     "TEN_DICH_VU": "Phẫu thuật viêm xương cánh tay: đục, mổ, nạo, lấy xương chết, dẫn lưu",
     "TEN_DVKT_GIA": "Phẫu thuật viêm xương cánh tay: đục, mổ, nạo, lấy xương chết, dẫn lưu",
@@ -8167,11 +8722,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95154"
   },
   {
-    "STT": 408,
+    "STT": 415,
     "MA_DICH_VU": "03.3686.0571",
     "TEN_DICH_VU": "Phẫu thuật gãy mỏm trên ròng rọc xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật gãy mỏm trên ròng rọc xương cánh tay",
@@ -8187,11 +8743,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95343"
   },
   {
-    "STT": 409,
+    "STT": 416,
     "MA_DICH_VU": "03.3686.0571_GT",
     "TEN_DICH_VU": "Phẫu thuật gãy mỏm trên ròng rọc xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật gãy mỏm trên ròng rọc xương cánh tay",
@@ -8207,11 +8764,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95155"
   },
   {
-    "STT": 410,
+    "STT": 417,
     "MA_DICH_VU": "03.3687.0571",
     "TEN_DICH_VU": "Phẫu thuật viêm xương cẳng tay đục, mổ, nạo, dẫn lưu",
     "TEN_DVKT_GIA": "Phẫu thuật viêm xương cẳng tay đục, mổ, nạo, dẫn lưu",
@@ -8227,11 +8785,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95344"
   },
   {
-    "STT": 411,
+    "STT": 418,
     "MA_DICH_VU": "03.3687.0571_GT",
     "TEN_DICH_VU": "Phẫu thuật viêm xương cẳng tay đục, mổ, nạo, dẫn lưu",
     "TEN_DVKT_GIA": "Phẫu thuật viêm xương cẳng tay đục, mổ, nạo, dẫn lưu",
@@ -8247,11 +8806,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95156"
   },
   {
-    "STT": 412,
+    "STT": 419,
     "MA_DICH_VU": "03.3688.0556",
     "TEN_DICH_VU": "Phẫu thuật cố định nẹp vít gãy hai xương cẳng tay",
     "TEN_DVKT_GIA": "Phẫu thuật cố định nẹp vít gãy hai xương cẳng tay",
@@ -8267,11 +8827,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95461"
   },
   {
-    "STT": 413,
+    "STT": 420,
     "MA_DICH_VU": "03.3689.0556",
     "TEN_DICH_VU": "Phẫu thuật đóng đinh nội tủy gãy 2 xương cẳng tay",
     "TEN_DVKT_GIA": "Phẫu thuật đóng đinh nội tủy gãy 2 xương cẳng tay",
@@ -8287,11 +8848,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95462"
   },
   {
-    "STT": 414,
+    "STT": 421,
     "MA_DICH_VU": "03.3690.0556",
     "TEN_DICH_VU": "Phẫu thuật đóng đinh nội tủy gãy 1 xương cẳng tay",
     "TEN_DVKT_GIA": "Phẫu thuật đóng đinh nội tủy gãy 1 xương cẳng tay",
@@ -8307,11 +8869,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95463"
   },
   {
-    "STT": 415,
+    "STT": 422,
     "MA_DICH_VU": "03.3710.0571",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ ngón tay thừa",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ ngón tay thừa",
@@ -8327,11 +8890,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95345"
   },
   {
-    "STT": 416,
+    "STT": 423,
     "MA_DICH_VU": "03.3710.0571_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ ngón tay thừa",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ ngón tay thừa",
@@ -8347,11 +8911,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95157"
   },
   {
-    "STT": 417,
+    "STT": 424,
     "MA_DICH_VU": "03.3711.0571",
     "TEN_DICH_VU": "Tháo bỏ các ngón tay, đốt ngón tay",
     "TEN_DVKT_GIA": "Tháo bỏ các ngón tay, đốt ngón tay",
@@ -8367,11 +8932,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95346"
   },
   {
-    "STT": 418,
+    "STT": 425,
     "MA_DICH_VU": "03.3711.0571_GT",
     "TEN_DICH_VU": "Tháo bỏ các ngón tay, đốt ngón tay",
     "TEN_DVKT_GIA": "Tháo bỏ các ngón tay, đốt ngón tay",
@@ -8387,11 +8953,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95158"
   },
   {
-    "STT": 419,
+    "STT": 426,
     "MA_DICH_VU": "03.3712.0556",
     "TEN_DICH_VU": "Phẫu thuật gãy đốt bàn ngón tay kết hợp xương với Kirschner hoặc nẹp vít",
     "TEN_DVKT_GIA": "Phẫu thuật gãy đốt bàn ngón tay kết hợp xương với Kirschner hoặc nẹp vít",
@@ -8407,11 +8974,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95464"
   },
   {
-    "STT": 420,
+    "STT": 427,
     "MA_DICH_VU": "03.3723.0534",
     "TEN_DICH_VU": "Tháo khớp háng",
     "TEN_DVKT_GIA": "Tháo khớp háng",
@@ -8427,11 +8995,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95450"
   },
   {
-    "STT": 421,
+    "STT": 428,
     "MA_DICH_VU": "03.3723.0534_GT",
     "TEN_DICH_VU": "Tháo khớp háng",
     "TEN_DVKT_GIA": "Tháo khớp háng",
@@ -8447,11 +9016,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95323"
   },
   {
-    "STT": 422,
+    "STT": 429,
     "MA_DICH_VU": "03.3730.0543",
     "TEN_DICH_VU": "Phẫu thuật trật khớp háng",
     "TEN_DVKT_GIA": "Phẫu thuật trật khớp háng",
@@ -8467,11 +9037,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm đinh, nẹp, vít, ốc, khóa.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95420"
   },
   {
-    "STT": 423,
+    "STT": 430,
     "MA_DICH_VU": "03.3732.0556",
     "TEN_DICH_VU": "Đặt đinh nẹp gãy xương đùi (xuôi dòng)",
     "TEN_DVKT_GIA": "Đặt đinh nẹp gãy xương đùi (xuôi dòng)",
@@ -8487,11 +9058,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95465"
   },
   {
-    "STT": 424,
+    "STT": 431,
     "MA_DICH_VU": "03.3754.0556",
     "TEN_DICH_VU": "Néo ép hoặc buộc vòng chỉ thép gãy xương bánh chè",
     "TEN_DVKT_GIA": "Néo ép hoặc buộc vòng chỉ thép gãy xương bánh chè",
@@ -8507,11 +9079,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95466"
   },
   {
-    "STT": 425,
+    "STT": 432,
     "MA_DICH_VU": "03.3755.0534",
     "TEN_DICH_VU": "Tháo khớp gối",
     "TEN_DVKT_GIA": "Tháo khớp gối",
@@ -8527,11 +9100,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95451"
   },
   {
-    "STT": 426,
+    "STT": 433,
     "MA_DICH_VU": "03.3755.0534_GT",
     "TEN_DICH_VU": "Tháo khớp gối",
     "TEN_DVKT_GIA": "Tháo khớp gối",
@@ -8547,11 +9121,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95324"
   },
   {
-    "STT": 427,
+    "STT": 434,
     "MA_DICH_VU": "03.3759.0556",
     "TEN_DICH_VU": "Đặt nẹp vít gãy thân xương chày",
     "TEN_DVKT_GIA": "Đặt nẹp vít gãy thân xương chày",
@@ -8567,11 +9142,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95467"
   },
   {
-    "STT": 428,
+    "STT": 435,
     "MA_DICH_VU": "03.3786.0556",
     "TEN_DICH_VU": "Đặt vít gãy thân xương sên",
     "TEN_DVKT_GIA": "Đặt vít gãy thân xương sên",
@@ -8587,11 +9163,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95468"
   },
   {
-    "STT": 429,
+    "STT": 436,
     "MA_DICH_VU": "03.3795.0534",
     "TEN_DICH_VU": "Tháo khớp cổ chân",
     "TEN_DVKT_GIA": "Tháo khớp cổ chân",
@@ -8607,11 +9184,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95452"
   },
   {
-    "STT": 430,
+    "STT": 437,
     "MA_DICH_VU": "03.3795.0534_GT",
     "TEN_DICH_VU": "Tháo khớp cổ chân",
     "TEN_DVKT_GIA": "Tháo khớp cổ chân",
@@ -8627,11 +9205,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95325"
   },
   {
-    "STT": 431,
+    "STT": 438,
     "MA_DICH_VU": "03.3798.0571",
     "TEN_DICH_VU": "Tháo đốt bàn",
     "TEN_DVKT_GIA": "Tháo đốt bàn",
@@ -8647,11 +9226,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95347"
   },
   {
-    "STT": 432,
+    "STT": 439,
     "MA_DICH_VU": "03.3798.0571_GT",
     "TEN_DICH_VU": "Tháo đốt bàn",
     "TEN_DVKT_GIA": "Tháo đốt bàn",
@@ -8667,11 +9247,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95159"
   },
   {
-    "STT": 433,
+    "STT": 440,
     "MA_DICH_VU": "03.3804.0559",
     "TEN_DICH_VU": "Gỡ dính gân",
     "TEN_DVKT_GIA": "Gỡ dính gân",
@@ -8687,11 +9268,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm gân nhân tạo.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95355"
   },
   {
-    "STT": 434,
+    "STT": 441,
     "MA_DICH_VU": "03.3804.0559_GT",
     "TEN_DICH_VU": "Gỡ dính gân",
     "TEN_DVKT_GIA": "Gỡ dính gân",
@@ -8707,11 +9289,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm gân nhân tạo, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95177"
   },
   {
-    "STT": 435,
+    "STT": 442,
     "MA_DICH_VU": "03.3811.0571",
     "TEN_DICH_VU": "Cắt lọc da, cơ, cân trên 3% diện tích cơ thể",
     "TEN_DVKT_GIA": "Cắt lọc da, cơ, cân trên 3% diện tích cơ thể",
@@ -8727,11 +9310,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95348"
   },
   {
-    "STT": 436,
+    "STT": 443,
     "MA_DICH_VU": "03.3811.0571_GT",
     "TEN_DICH_VU": "Cắt lọc da, cơ, cân trên 3% diện tích cơ thể",
     "TEN_DVKT_GIA": "Cắt lọc da, cơ, cân trên 3% diện tích cơ thể",
@@ -8747,11 +9331,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95160"
   },
   {
-    "STT": 437,
+    "STT": 444,
     "MA_DICH_VU": "03.3817.0505",
     "TEN_DICH_VU": "Trích áp xe phần mềm lớn",
     "TEN_DVKT_GIA": "Trích áp xe phần mềm lớn",
@@ -8767,11 +9352,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94535"
   },
   {
-    "STT": 438,
+    "STT": 445,
     "MA_DICH_VU": "03.3818.0218",
     "TEN_DICH_VU": "Khâu lại da vết phẫu thuật sau nhiễm khuẩn",
     "TEN_DVKT_GIA": "Khâu lại da vết phẫu thuật sau nhiễm khuẩn",
@@ -8787,11 +9373,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94662"
   },
   {
-    "STT": 439,
+    "STT": 446,
     "MA_DICH_VU": "03.3819.0559",
     "TEN_DICH_VU": "Nối gân duỗi",
     "TEN_DVKT_GIA": "Nối gân duỗi",
@@ -8807,11 +9394,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm gân nhân tạo.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95356"
   },
   {
-    "STT": 440,
+    "STT": 447,
     "MA_DICH_VU": "03.3819.0559_GT",
     "TEN_DICH_VU": "Nối gân duỗi",
     "TEN_DVKT_GIA": "Nối gân duỗi",
@@ -8827,11 +9415,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm gân nhân tạo, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95178"
   },
   {
-    "STT": 441,
+    "STT": 448,
     "MA_DICH_VU": "03.3820.0573",
     "TEN_DICH_VU": "Tạo hình bằng các vạt tại chỗ đơn giản",
     "TEN_DVKT_GIA": "Tạo hình bằng các vạt tại chỗ đơn giản",
@@ -8847,11 +9436,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95428"
   },
   {
-    "STT": 442,
+    "STT": 449,
     "MA_DICH_VU": "03.3821.0216",
     "TEN_DICH_VU": "Cắt lọc tổ chức hoại tử hoặc cắt lọc vết thương đơn giản",
     "TEN_DVKT_GIA": "Cắt lọc tổ chức hoại tử hoặc cắt lọc vết thương đơn giản",
@@ -8867,11 +9457,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94499"
   },
   {
-    "STT": 443,
+    "STT": 450,
     "MA_DICH_VU": "03.3825.0217",
     "TEN_DICH_VU": "Khâu vết thương phần mềm dài trên 10 cm  [tổn thương nông]",
     "TEN_DVKT_GIA": "Khâu vết thương phần mềm dài trên 10 cm  [tổn thương nông]",
@@ -8887,11 +9478,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94619"
   },
   {
-    "STT": 444,
+    "STT": 451,
     "MA_DICH_VU": "03.3825.0219",
     "TEN_DICH_VU": "Khâu vết thương phần mềm dài trên 10 cm [tổn thương sâu]",
     "TEN_DVKT_GIA": "Khâu vết thương phần mềm dài trên 10 cm [tổn thương sâu]",
@@ -8907,11 +9499,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94726"
   },
   {
-    "STT": 445,
+    "STT": 452,
     "MA_DICH_VU": "03.3826.0075",
     "TEN_DICH_VU": "Thay băng, cắt chỉ vết mổ",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ vết mổ",
@@ -8927,11 +9520,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94097"
   },
   {
-    "STT": 446,
+    "STT": 453,
     "MA_DICH_VU": "03.3826.0200",
     "TEN_DICH_VU": "Thay băng, cắt chỉ vết mổ [chiều dài  ≤ 15cm]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ vết mổ [chiều dài  ≤ 15cm]",
@@ -8947,11 +9541,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú. Đối với người bệnh nội trú theo quy định của Bộ Y tế.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94185"
   },
   {
-    "STT": 447,
+    "STT": 454,
     "MA_DICH_VU": "03.3826.0202",
     "TEN_DICH_VU": "Thay băng, cắt chỉ vết mổ [chiều dài từ trên 30 cm đến 50 cm]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ vết mổ [chiều dài từ trên 30 cm đến 50 cm]",
@@ -8967,11 +9562,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94380"
   },
   {
-    "STT": 448,
+    "STT": 455,
     "MA_DICH_VU": "03.3826.0203",
     "TEN_DICH_VU": "Thay băng, cắt chỉ vết mổ [chiều dài từ trên 15 cm đến 30 cm nhiễm trùng]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ vết mổ [chiều dài từ trên 15 cm đến 30 cm nhiễm trùng]",
@@ -8987,11 +9583,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94417"
   },
   {
-    "STT": 449,
+    "STT": 456,
     "MA_DICH_VU": "03.3826.0204",
     "TEN_DICH_VU": "Thay băng, cắt chỉ vết mổ [chiều dài từ 30 cm đến 50 cm nhiễm trùng]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ vết mổ [chiều dài từ 30 cm đến 50 cm nhiễm trùng]",
@@ -9007,11 +9604,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94493"
   },
   {
-    "STT": 450,
+    "STT": 457,
     "MA_DICH_VU": "03.3826.0205",
     "TEN_DICH_VU": "Thay băng, cắt chỉ vết mổ [chiều dài > 50cm nhiễm trùng]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ vết mổ [chiều dài > 50cm nhiễm trùng]",
@@ -9027,11 +9625,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94629"
   },
   {
-    "STT": 451,
+    "STT": 458,
     "MA_DICH_VU": "03.3826.2047",
     "TEN_DICH_VU": "Thay băng, cắt chỉ vết mổ [chiều dài trên 15cm đến 30 cm]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ vết mổ [chiều dài trên 15cm đến 30 cm]",
@@ -9047,11 +9646,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú. Đối với người bệnh nội trú theo quy định của Bộ Y tế.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94284"
   },
   {
-    "STT": 452,
+    "STT": 459,
     "MA_DICH_VU": "03.3827.0216",
     "TEN_DICH_VU": "Khâu vết thương phần mềm dài dưới 10 cm [tổn thương nông]",
     "TEN_DVKT_GIA": "Khâu vết thương phần mềm dài dưới 10 cm [tổn thương nông]",
@@ -9067,11 +9667,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94500"
   },
   {
-    "STT": 453,
+    "STT": 460,
     "MA_DICH_VU": "03.3827.0218",
     "TEN_DICH_VU": "Khâu vết thương phần mềm dài dưới 10 cm [tổn thương sâu]",
     "TEN_DVKT_GIA": "Khâu vết thương phần mềm dài dưới 10 cm [tổn thương sâu]",
@@ -9087,11 +9688,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94663"
   },
   {
-    "STT": 454,
+    "STT": 461,
     "MA_DICH_VU": "03.3830.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy cổ xương đùi, vỡ ổ cối và trật khớp háng  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy cổ xương đùi, vỡ ổ cối và trật khớp háng  [bột liền]",
@@ -9107,11 +9709,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94889"
   },
   {
-    "STT": 455,
+    "STT": 462,
     "MA_DICH_VU": "03.3830.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy cổ xương đùi, vỡ ổ cối và trật khớp háng  [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy cổ xương đùi, vỡ ổ cối và trật khớp háng  [bột tự cán]",
@@ -9127,11 +9730,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94775"
   },
   {
-    "STT": 456,
+    "STT": 463,
     "MA_DICH_VU": "03.3831.0525",
     "TEN_DICH_VU": "Nắn, bó bột chỉnh hình chân chữ O  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột chỉnh hình chân chữ O  [bột liền]",
@@ -9147,11 +9751,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94738"
   },
   {
-    "STT": 457,
+    "STT": 464,
     "MA_DICH_VU": "03.3831.0526",
     "TEN_DICH_VU": "Nắn, bó bột chỉnh hình chân chữ O [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột chỉnh hình chân chữ O [bột tự cán]",
@@ -9167,11 +9772,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94674"
   },
   {
-    "STT": 458,
+    "STT": 465,
     "MA_DICH_VU": "03.3832.0525",
     "TEN_DICH_VU": "Nắn, bó bột chỉnh hình chân chữ X  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột chỉnh hình chân chữ X  [bột liền]",
@@ -9187,11 +9793,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94739"
   },
   {
-    "STT": 459,
+    "STT": 466,
     "MA_DICH_VU": "03.3832.0526",
     "TEN_DICH_VU": "Nắn, bó bột chỉnh hình chân chữ X [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột chỉnh hình chân chữ X [bột tự cán]",
@@ -9207,11 +9814,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94675"
   },
   {
-    "STT": 460,
+    "STT": 467,
     "MA_DICH_VU": "03.3833.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên xương đùi  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên xương đùi  [bột liền]",
@@ -9227,11 +9835,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94890"
   },
   {
-    "STT": 461,
+    "STT": 468,
     "MA_DICH_VU": "03.3833.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên xương đùi [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên xương đùi [bột tự cán]",
@@ -9247,11 +9856,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94776"
   },
   {
-    "STT": 462,
+    "STT": 469,
     "MA_DICH_VU": "03.3834.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa xương đùi  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa xương đùi  [bột liền]",
@@ -9267,11 +9877,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94891"
   },
   {
-    "STT": 463,
+    "STT": 470,
     "MA_DICH_VU": "03.3834.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa xương đùi [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa xương đùi [bột tự cán]",
@@ -9287,11 +9898,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94777"
   },
   {
-    "STT": 464,
+    "STT": 471,
     "MA_DICH_VU": "03.3835.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới xương đùi  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới xương đùi  [bột liền]",
@@ -9307,11 +9919,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94892"
   },
   {
-    "STT": 465,
+    "STT": 472,
     "MA_DICH_VU": "03.3835.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới xương đùi [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới xương đùi [bột tự cán]",
@@ -9327,11 +9940,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94778"
   },
   {
-    "STT": 466,
+    "STT": 473,
     "MA_DICH_VU": "03.3836.0523",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp háng bẩm sinh [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp háng bẩm sinh [bột liền]",
@@ -9347,11 +9961,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94933"
   },
   {
-    "STT": 467,
+    "STT": 474,
     "MA_DICH_VU": "03.3836.0524",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp háng bẩm sinh [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp háng bẩm sinh [bột tự cán]",
@@ -9367,11 +9982,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94735"
   },
   {
-    "STT": 468,
+    "STT": 475,
     "MA_DICH_VU": "03.3838.0529",
     "TEN_DICH_VU": "Nắn, bó bột cột sống  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột cột sống  [bột liền]",
@@ -9387,11 +10003,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94893"
   },
   {
-    "STT": 469,
+    "STT": 476,
     "MA_DICH_VU": "03.3838.0530",
     "TEN_DICH_VU": "Nắn, bó bột cột sống [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột cột sống [bột tự cán]",
@@ -9407,11 +10024,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94779"
   },
   {
-    "STT": 470,
+    "STT": 477,
     "MA_DICH_VU": "03.3839.0517",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp vai [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp vai [bột liền]",
@@ -9427,11 +10045,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94716"
   },
   {
-    "STT": 471,
+    "STT": 478,
     "MA_DICH_VU": "03.3839.0518",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp vai [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp vai [bột tự cán]",
@@ -9447,11 +10066,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94476"
   },
   {
-    "STT": 472,
+    "STT": 479,
     "MA_DICH_VU": "03.3841.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên thân xương cánh tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên thân xương cánh tay  [bột liền]",
@@ -9467,11 +10087,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94740"
   },
   {
-    "STT": 473,
+    "STT": 480,
     "MA_DICH_VU": "03.3841.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên thân xương cánh tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên thân xương cánh tay [bột tự cán]",
@@ -9487,11 +10108,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94676"
   },
   {
-    "STT": 474,
+    "STT": 481,
     "MA_DICH_VU": "03.3842.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa thân xương cánh tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa thân xương cánh tay  [bột liền]",
@@ -9507,11 +10129,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94741"
   },
   {
-    "STT": 475,
+    "STT": 482,
     "MA_DICH_VU": "03.3842.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa thân xương cánh tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa thân xương cánh tay [bột tự cán]",
@@ -9527,11 +10150,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94677"
   },
   {
-    "STT": 476,
+    "STT": 483,
     "MA_DICH_VU": "03.3843.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới thân xương cánh tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới thân xương cánh tay  [bột liền]",
@@ -9547,11 +10171,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94742"
   },
   {
-    "STT": 477,
+    "STT": 484,
     "MA_DICH_VU": "03.3843.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới thân xương cánh tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới thân xương cánh tay [bột tự cán]",
@@ -9567,11 +10192,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94678"
   },
   {
-    "STT": 478,
+    "STT": 485,
     "MA_DICH_VU": "03.3844.0515",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp khuỷu [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp khuỷu [bột liền]",
@@ -9587,11 +10213,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94810"
   },
   {
-    "STT": 479,
+    "STT": 486,
     "MA_DICH_VU": "03.3844.0516",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp khuỷu [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp khuỷu [bột tự cán]",
@@ -9607,11 +10234,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94591"
   },
   {
-    "STT": 480,
+    "STT": 487,
     "MA_DICH_VU": "03.3846.0515",
     "TEN_DICH_VU": "Nắn, bó bột bong sụn tiếp khớp khuỷu, khớp cổ tay [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột bong sụn tiếp khớp khuỷu, khớp cổ tay [bột liền]",
@@ -9627,11 +10255,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94811"
   },
   {
-    "STT": 481,
+    "STT": 488,
     "MA_DICH_VU": "03.3846.0516",
     "TEN_DICH_VU": "Nắn, bó bột bong sụn tiếp khớp khuỷu, khớp cổ tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột bong sụn tiếp khớp khuỷu, khớp cổ tay [bột tự cán]",
@@ -9647,11 +10276,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94592"
   },
   {
-    "STT": 482,
+    "STT": 489,
     "MA_DICH_VU": "03.3847.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy cổ xương cánh tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy cổ xương cánh tay  [bột liền]",
@@ -9667,11 +10297,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94743"
   },
   {
-    "STT": 483,
+    "STT": 490,
     "MA_DICH_VU": "03.3847.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy cổ xương cánh tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy cổ xương cánh tay [bột tự cán]",
@@ -9687,11 +10318,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94679"
   },
   {
-    "STT": 484,
+    "STT": 491,
     "MA_DICH_VU": "03.3849.0521",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên hai xương cẳng tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên hai xương cẳng tay  [bột liền]",
@@ -9707,11 +10339,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94744"
   },
   {
-    "STT": 485,
+    "STT": 492,
     "MA_DICH_VU": "03.3849.0522",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên hai xương cẳng tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên hai xương cẳng tay [bột tự cán]",
@@ -9727,11 +10360,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94555"
   },
   {
-    "STT": 486,
+    "STT": 493,
     "MA_DICH_VU": "03.3850.0522",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng tay [bột tự cán]",
@@ -9747,11 +10381,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94556"
   },
   {
-    "STT": 487,
+    "STT": 494,
     "MA_DICH_VU": "03.3851.0521",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng tay  [bột liền]",
@@ -9767,11 +10402,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94745"
   },
   {
-    "STT": 488,
+    "STT": 495,
     "MA_DICH_VU": "03.3851.0522",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng tay [bột tự cán]",
@@ -9787,11 +10423,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94557"
   },
   {
-    "STT": 489,
+    "STT": 496,
     "MA_DICH_VU": "03.3852.0521",
     "TEN_DICH_VU": "Nắn, bó bột gãy một xương cẳng tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy một xương cẳng tay  [bột liền]",
@@ -9807,11 +10444,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94746"
   },
   {
-    "STT": 490,
+    "STT": 497,
     "MA_DICH_VU": "03.3852.0522",
     "TEN_DICH_VU": "Nắn, bó bột gãy một xương cẳng tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy một xương cẳng tay [bột tự cán]",
@@ -9827,11 +10465,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94558"
   },
   {
-    "STT": 491,
+    "STT": 498,
     "MA_DICH_VU": "03.3853.0521",
     "TEN_DICH_VU": "Nắn, bó bột gãy Pouteau-Colles  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Pouteau-Colles  [bột liền]",
@@ -9847,11 +10486,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94747"
   },
   {
-    "STT": 492,
+    "STT": 499,
     "MA_DICH_VU": "03.3853.0522",
     "TEN_DICH_VU": "Nắn, bó bột gãy Pouteau-Colles [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Pouteau-Colles [bột tự cán]",
@@ -9867,11 +10507,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94559"
   },
   {
-    "STT": 493,
+    "STT": 500,
     "MA_DICH_VU": "03.3854.0519",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương bàn, ngón tay [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương bàn, ngón tay [bột liền]",
@@ -9887,11 +10528,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94600"
   },
   {
-    "STT": 494,
+    "STT": 501,
     "MA_DICH_VU": "03.3854.0520",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương bàn, ngón tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương bàn, ngón tay [bột tự cán]",
@@ -9907,11 +10549,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94484"
   },
   {
-    "STT": 495,
+    "STT": 502,
     "MA_DICH_VU": "03.3855.0511",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp háng [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp háng [bột liền]",
@@ -9927,11 +10570,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94914"
   },
   {
-    "STT": 496,
+    "STT": 503,
     "MA_DICH_VU": "03.3855.0512",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp háng [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp háng [bột tự cán]",
@@ -9947,11 +10591,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94671"
   },
   {
-    "STT": 497,
+    "STT": 504,
     "MA_DICH_VU": "03.3856.0513",
     "TEN_DICH_VU": "Nắn, bó bột trong bong sụn tiếp khớp gối, khớp háng [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trong bong sụn tiếp khớp gối, khớp háng [bột liền]",
@@ -9967,11 +10612,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94651"
   },
   {
-    "STT": 498,
+    "STT": 505,
     "MA_DICH_VU": "03.3856.0514",
     "TEN_DICH_VU": "Nắn, bó bột trong bong sụn tiếp khớp gối, khớp háng [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trong bong sụn tiếp khớp gối, khớp háng [bột tự cán]",
@@ -9987,11 +10633,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94470"
   },
   {
-    "STT": 499,
+    "STT": 506,
     "MA_DICH_VU": "03.3857.0525",
     "TEN_DICH_VU": "Nắn, bó bột gãy mâm chày  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy mâm chày  [bột liền]",
@@ -10007,11 +10654,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94748"
   },
   {
-    "STT": 500,
+    "STT": 507,
     "MA_DICH_VU": "03.3857.0526",
     "TEN_DICH_VU": "Nắn, bó bột gãy mâm chày [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy mâm chày [bột tự cán]",
@@ -10027,11 +10675,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94680"
   },
   {
-    "STT": 501,
+    "STT": 508,
     "MA_DICH_VU": "03.3858.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương chậu [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương chậu [bột tự cán]",
@@ -10047,11 +10696,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94780"
   },
   {
-    "STT": 502,
+    "STT": 509,
     "MA_DICH_VU": "03.3859.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy cổ xương đùi  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy cổ xương đùi  [bột liền]",
@@ -10067,11 +10717,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94894"
   },
   {
-    "STT": 503,
+    "STT": 510,
     "MA_DICH_VU": "03.3859.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy cổ xương đùi [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy cổ xương đùi [bột tự cán]",
@@ -10087,11 +10738,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94781"
   },
   {
-    "STT": 504,
+    "STT": 511,
     "MA_DICH_VU": "03.3860.0511",
     "TEN_DICH_VU": "Nắn, cố định trật khớp háng không có chỉ định phẫu thuật [bột liền]",
     "TEN_DVKT_GIA": "Nắn, cố định trật khớp háng không có chỉ định phẫu thuật [bột liền]",
@@ -10107,11 +10759,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94915"
   },
   {
-    "STT": 505,
+    "STT": 512,
     "MA_DICH_VU": "03.3860.0512",
     "TEN_DICH_VU": "Nắn, cố định trật khớp háng không có chỉ định phẫu thuật [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, cố định trật khớp háng không có chỉ định phẫu thuật [bột tự cán]",
@@ -10127,11 +10780,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94672"
   },
   {
-    "STT": 506,
+    "STT": 513,
     "MA_DICH_VU": "03.3861.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy lồi cầu xương đùi  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy lồi cầu xương đùi  [bột liền]",
@@ -10147,11 +10801,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94895"
   },
   {
-    "STT": 507,
+    "STT": 514,
     "MA_DICH_VU": "03.3861.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy lồi cầu xương đùi [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy lồi cầu xương đùi [bột tự cán]",
@@ -10167,11 +10822,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94782"
   },
   {
-    "STT": 508,
+    "STT": 515,
     "MA_DICH_VU": "03.3862.0533",
     "TEN_DICH_VU": "Bó bột ống trong gãy xương bánh chè",
     "TEN_DVKT_GIA": "Bó bột ống trong gãy xương bánh chè",
@@ -10187,11 +10843,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94453"
   },
   {
-    "STT": 509,
+    "STT": 516,
     "MA_DICH_VU": "03.3863.0513",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp gối [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp gối [bột liền]",
@@ -10207,11 +10864,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94652"
   },
   {
-    "STT": 510,
+    "STT": 517,
     "MA_DICH_VU": "03.3863.0514",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp gối [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp gối [bột tự cán]",
@@ -10227,11 +10885,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94471"
   },
   {
-    "STT": 511,
+    "STT": 518,
     "MA_DICH_VU": "03.3864.0525",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên hai xương cẳng chân  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên hai xương cẳng chân  [bột liền]",
@@ -10247,11 +10906,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94749"
   },
   {
-    "STT": 512,
+    "STT": 519,
     "MA_DICH_VU": "03.3864.0526",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên hai xương cẳng chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên hai xương cẳng chân [bột tự cán]",
@@ -10267,11 +10927,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94681"
   },
   {
-    "STT": 513,
+    "STT": 520,
     "MA_DICH_VU": "03.3865.0525",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng chân  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng chân  [bột liền]",
@@ -10287,11 +10948,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94750"
   },
   {
-    "STT": 514,
+    "STT": 521,
     "MA_DICH_VU": "03.3865.0526",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng chân [bột tự cán]",
@@ -10307,11 +10969,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94682"
   },
   {
-    "STT": 515,
+    "STT": 522,
     "MA_DICH_VU": "03.3866.0525",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng chân  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng chân  [bột liền]",
@@ -10327,11 +10990,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94751"
   },
   {
-    "STT": 516,
+    "STT": 523,
     "MA_DICH_VU": "03.3866.0526",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng chân [bột tự cán]",
@@ -10347,11 +11011,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94683"
   },
   {
-    "STT": 517,
+    "STT": 524,
     "MA_DICH_VU": "03.3867.0525",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương chày [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương chày [bột liền]",
@@ -10367,11 +11032,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94752"
   },
   {
-    "STT": 518,
+    "STT": 525,
     "MA_DICH_VU": "03.3867.0526",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương chày [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương chày [bột tự cán]",
@@ -10387,11 +11053,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94684"
   },
   {
-    "STT": 519,
+    "STT": 526,
     "MA_DICH_VU": "03.3868.0525",
     "TEN_DICH_VU": "Nắn, bó bột gãy Dupuytren  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Dupuytren  [bột liền]",
@@ -10407,11 +11074,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94753"
   },
   {
-    "STT": 520,
+    "STT": 527,
     "MA_DICH_VU": "03.3868.0526",
     "TEN_DICH_VU": "Nắn, bó bột gãy Dupuytren [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Dupuytren [bột tự cán]",
@@ -10427,11 +11095,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94685"
   },
   {
-    "STT": 521,
+    "STT": 528,
     "MA_DICH_VU": "03.3869.0521",
     "TEN_DICH_VU": "Nắn, bó bột gãy Monteggia  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Monteggia  [bột liền]",
@@ -10447,11 +11116,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94754"
   },
   {
-    "STT": 522,
+    "STT": 529,
     "MA_DICH_VU": "03.3869.0522",
     "TEN_DICH_VU": "Nắn, bó bột gãy Monteggia [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Monteggia [bột tự cán]",
@@ -10467,11 +11137,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94560"
   },
   {
-    "STT": 523,
+    "STT": 530,
     "MA_DICH_VU": "03.3870.0519",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương bàn chân  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương bàn chân  [bột liền]",
@@ -10487,11 +11158,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94601"
   },
   {
-    "STT": 524,
+    "STT": 531,
     "MA_DICH_VU": "03.3870.0520",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương bàn chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương bàn chân [bột tự cán]",
@@ -10507,11 +11179,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94485"
   },
   {
-    "STT": 525,
+    "STT": 532,
     "MA_DICH_VU": "03.3871.0532",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương gót",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương gót",
@@ -10527,11 +11200,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94454"
   },
   {
-    "STT": 526,
+    "STT": 533,
     "MA_DICH_VU": "03.3872.0519",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương ngón chân [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương ngón chân [bột liền]",
@@ -10547,11 +11221,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94602"
   },
   {
-    "STT": 527,
+    "STT": 534,
     "MA_DICH_VU": "03.3872.0520",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương ngón chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương ngón chân [bột tự cán]",
@@ -10567,11 +11242,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94486"
   },
   {
-    "STT": 528,
+    "STT": 535,
     "MA_DICH_VU": "03.3873.0515",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp xương đòn [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp xương đòn [bột liền]",
@@ -10587,11 +11263,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94812"
   },
   {
-    "STT": 529,
+    "STT": 536,
     "MA_DICH_VU": "03.3873.0516",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp xương đòn [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp xương đòn [bột tự cán]",
@@ -10607,11 +11284,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94593"
   },
   {
-    "STT": 530,
+    "STT": 537,
     "MA_DICH_VU": "03.3874.0515",
     "TEN_DICH_VU": "Nắn, cố định trật khớp hàm [bột liền]",
     "TEN_DVKT_GIA": "Nắn, cố định trật khớp hàm [bột liền]",
@@ -10627,11 +11305,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94813"
   },
   {
-    "STT": 531,
+    "STT": 538,
     "MA_DICH_VU": "03.3874.0516",
     "TEN_DICH_VU": "Nắn, cố định trật khớp hàm [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, cố định trật khớp hàm [bột tự cán]",
@@ -10647,11 +11326,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94594"
   },
   {
-    "STT": 532,
+    "STT": 539,
     "MA_DICH_VU": "03.3875.0513",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp cổ chân [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp cổ chân [bột liền]",
@@ -10667,11 +11347,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94653"
   },
   {
-    "STT": 533,
+    "STT": 540,
     "MA_DICH_VU": "03.3875.0514",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp cổ chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp cổ chân [bột tự cán]",
@@ -10687,11 +11368,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94472"
   },
   {
-    "STT": 534,
+    "STT": 541,
     "MA_DICH_VU": "03.3900.0563",
     "TEN_DICH_VU": "Rút nẹp vít và các dụng cụ khác sau phẫu thuật",
     "TEN_DVKT_GIA": "Rút nẹp vít và các dụng cụ khác sau phẫu thuật",
@@ -10707,11 +11389,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95045"
   },
   {
-    "STT": 535,
+    "STT": 542,
     "MA_DICH_VU": "03.3901.0563",
     "TEN_DICH_VU": "Rút đinh các loại",
     "TEN_DVKT_GIA": "Rút đinh các loại",
@@ -10727,11 +11410,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95046"
   },
   {
-    "STT": 536,
+    "STT": 543,
     "MA_DICH_VU": "03.3905.0563",
     "TEN_DICH_VU": "Rút chỉ thép xương ức",
     "TEN_DVKT_GIA": "Rút chỉ thép xương ức",
@@ -10747,11 +11431,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95047"
   },
   {
-    "STT": 537,
+    "STT": 544,
     "MA_DICH_VU": "03.3909.0505",
     "TEN_DICH_VU": "Trích rạch áp xe nhỏ",
     "TEN_DVKT_GIA": "Trích rạch áp xe nhỏ",
@@ -10767,11 +11452,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94536"
   },
   {
-    "STT": 538,
+    "STT": 545,
     "MA_DICH_VU": "03.3910.0505",
     "TEN_DICH_VU": "Trích hạch viêm mủ",
     "TEN_DVKT_GIA": "Trích hạch viêm mủ",
@@ -10787,11 +11473,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94537"
   },
   {
-    "STT": 539,
+    "STT": 546,
     "MA_DICH_VU": "03.3911.0200",
     "TEN_DICH_VU": "Thay băng, cắt chỉ [chiều dài  ≤ 15cm]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ [chiều dài  ≤ 15cm]",
@@ -10807,11 +11494,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú. Đối với người bệnh nội trú theo quy định của Bộ Y tế.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94186"
   },
   {
-    "STT": 540,
+    "STT": 547,
     "MA_DICH_VU": "03.3911.0201",
     "TEN_DICH_VU": "Thay băng, cắt chỉ [chiều dài trên 15cm đến 30 cm]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ [chiều dài trên 15cm đến 30 cm]",
@@ -10827,11 +11515,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94285"
   },
   {
-    "STT": 541,
+    "STT": 548,
     "MA_DICH_VU": "03.3911.0202",
     "TEN_DICH_VU": "Thay băng, cắt chỉ [chiều dài từ trên 30 cm đến 50 cm]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ [chiều dài từ trên 30 cm đến 50 cm]",
@@ -10847,11 +11536,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94381"
   },
   {
-    "STT": 542,
+    "STT": 549,
     "MA_DICH_VU": "03.3911.0203",
     "TEN_DICH_VU": "Thay băng, cắt chỉ [chiều dài từ trên 15 cm đến 30 cm nhiễm trùng]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ [chiều dài từ trên 15 cm đến 30 cm nhiễm trùng]",
@@ -10867,11 +11557,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94418"
   },
   {
-    "STT": 543,
+    "STT": 550,
     "MA_DICH_VU": "03.3911.0204",
     "TEN_DICH_VU": "Thay băng, cắt chỉ [chiều dài từ 30 cm đến 50 cm nhiễm trùng]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ [chiều dài từ 30 cm đến 50 cm nhiễm trùng]",
@@ -10887,11 +11578,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94494"
   },
   {
-    "STT": 544,
+    "STT": 551,
     "MA_DICH_VU": "03.3911.0205",
     "TEN_DICH_VU": "Thay băng, cắt chỉ [chiều dài > 50cm nhiễm trùng]",
     "TEN_DVKT_GIA": "Thay băng, cắt chỉ [chiều dài > 50cm nhiễm trùng]",
@@ -10907,11 +11599,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94630"
   },
   {
-    "STT": 545,
+    "STT": 552,
     "MA_DICH_VU": "03.3913.1048",
     "TEN_DICH_VU": "Cắt nang giáp móng",
     "TEN_DVKT_GIA": "Cắt nang giáp móng",
@@ -10927,11 +11620,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95117"
   },
   {
-    "STT": 546,
+    "STT": 553,
     "MA_DICH_VU": "03.3956.0969",
     "TEN_DICH_VU": "Phẫu thuật nội soi chỉnh hình cuốn dưới",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi chỉnh hình cuốn dưới",
@@ -10947,11 +11641,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95550"
   },
   {
-    "STT": 547,
+    "STT": 554,
     "MA_DICH_VU": "03.3959.0918",
     "TEN_DICH_VU": "Phẫu thuật nội soi mở sàng - hàm, cắt polyp mũi",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi mở sàng - hàm, cắt polyp mũi",
@@ -10967,11 +11662,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94926"
   },
   {
-    "STT": 548,
+    "STT": 555,
     "MA_DICH_VU": "03.3961.0958",
     "TEN_DICH_VU": "Phẫu thuật nội soi nạo V.A",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi nạo V.A",
@@ -10987,11 +11683,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95301"
   },
   {
-    "STT": 549,
+    "STT": 556,
     "MA_DICH_VU": "03.4013.0470",
     "TEN_DICH_VU": "Phẫu thuật nội soi điều trị áp xe gan",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi điều trị áp xe gan",
@@ -11007,11 +11704,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm đầu dao cắt gan siêu âm, keo sinh học, dao cắt hàn mạch, hàn mô.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95430"
   },
   {
-    "STT": 550,
+    "STT": 557,
     "MA_DICH_VU": "03.4014.0470",
     "TEN_DICH_VU": "Phẫu thuật nội soi điều trị nang gan đơn thuần",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi điều trị nang gan đơn thuần",
@@ -11027,11 +11725,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm đầu dao cắt gan siêu âm, keo sinh học, dao cắt hàn mạch, hàn mô.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95431"
   },
   {
-    "STT": 551,
+    "STT": 558,
     "MA_DICH_VU": "03.4021.0473",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt túi mật",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt túi mật",
@@ -11047,11 +11746,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95370"
   },
   {
-    "STT": 552,
+    "STT": 559,
     "MA_DICH_VU": "03.4026.0502",
     "TEN_DICH_VU": "Phẫu thuật nội soi mở thông dạ dày",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi mở thông dạ dày",
@@ -11067,11 +11767,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95220"
   },
   {
-    "STT": 553,
+    "STT": 560,
     "MA_DICH_VU": "03.4056.0457",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt trực tràng + tầng sinh môn (PT milor)",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt trực tràng + tầng sinh môn (PT milor)",
@@ -11087,11 +11788,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối; dao siêu âm hoặc dao hàn mô hoặc dao hàn mạch.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95581"
   },
   {
-    "STT": 554,
+    "STT": 561,
     "MA_DICH_VU": "03.4071.2039",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt ruột thừa",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt ruột thừa",
@@ -11107,11 +11809,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95274"
   },
   {
-    "STT": 555,
+    "STT": 562,
     "MA_DICH_VU": "03.4077.0457",
     "TEN_DICH_VU": "Phẫu thuật nội soi tắc ruột do dây chằng",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi tắc ruột do dây chằng",
@@ -11127,11 +11830,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối; dao siêu âm hoặc dao hàn mô hoặc dao hàn mạch.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95582"
   },
   {
-    "STT": 556,
+    "STT": 563,
     "MA_DICH_VU": "03.4078.0451",
     "TEN_DICH_VU": "Phẫu thuật nội soi viêm phúc mạc ruột thừa",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi viêm phúc mạc ruột thừa",
@@ -11147,11 +11851,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95313"
   },
   {
-    "STT": 557,
+    "STT": 564,
     "MA_DICH_VU": "03.4116.0418",
     "TEN_DICH_VU": "Nội soi lấy sỏi bàng quang",
     "TEN_DVKT_GIA": "Nội soi lấy sỏi bàng quang",
@@ -11167,11 +11872,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95570"
   },
   {
-    "STT": 558,
+    "STT": 565,
     "MA_DICH_VU": "03.4119.0440",
     "TEN_DICH_VU": "Bóp sỏi bàng quang qua nội soi (bóp sỏi cơ học)",
     "TEN_DVKT_GIA": "Bóp sỏi bàng quang qua nội soi (bóp sỏi cơ học)",
@@ -11187,11 +11893,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm sonde JJ, rọ lấy sỏi.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95007"
   },
   {
-    "STT": 559,
+    "STT": 566,
     "MA_DICH_VU": "03.4134.0690",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt tử cung bán phần",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt tử cung bán phần",
@@ -11207,11 +11914,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95620"
   },
   {
-    "STT": 560,
+    "STT": 567,
     "MA_DICH_VU": "03.4135.0690",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt tử cung toàn phần",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt tử cung toàn phần",
@@ -11227,11 +11935,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95621"
   },
   {
-    "STT": 561,
+    "STT": 568,
     "MA_DICH_VU": "03.4136.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi bóc u lạc nội mạc buồng trứng",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi bóc u lạc nội mạc buồng trứng",
@@ -11247,11 +11956,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95603"
   },
   {
-    "STT": 562,
+    "STT": 569,
     "MA_DICH_VU": "03.4137.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt phần phụ",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt phần phụ",
@@ -11267,11 +11977,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95604"
   },
   {
-    "STT": 563,
+    "STT": 570,
     "MA_DICH_VU": "03.4138.0148",
     "TEN_DICH_VU": "Nội soi niệu đạo, bàng quang chẩn đoán",
     "TEN_DVKT_GIA": "Nội soi niệu đạo, bàng quang chẩn đoán",
@@ -11287,11 +11998,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm sonde JJ.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94983"
   },
   {
-    "STT": 564,
+    "STT": 571,
     "MA_DICH_VU": "03.4140.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt u nang buồng trứng",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt u nang buồng trứng",
@@ -11307,11 +12019,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95605"
   },
   {
-    "STT": 565,
+    "STT": 572,
     "MA_DICH_VU": "03.4141.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt u buồng trứng và phần phụ",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt u buồng trứng và phần phụ",
@@ -11327,11 +12040,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95606"
   },
   {
-    "STT": 566,
+    "STT": 573,
     "MA_DICH_VU": "03.4145.0542",
     "TEN_DICH_VU": "Tái tạo dây chằng khớp gối qua nội soi",
     "TEN_DVKT_GIA": "Tái tạo dây chằng khớp gối qua nội soi",
@@ -11347,11 +12061,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm nẹp vít, ốc, dao cắt sụn và lưỡi bào, bộ dây bơm nước, đầu đốt, tay dao điện, gân sinh học, gân đồng loại.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95578"
   },
   {
-    "STT": 567,
+    "STT": 574,
     "MA_DICH_VU": "03.4154.0541",
     "TEN_DICH_VU": "Phẫu thuật nội soi khớp cổ chân",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi khớp cổ chân",
@@ -11367,11 +12082,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm lưỡi bào, lưỡi cắt, bộ dây bơm nước, đầu đốt, tay dao đốt điện, nẹp, ốc, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95421"
   },
   {
-    "STT": 568,
+    "STT": 575,
     "MA_DICH_VU": "03.4165.0918",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt u nhú tai, mũi, họng [gây mê]",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt u nhú tai, mũi, họng [gây mê]",
@@ -11387,11 +12103,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94927"
   },
   {
-    "STT": 569,
+    "STT": 576,
     "MA_DICH_VU": "03.4165.0919",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt u nhú tai, mũi, họng [gây tê]",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt u nhú tai, mũi, họng [gây tê]",
@@ -11407,11 +12124,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94830"
   },
   {
-    "STT": 570,
+    "STT": 577,
     "MA_DICH_VU": "04.0038.0571",
     "TEN_DICH_VU": "Phẫu thuật nạo viêm lao thành ngực",
     "TEN_DVKT_GIA": "Phẫu thuật nạo viêm lao thành ngực",
@@ -11427,11 +12145,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95349"
   },
   {
-    "STT": 571,
+    "STT": 578,
     "MA_DICH_VU": "04.0038.0571_GT",
     "TEN_DICH_VU": "Phẫu thuật nạo viêm lao thành ngực",
     "TEN_DVKT_GIA": "Phẫu thuật nạo viêm lao thành ngực",
@@ -11447,11 +12166,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95161"
   },
   {
-    "STT": 572,
+    "STT": 579,
     "MA_DICH_VU": "05.0044.0329",
     "TEN_DICH_VU": "Điều trị sùi mào gà bằng đốt điện",
     "TEN_DVKT_GIA": "Điều trị sùi mào gà bằng đốt điện",
@@ -11467,11 +12187,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94796"
   },
   {
-    "STT": 573,
+    "STT": 580,
     "MA_DICH_VU": "05.0051.0324",
     "TEN_DICH_VU": "Điều trị u mềm lây bằng nạo thương tổn",
     "TEN_DVKT_GIA": "Điều trị u mềm lây bằng nạo thương tổn",
@@ -11487,11 +12208,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94790"
   },
   {
-    "STT": 574,
+    "STT": 581,
     "MA_DICH_VU": "07.0003.0354",
     "TEN_DICH_VU": "Dẫn lưu áp xe tuyến giáp",
     "TEN_DVKT_GIA": "Dẫn lưu áp xe tuyến giáp",
@@ -11507,11 +12229,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm bộ kim chọc, sonde dẫn lưu",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94615"
   },
   {
-    "STT": 575,
+    "STT": 582,
     "MA_DICH_VU": "07.0007.0362",
     "TEN_DICH_VU": "Cắt bán phần 1 thùy tuyến giáp trong bướu giáp nhân",
     "TEN_DVKT_GIA": "Cắt bán phần 1 thùy tuyến giáp trong bướu giáp nhân",
@@ -11527,11 +12250,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm dao hàn mạch, hàn mô",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95292"
   },
   {
-    "STT": 576,
+    "STT": 583,
     "MA_DICH_VU": "07.0011.0357",
     "TEN_DICH_VU": "Cắt bán phần 2 thùy tuyến giáp trong bướu giáp đa nhân",
     "TEN_DVKT_GIA": "Cắt bán phần 2 thùy tuyến giáp trong bướu giáp đa nhân",
@@ -11547,11 +12271,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm dao hàn mạch, hàn mô",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95572"
   },
   {
-    "STT": 577,
+    "STT": 584,
     "MA_DICH_VU": "07.0012.0357",
     "TEN_DICH_VU": "Cắt toàn bộ tuyến giáp trong bướu giáp đa nhân",
     "TEN_DVKT_GIA": "Cắt toàn bộ tuyến giáp trong bướu giáp đa nhân",
@@ -11567,11 +12292,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm dao hàn mạch, hàn mô",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95573"
   },
   {
-    "STT": 578,
+    "STT": 585,
     "MA_DICH_VU": "07.0017.0357",
     "TEN_DICH_VU": "Cắt toàn bộ tuyến giáp trong basedow",
     "TEN_DVKT_GIA": "Cắt toàn bộ tuyến giáp trong basedow",
@@ -11587,11 +12313,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm dao hàn mạch, hàn mô",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95574"
   },
   {
-    "STT": 579,
+    "STT": 586,
     "MA_DICH_VU": "07.0220.1144",
     "TEN_DICH_VU": "Tháo khớp ngón chân trên người bệnh đái tháo đường",
     "TEN_DVKT_GIA": "Tháo khớp ngón chân trên người bệnh đái tháo đường",
@@ -11607,11 +12334,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95280"
   },
   {
-    "STT": 580,
+    "STT": 587,
     "MA_DICH_VU": "07.0220.1144_GT",
     "TEN_DICH_VU": "Tháo khớp ngón chân trên người bệnh đái tháo đường",
     "TEN_DVKT_GIA": "Tháo khớp ngón chân trên người bệnh đái tháo đường",
@@ -11627,11 +12355,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95056"
   },
   {
-    "STT": 581,
+    "STT": 588,
     "MA_DICH_VU": "07.0225.0200",
     "TEN_DICH_VU": "Thay băng trên người bệnh đái tháo đường [chiều dài  ≤ 15cm]",
     "TEN_DVKT_GIA": "Thay băng trên người bệnh đái tháo đường [chiều dài  ≤ 15cm]",
@@ -11647,11 +12376,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm gạc hydrocolloid; gạc xốp, miếng xốp (foam); gạc, gạc lưới có tẩm kháng sinh hoặc chất sát khuẩn.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94187"
   },
   {
-    "STT": 582,
+    "STT": 589,
     "MA_DICH_VU": "07.0225.0201",
     "TEN_DICH_VU": "Thay băng trên người bệnh đái tháo đường [chiều dài trên 15cm đến 30 cm]",
     "TEN_DVKT_GIA": "Thay băng trên người bệnh đái tháo đường [chiều dài trên 15cm đến 30 cm]",
@@ -11667,11 +12397,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm gạc hydrocolloid; gạc xốp, miếng xốp (foam); gạc, gạc lưới có tẩm kháng sinh hoặc chất sát khuẩn.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94286"
   },
   {
-    "STT": 583,
+    "STT": 590,
     "MA_DICH_VU": "07.0225.0202",
     "TEN_DICH_VU": "Thay băng trên người bệnh đái tháo đường [chiều dài từ trên 30 cm đến 50 cm]",
     "TEN_DVKT_GIA": "Thay băng trên người bệnh đái tháo đường [chiều dài từ trên 30 cm đến 50 cm]",
@@ -11687,11 +12418,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm gạc hydrocolloid; gạc xốp, miếng xốp (foam); gạc, gạc lưới có tẩm kháng sinh hoặc chất sát khuẩn.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94382"
   },
   {
-    "STT": 584,
+    "STT": 591,
     "MA_DICH_VU": "07.0225.0203",
     "TEN_DICH_VU": "Thay băng trên người bệnh đái tháo đường [chiều dài từ trên 15 cm đến 30 cm nhiễm trùng]",
     "TEN_DVKT_GIA": "Thay băng trên người bệnh đái tháo đường [chiều dài từ trên 15 cm đến 30 cm nhiễm trùng]",
@@ -11707,11 +12439,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm gạc hydrocolloid; gạc xốp, miếng xốp (foam); gạc, gạc lưới có tẩm kháng sinh hoặc chất sát khuẩn.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94419"
   },
   {
-    "STT": 585,
+    "STT": 592,
     "MA_DICH_VU": "07.0225.0204",
     "TEN_DICH_VU": "Thay băng trên người bệnh đái tháo đường [chiều dài từ 30 cm đến 50 cm nhiễm trùng]",
     "TEN_DVKT_GIA": "Thay băng trên người bệnh đái tháo đường [chiều dài từ 30 cm đến 50 cm nhiễm trùng]",
@@ -11727,11 +12460,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm gạc hydrocolloid; gạc xốp, miếng xốp (foam); gạc, gạc lưới có tẩm kháng sinh hoặc chất sát khuẩn.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94495"
   },
   {
-    "STT": 586,
+    "STT": 593,
     "MA_DICH_VU": "07.0225.0205",
     "TEN_DICH_VU": "Thay băng trên người bệnh đái tháo đường [chiều dài > 50cm nhiễm trùng]",
     "TEN_DVKT_GIA": "Thay băng trên người bệnh đái tháo đường [chiều dài > 50cm nhiễm trùng]",
@@ -11747,11 +12481,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm gạc hydrocolloid; gạc xốp, miếng xốp (foam); gạc, gạc lưới có tẩm kháng sinh hoặc chất sát khuẩn.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94631"
   },
   {
-    "STT": 587,
+    "STT": 594,
     "MA_DICH_VU": "07.0227.0367",
     "TEN_DICH_VU": "Cắt lọc, lấy bỏ tổ chức hoại tử cho các nhiễm trùng bàn chân vết loét rộng < ¼ bàn chân trên người bệnh đái tháo đường",
     "TEN_DVKT_GIA": "Cắt lọc, lấy bỏ tổ chức hoại tử cho các nhiễm trùng bàn chân vết loét rộng < ¼ bàn chân trên người bệnh đái tháo đường",
@@ -11767,11 +12502,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94824"
   },
   {
-    "STT": 588,
+    "STT": 595,
     "MA_DICH_VU": "07.0228.0366",
     "TEN_DICH_VU": "Cắt lọc, lấy bỏ tổ chức hoại tử cho các nhiễm trùng bàn chân vết loét rộng < ½ bàn chân trên người bệnh đái tháo đường",
     "TEN_DVKT_GIA": "Cắt lọc, lấy bỏ tổ chức hoại tử cho các nhiễm trùng bàn chân vết loét rộng < ½ bàn chân trên người bệnh đái tháo đường",
@@ -11787,11 +12523,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94930"
   },
   {
-    "STT": 589,
+    "STT": 596,
     "MA_DICH_VU": "07.0229.0366",
     "TEN_DICH_VU": "Cắt lọc, lấy bỏ tổ chức hoại tử cho các nhiễm trùng bàn chân vết loét rộng lan tỏa cả bàn chân trên người bệnh đái tháo đường",
     "TEN_DVKT_GIA": "Cắt lọc, lấy bỏ tổ chức hoại tử cho các nhiễm trùng bàn chân vết loét rộng lan tỏa cả bàn chân trên người bệnh đái tháo đường",
@@ -11807,11 +12544,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94931"
   },
   {
-    "STT": 590,
+    "STT": 597,
     "MA_DICH_VU": "07.0231.0505",
     "TEN_DICH_VU": "Trích rạch, dẫn lưu ổ áp xe trên người bệnh đái tháo đường",
     "TEN_DVKT_GIA": "Trích rạch, dẫn lưu ổ áp xe trên người bệnh đái tháo đường",
@@ -11827,11 +12565,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94538"
   },
   {
-    "STT": 591,
+    "STT": 598,
     "MA_DICH_VU": "07.0232.0367",
     "TEN_DICH_VU": "Tháo móng quặp trên người bệnh đái tháo đường",
     "TEN_DVKT_GIA": "Tháo móng quặp trên người bệnh đái tháo đường",
@@ -11847,11 +12586,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94825"
   },
   {
-    "STT": 592,
+    "STT": 599,
     "MA_DICH_VU": "07.0233.0355",
     "TEN_DICH_VU": "Gọt chai chân (gọt nốt chai) trên người bệnh đái tháo đường",
     "TEN_DVKT_GIA": "Gọt chai chân (gọt nốt chai) trên người bệnh đái tháo đường",
@@ -11867,11 +12607,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94665"
   },
   {
-    "STT": 593,
+    "STT": 600,
     "MA_DICH_VU": "07.0242.0084",
     "TEN_DICH_VU": "Chọc hút dịch điều trị u nang giáp",
     "TEN_DVKT_GIA": "Chọc hút dịch điều trị u nang giáp",
@@ -11887,11 +12628,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94467"
   },
   {
-    "STT": 594,
+    "STT": 601,
     "MA_DICH_VU": "07.0244.0089",
     "TEN_DICH_VU": "Chọc hút tế bào tuyến giáp",
     "TEN_DVKT_GIA": "Chọc hút tế bào tuyến giáp",
@@ -11907,11 +12649,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94388"
   },
   {
-    "STT": 595,
+    "STT": 602,
     "MA_DICH_VU": "09.0123.0898",
     "TEN_DICH_VU": "Khí dung đường thở ở người bệnh nặng",
     "TEN_DVKT_GIA": "Khí dung đường thở ở người bệnh nặng",
@@ -11927,11 +12670,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc khí dung.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94056"
   },
   {
-    "STT": 596,
+    "STT": 603,
     "MA_DICH_VU": "09.0151.0004",
     "TEN_DICH_VU": "Siêu âm tim cấp cứu tại giường",
     "TEN_DVKT_GIA": "Siêu âm tim cấp cứu tại giường",
@@ -11947,11 +12691,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94580"
   },
   {
-    "STT": 597,
+    "STT": 604,
     "MA_DICH_VU": "10.0149.0344",
     "TEN_DICH_VU": "Phẫu thuật giải phóng chèn ép TK ngoại biên",
     "TEN_DVKT_GIA": "Phẫu thuật giải phóng chèn ép TK ngoại biên",
@@ -11967,11 +12712,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95208"
   },
   {
-    "STT": 598,
+    "STT": 605,
     "MA_DICH_VU": "10.0151.1044",
     "TEN_DICH_VU": "Phẫu thuật u thần kinh trên da [đường kính dưới 5 cm]",
     "TEN_DVKT_GIA": "Phẫu thuật u thần kinh trên da [đường kính dưới 5 cm]",
@@ -11987,11 +12733,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94946"
   },
   {
-    "STT": 599,
+    "STT": 606,
     "MA_DICH_VU": "10.0172.0582",
     "TEN_DICH_VU": "Phẫu thuật thắt các mạch máu lớn ngoại vi",
     "TEN_DVKT_GIA": "Phẫu thuật thắt các mạch máu lớn ngoại vi",
@@ -12007,11 +12754,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95373"
   },
   {
-    "STT": 600,
+    "STT": 607,
     "MA_DICH_VU": "10.0265.0407",
     "TEN_DICH_VU": "Phẫu thuật cắt u máu nhỏ (đường kính < 10 cm)",
     "TEN_DVKT_GIA": "Phẫu thuật cắt u máu nhỏ (đường kính < 10 cm)",
@@ -12027,11 +12775,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95366"
   },
   {
-    "STT": 601,
+    "STT": 608,
     "MA_DICH_VU": "10.0265.0407_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt u máu nhỏ (đường kính < 10 cm)",
     "TEN_DVKT_GIA": "Phẫu thuật cắt u máu nhỏ (đường kính < 10 cm)",
@@ -12047,11 +12796,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95148"
   },
   {
-    "STT": 602,
+    "STT": 609,
     "MA_DICH_VU": "10.0278.0583",
     "TEN_DICH_VU": "Phẫu thuật cắt u thành ngực",
     "TEN_DVKT_GIA": "Phẫu thuật cắt u thành ngực",
@@ -12067,11 +12817,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95126"
   },
   {
-    "STT": 603,
+    "STT": 610,
     "MA_DICH_VU": "10.0288.0583",
     "TEN_DICH_VU": "Phẫu thuật điều trị nhiễm trùng vết mổ ngực",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị nhiễm trùng vết mổ ngực",
@@ -12087,11 +12838,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95127"
   },
   {
-    "STT": 604,
+    "STT": 611,
     "MA_DICH_VU": "10.0289.0400",
     "TEN_DICH_VU": "Mở ngực thăm dò, sinh thiết",
     "TEN_DVKT_GIA": "Mở ngực thăm dò, sinh thiết",
@@ -12107,11 +12859,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95418"
   },
   {
-    "STT": 605,
+    "STT": 612,
     "MA_DICH_VU": "10.0289.0400_GT",
     "TEN_DICH_VU": "Mở ngực thăm dò, sinh thiết",
     "TEN_DVKT_GIA": "Mở ngực thăm dò, sinh thiết",
@@ -12127,11 +12880,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95217"
   },
   {
-    "STT": 606,
+    "STT": 613,
     "MA_DICH_VU": "10.0318.0104",
     "TEN_DICH_VU": "Dẫn lưu thận qua da dưới hướng dẫn của siêu âm",
     "TEN_DVKT_GIA": "Dẫn lưu thận qua da dưới hướng dẫn của siêu âm",
@@ -12147,11 +12901,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "Chưa bao gồm sonde.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94975"
   },
   {
-    "STT": 607,
+    "STT": 614,
     "MA_DICH_VU": "10.0344.0585",
     "TEN_DICH_VU": "Dẫn lưu bàng quang bằng chọc trôca",
     "TEN_DVKT_GIA": "Dẫn lưu bàng quang bằng chọc trôca",
@@ -12167,11 +12922,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94993"
   },
   {
-    "STT": 608,
+    "STT": 615,
     "MA_DICH_VU": "10.0353.0158",
     "TEN_DICH_VU": "Bơm rửa bàng quang, bơm hóa chất",
     "TEN_DVKT_GIA": "Bơm rửa bàng quang, bơm hóa chất",
@@ -12187,11 +12943,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "Chưa bao gồm hóa chất.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94546"
   },
   {
-    "STT": 609,
+    "STT": 616,
     "MA_DICH_VU": "10.0355.0421",
     "TEN_DICH_VU": "Lấy sỏi bàng quang",
     "TEN_DVKT_GIA": "Lấy sỏi bàng quang",
@@ -12207,11 +12964,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95576"
   },
   {
-    "STT": 610,
+    "STT": 617,
     "MA_DICH_VU": "10.0355.0421_GT",
     "TEN_DICH_VU": "Lấy sỏi bàng quang",
     "TEN_DVKT_GIA": "Lấy sỏi bàng quang",
@@ -12227,11 +12985,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95404"
   },
   {
-    "STT": 611,
+    "STT": 618,
     "MA_DICH_VU": "10.0359.0584",
     "TEN_DICH_VU": "Dẫn lưu bàng quang đơn thuần",
     "TEN_DVKT_GIA": "Dẫn lưu bàng quang đơn thuần",
@@ -12247,11 +13006,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95019"
   },
   {
-    "STT": 612,
+    "STT": 619,
     "MA_DICH_VU": "10.0392.0583",
     "TEN_DICH_VU": "Phẫu thuật điều trị són tiểu",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị són tiểu",
@@ -12267,11 +13027,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95128"
   },
   {
-    "STT": 613,
+    "STT": 620,
     "MA_DICH_VU": "10.0394.0435",
     "TEN_DICH_VU": "Hạ tinh hoàn ẩn, tinh hoàn lạc chổ",
     "TEN_DVKT_GIA": "Hạ tinh hoàn ẩn, tinh hoàn lạc chổ",
@@ -12287,11 +13048,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95152"
   },
   {
-    "STT": 614,
+    "STT": 621,
     "MA_DICH_VU": "10.0394.0435_GT",
     "TEN_DICH_VU": "Hạ tinh hoàn ẩn, tinh hoàn lạc chổ",
     "TEN_DVKT_GIA": "Hạ tinh hoàn ẩn, tinh hoàn lạc chổ",
@@ -12307,11 +13069,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95053"
   },
   {
-    "STT": 615,
+    "STT": 622,
     "MA_DICH_VU": "10.0398.0584",
     "TEN_DICH_VU": "Phẫu thuật tái tạo miệng sáo do hẹp miệng sáo",
     "TEN_DVKT_GIA": "Phẫu thuật tái tạo miệng sáo do hẹp miệng sáo",
@@ -12327,11 +13090,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95020"
   },
   {
-    "STT": 616,
+    "STT": 623,
     "MA_DICH_VU": "10.0402.0584",
     "TEN_DICH_VU": "Phẫu thuật vỡ vật hang do gãy dương vật",
     "TEN_DVKT_GIA": "Phẫu thuật vỡ vật hang do gãy dương vật",
@@ -12347,11 +13111,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95021"
   },
   {
-    "STT": 617,
+    "STT": 624,
     "MA_DICH_VU": "10.0405.0156",
     "TEN_DICH_VU": "Nong niệu đạo",
     "TEN_DVKT_GIA": "Nong niệu đạo",
@@ -12367,11 +13132,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94627"
   },
   {
-    "STT": 618,
+    "STT": 625,
     "MA_DICH_VU": "10.0406.0435",
     "TEN_DICH_VU": "Cắt bỏ tinh hoàn",
     "TEN_DVKT_GIA": "Cắt bỏ tinh hoàn",
@@ -12387,11 +13153,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95153"
   },
   {
-    "STT": 619,
+    "STT": 626,
     "MA_DICH_VU": "10.0406.0435_GT",
     "TEN_DICH_VU": "Cắt bỏ tinh hoàn",
     "TEN_DVKT_GIA": "Cắt bỏ tinh hoàn",
@@ -12407,11 +13174,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95054"
   },
   {
-    "STT": 620,
+    "STT": 627,
     "MA_DICH_VU": "10.0408.0584",
     "TEN_DICH_VU": "Phẫu thuật tràn dịch màng tinh hoàn",
     "TEN_DVKT_GIA": "Phẫu thuật tràn dịch màng tinh hoàn",
@@ -12427,11 +13195,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95022"
   },
   {
-    "STT": 621,
+    "STT": 628,
     "MA_DICH_VU": "10.0410.0584",
     "TEN_DICH_VU": "Cắt bỏ bao da qui đầu do dính hoặc dài",
     "TEN_DVKT_GIA": "Cắt bỏ bao da qui đầu do dính hoặc dài",
@@ -12447,11 +13216,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95023"
   },
   {
-    "STT": 622,
+    "STT": 629,
     "MA_DICH_VU": "10.0411.0584",
     "TEN_DICH_VU": "Cắt hẹp bao quy đầu",
     "TEN_DVKT_GIA": "Cắt hẹp bao quy đầu",
@@ -12467,11 +13237,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95024"
   },
   {
-    "STT": 623,
+    "STT": 630,
     "MA_DICH_VU": "10.0412.0584",
     "TEN_DICH_VU": "Mở rộng lỗ sáo",
     "TEN_DVKT_GIA": "Mở rộng lỗ sáo",
@@ -12487,11 +13258,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95025"
   },
   {
-    "STT": 624,
+    "STT": 631,
     "MA_DICH_VU": "10.0416.0491",
     "TEN_DICH_VU": "Mở thông dạ dày",
     "TEN_DVKT_GIA": "Mở thông dạ dày",
@@ -12507,11 +13279,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95200"
   },
   {
-    "STT": 625,
+    "STT": 632,
     "MA_DICH_VU": "10.0416.0491_GT",
     "TEN_DICH_VU": "Mở thông dạ dày",
     "TEN_DVKT_GIA": "Mở thông dạ dày",
@@ -12527,11 +13300,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95077"
   },
   {
-    "STT": 626,
+    "STT": 633,
     "MA_DICH_VU": "10.0451.0491",
     "TEN_DICH_VU": "Mở bụng thăm dò",
     "TEN_DVKT_GIA": "Mở bụng thăm dò",
@@ -12547,11 +13321,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95201"
   },
   {
-    "STT": 627,
+    "STT": 634,
     "MA_DICH_VU": "10.0451.0491_GT",
     "TEN_DICH_VU": "Mở bụng thăm dò",
     "TEN_DVKT_GIA": "Mở bụng thăm dò",
@@ -12567,11 +13342,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95078"
   },
   {
-    "STT": 628,
+    "STT": 635,
     "MA_DICH_VU": "10.0452.0491",
     "TEN_DICH_VU": "Mở bụng thăm dò, sinh thiết",
     "TEN_DVKT_GIA": "Mở bụng thăm dò, sinh thiết",
@@ -12587,11 +13363,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95202"
   },
   {
-    "STT": 629,
+    "STT": 636,
     "MA_DICH_VU": "10.0452.0491_GT",
     "TEN_DICH_VU": "Mở bụng thăm dò, sinh thiết",
     "TEN_DVKT_GIA": "Mở bụng thăm dò, sinh thiết",
@@ -12607,11 +13384,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95079"
   },
   {
-    "STT": 630,
+    "STT": 637,
     "MA_DICH_VU": "10.0454.0465",
     "TEN_DICH_VU": "Cắt dạ dày hình chêm",
     "TEN_DVKT_GIA": "Cắt dạ dày hình chêm",
@@ -12627,11 +13405,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95437"
   },
   {
-    "STT": 631,
+    "STT": 638,
     "MA_DICH_VU": "10.0463.0465",
     "TEN_DICH_VU": "Khâu lỗ thủng dạ dày tá tràng",
     "TEN_DVKT_GIA": "Khâu lỗ thủng dạ dày tá tràng",
@@ -12647,11 +13426,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95438"
   },
   {
-    "STT": 632,
+    "STT": 639,
     "MA_DICH_VU": "10.0465.0465",
     "TEN_DICH_VU": "Khâu cầm máu ổ loét dạ dày",
     "TEN_DVKT_GIA": "Khâu cầm máu ổ loét dạ dày",
@@ -12667,11 +13447,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95439"
   },
   {
-    "STT": 633,
+    "STT": 640,
     "MA_DICH_VU": "10.0471.0465",
     "TEN_DICH_VU": "Mở dạ dày xử lý tổn thương",
     "TEN_DVKT_GIA": "Mở dạ dày xử lý tổn thương",
@@ -12687,11 +13468,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95440"
   },
   {
-    "STT": 634,
+    "STT": 641,
     "MA_DICH_VU": "10.0473.0459",
     "TEN_DICH_VU": "Cắt u tá tràng",
     "TEN_DVKT_GIA": "Cắt u tá tràng",
@@ -12707,11 +13489,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95229"
   },
   {
-    "STT": 635,
+    "STT": 642,
     "MA_DICH_VU": "10.0473.0459_GT",
     "TEN_DICH_VU": "Cắt u tá tràng",
     "TEN_DVKT_GIA": "Cắt u tá tràng",
@@ -12727,11 +13510,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95112"
   },
   {
-    "STT": 636,
+    "STT": 643,
     "MA_DICH_VU": "10.0479.0491",
     "TEN_DICH_VU": "Mở thông hỗng tràng hoặc mở thông hồi tràng",
     "TEN_DVKT_GIA": "Mở thông hỗng tràng hoặc mở thông hồi tràng",
@@ -12747,11 +13531,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95203"
   },
   {
-    "STT": 637,
+    "STT": 644,
     "MA_DICH_VU": "10.0479.0491_GT",
     "TEN_DICH_VU": "Mở thông hỗng tràng hoặc mở thông hồi tràng",
     "TEN_DVKT_GIA": "Mở thông hỗng tràng hoặc mở thông hồi tràng",
@@ -12767,11 +13552,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95080"
   },
   {
-    "STT": 638,
+    "STT": 645,
     "MA_DICH_VU": "10.0480.0465",
     "TEN_DICH_VU": "Khâu lỗ thủng hoặc khâu vết thương ruột non",
     "TEN_DVKT_GIA": "Khâu lỗ thủng hoặc khâu vết thương ruột non",
@@ -12787,11 +13573,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95441"
   },
   {
-    "STT": 639,
+    "STT": 646,
     "MA_DICH_VU": "10.0483.0455",
     "TEN_DICH_VU": "Tháo lồng ruột non",
     "TEN_DVKT_GIA": "Tháo lồng ruột non",
@@ -12807,11 +13594,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95214"
   },
   {
-    "STT": 640,
+    "STT": 647,
     "MA_DICH_VU": "10.0484.0465",
     "TEN_DICH_VU": "Đẩy bã thức ăn xuống đại tràng",
     "TEN_DVKT_GIA": "Đẩy bã thức ăn xuống đại tràng",
@@ -12827,11 +13615,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95442"
   },
   {
-    "STT": 641,
+    "STT": 648,
     "MA_DICH_VU": "10.0485.0465",
     "TEN_DICH_VU": "Mở ruột non lấy dị vật (bã thức ăn, giun, mảnh kim loại,…)",
     "TEN_DVKT_GIA": "Mở ruột non lấy dị vật (bã thức ăn, giun, mảnh kim loại,…)",
@@ -12847,11 +13636,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95443"
   },
   {
-    "STT": 642,
+    "STT": 649,
     "MA_DICH_VU": "10.0486.0465",
     "TEN_DICH_VU": "Cắt ruột non hình chêm",
     "TEN_DVKT_GIA": "Cắt ruột non hình chêm",
@@ -12867,11 +13657,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95444"
   },
   {
-    "STT": 643,
+    "STT": 650,
     "MA_DICH_VU": "10.0492.0493",
     "TEN_DICH_VU": "Phẫu thuật điều trị áp xe tồn dư, dẫn lưu ổ bụng",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị áp xe tồn dư, dẫn lưu ổ bụng",
@@ -12887,11 +13678,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95319"
   },
   {
-    "STT": 644,
+    "STT": 651,
     "MA_DICH_VU": "10.0492.0493_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị áp xe tồn dư, dẫn lưu ổ bụng",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị áp xe tồn dư, dẫn lưu ổ bụng",
@@ -12907,11 +13699,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95139"
   },
   {
-    "STT": 645,
+    "STT": 652,
     "MA_DICH_VU": "10.0493.0465",
     "TEN_DICH_VU": "Đóng mở thông ruột non",
     "TEN_DVKT_GIA": "Đóng mở thông ruột non",
@@ -12927,11 +13720,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95445"
   },
   {
-    "STT": 646,
+    "STT": 653,
     "MA_DICH_VU": "10.0496.0489",
     "TEN_DICH_VU": "Cắt mạc nối lớn",
     "TEN_DVKT_GIA": "Cắt mạc nối lớn",
@@ -12947,11 +13741,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm khóa kẹp mạch máu, dao siêu âm hoặc dao hàn mô hoặc dao hàn mạch.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95591"
   },
   {
-    "STT": 647,
+    "STT": 654,
     "MA_DICH_VU": "10.0497.0489",
     "TEN_DICH_VU": "Cắt bỏ u mạc nối lớn",
     "TEN_DVKT_GIA": "Cắt bỏ u mạc nối lớn",
@@ -12967,11 +13762,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm khóa kẹp mạch máu, dao siêu âm hoặc dao hàn mô hoặc dao hàn mạch.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95592"
   },
   {
-    "STT": 648,
+    "STT": 655,
     "MA_DICH_VU": "10.0498.0489",
     "TEN_DICH_VU": "Cắt u mạc treo ruột",
     "TEN_DVKT_GIA": "Cắt u mạc treo ruột",
@@ -12987,11 +13783,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm khóa kẹp mạch máu, dao siêu âm hoặc dao hàn mô hoặc dao hàn mạch.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95593"
   },
   {
-    "STT": 649,
+    "STT": 656,
     "MA_DICH_VU": "10.0506.0459",
     "TEN_DICH_VU": "Cắt ruột thừa đơn thuần",
     "TEN_DVKT_GIA": "Cắt ruột thừa đơn thuần",
@@ -13007,11 +13804,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95230"
   },
   {
-    "STT": 650,
+    "STT": 657,
     "MA_DICH_VU": "10.0506.0459_GT",
     "TEN_DICH_VU": "Cắt ruột thừa đơn thuần",
     "TEN_DVKT_GIA": "Cắt ruột thừa đơn thuần",
@@ -13027,11 +13825,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95113"
   },
   {
-    "STT": 651,
+    "STT": 658,
     "MA_DICH_VU": "10.0507.0459",
     "TEN_DICH_VU": "Cắt ruột thừa, lau rửa ổ bụng",
     "TEN_DVKT_GIA": "Cắt ruột thừa, lau rửa ổ bụng",
@@ -13047,11 +13846,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95231"
   },
   {
-    "STT": 652,
+    "STT": 659,
     "MA_DICH_VU": "10.0507.0459_GT",
     "TEN_DICH_VU": "Cắt ruột thừa, lau rửa ổ bụng",
     "TEN_DVKT_GIA": "Cắt ruột thừa, lau rửa ổ bụng",
@@ -13067,11 +13867,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95114"
   },
   {
-    "STT": 653,
+    "STT": 660,
     "MA_DICH_VU": "10.0508.0459",
     "TEN_DICH_VU": "Cắt ruột thừa, dẫn lưu ổ áp xe",
     "TEN_DVKT_GIA": "Cắt ruột thừa, dẫn lưu ổ áp xe",
@@ -13087,11 +13888,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95232"
   },
   {
-    "STT": 654,
+    "STT": 661,
     "MA_DICH_VU": "10.0508.0459_GT",
     "TEN_DICH_VU": "Cắt ruột thừa, dẫn lưu ổ áp xe",
     "TEN_DVKT_GIA": "Cắt ruột thừa, dẫn lưu ổ áp xe",
@@ -13107,11 +13909,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95115"
   },
   {
-    "STT": 655,
+    "STT": 662,
     "MA_DICH_VU": "10.0509.0493",
     "TEN_DICH_VU": "Dẫn lưu áp xe ruột thừa",
     "TEN_DVKT_GIA": "Dẫn lưu áp xe ruột thừa",
@@ -13127,11 +13930,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95320"
   },
   {
-    "STT": 656,
+    "STT": 663,
     "MA_DICH_VU": "10.0509.0493_GT",
     "TEN_DICH_VU": "Dẫn lưu áp xe ruột thừa",
     "TEN_DVKT_GIA": "Dẫn lưu áp xe ruột thừa",
@@ -13147,11 +13951,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95140"
   },
   {
-    "STT": 657,
+    "STT": 664,
     "MA_DICH_VU": "10.0510.0459",
     "TEN_DICH_VU": "Các phẫu thuật ruột thừa khác",
     "TEN_DVKT_GIA": "Các phẫu thuật ruột thừa khác",
@@ -13167,11 +13972,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95233"
   },
   {
-    "STT": 658,
+    "STT": 665,
     "MA_DICH_VU": "10.0510.0459_GT",
     "TEN_DICH_VU": "Các phẫu thuật ruột thừa khác",
     "TEN_DVKT_GIA": "Các phẫu thuật ruột thừa khác",
@@ -13187,11 +13993,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95116"
   },
   {
-    "STT": 659,
+    "STT": 666,
     "MA_DICH_VU": "10.0511.0491",
     "TEN_DICH_VU": "Dẫn lưu hoặc mở thông manh tràng",
     "TEN_DVKT_GIA": "Dẫn lưu hoặc mở thông manh tràng",
@@ -13207,11 +14014,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95204"
   },
   {
-    "STT": 660,
+    "STT": 667,
     "MA_DICH_VU": "10.0511.0491_GT",
     "TEN_DICH_VU": "Dẫn lưu hoặc mở thông manh tràng",
     "TEN_DVKT_GIA": "Dẫn lưu hoặc mở thông manh tràng",
@@ -13227,11 +14035,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95081"
   },
   {
-    "STT": 661,
+    "STT": 668,
     "MA_DICH_VU": "10.0512.0465",
     "TEN_DICH_VU": "Khâu lỗ thủng đại tràng",
     "TEN_DVKT_GIA": "Khâu lỗ thủng đại tràng",
@@ -13247,11 +14056,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95446"
   },
   {
-    "STT": 662,
+    "STT": 669,
     "MA_DICH_VU": "10.0524.0491",
     "TEN_DICH_VU": "Làm hậu môn nhân tạo",
     "TEN_DVKT_GIA": "Làm hậu môn nhân tạo",
@@ -13267,11 +14077,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95205"
   },
   {
-    "STT": 663,
+    "STT": 670,
     "MA_DICH_VU": "10.0524.0491_GT",
     "TEN_DICH_VU": "Làm hậu môn nhân tạo",
     "TEN_DVKT_GIA": "Làm hậu môn nhân tạo",
@@ -13287,11 +14098,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95082"
   },
   {
-    "STT": 664,
+    "STT": 671,
     "MA_DICH_VU": "10.0525.0491",
     "TEN_DICH_VU": "Làm hậu môn nhân tạo",
     "TEN_DVKT_GIA": "Làm hậu môn nhân tạo",
@@ -13307,11 +14119,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95206"
   },
   {
-    "STT": 665,
+    "STT": 672,
     "MA_DICH_VU": "10.0525.0491_GT",
     "TEN_DICH_VU": "Làm hậu môn nhân tạo",
     "TEN_DVKT_GIA": "Làm hậu môn nhân tạo",
@@ -13327,11 +14140,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95083"
   },
   {
-    "STT": 666,
+    "STT": 673,
     "MA_DICH_VU": "10.0533.0494",
     "TEN_DICH_VU": "Cắt u, polyp trực tràng đường hậu môn",
     "TEN_DVKT_GIA": "Cắt u, polyp trực tràng đường hậu môn",
@@ -13347,11 +14161,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95262"
   },
   {
-    "STT": 667,
+    "STT": 674,
     "MA_DICH_VU": "10.0533.0494_GT",
     "TEN_DICH_VU": "Cắt u, polyp trực tràng đường hậu môn",
     "TEN_DVKT_GIA": "Cắt u, polyp trực tràng đường hậu môn",
@@ -13367,11 +14182,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95098"
   },
   {
-    "STT": 668,
+    "STT": 675,
     "MA_DICH_VU": "10.0534.0465",
     "TEN_DICH_VU": "Khâu lỗ thủng, vết thương trực tràng",
     "TEN_DVKT_GIA": "Khâu lỗ thủng, vết thương trực tràng",
@@ -13387,11 +14203,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95447"
   },
   {
-    "STT": 669,
+    "STT": 676,
     "MA_DICH_VU": "10.0547.0494",
     "TEN_DICH_VU": "Phẫu thuật cắt 1 búi trĩ",
     "TEN_DVKT_GIA": "Phẫu thuật cắt 1 búi trĩ",
@@ -13407,11 +14224,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95263"
   },
   {
-    "STT": 670,
+    "STT": 677,
     "MA_DICH_VU": "10.0547.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt 1 búi trĩ",
     "TEN_DVKT_GIA": "Phẫu thuật cắt 1 búi trĩ",
@@ -13427,11 +14245,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95099"
   },
   {
-    "STT": 671,
+    "STT": 678,
     "MA_DICH_VU": "10.0548.0494",
     "TEN_DICH_VU": "Phẫu thuật lấy trĩ tắc mạch",
     "TEN_DVKT_GIA": "Phẫu thuật lấy trĩ tắc mạch",
@@ -13447,11 +14266,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95264"
   },
   {
-    "STT": 672,
+    "STT": 679,
     "MA_DICH_VU": "10.0548.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật lấy trĩ tắc mạch",
     "TEN_DVKT_GIA": "Phẫu thuật lấy trĩ tắc mạch",
@@ -13467,11 +14287,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95100"
   },
   {
-    "STT": 673,
+    "STT": 680,
     "MA_DICH_VU": "10.0549.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt trĩ kinh điển (phương pháp Milligan - Morgan hoặc Ferguson)",
     "TEN_DVKT_GIA": "Phẫu thuật cắt trĩ kinh điển (phương pháp Milligan - Morgan hoặc Ferguson)",
@@ -13487,11 +14308,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95101"
   },
   {
-    "STT": 674,
+    "STT": 681,
     "MA_DICH_VU": "10.0550.0494",
     "TEN_DICH_VU": "Phẫu thuật cắt trĩ kinh điển có sử dụng dụng cụ hỗ trợ",
     "TEN_DVKT_GIA": "Phẫu thuật cắt trĩ kinh điển có sử dụng dụng cụ hỗ trợ",
@@ -13507,11 +14329,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95265"
   },
   {
-    "STT": 675,
+    "STT": 682,
     "MA_DICH_VU": "10.0550.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt trĩ kinh điển có sử dụng dụng cụ hỗ trợ",
     "TEN_DVKT_GIA": "Phẫu thuật cắt trĩ kinh điển có sử dụng dụng cụ hỗ trợ",
@@ -13527,11 +14350,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95102"
   },
   {
-    "STT": 676,
+    "STT": 683,
     "MA_DICH_VU": "10.0551.0494",
     "TEN_DICH_VU": "Phẫu thuật lấy toàn bộ trĩ vòng",
     "TEN_DVKT_GIA": "Phẫu thuật lấy toàn bộ trĩ vòng",
@@ -13547,11 +14371,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95266"
   },
   {
-    "STT": 677,
+    "STT": 684,
     "MA_DICH_VU": "10.0551.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật lấy toàn bộ trĩ vòng",
     "TEN_DVKT_GIA": "Phẫu thuật lấy toàn bộ trĩ vòng",
@@ -13567,11 +14392,54 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95103"
   },
   {
-    "STT": 678,
+    "STT": 685,
+    "MA_DICH_VU": "10.0552.0495",
+    "TEN_DICH_VU": "Phẫu thuật Longo",
+    "TEN_DVKT_GIA": "Phẫu thuật Longo",
+    "DON_GIA": 2507900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093228,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 2507900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu trong máy.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 686,
+    "MA_DICH_VU": "10.0553.0495",
+    "TEN_DICH_VU": "Phẫu thuật Longo kết hợp với khâu treo trĩ",
+    "TEN_DVKT_GIA": "Phẫu thuật Longo kết hợp với khâu treo trĩ",
+    "DON_GIA": 2507900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093353,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 2507900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu trong máy.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94009"
+  },
+  {
+    "STT": 687,
     "MA_DICH_VU": "10.0554.0494",
     "TEN_DICH_VU": "Phẫu thuật khâu treo và triệt mạch trĩ (THD)",
     "TEN_DVKT_GIA": "Phẫu thuật khâu treo và triệt mạch trĩ (THD)",
@@ -13587,11 +14455,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95267"
   },
   {
-    "STT": 679,
+    "STT": 688,
     "MA_DICH_VU": "10.0554.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật khâu treo và triệt mạch trĩ (THD)",
     "TEN_DVKT_GIA": "Phẫu thuật khâu treo và triệt mạch trĩ (THD)",
@@ -13607,11 +14476,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95104"
   },
   {
-    "STT": 680,
+    "STT": 689,
     "MA_DICH_VU": "10.0555.0494",
     "TEN_DICH_VU": "Phẫu thuật chích, dẫn lưu áp xe cạnh hậu môn đơn giản",
     "TEN_DVKT_GIA": "Phẫu thuật chích, dẫn lưu áp xe cạnh hậu môn đơn giản",
@@ -13627,11 +14497,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95268"
   },
   {
-    "STT": 681,
+    "STT": 690,
     "MA_DICH_VU": "10.0555.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật chích, dẫn lưu áp xe cạnh hậu môn đơn giản",
     "TEN_DVKT_GIA": "Phẫu thuật chích, dẫn lưu áp xe cạnh hậu môn đơn giản",
@@ -13647,11 +14518,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95105"
   },
   {
-    "STT": 682,
+    "STT": 691,
     "MA_DICH_VU": "10.0556.0494",
     "TEN_DICH_VU": "Phẫu thuật điều trị áp xe hậu môn phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị áp xe hậu môn phức tạp",
@@ -13667,11 +14539,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95269"
   },
   {
-    "STT": 683,
+    "STT": 692,
     "MA_DICH_VU": "10.0556.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị áp xe hậu môn phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị áp xe hậu môn phức tạp",
@@ -13687,11 +14560,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95106"
   },
   {
-    "STT": 684,
+    "STT": 693,
     "MA_DICH_VU": "10.0557.0494",
     "TEN_DICH_VU": "Phẫu thuật điều trị rò hậu môn đơn giản",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị rò hậu môn đơn giản",
@@ -13707,11 +14581,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95270"
   },
   {
-    "STT": 685,
+    "STT": 694,
     "MA_DICH_VU": "10.0557.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị rò hậu môn đơn giản",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị rò hậu môn đơn giản",
@@ -13727,11 +14602,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95107"
   },
   {
-    "STT": 686,
+    "STT": 695,
     "MA_DICH_VU": "10.0559.0494",
     "TEN_DICH_VU": "Phẫu thuật điều trị rò hậu môn cắt cơ thắt trên chỉ chờ",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị rò hậu môn cắt cơ thắt trên chỉ chờ",
@@ -13747,11 +14623,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95271"
   },
   {
-    "STT": 687,
+    "STT": 696,
     "MA_DICH_VU": "10.0559.0494_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị rò hậu môn cắt cơ thắt trên chỉ chờ",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị rò hậu môn cắt cơ thắt trên chỉ chờ",
@@ -13767,11 +14644,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95108"
   },
   {
-    "STT": 688,
+    "STT": 697,
     "MA_DICH_VU": "10.0561.0494",
     "TEN_DICH_VU": "Điều trị nứt kẽ hậu môn bằng cắt cơ tròn trong (vị trí 3h và 9h)",
     "TEN_DVKT_GIA": "Điều trị nứt kẽ hậu môn bằng cắt cơ tròn trong (vị trí 3h và 9h)",
@@ -13787,11 +14665,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95272"
   },
   {
-    "STT": 689,
+    "STT": 698,
     "MA_DICH_VU": "10.0561.0494_GT",
     "TEN_DICH_VU": "Điều trị nứt kẽ hậu môn bằng cắt cơ tròn trong (vị trí 3h và 9h)",
     "TEN_DVKT_GIA": "Điều trị nứt kẽ hậu môn bằng cắt cơ tròn trong (vị trí 3h và 9h)",
@@ -13807,11 +14686,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95109"
   },
   {
-    "STT": 690,
+    "STT": 699,
     "MA_DICH_VU": "10.0562.0494",
     "TEN_DICH_VU": "Điều trị nứt kẽ hậu môn bằng cắt cơ tròn trong vị trí 6h, tạo hình hậu môn",
     "TEN_DVKT_GIA": "Điều trị nứt kẽ hậu môn bằng cắt cơ tròn trong vị trí 6h, tạo hình hậu môn",
@@ -13827,11 +14707,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95273"
   },
   {
-    "STT": 691,
+    "STT": 700,
     "MA_DICH_VU": "10.0562.0494_GT",
     "TEN_DICH_VU": "Điều trị nứt kẽ hậu môn bằng cắt cơ tròn trong vị trí 6h, tạo hình hậu môn",
     "TEN_DVKT_GIA": "Điều trị nứt kẽ hậu môn bằng cắt cơ tròn trong vị trí 6h, tạo hình hậu môn",
@@ -13847,11 +14728,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95110"
   },
   {
-    "STT": 692,
+    "STT": 701,
     "MA_DICH_VU": "10.0566.0584",
     "TEN_DICH_VU": "Phẫu thuật cắt u nhú ống hậu môn (condylome)",
     "TEN_DVKT_GIA": "Phẫu thuật cắt u nhú ống hậu môn (condylome)",
@@ -13867,11 +14749,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95026"
   },
   {
-    "STT": 693,
+    "STT": 702,
     "MA_DICH_VU": "10.0567.0584",
     "TEN_DICH_VU": "Cắt u lành tính ống hậu môn (u cơ, polyp…)",
     "TEN_DVKT_GIA": "Cắt u lành tính ống hậu môn (u cơ, polyp…)",
@@ -13887,11 +14770,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95027"
   },
   {
-    "STT": 694,
+    "STT": 703,
     "MA_DICH_VU": "10.0569.0624",
     "TEN_DICH_VU": "Phẫu thuật điều trị đứt cơ thắt hậu môn",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị đứt cơ thắt hậu môn",
@@ -13907,11 +14791,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95062"
   },
   {
-    "STT": 695,
+    "STT": 704,
     "MA_DICH_VU": "10.0569.0624_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị đứt cơ thắt hậu môn",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị đứt cơ thắt hậu môn",
@@ -13927,11 +14812,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95032"
   },
   {
-    "STT": 696,
+    "STT": 705,
     "MA_DICH_VU": "10.0574.0491",
     "TEN_DICH_VU": "Thăm dò, sinh thiết gan",
     "TEN_DVKT_GIA": "Thăm dò, sinh thiết gan",
@@ -13947,11 +14833,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95207"
   },
   {
-    "STT": 697,
+    "STT": 706,
     "MA_DICH_VU": "10.0574.0491_GT",
     "TEN_DICH_VU": "Thăm dò, sinh thiết gan",
     "TEN_DVKT_GIA": "Thăm dò, sinh thiết gan",
@@ -13967,11 +14854,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm máy cắt nối tự động và ghim khâu máy cắt nối, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95084"
   },
   {
-    "STT": 698,
+    "STT": 707,
     "MA_DICH_VU": "10.0605.0582",
     "TEN_DICH_VU": "Thắt động mạch gan (riêng, phải, trái)",
     "TEN_DVKT_GIA": "Thắt động mạch gan (riêng, phải, trái)",
@@ -13987,11 +14875,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95374"
   },
   {
-    "STT": 699,
+    "STT": 708,
     "MA_DICH_VU": "10.0608.0471",
     "TEN_DICH_VU": "Cầm máu nhu mô gan",
     "TEN_DVKT_GIA": "Cầm máu nhu mô gan",
@@ -14007,11 +14896,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95618"
   },
   {
-    "STT": 700,
+    "STT": 709,
     "MA_DICH_VU": "10.0609.0471",
     "TEN_DICH_VU": "Chèn gạc nhu mô gan cầm máu",
     "TEN_DVKT_GIA": "Chèn gạc nhu mô gan cầm máu",
@@ -14027,11 +14917,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95619"
   },
   {
-    "STT": 701,
+    "STT": 710,
     "MA_DICH_VU": "10.0611.0582",
     "TEN_DICH_VU": "Cắt chỏm nang gan",
     "TEN_DVKT_GIA": "Cắt chỏm nang gan",
@@ -14047,11 +14938,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95375"
   },
   {
-    "STT": 702,
+    "STT": 711,
     "MA_DICH_VU": "10.0620.0583",
     "TEN_DICH_VU": "Mở thông túi mật",
     "TEN_DVKT_GIA": "Mở thông túi mật",
@@ -14067,11 +14959,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95129"
   },
   {
-    "STT": 703,
+    "STT": 712,
     "MA_DICH_VU": "10.0621.0472",
     "TEN_DICH_VU": "Cắt túi mật",
     "TEN_DVKT_GIA": "Cắt túi mật",
@@ -14087,11 +14980,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95589"
   },
   {
-    "STT": 704,
+    "STT": 713,
     "MA_DICH_VU": "10.0676.0582",
     "TEN_DICH_VU": "Khâu vết thương lách",
     "TEN_DVKT_GIA": "Khâu vết thương lách",
@@ -14107,11 +15001,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95376"
   },
   {
-    "STT": 705,
+    "STT": 714,
     "MA_DICH_VU": "10.0679.0492",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Bassini",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Bassini",
@@ -14127,11 +15022,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95387"
   },
   {
-    "STT": 706,
+    "STT": 715,
     "MA_DICH_VU": "10.0679.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Bassini",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Bassini",
@@ -14147,11 +15043,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95240"
   },
   {
-    "STT": 707,
+    "STT": 716,
     "MA_DICH_VU": "10.0680.0492",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Shouldice",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Shouldice",
@@ -14167,11 +15064,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95388"
   },
   {
-    "STT": 708,
+    "STT": 717,
     "MA_DICH_VU": "10.0680.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Shouldice",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Shouldice",
@@ -14187,11 +15085,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95241"
   },
   {
-    "STT": 709,
+    "STT": 718,
     "MA_DICH_VU": "10.0681.0492",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp kết hợp Bassini và Shouldice",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp kết hợp Bassini và Shouldice",
@@ -14207,11 +15106,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95389"
   },
   {
-    "STT": 710,
+    "STT": 719,
     "MA_DICH_VU": "10.0681.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp kết hợp Bassini và Shouldice",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp kết hợp Bassini và Shouldice",
@@ -14227,11 +15127,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95242"
   },
   {
-    "STT": 711,
+    "STT": 720,
     "MA_DICH_VU": "10.0682.0492",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Lichtenstein",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Lichtenstein",
@@ -14247,11 +15148,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95390"
   },
   {
-    "STT": 712,
+    "STT": 721,
     "MA_DICH_VU": "10.0682.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Lichtenstein",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn bằng phương pháp Lichtenstein",
@@ -14267,11 +15169,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95243"
   },
   {
-    "STT": 713,
+    "STT": 722,
     "MA_DICH_VU": "10.0683.0492",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn tái phát",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn tái phát",
@@ -14287,11 +15190,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95391"
   },
   {
-    "STT": 714,
+    "STT": 723,
     "MA_DICH_VU": "10.0683.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn tái phát",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn tái phát",
@@ -14307,11 +15211,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95244"
   },
   {
-    "STT": 715,
+    "STT": 724,
     "MA_DICH_VU": "10.0684.0492",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn",
@@ -14327,11 +15232,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95392"
   },
   {
-    "STT": 716,
+    "STT": 725,
     "MA_DICH_VU": "10.0684.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị bẹn",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị bẹn",
@@ -14347,11 +15253,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": "",
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95245"
   },
   {
-    "STT": 717,
+    "STT": 726,
     "MA_DICH_VU": "10.0685.0492",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị đùi",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị đùi",
@@ -14367,11 +15274,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95393"
   },
   {
-    "STT": 718,
+    "STT": 727,
     "MA_DICH_VU": "10.0685.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị đùi",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị đùi",
@@ -14387,11 +15295,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95246"
   },
   {
-    "STT": 719,
+    "STT": 728,
     "MA_DICH_VU": "10.0686.0492",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị vết mổ thành bụng",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị vết mổ thành bụng",
@@ -14407,11 +15316,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95394"
   },
   {
-    "STT": 720,
+    "STT": 729,
     "MA_DICH_VU": "10.0686.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị vết mổ thành bụng",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị vết mổ thành bụng",
@@ -14427,11 +15337,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95247"
   },
   {
-    "STT": 721,
+    "STT": 730,
     "MA_DICH_VU": "10.0687.0492",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị thành bụng khác",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị thành bụng khác",
@@ -14447,11 +15358,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95395"
   },
   {
-    "STT": 722,
+    "STT": 731,
     "MA_DICH_VU": "10.0687.0492_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị thoát vị thành bụng khác",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị thoát vị thành bụng khác",
@@ -14467,11 +15379,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm màng nâng, khóa kẹp mạch máu, vật liệu cầm máu, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95248"
   },
   {
-    "STT": 723,
+    "STT": 732,
     "MA_DICH_VU": "10.0688.0583",
     "TEN_DICH_VU": "Phẫu thuật rò, nang ống rốn tràng, niệu rốn",
     "TEN_DVKT_GIA": "Phẫu thuật rò, nang ống rốn tràng, niệu rốn",
@@ -14487,11 +15400,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95130"
   },
   {
-    "STT": 724,
+    "STT": 733,
     "MA_DICH_VU": "10.0689.0582",
     "TEN_DICH_VU": "Phẫu thuật khâu lỗ thủng cơ hoành do vết thương",
     "TEN_DVKT_GIA": "Phẫu thuật khâu lỗ thủng cơ hoành do vết thương",
@@ -14507,11 +15421,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95377"
   },
   {
-    "STT": 725,
+    "STT": 734,
     "MA_DICH_VU": "10.0690.0582",
     "TEN_DICH_VU": "Phẫu thuật khâu vỡ cơ hoành",
     "TEN_DVKT_GIA": "Phẫu thuật khâu vỡ cơ hoành",
@@ -14527,11 +15442,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95378"
   },
   {
-    "STT": 726,
+    "STT": 735,
     "MA_DICH_VU": "10.0697.0583",
     "TEN_DICH_VU": "Phẫu thuật cắt u thành bụng",
     "TEN_DVKT_GIA": "Phẫu thuật cắt u thành bụng",
@@ -14547,11 +15463,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95131"
   },
   {
-    "STT": 727,
+    "STT": 736,
     "MA_DICH_VU": "10.0716.0551",
     "TEN_DICH_VU": "Phẫu thuật tháo khớp vai",
     "TEN_DVKT_GIA": "Phẫu thuật tháo khớp vai",
@@ -14567,11 +15484,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95295"
   },
   {
-    "STT": 728,
+    "STT": 737,
     "MA_DICH_VU": "10.0716.0551_GT",
     "TEN_DICH_VU": "Phẫu thuật tháo khớp vai",
     "TEN_DVKT_GIA": "Phẫu thuật tháo khớp vai",
@@ -14587,11 +15505,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95120"
   },
   {
-    "STT": 729,
+    "STT": 738,
     "MA_DICH_VU": "10.0717.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương (kết hợp xương) gãy xương bả vai",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương (kết hợp xương) gãy xương bả vai",
@@ -14607,11 +15526,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95469"
   },
   {
-    "STT": 730,
+    "STT": 739,
     "MA_DICH_VU": "10.0718.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy cổ xương bả vai",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy cổ xương bả vai",
@@ -14627,11 +15547,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95470"
   },
   {
-    "STT": 731,
+    "STT": 740,
     "MA_DICH_VU": "10.0719.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy xương đòn",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy xương đòn",
@@ -14647,11 +15568,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95471"
   },
   {
-    "STT": 732,
+    "STT": 741,
     "MA_DICH_VU": "10.0720.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương trật khớp cùng đòn",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương trật khớp cùng đòn",
@@ -14667,11 +15589,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95472"
   },
   {
-    "STT": 733,
+    "STT": 742,
     "MA_DICH_VU": "10.0721.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương khớp giả xương đòn",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương khớp giả xương đòn",
@@ -14687,11 +15610,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95473"
   },
   {
-    "STT": 734,
+    "STT": 743,
     "MA_DICH_VU": "10.0722.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương trật khớp ức đòn",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương trật khớp ức đòn",
@@ -14707,11 +15631,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95474"
   },
   {
-    "STT": 735,
+    "STT": 744,
     "MA_DICH_VU": "10.0723.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy cổ giải phẫu và phẫu thuật xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy cổ giải phẫu và phẫu thuật xương cánh tay",
@@ -14727,11 +15652,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95475"
   },
   {
-    "STT": 736,
+    "STT": 745,
     "MA_DICH_VU": "10.0724.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy trật cổ xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy trật cổ xương cánh tay",
@@ -14747,11 +15673,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95476"
   },
   {
-    "STT": 737,
+    "STT": 746,
     "MA_DICH_VU": "10.0725.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy thân xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy thân xương cánh tay",
@@ -14767,11 +15694,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95477"
   },
   {
-    "STT": 738,
+    "STT": 747,
     "MA_DICH_VU": "10.0726.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy thân xương cánh tay cánh tay có liệt TK quay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy thân xương cánh tay cánh tay có liệt TK quay",
@@ -14787,11 +15715,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95478"
   },
   {
-    "STT": 739,
+    "STT": 748,
     "MA_DICH_VU": "10.0727.0553",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương khớp giả xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương khớp giả xương cánh tay",
@@ -14807,11 +15736,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm khung cố định ngoài, nẹp, ốc, vít, lồng, xương nhân tạo hoặc sản phẩm sinh học thay thế xương.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95590"
   },
   {
-    "STT": 740,
+    "STT": 749,
     "MA_DICH_VU": "10.0727.0553_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương khớp giả xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương khớp giả xương cánh tay",
@@ -14827,11 +15757,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm khung cố định ngoài, nẹp, ốc, vít, lồng, xương nhân tạo hoặc sản phẩm sinh học thay thế xương, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95568"
   },
   {
-    "STT": 741,
+    "STT": 750,
     "MA_DICH_VU": "10.0729.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy thân xương cánh tay phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy thân xương cánh tay phức tạp",
@@ -14847,11 +15778,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95479"
   },
   {
-    "STT": 742,
+    "STT": 751,
     "MA_DICH_VU": "10.0730.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy trên lồi cầu xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy trên lồi cầu xương cánh tay",
@@ -14867,11 +15799,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95480"
   },
   {
-    "STT": 743,
+    "STT": 752,
     "MA_DICH_VU": "10.0731.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy liên lồi cầu xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy liên lồi cầu xương cánh tay",
@@ -14887,11 +15820,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95481"
   },
   {
-    "STT": 744,
+    "STT": 753,
     "MA_DICH_VU": "10.0732.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy ròng rọc xương cánh tay [nẹp vít]",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy ròng rọc xương cánh tay [nẹp vít]",
@@ -14907,11 +15841,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95482"
   },
   {
-    "STT": 745,
+    "STT": 754,
     "MA_DICH_VU": "10.0733.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy lồi cầu ngoài xương cánh tay [nẹp vít]",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy lồi cầu ngoài xương cánh tay [nẹp vít]",
@@ -14927,11 +15862,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95483"
   },
   {
-    "STT": 746,
+    "STT": 755,
     "MA_DICH_VU": "10.0734.0548",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy mỏm khuỷu",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy mỏm khuỷu",
@@ -14947,11 +15883,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95557"
   },
   {
-    "STT": 747,
+    "STT": 756,
     "MA_DICH_VU": "10.0734.0548_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy mỏm khuỷu",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy mỏm khuỷu",
@@ -14967,11 +15904,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95405"
   },
   {
-    "STT": 748,
+    "STT": 757,
     "MA_DICH_VU": "10.0735.0548",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy mỏm khuỷu phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy mỏm khuỷu phức tạp",
@@ -14987,11 +15925,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95558"
   },
   {
-    "STT": 749,
+    "STT": 758,
     "MA_DICH_VU": "10.0735.0548_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy mỏm khuỷu phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy mỏm khuỷu phức tạp",
@@ -15007,11 +15946,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95406"
   },
   {
-    "STT": 750,
+    "STT": 759,
     "MA_DICH_VU": "10.0736.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy Monteggia",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy Monteggia",
@@ -15027,11 +15967,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95484"
   },
   {
-    "STT": 751,
+    "STT": 760,
     "MA_DICH_VU": "10.0737.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy đài quay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy đài quay",
@@ -15047,11 +15988,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95485"
   },
   {
-    "STT": 752,
+    "STT": 761,
     "MA_DICH_VU": "10.0738.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy đài quay phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy đài quay phức tạp",
@@ -15067,11 +16009,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95486"
   },
   {
-    "STT": 753,
+    "STT": 762,
     "MA_DICH_VU": "10.0739.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy thân 2 xương cẳng tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy thân 2 xương cẳng tay",
@@ -15087,11 +16030,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95487"
   },
   {
-    "STT": 754,
+    "STT": 763,
     "MA_DICH_VU": "10.0740.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy xương quay kèm trật khớp quay trụ dưới",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy xương quay kèm trật khớp quay trụ dưới",
@@ -15107,11 +16051,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95488"
   },
   {
-    "STT": 755,
+    "STT": 764,
     "MA_DICH_VU": "10.0741.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy phức tạp khớp khuỷu",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy phức tạp khớp khuỷu",
@@ -15127,11 +16072,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95489"
   },
   {
-    "STT": 756,
+    "STT": 765,
     "MA_DICH_VU": "10.0743.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy đầu dưới qương quay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy đầu dưới qương quay",
@@ -15147,11 +16093,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95490"
   },
   {
-    "STT": 757,
+    "STT": 766,
     "MA_DICH_VU": "10.0744.0548",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy trật khớp cổ tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy trật khớp cổ tay",
@@ -15167,11 +16114,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95559"
   },
   {
-    "STT": 758,
+    "STT": 767,
     "MA_DICH_VU": "10.0744.0548_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy trật khớp cổ tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy trật khớp cổ tay",
@@ -15187,11 +16135,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95407"
   },
   {
-    "STT": 759,
+    "STT": 768,
     "MA_DICH_VU": "10.0745.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy chỏm đốt bàn và ngón tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy chỏm đốt bàn và ngón tay",
@@ -15207,11 +16156,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95491"
   },
   {
-    "STT": 760,
+    "STT": 769,
     "MA_DICH_VU": "10.0746.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy thân đốt bàn và ngón tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy thân đốt bàn và ngón tay",
@@ -15227,11 +16177,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95492"
   },
   {
-    "STT": 761,
+    "STT": 770,
     "MA_DICH_VU": "10.0747.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy lồi cầu xương bàn và ngón tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy lồi cầu xương bàn và ngón tay",
@@ -15247,11 +16198,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95493"
   },
   {
-    "STT": 762,
+    "STT": 771,
     "MA_DICH_VU": "10.0753.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy cánh chậu",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy cánh chậu",
@@ -15267,11 +16219,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95494"
   },
   {
-    "STT": 763,
+    "STT": 772,
     "MA_DICH_VU": "10.0754.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương trật khớp cùng chậu",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương trật khớp cùng chậu",
@@ -15287,11 +16240,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95495"
   },
   {
-    "STT": 764,
+    "STT": 773,
     "MA_DICH_VU": "10.0755.0548",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương toác khớp mu (trật khớp)",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương toác khớp mu (trật khớp)",
@@ -15307,11 +16261,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95560"
   },
   {
-    "STT": 765,
+    "STT": 774,
     "MA_DICH_VU": "10.0755.0548_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương toác khớp mu (trật khớp)",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương toác khớp mu (trật khớp)",
@@ -15327,11 +16282,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95408"
   },
   {
-    "STT": 766,
+    "STT": 775,
     "MA_DICH_VU": "10.0757.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy ổ cối đơn thuần",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy ổ cối đơn thuần",
@@ -15347,11 +16303,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95496"
   },
   {
-    "STT": 767,
+    "STT": 776,
     "MA_DICH_VU": "10.0758.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy ổ cối phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy ổ cối phức tạp",
@@ -15367,11 +16324,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95497"
   },
   {
-    "STT": 768,
+    "STT": 777,
     "MA_DICH_VU": "10.0759.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy bán phần chỏm xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy bán phần chỏm xương đùi",
@@ -15387,11 +16345,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95498"
   },
   {
-    "STT": 769,
+    "STT": 778,
     "MA_DICH_VU": "10.0761.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy cổ xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy cổ xương đùi",
@@ -15407,11 +16366,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95499"
   },
   {
-    "STT": 770,
+    "STT": 779,
     "MA_DICH_VU": "10.0762.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy cổ mấu chuyển xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy cổ mấu chuyển xương đùi",
@@ -15427,11 +16387,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95500"
   },
   {
-    "STT": 771,
+    "STT": 780,
     "MA_DICH_VU": "10.0763.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy liên mấu chuyển xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy liên mấu chuyển xương đùi",
@@ -15447,11 +16408,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95501"
   },
   {
-    "STT": 772,
+    "STT": 781,
     "MA_DICH_VU": "10.0764.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy trật cổ xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy trật cổ xương đùi",
@@ -15467,11 +16429,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95502"
   },
   {
-    "STT": 773,
+    "STT": 782,
     "MA_DICH_VU": "10.0765.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy thân xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy thân xương đùi",
@@ -15487,11 +16450,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95503"
   },
   {
-    "STT": 774,
+    "STT": 783,
     "MA_DICH_VU": "10.0766.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy trên lồi cầu xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy trên lồi cầu xương đùi",
@@ -15507,11 +16471,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95504"
   },
   {
-    "STT": 775,
+    "STT": 784,
     "MA_DICH_VU": "10.0767.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy lồi cầu ngoài xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy lồi cầu ngoài xương đùi",
@@ -15527,11 +16492,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95505"
   },
   {
-    "STT": 776,
+    "STT": 785,
     "MA_DICH_VU": "10.0768.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy lồi cầu trong xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy lồi cầu trong xương đùi",
@@ -15547,11 +16513,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95506"
   },
   {
-    "STT": 777,
+    "STT": 786,
     "MA_DICH_VU": "10.0769.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy trên và liên lồi cầu xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy trên và liên lồi cầu xương đùi",
@@ -15567,11 +16534,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95507"
   },
   {
-    "STT": 778,
+    "STT": 787,
     "MA_DICH_VU": "10.0770.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy thân xương đùi phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy thân xương đùi phức tạp",
@@ -15587,11 +16555,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95508"
   },
   {
-    "STT": 779,
+    "STT": 788,
     "MA_DICH_VU": "10.0771.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy Hoffa đàu dưới xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy Hoffa đàu dưới xương đùi",
@@ -15607,11 +16576,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95509"
   },
   {
-    "STT": 780,
+    "STT": 789,
     "MA_DICH_VU": "10.0772.0548",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy bánh chè",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy bánh chè",
@@ -15627,11 +16597,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm kim hoặc đinh.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95561"
   },
   {
-    "STT": 781,
+    "STT": 790,
     "MA_DICH_VU": "10.0772.0548_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy bánh chè",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy bánh chè",
@@ -15647,11 +16618,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm kim hoặc đinh, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95409"
   },
   {
-    "STT": 782,
+    "STT": 791,
     "MA_DICH_VU": "10.0773.0548",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy xương bánh chè phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy xương bánh chè phức tạp",
@@ -15667,11 +16639,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95562"
   },
   {
-    "STT": 783,
+    "STT": 792,
     "MA_DICH_VU": "10.0773.0548_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy xương bánh chè phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy xương bánh chè phức tạp",
@@ -15687,11 +16660,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95410"
   },
   {
-    "STT": 784,
+    "STT": 793,
     "MA_DICH_VU": "10.0774.0559",
     "TEN_DICH_VU": "Phẫu thuật lấy toàn bộ xương bánh chè",
     "TEN_DVKT_GIA": "Phẫu thuật lấy toàn bộ xương bánh chè",
@@ -15707,11 +16681,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm gân nhân tạo.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95357"
   },
   {
-    "STT": 785,
+    "STT": 794,
     "MA_DICH_VU": "10.0774.0559_GT",
     "TEN_DICH_VU": "Phẫu thuật lấy toàn bộ xương bánh chè",
     "TEN_DVKT_GIA": "Phẫu thuật lấy toàn bộ xương bánh chè",
@@ -15727,11 +16702,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm gân nhân tạo, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95179"
   },
   {
-    "STT": 786,
+    "STT": 795,
     "MA_DICH_VU": "10.0775.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy mâm chày trong",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy mâm chày trong",
@@ -15747,11 +16723,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95510"
   },
   {
-    "STT": 787,
+    "STT": 796,
     "MA_DICH_VU": "10.0776.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy mâm chày ngoài",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy mâm chày ngoài",
@@ -15767,11 +16744,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95511"
   },
   {
-    "STT": 788,
+    "STT": 797,
     "MA_DICH_VU": "10.0777.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hai mâm chày",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hai mâm chày",
@@ -15787,11 +16765,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95512"
   },
   {
-    "STT": 789,
+    "STT": 798,
     "MA_DICH_VU": "10.0778.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy mâm chày + thân xương chày",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy mâm chày + thân xương chày",
@@ -15807,11 +16786,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95513"
   },
   {
-    "STT": 790,
+    "STT": 799,
     "MA_DICH_VU": "10.0779.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy thân xương chày",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy thân xương chày",
@@ -15827,11 +16807,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95514"
   },
   {
-    "STT": 791,
+    "STT": 800,
     "MA_DICH_VU": "10.0780.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy thân 2 xương cẳng chân",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy thân 2 xương cẳng chân",
@@ -15847,11 +16828,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95515"
   },
   {
-    "STT": 792,
+    "STT": 801,
     "MA_DICH_VU": "10.0781.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy xương mác đơn thuần",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy xương mác đơn thuần",
@@ -15867,11 +16849,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95516"
   },
   {
-    "STT": 793,
+    "STT": 802,
     "MA_DICH_VU": "10.0782.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy đầu dưới xương chày (Pilon)",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy đầu dưới xương chày (Pilon)",
@@ -15887,11 +16870,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95517"
   },
   {
-    "STT": 794,
+    "STT": 803,
     "MA_DICH_VU": "10.0783.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy 2 mắt cá cổ chân",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy 2 mắt cá cổ chân",
@@ -15907,11 +16891,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95518"
   },
   {
-    "STT": 795,
+    "STT": 804,
     "MA_DICH_VU": "10.0784.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy mắt cá trong",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy mắt cá trong",
@@ -15927,11 +16912,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95519"
   },
   {
-    "STT": 796,
+    "STT": 805,
     "MA_DICH_VU": "10.0785.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy mắt cá ngoài",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy mắt cá ngoài",
@@ -15947,11 +16933,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95520"
   },
   {
-    "STT": 797,
+    "STT": 806,
     "MA_DICH_VU": "10.0786.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy mắt cá kèm trật khớp cổ chân",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy mắt cá kèm trật khớp cổ chân",
@@ -15967,11 +16954,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95521"
   },
   {
-    "STT": 798,
+    "STT": 807,
     "MA_DICH_VU": "10.0787.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy trật xương sên",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy trật xương sên",
@@ -15987,11 +16975,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95522"
   },
   {
-    "STT": 799,
+    "STT": 808,
     "MA_DICH_VU": "10.0788.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy xương gót",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy xương gót",
@@ -16007,11 +16996,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95523"
   },
   {
-    "STT": 800,
+    "STT": 809,
     "MA_DICH_VU": "10.0789.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy trật xương gót",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy trật xương gót",
@@ -16027,11 +17017,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95524"
   },
   {
-    "STT": 801,
+    "STT": 810,
     "MA_DICH_VU": "10.0790.0548",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương trật khớp Lisfranc",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương trật khớp Lisfranc",
@@ -16047,11 +17038,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95563"
   },
   {
-    "STT": 802,
+    "STT": 811,
     "MA_DICH_VU": "10.0790.0548_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương trật khớp Lisfranc",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương trật khớp Lisfranc",
@@ -16067,11 +17059,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95411"
   },
   {
-    "STT": 803,
+    "STT": 812,
     "MA_DICH_VU": "10.0791.0548",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy trật đốt bàn ngón chân",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy trật đốt bàn ngón chân",
@@ -16087,11 +17080,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95564"
   },
   {
-    "STT": 804,
+    "STT": 813,
     "MA_DICH_VU": "10.0791.0548_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy trật đốt bàn ngón chân",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy trật đốt bàn ngón chân",
@@ -16107,11 +17101,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95412"
   },
   {
-    "STT": 805,
+    "STT": 814,
     "MA_DICH_VU": "10.0792.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy nèn đốt bàn ngón 5 (bàn chân)",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy nèn đốt bàn ngón 5 (bàn chân)",
@@ -16127,11 +17122,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95525"
   },
   {
-    "STT": 806,
+    "STT": 815,
     "MA_DICH_VU": "10.0793.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở độ I hai xương cẳng chân",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở độ I hai xương cẳng chân",
@@ -16147,11 +17143,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95526"
   },
   {
-    "STT": 807,
+    "STT": 816,
     "MA_DICH_VU": "10.0794.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở độ II hai xương cẳng chân",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở độ II hai xương cẳng chân",
@@ -16167,11 +17164,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95527"
   },
   {
-    "STT": 808,
+    "STT": 817,
     "MA_DICH_VU": "10.0795.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở độ III hai xương cẳng chân",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở độ III hai xương cẳng chân",
@@ -16187,11 +17185,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95528"
   },
   {
-    "STT": 809,
+    "STT": 818,
     "MA_DICH_VU": "10.0796.0548",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở độ II trên và liên lồi cầu xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở độ II trên và liên lồi cầu xương đùi",
@@ -16207,11 +17206,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95565"
   },
   {
-    "STT": 810,
+    "STT": 819,
     "MA_DICH_VU": "10.0796.0548_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở độ II trên và liên lồi cầu xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở độ II trên và liên lồi cầu xương đùi",
@@ -16227,11 +17227,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95413"
   },
   {
-    "STT": 811,
+    "STT": 820,
     "MA_DICH_VU": "10.0797.0548",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở độ III trên và liên lồi cầu xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở độ III trên và liên lồi cầu xương đùi",
@@ -16247,11 +17248,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm kim hoặc đinh.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95566"
   },
   {
-    "STT": 812,
+    "STT": 821,
     "MA_DICH_VU": "10.0797.0548_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở độ III trên và liên lồi cầu xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở độ III trên và liên lồi cầu xương đùi",
@@ -16267,11 +17269,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm kim hoặc đinh, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95414"
   },
   {
-    "STT": 813,
+    "STT": 822,
     "MA_DICH_VU": "10.0798.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở I thân hai xương cẳng tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở I thân hai xương cẳng tay",
@@ -16287,11 +17290,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95529"
   },
   {
-    "STT": 814,
+    "STT": 823,
     "MA_DICH_VU": "10.0799.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở II thân hai xương cẳng tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở II thân hai xương cẳng tay",
@@ -16307,11 +17311,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95530"
   },
   {
-    "STT": 815,
+    "STT": 824,
     "MA_DICH_VU": "10.0800.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở III thân hai xương cẳng tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở III thân hai xương cẳng tay",
@@ -16327,11 +17332,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95531"
   },
   {
-    "STT": 816,
+    "STT": 825,
     "MA_DICH_VU": "10.0801.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở độ I thân xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở độ I thân xương cánh tay",
@@ -16347,11 +17353,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95532"
   },
   {
-    "STT": 817,
+    "STT": 826,
     "MA_DICH_VU": "10.0802.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở độ II thân xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở độ II thân xương cánh tay",
@@ -16367,11 +17374,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95533"
   },
   {
-    "STT": 818,
+    "STT": 827,
     "MA_DICH_VU": "10.0803.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở độ III thân xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở độ III thân xương cánh tay",
@@ -16387,11 +17395,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95534"
   },
   {
-    "STT": 819,
+    "STT": 828,
     "MA_DICH_VU": "10.0804.0548",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở liên lồi cầu xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở liên lồi cầu xương cánh tay",
@@ -16407,11 +17416,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95567"
   },
   {
-    "STT": 820,
+    "STT": 829,
     "MA_DICH_VU": "10.0804.0548_GT",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy hở liên lồi cầu xương cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy hở liên lồi cầu xương cánh tay",
@@ -16427,11 +17437,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm kim hoặc đinh, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95415"
   },
   {
-    "STT": 821,
+    "STT": 830,
     "MA_DICH_VU": "10.0815.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy xương đốt bàn ngón tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy xương đốt bàn ngón tay",
@@ -16447,11 +17458,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95535"
   },
   {
-    "STT": 822,
+    "STT": 831,
     "MA_DICH_VU": "10.0816.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy nội khớp xương khớp ngón tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy nội khớp xương khớp ngón tay",
@@ -16467,11 +17479,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95536"
   },
   {
-    "STT": 823,
+    "STT": 832,
     "MA_DICH_VU": "10.0817.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy lồi cầu xương khớp ngón tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy lồi cầu xương khớp ngón tay",
@@ -16487,11 +17500,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95537"
   },
   {
-    "STT": 824,
+    "STT": 833,
     "MA_DICH_VU": "10.0820.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy đầu dưới xương quay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy đầu dưới xương quay",
@@ -16507,11 +17521,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95538"
   },
   {
-    "STT": 825,
+    "STT": 834,
     "MA_DICH_VU": "10.0821.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy nội khớp đầu dưới xương quay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy nội khớp đầu dưới xương quay",
@@ -16527,11 +17542,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95539"
   },
   {
-    "STT": 826,
+    "STT": 835,
     "MA_DICH_VU": "10.0824.0559",
     "TEN_DICH_VU": "Phẫu thuật tái tạo dây chằng xương thuyền",
     "TEN_DVKT_GIA": "Phẫu thuật tái tạo dây chằng xương thuyền",
@@ -16547,11 +17563,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm gân nhân tạo.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95358"
   },
   {
-    "STT": 827,
+    "STT": 836,
     "MA_DICH_VU": "10.0824.0559_GT",
     "TEN_DICH_VU": "Phẫu thuật tái tạo dây chằng xương thuyền",
     "TEN_DVKT_GIA": "Phẫu thuật tái tạo dây chằng xương thuyền",
@@ -16567,11 +17584,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm gân nhân tạo, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95180"
   },
   {
-    "STT": 828,
+    "STT": 837,
     "MA_DICH_VU": "10.0827.0557",
     "TEN_DICH_VU": "kết hợp xương qua da bằng K.Wire gãy đầu dưới xương quay",
     "TEN_DVKT_GIA": "kết hợp xương qua da bằng K.Wire gãy đầu dưới xương quay",
@@ -16587,11 +17605,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95602"
   },
   {
-    "STT": 829,
+    "STT": 838,
     "MA_DICH_VU": "10.0832.0344",
     "TEN_DICH_VU": "Phẫu thuật điều trị hội chứng ống cổ tay",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị hội chứng ống cổ tay",
@@ -16607,11 +17626,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95209"
   },
   {
-    "STT": 830,
+    "STT": 839,
     "MA_DICH_VU": "10.0833.0344",
     "TEN_DICH_VU": "Phẫu thuật điều trị hội chứng chền ép thần kinh trụ",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị hội chứng chền ép thần kinh trụ",
@@ -16627,11 +17647,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95210"
   },
   {
-    "STT": 831,
+    "STT": 840,
     "MA_DICH_VU": "10.0834.0344",
     "TEN_DICH_VU": "Phẫu thuật điều trị hội chứng chền ép thần kinh quay",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị hội chứng chền ép thần kinh quay",
@@ -16647,11 +17668,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95211"
   },
   {
-    "STT": 832,
+    "STT": 841,
     "MA_DICH_VU": "10.0840.0559",
     "TEN_DICH_VU": "Khâu tổn thương gân gấp bàn tay ở vùng II",
     "TEN_DVKT_GIA": "Khâu tổn thương gân gấp bàn tay ở vùng II",
@@ -16667,11 +17689,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm gân nhân tạo.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95359"
   },
   {
-    "STT": 833,
+    "STT": 842,
     "MA_DICH_VU": "10.0840.0559_GT",
     "TEN_DICH_VU": "Khâu tổn thương gân gấp bàn tay ở vùng II",
     "TEN_DVKT_GIA": "Khâu tổn thương gân gấp bàn tay ở vùng II",
@@ -16687,11 +17710,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm gân nhân tạo, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95181"
   },
   {
-    "STT": 834,
+    "STT": 843,
     "MA_DICH_VU": "10.0843.0550",
     "TEN_DICH_VU": "Phẫu thuật điều trị bệnh DE QUER VAIN và ngón tay cò súng",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị bệnh DE QUER VAIN và ngón tay cò súng",
@@ -16707,11 +17731,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm đinh, nẹp, vít, gân nhân tạo, gân sinh học, khung cố định ngoài, xương nhân tạo hoặc sản phẩm sinh học thay thế xương.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95434"
   },
   {
-    "STT": 835,
+    "STT": 844,
     "MA_DICH_VU": "10.0843.0550_GT",
     "TEN_DICH_VU": "Phẫu thuật điều trị bệnh DE QUER VAIN và ngón tay cò súng",
     "TEN_DVKT_GIA": "Phẫu thuật điều trị bệnh DE QUER VAIN và ngón tay cò súng",
@@ -16727,11 +17752,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm đinh, nẹp, vít, gân nhân tạo, gân sinh học, khung cố định ngoài, xương nhân tạo hoặc sản phẩm sinh học thay thế xương, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95330"
   },
   {
-    "STT": 836,
+    "STT": 845,
     "MA_DICH_VU": "10.0851.0571",
     "TEN_DICH_VU": "Phẫu thuật tạo hình điều trị tật thừa ngón tay",
     "TEN_DVKT_GIA": "Phẫu thuật tạo hình điều trị tật thừa ngón tay",
@@ -16747,11 +17773,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95350"
   },
   {
-    "STT": 837,
+    "STT": 846,
     "MA_DICH_VU": "10.0851.0571_GT",
     "TEN_DICH_VU": "Phẫu thuật tạo hình điều trị tật thừa ngón tay",
     "TEN_DVKT_GIA": "Phẫu thuật tạo hình điều trị tật thừa ngón tay",
@@ -16767,11 +17794,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95162"
   },
   {
-    "STT": 838,
+    "STT": 847,
     "MA_DICH_VU": "10.0862.0571",
     "TEN_DICH_VU": "Phẫu thuật làm mỏm cụt ngón và đốt bàn ngón",
     "TEN_DVKT_GIA": "Phẫu thuật làm mỏm cụt ngón và đốt bàn ngón",
@@ -16787,11 +17815,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95351"
   },
   {
-    "STT": 839,
+    "STT": 848,
     "MA_DICH_VU": "10.0862.0571_GT",
     "TEN_DICH_VU": "Phẫu thuật làm mỏm cụt ngón và đốt bàn ngón",
     "TEN_DVKT_GIA": "Phẫu thuật làm mỏm cụt ngón và đốt bàn ngón",
@@ -16807,11 +17836,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95163"
   },
   {
-    "STT": 840,
+    "STT": 849,
     "MA_DICH_VU": "10.0863.0534",
     "TEN_DICH_VU": "Phẫu thuật cắt cụt cẳng tay, cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật cắt cụt cẳng tay, cánh tay",
@@ -16827,11 +17857,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95453"
   },
   {
-    "STT": 841,
+    "STT": 850,
     "MA_DICH_VU": "10.0863.0534_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt cụt cẳng tay, cánh tay",
     "TEN_DVKT_GIA": "Phẫu thuật cắt cụt cẳng tay, cánh tay",
@@ -16847,11 +17878,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95326"
   },
   {
-    "STT": 842,
+    "STT": 851,
     "MA_DICH_VU": "10.0874.0571",
     "TEN_DICH_VU": "Cụt chấn thương cổ và bàn chân",
     "TEN_DVKT_GIA": "Cụt chấn thương cổ và bàn chân",
@@ -16867,11 +17899,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95352"
   },
   {
-    "STT": 843,
+    "STT": 852,
     "MA_DICH_VU": "10.0874.0571_GT",
     "TEN_DICH_VU": "Cụt chấn thương cổ và bàn chân",
     "TEN_DVKT_GIA": "Cụt chấn thương cổ và bàn chân",
@@ -16887,11 +17920,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95164"
   },
   {
-    "STT": 844,
+    "STT": 853,
     "MA_DICH_VU": "10.0882.0559",
     "TEN_DICH_VU": "Phẫu thuật đứt gân cơ nhị đầu",
     "TEN_DVKT_GIA": "Phẫu thuật đứt gân cơ nhị đầu",
@@ -16907,11 +17941,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm gân nhân tạo.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95360"
   },
   {
-    "STT": 845,
+    "STT": 854,
     "MA_DICH_VU": "10.0882.0559_GT",
     "TEN_DICH_VU": "Phẫu thuật đứt gân cơ nhị đầu",
     "TEN_DVKT_GIA": "Phẫu thuật đứt gân cơ nhị đầu",
@@ -16927,11 +17962,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm gân nhân tạo, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95182"
   },
   {
-    "STT": 846,
+    "STT": 855,
     "MA_DICH_VU": "10.0912.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy phức tạp vùng khuỷu",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy phức tạp vùng khuỷu",
@@ -16947,11 +17983,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95540"
   },
   {
-    "STT": 847,
+    "STT": 856,
     "MA_DICH_VU": "10.0915.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy 2 xương cẳng tay",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy 2 xương cẳng tay",
@@ -16967,11 +18004,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95541"
   },
   {
-    "STT": 848,
+    "STT": 857,
     "MA_DICH_VU": "10.0917.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy thân xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy thân xương đùi",
@@ -16987,11 +18025,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95542"
   },
   {
-    "STT": 849,
+    "STT": 858,
     "MA_DICH_VU": "10.0918.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy đầu dưới xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy đầu dưới xương đùi",
@@ -17007,11 +18046,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95543"
   },
   {
-    "STT": 850,
+    "STT": 859,
     "MA_DICH_VU": "10.0920.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy thân xương cẳng chân",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy thân xương cẳng chân",
@@ -17027,11 +18067,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95544"
   },
   {
-    "STT": 851,
+    "STT": 860,
     "MA_DICH_VU": "10.0923.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy bong sụn vùng cổ xương đùi",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy bong sụn vùng cổ xương đùi",
@@ -17047,11 +18088,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95545"
   },
   {
-    "STT": 852,
+    "STT": 861,
     "MA_DICH_VU": "10.0924.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy sụn tăng trưởng ở đầu xương",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy sụn tăng trưởng ở đầu xương",
@@ -17067,11 +18109,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95546"
   },
   {
-    "STT": 853,
+    "STT": 862,
     "MA_DICH_VU": "10.0925.0556",
     "TEN_DICH_VU": "Phẫu thuật kết hợp xương gãy xương bệnh lý",
     "TEN_DVKT_GIA": "Phẫu thuật kết hợp xương gãy xương bệnh lý",
@@ -17087,11 +18130,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95547"
   },
   {
-    "STT": 854,
+    "STT": 863,
     "MA_DICH_VU": "10.0930.0543",
     "TEN_DICH_VU": "Phẫu thuật thay khớp háng bán phần [tạo hình]",
     "TEN_DVKT_GIA": "Phẫu thuật thay khớp háng bán phần [tạo hình]",
@@ -17107,11 +18151,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm đinh, nẹp, vít, ốc, khóa.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95422"
   },
   {
-    "STT": 855,
+    "STT": 864,
     "MA_DICH_VU": "10.0934.0563",
     "TEN_DICH_VU": "Rút đinh/tháo phương tiện kết hợp xương",
     "TEN_DVKT_GIA": "Rút đinh/tháo phương tiện kết hợp xương",
@@ -17127,11 +18172,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95048"
   },
   {
-    "STT": 856,
+    "STT": 865,
     "MA_DICH_VU": "10.0942.0534",
     "TEN_DICH_VU": "Phẫu thuật cắt cụt chi",
     "TEN_DVKT_GIA": "Phẫu thuật cắt cụt chi",
@@ -17147,11 +18193,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95454"
   },
   {
-    "STT": 857,
+    "STT": 866,
     "MA_DICH_VU": "10.0942.0534_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt cụt chi",
     "TEN_DVKT_GIA": "Phẫu thuật cắt cụt chi",
@@ -17167,11 +18214,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95327"
   },
   {
-    "STT": 858,
+    "STT": 867,
     "MA_DICH_VU": "10.0943.0534",
     "TEN_DICH_VU": "Phẫu thuật tháo khớp chi",
     "TEN_DVKT_GIA": "Phẫu thuật tháo khớp chi",
@@ -17187,11 +18235,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95455"
   },
   {
-    "STT": 859,
+    "STT": 868,
     "MA_DICH_VU": "10.0943.0534_GT",
     "TEN_DICH_VU": "Phẫu thuật tháo khớp chi",
     "TEN_DVKT_GIA": "Phẫu thuật tháo khớp chi",
@@ -17207,11 +18256,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95328"
   },
   {
-    "STT": 860,
+    "STT": 869,
     "MA_DICH_VU": "10.0950.0549",
     "TEN_DICH_VU": "Phẫu thuật làm cứng khớp gối",
     "TEN_DVKT_GIA": "Phẫu thuật làm cứng khớp gối",
@@ -17227,11 +18277,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm đinh, nẹp vít, khung cố định ngoài.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95456"
   },
   {
-    "STT": 861,
+    "STT": 870,
     "MA_DICH_VU": "10.0950.0549_GT",
     "TEN_DICH_VU": "Phẫu thuật làm cứng khớp gối",
     "TEN_DVKT_GIA": "Phẫu thuật làm cứng khớp gối",
@@ -17247,11 +18298,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm đinh, nẹp vít, khung cố định ngoài, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95353"
   },
   {
-    "STT": 862,
+    "STT": 871,
     "MA_DICH_VU": "10.0951.0551",
     "TEN_DICH_VU": "Phẫu thuật gỡ dính khớp gối",
     "TEN_DVKT_GIA": "Phẫu thuật gỡ dính khớp gối",
@@ -17267,11 +18319,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95296"
   },
   {
-    "STT": 863,
+    "STT": 872,
     "MA_DICH_VU": "10.0951.0551_GT",
     "TEN_DICH_VU": "Phẫu thuật gỡ dính khớp gối",
     "TEN_DVKT_GIA": "Phẫu thuật gỡ dính khớp gối",
@@ -17287,11 +18340,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95121"
   },
   {
-    "STT": 864,
+    "STT": 873,
     "MA_DICH_VU": "10.0954.0576",
     "TEN_DICH_VU": "Phẫu thuật vết thương phần mềm đơn giản/rách da đầu",
     "TEN_DVKT_GIA": "Phẫu thuật vết thương phần mềm đơn giản/rách da đầu",
@@ -17307,11 +18361,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95226"
   },
   {
-    "STT": 865,
+    "STT": 874,
     "MA_DICH_VU": "10.0954.0576_GT",
     "TEN_DICH_VU": "Phẫu thuật vết thương phần mềm đơn giản/rách da đầu",
     "TEN_DVKT_GIA": "Phẫu thuật vết thương phần mềm đơn giản/rách da đầu",
@@ -17327,11 +18382,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95072"
   },
   {
-    "STT": 866,
+    "STT": 875,
     "MA_DICH_VU": "10.0964.0559",
     "TEN_DICH_VU": "Phẫu thuật nối gân gấp/kéo dài gân (1 gân)",
     "TEN_DVKT_GIA": "Phẫu thuật nối gân gấp/kéo dài gân (1 gân)",
@@ -17347,11 +18403,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm gân nhân tạo.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95361"
   },
   {
-    "STT": 867,
+    "STT": 876,
     "MA_DICH_VU": "10.0964.0559_GT",
     "TEN_DICH_VU": "Phẫu thuật nối gân gấp/kéo dài gân (1 gân)",
     "TEN_DVKT_GIA": "Phẫu thuật nối gân gấp/kéo dài gân (1 gân)",
@@ -17367,11 +18424,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm gân nhân tạo, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95183"
   },
   {
-    "STT": 868,
+    "STT": 877,
     "MA_DICH_VU": "10.0965.0344",
     "TEN_DICH_VU": "Phẫu thuật giải ép thần kinh (ống cổ tay, Khuỷu…)",
     "TEN_DVKT_GIA": "Phẫu thuật giải ép thần kinh (ống cổ tay, Khuỷu…)",
@@ -17387,11 +18445,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95212"
   },
   {
-    "STT": 869,
+    "STT": 878,
     "MA_DICH_VU": "10.0966.0572",
     "TEN_DICH_VU": "Phẫu thuật nối thần kinh (1 dây)",
     "TEN_DVKT_GIA": "Phẫu thuật nối thần kinh (1 dây)",
@@ -17407,11 +18466,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95369"
   },
   {
-    "STT": 870,
+    "STT": 879,
     "MA_DICH_VU": "10.0966.0572_GT",
     "TEN_DICH_VU": "Phẫu thuật nối thần kinh (1 dây)",
     "TEN_DVKT_GIA": "Phẫu thuật nối thần kinh (1 dây)",
@@ -17427,11 +18487,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95216"
   },
   {
-    "STT": 871,
+    "STT": 880,
     "MA_DICH_VU": "10.0973.0551",
     "TEN_DICH_VU": "Phẫu thuật gỡ dính gân gấp",
     "TEN_DVKT_GIA": "Phẫu thuật gỡ dính gân gấp",
@@ -17447,11 +18508,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95297"
   },
   {
-    "STT": 872,
+    "STT": 881,
     "MA_DICH_VU": "10.0973.0551_GT",
     "TEN_DICH_VU": "Phẫu thuật gỡ dính gân gấp",
     "TEN_DVKT_GIA": "Phẫu thuật gỡ dính gân gấp",
@@ -17467,11 +18529,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95122"
   },
   {
-    "STT": 873,
+    "STT": 882,
     "MA_DICH_VU": "10.0974.0551",
     "TEN_DICH_VU": "Phẫu thuật gỡ dính gân duỗi",
     "TEN_DVKT_GIA": "Phẫu thuật gỡ dính gân duỗi",
@@ -17487,11 +18550,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95298"
   },
   {
-    "STT": 874,
+    "STT": 883,
     "MA_DICH_VU": "10.0974.0551_GT",
     "TEN_DICH_VU": "Phẫu thuật gỡ dính gân duỗi",
     "TEN_DVKT_GIA": "Phẫu thuật gỡ dính gân duỗi",
@@ -17507,11 +18571,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95123"
   },
   {
-    "STT": 875,
+    "STT": 884,
     "MA_DICH_VU": "10.0975.0551",
     "TEN_DICH_VU": "Phẫu thuật gỡ dính thần kinh",
     "TEN_DVKT_GIA": "Phẫu thuật gỡ dính thần kinh",
@@ -17527,11 +18592,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95299"
   },
   {
-    "STT": 876,
+    "STT": 885,
     "MA_DICH_VU": "10.0975.0551_GT",
     "TEN_DICH_VU": "Phẫu thuật gỡ dính thần kinh",
     "TEN_DVKT_GIA": "Phẫu thuật gỡ dính thần kinh",
@@ -17547,11 +18613,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95124"
   },
   {
-    "STT": 877,
+    "STT": 886,
     "MA_DICH_VU": "10.0984.0563",
     "TEN_DICH_VU": "Phẫu thuật rút nẹp, dụng cụ kết hợp xương",
     "TEN_DVKT_GIA": "Phẫu thuật rút nẹp, dụng cụ kết hợp xương",
@@ -17567,11 +18634,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95049"
   },
   {
-    "STT": 878,
+    "STT": 887,
     "MA_DICH_VU": "10.0985.0519",
     "TEN_DICH_VU": "Nắn, bó bột giai đoạn trong hội chứng Volkmann [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột giai đoạn trong hội chứng Volkmann [bột liền]",
@@ -17587,11 +18655,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94603"
   },
   {
-    "STT": 879,
+    "STT": 888,
     "MA_DICH_VU": "10.0985.0520",
     "TEN_DICH_VU": "Nắn, bó bột giai đoạn trong hội chứng Volkmann [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột giai đoạn trong hội chứng Volkmann [bột tự cán]",
@@ -17607,11 +18676,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94487"
   },
   {
-    "STT": 880,
+    "STT": 889,
     "MA_DICH_VU": "10.0986.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy cổ xương đùi, vỡ ổ cối và trật khớp háng  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy cổ xương đùi, vỡ ổ cối và trật khớp háng  [bột liền]",
@@ -17627,11 +18697,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94896"
   },
   {
-    "STT": 881,
+    "STT": 890,
     "MA_DICH_VU": "10.0986.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy cổ xương đùi, vỡ ổ cối và trật khớp háng [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy cổ xương đùi, vỡ ổ cối và trật khớp háng [bột tự cán]",
@@ -17647,11 +18718,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94783"
   },
   {
-    "STT": 882,
+    "STT": 891,
     "MA_DICH_VU": "10.0987.0525",
     "TEN_DICH_VU": "Nắn, bó bột chỉnh hình chân chữ 0  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột chỉnh hình chân chữ 0  [bột liền]",
@@ -17667,11 +18739,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94755"
   },
   {
-    "STT": 883,
+    "STT": 892,
     "MA_DICH_VU": "10.0987.0526",
     "TEN_DICH_VU": "Nắn, bó bột chỉnh hình chân chữ 0 [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột chỉnh hình chân chữ 0 [bột tự cán]",
@@ -17687,11 +18760,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94686"
   },
   {
-    "STT": 884,
+    "STT": 893,
     "MA_DICH_VU": "10.0988.0525",
     "TEN_DICH_VU": "Nắn, bó bột chỉnh hình chân chữ X  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột chỉnh hình chân chữ X  [bột liền]",
@@ -17707,11 +18781,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94756"
   },
   {
-    "STT": 885,
+    "STT": 894,
     "MA_DICH_VU": "10.0988.0526",
     "TEN_DICH_VU": "Nắn, bó bột chỉnh hình chân chữ X [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột chỉnh hình chân chữ X [bột tự cán]",
@@ -17727,11 +18802,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94687"
   },
   {
-    "STT": 886,
+    "STT": 895,
     "MA_DICH_VU": "10.0989.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên xương đùi  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên xương đùi  [bột liền]",
@@ -17747,11 +18823,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94897"
   },
   {
-    "STT": 887,
+    "STT": 896,
     "MA_DICH_VU": "10.0989.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên xương đùi [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên xương đùi [bột tự cán]",
@@ -17767,11 +18844,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94784"
   },
   {
-    "STT": 888,
+    "STT": 897,
     "MA_DICH_VU": "10.0990.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới xương đùi  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới xương đùi  [bột liền]",
@@ -17787,11 +18865,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94898"
   },
   {
-    "STT": 889,
+    "STT": 898,
     "MA_DICH_VU": "10.0990.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới xương đùi [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới xương đùi [bột tự cán]",
@@ -17807,11 +18886,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94785"
   },
   {
-    "STT": 890,
+    "STT": 899,
     "MA_DICH_VU": "10.0991.0523",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp háng bẩm sinh [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp háng bẩm sinh [bột liền]",
@@ -17827,11 +18907,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94934"
   },
   {
-    "STT": 891,
+    "STT": 900,
     "MA_DICH_VU": "10.0991.0524",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp háng bẩm sinh [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp háng bẩm sinh [bột tự cán]",
@@ -17847,11 +18928,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94736"
   },
   {
-    "STT": 892,
+    "STT": 901,
     "MA_DICH_VU": "10.0993.0515",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương hàm [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương hàm [bột liền]",
@@ -17867,11 +18949,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94814"
   },
   {
-    "STT": 893,
+    "STT": 902,
     "MA_DICH_VU": "10.0993.0516",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương hàm [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương hàm [bột tự cán]",
@@ -17887,11 +18970,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94595"
   },
   {
-    "STT": 894,
+    "STT": 903,
     "MA_DICH_VU": "10.0994.0529",
     "TEN_DICH_VU": "Nắn, bó bột cột sống  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột cột sống  [bột liền]",
@@ -17907,11 +18991,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94899"
   },
   {
-    "STT": 895,
+    "STT": 904,
     "MA_DICH_VU": "10.0994.0530",
     "TEN_DICH_VU": "Nắn, bó bột cột sống [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột cột sống [bột tự cán]",
@@ -17927,11 +19012,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94786"
   },
   {
-    "STT": 896,
+    "STT": 905,
     "MA_DICH_VU": "10.0995.0517",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp vai [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp vai [bột liền]",
@@ -17947,11 +19033,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94717"
   },
   {
-    "STT": 897,
+    "STT": 906,
     "MA_DICH_VU": "10.0995.0518",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp vai [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp vai [bột tự cán]",
@@ -17967,11 +19054,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94477"
   },
   {
-    "STT": 898,
+    "STT": 907,
     "MA_DICH_VU": "10.0996.0515",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương đòn [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương đòn [bột liền]",
@@ -17987,11 +19075,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94815"
   },
   {
-    "STT": 899,
+    "STT": 908,
     "MA_DICH_VU": "10.0996.0516",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương đòn [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương đòn [bột tự cán]",
@@ -18007,11 +19096,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94596"
   },
   {
-    "STT": 900,
+    "STT": 909,
     "MA_DICH_VU": "10.0997.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên thân xương cánh tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên thân xương cánh tay  [bột liền]",
@@ -18027,11 +19117,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94757"
   },
   {
-    "STT": 901,
+    "STT": 910,
     "MA_DICH_VU": "10.0997.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên thân xương cánh tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên thân xương cánh tay [bột tự cán]",
@@ -18047,11 +19138,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94688"
   },
   {
-    "STT": 902,
+    "STT": 911,
     "MA_DICH_VU": "10.0998.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa thân xương cánh tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa thân xương cánh tay  [bột liền]",
@@ -18067,11 +19159,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94758"
   },
   {
-    "STT": 903,
+    "STT": 912,
     "MA_DICH_VU": "10.0998.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa thân xương cánh tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa thân xương cánh tay [bột tự cán]",
@@ -18087,11 +19180,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94689"
   },
   {
-    "STT": 904,
+    "STT": 913,
     "MA_DICH_VU": "10.0999.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới thân xương cánh tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới thân xương cánh tay  [bột liền]",
@@ -18107,11 +19201,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94759"
   },
   {
-    "STT": 905,
+    "STT": 914,
     "MA_DICH_VU": "10.0999.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới thân xương cánh tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới thân xương cánh tay [bột tự cán]",
@@ -18127,11 +19222,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94690"
   },
   {
-    "STT": 906,
+    "STT": 915,
     "MA_DICH_VU": "10.1000.0515",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp khuỷu [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp khuỷu [bột liền]",
@@ -18147,11 +19243,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94816"
   },
   {
-    "STT": 907,
+    "STT": 916,
     "MA_DICH_VU": "10.1000.0516",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp khuỷu [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp khuỷu [bột tự cán]",
@@ -18167,11 +19264,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94597"
   },
   {
-    "STT": 908,
+    "STT": 917,
     "MA_DICH_VU": "10.1001.0515",
     "TEN_DICH_VU": "Nắn, bó bột bong sụn tiếp khớp khuỷu, khớp cổ tay [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột bong sụn tiếp khớp khuỷu, khớp cổ tay [bột liền]",
@@ -18187,11 +19285,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94817"
   },
   {
-    "STT": 909,
+    "STT": 918,
     "MA_DICH_VU": "10.1001.0516",
     "TEN_DICH_VU": "Nắn, bó bột bong sụn tiếp khớp khuỷu, khớp cổ tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột bong sụn tiếp khớp khuỷu, khớp cổ tay [bột tự cán]",
@@ -18207,11 +19306,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94598"
   },
   {
-    "STT": 910,
+    "STT": 919,
     "MA_DICH_VU": "10.1002.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy cổ xương cánh tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy cổ xương cánh tay  [bột liền]",
@@ -18227,11 +19327,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94760"
   },
   {
-    "STT": 911,
+    "STT": 920,
     "MA_DICH_VU": "10.1002.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy cổ xương cánh tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy cổ xương cánh tay [bột tự cán]",
@@ -18247,11 +19348,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94691"
   },
   {
-    "STT": 912,
+    "STT": 921,
     "MA_DICH_VU": "10.1003.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy trên lồi cầu xương cánh tay trẻ em độ III và độ IV [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy trên lồi cầu xương cánh tay trẻ em độ III và độ IV [bột liền]",
@@ -18267,11 +19369,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94761"
   },
   {
-    "STT": 913,
+    "STT": 922,
     "MA_DICH_VU": "10.1003.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy trên lồi cầu xương cánh tay trẻ em độ III và độ IV [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy trên lồi cầu xương cánh tay trẻ em độ III và độ IV [bột tự cán]",
@@ -18287,11 +19390,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94692"
   },
   {
-    "STT": 914,
+    "STT": 923,
     "MA_DICH_VU": "10.1004.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên hai xương cẳng tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên hai xương cẳng tay  [bột liền]",
@@ -18307,11 +19411,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94762"
   },
   {
-    "STT": 915,
+    "STT": 924,
     "MA_DICH_VU": "10.1004.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên hai xương cẳng tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên hai xương cẳng tay [bột tự cán]",
@@ -18327,11 +19432,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94693"
   },
   {
-    "STT": 916,
+    "STT": 925,
     "MA_DICH_VU": "10.1005.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng tay  [bột liền]",
@@ -18347,11 +19453,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94763"
   },
   {
-    "STT": 917,
+    "STT": 926,
     "MA_DICH_VU": "10.1005.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng tay [bột tự cán]",
@@ -18367,11 +19474,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94694"
   },
   {
-    "STT": 918,
+    "STT": 927,
     "MA_DICH_VU": "10.1006.0527",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng tay  [bột liền]",
@@ -18387,11 +19495,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94764"
   },
   {
-    "STT": 919,
+    "STT": 928,
     "MA_DICH_VU": "10.1006.0528",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng tay [bột tự cán]",
@@ -18407,11 +19516,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94695"
   },
   {
-    "STT": 920,
+    "STT": 929,
     "MA_DICH_VU": "10.1007.0521",
     "TEN_DICH_VU": "Nắn, bó bột gãy một xương cẳng tay  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy một xương cẳng tay  [bột liền]",
@@ -18427,11 +19537,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94765"
   },
   {
-    "STT": 921,
+    "STT": 930,
     "MA_DICH_VU": "10.1007.0522",
     "TEN_DICH_VU": "Nắn, bó bột gãy một xương cẳng tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy một xương cẳng tay [bột tự cán]",
@@ -18447,11 +19558,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94561"
   },
   {
-    "STT": 922,
+    "STT": 931,
     "MA_DICH_VU": "10.1008.0521",
     "TEN_DICH_VU": "Nắn, bó bột gãy Pouteau - Colles  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Pouteau - Colles  [bột liền]",
@@ -18467,11 +19579,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94766"
   },
   {
-    "STT": 923,
+    "STT": 932,
     "MA_DICH_VU": "10.1008.0522",
     "TEN_DICH_VU": "Nắn, bó bột gãy Pouteau - Colles [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Pouteau - Colles [bột tự cán]",
@@ -18487,11 +19600,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94562"
   },
   {
-    "STT": 924,
+    "STT": 933,
     "MA_DICH_VU": "10.1009.0519",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương bàn, ngón tay [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương bàn, ngón tay [bột liền]",
@@ -18507,11 +19621,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94604"
   },
   {
-    "STT": 925,
+    "STT": 934,
     "MA_DICH_VU": "10.1009.0520",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương bàn, ngón tay [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương bàn, ngón tay [bột tự cán]",
@@ -18527,11 +19642,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94488"
   },
   {
-    "STT": 926,
+    "STT": 935,
     "MA_DICH_VU": "10.1010.0523",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp háng [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp háng [bột liền]",
@@ -18547,11 +19663,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94935"
   },
   {
-    "STT": 927,
+    "STT": 936,
     "MA_DICH_VU": "10.1010.0524",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp háng [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp háng [bột tự cán]",
@@ -18567,11 +19684,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94737"
   },
   {
-    "STT": 928,
+    "STT": 937,
     "MA_DICH_VU": "10.1011.0513",
     "TEN_DICH_VU": "Nắn, bó bột trong bong sụn tiếp khớp gối, khớp háng [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trong bong sụn tiếp khớp gối, khớp háng [bột liền]",
@@ -18587,11 +19705,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94654"
   },
   {
-    "STT": 929,
+    "STT": 938,
     "MA_DICH_VU": "10.1011.0514",
     "TEN_DICH_VU": "Nắn, bó bột trong bong sụn tiếp khớp gối, khớp háng [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trong bong sụn tiếp khớp gối, khớp háng [bột tự cán]",
@@ -18607,11 +19726,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94473"
   },
   {
-    "STT": 930,
+    "STT": 939,
     "MA_DICH_VU": "10.1012.0525",
     "TEN_DICH_VU": "Nắn, bó bột gãy mâm chày  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy mâm chày  [bột liền]",
@@ -18627,11 +19747,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94767"
   },
   {
-    "STT": 931,
+    "STT": 940,
     "MA_DICH_VU": "10.1012.0526",
     "TEN_DICH_VU": "Nắn, bó bột gãy mâm chày [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy mâm chày [bột tự cán]",
@@ -18647,11 +19768,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94696"
   },
   {
-    "STT": 932,
+    "STT": 941,
     "MA_DICH_VU": "10.1013.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương chậu [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương chậu [bột liền]",
@@ -18667,11 +19789,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94900"
   },
   {
-    "STT": 933,
+    "STT": 942,
     "MA_DICH_VU": "10.1013.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương chậu [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương chậu [bột tự cán]",
@@ -18687,11 +19810,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94787"
   },
   {
-    "STT": 934,
+    "STT": 943,
     "MA_DICH_VU": "10.1014.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy cổ xương đùi  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy cổ xương đùi  [bột liền]",
@@ -18707,11 +19831,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94901"
   },
   {
-    "STT": 935,
+    "STT": 944,
     "MA_DICH_VU": "10.1014.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy Cổ xương đùi [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Cổ xương đùi [bột tự cán]",
@@ -18727,11 +19852,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94788"
   },
   {
-    "STT": 936,
+    "STT": 945,
     "MA_DICH_VU": "10.1015.0511",
     "TEN_DICH_VU": "Nắn, cố định trật khớp háng không chỉ định phẫu thuật [bột liền]",
     "TEN_DVKT_GIA": "Nắn, cố định trật khớp háng không chỉ định phẫu thuật [bột liền]",
@@ -18747,11 +19873,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94916"
   },
   {
-    "STT": 937,
+    "STT": 946,
     "MA_DICH_VU": "10.1015.0512",
     "TEN_DICH_VU": "Nắn, cố định trật khớp háng không chỉ định phẫu thuật [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, cố định trật khớp háng không chỉ định phẫu thuật [bột tự cán]",
@@ -18767,11 +19894,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94673"
   },
   {
-    "STT": 938,
+    "STT": 947,
     "MA_DICH_VU": "10.1016.0529",
     "TEN_DICH_VU": "Nắn, bó bột gãy lồi cầu xương đùi  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy lồi cầu xương đùi  [bột liền]",
@@ -18787,11 +19915,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94902"
   },
   {
-    "STT": 939,
+    "STT": 948,
     "MA_DICH_VU": "10.1016.0530",
     "TEN_DICH_VU": "Nắn, bó bột gãy lồi cầu xương đùi [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy lồi cầu xương đùi [bột tự cán]",
@@ -18807,11 +19936,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94789"
   },
   {
-    "STT": 940,
+    "STT": 949,
     "MA_DICH_VU": "10.1017.0533",
     "TEN_DICH_VU": "Bó bột ống trong gãy xương bánh chè",
     "TEN_DVKT_GIA": "Bó bột ống trong gãy xương bánh chè",
@@ -18827,11 +19957,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94455"
   },
   {
-    "STT": 941,
+    "STT": 950,
     "MA_DICH_VU": "10.1018.0513",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp gối [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp gối [bột liền]",
@@ -18847,11 +19978,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94655"
   },
   {
-    "STT": 942,
+    "STT": 951,
     "MA_DICH_VU": "10.1018.0514",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp gối [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp gối [bột tự cán]",
@@ -18867,11 +19999,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94474"
   },
   {
-    "STT": 943,
+    "STT": 952,
     "MA_DICH_VU": "10.1019.0525",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên hai xương cẳng chân  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên hai xương cẳng chân  [bột liền]",
@@ -18887,11 +20020,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94768"
   },
   {
-    "STT": 944,
+    "STT": 953,
     "MA_DICH_VU": "10.1019.0526",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 trên hai xương cẳng chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 trên hai xương cẳng chân [bột tự cán]",
@@ -18907,11 +20041,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94697"
   },
   {
-    "STT": 945,
+    "STT": 954,
     "MA_DICH_VU": "10.1020.0525",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng chân  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng chân  [bột liền]",
@@ -18927,11 +20062,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94769"
   },
   {
-    "STT": 946,
+    "STT": 955,
     "MA_DICH_VU": "10.1020.0526",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 giữa hai xương cẳng chân [bột tự cán]",
@@ -18947,11 +20083,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94698"
   },
   {
-    "STT": 947,
+    "STT": 956,
     "MA_DICH_VU": "10.1021.0525",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng chân  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng chân  [bột liền]",
@@ -18967,11 +20104,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94770"
   },
   {
-    "STT": 948,
+    "STT": 957,
     "MA_DICH_VU": "10.1021.0526",
     "TEN_DICH_VU": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy 1/3 dưới hai xương cẳng chân [bột tự cán]",
@@ -18987,11 +20125,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94699"
   },
   {
-    "STT": 949,
+    "STT": 958,
     "MA_DICH_VU": "10.1022.0519",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương chày [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương chày [bột liền]",
@@ -19007,11 +20146,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94605"
   },
   {
-    "STT": 950,
+    "STT": 959,
     "MA_DICH_VU": "10.1022.0520",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương chày [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương chày [bột tự cán]",
@@ -19027,11 +20167,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94489"
   },
   {
-    "STT": 951,
+    "STT": 960,
     "MA_DICH_VU": "10.1023.0532",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương gót",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương gót",
@@ -19047,11 +20188,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94456"
   },
   {
-    "STT": 952,
+    "STT": 961,
     "MA_DICH_VU": "10.1024.0519",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương ngón chân [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương ngón chân [bột liền]",
@@ -19067,11 +20209,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94606"
   },
   {
-    "STT": 953,
+    "STT": 962,
     "MA_DICH_VU": "10.1024.0520",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương ngón chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương ngón chân [bột tự cán]",
@@ -19087,11 +20230,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94490"
   },
   {
-    "STT": 954,
+    "STT": 963,
     "MA_DICH_VU": "10.1025.0517",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp cùng đòn [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp cùng đòn [bột liền]",
@@ -19107,11 +20251,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94718"
   },
   {
-    "STT": 955,
+    "STT": 964,
     "MA_DICH_VU": "10.1025.0518",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp cùng đòn [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp cùng đòn [bột tự cán]",
@@ -19127,11 +20272,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94478"
   },
   {
-    "STT": 956,
+    "STT": 965,
     "MA_DICH_VU": "10.1026.0525",
     "TEN_DICH_VU": "Nắn, bó bột gãy Dupuptren  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Dupuptren  [bột liền]",
@@ -19147,11 +20293,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94771"
   },
   {
-    "STT": 957,
+    "STT": 966,
     "MA_DICH_VU": "10.1026.0526",
     "TEN_DICH_VU": "Nắn, bó bột gãy Dupuptren [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Dupuptren [bột tự cán]",
@@ -19167,11 +20314,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94700"
   },
   {
-    "STT": 958,
+    "STT": 967,
     "MA_DICH_VU": "10.1027.0521",
     "TEN_DICH_VU": "Nắn, bó bột gãy Monteggia  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Monteggia  [bột liền]",
@@ -19187,11 +20335,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94772"
   },
   {
-    "STT": 959,
+    "STT": 968,
     "MA_DICH_VU": "10.1027.0522",
     "TEN_DICH_VU": "Nắn, bó bột gãy Monteggia [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy Monteggia [bột tự cán]",
@@ -19207,11 +20356,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94563"
   },
   {
-    "STT": 960,
+    "STT": 969,
     "MA_DICH_VU": "10.1028.0519",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương bàn chân  [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương bàn chân  [bột liền]",
@@ -19227,11 +20377,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94607"
   },
   {
-    "STT": 961,
+    "STT": 970,
     "MA_DICH_VU": "10.1028.0520",
     "TEN_DICH_VU": "Nắn, bó bột gãy xương bàn chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột gãy xương bàn chân [bột tự cán]",
@@ -19247,11 +20398,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94491"
   },
   {
-    "STT": 962,
+    "STT": 971,
     "MA_DICH_VU": "10.1029.0515",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp xương đòn [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp xương đòn [bột liền]",
@@ -19267,11 +20419,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94818"
   },
   {
-    "STT": 963,
+    "STT": 972,
     "MA_DICH_VU": "10.1029.0516",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp xương đòn [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp xương đòn [bột tự cán]",
@@ -19287,11 +20440,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94599"
   },
   {
-    "STT": 964,
+    "STT": 973,
     "MA_DICH_VU": "10.1031.0513",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp cổ chân [bột liền]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp cổ chân [bột liền]",
@@ -19307,11 +20461,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94656"
   },
   {
-    "STT": 965,
+    "STT": 974,
     "MA_DICH_VU": "10.1031.0514",
     "TEN_DICH_VU": "Nắn, bó bột trật khớp cổ chân [bột tự cán]",
     "TEN_DVKT_GIA": "Nắn, bó bột trật khớp cổ chân [bột tự cán]",
@@ -19327,11 +20482,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94475"
   },
   {
-    "STT": 966,
+    "STT": 975,
     "MA_DICH_VU": "10.19",
     "TEN_DICH_VU": "Khám Ngoại tổng hợp",
     "TEN_DVKT_GIA": "Khám Ngoại tổng hợp",
@@ -19347,11 +20503,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": "",
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94082"
   },
   {
-    "STT": 967,
+    "STT": 976,
     "MA_DICH_VU": "10.9002.0504_BS",
     "TEN_DICH_VU": "Cắt phymosis [thủ thuật]",
     "TEN_DVKT_GIA": "Cắt phymosis [thủ thuật]",
@@ -19367,11 +20524,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94620"
   },
   {
-    "STT": 968,
+    "STT": 977,
     "MA_DICH_VU": "11.0003.1150",
     "TEN_DICH_VU": "Thay băng điều trị vết bỏng từ 20% - 39% diện tích cơ thể ở người lớn",
     "TEN_DVKT_GIA": "Thay băng điều trị vết bỏng từ 20% - 39% diện tích cơ thể ở người lớn",
@@ -19387,11 +20545,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94872"
   },
   {
-    "STT": 969,
+    "STT": 978,
     "MA_DICH_VU": "11.0004.1149",
     "TEN_DICH_VU": "Thay băng điều trị vết bỏng từ 10% - 19% diện tích cơ thể ở người lớn",
     "TEN_DVKT_GIA": "Thay băng điều trị vết bỏng từ 10% - 19% diện tích cơ thể ở người lớn",
@@ -19407,11 +20566,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94827"
   },
   {
-    "STT": 970,
+    "STT": 979,
     "MA_DICH_VU": "11.0005.1148",
     "TEN_DICH_VU": "Thay băng điều trị vết bỏng dưới 10% diện tích cơ thể ở người lớn [dưới 10% diện tích cơ thể]",
     "TEN_DVKT_GIA": "Thay băng điều trị vết bỏng dưới 10% diện tích cơ thể ở người lớn [dưới 10% diện tích cơ thể]",
@@ -19427,11 +20587,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94609"
   },
   {
-    "STT": 971,
+    "STT": 980,
     "MA_DICH_VU": "11.0005.2043",
     "TEN_DICH_VU": "Thay băng điều trị vết bỏng dưới 10% diện tích cơ thể ở người lớn [dưới 5% diện tích cơ thể]",
     "TEN_DVKT_GIA": "Thay băng điều trị vết bỏng dưới 10% diện tích cơ thể ở người lớn [dưới 5% diện tích cơ thể]",
@@ -19447,11 +20608,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94399"
   },
   {
-    "STT": 972,
+    "STT": 981,
     "MA_DICH_VU": "11.0010.1148",
     "TEN_DICH_VU": "Thay băng điều trị vết bỏng dưới 10% diện tích cơ thể ở trẻ em [dưới 10% diện tích cơ thể",
     "TEN_DVKT_GIA": "Thay băng điều trị vết bỏng dưới 10% diện tích cơ thể ở trẻ em [dưới 10% diện tích cơ thể",
@@ -19467,11 +20629,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94610"
   },
   {
-    "STT": 973,
+    "STT": 982,
     "MA_DICH_VU": "11.0010.2043",
     "TEN_DICH_VU": "Thay băng điều trị vết bỏng dưới 10% diện tích cơ thể ở trẻ em [dưới 5% diện tích cơ thể]",
     "TEN_DVKT_GIA": "Thay băng điều trị vết bỏng dưới 10% diện tích cơ thể ở trẻ em [dưới 5% diện tích cơ thể]",
@@ -19487,11 +20650,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94400"
   },
   {
-    "STT": 974,
+    "STT": 983,
     "MA_DICH_VU": "11.0015.1158",
     "TEN_DICH_VU": "Rạch hoại tử bỏng giải thoát chèn ép",
     "TEN_DVKT_GIA": "Rạch hoại tử bỏng giải thoát chèn ép",
@@ -19507,11 +20671,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94884"
   },
   {
-    "STT": 975,
+    "STT": 984,
     "MA_DICH_VU": "11.0016.1160",
     "TEN_DICH_VU": "Khâu cầm máu, thắt mạch máu để cấp cứu chảy máu trong bỏng sâu",
     "TEN_DVKT_GIA": "Khâu cầm máu, thắt mạch máu để cấp cứu chảy máu trong bỏng sâu",
@@ -19527,11 +20692,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94521"
   },
   {
-    "STT": 976,
+    "STT": 985,
     "MA_DICH_VU": "11.0087.0120",
     "TEN_DICH_VU": "Mở khí quản cấp cứu qua tổn thương bỏng",
     "TEN_DVKT_GIA": "Mở khí quản cấp cứu qua tổn thương bỏng",
@@ -19547,11 +20713,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94941"
   },
   {
-    "STT": 977,
+    "STT": 986,
     "MA_DICH_VU": "11.0090.0216",
     "TEN_DICH_VU": "Bộc lộ tĩnh mạch ngoại vi để truyền dịch điều trị người bệnh bỏng",
     "TEN_DVKT_GIA": "Bộc lộ tĩnh mạch ngoại vi để truyền dịch điều trị người bệnh bỏng",
@@ -19567,11 +20734,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94501"
   },
   {
-    "STT": 978,
+    "STT": 987,
     "MA_DICH_VU": "11.0103.1114",
     "TEN_DICH_VU": "Cắt sẹo khâu kín",
     "TEN_DVKT_GIA": "Cắt sẹo khâu kín",
@@ -19587,11 +20755,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95425"
   },
   {
-    "STT": 979,
+    "STT": 988,
     "MA_DICH_VU": "11.0103.1114_GT",
     "TEN_DICH_VU": "Cắt sẹo khâu kín",
     "TEN_DVKT_GIA": "Cắt sẹo khâu kín",
@@ -19607,11 +20776,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95119"
   },
   {
-    "STT": 980,
+    "STT": 989,
     "MA_DICH_VU": "11.0159.1144",
     "TEN_DICH_VU": "Cắt lọc hoại tử ổ loét vết thương mạn tính",
     "TEN_DVKT_GIA": "Cắt lọc hoại tử ổ loét vết thương mạn tính",
@@ -19627,11 +20797,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95281"
   },
   {
-    "STT": 981,
+    "STT": 990,
     "MA_DICH_VU": "11.0159.1144_GT",
     "TEN_DICH_VU": "Cắt lọc hoại tử ổ loét vết thương mạn tính",
     "TEN_DVKT_GIA": "Cắt lọc hoại tử ổ loét vết thương mạn tính",
@@ -19647,11 +20818,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95057"
   },
   {
-    "STT": 982,
+    "STT": 991,
     "MA_DICH_VU": "11.0161.1144",
     "TEN_DICH_VU": "Phẫu thuật cắt đáy ổ loét mạn tính, khâu kín",
     "TEN_DVKT_GIA": "Phẫu thuật cắt đáy ổ loét mạn tính, khâu kín",
@@ -19667,11 +20839,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95282"
   },
   {
-    "STT": 983,
+    "STT": 992,
     "MA_DICH_VU": "11.0161.1144_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt đáy ổ loét mạn tính, khâu kín",
     "TEN_DVKT_GIA": "Phẫu thuật cắt đáy ổ loét mạn tính, khâu kín",
@@ -19687,11 +20860,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95058"
   },
   {
-    "STT": 984,
+    "STT": 993,
     "MA_DICH_VU": "12.0002.1044",
     "TEN_DICH_VU": "Cắt các loại u vùng da đầu, cổ có đường kính dưới 5 cm",
     "TEN_DVKT_GIA": "Cắt các loại u vùng da đầu, cổ có đường kính dưới 5 cm",
@@ -19707,11 +20881,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94947"
   },
   {
-    "STT": 985,
+    "STT": 994,
     "MA_DICH_VU": "12.0006.1044",
     "TEN_DICH_VU": "Cắt các loại u vùng mặt có đường kính dưới 5 cm",
     "TEN_DVKT_GIA": "Cắt các loại u vùng mặt có đường kính dưới 5 cm",
@@ -19727,11 +20902,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94948"
   },
   {
-    "STT": 986,
+    "STT": 995,
     "MA_DICH_VU": "12.0010.1049",
     "TEN_DICH_VU": "Cắt các u lành vùng cổ",
     "TEN_DVKT_GIA": "Cắt các u lành vùng cổ",
@@ -19747,11 +20923,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95290"
   },
   {
-    "STT": 987,
+    "STT": 996,
     "MA_DICH_VU": "12.0011.1190",
     "TEN_DICH_VU": "Cắt các u lành tuyến giáp",
     "TEN_DVKT_GIA": "Cắt các u lành tuyến giáp",
@@ -19767,11 +20944,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95065"
   },
   {
-    "STT": 988,
+    "STT": 997,
     "MA_DICH_VU": "12.0012.1048",
     "TEN_DICH_VU": "Cắt các u nang giáp móng",
     "TEN_DVKT_GIA": "Cắt các u nang giáp móng",
@@ -19787,11 +20965,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95118"
   },
   {
-    "STT": 989,
+    "STT": 998,
     "MA_DICH_VU": "12.0068.0834",
     "TEN_DICH_VU": "Cắt u xơ vùng hàm mặt đường kính dưới 3 cm",
     "TEN_DVKT_GIA": "Cắt u xơ vùng hàm mặt đường kính dưới 3 cm",
@@ -19807,11 +20986,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95005"
   },
   {
-    "STT": 990,
+    "STT": 999,
     "MA_DICH_VU": "12.0069.0834",
     "TEN_DICH_VU": "Cắt u xơ vùng hàm mặt đường kính trên 3 cm",
     "TEN_DVKT_GIA": "Cắt u xơ vùng hàm mặt đường kính trên 3 cm",
@@ -19827,11 +21007,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95006"
   },
   {
-    "STT": 991,
+    "STT": 1000,
     "MA_DICH_VU": "12.0070.1039",
     "TEN_DICH_VU": "Cắt nang răng đường kính dưới 2 cm",
     "TEN_DVKT_GIA": "Cắt nang răng đường kính dưới 2 cm",
@@ -19847,11 +21028,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94834"
   },
   {
-    "STT": 992,
+    "STT": 1001,
     "MA_DICH_VU": "12.0071.1038",
     "TEN_DICH_VU": "Cắt bỏ nang xương hàm dưới 2 cm",
     "TEN_DVKT_GIA": "Cắt bỏ nang xương hàm dưới 2 cm",
@@ -19867,11 +21049,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94978"
   },
   {
-    "STT": 993,
+    "STT": 1002,
     "MA_DICH_VU": "12.0086.0944",
     "TEN_DICH_VU": "Cắt u tuyến nước bọt dưới hàm [cắt tuyến]",
     "TEN_DVKT_GIA": "Cắt u tuyến nước bọt dưới hàm [cắt tuyến]",
@@ -19887,11 +21070,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm dao siêu âm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95587"
   },
   {
-    "STT": 994,
+    "STT": 1003,
     "MA_DICH_VU": "12.0091.0909",
     "TEN_DICH_VU": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính trên 5 cm [gây mê]",
     "TEN_DVKT_GIA": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính trên 5 cm [gây mê]",
@@ -19907,11 +21091,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95013"
   },
   {
-    "STT": 995,
+    "STT": 1004,
     "MA_DICH_VU": "12.0091.0910",
     "TEN_DICH_VU": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính trên 5 cm [gây tê]",
     "TEN_DVKT_GIA": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính trên 5 cm [gây tê]",
@@ -19927,11 +21112,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94963"
   },
   {
-    "STT": 996,
+    "STT": 1005,
     "MA_DICH_VU": "12.0092.0909",
     "TEN_DICH_VU": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính dưới 5 cm [gây mê]",
     "TEN_DVKT_GIA": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính dưới 5 cm [gây mê]",
@@ -19947,11 +21133,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95014"
   },
   {
-    "STT": 997,
+    "STT": 1006,
     "MA_DICH_VU": "12.0092.0910",
     "TEN_DICH_VU": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính dưới 5 cm [gây tê]",
     "TEN_DVKT_GIA": "Cắt u mỡ, u bã đậu vùng hàm mặt đường kính dưới 5 cm [gây tê]",
@@ -19967,11 +21154,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94964"
   },
   {
-    "STT": 998,
+    "STT": 1007,
     "MA_DICH_VU": "12.0161.0875",
     "TEN_DICH_VU": "Cắt polyp ống tai [gây tê]",
     "TEN_DVKT_GIA": "Cắt polyp ống tai [gây tê]",
@@ -19987,11 +21175,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94883"
   },
   {
-    "STT": 999,
+    "STT": 1008,
     "MA_DICH_VU": "12.0162.0918",
     "TEN_DICH_VU": "Cắt polyp mũi",
     "TEN_DVKT_GIA": "Cắt polyp mũi",
@@ -20007,11 +21196,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94928"
   },
   {
-    "STT": 1000,
+    "STT": 1009,
     "MA_DICH_VU": "12.0190.0583",
     "TEN_DICH_VU": "Cắt u máu, u bạch huyết thành ngực đường kính dưới 5 cm",
     "TEN_DVKT_GIA": "Cắt u máu, u bạch huyết thành ngực đường kính dưới 5 cm",
@@ -20027,11 +21217,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95132"
   },
   {
-    "STT": 1001,
+    "STT": 1010,
     "MA_DICH_VU": "12.0232.0087",
     "TEN_DICH_VU": "Tiêm cồn tuyệt đối vào u gan qua siêu âm",
     "TEN_DVKT_GIA": "Tiêm cồn tuyệt đối vào u gan qua siêu âm",
@@ -20047,11 +21238,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94465"
   },
   {
-    "STT": 1002,
+    "STT": 1011,
     "MA_DICH_VU": "12.0263.1190",
     "TEN_DICH_VU": "Cắt nang thừng tinh một bên",
     "TEN_DVKT_GIA": "Cắt nang thừng tinh một bên",
@@ -20067,11 +21259,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95066"
   },
   {
-    "STT": 1003,
+    "STT": 1012,
     "MA_DICH_VU": "12.0264.1189",
     "TEN_DICH_VU": "Cắt nang thừng tinh hai bên",
     "TEN_DVKT_GIA": "Cắt nang thừng tinh hai bên",
@@ -20087,11 +21280,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95354"
   },
   {
-    "STT": 1004,
+    "STT": 1013,
     "MA_DICH_VU": "12.0265.0583",
     "TEN_DICH_VU": "Cắt u lành dương vật",
     "TEN_DVKT_GIA": "Cắt u lành dương vật",
@@ -20107,11 +21301,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95133"
   },
   {
-    "STT": 1005,
+    "STT": 1014,
     "MA_DICH_VU": "12.0267.0653",
     "TEN_DICH_VU": "Cắt u vú lành tính",
     "TEN_DVKT_GIA": "Cắt u vú lành tính",
@@ -20127,11 +21322,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95306"
   },
   {
-    "STT": 1006,
+    "STT": 1015,
     "MA_DICH_VU": "12.0267.0653_GT",
     "TEN_DICH_VU": "Cắt u vú lành tính",
     "TEN_DVKT_GIA": "Cắt u vú lành tính",
@@ -20147,11 +21343,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95170"
   },
   {
-    "STT": 1007,
+    "STT": 1016,
     "MA_DICH_VU": "12.0268.0591",
     "TEN_DICH_VU": "Mổ bóc nhân xơ vú",
     "TEN_DVKT_GIA": "Mổ bóc nhân xơ vú",
@@ -20167,11 +21364,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94991"
   },
   {
-    "STT": 1008,
+    "STT": 1017,
     "MA_DICH_VU": "12.0278.0655",
     "TEN_DICH_VU": "Cắt polyp cổ tử cung",
     "TEN_DVKT_GIA": "Cắt polyp cổ tử cung",
@@ -20187,11 +21385,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95060"
   },
   {
-    "STT": 1009,
+    "STT": 1018,
     "MA_DICH_VU": "12.0278.0655_GT",
     "TEN_DICH_VU": "Cắt polyp cổ tử cung",
     "TEN_DVKT_GIA": "Cắt polyp cổ tử cung",
@@ -20207,11 +21406,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95030"
   },
   {
-    "STT": 1010,
+    "STT": 1019,
     "MA_DICH_VU": "12.0280.0683",
     "TEN_DICH_VU": "Cắt u nang buồng trứng xoắn",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng xoắn",
@@ -20227,11 +21427,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95337"
   },
   {
-    "STT": 1011,
+    "STT": 1020,
     "MA_DICH_VU": "12.0280.0683_GT",
     "TEN_DICH_VU": "Cắt u nang buồng trứng xoắn",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng xoắn",
@@ -20247,11 +21448,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95193"
   },
   {
-    "STT": 1012,
+    "STT": 1021,
     "MA_DICH_VU": "12.0281.0683",
     "TEN_DICH_VU": "Cắt u nang buồng trứng",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng",
@@ -20267,11 +21469,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95338"
   },
   {
-    "STT": 1013,
+    "STT": 1022,
     "MA_DICH_VU": "12.0281.0683_GT",
     "TEN_DICH_VU": "Cắt u nang buồng trứng",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng",
@@ -20287,11 +21490,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95194"
   },
   {
-    "STT": 1014,
+    "STT": 1023,
     "MA_DICH_VU": "12.0283.0683",
     "TEN_DICH_VU": "Cắt u nang buồng trứng và phần phụ",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng và phần phụ",
@@ -20307,11 +21511,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95339"
   },
   {
-    "STT": 1015,
+    "STT": 1024,
     "MA_DICH_VU": "12.0283.0683_GT",
     "TEN_DICH_VU": "Cắt u nang buồng trứng và phần phụ",
     "TEN_DVKT_GIA": "Cắt u nang buồng trứng và phần phụ",
@@ -20327,11 +21532,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95195"
   },
   {
-    "STT": 1016,
+    "STT": 1025,
     "MA_DICH_VU": "12.0291.0681",
     "TEN_DICH_VU": "Cắt toàn bộ tử cung, đường bụng",
     "TEN_DVKT_GIA": "Cắt toàn bộ tử cung, đường bụng",
@@ -20347,11 +21553,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95553"
   },
   {
-    "STT": 1017,
+    "STT": 1026,
     "MA_DICH_VU": "12.0291.0681_GT",
     "TEN_DICH_VU": "Cắt toàn bộ tử cung, đường bụng",
     "TEN_DVKT_GIA": "Cắt toàn bộ tử cung, đường bụng",
@@ -20367,11 +21574,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95399"
   },
   {
-    "STT": 1018,
+    "STT": 1027,
     "MA_DICH_VU": "12.0305.0593",
     "TEN_DICH_VU": "Cắt bỏ âm hộ đơn thuần",
     "TEN_DVKT_GIA": "Cắt bỏ âm hộ đơn thuần",
@@ -20387,11 +21595,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95293"
   },
   {
-    "STT": 1019,
+    "STT": 1028,
     "MA_DICH_VU": "12.0305.0593_GT",
     "TEN_DICH_VU": "Cắt bỏ âm hộ đơn thuần",
     "TEN_DVKT_GIA": "Cắt bỏ âm hộ đơn thuần",
@@ -20407,11 +21616,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95074"
   },
   {
-    "STT": 1020,
+    "STT": 1029,
     "MA_DICH_VU": "12.0309.0589",
     "TEN_DICH_VU": "Bóc nang tuyến Bartholin",
     "TEN_DVKT_GIA": "Bóc nang tuyến Bartholin",
@@ -20427,11 +21637,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95012"
   },
   {
-    "STT": 1021,
+    "STT": 1030,
     "MA_DICH_VU": "12.0313.1190",
     "TEN_DICH_VU": "Cắt u máu khu trú, đường kính dưới 5 cm",
     "TEN_DVKT_GIA": "Cắt u máu khu trú, đường kính dưới 5 cm",
@@ -20447,11 +21658,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95067"
   },
   {
-    "STT": 1022,
+    "STT": 1031,
     "MA_DICH_VU": "12.0319.1190",
     "TEN_DICH_VU": "Cắt u lành phần mềm đường kính trên 10 cm",
     "TEN_DVKT_GIA": "Cắt u lành phần mềm đường kính trên 10 cm",
@@ -20467,11 +21679,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95068"
   },
   {
-    "STT": 1023,
+    "STT": 1032,
     "MA_DICH_VU": "12.0320.1190",
     "TEN_DICH_VU": "Cắt u lành phần mềm đường kính dưới 10 cm",
     "TEN_DVKT_GIA": "Cắt u lành phần mềm đường kính dưới 10 cm",
@@ -20487,11 +21700,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95069"
   },
   {
-    "STT": 1024,
+    "STT": 1033,
     "MA_DICH_VU": "12.0321.1190",
     "TEN_DICH_VU": "Cắt u bao gân",
     "TEN_DVKT_GIA": "Cắt u bao gân",
@@ -20507,11 +21721,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95070"
   },
   {
-    "STT": 1025,
+    "STT": 1034,
     "MA_DICH_VU": "12.0323.0653",
     "TEN_DICH_VU": "Phẫu thuật phì đại tuyến vú nam",
     "TEN_DVKT_GIA": "Phẫu thuật phì đại tuyến vú nam",
@@ -20527,11 +21742,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95307"
   },
   {
-    "STT": 1026,
+    "STT": 1035,
     "MA_DICH_VU": "12.0323.0653_GT",
     "TEN_DICH_VU": "Phẫu thuật phì đại tuyến vú nam",
     "TEN_DVKT_GIA": "Phẫu thuật phì đại tuyến vú nam",
@@ -20547,11 +21763,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95171"
   },
   {
-    "STT": 1027,
+    "STT": 1036,
     "MA_DICH_VU": "12.0324.0558",
     "TEN_DICH_VU": "Cắt u xương sụn lành tính",
     "TEN_DVKT_GIA": "Cắt u xương sụn lành tính",
@@ -20567,11 +21784,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm phương tiện cố định, phương tiên kết hợp, xương nhân tạo, xương bảo quản, sản phẩm sinh học thay thế, xi măng sinh học hoặc hóa học.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95457"
   },
   {
-    "STT": 1028,
+    "STT": 1037,
     "MA_DICH_VU": "12.0324.0558_GT",
     "TEN_DICH_VU": "Cắt u xương sụn lành tính",
     "TEN_DVKT_GIA": "Cắt u xương sụn lành tính",
@@ -20587,11 +21805,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm phương tiện cố định, phương tiên kết hợp, xương nhân tạo, xương bảo quản, sản phẩm sinh học thay thế, xi măng sinh học hoặc hóa học, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95367"
   },
   {
-    "STT": 1029,
+    "STT": 1038,
     "MA_DICH_VU": "13.0001.0676",
     "TEN_DICH_VU": "Phẫu thuật lấy thai và cắt tử cung trong rau cài răng lược",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai và cắt tử cung trong rau cài răng lược",
@@ -20607,11 +21826,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95628"
   },
   {
-    "STT": 1030,
+    "STT": 1039,
     "MA_DICH_VU": "13.0001.0676_GT",
     "TEN_DICH_VU": "Phẫu thuật lấy thai và cắt tử cung trong rau cài răng lược",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai và cắt tử cung trong rau cài răng lược",
@@ -20627,11 +21847,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95627"
   },
   {
-    "STT": 1031,
+    "STT": 1040,
     "MA_DICH_VU": "13.0002.0672",
     "TEN_DICH_VU": "Phẫu thuật lấy thai lần hai trở lên",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai lần hai trở lên",
@@ -20647,11 +21868,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95368"
   },
   {
-    "STT": 1032,
+    "STT": 1041,
     "MA_DICH_VU": "13.0002.0672_GT",
     "TEN_DICH_VU": "Phẫu thuật lấy thai lần hai trở lên",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai lần hai trở lên",
@@ -20667,11 +21889,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95188"
   },
   {
-    "STT": 1033,
+    "STT": 1042,
     "MA_DICH_VU": "13.0003.0674",
     "TEN_DICH_VU": "Phẫu thuật lấy thai trên người bệnh có sẹo mổ bụng cũ phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai trên người bệnh có sẹo mổ bụng cũ phức tạp",
@@ -20687,11 +21910,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95569"
   },
   {
-    "STT": 1034,
+    "STT": 1043,
     "MA_DICH_VU": "13.0003.0674_GT",
     "TEN_DICH_VU": "Phẫu thuật lấy thai trên người bệnh có sẹo mổ bụng cũ phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai trên người bệnh có sẹo mổ bụng cũ phức tạp",
@@ -20707,11 +21931,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95331"
   },
   {
-    "STT": 1035,
+    "STT": 1044,
     "MA_DICH_VU": "13.0004.0675",
     "TEN_DICH_VU": "Phẫu thuật lấy thai trên người bệnh mắc bệnh toàn thân (tim, thận, gan, huyết học, nội tiết...)",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai trên người bệnh mắc bệnh toàn thân (tim, thận, gan, huyết học, nội tiết...)",
@@ -20727,11 +21952,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95584"
   },
   {
-    "STT": 1036,
+    "STT": 1045,
     "MA_DICH_VU": "13.0004.0675_GT",
     "TEN_DICH_VU": "Phẫu thuật lấy thai trên người bệnh mắc bệnh toàn thân (tim, thận, gan, huyết học, nội tiết...)",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai trên người bệnh mắc bệnh toàn thân (tim, thận, gan, huyết học, nội tiết...)",
@@ -20747,11 +21973,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95416"
   },
   {
-    "STT": 1037,
+    "STT": 1046,
     "MA_DICH_VU": "13.0005.0675",
     "TEN_DICH_VU": "Phẫu thuật lấy thai do bệnh lý sản khoa (rau tiền đạo, rau bong non, tiền sản giật, sản giật...)",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai do bệnh lý sản khoa (rau tiền đạo, rau bong non, tiền sản giật, sản giật...)",
@@ -20767,11 +21994,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95585"
   },
   {
-    "STT": 1038,
+    "STT": 1047,
     "MA_DICH_VU": "13.0005.0675_GT",
     "TEN_DICH_VU": "Phẫu thuật lấy thai do bệnh lý sản khoa (rau tiền đạo, rau bong non, tiền sản giật, sản giật...)",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai do bệnh lý sản khoa (rau tiền đạo, rau bong non, tiền sản giật, sản giật...)",
@@ -20787,11 +22015,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95417"
   },
   {
-    "STT": 1039,
+    "STT": 1048,
     "MA_DICH_VU": "13.0006.0673",
     "TEN_DICH_VU": "Phẫu thuật lấy thai trên người bệnh có bệnh truyền nhiễm (viêm gan nặng, HIV-AIDS, H5N1, tiêu chảy cấp...)",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai trên người bệnh có bệnh truyền nhiễm (viêm gan nặng, HIV-AIDS, H5N1, tiêu chảy cấp...)",
@@ -20807,11 +22036,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95623"
   },
   {
-    "STT": 1040,
+    "STT": 1049,
     "MA_DICH_VU": "13.0006.0673_GT",
     "TEN_DICH_VU": "Phẫu thuật lấy thai trên người bệnh có bệnh truyền nhiễm (viêm gan nặng, HIV-AIDS, H5N1, tiêu chảy cấp...)",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai trên người bệnh có bệnh truyền nhiễm (viêm gan nặng, HIV-AIDS, H5N1, tiêu chảy cấp...)",
@@ -20827,11 +22057,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95601"
   },
   {
-    "STT": 1041,
+    "STT": 1050,
     "MA_DICH_VU": "13.0007.0671",
     "TEN_DICH_VU": "Phẫu thuật lấy thai lần đầu",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai lần đầu",
@@ -20847,11 +22078,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95187"
   },
   {
-    "STT": 1042,
+    "STT": 1051,
     "MA_DICH_VU": "13.0007.0671_GT",
     "TEN_DICH_VU": "Phẫu thuật lấy thai lần đầu",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai lần đầu",
@@ -20867,11 +22099,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95041"
   },
   {
-    "STT": 1043,
+    "STT": 1052,
     "MA_DICH_VU": "13.0008.0670",
     "TEN_DICH_VU": "Phẫu thuật lấy thai có kèm các kỹ thuật cầm máu (thắt động mạch tử cung, mũi khâu B-lynch…)",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai có kèm các kỹ thuật cầm máu (thắt động mạch tử cung, mũi khâu B-lynch…)",
@@ -20887,11 +22120,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95577"
   },
   {
-    "STT": 1044,
+    "STT": 1053,
     "MA_DICH_VU": "13.0008.0670_GT",
     "TEN_DICH_VU": "Phẫu thuật lấy thai có kèm các kỹ thuật cầm máu (thắt động mạch tử cung, mũi khâu B-lynch…)",
     "TEN_DVKT_GIA": "Phẫu thuật lấy thai có kèm các kỹ thuật cầm máu (thắt động mạch tử cung, mũi khâu B-lynch…)",
@@ -20907,11 +22141,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95332"
   },
   {
-    "STT": 1045,
+    "STT": 1054,
     "MA_DICH_VU": "13.0012.0708",
     "TEN_DICH_VU": "Phẫu thuật thắt động mạch tử cung trong cấp cứu sản phụ khoa",
     "TEN_DVKT_GIA": "Phẫu thuật thắt động mạch tử cung trong cấp cứu sản phụ khoa",
@@ -20927,11 +22162,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95419"
   },
   {
-    "STT": 1046,
+    "STT": 1055,
     "MA_DICH_VU": "13.0012.0708_GT",
     "TEN_DICH_VU": "Phẫu thuật thắt động mạch tử cung trong cấp cứu sản phụ khoa",
     "TEN_DVKT_GIA": "Phẫu thuật thắt động mạch tử cung trong cấp cứu sản phụ khoa",
@@ -20947,11 +22183,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95224"
   },
   {
-    "STT": 1047,
+    "STT": 1056,
     "MA_DICH_VU": "13.0013.0649",
     "TEN_DICH_VU": "Phẫu thuật bảo tồn tử cung do vỡ tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật bảo tồn tử cung do vỡ tử cung",
@@ -20967,11 +22204,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95600"
   },
   {
-    "STT": 1048,
+    "STT": 1057,
     "MA_DICH_VU": "13.0013.0649_GT",
     "TEN_DICH_VU": "Phẫu thuật bảo tồn tử cung do vỡ tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật bảo tồn tử cung do vỡ tử cung",
@@ -20987,11 +22225,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95427"
   },
   {
-    "STT": 1049,
+    "STT": 1058,
     "MA_DICH_VU": "13.0018.0625",
     "TEN_DICH_VU": "Khâu tử cung do nạo thủng",
     "TEN_DVKT_GIA": "Khâu tử cung do nạo thủng",
@@ -21007,11 +22246,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95303"
   },
   {
-    "STT": 1050,
+    "STT": 1059,
     "MA_DICH_VU": "13.0018.0625_GT",
     "TEN_DICH_VU": "Khâu tử cung do nạo thủng",
     "TEN_DVKT_GIA": "Khâu tử cung do nạo thủng",
@@ -21027,11 +22267,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95149"
   },
   {
-    "STT": 1051,
+    "STT": 1060,
     "MA_DICH_VU": "13.0019.0618",
     "TEN_DICH_VU": "Giảm đau trong đẻ bằng phương pháp gây tê ngoài màng cứng",
     "TEN_DVKT_GIA": "Giảm đau trong đẻ bằng phương pháp gây tê ngoài màng cứng",
@@ -21047,11 +22288,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94919"
   },
   {
-    "STT": 1052,
+    "STT": 1061,
     "MA_DICH_VU": "13.0024.0613",
     "TEN_DICH_VU": "Đỡ đẻ ngôi ngược (*)",
     "TEN_DVKT_GIA": "Đỡ đẻ ngôi ngược (*)",
@@ -21067,11 +22309,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94999"
   },
   {
-    "STT": 1053,
+    "STT": 1062,
     "MA_DICH_VU": "13.0025.0638",
     "TEN_DICH_VU": "Nội xoay thai",
     "TEN_DVKT_GIA": "Nội xoay thai",
@@ -21087,11 +22330,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95017"
   },
   {
-    "STT": 1054,
+    "STT": 1063,
     "MA_DICH_VU": "13.0026.0615",
     "TEN_DICH_VU": "Đỡ đẻ từ sinh đôi trở lên",
     "TEN_DVKT_GIA": "Đỡ đẻ từ sinh đôi trở lên",
@@ -21107,11 +22351,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95029"
   },
   {
-    "STT": 1055,
+    "STT": 1064,
     "MA_DICH_VU": "13.0027.0617",
     "TEN_DICH_VU": "Forceps",
     "TEN_DVKT_GIA": "Forceps",
@@ -21127,11 +22372,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94996"
   },
   {
-    "STT": 1056,
+    "STT": 1065,
     "MA_DICH_VU": "13.0028.0617",
     "TEN_DICH_VU": "Giác hút",
     "TEN_DVKT_GIA": "Giác hút",
@@ -21147,11 +22393,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94997"
   },
   {
-    "STT": 1057,
+    "STT": 1066,
     "MA_DICH_VU": "13.0029.0716",
     "TEN_DICH_VU": "Soi ối",
     "TEN_DVKT_GIA": "Soi ối",
@@ -21167,11 +22414,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94134"
   },
   {
-    "STT": 1058,
+    "STT": 1067,
     "MA_DICH_VU": "13.0033.0614",
     "TEN_DICH_VU": "Đỡ đẻ thường ngôi chỏm",
     "TEN_DVKT_GIA": "Đỡ đẻ thường ngôi chỏm",
@@ -21187,11 +22435,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94953"
   },
   {
-    "STT": 1059,
+    "STT": 1068,
     "MA_DICH_VU": "13.0040.0629",
     "TEN_DICH_VU": "Làm thuốc vết khâu tầng sinh môn nhiễm khuẩn",
     "TEN_DVKT_GIA": "Làm thuốc vết khâu tầng sinh môn nhiễm khuẩn",
@@ -21207,11 +22456,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94303"
   },
   {
-    "STT": 1060,
+    "STT": 1069,
     "MA_DICH_VU": "13.0048.0640",
     "TEN_DICH_VU": "Nong cổ tử cung do bế sản dịch",
     "TEN_DVKT_GIA": "Nong cổ tử cung do bế sản dịch",
@@ -21227,11 +22477,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94707"
   },
   {
-    "STT": 1061,
+    "STT": 1070,
     "MA_DICH_VU": "13.0049.0635",
     "TEN_DICH_VU": "Nạo sót thai, nạo sót rau sau sảy, sau đẻ",
     "TEN_DVKT_GIA": "Nạo sót thai, nạo sót rau sau sảy, sau đẻ",
@@ -21247,11 +22498,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94774"
   },
   {
-    "STT": 1062,
+    "STT": 1071,
     "MA_DICH_VU": "13.0051.0237",
     "TEN_DICH_VU": "Điều trị tắc tia sữa bằng sóng ngắn, hồng ngoại [ hồng ngoại]",
     "TEN_DVKT_GIA": "Điều trị tắc tia sữa bằng sóng ngắn, hồng ngoại [ hồng ngoại]",
@@ -21267,11 +22519,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94104"
   },
   {
-    "STT": 1063,
+    "STT": 1072,
     "MA_DICH_VU": "13.0051.0254",
     "TEN_DICH_VU": "Điều trị tắc tia sữa bằng sóng ngắn, hồng ngoại [sóng ngắn]",
     "TEN_DVKT_GIA": "Điều trị tắc tia sữa bằng sóng ngắn, hồng ngoại [sóng ngắn]",
@@ -21287,11 +22540,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94107"
   },
   {
-    "STT": 1064,
+    "STT": 1073,
     "MA_DICH_VU": "13.0052.0626",
     "TEN_DICH_VU": "Khâu vòng cổ tử cung",
     "TEN_DVKT_GIA": "Khâu vòng cổ tử cung",
@@ -21307,11 +22561,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94861"
   },
   {
-    "STT": 1065,
+    "STT": 1074,
     "MA_DICH_VU": "13.0053.0594",
     "TEN_DICH_VU": "Cắt chỉ khâu vòng cổ tử cung",
     "TEN_DVKT_GIA": "Cắt chỉ khâu vòng cổ tử cung",
@@ -21327,11 +22582,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94406"
   },
   {
-    "STT": 1066,
+    "STT": 1075,
     "MA_DICH_VU": "13.0054.0600",
     "TEN_DICH_VU": "Trích áp xe tầng sinh môn",
     "TEN_DVKT_GIA": "Trích áp xe tầng sinh môn",
@@ -21347,11 +22603,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94962"
   },
   {
-    "STT": 1067,
+    "STT": 1076,
     "MA_DICH_VU": "13.0063.0690",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt tử cung hoàn toàn",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt tử cung hoàn toàn",
@@ -21367,11 +22624,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95622"
   },
   {
-    "STT": 1068,
+    "STT": 1077,
     "MA_DICH_VU": "13.0065.0687",
     "TEN_DICH_VU": "Phẫu thuật nội soi bóc u xơ tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi bóc u xơ tử cung",
@@ -21387,11 +22645,54 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95624"
   },
   {
-    "STT": 1069,
+    "STT": 1078,
+    "MA_DICH_VU": "13.0067.0657",
+    "TEN_DICH_VU": "Phẫu thuật cắt tử cung đường âm đạo",
+    "TEN_DVKT_GIA": "Phẫu thuật cắt tử cung đường âm đạo",
+    "DON_GIA": 4168300,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093354,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4168300,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1079,
+    "MA_DICH_VU": "13.0067.0657_GT",
+    "TEN_DICH_VU": "Phẫu thuật cắt tử cung đường âm đạo",
+    "TEN_DVKT_GIA": "Phẫu thuật cắt tử cung đường âm đạo",
+    "DON_GIA": 3396600,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093229,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 3396600,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "Chưa bao gồm thuốc và oxy",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1080,
     "MA_DICH_VU": "13.0068.0681",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt tử cung hoàn toàn",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt tử cung hoàn toàn",
@@ -21407,11 +22708,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95554"
   },
   {
-    "STT": 1070,
+    "STT": 1081,
     "MA_DICH_VU": "13.0068.0681_GT",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt tử cung hoàn toàn",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt tử cung hoàn toàn",
@@ -21427,11 +22729,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95400"
   },
   {
-    "STT": 1071,
+    "STT": 1082,
     "MA_DICH_VU": "13.0069.0681",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt tử cung hoàn toàn cả khối",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt tử cung hoàn toàn cả khối",
@@ -21447,11 +22750,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95555"
   },
   {
-    "STT": 1072,
+    "STT": 1083,
     "MA_DICH_VU": "13.0069.0681_GT",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt tử cung hoàn toàn cả khối",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt tử cung hoàn toàn cả khối",
@@ -21467,11 +22771,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95401"
   },
   {
-    "STT": 1073,
+    "STT": 1084,
     "MA_DICH_VU": "13.0070.0681",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt tử cung bán phần",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt tử cung bán phần",
@@ -21487,11 +22792,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95556"
   },
   {
-    "STT": 1074,
+    "STT": 1085,
     "MA_DICH_VU": "13.0070.0681_GT",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt tử cung bán phần",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt tử cung bán phần",
@@ -21507,11 +22813,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95402"
   },
   {
-    "STT": 1075,
+    "STT": 1086,
     "MA_DICH_VU": "13.0071.0679",
     "TEN_DICH_VU": "Phẫu thuật mở bụng bóc u xơ tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng bóc u xơ tử cung",
@@ -21527,11 +22834,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95424"
   },
   {
-    "STT": 1076,
+    "STT": 1087,
     "MA_DICH_VU": "13.0071.0679_GT",
     "TEN_DICH_VU": "Phẫu thuật mở bụng bóc u xơ tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng bóc u xơ tử cung",
@@ -21547,11 +22855,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95283"
   },
   {
-    "STT": 1077,
+    "STT": 1088,
     "MA_DICH_VU": "13.0072.0683",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt u buồng trứng hoặc cắt phần phụ",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt u buồng trứng hoặc cắt phần phụ",
@@ -21567,11 +22876,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95340"
   },
   {
-    "STT": 1078,
+    "STT": 1089,
     "MA_DICH_VU": "13.0072.0683_GT",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt u buồng trứng hoặc cắt phần phụ",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt u buồng trứng hoặc cắt phần phụ",
@@ -21587,11 +22897,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95196"
   },
   {
-    "STT": 1079,
+    "STT": 1090,
     "MA_DICH_VU": "13.0076.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt phần phụ",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt phần phụ",
@@ -21607,11 +22918,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95607"
   },
   {
-    "STT": 1080,
+    "STT": 1091,
     "MA_DICH_VU": "13.0077.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi bóc u lạc nội mạc tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi bóc u lạc nội mạc tử cung",
@@ -21627,11 +22939,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95608"
   },
   {
-    "STT": 1081,
+    "STT": 1092,
     "MA_DICH_VU": "13.0080.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt u nang buồng trứng xoắn",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt u nang buồng trứng xoắn",
@@ -21647,11 +22960,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95609"
   },
   {
-    "STT": 1082,
+    "STT": 1093,
     "MA_DICH_VU": "13.0083.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt u buồng trứng và phần phụ",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt u buồng trứng và phần phụ",
@@ -21667,11 +22981,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95610"
   },
   {
-    "STT": 1083,
+    "STT": 1094,
     "MA_DICH_VU": "13.0085.0687",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt góc tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt góc tử cung",
@@ -21687,11 +23002,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95625"
   },
   {
-    "STT": 1084,
+    "STT": 1095,
     "MA_DICH_VU": "13.0086.0680",
     "TEN_DICH_VU": "Phẫu thuật mở bụng cắt góc tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật mở bụng cắt góc tử cung",
@@ -21707,11 +23023,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95435"
   },
   {
-    "STT": 1085,
+    "STT": 1096,
     "MA_DICH_VU": "13.0087.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi thai ngoài tử cung thể huyết tụ thành nang",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi thai ngoài tử cung thể huyết tụ thành nang",
@@ -21727,11 +23044,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95611"
   },
   {
-    "STT": 1086,
+    "STT": 1097,
     "MA_DICH_VU": "13.0088.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi thai ngoài tử cung vỡ",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi thai ngoài tử cung vỡ",
@@ -21747,11 +23065,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95612"
   },
   {
-    "STT": 1087,
+    "STT": 1098,
     "MA_DICH_VU": "13.0090.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi thai ngoài tử cung chưa vỡ",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi thai ngoài tử cung chưa vỡ",
@@ -21767,11 +23086,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95613"
   },
   {
-    "STT": 1088,
+    "STT": 1099,
     "MA_DICH_VU": "13.0091.0665",
     "TEN_DICH_VU": "Phẫu thuật chửa ngoài tử cung vỡ có choáng",
     "TEN_DVKT_GIA": "Phẫu thuật chửa ngoài tử cung vỡ có choáng",
@@ -21787,11 +23107,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95549"
   },
   {
-    "STT": 1089,
+    "STT": 1100,
     "MA_DICH_VU": "13.0092.0683",
     "TEN_DICH_VU": "Phẫu thuật chửa ngoài tử cung không có choáng",
     "TEN_DVKT_GIA": "Phẫu thuật chửa ngoài tử cung không có choáng",
@@ -21807,11 +23128,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95341"
   },
   {
-    "STT": 1090,
+    "STT": 1101,
     "MA_DICH_VU": "13.0092.0683_GT",
     "TEN_DICH_VU": "Phẫu thuật chửa ngoài tử cung không có choáng",
     "TEN_DVKT_GIA": "Phẫu thuật chửa ngoài tử cung không có choáng",
@@ -21827,11 +23149,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95197"
   },
   {
-    "STT": 1091,
+    "STT": 1102,
     "MA_DICH_VU": "13.0099.0698",
     "TEN_DICH_VU": "Phẫu thuật nội soi sa sinh dục nữ",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi sa sinh dục nữ",
@@ -21847,11 +23170,54 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95629"
   },
   {
-    "STT": 1092,
+    "STT": 1103,
+    "MA_DICH_VU": "13.0101.0666",
+    "TEN_DICH_VU": "Phẫu thuật Crossen",
+    "TEN_DVKT_GIA": "Phẫu thuật Crossen",
+    "DON_GIA": 4444300,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093230,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4444300,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1104,
+    "MA_DICH_VU": "13.0101.0666_GT",
+    "TEN_DICH_VU": "Phẫu thuật Crossen",
+    "TEN_DVKT_GIA": "Phẫu thuật Crossen",
+    "DON_GIA": 3670500,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093355,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 3670500,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "Chưa bao gồm thuốc và oxy",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1105,
     "MA_DICH_VU": "13.0112.0669",
     "TEN_DICH_VU": "Phẫu thuật làm lại tầng sinh môn và cơ vòng do rách phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật làm lại tầng sinh môn và cơ vòng do rách phức tạp",
@@ -21867,11 +23233,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95304"
   },
   {
-    "STT": 1093,
+    "STT": 1106,
     "MA_DICH_VU": "13.0112.0669_GT",
     "TEN_DICH_VU": "Phẫu thuật làm lại tầng sinh môn và cơ vòng do rách phức tạp",
     "TEN_DVKT_GIA": "Phẫu thuật làm lại tầng sinh môn và cơ vòng do rách phức tạp",
@@ -21887,11 +23254,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95167"
   },
   {
-    "STT": 1094,
+    "STT": 1107,
     "MA_DICH_VU": "13.0115.0650",
     "TEN_DICH_VU": "Phẫu thuật bóc khối lạc nội mạc tử cung ở tầng sinh môn, thành bụng",
     "TEN_DVKT_GIA": "Phẫu thuật bóc khối lạc nội mạc tử cung ở tầng sinh môn, thành bụng",
@@ -21907,11 +23275,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95291"
   },
   {
-    "STT": 1095,
+    "STT": 1108,
     "MA_DICH_VU": "13.0115.0650_GT",
     "TEN_DICH_VU": "Phẫu thuật bóc khối lạc nội mạc tử cung ở tầng sinh môn, thành bụng",
     "TEN_DVKT_GIA": "Phẫu thuật bóc khối lạc nội mạc tử cung ở tầng sinh môn, thành bụng",
@@ -21927,11 +23296,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95134"
   },
   {
-    "STT": 1096,
+    "STT": 1109,
     "MA_DICH_VU": "13.0121.0688_GT",
     "TEN_DICH_VU": "Phẫu thuật nội soi buồng tử cung cắt nhân xơ tử cung dưới niêm mạc",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi buồng tử cung cắt nhân xơ tử cung dưới niêm mạc",
@@ -21947,11 +23317,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95594"
   },
   {
-    "STT": 1097,
+    "STT": 1110,
     "MA_DICH_VU": "13.0122.0688_GT",
     "TEN_DICH_VU": "Phẫu thuật nội soi buồng tử cung cắt polyp buồng tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi buồng tử cung cắt polyp buồng tử cung",
@@ -21967,11 +23338,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95595"
   },
   {
-    "STT": 1098,
+    "STT": 1111,
     "MA_DICH_VU": "13.0124.0688_GT",
     "TEN_DICH_VU": "Phẫu thuật nội soi buồng tử cung tách dính buồng tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi buồng tử cung tách dính buồng tử cung",
@@ -21987,11 +23359,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95596"
   },
   {
-    "STT": 1099,
+    "STT": 1112,
     "MA_DICH_VU": "13.0125.0688_GT",
     "TEN_DICH_VU": "Phẫu thuật nội soi buồng tử cung cắt vách ngăn tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi buồng tử cung cắt vách ngăn tử cung",
@@ -22007,11 +23380,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95597"
   },
   {
-    "STT": 1100,
+    "STT": 1113,
     "MA_DICH_VU": "13.0126.0688_GT",
     "TEN_DICH_VU": "Phẫu thuật nội soi buồng tử cung lấy dị vật buồng tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi buồng tử cung lấy dị vật buồng tử cung",
@@ -22027,11 +23401,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95598"
   },
   {
-    "STT": 1101,
+    "STT": 1114,
     "MA_DICH_VU": "13.0136.0628",
     "TEN_DICH_VU": "Làm lại vết mổ thành bụng (bục, tụ máu, nhiễm khuẩn...) sau phẫu thuật sản phụ khoa",
     "TEN_DVKT_GIA": "Làm lại vết mổ thành bụng (bục, tụ máu, nhiễm khuẩn...) sau phẫu thuật sản phụ khoa",
@@ -22047,11 +23422,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95279"
   },
   {
-    "STT": 1102,
+    "STT": 1115,
     "MA_DICH_VU": "13.0136.0628_GT",
     "TEN_DICH_VU": "Làm lại vết mổ thành bụng (bục, tụ máu, nhiễm khuẩn...) sau phẫu thuật sản phụ khoa",
     "TEN_DVKT_GIA": "Làm lại vết mổ thành bụng (bục, tụ máu, nhiễm khuẩn...) sau phẫu thuật sản phụ khoa",
@@ -22067,11 +23443,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95059"
   },
   {
-    "STT": 1103,
+    "STT": 1116,
     "MA_DICH_VU": "13.0143.0655",
     "TEN_DICH_VU": "Phẫu thuật cắt polyp cổ tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật cắt polyp cổ tử cung",
@@ -22087,11 +23464,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95061"
   },
   {
-    "STT": 1104,
+    "STT": 1117,
     "MA_DICH_VU": "13.0143.0655_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt polyp cổ tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật cắt polyp cổ tử cung",
@@ -22107,11 +23485,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95031"
   },
   {
-    "STT": 1105,
+    "STT": 1118,
     "MA_DICH_VU": "13.0144.0721",
     "TEN_DICH_VU": "Thủ thuật xoắn polyp cổ tử cung, âm đạo",
     "TEN_DVKT_GIA": "Thủ thuật xoắn polyp cổ tử cung, âm đạo",
@@ -22127,11 +23506,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94819"
   },
   {
-    "STT": 1106,
+    "STT": 1119,
     "MA_DICH_VU": "13.0145.0611",
     "TEN_DICH_VU": "Điều trị tổn thương cổ tử cung bằng đốt điện, đốt nhiệt, đốt laser, áp lạnh...",
     "TEN_DVKT_GIA": "Điều trị tổn thương cổ tử cung bằng đốt điện, đốt nhiệt, đốt laser, áp lạnh...",
@@ -22147,11 +23527,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94480"
   },
   {
-    "STT": 1107,
+    "STT": 1120,
     "MA_DICH_VU": "13.0148.0630",
     "TEN_DICH_VU": "Lấy dị vật âm đạo",
     "TEN_DVKT_GIA": "Lấy dị vật âm đạo",
@@ -22167,11 +23548,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94887"
   },
   {
-    "STT": 1108,
+    "STT": 1121,
     "MA_DICH_VU": "13.0149.0624",
     "TEN_DICH_VU": "Khâu rách cùng đồ âm đạo",
     "TEN_DVKT_GIA": "Khâu rách cùng đồ âm đạo",
@@ -22187,11 +23569,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95063"
   },
   {
-    "STT": 1109,
+    "STT": 1122,
     "MA_DICH_VU": "13.0149.0624_GT",
     "TEN_DICH_VU": "Khâu rách cùng đồ âm đạo",
     "TEN_DVKT_GIA": "Khâu rách cùng đồ âm đạo",
@@ -22207,11 +23590,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95033"
   },
   {
-    "STT": 1110,
+    "STT": 1123,
     "MA_DICH_VU": "13.0151.0601",
     "TEN_DICH_VU": "Trích áp xe tuyến Bartholin",
     "TEN_DVKT_GIA": "Trích áp xe tuyến Bartholin",
@@ -22227,11 +23611,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94977"
   },
   {
-    "STT": 1111,
+    "STT": 1124,
     "MA_DICH_VU": "13.0154.0712",
     "TEN_DICH_VU": "Sinh thiết cổ tử cung, âm hộ, âm đạo",
     "TEN_DVKT_GIA": "Sinh thiết cổ tử cung, âm hộ, âm đạo",
@@ -22247,11 +23632,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94806"
   },
   {
-    "STT": 1112,
+    "STT": 1125,
     "MA_DICH_VU": "13.0155.0334",
     "TEN_DICH_VU": "Cắt, đốt sùi mào gà âm hộ; âm đạo; tầng sinh môn",
     "TEN_DVKT_GIA": "Cắt, đốt sùi mào gà âm hộ; âm đạo; tầng sinh môn",
@@ -22267,11 +23653,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94969"
   },
   {
-    "STT": 1113,
+    "STT": 1126,
     "MA_DICH_VU": "13.0157.0619",
     "TEN_DICH_VU": "Hút buồng tử cung do rong kinh, rong huyết",
     "TEN_DVKT_GIA": "Hút buồng tử cung do rong kinh, rong huyết",
@@ -22287,11 +23674,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94547"
   },
   {
-    "STT": 1114,
+    "STT": 1127,
     "MA_DICH_VU": "13.0158.0634",
     "TEN_DICH_VU": "Nạo hút thai trứng",
     "TEN_DVKT_GIA": "Nạo hút thai trứng",
@@ -22307,11 +23695,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94972"
   },
   {
-    "STT": 1115,
+    "STT": 1128,
     "MA_DICH_VU": "13.0160.0606",
     "TEN_DICH_VU": "Chọc dò túi cùng Douglas",
     "TEN_DVKT_GIA": "Chọc dò túi cùng Douglas",
@@ -22327,11 +23716,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94706"
   },
   {
-    "STT": 1116,
+    "STT": 1129,
     "MA_DICH_VU": "13.0163.0602",
     "TEN_DICH_VU": "Trích áp xe vú",
     "TEN_DVKT_GIA": "Trích áp xe vú",
@@ -22347,11 +23737,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94570"
   },
   {
-    "STT": 1117,
+    "STT": 1130,
     "MA_DICH_VU": "13.0166.0715",
     "TEN_DICH_VU": "Soi cổ tử cung",
     "TEN_DVKT_GIA": "Soi cổ tử cung",
@@ -22367,11 +23758,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94196"
   },
   {
-    "STT": 1118,
+    "STT": 1131,
     "MA_DICH_VU": "13.0172.0653",
     "TEN_DICH_VU": "Phẫu thuật cắt một phần tuyến vú",
     "TEN_DVKT_GIA": "Phẫu thuật cắt một phần tuyến vú",
@@ -22387,11 +23779,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95308"
   },
   {
-    "STT": 1119,
+    "STT": 1132,
     "MA_DICH_VU": "13.0172.0653_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt một phần tuyến vú",
     "TEN_DVKT_GIA": "Phẫu thuật cắt một phần tuyến vú",
@@ -22407,11 +23800,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95172"
   },
   {
-    "STT": 1120,
+    "STT": 1133,
     "MA_DICH_VU": "13.0174.0653",
     "TEN_DICH_VU": "Cắt u vú lành tính",
     "TEN_DVKT_GIA": "Cắt u vú lành tính",
@@ -22427,11 +23821,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95309"
   },
   {
-    "STT": 1121,
+    "STT": 1134,
     "MA_DICH_VU": "13.0174.0653_GT",
     "TEN_DICH_VU": "Cắt u vú lành tính",
     "TEN_DVKT_GIA": "Cắt u vú lành tính",
@@ -22447,11 +23842,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95173"
   },
   {
-    "STT": 1122,
+    "STT": 1135,
     "MA_DICH_VU": "13.0175.0591",
     "TEN_DICH_VU": "Bóc nhân xơ vú",
     "TEN_DVKT_GIA": "Bóc nhân xơ vú",
@@ -22467,11 +23863,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94992"
   },
   {
-    "STT": 1123,
+    "STT": 1136,
     "MA_DICH_VU": "13.0183.0099",
     "TEN_DICH_VU": "Đặt ống thông tĩnh mạch trung tâm sơ sinh",
     "TEN_DVKT_GIA": "Đặt ống thông tĩnh mạch trung tâm sơ sinh",
@@ -22487,11 +23884,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94920"
   },
   {
-    "STT": 1124,
+    "STT": 1137,
     "MA_DICH_VU": "13.0185.0099",
     "TEN_DICH_VU": "Đặt ống thông tĩnh mạch rốn sơ sinh",
     "TEN_DVKT_GIA": "Đặt ống thông tĩnh mạch rốn sơ sinh",
@@ -22507,11 +23905,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94921"
   },
   {
-    "STT": 1125,
+    "STT": 1138,
     "MA_DICH_VU": "13.0187.0209",
     "TEN_DICH_VU": "Hô hấp áp lực dương liên tục (CPAP) không xâm nhập ở trẻ sơ sinh (thở CPAP qua mũi) [theo giờ thực tế]",
     "TEN_DVKT_GIA": "Hô hấp áp lực dương liên tục (CPAP) không xâm nhập ở trẻ sơ sinh (thở CPAP qua mũi) [theo giờ thực tế]",
@@ -22527,11 +23926,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94877"
   },
   {
-    "STT": 1126,
+    "STT": 1139,
     "MA_DICH_VU": "13.0188.0083",
     "TEN_DICH_VU": "Chọc dò tủy sống sơ sinh",
     "TEN_DVKT_GIA": "Chọc dò tủy sống sơ sinh",
@@ -22547,11 +23947,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "Chưa bao gồm kim chọc dò.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94389"
   },
   {
-    "STT": 1127,
+    "STT": 1140,
     "MA_DICH_VU": "13.0191.0079",
     "TEN_DICH_VU": "Chọc hút dịch, khí màng phổi sơ sinh",
     "TEN_DVKT_GIA": "Chọc hút dịch, khí màng phổi sơ sinh",
@@ -22567,11 +23968,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94449"
   },
   {
-    "STT": 1128,
+    "STT": 1141,
     "MA_DICH_VU": "13.0192.0103",
     "TEN_DICH_VU": "Đặt ống thông dạ dày (hút dịch hoặc nuôi dưỡng) sơ sinh",
     "TEN_DVKT_GIA": "Đặt ống thông dạ dày (hút dịch hoặc nuôi dưỡng) sơ sinh",
@@ -22587,11 +23989,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94320"
   },
   {
-    "STT": 1129,
+    "STT": 1142,
     "MA_DICH_VU": "13.0193.0159",
     "TEN_DICH_VU": "Rửa dạ dày sơ sinh",
     "TEN_DVKT_GIA": "Rửa dạ dày sơ sinh",
@@ -22607,11 +24010,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94432"
   },
   {
-    "STT": 1130,
+    "STT": 1143,
     "MA_DICH_VU": "13.0195.0094",
     "TEN_DICH_VU": "Dẫn lưu màng phổi sơ sinh",
     "TEN_DVKT_GIA": "Dẫn lưu màng phổi sơ sinh",
@@ -22627,11 +24031,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94881"
   },
   {
-    "STT": 1131,
+    "STT": 1144,
     "MA_DICH_VU": "13.0199.0211",
     "TEN_DICH_VU": "Đặt sonde hậu môn sơ sinh",
     "TEN_DVKT_GIA": "Đặt sonde hậu môn sơ sinh",
@@ -22647,11 +24052,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94301"
   },
   {
-    "STT": 1132,
+    "STT": 1145,
     "MA_DICH_VU": "13.0200.0071",
     "TEN_DICH_VU": "Bóp bóng ambu, thổi ngạt sơ sinh",
     "TEN_DVKT_GIA": "Bóp bóng ambu, thổi ngạt sơ sinh",
@@ -22667,11 +24073,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94569"
   },
   {
-    "STT": 1133,
+    "STT": 1146,
     "MA_DICH_VU": "13.0229.0643",
     "TEN_DICH_VU": "Phá thai bằng thuốc cho tuổi thai đến hết 9 tuần",
     "TEN_DVKT_GIA": "Phá thai bằng thuốc cho tuổi thai đến hết 9 tuần",
@@ -22687,11 +24094,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94723"
   },
   {
-    "STT": 1134,
+    "STT": 1147,
     "MA_DICH_VU": "13.0230.0646",
     "TEN_DICH_VU": "Phá thai to từ 13 tuần đến 22 tuần bằng phương pháp đặt túi nước",
     "TEN_DVKT_GIA": "Phá thai to từ 13 tuần đến 22 tuần bằng phương pháp đặt túi nước",
@@ -22707,11 +24115,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94995"
   },
   {
-    "STT": 1135,
+    "STT": 1148,
     "MA_DICH_VU": "13.0231.0643",
     "TEN_DICH_VU": "Phá thai bằng thuốc cho tuổi thai đến hết 8 tuần",
     "TEN_DVKT_GIA": "Phá thai bằng thuốc cho tuổi thai đến hết 8 tuần",
@@ -22727,11 +24136,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94724"
   },
   {
-    "STT": 1136,
+    "STT": 1149,
     "MA_DICH_VU": "13.0232.0647",
     "TEN_DICH_VU": "Phá thai bằng thuốc cho tuổi thai từ 13 tuần đến hết tuần 22",
     "TEN_DVKT_GIA": "Phá thai bằng thuốc cho tuổi thai từ 13 tuần đến hết tuần 22",
@@ -22747,11 +24157,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94870"
   },
   {
-    "STT": 1137,
+    "STT": 1150,
     "MA_DICH_VU": "13.0233.0642",
     "TEN_DICH_VU": "Phá thai bằng phương pháp nong và gắp từ tuần thứ 13 đến hết tuần thứ 18",
     "TEN_DVKT_GIA": "Phá thai bằng phương pháp nong và gắp từ tuần thứ 13 đến hết tuần thứ 18",
@@ -22767,11 +24178,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95004"
   },
   {
-    "STT": 1138,
+    "STT": 1151,
     "MA_DICH_VU": "13.0235.0727",
     "TEN_DICH_VU": "Phá thai người bệnh có sẹo mổ lấy thai cũ",
     "TEN_DVKT_GIA": "Phá thai người bệnh có sẹo mổ lấy thai cũ",
@@ -22787,11 +24199,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94924"
   },
   {
-    "STT": 1139,
+    "STT": 1152,
     "MA_DICH_VU": "13.0237.0620",
     "TEN_DICH_VU": "Hút thai dưới siêu âm",
     "TEN_DVKT_GIA": "Hút thai dưới siêu âm",
@@ -22807,11 +24220,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94835"
   },
   {
-    "STT": 1140,
+    "STT": 1153,
     "MA_DICH_VU": "13.0238.0648",
     "TEN_DICH_VU": "Phá thai từ tuần thứ 6 đến hết 12 tuần bằng phương pháp hút chân không",
     "TEN_DVKT_GIA": "Phá thai từ tuần thứ 6 đến hết 12 tuần bằng phương pháp hút chân không",
@@ -22827,11 +24241,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94809"
   },
   {
-    "STT": 1141,
+    "STT": 1154,
     "MA_DICH_VU": "13.0239.0645",
     "TEN_DICH_VU": "Phá thai bằng thuốc cho tuổi thai đến hết 7 tuần",
     "TEN_DVKT_GIA": "Phá thai bằng thuốc cho tuổi thai đến hết 7 tuần",
@@ -22847,11 +24262,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94514"
   },
   {
-    "STT": 1142,
+    "STT": 1155,
     "MA_DICH_VU": "13.0241.0644",
     "TEN_DICH_VU": "Phá thai đến hết 7 tuần bằng phương pháp hút chân không",
     "TEN_DVKT_GIA": "Phá thai đến hết 7 tuần bằng phương pháp hút chân không",
@@ -22867,11 +24283,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94820"
   },
   {
-    "STT": 1143,
+    "STT": 1156,
     "MA_DICH_VU": "13.27",
     "TEN_DICH_VU": "Khám Phụ sản",
     "TEN_DVKT_GIA": "Khám Phụ sản",
@@ -22887,11 +24304,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94083"
   },
   {
-    "STT": 1144,
+    "STT": 1157,
     "MA_DICH_VU": "14.0167.0738",
     "TEN_DICH_VU": "Cắt bỏ chắp có bọc",
     "TEN_DVKT_GIA": "Cắt bỏ chắp có bọc",
@@ -22907,11 +24325,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94266"
   },
   {
-    "STT": 1145,
+    "STT": 1158,
     "MA_DICH_VU": "14.0168.0764",
     "TEN_DICH_VU": "Khâu cò mi, tháo cò",
     "TEN_DVKT_GIA": "Khâu cò mi, tháo cò",
@@ -22927,11 +24346,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94823"
   },
   {
-    "STT": 1146,
+    "STT": 1159,
     "MA_DICH_VU": "14.0169.0738",
     "TEN_DICH_VU": "Trích dẫn lưu túi lệ",
     "TEN_DVKT_GIA": "Trích dẫn lưu túi lệ",
@@ -22947,11 +24367,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94267"
   },
   {
-    "STT": 1147,
+    "STT": 1160,
     "MA_DICH_VU": "14.0174.0773",
     "TEN_DICH_VU": "Xử lý vết thương phần mềm, tổn thương nông vùng mắt",
     "TEN_DVKT_GIA": "Xử lý vết thương phần mềm, tổn thương nông vùng mắt",
@@ -22967,11 +24388,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94987"
   },
   {
-    "STT": 1148,
+    "STT": 1161,
     "MA_DICH_VU": "14.0187.0788",
     "TEN_DICH_VU": "Phẫu thuật quặm [1 mi  - gây mê]",
     "TEN_DVKT_GIA": "Phẫu thuật quặm [1 mi  - gây mê]",
@@ -22987,11 +24409,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95010"
   },
   {
-    "STT": 1149,
+    "STT": 1162,
     "MA_DICH_VU": "14.0187.0789",
     "TEN_DICH_VU": "Phẫu thuật quặm  [1 mi  - gây tê ]",
     "TEN_DVKT_GIA": "Phẫu thuật quặm  [1 mi  - gây tê ]",
@@ -23007,11 +24430,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94923"
   },
   {
-    "STT": 1150,
+    "STT": 1163,
     "MA_DICH_VU": "14.0187.0790",
     "TEN_DICH_VU": "Phẫu thuật quặm [2 mi  - gây mê]",
     "TEN_DVKT_GIA": "Phẫu thuật quặm [2 mi  - gây mê]",
@@ -23027,11 +24451,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95034"
   },
   {
-    "STT": 1151,
+    "STT": 1164,
     "MA_DICH_VU": "14.0187.0791",
     "TEN_DICH_VU": "Phẫu thuật quặm [2 mi  - gây tê]",
     "TEN_DVKT_GIA": "Phẫu thuật quặm [2 mi  - gây tê]",
@@ -23047,11 +24472,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94973"
   },
   {
-    "STT": 1152,
+    "STT": 1165,
     "MA_DICH_VU": "14.0187.0792",
     "TEN_DICH_VU": "Phẫu thuật quặm [3 mi  - gây tê]",
     "TEN_DVKT_GIA": "Phẫu thuật quặm [3 mi  - gây tê]",
@@ -23067,11 +24493,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94998"
   },
   {
-    "STT": 1153,
+    "STT": 1166,
     "MA_DICH_VU": "14.0187.0793",
     "TEN_DICH_VU": "Phẫu thuật quặm [3 mi - gây mê]",
     "TEN_DVKT_GIA": "Phẫu thuật quặm [3 mi - gây mê]",
@@ -23087,11 +24514,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95044"
   },
   {
-    "STT": 1154,
+    "STT": 1167,
     "MA_DICH_VU": "14.0187.0794",
     "TEN_DICH_VU": "Phẫu thuật quặm [4 mi  - gây mê]",
     "TEN_DVKT_GIA": "Phẫu thuật quặm [4 mi  - gây mê]",
@@ -23107,11 +24535,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95055"
   },
   {
-    "STT": 1155,
+    "STT": 1168,
     "MA_DICH_VU": "14.0187.0795",
     "TEN_DICH_VU": "Phẫu thuật quặm [4 mi  - gây tê ]",
     "TEN_DVKT_GIA": "Phẫu thuật quặm [4 mi  - gây tê ]",
@@ -23127,11 +24556,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95016"
   },
   {
-    "STT": 1156,
+    "STT": 1169,
     "MA_DICH_VU": "14.0192.0075",
     "TEN_DICH_VU": "Cắt chỉ khâu giác mạc",
     "TEN_DVKT_GIA": "Cắt chỉ khâu giác mạc",
@@ -23147,11 +24577,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94098"
   },
   {
-    "STT": 1157,
+    "STT": 1170,
     "MA_DICH_VU": "14.0193.0856",
     "TEN_DICH_VU": "Tiêm dưới kết mạc",
     "TEN_DVKT_GIA": "Tiêm dưới kết mạc",
@@ -23167,11 +24598,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94132"
   },
   {
-    "STT": 1158,
+    "STT": 1171,
     "MA_DICH_VU": "14.0194.0857",
     "TEN_DICH_VU": "Tiêm cạnh nhãn cầu",
     "TEN_DVKT_GIA": "Tiêm cạnh nhãn cầu",
@@ -23187,11 +24619,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94133"
   },
   {
-    "STT": 1159,
+    "STT": 1172,
     "MA_DICH_VU": "14.0197.0854",
     "TEN_DICH_VU": "Bơm thông lệ đạo [2 mắt]",
     "TEN_DVKT_GIA": "Bơm thông lệ đạo [2 mắt]",
@@ -23207,11 +24640,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94371"
   },
   {
-    "STT": 1160,
+    "STT": 1173,
     "MA_DICH_VU": "14.0197.0855",
     "TEN_DICH_VU": "Bơm thông lệ đạo [1 mắt]",
     "TEN_DVKT_GIA": "Bơm thông lệ đạo [1 mắt]",
@@ -23227,11 +24661,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94190"
   },
   {
-    "STT": 1161,
+    "STT": 1174,
     "MA_DICH_VU": "14.0200.0782",
     "TEN_DICH_VU": "Lấy dị vật kết mạc",
     "TEN_DVKT_GIA": "Lấy dị vật kết mạc",
@@ -23247,11 +24682,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94203"
   },
   {
-    "STT": 1162,
+    "STT": 1175,
     "MA_DICH_VU": "14.0202.0785",
     "TEN_DICH_VU": "Lấy calci kết mạc",
     "TEN_DVKT_GIA": "Lấy calci kết mạc",
@@ -23267,11 +24703,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94105"
   },
   {
-    "STT": 1163,
+    "STT": 1176,
     "MA_DICH_VU": "14.0203.0075",
     "TEN_DICH_VU": "Cắt chỉ khâu da mi đơn giản",
     "TEN_DVKT_GIA": "Cắt chỉ khâu da mi đơn giản",
@@ -23287,11 +24724,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94099"
   },
   {
-    "STT": 1164,
+    "STT": 1177,
     "MA_DICH_VU": "14.0204.0075",
     "TEN_DICH_VU": "Cắt chỉ khâu kết mạc",
     "TEN_DVKT_GIA": "Cắt chỉ khâu kết mạc",
@@ -23307,11 +24745,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94100"
   },
   {
-    "STT": 1165,
+    "STT": 1178,
     "MA_DICH_VU": "14.0205.0759",
     "TEN_DICH_VU": "Đốt lông xiêu, nhổ lông siêu",
     "TEN_DVKT_GIA": "Đốt lông xiêu, nhổ lông siêu",
@@ -23327,11 +24766,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94128"
   },
   {
-    "STT": 1166,
+    "STT": 1179,
     "MA_DICH_VU": "14.0206.0730",
     "TEN_DICH_VU": "Bơm rửa lệ đạo",
     "TEN_DVKT_GIA": "Bơm rửa lệ đạo",
@@ -23347,11 +24787,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94109"
   },
   {
-    "STT": 1167,
+    "STT": 1180,
     "MA_DICH_VU": "14.0210.0799",
     "TEN_DICH_VU": "Nặn tuyến bờ mi, đánh bờ mi",
     "TEN_DVKT_GIA": "Nặn tuyến bờ mi, đánh bờ mi",
@@ -23367,11 +24808,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94106"
   },
   {
-    "STT": 1168,
+    "STT": 1181,
     "MA_DICH_VU": "14.0211.0842",
     "TEN_DICH_VU": "Rửa cùng đồ",
     "TEN_DVKT_GIA": "Rửa cùng đồ",
@@ -23387,11 +24829,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Áp dụng cho 1 mắt hoặc 2 mắt",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94125"
   },
   {
-    "STT": 1169,
+    "STT": 1182,
     "MA_DICH_VU": "14.0212.0864",
     "TEN_DICH_VU": "Cấp cứu bỏng mắt ban đầu",
     "TEN_DVKT_GIA": "Cấp cứu bỏng mắt ban đầu",
@@ -23407,11 +24850,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94719"
   },
   {
-    "STT": 1170,
+    "STT": 1183,
     "MA_DICH_VU": "14.0214.0778",
     "TEN_DICH_VU": "Bóc giả mạc",
     "TEN_DVKT_GIA": "Bóc giả mạc",
@@ -23427,11 +24871,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94311"
   },
   {
-    "STT": 1171,
+    "STT": 1184,
     "MA_DICH_VU": "14.0215.0505",
     "TEN_DICH_VU": "Rạch áp xe mi",
     "TEN_DVKT_GIA": "Rạch áp xe mi",
@@ -23447,11 +24892,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94539"
   },
   {
-    "STT": 1172,
+    "STT": 1185,
     "MA_DICH_VU": "14.0216.0505",
     "TEN_DICH_VU": "Rạch áp xe túi lệ",
     "TEN_DVKT_GIA": "Rạch áp xe túi lệ",
@@ -23467,11 +24913,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94540"
   },
   {
-    "STT": 1173,
+    "STT": 1186,
     "MA_DICH_VU": "14.0218.0849",
     "TEN_DICH_VU": "Soi đáy mắt trực tiếp",
     "TEN_DVKT_GIA": "Soi đáy mắt trực tiếp",
@@ -23487,11 +24934,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94178"
   },
   {
-    "STT": 1174,
+    "STT": 1187,
     "MA_DICH_VU": "14.0222.0801",
     "TEN_DICH_VU": "Theo dõi nhãn áp 3 ngày",
     "TEN_DVKT_GIA": "Theo dõi nhãn áp 3 ngày",
@@ -23507,11 +24955,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94401"
   },
   {
-    "STT": 1175,
+    "STT": 1188,
     "MA_DICH_VU": "14.0239.0028",
     "TEN_DICH_VU": "Chụp lỗ thị giác [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp lỗ thị giác [số hóa 1 phim]",
@@ -23527,11 +24976,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94204"
   },
   {
-    "STT": 1176,
+    "STT": 1189,
     "MA_DICH_VU": "14.0239.0029",
     "TEN_DICH_VU": "Chụp lỗ thị giác [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp lỗ thị giác [số hóa 2 phim]",
@@ -23547,11 +24997,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94339"
   },
   {
-    "STT": 1177,
+    "STT": 1190,
     "MA_DICH_VU": "14.0240.0845",
     "TEN_DICH_VU": "Siêu âm mắt",
     "TEN_DVKT_GIA": "Siêu âm mắt",
@@ -23567,11 +25018,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94199"
   },
   {
-    "STT": 1178,
+    "STT": 1191,
     "MA_DICH_VU": "14.0249.0844",
     "TEN_DICH_VU": "Siêu âm bán phần trước",
     "TEN_DVKT_GIA": "Siêu âm bán phần trước",
@@ -23587,11 +25039,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94554"
   },
   {
-    "STT": 1179,
+    "STT": 1192,
     "MA_DICH_VU": "14.0256.0843",
     "TEN_DICH_VU": "Đo sắc giác",
     "TEN_DVKT_GIA": "Đo sắc giác",
@@ -23607,11 +25060,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94258"
   },
   {
-    "STT": 1180,
+    "STT": 1193,
     "MA_DICH_VU": "14.0258.0754",
     "TEN_DICH_VU": "Đo khúc xạ máy",
     "TEN_DVKT_GIA": "Đo khúc xạ máy",
@@ -23627,11 +25081,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94009"
   },
   {
-    "STT": 1181,
+    "STT": 1194,
     "MA_DICH_VU": "14.0265.0751",
     "TEN_DICH_VU": "Đo thị giác 2 mắt",
     "TEN_DVKT_GIA": "Đo thị giác 2 mắt",
@@ -23647,11 +25102,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94255"
   },
   {
-    "STT": 1182,
+    "STT": 1195,
     "MA_DICH_VU": "14.0291.0212",
     "TEN_DICH_VU": "Tiêm tĩnh mạch, truyền tĩnh mạch",
     "TEN_DVKT_GIA": "Tiêm tĩnh mạch, truyền tĩnh mạch",
@@ -23667,11 +25123,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú; chưa bao gồm thuốc tiêm.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94021"
   },
   {
-    "STT": 1183,
+    "STT": 1196,
     "MA_DICH_VU": "14.30",
     "TEN_DICH_VU": "Khám Mắt",
     "TEN_DVKT_GIA": "Khám Mắt",
@@ -23687,11 +25144,54 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94084"
   },
   {
-    "STT": 1184,
+    "STT": 1197,
+    "MA_DICH_VU": "15.0033.1001",
+    "TEN_DICH_VU": "Phẫu thuật mở hòm nhĩ kiểm tra/lấy tổn thương, lấy dị vật",
+    "TEN_DVKT_GIA": "Phẫu thuật mở hòm nhĩ kiểm tra/lấy tổn thương, lấy dị vật",
+    "DON_GIA": 1646800,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093231,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 1646800,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1198,
+    "MA_DICH_VU": "15.0034.0997",
+    "TEN_DICH_VU": "Vá nhĩ đơn thuần",
+    "TEN_DVKT_GIA": "Vá nhĩ đơn thuần",
+    "DON_GIA": 4058900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093232,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4058900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "Đã bao gồm chi phí mũi khoan",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1199,
     "MA_DICH_VU": "15.0045.0909",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ u nang vành tai, u bã đậu dái tai [gây mê]",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ u nang vành tai, u bã đậu dái tai [gây mê]",
@@ -23707,11 +25207,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95015"
   },
   {
-    "STT": 1185,
+    "STT": 1200,
     "MA_DICH_VU": "15.0045.0910",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ u nang vành tai, u bã đậu dái tai [gây tê]",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ u nang vành tai, u bã đậu dái tai [gây tê]",
@@ -23727,11 +25228,117 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94965"
   },
   {
-    "STT": 1186,
+    "STT": 1201,
+    "MA_DICH_VU": "15.0046.0872",
+    "TEN_DICH_VU": "Phẫu thuật lấy đường rò luân nhĩ [gây tê]",
+    "TEN_DVKT_GIA": "Phẫu thuật lấy đường rò luân nhĩ [gây tê]",
+    "DON_GIA": 580400,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093233,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 580400,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P3",
+    "MA_NHOM": "PTTT-P3",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1202,
+    "MA_DICH_VU": "15.0046.0954",
+    "TEN_DICH_VU": "Phẫu thuật lấy đường rò luân nhĩ [gây mê]",
+    "TEN_DVKT_GIA": "Phẫu thuật lấy đường rò luân nhĩ [gây mê]",
+    "DON_GIA": 3209900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093234,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 3209900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P3",
+    "MA_NHOM": "PTTT-P3",
+    "GHICHU": "Đã bao gồm chi phí mũi khoan",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94001"
+  },
+  {
+    "STT": 1203,
+    "MA_DICH_VU": "15.0048.0971",
+    "TEN_DICH_VU": "Đặt ống thông khí màng nhĩ",
+    "TEN_DVKT_GIA": "Đặt ống thông khí màng nhĩ",
+    "DON_GIA": 3209900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093357,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 3209900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P3",
+    "MA_NHOM": "PTTT-P3",
+    "GHICHU": "Đã bao gồm chi phí mũi khoan",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1204,
+    "MA_DICH_VU": "15.0049.0971",
+    "TEN_DICH_VU": "Phẫu thuật nội soi đặt ống thông khí màng nhĩ",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi đặt ống thông khí màng nhĩ",
+    "DON_GIA": 3209900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093236,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 3209900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P3",
+    "MA_NHOM": "PTTT-P3",
+    "GHICHU": "Đã bao gồm chi phí mũi khoan",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1205,
+    "MA_DICH_VU": "15.0049.0971_GT",
+    "TEN_DICH_VU": "Phẫu thuật nội soi đặt ống thông khí màng nhĩ",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi đặt ống thông khí màng nhĩ",
+    "DON_GIA": 2976800,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093358,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 2976800,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P3",
+    "MA_NHOM": "PTTT-P3",
+    "GHICHU": "Đã bao gồm chi phí mũi khoan, chưa bao gồm thuốc và oxy",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1206,
     "MA_DICH_VU": "15.0050.0994",
     "TEN_DICH_VU": "Trích rạch màng nhĩ",
     "TEN_DVKT_GIA": "Trích rạch màng nhĩ",
@@ -23747,11 +25354,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94198"
   },
   {
-    "STT": 1187,
+    "STT": 1207,
     "MA_DICH_VU": "15.0051.0216",
     "TEN_DICH_VU": "Khâu vết rách vành tai",
     "TEN_DVKT_GIA": "Khâu vết rách vành tai",
@@ -23767,11 +25375,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94502"
   },
   {
-    "STT": 1188,
+    "STT": 1208,
     "MA_DICH_VU": "15.0052.0993",
     "TEN_DICH_VU": "Bơm hơi vòi nhĩ",
     "TEN_DVKT_GIA": "Bơm hơi vòi nhĩ",
@@ -23787,11 +25396,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94385"
   },
   {
-    "STT": 1189,
+    "STT": 1209,
     "MA_DICH_VU": "15.0054.0902",
     "TEN_DICH_VU": "Lấy dị vật tai [kính hiển vi, gây mê]",
     "TEN_DVKT_GIA": "Lấy dị vật tai [kính hiển vi, gây mê]",
@@ -23807,11 +25417,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94837"
   },
   {
-    "STT": 1190,
+    "STT": 1210,
     "MA_DICH_VU": "15.0054.0903",
     "TEN_DICH_VU": "Lấy dị vật tai [kính hiển vi, gây tê]",
     "TEN_DVKT_GIA": "Lấy dị vật tai [kính hiển vi, gây tê]",
@@ -23827,11 +25438,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94460"
   },
   {
-    "STT": 1191,
+    "STT": 1211,
     "MA_DICH_VU": "15.0055.0902",
     "TEN_DICH_VU": "Nội soi lấy dị vật tai gây mê/[gây mê]",
     "TEN_DVKT_GIA": "Nội soi lấy dị vật tai gây mê/[gây mê]",
@@ -23847,11 +25459,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94838"
   },
   {
-    "STT": 1192,
+    "STT": 1212,
     "MA_DICH_VU": "15.0055.0903",
     "TEN_DICH_VU": "Nội soi lấy dị vật tai gây mê/[gây tê]",
     "TEN_DVKT_GIA": "Nội soi lấy dị vật tai gây mê/[gây tê]",
@@ -23867,11 +25480,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94461"
   },
   {
-    "STT": 1193,
+    "STT": 1213,
     "MA_DICH_VU": "15.0056.0882",
     "TEN_DICH_VU": "Chọc hút dịch vành tai",
     "TEN_DVKT_GIA": "Chọc hút dịch vành tai",
@@ -23887,11 +25501,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94188"
   },
   {
-    "STT": 1194,
+    "STT": 1214,
     "MA_DICH_VU": "15.0058.0899",
     "TEN_DICH_VU": "Làm thuốc tai",
     "TEN_DVKT_GIA": "Làm thuốc tai",
@@ -23907,11 +25522,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94030"
   },
   {
-    "STT": 1195,
+    "STT": 1215,
     "MA_DICH_VU": "15.0059.0908",
     "TEN_DICH_VU": "Lấy nút biểu bì ống tai ngoài",
     "TEN_DVKT_GIA": "Lấy nút biểu bì ống tai ngoài",
@@ -23927,11 +25543,96 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94201"
   },
   {
-    "STT": 1196,
+    "STT": 1216,
+    "MA_DICH_VU": "15.0075.0969",
+    "TEN_DICH_VU": "Phẫu thuật nội soi mở xoang trán",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi mở xoang trán",
+    "DON_GIA": 4211900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093359,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4211900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1217,
+    "MA_DICH_VU": "15.0077.0978",
+    "TEN_DICH_VU": "Phẫu thuật nội soi mở xoang sàng",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi mở xoang sàng",
+    "DON_GIA": 3180600,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093237,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 3180600,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94001"
+  },
+  {
+    "STT": 1218,
+    "MA_DICH_VU": "15.0078.0978",
+    "TEN_DICH_VU": "Phẫu thuật nội soi mở xoang hàm",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi mở xoang hàm",
+    "DON_GIA": 3180600,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093360,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 3180600,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1219,
+    "MA_DICH_VU": "15.0079.0969",
+    "TEN_DICH_VU": "Phẫu thuật nội soi mở xoang bướm",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi mở xoang bướm",
+    "DON_GIA": 4211900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093361,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4211900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94001"
+  },
+  {
+    "STT": 1220,
     "MA_DICH_VU": "15.0081.0918",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt polyp mũi [gây mê]",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt polyp mũi [gây mê]",
@@ -23947,11 +25648,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94929"
   },
   {
-    "STT": 1197,
+    "STT": 1221,
     "MA_DICH_VU": "15.0081.0919",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt polyp mũi [gây tê]",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt polyp mũi [gây tê]",
@@ -23967,11 +25669,75 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94831"
   },
   {
-    "STT": 1198,
+    "STT": 1222,
+    "MA_DICH_VU": "15.0084.0974",
+    "TEN_DICH_VU": "Phẫu thuật nội soi mở các xoang sàng, hàm, trán, bướm",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi mở các xoang sàng, hàm, trán, bướm",
+    "DON_GIA": 9076600,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093238,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 9076600,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94001"
+  },
+  {
+    "STT": 1223,
+    "MA_DICH_VU": "15.0085.0975",
+    "TEN_DICH_VU": "Phẫu thuật nội soi mở dẫn lưu/cắt bỏ u nhày xoang",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi mở dẫn lưu/cắt bỏ u nhày xoang",
+    "DON_GIA": 5244100,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093362,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 5244100,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1224,
+    "MA_DICH_VU": "15.0086.1001",
+    "TEN_DICH_VU": "Phẫu thuật cắt u nang răng sinh, u nang sàn mũi",
+    "TEN_DVKT_GIA": "Phẫu thuật cắt u nang răng sinh, u nang sàn mũi",
+    "DON_GIA": 1646800,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093363,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 1646800,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1225,
     "MA_DICH_VU": "15.0097.0960",
     "TEN_DICH_VU": "Phẫu thuật nội soi cầm máu mũi",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cầm máu mũi",
@@ -23987,11 +25753,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm mũi Hummer và tay cắt.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95294"
   },
   {
-    "STT": 1199,
+    "STT": 1226,
     "MA_DICH_VU": "15.0097.0960_GT",
     "TEN_DICH_VU": "Phẫu thuật nội soi cầm máu mũi",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cầm máu mũi",
@@ -24007,11 +25774,54 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm mũi Hummer và tay cắt, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95051"
   },
   {
-    "STT": 1200,
+    "STT": 1227,
+    "MA_DICH_VU": "15.0103.0942",
+    "TEN_DICH_VU": "Phẫu thuật cắt xoang hơi cuốn mũi giữa",
+    "TEN_DVKT_GIA": "Phẫu thuật cắt xoang hơi cuốn mũi giữa",
+    "DON_GIA": 4211900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093239,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4211900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94001"
+  },
+  {
+    "STT": 1228,
+    "MA_DICH_VU": "15.0106.0969",
+    "TEN_DICH_VU": "Phẫu thuật nội soi chỉnh hình cuốn mũi dưới",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi chỉnh hình cuốn mũi dưới",
+    "DON_GIA": 4211900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093364,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4211900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1229,
     "MA_DICH_VU": "15.0112.0970",
     "TEN_DICH_VU": "Phẫu thuật chỉnh hình vách ngăn",
     "TEN_DVKT_GIA": "Phẫu thuật chỉnh hình vách ngăn",
@@ -24027,11 +25837,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm mũi Hummer và tay cắt.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95396"
   },
   {
-    "STT": 1201,
+    "STT": 1230,
     "MA_DICH_VU": "15.0130.0922",
     "TEN_DICH_VU": "Đốt điện cuốn mũi dưới [gây tê]",
     "TEN_DVKT_GIA": "Đốt điện cuốn mũi dưới [gây tê]",
@@ -24047,11 +25858,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94832"
   },
   {
-    "STT": 1202,
+    "STT": 1231,
     "MA_DICH_VU": "15.0131.0922",
     "TEN_DICH_VU": "Nội soi đốt điện cuốn mũi dưới [gây tê]",
     "TEN_DVKT_GIA": "Nội soi đốt điện cuốn mũi dưới [gây tê]",
@@ -24067,11 +25879,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94833"
   },
   {
-    "STT": 1203,
+    "STT": 1232,
     "MA_DICH_VU": "15.0132.0867",
     "TEN_DICH_VU": "Bẻ cuốn mũi",
     "TEN_DVKT_GIA": "Bẻ cuốn mũi",
@@ -24087,11 +25900,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94451"
   },
   {
-    "STT": 1204,
+    "STT": 1233,
     "MA_DICH_VU": "15.0133.0867",
     "TEN_DICH_VU": "Nội soi bẻ cuốn mũi dưới",
     "TEN_DVKT_GIA": "Nội soi bẻ cuốn mũi dưới",
@@ -24107,11 +25921,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94452"
   },
   {
-    "STT": 1205,
+    "STT": 1234,
     "MA_DICH_VU": "15.0135.0168",
     "TEN_DICH_VU": "Sinh thiết hốc mũi",
     "TEN_DVKT_GIA": "Sinh thiết hốc mũi",
@@ -24127,11 +25942,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94402"
   },
   {
-    "STT": 1206,
+    "STT": 1235,
     "MA_DICH_VU": "15.0136.1005",
     "TEN_DICH_VU": "Nội soi sinh thiết u hốc mũi",
     "TEN_DVKT_GIA": "Nội soi sinh thiết u hốc mũi",
@@ -24147,11 +25963,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94714"
   },
   {
-    "STT": 1207,
+    "STT": 1236,
     "MA_DICH_VU": "15.0137.0932",
     "TEN_DICH_VU": "Nội soi sinh thiết u vòm [gây tê]",
     "TEN_DVKT_GIA": "Nội soi sinh thiết u vòm [gây tê]",
@@ -24167,11 +25984,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94844"
   },
   {
-    "STT": 1208,
+    "STT": 1237,
     "MA_DICH_VU": "15.0138.0920",
     "TEN_DICH_VU": "Chọc rửa xoang hàm",
     "TEN_DVKT_GIA": "Chọc rửa xoang hàm",
@@ -24187,11 +26005,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94703"
   },
   {
-    "STT": 1209,
+    "STT": 1238,
     "MA_DICH_VU": "15.0140.0916",
     "TEN_DICH_VU": "Nhét bấc mũi sau",
     "TEN_DVKT_GIA": "Nhét bấc mũi sau",
@@ -24207,11 +26026,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94407"
   },
   {
-    "STT": 1210,
+    "STT": 1239,
     "MA_DICH_VU": "15.0141.0916",
     "TEN_DICH_VU": "Nhét bấc mũi trước",
     "TEN_DVKT_GIA": "Nhét bấc mũi trước",
@@ -24227,11 +26047,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94408"
   },
   {
-    "STT": 1211,
+    "STT": 1240,
     "MA_DICH_VU": "15.0142.0869",
     "TEN_DICH_VU": "Cầm máu mũi bằng vật liệu cầm máu [2 bên]",
     "TEN_DVKT_GIA": "Cầm máu mũi bằng vật liệu cầm máu [2 bên]",
@@ -24247,11 +26068,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94659"
   },
   {
-    "STT": 1212,
+    "STT": 1241,
     "MA_DICH_VU": "15.0143.0907",
     "TEN_DICH_VU": "Lấy dị vật mũi [không gây mê]",
     "TEN_DVKT_GIA": "Lấy dị vật mũi [không gây mê]",
@@ -24267,11 +26089,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94522"
   },
   {
-    "STT": 1213,
+    "STT": 1242,
     "MA_DICH_VU": "15.0144.0906",
     "TEN_DICH_VU": "Nội soi lấy dị vật mũi gây tê/gây mê [gây mê]",
     "TEN_DVKT_GIA": "Nội soi lấy dị vật mũi gây tê/gây mê [gây mê]",
@@ -24287,11 +26110,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94925"
   },
   {
-    "STT": 1214,
+    "STT": 1243,
     "MA_DICH_VU": "15.0144.0907",
     "TEN_DICH_VU": "Nội soi lấy dị vật mũi gây tê/gây mê [không gây mê]",
     "TEN_DVKT_GIA": "Nội soi lấy dị vật mũi gây tê/gây mê [không gây mê]",
@@ -24307,11 +26131,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94523"
   },
   {
-    "STT": 1215,
+    "STT": 1244,
     "MA_DICH_VU": "15.0147.1006",
     "TEN_DICH_VU": "Hút rửa mũi, xoang sau mổ",
     "TEN_DVKT_GIA": "Hút rửa mũi, xoang sau mổ",
@@ -24327,11 +26152,96 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94433"
   },
   {
-    "STT": 1216,
+    "STT": 1245,
+    "MA_DICH_VU": "15.0148.0966",
+    "TEN_DICH_VU": "Phẫu thuật chỉnh hình họng màn hầu lưỡi gà (UPPP)",
+    "TEN_DVKT_GIA": "Phẫu thuật chỉnh hình họng màn hầu lưỡi gà (UPPP)",
+    "DON_GIA": 4535700,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093365,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4535700,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1246,
+    "MA_DICH_VU": "15.0149.0870",
+    "TEN_DICH_VU": "Phẫu thuật cắt Amidan",
+    "TEN_DVKT_GIA": "Phẫu thuật cắt Amidan",
+    "DON_GIA": 1217100,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093366,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 1217100,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94001"
+  },
+  {
+    "STT": 1247,
+    "MA_DICH_VU": "15.0149.0937",
+    "TEN_DICH_VU": "Phẫu thuật cắt Amidan [dao điện]",
+    "TEN_DVKT_GIA": "Phẫu thuật cắt Amidan [dao điện]",
+    "DON_GIA": 1761400,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093240,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 1761400,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1248,
+    "MA_DICH_VU": "15.0149.2036",
+    "TEN_DICH_VU": "Phẫu thuật cắt Amidan [dao plasma hoặc dao laser hoặc dao siêu âm]",
+    "TEN_DVKT_GIA": "Phẫu thuật cắt Amidan [dao plasma hoặc dao laser hoặc dao siêu âm]",
+    "DON_GIA": 4003900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093367,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4003900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "Đã bao gồm dao cắt.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1249,
     "MA_DICH_VU": "15.0155.0958",
     "TEN_DICH_VU": "Phẫu thuật nạo VA nội soi",
     "TEN_DVKT_GIA": "Phẫu thuật nạo VA nội soi",
@@ -24347,11 +26257,201 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95302"
   },
   {
-    "STT": 1217,
+    "STT": 1250,
+    "MA_DICH_VU": "15.0156.0929",
+    "TEN_DICH_VU": "Phẫu thuật nội soi nạo VA bằng máy (gây mê)[Coblator]",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi nạo VA bằng máy (gây mê)[Coblator]",
+    "DON_GIA": 1658900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093241,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 1658900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "Đã bao gồm cả dao Hummer.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1251,
+    "MA_DICH_VU": "15.0157.0929",
+    "TEN_DICH_VU": "Phẫu thuật nội soi nạo VA bằng dụng cụ cắt hút [Hummer]",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi nạo VA bằng dụng cụ cắt hút [Hummer]",
+    "DON_GIA": 1658900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093368,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 1658900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "Đã bao gồm cả dao Hummer.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94001"
+  },
+  {
+    "STT": 1252,
+    "MA_DICH_VU": "15.0158.1002",
+    "TEN_DICH_VU": "Phẫu thuật nội soi cầm máu sau nạo VA (gây mê)",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi cầm máu sau nạo VA (gây mê)",
+    "DON_GIA": 1075700,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093242,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 1075700,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P3",
+    "MA_NHOM": "PTTT-P3",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1253,
+    "MA_DICH_VU": "15.0159.0965",
+    "TEN_DICH_VU": "Phẫu thuật nội soi cắt u nang hạ họng/hố lưỡi thanh thiệt",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt u nang hạ họng/hố lưỡi thanh thiệt",
+    "DON_GIA": 3340900,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093243,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 3340900,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1254,
+    "MA_DICH_VU": "15.0160.1000",
+    "TEN_DICH_VU": "Phẫu thuật dính mép trước dây thanh",
+    "TEN_DVKT_GIA": "Phẫu thuật dính mép trước dây thanh",
+    "DON_GIA": 2333000,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093369,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 2333000,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1255,
+    "MA_DICH_VU": "15.0166.0978",
+    "TEN_DICH_VU": "Phẫu thuật nội soi vi phẫu thanh quản cắt u nang/ polyp/ hạt xơ/u hạt dây thanh (gây tê/gây mê)",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi vi phẫu thanh quản cắt u nang/ polyp/ hạt xơ/u hạt dây thanh (gây tê/gây mê)",
+    "DON_GIA": 3180600,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093244,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 3180600,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1256,
+    "MA_DICH_VU": "15.0167.0978",
+    "TEN_DICH_VU": "Phẫu thuật nội soi vi phẫu thanh quản cắt u nang/polyp/hạt xơ/u hạt dây thanh bằng ống soi mềm gây tê",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi vi phẫu thanh quản cắt u nang/polyp/hạt xơ/u hạt dây thanh bằng ống soi mềm gây tê",
+    "DON_GIA": 3180600,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093370,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 3180600,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P2",
+    "MA_NHOM": "PTTT-P2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1257,
+    "MA_DICH_VU": "15.0168.0966",
+    "TEN_DICH_VU": "Phẫu thuật nội soi cắt u lành tính thanh quản (papiloma, kén hơi thanh quản,…) (gây tê/gây mê)",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt u lành tính thanh quản (papiloma, kén hơi thanh quản,…) (gây tê/gây mê)",
+    "DON_GIA": 4535700,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093371,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4535700,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1258,
+    "MA_DICH_VU": "15.0169.0966",
+    "TEN_DICH_VU": "Phẫu thuật nội soi cắt u lành tính thanh quản bằng dụng cụ cắt hút",
+    "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt u lành tính thanh quản bằng dụng cụ cắt hút",
+    "DON_GIA": 4535700,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093372,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 4535700,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "P1",
+    "MA_NHOM": "PTTT-P1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92015"
+  },
+  {
+    "STT": 1259,
     "MA_DICH_VU": "15.0174.0120",
     "TEN_DICH_VU": "Phẫu thuật mở khí quản (Gây tê/ gây mê)",
     "TEN_DVKT_GIA": "Phẫu thuật mở khí quản (Gây tê/ gây mê)",
@@ -24367,11 +26467,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94942"
   },
   {
-    "STT": 1218,
+    "STT": 1260,
     "MA_DICH_VU": "15.0206.0879",
     "TEN_DICH_VU": "Trích áp xe sàn miệng [gây tê]",
     "TEN_DVKT_GIA": "Trích áp xe sàn miệng [gây tê]",
@@ -24387,11 +26488,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94668"
   },
   {
-    "STT": 1219,
+    "STT": 1261,
     "MA_DICH_VU": "15.0207.0878",
     "TEN_DICH_VU": "Trích áp xe quanh Amidan [gây tê]",
     "TEN_DVKT_GIA": "Trích áp xe quanh Amidan [gây tê]",
@@ -24407,11 +26509,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94669"
   },
   {
-    "STT": 1220,
+    "STT": 1262,
     "MA_DICH_VU": "15.0207.0995",
     "TEN_DICH_VU": "Trích áp xe quanh Amidan [gây mê]",
     "TEN_DVKT_GIA": "Trích áp xe quanh Amidan [gây mê]",
@@ -24427,11 +26530,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94951"
   },
   {
-    "STT": 1221,
+    "STT": 1263,
     "MA_DICH_VU": "15.0211.0168",
     "TEN_DICH_VU": "Sinh thiết u họng miệng",
     "TEN_DVKT_GIA": "Sinh thiết u họng miệng",
@@ -24447,11 +26551,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94403"
   },
   {
-    "STT": 1222,
+    "STT": 1264,
     "MA_DICH_VU": "15.0212.0900",
     "TEN_DICH_VU": "Lấy dị vật họng miệng",
     "TEN_DVKT_GIA": "Lấy dị vật họng miệng",
@@ -24467,11 +26572,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94114"
   },
   {
-    "STT": 1223,
+    "STT": 1265,
     "MA_DICH_VU": "15.0213.0900",
     "TEN_DICH_VU": "Lấy dị vật hạ họng",
     "TEN_DVKT_GIA": "Lấy dị vật hạ họng",
@@ -24487,11 +26593,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94115"
   },
   {
-    "STT": 1224,
+    "STT": 1266,
     "MA_DICH_VU": "15.0214.1002",
     "TEN_DICH_VU": "Khâu phục hồi tổn thương đơn giản miệng, họng",
     "TEN_DVKT_GIA": "Khâu phục hồi tổn thương đơn giản miệng, họng",
@@ -24507,11 +26614,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94988"
   },
   {
-    "STT": 1225,
+    "STT": 1267,
     "MA_DICH_VU": "15.0219.1888",
     "TEN_DICH_VU": "Đặt nội khí quản",
     "TEN_DVKT_GIA": "Đặt nội khí quản",
@@ -24527,11 +26635,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94868"
   },
   {
-    "STT": 1226,
+    "STT": 1268,
     "MA_DICH_VU": "15.0220.0206",
     "TEN_DICH_VU": "Thay canuyn",
     "TEN_DVKT_GIA": "Thay canuyn",
@@ -24547,11 +26656,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94614"
   },
   {
-    "STT": 1227,
+    "STT": 1269,
     "MA_DICH_VU": "15.0222.0898",
     "TEN_DICH_VU": "Khí dung mũi họng",
     "TEN_DVKT_GIA": "Khí dung mũi họng",
@@ -24567,11 +26677,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Chưa bao gồm thuốc khí dung.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94057"
   },
   {
-    "STT": 1228,
+    "STT": 1270,
     "MA_DICH_VU": "15.0223.0879",
     "TEN_DICH_VU": "Chích áp xe thành sau họng gây tê/gây mê [gây tê]",
     "TEN_DVKT_GIA": "Chích áp xe thành sau họng gây tê/gây mê [gây tê]",
@@ -24587,11 +26698,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94670"
   },
   {
-    "STT": 1229,
+    "STT": 1271,
     "MA_DICH_VU": "15.0223.0996",
     "TEN_DICH_VU": "Chích áp xe thành sau họng gây tê/gây mê [gây mê]",
     "TEN_DVKT_GIA": "Chích áp xe thành sau họng gây tê/gây mê [gây mê]",
@@ -24607,11 +26719,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94952"
   },
   {
-    "STT": 1230,
+    "STT": 1272,
     "MA_DICH_VU": "15.0224.1002",
     "TEN_DICH_VU": "Phẫu thuật chỉnh hình lỗ mở khí quản",
     "TEN_DVKT_GIA": "Phẫu thuật chỉnh hình lỗ mở khí quản",
@@ -24627,11 +26740,33 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94989"
   },
   {
-    "STT": 1231,
+    "STT": 1273,
+    "MA_DICH_VU": "15.0229.0932",
+    "TEN_DICH_VU": "Nội soi hạ họng ống mềm lấy dị vật gây tê",
+    "TEN_DVKT_GIA": "Nội soi hạ họng ống mềm lấy dị vật gây tê",
+    "DON_GIA": 545500,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093373,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 545500,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "T1",
+    "MA_NHOM": "PTTT-T1",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1274,
     "MA_DICH_VU": "15.0238.1004",
     "TEN_DICH_VU": "Nội soi thanh quản ống cứng chẩn đoán gây tê",
     "TEN_DVKT_GIA": "Nội soi thanh quản ống cứng chẩn đoán gây tê",
@@ -24647,11 +26782,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94846"
   },
   {
-    "STT": 1232,
+    "STT": 1275,
     "MA_DICH_VU": "15.0240.0905",
     "TEN_DICH_VU": "Nội soi thanh quản ống cứng lấy dị vật gây tê/gây mê [gây tê]",
     "TEN_DVKT_GIA": "Nội soi thanh quản ống cứng lấy dị vật gây tê/gây mê [gây tê]",
@@ -24667,11 +26803,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94797"
   },
   {
-    "STT": 1233,
+    "STT": 1276,
     "MA_DICH_VU": "15.0242.1004",
     "TEN_DICH_VU": "Nội soi thanh quản ống cứng sinh thiết u gây tê/gây mê",
     "TEN_DVKT_GIA": "Nội soi thanh quản ống cứng sinh thiết u gây tê/gây mê",
@@ -24687,11 +26824,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94847"
   },
   {
-    "STT": 1234,
+    "STT": 1277,
     "MA_DICH_VU": "15.0301.0216",
     "TEN_DICH_VU": "Khâu vết thương đơn giản vùng đầu, mặt, cổ [tổn thương nông chiều dài < l0 cm]",
     "TEN_DVKT_GIA": "Khâu vết thương đơn giản vùng đầu, mặt, cổ [tổn thương nông chiều dài < l0 cm]",
@@ -24707,11 +26845,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94503"
   },
   {
-    "STT": 1235,
+    "STT": 1278,
     "MA_DICH_VU": "15.0301.0217",
     "TEN_DICH_VU": "Khâu vết thương đơn giản vùng đầu, mặt, cổ [tổn thương nông chiều dài ≥ l0 cm]",
     "TEN_DVKT_GIA": "Khâu vết thương đơn giản vùng đầu, mặt, cổ [tổn thương nông chiều dài ≥ l0 cm]",
@@ -24727,11 +26866,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94621"
   },
   {
-    "STT": 1236,
+    "STT": 1279,
     "MA_DICH_VU": "15.0301.0218",
     "TEN_DICH_VU": "Khâu vết thương đơn giản vùng đầu, mặt, cổ [ tổn thương sâu chiều dài < l0 cm]",
     "TEN_DVKT_GIA": "Khâu vết thương đơn giản vùng đầu, mặt, cổ [ tổn thương sâu chiều dài < l0 cm]",
@@ -24747,11 +26887,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94664"
   },
   {
-    "STT": 1237,
+    "STT": 1280,
     "MA_DICH_VU": "15.0301.0219",
     "TEN_DICH_VU": "Khâu vết thương đơn giản vùng đầu, mặt, cổ [tổn thương sâu chiều dài ≥ l0 cm]",
     "TEN_DVKT_GIA": "Khâu vết thương đơn giản vùng đầu, mặt, cổ [tổn thương sâu chiều dài ≥ l0 cm]",
@@ -24767,11 +26908,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94727"
   },
   {
-    "STT": 1238,
+    "STT": 1281,
     "MA_DICH_VU": "15.0302.0075",
     "TEN_DICH_VU": "Cắt chỉ sau phẫu thuật",
     "TEN_DVKT_GIA": "Cắt chỉ sau phẫu thuật",
@@ -24787,11 +26929,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94101"
   },
   {
-    "STT": 1239,
+    "STT": 1282,
     "MA_DICH_VU": "15.0303.0200",
     "TEN_DICH_VU": "Thay băng vết mổ [chiều dài  ≤ 15cm]",
     "TEN_DVKT_GIA": "Thay băng vết mổ [chiều dài  ≤ 15cm]",
@@ -24807,11 +26950,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú. Đối với người bệnh nội trú theo quy định của Bộ Y tế.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94189"
   },
   {
-    "STT": 1240,
+    "STT": 1283,
     "MA_DICH_VU": "15.0303.0202",
     "TEN_DICH_VU": "Thay băng vết mổ [chiều dài từ trên 30 cm đến 50 cm]",
     "TEN_DVKT_GIA": "Thay băng vết mổ [chiều dài từ trên 30 cm đến 50 cm]",
@@ -24827,11 +26971,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94383"
   },
   {
-    "STT": 1241,
+    "STT": 1284,
     "MA_DICH_VU": "15.0303.0204",
     "TEN_DICH_VU": "Thay băng vết mổ [chiều dài từ 30 cm đến 50 cm nhiễm trùng]",
     "TEN_DVKT_GIA": "Thay băng vết mổ [chiều dài từ 30 cm đến 50 cm nhiễm trùng]",
@@ -24847,11 +26992,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94496"
   },
   {
-    "STT": 1242,
+    "STT": 1285,
     "MA_DICH_VU": "15.0303.0205",
     "TEN_DICH_VU": "Thay băng vết mổ [chiều dài > 50cm nhiễm trùng]",
     "TEN_DVKT_GIA": "Thay băng vết mổ [chiều dài > 50cm nhiễm trùng]",
@@ -24867,11 +27013,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94632"
   },
   {
-    "STT": 1243,
+    "STT": 1286,
     "MA_DICH_VU": "15.0303.2047",
     "TEN_DICH_VU": "Thay băng vết mổ [chiều dài trên 15cm đến 30 cm]",
     "TEN_DVKT_GIA": "Thay băng vết mổ [chiều dài trên 15cm đến 30 cm]",
@@ -24887,11 +27034,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chỉ áp dụng với người bệnh ngoại trú. Đối với người bệnh nội trú theo quy định của Bộ Y tế.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94287"
   },
   {
-    "STT": 1244,
+    "STT": 1287,
     "MA_DICH_VU": "15.0304.0505",
     "TEN_DICH_VU": "Trích áp xe nhỏ vùng đầu cổ",
     "TEN_DVKT_GIA": "Trích áp xe nhỏ vùng đầu cổ",
@@ -24907,11 +27055,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94541"
   },
   {
-    "STT": 1245,
+    "STT": 1288,
     "MA_DICH_VU": "15.28",
     "TEN_DICH_VU": "Khám Tai Mũi Họng",
     "TEN_DVKT_GIA": "Khám Tai Mũi Họng",
@@ -24927,11 +27076,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95402"
   },
   {
-    "STT": 1246,
+    "STT": 1289,
     "MA_DICH_VU": "16.0043.1020",
     "TEN_DICH_VU": "Lấy cao răng [hai hàm]",
     "TEN_DVKT_GIA": "Lấy cao răng [hai hàm]",
@@ -24947,11 +27097,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94446"
   },
   {
-    "STT": 1247,
+    "STT": 1290,
     "MA_DICH_VU": "16.0043.1021",
     "TEN_DICH_VU": "Lấy cao răng [một vùng hoặc một hàm]",
     "TEN_DVKT_GIA": "Lấy cao răng [một vùng hoặc một hàm]",
@@ -24967,11 +27118,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94302"
   },
   {
-    "STT": 1248,
+    "STT": 1291,
     "MA_DICH_VU": "16.0057.1032",
     "TEN_DICH_VU": "Chụp tủy bằng Hydroxit canxi",
     "TEN_DVKT_GIA": "Chụp tủy bằng Hydroxit canxi",
@@ -24987,11 +27139,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94701"
   },
   {
-    "STT": 1249,
+    "STT": 1292,
     "MA_DICH_VU": "16.0065.1031",
     "TEN_DICH_VU": "Điều trị sâu ngà răng phục hồi bằng Composite có sử dụng laser",
     "TEN_DVKT_GIA": "Điều trị sâu ngà răng phục hồi bằng Composite có sử dụng laser",
@@ -25007,11 +27160,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94645"
   },
   {
-    "STT": 1250,
+    "STT": 1293,
     "MA_DICH_VU": "16.0066.1031",
     "TEN_DICH_VU": "Điều trị sâu ngà răng phục hồi bằng GlassIonomer Cement (GIC) có sử dụng laser",
     "TEN_DVKT_GIA": "Điều trị sâu ngà răng phục hồi bằng GlassIonomer Cement (GIC) có sử dụng laser",
@@ -25027,11 +27181,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94646"
   },
   {
-    "STT": 1251,
+    "STT": 1294,
     "MA_DICH_VU": "16.0067.1031",
     "TEN_DICH_VU": "Điều trị sâu ngà răng phục hồi bằng GlassIonomer Cement (GIC) kết hợp Composite",
     "TEN_DVKT_GIA": "Điều trị sâu ngà răng phục hồi bằng GlassIonomer Cement (GIC) kết hợp Composite",
@@ -25047,11 +27202,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94647"
   },
   {
-    "STT": 1252,
+    "STT": 1295,
     "MA_DICH_VU": "16.0068.1031",
     "TEN_DICH_VU": "Điều trị sâu ngà răng phục hồi bằng Composite",
     "TEN_DVKT_GIA": "Điều trị sâu ngà răng phục hồi bằng Composite",
@@ -25067,11 +27223,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94648"
   },
   {
-    "STT": 1253,
+    "STT": 1296,
     "MA_DICH_VU": "16.0070.1031",
     "TEN_DICH_VU": "Điều trị sâu ngà răng phục hồi bằng GlassIonomer Cement",
     "TEN_DVKT_GIA": "Điều trị sâu ngà răng phục hồi bằng GlassIonomer Cement",
@@ -25087,11 +27244,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94649"
   },
   {
-    "STT": 1254,
+    "STT": 1297,
     "MA_DICH_VU": "16.0071.1018",
     "TEN_DICH_VU": "Phục hồi cổ răng bằng GlassIonomer Cement",
     "TEN_DVKT_GIA": "Phục hồi cổ răng bằng GlassIonomer Cement",
@@ -25107,11 +27265,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94734"
   },
   {
-    "STT": 1255,
+    "STT": 1298,
     "MA_DICH_VU": "16.0203.1026",
     "TEN_DICH_VU": "Nhổ răng vĩnh viễn",
     "TEN_DVKT_GIA": "Nhổ răng vĩnh viễn",
@@ -25127,11 +27286,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94548"
   },
   {
-    "STT": 1256,
+    "STT": 1299,
     "MA_DICH_VU": "16.0204.1025",
     "TEN_DICH_VU": "Nhổ răng vĩnh viễn lung lay",
     "TEN_DVKT_GIA": "Nhổ răng vĩnh viễn lung lay",
@@ -25147,11 +27307,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94375"
   },
   {
-    "STT": 1257,
+    "STT": 1300,
     "MA_DICH_VU": "16.0205.1024",
     "TEN_DICH_VU": "Nhổ chân răng vĩnh viễn",
     "TEN_DVKT_GIA": "Nhổ chân răng vĩnh viễn",
@@ -25167,11 +27328,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94531"
   },
   {
-    "STT": 1258,
+    "STT": 1301,
     "MA_DICH_VU": "16.0206.1026",
     "TEN_DICH_VU": "Nhổ răng thừa",
     "TEN_DVKT_GIA": "Nhổ răng thừa",
@@ -25187,11 +27349,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94549"
   },
   {
-    "STT": 1259,
+    "STT": 1302,
     "MA_DICH_VU": "16.0214.1007",
     "TEN_DICH_VU": "Cắt lợi trùm răng khôn hàm dưới",
     "TEN_DVKT_GIA": "Cắt lợi trùm răng khôn hàm dưới",
@@ -25207,11 +27370,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94469"
   },
   {
-    "STT": 1260,
+    "STT": 1303,
     "MA_DICH_VU": "16.0236.1019",
     "TEN_DICH_VU": "Điều trị răng sữa sâu ngà phục hồi bằng GlassIonomer Cement",
     "TEN_DVKT_GIA": "Điều trị răng sữa sâu ngà phục hồi bằng GlassIonomer Cement",
@@ -25227,11 +27391,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94379"
   },
   {
-    "STT": 1261,
+    "STT": 1304,
     "MA_DICH_VU": "16.0238.1029",
     "TEN_DICH_VU": "Nhổ răng sữa",
     "TEN_DVKT_GIA": "Nhổ răng sữa",
@@ -25247,11 +27412,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94122"
   },
   {
-    "STT": 1262,
+    "STT": 1305,
     "MA_DICH_VU": "16.0239.1029",
     "TEN_DICH_VU": "Nhổ chân răng sữa",
     "TEN_DVKT_GIA": "Nhổ chân răng sữa",
@@ -25267,11 +27433,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94123"
   },
   {
-    "STT": 1263,
+    "STT": 1306,
     "MA_DICH_VU": "16.0298.1009",
     "TEN_DICH_VU": "Cố định tạm thời sơ cứu gãy xương hàm",
     "TEN_DVKT_GIA": "Cố định tạm thời sơ cứu gãy xương hàm",
@@ -25287,11 +27454,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94805"
   },
   {
-    "STT": 1264,
+    "STT": 1307,
     "MA_DICH_VU": "16.0335.1022",
     "TEN_DICH_VU": "Nắn sai khớp thái dương hàm",
     "TEN_DVKT_GIA": "Nắn sai khớp thái dương hàm",
@@ -25307,11 +27475,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94377"
   },
   {
-    "STT": 1265,
+    "STT": 1308,
     "MA_DICH_VU": "16.0337.1053",
     "TEN_DICH_VU": "Nắn sai khớp thái dương hàm đến muộn có gây tê",
     "TEN_DVKT_GIA": "Nắn sai khớp thái dương hàm đến muộn có gây tê",
@@ -25327,11 +27496,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95043"
   },
   {
-    "STT": 1266,
+    "STT": 1309,
     "MA_DICH_VU": "16.29",
     "TEN_DICH_VU": "Khám Răng Hàm Mặt",
     "TEN_DVKT_GIA": "Khám Răng Hàm Mặt",
@@ -25347,11 +27517,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94085"
   },
   {
-    "STT": 1267,
+    "STT": 1310,
     "MA_DICH_VU": "18.0001.0001",
     "TEN_DICH_VU": "Siêu âm tuyến giáp",
     "TEN_DVKT_GIA": "Siêu âm tuyến giáp",
@@ -25367,11 +27538,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94147"
   },
   {
-    "STT": 1268,
+    "STT": 1311,
     "MA_DICH_VU": "18.0002.0001",
     "TEN_DICH_VU": "Siêu âm các tuyến nước bọt",
     "TEN_DVKT_GIA": "Siêu âm các tuyến nước bọt",
@@ -25387,11 +27559,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94148"
   },
   {
-    "STT": 1269,
+    "STT": 1312,
     "MA_DICH_VU": "18.0003.0001",
     "TEN_DICH_VU": "Siêu âm cơ phần mềm vùng cổ mặt",
     "TEN_DVKT_GIA": "Siêu âm cơ phần mềm vùng cổ mặt",
@@ -25407,11 +27580,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94149"
   },
   {
-    "STT": 1270,
+    "STT": 1313,
     "MA_DICH_VU": "18.0004.0001",
     "TEN_DICH_VU": "Siêu âm hạch vùng cổ",
     "TEN_DVKT_GIA": "Siêu âm hạch vùng cổ",
@@ -25427,11 +27601,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94150"
   },
   {
-    "STT": 1271,
+    "STT": 1314,
     "MA_DICH_VU": "18.0005.0069",
     "TEN_DICH_VU": "Siêu âm đàn hồi nhu mô tuyến giáp",
     "TEN_DVKT_GIA": "Siêu âm đàn hồi nhu mô tuyến giáp",
@@ -25447,11 +27622,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94270"
   },
   {
-    "STT": 1272,
+    "STT": 1315,
     "MA_DICH_VU": "18.0006.0001",
     "TEN_DICH_VU": "Siêu âm hốc mắt",
     "TEN_DVKT_GIA": "Siêu âm hốc mắt",
@@ -25467,11 +27643,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94151"
   },
   {
-    "STT": 1273,
+    "STT": 1316,
     "MA_DICH_VU": "18.0007.0001",
     "TEN_DICH_VU": "Siêu âm qua thóp",
     "TEN_DVKT_GIA": "Siêu âm qua thóp",
@@ -25487,11 +27664,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94152"
   },
   {
-    "STT": 1274,
+    "STT": 1317,
     "MA_DICH_VU": "18.0008.0001",
     "TEN_DICH_VU": "Siêu âm nhãn cầu",
     "TEN_DVKT_GIA": "Siêu âm nhãn cầu",
@@ -25507,11 +27685,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94153"
   },
   {
-    "STT": 1275,
+    "STT": 1318,
     "MA_DICH_VU": "18.0009.0069",
     "TEN_DICH_VU": "Siêu âm doppler hốc mắt",
     "TEN_DVKT_GIA": "Siêu âm doppler hốc mắt",
@@ -25527,11 +27706,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94271"
   },
   {
-    "STT": 1276,
+    "STT": 1319,
     "MA_DICH_VU": "18.0010.0069",
     "TEN_DICH_VU": "Siêu âm doppler u tuyến, hạch vùng cổ",
     "TEN_DVKT_GIA": "Siêu âm doppler u tuyến, hạch vùng cổ",
@@ -25547,11 +27727,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94272"
   },
   {
-    "STT": 1277,
+    "STT": 1320,
     "MA_DICH_VU": "18.0011.0001",
     "TEN_DICH_VU": "Siêu âm màng phổi",
     "TEN_DVKT_GIA": "Siêu âm màng phổi",
@@ -25567,11 +27748,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94154"
   },
   {
-    "STT": 1278,
+    "STT": 1321,
     "MA_DICH_VU": "18.0012.0001",
     "TEN_DICH_VU": "Siêu âm thành ngực (cơ, phần mềm thành ngực)",
     "TEN_DVKT_GIA": "Siêu âm thành ngực (cơ, phần mềm thành ngực)",
@@ -25587,11 +27769,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94155"
   },
   {
-    "STT": 1279,
+    "STT": 1322,
     "MA_DICH_VU": "18.0013.0001",
     "TEN_DICH_VU": "Siêu âm các khối u phổi ngoại vi",
     "TEN_DVKT_GIA": "Siêu âm các khối u phổi ngoại vi",
@@ -25607,11 +27790,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94156"
   },
   {
-    "STT": 1280,
+    "STT": 1323,
     "MA_DICH_VU": "18.0015.0001",
     "TEN_DICH_VU": "Siêu âm ổ bụng (gan mật, tụy, lách, thận, bàng quang)",
     "TEN_DVKT_GIA": "Siêu âm ổ bụng (gan mật, tụy, lách, thận, bàng quang)",
@@ -25627,11 +27811,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94157"
   },
   {
-    "STT": 1281,
+    "STT": 1324,
     "MA_DICH_VU": "18.0016.0001",
     "TEN_DICH_VU": "Siêu âm hệ tiết niệu (thận, tuyến thượng thận, bàng quang, tiền liệt tuyến)",
     "TEN_DVKT_GIA": "Siêu âm hệ tiết niệu (thận, tuyến thượng thận, bàng quang, tiền liệt tuyến)",
@@ -25647,11 +27832,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94158"
   },
   {
-    "STT": 1282,
+    "STT": 1325,
     "MA_DICH_VU": "18.0017.0003",
     "TEN_DICH_VU": "Siêu âm tiền liệt tuyến qua trực tràng",
     "TEN_DVKT_GIA": "Siêu âm tiền liệt tuyến qua trực tràng",
@@ -25667,11 +27853,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94506"
   },
   {
-    "STT": 1283,
+    "STT": 1326,
     "MA_DICH_VU": "18.0018.0001",
     "TEN_DICH_VU": "Siêu âm tử cung phần phụ",
     "TEN_DVKT_GIA": "Siêu âm tử cung phần phụ",
@@ -25687,11 +27874,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94159"
   },
   {
-    "STT": 1284,
+    "STT": 1327,
     "MA_DICH_VU": "18.0019.0001",
     "TEN_DICH_VU": "Siêu âm ống tiêu hóa (dạ dày, ruột non, đại tràng)",
     "TEN_DVKT_GIA": "Siêu âm ống tiêu hóa (dạ dày, ruột non, đại tràng)",
@@ -25707,11 +27895,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94160"
   },
   {
-    "STT": 1285,
+    "STT": 1328,
     "MA_DICH_VU": "18.0020.0001",
     "TEN_DICH_VU": "Siêu âm thai (thai, nhau thai, nước ối)",
     "TEN_DVKT_GIA": "Siêu âm thai (thai, nhau thai, nước ối)",
@@ -25727,11 +27916,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94161"
   },
   {
-    "STT": 1286,
+    "STT": 1329,
     "MA_DICH_VU": "18.0021.0069",
     "TEN_DICH_VU": "Siêu âm doppler các khối u trong ổ bụng",
     "TEN_DVKT_GIA": "Siêu âm doppler các khối u trong ổ bụng",
@@ -25747,11 +27937,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94273"
   },
   {
-    "STT": 1287,
+    "STT": 1330,
     "MA_DICH_VU": "18.0022.0069",
     "TEN_DICH_VU": "Siêu âm doppler gan lách",
     "TEN_DVKT_GIA": "Siêu âm doppler gan lách",
@@ -25767,11 +27958,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94274"
   },
   {
-    "STT": 1288,
+    "STT": 1331,
     "MA_DICH_VU": "18.0023.0004",
     "TEN_DICH_VU": "Siêu âm doppler mạch máu ổ bụng (động mạch chủ, mạc treo tràng trên, thân tạng…)",
     "TEN_DVKT_GIA": "Siêu âm doppler mạch máu ổ bụng (động mạch chủ, mạc treo tràng trên, thân tạng…)",
@@ -25787,11 +27979,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94581"
   },
   {
-    "STT": 1289,
+    "STT": 1332,
     "MA_DICH_VU": "18.0024.0004",
     "TEN_DICH_VU": "Siêu âm doppler động mạch thận",
     "TEN_DVKT_GIA": "Siêu âm doppler động mạch thận",
@@ -25807,11 +28000,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94582"
   },
   {
-    "STT": 1290,
+    "STT": 1333,
     "MA_DICH_VU": "18.0025.0069",
     "TEN_DICH_VU": "Siêu âm doppler tử cung phần phụ",
     "TEN_DVKT_GIA": "Siêu âm doppler tử cung phần phụ",
@@ -25827,11 +28021,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94275"
   },
   {
-    "STT": 1291,
+    "STT": 1334,
     "MA_DICH_VU": "18.0026.0069",
     "TEN_DICH_VU": "Siêu âm doppler thai nhi (thai, nhau thai, dây rốn, động mạch tử cung)",
     "TEN_DVKT_GIA": "Siêu âm doppler thai nhi (thai, nhau thai, dây rốn, động mạch tử cung)",
@@ -25847,11 +28042,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94276"
   },
   {
-    "STT": 1292,
+    "STT": 1335,
     "MA_DICH_VU": "18.0029.0004",
     "TEN_DICH_VU": "Siêu âm doppler tĩnh mạch chậu, chủ dưới",
     "TEN_DVKT_GIA": "Siêu âm doppler tĩnh mạch chậu, chủ dưới",
@@ -25867,11 +28063,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94583"
   },
   {
-    "STT": 1293,
+    "STT": 1336,
     "MA_DICH_VU": "18.0030.0001",
     "TEN_DICH_VU": "Siêu âm tử cung buồng trứng qua đường bụng",
     "TEN_DVKT_GIA": "Siêu âm tử cung buồng trứng qua đường bụng",
@@ -25887,11 +28084,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94162"
   },
   {
-    "STT": 1294,
+    "STT": 1337,
     "MA_DICH_VU": "18.0031.0003",
     "TEN_DICH_VU": "Siêu âm tử cung buồng trứng qua đường âm đạo",
     "TEN_DVKT_GIA": "Siêu âm tử cung buồng trứng qua đường âm đạo",
@@ -25907,11 +28105,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94507"
   },
   {
-    "STT": 1295,
+    "STT": 1338,
     "MA_DICH_VU": "18.0032.0069",
     "TEN_DICH_VU": "Siêu âm doppler tử cung, buồng trứng qua đường bụng",
     "TEN_DVKT_GIA": "Siêu âm doppler tử cung, buồng trứng qua đường bụng",
@@ -25927,11 +28126,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94277"
   },
   {
-    "STT": 1296,
+    "STT": 1339,
     "MA_DICH_VU": "18.0033.0004",
     "TEN_DICH_VU": "Siêu âm doppler tử cung, buồng trứng qua đường âm đạo",
     "TEN_DVKT_GIA": "Siêu âm doppler tử cung, buồng trứng qua đường âm đạo",
@@ -25947,11 +28147,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94584"
   },
   {
-    "STT": 1297,
+    "STT": 1340,
     "MA_DICH_VU": "18.0034.0001",
     "TEN_DICH_VU": "Siêu âm thai nhi trong 3 tháng đầu",
     "TEN_DVKT_GIA": "Siêu âm thai nhi trong 3 tháng đầu",
@@ -25967,11 +28168,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94163"
   },
   {
-    "STT": 1298,
+    "STT": 1341,
     "MA_DICH_VU": "18.0035.0001",
     "TEN_DICH_VU": "Siêu âm thai nhi trong 3 tháng giữa",
     "TEN_DVKT_GIA": "Siêu âm thai nhi trong 3 tháng giữa",
@@ -25987,11 +28189,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94164"
   },
   {
-    "STT": 1299,
+    "STT": 1342,
     "MA_DICH_VU": "18.0036.0001",
     "TEN_DICH_VU": "Siêu âm thai nhi trong 3 tháng cuối",
     "TEN_DVKT_GIA": "Siêu âm thai nhi trong 3 tháng cuối",
@@ -26007,11 +28210,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94165"
   },
   {
-    "STT": 1300,
+    "STT": 1343,
     "MA_DICH_VU": "18.0037.0004",
     "TEN_DICH_VU": "Siêu âm doppler động mạch tử cung",
     "TEN_DVKT_GIA": "Siêu âm doppler động mạch tử cung",
@@ -26027,11 +28231,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94585"
   },
   {
-    "STT": 1301,
+    "STT": 1344,
     "MA_DICH_VU": "18.0043.0001",
     "TEN_DICH_VU": "Siêu âm khớp (gối, háng, khuỷu, cổ tay….)",
     "TEN_DVKT_GIA": "Siêu âm khớp (gối, háng, khuỷu, cổ tay….)",
@@ -26047,11 +28252,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94166"
   },
   {
-    "STT": 1302,
+    "STT": 1345,
     "MA_DICH_VU": "18.0044.0001",
     "TEN_DICH_VU": "Siêu âm phần mềm (da, tổ chức dưới da, cơ….)",
     "TEN_DVKT_GIA": "Siêu âm phần mềm (da, tổ chức dưới da, cơ….)",
@@ -26067,11 +28273,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94167"
   },
   {
-    "STT": 1303,
+    "STT": 1346,
     "MA_DICH_VU": "18.0045.0004",
     "TEN_DICH_VU": "Siêu âm doppler động mạch, tĩnh mạch chi dưới",
     "TEN_DVKT_GIA": "Siêu âm doppler động mạch, tĩnh mạch chi dưới",
@@ -26087,11 +28294,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94586"
   },
   {
-    "STT": 1304,
+    "STT": 1347,
     "MA_DICH_VU": "18.0046.0004",
     "TEN_DICH_VU": "Siêu âm cầu nối động mạch tĩnh mạch",
     "TEN_DVKT_GIA": "Siêu âm cầu nối động mạch tĩnh mạch",
@@ -26107,11 +28315,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94587"
   },
   {
-    "STT": 1305,
+    "STT": 1348,
     "MA_DICH_VU": "18.0048.0004",
     "TEN_DICH_VU": "doppler động mạch cảnh, doppler xuyên sọ",
     "TEN_DVKT_GIA": "doppler động mạch cảnh, doppler xuyên sọ",
@@ -26127,11 +28336,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94588"
   },
   {
-    "STT": 1306,
+    "STT": 1349,
     "MA_DICH_VU": "18.0049.0004",
     "TEN_DICH_VU": "Siêu âm tim, màng tim qua thành ngực",
     "TEN_DVKT_GIA": "Siêu âm tim, màng tim qua thành ngực",
@@ -26147,11 +28357,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94589"
   },
   {
-    "STT": 1307,
+    "STT": 1350,
     "MA_DICH_VU": "18.0052.0004",
     "TEN_DICH_VU": "Siêu âm doppler tim, van tim",
     "TEN_DVKT_GIA": "Siêu âm doppler tim, van tim",
@@ -26167,11 +28378,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94590"
   },
   {
-    "STT": 1308,
+    "STT": 1351,
     "MA_DICH_VU": "18.0054.0001",
     "TEN_DICH_VU": "Siêu âm tuyến vú hai bên",
     "TEN_DVKT_GIA": "Siêu âm tuyến vú hai bên",
@@ -26187,11 +28399,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94168"
   },
   {
-    "STT": 1309,
+    "STT": 1352,
     "MA_DICH_VU": "18.0055.0069",
     "TEN_DICH_VU": "Siêu âm doppler tuyến vú",
     "TEN_DVKT_GIA": "Siêu âm doppler tuyến vú",
@@ -26207,11 +28420,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94278"
   },
   {
-    "STT": 1310,
+    "STT": 1353,
     "MA_DICH_VU": "18.0056.0069",
     "TEN_DICH_VU": "Siêu âm đàn hồi mô vú",
     "TEN_DVKT_GIA": "Siêu âm đàn hồi mô vú",
@@ -26227,11 +28441,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94279"
   },
   {
-    "STT": 1311,
+    "STT": 1354,
     "MA_DICH_VU": "18.0057.0001",
     "TEN_DICH_VU": "Siêu âm tinh hoàn hai bên",
     "TEN_DVKT_GIA": "Siêu âm tinh hoàn hai bên",
@@ -26247,11 +28462,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94169"
   },
   {
-    "STT": 1312,
+    "STT": 1355,
     "MA_DICH_VU": "18.0058.0069",
     "TEN_DICH_VU": "Siêu âm doppler tinh hoàn, mào tinh hoàn hai bên",
     "TEN_DVKT_GIA": "Siêu âm doppler tinh hoàn, mào tinh hoàn hai bên",
@@ -26267,11 +28483,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94280"
   },
   {
-    "STT": 1313,
+    "STT": 1356,
     "MA_DICH_VU": "18.0059.0001",
     "TEN_DICH_VU": "Siêu âm dương vật",
     "TEN_DVKT_GIA": "Siêu âm dương vật",
@@ -26287,11 +28504,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94170"
   },
   {
-    "STT": 1314,
+    "STT": 1357,
     "MA_DICH_VU": "18.0060.0069",
     "TEN_DICH_VU": "Siêu âm doppler dương vật",
     "TEN_DVKT_GIA": "Siêu âm doppler dương vật",
@@ -26307,11 +28525,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94281"
   },
   {
-    "STT": 1315,
+    "STT": 1358,
     "MA_DICH_VU": "18.0065.0069",
     "TEN_DICH_VU": "Siêu âm đàn hồi mô (gan, tuyến vú…)",
     "TEN_DVKT_GIA": "Siêu âm đàn hồi mô (gan, tuyến vú…)",
@@ -26327,11 +28546,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94282"
   },
   {
-    "STT": 1316,
+    "STT": 1359,
     "MA_DICH_VU": "18.0066.0003",
     "TEN_DICH_VU": "Siêu âm 3D/4D trực tràng",
     "TEN_DVKT_GIA": "Siêu âm 3D/4D trực tràng",
@@ -26347,11 +28567,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94508"
   },
   {
-    "STT": 1317,
+    "STT": 1360,
     "MA_DICH_VU": "18.0067.0028",
     "TEN_DICH_VU": "Chụp X-quang sọ thẳng/nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang sọ thẳng/nghiêng [số hóa 1 phim]",
@@ -26367,11 +28588,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94205"
   },
   {
-    "STT": 1318,
+    "STT": 1361,
     "MA_DICH_VU": "18.0068.0028",
     "TEN_DICH_VU": "Chụp X-quang mặt thẳng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang mặt thẳng nghiêng [số hóa 1 phim]",
@@ -26387,11 +28609,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94206"
   },
   {
-    "STT": 1319,
+    "STT": 1362,
     "MA_DICH_VU": "18.0068.0029",
     "TEN_DICH_VU": "Chụp X-quang mặt thẳng nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang mặt thẳng nghiêng [số hóa 2 phim]",
@@ -26407,11 +28630,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94340"
   },
   {
-    "STT": 1320,
+    "STT": 1363,
     "MA_DICH_VU": "18.0069.0028",
     "TEN_DICH_VU": "Chụp X-quang mặt thấp hoặc mặt cao [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang mặt thấp hoặc mặt cao [số hóa 1 phim]",
@@ -26427,11 +28651,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94207"
   },
   {
-    "STT": 1321,
+    "STT": 1364,
     "MA_DICH_VU": "18.0070.0028",
     "TEN_DICH_VU": "Chụp X-quang sọ tiếp tuyến [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang sọ tiếp tuyến [số hóa 1 phim]",
@@ -26447,11 +28672,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94208"
   },
   {
-    "STT": 1322,
+    "STT": 1365,
     "MA_DICH_VU": "18.0071.0028",
     "TEN_DICH_VU": "Chụp X-quang hốc mắt thẳng nghiêng  [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang hốc mắt thẳng nghiêng  [số hóa 1 phim]",
@@ -26467,11 +28693,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94209"
   },
   {
-    "STT": 1323,
+    "STT": 1366,
     "MA_DICH_VU": "18.0071.0029",
     "TEN_DICH_VU": "Chụp X-quang hốc mắt thẳng nghiêng  [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang hốc mắt thẳng nghiêng  [số hóa 2 phim]",
@@ -26487,11 +28714,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94341"
   },
   {
-    "STT": 1324,
+    "STT": 1367,
     "MA_DICH_VU": "18.0073.0028",
     "TEN_DICH_VU": "Chụp X-quang Hirtz [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang Hirtz [số hóa 1 phim]",
@@ -26507,11 +28735,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94210"
   },
   {
-    "STT": 1325,
+    "STT": 1368,
     "MA_DICH_VU": "18.0074.0028",
     "TEN_DICH_VU": "Chụp X-quang hàm chếch một bên [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang hàm chếch một bên [số hóa 1 phim]",
@@ -26527,11 +28756,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94211"
   },
   {
-    "STT": 1326,
+    "STT": 1369,
     "MA_DICH_VU": "18.0075.0028",
     "TEN_DICH_VU": "Chụp X-quang xương chính mũi nghiêng hoặc tiếp tuyến [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương chính mũi nghiêng hoặc tiếp tuyến [số hóa 1 phim]",
@@ -26547,11 +28777,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94212"
   },
   {
-    "STT": 1327,
+    "STT": 1370,
     "MA_DICH_VU": "18.0076.0028",
     "TEN_DICH_VU": "Chụp X-quang hố yên thẳng hoặc nghiêng  [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang hố yên thẳng hoặc nghiêng  [số hóa 1 phim]",
@@ -26567,11 +28798,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94213"
   },
   {
-    "STT": 1328,
+    "STT": 1371,
     "MA_DICH_VU": "18.0078.0028",
     "TEN_DICH_VU": "Chụp X-quang Schuller [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang Schuller [số hóa 1 phim]",
@@ -26587,11 +28819,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94214"
   },
   {
-    "STT": 1329,
+    "STT": 1372,
     "MA_DICH_VU": "18.0080.0028",
     "TEN_DICH_VU": "Chụp X-quang khớp thái dương hàm [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp thái dương hàm [số hóa 1 phim]",
@@ -26607,11 +28840,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94215"
   },
   {
-    "STT": 1330,
+    "STT": 1373,
     "MA_DICH_VU": "18.0085.0028",
     "TEN_DICH_VU": "Chụp X-quang mỏm trâm [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang mỏm trâm [số hóa 1 phim]",
@@ -26627,11 +28861,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94216"
   },
   {
-    "STT": 1331,
+    "STT": 1374,
     "MA_DICH_VU": "18.0086.0028",
     "TEN_DICH_VU": "Chụp X-quang cột sống cổ thẳng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống cổ thẳng nghiêng [số hóa 1 phim]",
@@ -26647,11 +28882,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94217"
   },
   {
-    "STT": 1332,
+    "STT": 1375,
     "MA_DICH_VU": "18.0086.0029",
     "TEN_DICH_VU": "Chụp X-quang cột sống cổ thẳng nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống cổ thẳng nghiêng [số hóa 2 phim]",
@@ -26667,11 +28903,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94342"
   },
   {
-    "STT": 1333,
+    "STT": 1376,
     "MA_DICH_VU": "18.0087.0028",
     "TEN_DICH_VU": "Chụp X-quang cột sống cổ chếch hai bên [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống cổ chếch hai bên [số hóa 1 phim]",
@@ -26687,11 +28924,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94218"
   },
   {
-    "STT": 1334,
+    "STT": 1377,
     "MA_DICH_VU": "18.0087.0029",
     "TEN_DICH_VU": "Chụp X-quang cột sống cổ chếch hai bên [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống cổ chếch hai bên [số hóa 2 phim]",
@@ -26707,11 +28945,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94343"
   },
   {
-    "STT": 1335,
+    "STT": 1378,
     "MA_DICH_VU": "18.0088.0030",
     "TEN_DICH_VU": "Chụp X-quang cột sống cổ động, nghiêng 3 tư thế [số hóa 3 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống cổ động, nghiêng 3 tư thế [số hóa 3 phim]",
@@ -26727,11 +28966,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94392"
   },
   {
-    "STT": 1336,
+    "STT": 1379,
     "MA_DICH_VU": "18.0089.0028",
     "TEN_DICH_VU": "Chụp X-quang cột sống cổ C1-C2  [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống cổ C1-C2  [số hóa 1 phim]",
@@ -26747,11 +28987,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94219"
   },
   {
-    "STT": 1337,
+    "STT": 1380,
     "MA_DICH_VU": "18.0089.0029",
     "TEN_DICH_VU": "Chụp X-quang cột sống cổ C1-C2  [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống cổ C1-C2  [số hóa 2 phim]",
@@ -26767,11 +29008,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94344"
   },
   {
-    "STT": 1338,
+    "STT": 1381,
     "MA_DICH_VU": "18.0090.0028",
     "TEN_DICH_VU": "Chụp X-quang cột sống ngực thẳng nghiêng hoặc chếch [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống ngực thẳng nghiêng hoặc chếch [số hóa 1 phim]",
@@ -26787,11 +29029,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94220"
   },
   {
-    "STT": 1339,
+    "STT": 1382,
     "MA_DICH_VU": "18.0090.0029",
     "TEN_DICH_VU": "Chụp X-quang cột sống ngực thẳng nghiêng hoặc chếch [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống ngực thẳng nghiêng hoặc chếch [số hóa 2 phim]",
@@ -26807,11 +29050,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94345"
   },
   {
-    "STT": 1340,
+    "STT": 1383,
     "MA_DICH_VU": "18.0091.0028",
     "TEN_DICH_VU": "Chụp X-quang cột sống thắt lưng thẳng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống thắt lưng thẳng nghiêng [số hóa 1 phim]",
@@ -26827,11 +29071,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94221"
   },
   {
-    "STT": 1341,
+    "STT": 1384,
     "MA_DICH_VU": "18.0091.0029",
     "TEN_DICH_VU": "Chụp X-quang cột sống thắt lưng thẳng nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống thắt lưng thẳng nghiêng [số hóa 2 phim]",
@@ -26847,11 +29092,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94346"
   },
   {
-    "STT": 1342,
+    "STT": 1385,
     "MA_DICH_VU": "18.0092.0028",
     "TEN_DICH_VU": "Chụp X-quang cột sống thắt lưng chếch hai bên [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống thắt lưng chếch hai bên [số hóa 1 phim]",
@@ -26867,11 +29113,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94222"
   },
   {
-    "STT": 1343,
+    "STT": 1386,
     "MA_DICH_VU": "18.0092.0029",
     "TEN_DICH_VU": "Chụp X-quang cột sống thắt lưng chếch hai bên [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống thắt lưng chếch hai bên [số hóa 2 phim]",
@@ -26887,11 +29134,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94347"
   },
   {
-    "STT": 1344,
+    "STT": 1387,
     "MA_DICH_VU": "18.0093.0028",
     "TEN_DICH_VU": "Chụp X-quang cột sống thắt lưng L5-S1 thẳng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống thắt lưng L5-S1 thẳng nghiêng [số hóa 1 phim]",
@@ -26907,11 +29155,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94223"
   },
   {
-    "STT": 1345,
+    "STT": 1388,
     "MA_DICH_VU": "18.0093.0029",
     "TEN_DICH_VU": "Chụp X-quang cột sống thắt lưng L5-S1 thẳng nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống thắt lưng L5-S1 thẳng nghiêng [số hóa 2 phim]",
@@ -26927,11 +29176,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94348"
   },
   {
-    "STT": 1346,
+    "STT": 1389,
     "MA_DICH_VU": "18.0094.0028",
     "TEN_DICH_VU": "Chụp X-quang cột sống thắt lưng động, gập ưỡn [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống thắt lưng động, gập ưỡn [số hóa 1 phim]",
@@ -26947,11 +29197,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94224"
   },
   {
-    "STT": 1347,
+    "STT": 1390,
     "MA_DICH_VU": "18.0094.0029",
     "TEN_DICH_VU": "Chụp X-quang cột sống thắt lưng động, gập ưỡn [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống thắt lưng động, gập ưỡn [số hóa 2 phim]",
@@ -26967,11 +29218,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94349"
   },
   {
-    "STT": 1348,
+    "STT": 1391,
     "MA_DICH_VU": "18.0096.0028",
     "TEN_DICH_VU": "Chụp X-quang cột sống cùng cụt thẳng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống cùng cụt thẳng nghiêng [số hóa 1 phim]",
@@ -26987,11 +29239,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94225"
   },
   {
-    "STT": 1349,
+    "STT": 1392,
     "MA_DICH_VU": "18.0096.0029",
     "TEN_DICH_VU": "Chụp X-quang cột sống cùng cụt thẳng nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang cột sống cùng cụt thẳng nghiêng [số hóa 2 phim]",
@@ -27007,11 +29260,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94350"
   },
   {
-    "STT": 1350,
+    "STT": 1393,
     "MA_DICH_VU": "18.0097.0030",
     "TEN_DICH_VU": "Chụp X-quang khớp cùng chậu thẳng chếch hai bên [số hóa 3 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp cùng chậu thẳng chếch hai bên [số hóa 3 phim]",
@@ -27027,11 +29281,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94393"
   },
   {
-    "STT": 1351,
+    "STT": 1394,
     "MA_DICH_VU": "18.0098.0028",
     "TEN_DICH_VU": "Chụp X-quang khung chậu thẳng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khung chậu thẳng [số hóa 1 phim]",
@@ -27047,11 +29302,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94226"
   },
   {
-    "STT": 1352,
+    "STT": 1395,
     "MA_DICH_VU": "18.0099.0028",
     "TEN_DICH_VU": "Chụp X-quang xương đòn thẳng hoặc chếch [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương đòn thẳng hoặc chếch [số hóa 1 phim]",
@@ -27067,11 +29323,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94227"
   },
   {
-    "STT": 1353,
+    "STT": 1396,
     "MA_DICH_VU": "18.0100.0028",
     "TEN_DICH_VU": "Chụp X-quang khớp vai thẳng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp vai thẳng [số hóa 1 phim]",
@@ -27087,11 +29344,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94228"
   },
   {
-    "STT": 1354,
+    "STT": 1397,
     "MA_DICH_VU": "18.0100.0029",
     "TEN_DICH_VU": "Chụp X-quang khớp vai thẳng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp vai thẳng [số hóa 2 phim]",
@@ -27107,11 +29365,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94351"
   },
   {
-    "STT": 1355,
+    "STT": 1398,
     "MA_DICH_VU": "18.0101.0028",
     "TEN_DICH_VU": "Chụp X-quang khớp vai nghiêng hoặc chếch [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp vai nghiêng hoặc chếch [số hóa 1 phim]",
@@ -27127,11 +29386,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94229"
   },
   {
-    "STT": 1356,
+    "STT": 1399,
     "MA_DICH_VU": "18.0102.0028",
     "TEN_DICH_VU": "Chụp X-quang xương bả vai thẳng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương bả vai thẳng nghiêng [số hóa 1 phim]",
@@ -27147,11 +29407,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94230"
   },
   {
-    "STT": 1357,
+    "STT": 1400,
     "MA_DICH_VU": "18.0102.0029",
     "TEN_DICH_VU": "Chụp X-quang xương bả vai thẳng nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương bả vai thẳng nghiêng [số hóa 2 phim]",
@@ -27167,11 +29428,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94352"
   },
   {
-    "STT": 1358,
+    "STT": 1401,
     "MA_DICH_VU": "18.0103.0028",
     "TEN_DICH_VU": "Chụp X-quang xương cánh tay thẳng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương cánh tay thẳng nghiêng [số hóa 1 phim]",
@@ -27187,11 +29449,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94231"
   },
   {
-    "STT": 1359,
+    "STT": 1402,
     "MA_DICH_VU": "18.0103.0029",
     "TEN_DICH_VU": "Chụp X-quang xương cánh tay thẳng nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương cánh tay thẳng nghiêng [số hóa 2 phim]",
@@ -27207,11 +29470,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94353"
   },
   {
-    "STT": 1360,
+    "STT": 1403,
     "MA_DICH_VU": "18.0104.0028",
     "TEN_DICH_VU": "Chụp X-quang khớp khuỷu thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp khuỷu thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
@@ -27227,11 +29491,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94232"
   },
   {
-    "STT": 1361,
+    "STT": 1404,
     "MA_DICH_VU": "18.0104.0029",
     "TEN_DICH_VU": "Chụp X-quang khớp khuỷu thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp khuỷu thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
@@ -27247,11 +29512,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94354"
   },
   {
-    "STT": 1362,
+    "STT": 1405,
     "MA_DICH_VU": "18.0105.0028",
     "TEN_DICH_VU": "Chụp X-quang khớp khuỷu gập (Jones hoặc Coyle) [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp khuỷu gập (Jones hoặc Coyle) [số hóa 1 phim]",
@@ -27267,11 +29533,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94233"
   },
   {
-    "STT": 1363,
+    "STT": 1406,
     "MA_DICH_VU": "18.0106.0028",
     "TEN_DICH_VU": "Chụp X-quang xương cẳng tay thẳng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương cẳng tay thẳng nghiêng [số hóa 1 phim]",
@@ -27287,11 +29554,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94234"
   },
   {
-    "STT": 1364,
+    "STT": 1407,
     "MA_DICH_VU": "18.0106.0029",
     "TEN_DICH_VU": "Chụp X-quang xương cẳng tay thẳng nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương cẳng tay thẳng nghiêng [số hóa 2 phim]",
@@ -27307,11 +29575,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94355"
   },
   {
-    "STT": 1365,
+    "STT": 1408,
     "MA_DICH_VU": "18.0107.0028",
     "TEN_DICH_VU": "Chụp X-quang xương cổ tay thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương cổ tay thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
@@ -27327,11 +29596,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94235"
   },
   {
-    "STT": 1366,
+    "STT": 1409,
     "MA_DICH_VU": "18.0107.0029",
     "TEN_DICH_VU": "Chụp X-quang xương cổ tay thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương cổ tay thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
@@ -27347,11 +29617,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94356"
   },
   {
-    "STT": 1367,
+    "STT": 1410,
     "MA_DICH_VU": "18.0108.0028",
     "TEN_DICH_VU": "Chụp X-quang xương bàn ngón tay thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương bàn ngón tay thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
@@ -27367,11 +29638,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94236"
   },
   {
-    "STT": 1368,
+    "STT": 1411,
     "MA_DICH_VU": "18.0108.0029",
     "TEN_DICH_VU": "Chụp X-quang xương bàn ngón tay thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương bàn ngón tay thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
@@ -27387,11 +29659,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94357"
   },
   {
-    "STT": 1369,
+    "STT": 1412,
     "MA_DICH_VU": "18.0109.0028",
     "TEN_DICH_VU": "Chụp X-quang khớp háng thẳng hai bên [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp háng thẳng hai bên [số hóa 1 phim]",
@@ -27407,11 +29680,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94237"
   },
   {
-    "STT": 1370,
+    "STT": 1413,
     "MA_DICH_VU": "18.0110.0028",
     "TEN_DICH_VU": "Chụp X-quang khớp háng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp háng nghiêng [số hóa 1 phim]",
@@ -27427,11 +29701,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94238"
   },
   {
-    "STT": 1371,
+    "STT": 1414,
     "MA_DICH_VU": "18.0111.0028",
     "TEN_DICH_VU": "Chụp X-quang xương đùi thẳng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương đùi thẳng nghiêng [số hóa 1 phim]",
@@ -27447,11 +29722,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94239"
   },
   {
-    "STT": 1372,
+    "STT": 1415,
     "MA_DICH_VU": "18.0111.0029",
     "TEN_DICH_VU": "Chụp X-quang xương đùi thẳng nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương đùi thẳng nghiêng [số hóa 2 phim]",
@@ -27467,11 +29743,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94358"
   },
   {
-    "STT": 1373,
+    "STT": 1416,
     "MA_DICH_VU": "18.0112.0028",
     "TEN_DICH_VU": "Chụp X-quang khớp gối thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp gối thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
@@ -27487,11 +29764,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94240"
   },
   {
-    "STT": 1374,
+    "STT": 1417,
     "MA_DICH_VU": "18.0112.0029",
     "TEN_DICH_VU": "Chụp X-quang khớp gối thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp gối thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
@@ -27507,11 +29785,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94359"
   },
   {
-    "STT": 1375,
+    "STT": 1418,
     "MA_DICH_VU": "18.0113.0028",
     "TEN_DICH_VU": "Chụp X-quang xương bánh chè và khớp đùi bánh chè [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương bánh chè và khớp đùi bánh chè [số hóa 1 phim]",
@@ -27527,11 +29806,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94241"
   },
   {
-    "STT": 1376,
+    "STT": 1419,
     "MA_DICH_VU": "18.0113.0029",
     "TEN_DICH_VU": "Chụp X-quang xương bánh chè và khớp đùi bánh chè [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương bánh chè và khớp đùi bánh chè [số hóa 2 phim]",
@@ -27547,11 +29827,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94360"
   },
   {
-    "STT": 1377,
+    "STT": 1420,
     "MA_DICH_VU": "18.0114.0028",
     "TEN_DICH_VU": "Chụp X-quang xương cẳng chân thẳng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương cẳng chân thẳng nghiêng [số hóa 1 phim]",
@@ -27567,11 +29848,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94242"
   },
   {
-    "STT": 1378,
+    "STT": 1421,
     "MA_DICH_VU": "18.0114.0029",
     "TEN_DICH_VU": "Chụp X-quang xương cẳng chân thẳng nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương cẳng chân thẳng nghiêng [số hóa 2 phim]",
@@ -27587,11 +29869,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94361"
   },
   {
-    "STT": 1379,
+    "STT": 1422,
     "MA_DICH_VU": "18.0115.0028",
     "TEN_DICH_VU": "Chụp X-quang xương cổ chân thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương cổ chân thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
@@ -27607,11 +29890,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94243"
   },
   {
-    "STT": 1380,
+    "STT": 1423,
     "MA_DICH_VU": "18.0115.0029",
     "TEN_DICH_VU": "Chụp X-quang xương cổ chân thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương cổ chân thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
@@ -27627,11 +29911,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94362"
   },
   {
-    "STT": 1381,
+    "STT": 1424,
     "MA_DICH_VU": "18.0116.0028",
     "TEN_DICH_VU": "Chụp X-quang xương bàn, ngón chân thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương bàn, ngón chân thẳng, nghiêng hoặc chếch [số hóa 1 phim]",
@@ -27647,11 +29932,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94244"
   },
   {
-    "STT": 1382,
+    "STT": 1425,
     "MA_DICH_VU": "18.0116.0029",
     "TEN_DICH_VU": "Chụp X-quang xương bàn, ngón chân thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương bàn, ngón chân thẳng, nghiêng hoặc chếch [số hóa 2 phim]",
@@ -27667,11 +29953,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94363"
   },
   {
-    "STT": 1383,
+    "STT": 1426,
     "MA_DICH_VU": "18.0117.0028",
     "TEN_DICH_VU": "Chụp X-quang xương gót thẳng nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương gót thẳng nghiêng [số hóa 1 phim]",
@@ -27687,11 +29974,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94245"
   },
   {
-    "STT": 1384,
+    "STT": 1427,
     "MA_DICH_VU": "18.0117.0029",
     "TEN_DICH_VU": "Chụp X-quang xương gót thẳng nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương gót thẳng nghiêng [số hóa 2 phim]",
@@ -27707,11 +29995,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94364"
   },
   {
-    "STT": 1385,
+    "STT": 1428,
     "MA_DICH_VU": "18.0119.0028",
     "TEN_DICH_VU": "Chụp X-quang ngực thẳng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang ngực thẳng [số hóa 1 phim]",
@@ -27727,11 +30016,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94246"
   },
   {
-    "STT": 1386,
+    "STT": 1429,
     "MA_DICH_VU": "18.0119.0029",
     "TEN_DICH_VU": "Chụp X-quang ngực thẳng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang ngực thẳng [số hóa 2 phim]",
@@ -27747,11 +30037,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94365"
   },
   {
-    "STT": 1387,
+    "STT": 1430,
     "MA_DICH_VU": "18.0120.0028",
     "TEN_DICH_VU": "Chụp X-quang ngực nghiêng hoặc chếch mỗi bên [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang ngực nghiêng hoặc chếch mỗi bên [số hóa 1 phim]",
@@ -27767,11 +30058,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94247"
   },
   {
-    "STT": 1388,
+    "STT": 1431,
     "MA_DICH_VU": "18.0121.0028",
     "TEN_DICH_VU": "Chụp X-quang xương ức thẳng, nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương ức thẳng, nghiêng [số hóa 1 phim]",
@@ -27787,11 +30079,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94248"
   },
   {
-    "STT": 1389,
+    "STT": 1432,
     "MA_DICH_VU": "18.0121.0029",
     "TEN_DICH_VU": "Chụp X-quang xương ức thẳng, nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang xương ức thẳng, nghiêng [số hóa 2 phim]",
@@ -27807,11 +30100,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94366"
   },
   {
-    "STT": 1390,
+    "STT": 1433,
     "MA_DICH_VU": "18.0122.0028",
     "TEN_DICH_VU": "Chụp X-quang khớp ức đòn thẳng chếch [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp ức đòn thẳng chếch [số hóa 1 phim]",
@@ -27827,11 +30121,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94249"
   },
   {
-    "STT": 1391,
+    "STT": 1434,
     "MA_DICH_VU": "18.0122.0029",
     "TEN_DICH_VU": "Chụp X-quang khớp ức đòn thẳng chếch [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang khớp ức đòn thẳng chếch [số hóa 2 phim]",
@@ -27847,11 +30142,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94367"
   },
   {
-    "STT": 1392,
+    "STT": 1435,
     "MA_DICH_VU": "18.0123.0028",
     "TEN_DICH_VU": "Chụp X-quang đỉnh phổi ưỡn [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang đỉnh phổi ưỡn [số hóa 1 phim]",
@@ -27867,11 +30163,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94250"
   },
   {
-    "STT": 1393,
+    "STT": 1436,
     "MA_DICH_VU": "18.0124.0016",
     "TEN_DICH_VU": "Chụp X-quang thực quản cổ nghiêng [có thuốc cản quang]",
     "TEN_DVKT_GIA": "Chụp X-quang thực quản cổ nghiêng [có thuốc cản quang]",
@@ -27887,11 +30184,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94372"
   },
   {
-    "STT": 1394,
+    "STT": 1437,
     "MA_DICH_VU": "18.0124.0034",
     "TEN_DICH_VU": "Chụp X-quang thực quản cổ nghiêng [có thuốc cản quang, số hóa]",
     "TEN_DVKT_GIA": "Chụp X-quang thực quản cổ nghiêng [có thuốc cản quang, số hóa]",
@@ -27907,11 +30205,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94616"
   },
   {
-    "STT": 1395,
+    "STT": 1438,
     "MA_DICH_VU": "18.0125.0028",
     "TEN_DICH_VU": "Chụp X-quang bụng không chuẩn bị thẳng hoặc nghiêng [số hóa 1 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang bụng không chuẩn bị thẳng hoặc nghiêng [số hóa 1 phim]",
@@ -27927,11 +30226,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94251"
   },
   {
-    "STT": 1396,
+    "STT": 1439,
     "MA_DICH_VU": "18.0125.0029",
     "TEN_DICH_VU": "Chụp X-quang bụng không chuẩn bị thẳng hoặc nghiêng [số hóa 2 phim]",
     "TEN_DVKT_GIA": "Chụp X-quang bụng không chuẩn bị thẳng hoặc nghiêng [số hóa 2 phim]",
@@ -27947,11 +30247,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94368"
   },
   {
-    "STT": 1397,
+    "STT": 1440,
     "MA_DICH_VU": "18.0127.0028",
     "TEN_DICH_VU": "Chụp X-quang tại giường",
     "TEN_DVKT_GIA": "Chụp X-quang tại giường",
@@ -27967,11 +30268,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94252"
   },
   {
-    "STT": 1398,
+    "STT": 1441,
     "MA_DICH_VU": "18.0128.0028",
     "TEN_DICH_VU": "Chụp X-quang tại phòng mổ",
     "TEN_DVKT_GIA": "Chụp X-quang tại phòng mổ",
@@ -27987,11 +30289,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Áp dụng cho 01 vị trí",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94253"
   },
   {
-    "STT": 1399,
+    "STT": 1442,
     "MA_DICH_VU": "18.0130.0035",
     "TEN_DICH_VU": "Chụp X-quang thực quản dạ dày [có thuốc cản quang, số hóa]",
     "TEN_DVKT_GIA": "Chụp X-quang thực quản dạ dày [có thuốc cản quang, số hóa]",
@@ -28007,11 +30310,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94617"
   },
   {
-    "STT": 1400,
+    "STT": 1443,
     "MA_DICH_VU": "18.0133.0019",
     "TEN_DICH_VU": "Chụp X-quang đường mật qua Kehr",
     "TEN_DVKT_GIA": "Chụp X-quang đường mật qua Kehr",
@@ -28027,11 +30331,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "Chưa bao gồm thuốc cản quang.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94650"
   },
   {
-    "STT": 1401,
+    "STT": 1444,
     "MA_DICH_VU": "18.0136.0039",
     "TEN_DICH_VU": "Chụp X-quang tuyến nước bọt",
     "TEN_DVKT_GIA": "Chụp X-quang tuyến nước bọt",
@@ -28047,11 +30352,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm ống thông, kim chọc chuyên dụng.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94808"
   },
   {
-    "STT": 1402,
+    "STT": 1445,
     "MA_DICH_VU": "18.0138.0023",
     "TEN_DICH_VU": "Chụp X-quang tử cung vòi trứng [bao gồm cả thuốc]",
     "TEN_DVKT_GIA": "Chụp X-quang tử cung vòi trứng [bao gồm cả thuốc]",
@@ -28067,11 +30373,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94803"
   },
   {
-    "STT": 1403,
+    "STT": 1446,
     "MA_DICH_VU": "18.0138.0031",
     "TEN_DICH_VU": "Chụp X-quang tử cung vòi trứng [số hóa]",
     "TEN_DVKT_GIA": "Chụp X-quang tử cung vòi trứng [số hóa]",
@@ -28087,11 +30394,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94821"
   },
   {
-    "STT": 1404,
+    "STT": 1447,
     "MA_DICH_VU": "18.0141.0032",
     "TEN_DICH_VU": "Chụp X-quang bể thận - niệu quản xuôi dòng [có thuốc cản quang, số hóa]",
     "TEN_DVKT_GIA": "Chụp X-quang bể thận - niệu quản xuôi dòng [có thuốc cản quang, số hóa]",
@@ -28107,11 +30415,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94885"
   },
   {
-    "STT": 1405,
+    "STT": 1448,
     "MA_DICH_VU": "18.0142.0021",
     "TEN_DICH_VU": "Chụp X-quang niệu quản - bể thận ngược dòng [có thuốc cản quang]",
     "TEN_DVKT_GIA": "Chụp X-quang niệu quản - bể thận ngược dòng [có thuốc cản quang]",
@@ -28127,11 +30436,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94857"
   },
   {
-    "STT": 1406,
+    "STT": 1449,
     "MA_DICH_VU": "18.0149.0040",
     "TEN_DICH_VU": "Chụp CLVT sọ não không tiêm thuốc cản quang (từ 1-32 dãy)",
     "TEN_DVKT_GIA": "Chụp CLVT sọ não không tiêm thuốc cản quang (từ 1-32 dãy)",
@@ -28147,11 +30457,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94848"
   },
   {
-    "STT": 1407,
+    "STT": 1450,
     "MA_DICH_VU": "18.0150.0041",
     "TEN_DICH_VU": "Chụp CLVT sọ não có tiêm thuốc cản quang (từ 1-32 dãy)",
     "TEN_DVKT_GIA": "Chụp CLVT sọ não có tiêm thuốc cản quang (từ 1-32 dãy)",
@@ -28167,11 +30478,75 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc cản quang.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94905"
   },
   {
-    "STT": 1408,
+    "STT": 1451,
+    "MA_DICH_VU": "18.0154.0041",
+    "TEN_DICH_VU": "Chụp CLVT sọ não có dựng hình 3D (từ 1-32 dãy) [có thuốc cản quang]",
+    "TEN_DVKT_GIA": "Chụp CLVT sọ não có dựng hình 3D (từ 1-32 dãy) [có thuốc cản quang]",
+    "DON_GIA": 663400,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093374,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 663400,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "DVKT",
+    "GHICHU": "Chưa bao gồm thuốc cản quang.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_92004"
+  },
+  {
+    "STT": 1452,
+    "MA_DICH_VU": "18.0155.0040",
+    "TEN_DICH_VU": "Chụp CLVT hàm - mặt không tiêm thuốc cản quang (từ 1-32 dãy)",
+    "TEN_DVKT_GIA": "Chụp CLVT hàm - mặt không tiêm thuốc cản quang (từ 1-32 dãy)",
+    "DON_GIA": 550100,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093375,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 550100,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "DVKT",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1453,
+    "MA_DICH_VU": "18.0156.0041",
+    "TEN_DICH_VU": "Chụp CLVT hàm - mặt có tiêm thuốc cản quang (từ 1-32 dãy)",
+    "TEN_DVKT_GIA": "Chụp CLVT hàm - mặt có tiêm thuốc cản quang (từ 1-32 dãy)",
+    "DON_GIA": 663400,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093245,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 663400,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "T2",
+    "MA_NHOM": "PTTT-T2",
+    "GHICHU": "Chưa bao gồm thuốc cản quang.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1454,
     "MA_DICH_VU": "18.0191.0040",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính lồng ngực không tiêm thuốc cản quang (từ 1- 32 dãy)",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính lồng ngực không tiêm thuốc cản quang (từ 1- 32 dãy)",
@@ -28187,11 +30562,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94849"
   },
   {
-    "STT": 1409,
+    "STT": 1455,
     "MA_DICH_VU": "18.0192.0041",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính lồng ngực có tiêm thuốc cản quang (từ 1- 32 dãy)",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính lồng ngực có tiêm thuốc cản quang (từ 1- 32 dãy)",
@@ -28207,11 +30583,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc cản quang.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94906"
   },
   {
-    "STT": 1410,
+    "STT": 1456,
     "MA_DICH_VU": "18.0219.0040",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính tầng trên ổ bụng thường quy (gồm: chụp cắt lớp vi tính gan - mật, tụy, lách, dạ dày - tá tràng.v.v.) (từ 1-32 dãy) [không có thuốc cản quang]",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính tầng trên ổ bụng thường quy (gồm: chụp cắt lớp vi tính gan - mật, tụy, lách, dạ dày - tá tràng.v.v.) (từ 1-32 dãy) [không có thuốc cản quang]",
@@ -28227,11 +30604,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94850"
   },
   {
-    "STT": 1411,
+    "STT": 1457,
     "MA_DICH_VU": "18.0219.0041",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính tầng trên ổ bụng thường quy (gồm: chụp cắt lớp vi tính gan - mật, tụy, lách, dạ dày - tá tràng.v.v.) (từ 1-32 dãy) [có thuốc cản quang]",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính tầng trên ổ bụng thường quy (gồm: chụp cắt lớp vi tính gan - mật, tụy, lách, dạ dày - tá tràng.v.v.) (từ 1-32 dãy) [có thuốc cản quang]",
@@ -28247,11 +30625,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc cản quang.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94907"
   },
   {
-    "STT": 1412,
+    "STT": 1458,
     "MA_DICH_VU": "18.0220.0040",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính bụng - tiểu khung thường quy (từ 1-32 dãy) [không có thuốc cản quang]",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính bụng - tiểu khung thường quy (từ 1-32 dãy) [không có thuốc cản quang]",
@@ -28267,11 +30646,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94851"
   },
   {
-    "STT": 1413,
+    "STT": 1459,
     "MA_DICH_VU": "18.0220.0041",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính bụng - tiểu khung thường quy (từ 1-32 dãy) [có thuốc cản quang]",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính bụng - tiểu khung thường quy (từ 1-32 dãy) [có thuốc cản quang]",
@@ -28287,11 +30667,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc cản quang.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94908"
   },
   {
-    "STT": 1414,
+    "STT": 1460,
     "MA_DICH_VU": "18.0221.0040",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính tiểu khung thường quy (gồm: chụp cắt lớp vi tính tử cung - buồng trứng, tiền liệt tuyến, các khối u vùng tiểu khung.v.v.) (từ 1-32  dãy) [không có thuốc cản quang]",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính tiểu khung thường quy (gồm: chụp cắt lớp vi tính tử cung - buồng trứng, tiền liệt tuyến, các khối u vùng tiểu khung.v.v.) (từ 1-32  dãy) [không có thuốc cản quang]",
@@ -28307,11 +30688,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94852"
   },
   {
-    "STT": 1415,
+    "STT": 1461,
     "MA_DICH_VU": "18.0221.0041",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính tiểu khung thường quy (gồm: chụp cắt lớp vi tính tử cung - buồng trứng, tiền liệt tuyến, các khối u vùng tiểu khung.v.v.) (từ 1-32 dãy) [có thuốc cản quang]",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính tiểu khung thường quy (gồm: chụp cắt lớp vi tính tử cung - buồng trứng, tiền liệt tuyến, các khối u vùng tiểu khung.v.v.) (từ 1-32 dãy) [có thuốc cản quang]",
@@ -28327,11 +30709,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc cản quang.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94909"
   },
   {
-    "STT": 1416,
+    "STT": 1462,
     "MA_DICH_VU": "18.0222.0040",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính hệ tiết niệu thường quy (từ 1-32 dãy) [không có thuốc cản quang]",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính hệ tiết niệu thường quy (từ 1-32 dãy) [không có thuốc cản quang]",
@@ -28347,11 +30730,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94853"
   },
   {
-    "STT": 1417,
+    "STT": 1463,
     "MA_DICH_VU": "18.0222.0041",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính hệ tiết niệu thường quy (từ 1-32 dãy) [có thuốc cản quang]",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính hệ tiết niệu thường quy (từ 1-32 dãy) [có thuốc cản quang]",
@@ -28367,11 +30751,54 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc cản quang.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94910"
   },
   {
-    "STT": 1418,
+    "STT": 1464,
+    "MA_DICH_VU": "18.0223.0041",
+    "TEN_DICH_VU": "Chụp cắt lớp vi tính tầng trên ổ bụng có khảo sát mạch các tạng (bao gồm mạch: gan, tụy, lách và mạch khối u) (từ 1-32 dãy) [có thuốc cản quang]",
+    "TEN_DVKT_GIA": "Chụp cắt lớp vi tính tầng trên ổ bụng có khảo sát mạch các tạng (bao gồm mạch: gan, tụy, lách và mạch khối u) (từ 1-32 dãy) [có thuốc cản quang]",
+    "DON_GIA": 663400,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093376,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 663400,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "T2",
+    "MA_NHOM": "PTTT-T2",
+    "GHICHU": "Chưa bao gồm thuốc cản quang.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1465,
+    "MA_DICH_VU": "18.0224.0041",
+    "TEN_DICH_VU": "Chụp cắt lớp vi tính hệ tiết niệu có khảo sát mạch thận và/hoặc dựng hình đường bài xuất (từ 1-32 dãy) [có thuốc cản quang]",
+    "TEN_DVKT_GIA": "Chụp cắt lớp vi tính hệ tiết niệu có khảo sát mạch thận và/hoặc dựng hình đường bài xuất (từ 1-32 dãy) [có thuốc cản quang]",
+    "DON_GIA": 663400,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093377,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 663400,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "T2",
+    "MA_NHOM": "PTTT-T2",
+    "GHICHU": "Chưa bao gồm thuốc cản quang.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94001"
+  },
+  {
+    "STT": 1466,
     "MA_DICH_VU": "18.0255.0040",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính cột sống cổ không tiêm thuốc cản quang (từ 1- 32 dãy)",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính cột sống cổ không tiêm thuốc cản quang (từ 1- 32 dãy)",
@@ -28387,11 +30814,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94854"
   },
   {
-    "STT": 1419,
+    "STT": 1467,
     "MA_DICH_VU": "18.0256.0041",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính cột sống cổ có tiêm thuốc cản quang (từ 1- 32 dãy)",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính cột sống cổ có tiêm thuốc cản quang (từ 1- 32 dãy)",
@@ -28407,11 +30835,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc cản quang.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94911"
   },
   {
-    "STT": 1420,
+    "STT": 1468,
     "MA_DICH_VU": "18.0257.0040",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính cột sống ngực không tiêm thuốc cản quang (từ 1- 32 dãy)",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính cột sống ngực không tiêm thuốc cản quang (từ 1- 32 dãy)",
@@ -28427,11 +30856,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94855"
   },
   {
-    "STT": 1421,
+    "STT": 1469,
     "MA_DICH_VU": "18.0258.0041",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính cột sống ngực có tiêm thuốc cản quang (từ 1- 32 dãy)",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính cột sống ngực có tiêm thuốc cản quang (từ 1- 32 dãy)",
@@ -28447,11 +30877,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc cản quang.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94912"
   },
   {
-    "STT": 1422,
+    "STT": 1470,
     "MA_DICH_VU": "18.0259.0040",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính cột sống thắt lưng không tiêm thuốc cản quang (từ 1- 32 dãy)",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính cột sống thắt lưng không tiêm thuốc cản quang (từ 1- 32 dãy)",
@@ -28467,11 +30898,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94856"
   },
   {
-    "STT": 1423,
+    "STT": 1471,
     "MA_DICH_VU": "18.0260.0041",
     "TEN_DICH_VU": "Chụp cắt lớp vi tính cột sống thắt lưng có tiêm thuốc cản quang (từ 1- 32 dãy)",
     "TEN_DVKT_GIA": "Chụp cắt lớp vi tính cột sống thắt lưng có tiêm thuốc cản quang (từ 1- 32 dãy)",
@@ -28487,11 +30919,54 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "Chưa bao gồm thuốc cản quang.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94913"
   },
   {
-    "STT": 1424,
+    "STT": 1472,
+    "MA_DICH_VU": "18.0266.0041",
+    "TEN_DICH_VU": "Chụp cắt lớp vi tính mạch máu chi trên (từ 1- 32 dãy)",
+    "TEN_DVKT_GIA": "Chụp cắt lớp vi tính mạch máu chi trên (từ 1- 32 dãy)",
+    "DON_GIA": 663400,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093378,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 663400,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "T2",
+    "MA_NHOM": "PTTT-T2",
+    "GHICHU": "Chưa bao gồm thuốc cản quang.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1473,
+    "MA_DICH_VU": "18.0267.0041",
+    "TEN_DICH_VU": "Chụp cắt lớp vi tính mạch máu chi dưới (từ 1- 32 dãy)",
+    "TEN_DVKT_GIA": "Chụp cắt lớp vi tính mạch máu chi dưới (từ 1- 32 dãy)",
+    "DON_GIA": 663400,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093379,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 663400,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "T2",
+    "MA_NHOM": "PTTT-T2",
+    "GHICHU": "Chưa bao gồm thuốc cản quang.",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1474,
     "MA_DICH_VU": "18.0605.0170",
     "TEN_DICH_VU": "Sinh thiết vú dưới hướng dẫn siêu âm",
     "TEN_DVKT_GIA": "Sinh thiết vú dưới hướng dẫn siêu âm",
@@ -28507,11 +30982,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94967"
   },
   {
-    "STT": 1425,
+    "STT": 1475,
     "MA_DICH_VU": "18.0611.0170",
     "TEN_DICH_VU": "Sinh thiết phần mềm dưới hướng dẫn siêu âm",
     "TEN_DVKT_GIA": "Sinh thiết phần mềm dưới hướng dẫn siêu âm",
@@ -28527,11 +31003,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94968"
   },
   {
-    "STT": 1426,
+    "STT": 1476,
     "MA_DICH_VU": "18.0619.0090",
     "TEN_DICH_VU": "Chọc hút tế bào tuyến giáp dưới hướng dẫn siêu âm",
     "TEN_DVKT_GIA": "Chọc hút tế bào tuyến giáp dưới hướng dẫn siêu âm",
@@ -28547,11 +31024,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94462"
   },
   {
-    "STT": 1427,
+    "STT": 1477,
     "MA_DICH_VU": "18.0620.0087",
     "TEN_DICH_VU": "Chọc hút hạch (hoặc u) dưới hướng dẫn siêu âm",
     "TEN_DVKT_GIA": "Chọc hút hạch (hoặc u) dưới hướng dẫn siêu âm",
@@ -28567,11 +31045,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94466"
   },
   {
-    "STT": 1428,
+    "STT": 1478,
     "MA_DICH_VU": "18.0622.0085",
     "TEN_DICH_VU": "Chọc nang tuyến giáp dưới hướng dẫn siêu âm",
     "TEN_DVKT_GIA": "Chọc nang tuyến giáp dưới hướng dẫn siêu âm",
@@ -28587,11 +31066,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94550"
   },
   {
-    "STT": 1429,
+    "STT": 1479,
     "MA_DICH_VU": "20.0008.0932",
     "TEN_DICH_VU": "Nội soi mũi hoặc vòm hoặc họng có sinh thiết",
     "TEN_DVKT_GIA": "Nội soi mũi hoặc vòm hoặc họng có sinh thiết",
@@ -28607,11 +31087,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94845"
   },
   {
-    "STT": 1430,
+    "STT": 1480,
     "MA_DICH_VU": "20.0013.2048",
     "TEN_DICH_VU": "Nội soi tai mũi họng",
     "TEN_DVKT_GIA": "Nội soi tai mũi họng",
@@ -28627,11 +31108,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Trường hợp chỉ nội soi Tai hoặc Mũi hoặc Họng thì thanh toán 40.000 đồng/ca.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94093"
   },
   {
-    "STT": 1431,
+    "STT": 1481,
     "MA_DICH_VU": "20.0048.0502",
     "TEN_DICH_VU": "Mở thông dạ dày qua nội soi",
     "TEN_DVKT_GIA": "Mở thông dạ dày qua nội soi",
@@ -28647,11 +31129,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95221"
   },
   {
-    "STT": 1432,
+    "STT": 1482,
     "MA_DICH_VU": "20.0063.0142",
     "TEN_DICH_VU": "Nội soi ổ bụng để thăm dò, chẩn đoán",
     "TEN_DVKT_GIA": "Nội soi ổ bụng để thăm dò, chẩn đoán",
@@ -28667,11 +31150,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94971"
   },
   {
-    "STT": 1433,
+    "STT": 1483,
     "MA_DICH_VU": "20.0080.0135",
     "TEN_DICH_VU": "Nội soi thực quản, dạ dày, tá tràng",
     "TEN_DVKT_GIA": "Nội soi thực quản, dạ dày, tá tràng",
@@ -28687,11 +31171,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94635"
   },
   {
-    "STT": 1434,
+    "STT": 1484,
     "MA_DICH_VU": "20.0081.0137",
     "TEN_DICH_VU": "Nội soi đại tràng sigma",
     "TEN_DVKT_GIA": "Nội soi đại tràng sigma",
@@ -28707,11 +31192,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 2,
+    "MA_NHOM": "PTTT-2",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94722"
   },
   {
-    "STT": 1435,
+    "STT": 1485,
     "MA_DICH_VU": "20.0083.0104",
     "TEN_DICH_VU": "Đặt ống thông niệu quản qua nội soi (sonde JJ)",
     "TEN_DVKT_GIA": "Đặt ống thông niệu quản qua nội soi (sonde JJ)",
@@ -28727,11 +31213,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "Chưa bao gồm Sonde JJ.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94976"
   },
   {
-    "STT": 1436,
+    "STT": 1486,
     "MA_DICH_VU": "20.0084.0440",
     "TEN_DICH_VU": "Nội soi tán sỏi niệu quản (búa khí nén, siêu âm, laser)",
     "TEN_DVKT_GIA": "Nội soi tán sỏi niệu quản (búa khí nén, siêu âm, laser)",
@@ -28747,11 +31234,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "Chưa bao gồm sonde JJ, rọ lấy sỏi.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95008"
   },
   {
-    "STT": 1437,
+    "STT": 1487,
     "MA_DICH_VU": "20.0085.0115",
     "TEN_DICH_VU": "Lấy sỏi niệu quản qua nội soi",
     "TEN_DVKT_GIA": "Lấy sỏi niệu quản qua nội soi",
@@ -28767,11 +31255,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 4,
+    "MA_NHOM": "PTTT-4",
     "GHICHU": "Chưa bao gồm sonde niệu quản và dây dẫn Guide wire.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94985"
   },
   {
-    "STT": 1438,
+    "STT": 1488,
     "MA_DICH_VU": "20.0087.0152",
     "TEN_DICH_VU": "Soi bàng quang, lấy dị vật, sỏi",
     "TEN_DVKT_GIA": "Soi bàng quang, lấy dị vật, sỏi",
@@ -28787,11 +31276,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 1,
+    "MA_NHOM": "PTTT-1",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94981"
   },
   {
-    "STT": 1439,
+    "STT": 1489,
     "MA_DICH_VU": "21.0014.1778",
     "TEN_DICH_VU": "Điện tim thường",
     "TEN_DVKT_GIA": "Điện tim thường",
@@ -28807,11 +31297,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94089"
   },
   {
-    "STT": 1440,
+    "STT": 1490,
     "MA_DICH_VU": "21.0102.0070",
     "TEN_DICH_VU": "Đo mật độ xương bằng phương pháp DEXA [2 vị trí]",
     "TEN_DVKT_GIA": "Đo mật độ xương bằng phương pháp DEXA [2 vị trí]",
@@ -28827,11 +31318,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Bằng phương pháp DEXA",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94414"
   },
   {
-    "STT": 1441,
+    "STT": 1491,
     "MA_DICH_VU": "22.0002.1352",
     "TEN_DICH_VU": "Thời gian prothrombin (PT: Prothrombin Time), (Các tên khác: TQ; Tỷ lệ Prothrombin) bằng máy bán tự động",
     "TEN_DVKT_GIA": "Thời gian prothrombin (PT: Prothrombin Time), (Các tên khác: TQ; Tỷ lệ Prothrombin) bằng máy bán tự động",
@@ -28847,11 +31339,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94197"
   },
   {
-    "STT": 1442,
+    "STT": 1492,
     "MA_DICH_VU": "22.0006.1354",
     "TEN_DICH_VU": "Thời gian thromboplastin một phần hoạt hóa (APTT: Activated Partial Thromboplastin Time) (tên khác: TCK) bằng máy bán tự động",
     "TEN_DVKT_GIA": "Thời gian thromboplastin một phần hoạt hóa (APTT: Activated Partial Thromboplastin Time) (tên khác: TCK) bằng máy bán tự động",
@@ -28867,11 +31360,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94116"
   },
   {
-    "STT": 1443,
+    "STT": 1493,
     "MA_DICH_VU": "22.0012.1254",
     "TEN_DICH_VU": "Định lượng Fibrinogen (tên khác: Định lượng yếu tố I), phương pháp gián tiếp, bằng máy bán tự động",
     "TEN_DVKT_GIA": "Định lượng Fibrinogen (tên khác: Định lượng yếu tố I), phương pháp gián tiếp, bằng máy bán tự động",
@@ -28887,11 +31381,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94179"
   },
   {
-    "STT": 1444,
+    "STT": 1494,
     "MA_DICH_VU": "22.0013.1242",
     "TEN_DICH_VU": "Định lượng Fibrinogen (tên khác: Định lượng yếu tố I), phương pháp Clauss- phương pháp trực tiếp, bằng máy tự động",
     "TEN_DVKT_GIA": "Định lượng Fibrinogen (tên khác: Định lượng yếu tố I), phương pháp Clauss- phương pháp trực tiếp, bằng máy tự động",
@@ -28907,11 +31402,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94373"
   },
   {
-    "STT": 1445,
+    "STT": 1495,
     "MA_DICH_VU": "22.0021.1219",
     "TEN_DICH_VU": "Co cục máu đông (tên khác: Co cục máu)",
     "TEN_DVKT_GIA": "Co cục máu đông (tên khác: Co cục máu)",
@@ -28927,11 +31423,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94024"
   },
   {
-    "STT": 1446,
+    "STT": 1496,
     "MA_DICH_VU": "22.0023.1239",
     "TEN_DICH_VU": "Định lượng D-Dimer",
     "TEN_DVKT_GIA": "Định lượng D-Dimer",
@@ -28947,11 +31444,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94625"
   },
   {
-    "STT": 1447,
+    "STT": 1497,
     "MA_DICH_VU": "22.0116.1514",
     "TEN_DICH_VU": "Định lượng Ferritin",
     "TEN_DVKT_GIA": "Định lượng Ferritin",
@@ -28967,11 +31465,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94260"
   },
   {
-    "STT": 1448,
+    "STT": 1498,
     "MA_DICH_VU": "22.0121.1369",
     "TEN_DICH_VU": "Tổng phân tích tế bào máu ngoại vi (bằng máy đếm laser)",
     "TEN_DVKT_GIA": "Tổng phân tích tế bào máu ngoại vi (bằng máy đếm laser)",
@@ -28987,11 +31486,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94126"
   },
   {
-    "STT": 1449,
+    "STT": 1499,
     "MA_DICH_VU": "22.0134.1296",
     "TEN_DICH_VU": "Xét nghiệm hồng cầu lưới (bằng phương pháp thủ công)",
     "TEN_DVKT_GIA": "Xét nghiệm hồng cầu lưới (bằng phương pháp thủ công)",
@@ -29007,11 +31507,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94064"
   },
   {
-    "STT": 1450,
+    "STT": 1500,
     "MA_DICH_VU": "22.0135.1313",
     "TEN_DICH_VU": "Xét nghiệm hồng cầu lưới (bằng máy đếm laser)",
     "TEN_DVKT_GIA": "Xét nghiệm hồng cầu lưới (bằng máy đếm laser)",
@@ -29027,11 +31528,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94117"
   },
   {
-    "STT": 1451,
+    "STT": 1501,
     "MA_DICH_VU": "22.0138.1362",
     "TEN_DICH_VU": "Tìm ký sinh trùng sốt rét trong máu (bằng phương pháp thủ công)",
     "TEN_DVKT_GIA": "Tìm ký sinh trùng sốt rét trong máu (bằng phương pháp thủ công)",
@@ -29047,11 +31549,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94078"
   },
   {
-    "STT": 1452,
+    "STT": 1502,
     "MA_DICH_VU": "22.0149.1594",
     "TEN_DICH_VU": "Xét nghiệm tế bào cặn nước tiểu (bằng phương pháp thủ công)",
     "TEN_DVKT_GIA": "Xét nghiệm tế bào cặn nước tiểu (bằng phương pháp thủ công)",
@@ -29067,11 +31570,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94118"
   },
   {
-    "STT": 1453,
+    "STT": 1503,
     "MA_DICH_VU": "22.0152.1609",
     "TEN_DICH_VU": "Xét nghiệm tế bào trong nước dịch chẩn đoán tế bào học (não tủy, màng tim, màng phổi, màng bụng, dịch khớp, rửa phế quản…) bằng phương pháp thủ công",
     "TEN_DVKT_GIA": "Xét nghiệm tế bào trong nước dịch chẩn đoán tế bào học (não tủy, màng tim, màng phổi, màng bụng, dịch khớp, rửa phế quản…) bằng phương pháp thủ công",
@@ -29087,11 +31591,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94137"
   },
   {
-    "STT": 1454,
+    "STT": 1504,
     "MA_DICH_VU": "22.0153.1610",
     "TEN_DICH_VU": "Xét nghiệm tế bào trong nước dịch chẩn đoán tế bào học (não tủy, màng tim, màng phổi, màng bụng, dịch khớp, rửa phế quản…) bằng máy phân tích huyết học tự động",
     "TEN_DVKT_GIA": "Xét nghiệm tế bào trong nước dịch chẩn đoán tế bào học (não tủy, màng tim, màng phổi, màng bụng, dịch khớp, rửa phế quản…) bằng máy phân tích huyết học tự động",
@@ -29107,11 +31612,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94304"
   },
   {
-    "STT": 1455,
+    "STT": 1505,
     "MA_DICH_VU": "22.0154.1735",
     "TEN_DICH_VU": "Xét nghiệm các loại dịch, nhuộm và chẩn đoán tế bào học",
     "TEN_DVKT_GIA": "Xét nghiệm các loại dịch, nhuộm và chẩn đoán tế bào học",
@@ -29127,11 +31633,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94479"
   },
   {
-    "STT": 1456,
+    "STT": 1506,
     "MA_DICH_VU": "22.0163.1412",
     "TEN_DICH_VU": "Xét nghiệm số lượng và độ tập trung tiểu cầu (bằng phương pháp thủ công)",
     "TEN_DVKT_GIA": "Xét nghiệm số lượng và độ tập trung tiểu cầu (bằng phương pháp thủ công)",
@@ -29147,11 +31654,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94075"
   },
   {
-    "STT": 1457,
+    "STT": 1507,
     "MA_DICH_VU": "22.0274.1326",
     "TEN_DICH_VU": "Phản ứng hoà hợp có sử dụng kháng globulin người (kỹ thuật ống nghiệm)",
     "TEN_DVKT_GIA": "Phản ứng hoà hợp có sử dụng kháng globulin người (kỹ thuật ống nghiệm)",
@@ -29167,11 +31675,33 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94257"
   },
   {
-    "STT": 1458,
+    "STT": 1508,
+    "MA_DICH_VU": "22.0275.1327",
+    "TEN_DICH_VU": "Phản ứng hoà hợp có sử dụng kháng globulin người (kỹ thuật Scangel/Gelcard trên máy bán tự động)",
+    "TEN_DVKT_GIA": "Phản ứng hoà hợp có sử dụng kháng globulin người (kỹ thuật Scangel/Gelcard trên máy bán tự động)",
+    "DON_GIA": 80500,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093246,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 80500,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "DVKT",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1509,
     "MA_DICH_VU": "22.0279.1269",
     "TEN_DICH_VU": "Định nhóm máu hệ ABO (kỹ thuật ống nghiệm)",
     "TEN_DVKT_GIA": "Định nhóm máu hệ ABO (kỹ thuật ống nghiệm)",
@@ -29187,11 +31717,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94112"
   },
   {
-    "STT": 1459,
+    "STT": 1510,
     "MA_DICH_VU": "22.0291.1280",
     "TEN_DICH_VU": "Định nhóm máu hệ Rh(D) (kỹ thuật ống nghiệm)",
     "TEN_DVKT_GIA": "Định nhóm máu hệ Rh(D) (kỹ thuật ống nghiệm)",
@@ -29207,11 +31738,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94068"
   },
   {
-    "STT": 1460,
+    "STT": 1511,
     "MA_DICH_VU": "22.0292.1280",
     "TEN_DICH_VU": "Định nhóm máu hệ Rh(D) (kỹ thuật phiến đá)",
     "TEN_DVKT_GIA": "Định nhóm máu hệ Rh(D) (kỹ thuật phiến đá)",
@@ -29227,11 +31759,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94069"
   },
   {
-    "STT": 1461,
+    "STT": 1512,
     "MA_DICH_VU": "22.0304.1306",
     "TEN_DICH_VU": "Nghiệm pháp Coombs trực tiếp (kỹ thuật ống nghiệm)",
     "TEN_DVKT_GIA": "Nghiệm pháp Coombs trực tiếp (kỹ thuật ống nghiệm)",
@@ -29247,11 +31780,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94268"
   },
   {
-    "STT": 1462,
+    "STT": 1513,
     "MA_DICH_VU": "22.0308.1306",
     "TEN_DICH_VU": "Nghiệm pháp Coombs gián tiếp (kỹ thuật ống nghiệm)",
     "TEN_DVKT_GIA": "Nghiệm pháp Coombs gián tiếp (kỹ thuật ống nghiệm)",
@@ -29267,11 +31801,33 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94269"
   },
   {
-    "STT": 1463,
+    "STT": 1514,
+    "MA_DICH_VU": "22.0499.0163",
+    "TEN_DICH_VU": "Rút máu để điều trị",
+    "TEN_DVKT_GIA": "Rút máu để điều trị",
+    "DON_GIA": 289400,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093380,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 289400,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "T2",
+    "MA_NHOM": "PTTT-T2",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94001"
+  },
+  {
+    "STT": 1515,
     "MA_DICH_VU": "22.0502.1267",
     "TEN_DICH_VU": "Định nhóm máu tại giường bệnh trước truyền máu [khối hồng cầu, khối bạch cầu]",
     "TEN_DVKT_GIA": "Định nhóm máu tại giường bệnh trước truyền máu [khối hồng cầu, khối bạch cầu]",
@@ -29287,11 +31843,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94047"
   },
   {
-    "STT": 1464,
+    "STT": 1516,
     "MA_DICH_VU": "22.0502.1268",
     "TEN_DICH_VU": "Định nhóm máu tại giường bệnh trước truyền máu [chế phẩm tiểu cầu hoặc huyết tương]",
     "TEN_DVKT_GIA": "Định nhóm máu tại giường bệnh trước truyền máu [chế phẩm tiểu cầu hoặc huyết tương]",
@@ -29307,11 +31864,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94031"
   },
   {
-    "STT": 1465,
+    "STT": 1517,
     "MA_DICH_VU": "23.0003.1494",
     "TEN_DICH_VU": "Định lượng Acid Uric [Máu]",
     "TEN_DVKT_GIA": "Định lượng Acid Uric [Máu]",
@@ -29327,11 +31885,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Mỗi chất",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94032"
   },
   {
-    "STT": 1466,
+    "STT": 1518,
     "MA_DICH_VU": "23.0007.1494",
     "TEN_DICH_VU": "Định lượng Albumin [Máu]",
     "TEN_DVKT_GIA": "Định lượng Albumin [Máu]",
@@ -29347,11 +31906,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Mỗi chất",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94033"
   },
   {
-    "STT": 1467,
+    "STT": 1519,
     "MA_DICH_VU": "23.0010.1494",
     "TEN_DICH_VU": "Đo hoạt độ Amylase [Máu]",
     "TEN_DVKT_GIA": "Đo hoạt độ Amylase [Máu]",
@@ -29367,11 +31927,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Mỗi chất",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94034"
   },
   {
-    "STT": 1468,
+    "STT": 1520,
     "MA_DICH_VU": "23.0018.1457",
     "TEN_DICH_VU": "Định lượng AFP (Alpha Fetoproteine) [Máu]",
     "TEN_DVKT_GIA": "Định lượng AFP (Alpha Fetoproteine) [Máu]",
@@ -29387,11 +31948,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94305"
   },
   {
-    "STT": 1469,
+    "STT": 1521,
     "MA_DICH_VU": "23.0019.1493",
     "TEN_DICH_VU": "Đo hoạt độ ALT (GPT) [Máu]",
     "TEN_DVKT_GIA": "Đo hoạt độ ALT (GPT) [Máu]",
@@ -29407,11 +31969,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Không thanh toán đối với các xét nghiệm Bilirubin gián tiếp; Tỷ lệ A/G là những xét nghiệm có thể ngoại suy được.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94035"
   },
   {
-    "STT": 1470,
+    "STT": 1522,
     "MA_DICH_VU": "23.0020.1493",
     "TEN_DICH_VU": "Đo hoạt độ AST (GOT) [Máu]",
     "TEN_DVKT_GIA": "Đo hoạt độ AST (GOT) [Máu]",
@@ -29427,11 +31990,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Không thanh toán đối với các xét nghiệm Bilirubin gián tiếp; Tỷ lệ A/G là những xét nghiệm có thể ngoại suy được.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94036"
   },
   {
-    "STT": 1471,
+    "STT": 1523,
     "MA_DICH_VU": "23.0024.1464",
     "TEN_DICH_VU": "Định lượng bhCG (Beta human Chorionic Gonadotropins) [Máu]",
     "TEN_DVKT_GIA": "Định lượng bhCG (Beta human Chorionic Gonadotropins) [Máu]",
@@ -29447,11 +32011,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94288"
   },
   {
-    "STT": 1472,
+    "STT": 1524,
     "MA_DICH_VU": "23.0025.1493",
     "TEN_DICH_VU": "Định lượng Bilirubin trực tiếp [Máu]",
     "TEN_DVKT_GIA": "Định lượng Bilirubin trực tiếp [Máu]",
@@ -29467,11 +32032,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Không thanh toán đối với các xét nghiệm Bilirubin gián tiếp; Tỷ lệ A/G là những xét nghiệm có thể ngoại suy được.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94037"
   },
   {
-    "STT": 1473,
+    "STT": 1525,
     "MA_DICH_VU": "23.0026.1493",
     "TEN_DICH_VU": "Định lượng Bilirubin gián tiếp [Máu]",
     "TEN_DVKT_GIA": "Định lượng Bilirubin gián tiếp [Máu]",
@@ -29487,11 +32053,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Không thanh toán đối với các xét nghiệm Bilirubin gián tiếp; Tỷ lệ A/G là những xét nghiệm có thể ngoại suy được.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94038"
   },
   {
-    "STT": 1474,
+    "STT": 1526,
     "MA_DICH_VU": "23.0027.1493",
     "TEN_DICH_VU": "Định lượng Bilirubin toàn phần [Máu]",
     "TEN_DVKT_GIA": "Định lượng Bilirubin toàn phần [Máu]",
@@ -29507,11 +32074,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Không thanh toán đối với các xét nghiệm Bilirubin gián tiếp; Tỷ lệ A/G là những xét nghiệm có thể ngoại suy được.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94039"
   },
   {
-    "STT": 1475,
+    "STT": 1527,
     "MA_DICH_VU": "23.0028.1466",
     "TEN_DICH_VU": "Định lượng BNP (B- Type Natriuretic Peptide) [Máu]",
     "TEN_DVKT_GIA": "Định lượng BNP (B- Type Natriuretic Peptide) [Máu]",
@@ -29527,11 +32095,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94869"
   },
   {
-    "STT": 1476,
+    "STT": 1528,
     "MA_DICH_VU": "23.0029.1473",
     "TEN_DICH_VU": "Định lượng Canxi toàn phần [Máu]",
     "TEN_DVKT_GIA": "Định lượng Canxi toàn phần [Máu]",
@@ -29547,11 +32116,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94009"
   },
   {
-    "STT": 1477,
+    "STT": 1529,
     "MA_DICH_VU": "23.0030.1472",
     "TEN_DICH_VU": "Định lượng Canxi ion hóa [Máu]",
     "TEN_DVKT_GIA": "Định lượng Canxi ion hóa [Máu]",
@@ -29567,11 +32137,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Chỉ thanh toán khi định lượng trực tiếp.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94025"
   },
   {
-    "STT": 1478,
+    "STT": 1530,
     "MA_DICH_VU": "23.0031.1473",
     "TEN_DICH_VU": "Định lượng Canxi ion hóa bằng điện cực chọn lọc [Máu]",
     "TEN_DVKT_GIA": "Định lượng Canxi ion hóa bằng điện cực chọn lọc [Máu]",
@@ -29587,11 +32158,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94011"
   },
   {
-    "STT": 1479,
+    "STT": 1531,
     "MA_DICH_VU": "23.0032.1468",
     "TEN_DICH_VU": "Định lượng CA 125 (cancer antigen 125) [Máu]",
     "TEN_DVKT_GIA": "Định lượng CA 125 (cancer antigen 125) [Máu]",
@@ -29607,11 +32179,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94411"
   },
   {
-    "STT": 1480,
+    "STT": 1532,
     "MA_DICH_VU": "23.0033.1470",
     "TEN_DICH_VU": "Định lượng CA 19-9 (Carbohydrate Antigen 19-9) [Máu]",
     "TEN_DVKT_GIA": "Định lượng CA 19-9 (Carbohydrate Antigen 19-9) [Máu]",
@@ -29627,11 +32200,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94412"
   },
   {
-    "STT": 1481,
+    "STT": 1533,
     "MA_DICH_VU": "23.0034.1469",
     "TEN_DICH_VU": "Định lượng CA 15-3 (Cancer Antigen 15-3) [Máu]",
     "TEN_DVKT_GIA": "Định lượng CA 15-3 (Cancer Antigen 15-3) [Máu]",
@@ -29647,11 +32221,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94444"
   },
   {
-    "STT": 1482,
+    "STT": 1534,
     "MA_DICH_VU": "23.0035.1471",
     "TEN_DICH_VU": "Định lượng CA 72-4 (Cancer Antigen 72-4) [Máu]",
     "TEN_DVKT_GIA": "Định lượng CA 72-4 (Cancer Antigen 72-4) [Máu]",
@@ -29667,11 +32242,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94409"
   },
   {
-    "STT": 1483,
+    "STT": 1535,
     "MA_DICH_VU": "23.0039.1476",
     "TEN_DICH_VU": "Định lượng CEA (Carcino Embryonic Antigen) [Máu]",
     "TEN_DVKT_GIA": "Định lượng CEA (Carcino Embryonic Antigen) [Máu]",
@@ -29687,11 +32263,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94289"
   },
   {
-    "STT": 1484,
+    "STT": 1536,
     "MA_DICH_VU": "23.0041.1506",
     "TEN_DICH_VU": "Định lượng Cholesterol toàn phần (máu)",
     "TEN_DVKT_GIA": "Định lượng Cholesterol toàn phần (máu)",
@@ -29707,11 +32284,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94058"
   },
   {
-    "STT": 1485,
+    "STT": 1537,
     "MA_DICH_VU": "23.0043.1478",
     "TEN_DICH_VU": "Đo hoạt độ CK-MB ((Isozym MB of Creatine kinase) [Máu]",
     "TEN_DVKT_GIA": "Đo hoạt độ CK-MB ((Isozym MB of Creatine kinase) [Máu]",
@@ -29727,11 +32305,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94076"
   },
   {
-    "STT": 1486,
+    "STT": 1538,
     "MA_DICH_VU": "23.0046.1480",
     "TEN_DICH_VU": "Định lượng Cortisol (máu)",
     "TEN_DVKT_GIA": "Định lượng Cortisol (máu)",
@@ -29747,11 +32326,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94306"
   },
   {
-    "STT": 1487,
+    "STT": 1539,
     "MA_DICH_VU": "23.0050.1484",
     "TEN_DICH_VU": "Định lượng CRP hs (C-Reactive Protein high sesitivity) [Máu]",
     "TEN_DVKT_GIA": "Định lượng CRP hs (C-Reactive Protein high sesitivity) [Máu]",
@@ -29767,11 +32347,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94135"
   },
   {
-    "STT": 1488,
+    "STT": 1540,
     "MA_DICH_VU": "23.0051.1494",
     "TEN_DICH_VU": "Định lượng Creatinin (máu)",
     "TEN_DVKT_GIA": "Định lượng Creatinin (máu)",
@@ -29787,11 +32368,33 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Mỗi chất",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94040"
   },
   {
-    "STT": 1489,
+    "STT": 1541,
+    "MA_DICH_VU": "23.0055.1489",
+    "TEN_DICH_VU": "Định lượng 25OH Vitamin D (D3) [Máu]",
+    "TEN_DVKT_GIA": "Định lượng 25OH Vitamin D (D3) [Máu]",
+    "DON_GIA": 302500,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093247,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 302500,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "DVKT",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1542,
     "MA_DICH_VU": "23.0058.1487",
     "TEN_DICH_VU": "Điện giải đồ (Na, K, Cl) [Máu]",
     "TEN_DVKT_GIA": "Điện giải đồ (Na, K, Cl) [Máu]",
@@ -29807,11 +32410,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho cả trường hợp cho kết quả nhiều hơn 3 chỉ số",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94066"
   },
   {
-    "STT": 1490,
+    "STT": 1543,
     "MA_DICH_VU": "23.0060.1496",
     "TEN_DICH_VU": "Định lượng Ethanol (cồn) [Máu]",
     "TEN_DVKT_GIA": "Định lượng Ethanol (cồn) [Máu]",
@@ -29827,11 +32431,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94070"
   },
   {
-    "STT": 1491,
+    "STT": 1544,
     "MA_DICH_VU": "23.0061.1513",
     "TEN_DICH_VU": "Định lượng Estradiol [Máu]",
     "TEN_DVKT_GIA": "Định lượng Estradiol [Máu]",
@@ -29847,11 +32452,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94261"
   },
   {
-    "STT": 1492,
+    "STT": 1545,
     "MA_DICH_VU": "23.0063.1514",
     "TEN_DICH_VU": "Định lượng Ferritin [Máu]",
     "TEN_DVKT_GIA": "Định lượng Ferritin [Máu]",
@@ -29867,11 +32473,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94262"
   },
   {
-    "STT": 1493,
+    "STT": 1546,
     "MA_DICH_VU": "23.0065.1517",
     "TEN_DICH_VU": "Định lượng FSH (Follicular Stimulating Hormone) [Máu]",
     "TEN_DVKT_GIA": "Định lượng FSH (Follicular Stimulating Hormone) [Máu]",
@@ -29887,11 +32494,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94263"
   },
   {
-    "STT": 1494,
+    "STT": 1547,
     "MA_DICH_VU": "23.0067.1515",
     "TEN_DICH_VU": "Định lượng Folate [Máu]",
     "TEN_DVKT_GIA": "Định lượng Folate [Máu]",
@@ -29907,11 +32515,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94290"
   },
   {
-    "STT": 1495,
+    "STT": 1548,
     "MA_DICH_VU": "23.0068.1561",
     "TEN_DICH_VU": "Định lượng FT3 (Free Triiodothyronine) [Máu]",
     "TEN_DVKT_GIA": "Định lượng FT3 (Free Triiodothyronine) [Máu]",
@@ -29927,11 +32536,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94193"
   },
   {
-    "STT": 1496,
+    "STT": 1549,
     "MA_DICH_VU": "23.0069.1561",
     "TEN_DICH_VU": "Định lượng FT4 (Free Thyroxine) [Máu]",
     "TEN_DVKT_GIA": "Định lượng FT4 (Free Thyroxine) [Máu]",
@@ -29947,11 +32557,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94194"
   },
   {
-    "STT": 1497,
+    "STT": 1550,
     "MA_DICH_VU": "23.0075.1494",
     "TEN_DICH_VU": "Định lượng Glucose [Máu]",
     "TEN_DVKT_GIA": "Định lượng Glucose [Máu]",
@@ -29967,11 +32578,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Mỗi chất",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94041"
   },
   {
-    "STT": 1498,
+    "STT": 1551,
     "MA_DICH_VU": "23.0076.1494",
     "TEN_DICH_VU": "Định lượng Globulin [Máu]",
     "TEN_DVKT_GIA": "Định lượng Globulin [Máu]",
@@ -29987,11 +32599,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Mỗi chất",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94042"
   },
   {
-    "STT": 1499,
+    "STT": 1552,
     "MA_DICH_VU": "23.0077.1518",
     "TEN_DICH_VU": "Đo hoạt độ GGT (Gama Glutamyl Transferase) [Máu]",
     "TEN_DVKT_GIA": "Đo hoạt độ GGT (Gama Glutamyl Transferase) [Máu]",
@@ -30007,11 +32620,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94170"
   },
   {
-    "STT": 1500,
+    "STT": 1553,
     "MA_DICH_VU": "23.0083.1523",
     "TEN_DICH_VU": "Định lượng HbA1c [Máu]",
     "TEN_DVKT_GIA": "Định lượng HbA1c [Máu]",
@@ -30027,11 +32641,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94369"
   },
   {
-    "STT": 1501,
+    "STT": 1554,
     "MA_DICH_VU": "23.0084.1506",
     "TEN_DICH_VU": "Định lượng HDL-C (High density lipoprotein Cholesterol) [Máu]",
     "TEN_DVKT_GIA": "Định lượng HDL-C (High density lipoprotein Cholesterol) [Máu]",
@@ -30047,11 +32662,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94059"
   },
   {
-    "STT": 1502,
+    "STT": 1555,
     "MA_DICH_VU": "23.0109.1536",
     "TEN_DICH_VU": "Đo hoạt độ Lipase [Máu]",
     "TEN_DVKT_GIA": "Đo hoạt độ Lipase [Máu]",
@@ -30067,11 +32683,33 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94180"
   },
   {
-    "STT": 1503,
+    "STT": 1556,
+    "MA_DICH_VU": "23.0110.1535",
+    "TEN_DICH_VU": "Định lượng LH (Luteinizing Hormone) [Máu]",
+    "TEN_DVKT_GIA": "Định lượng LH (Luteinizing Hormone) [Máu]",
+    "DON_GIA": 84100,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093248,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 84100,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "DVKT",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1557,
     "MA_DICH_VU": "23.0111.1534",
     "TEN_DICH_VU": "Đo hoạt độ LDH (Lactat dehydrogenase) [Máu]",
     "TEN_DVKT_GIA": "Đo hoạt độ LDH (Lactat dehydrogenase) [Máu]",
@@ -30087,11 +32725,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94060"
   },
   {
-    "STT": 1504,
+    "STT": 1558,
     "MA_DICH_VU": "23.0112.1506",
     "TEN_DICH_VU": "Định lượng LDL-C (Low density lipoprotein Cholesterol) [Máu]",
     "TEN_DVKT_GIA": "Định lượng LDL-C (Low density lipoprotein Cholesterol) [Máu]",
@@ -30107,11 +32746,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94061"
   },
   {
-    "STT": 1505,
+    "STT": 1559,
     "MA_DICH_VU": "23.0118.1503",
     "TEN_DICH_VU": "Định lượng Mg [Máu]",
     "TEN_DVKT_GIA": "Định lượng Mg [Máu]",
@@ -30127,11 +32767,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94071"
   },
   {
-    "STT": 1506,
+    "STT": 1560,
     "MA_DICH_VU": "23.0130.1549",
     "TEN_DICH_VU": "Định lượng Pro-calcitonin [Máu]",
     "TEN_DVKT_GIA": "Định lượng Pro-calcitonin [Máu]",
@@ -30147,11 +32788,33 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94807"
   },
   {
-    "STT": 1507,
+    "STT": 1561,
+    "MA_DICH_VU": "23.0131.1552",
+    "TEN_DICH_VU": "Định lượng Prolactin [Máu]",
+    "TEN_DVKT_GIA": "Định lượng Prolactin [Máu]",
+    "DON_GIA": 78500,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093249,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 78500,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "DVKT",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1562,
     "MA_DICH_VU": "23.0133.1494",
     "TEN_DICH_VU": "Định lượng Protein toàn phần [Máu]",
     "TEN_DVKT_GIA": "Định lượng Protein toàn phần [Máu]",
@@ -30167,11 +32830,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Mỗi chất",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94043"
   },
   {
-    "STT": 1508,
+    "STT": 1563,
     "MA_DICH_VU": "23.0139.1553",
     "TEN_DICH_VU": "Định lượng PSA toàn phần (Total prostate-Specific Antigen) [Máu]",
     "TEN_DVKT_GIA": "Định lượng PSA toàn phần (Total prostate-Specific Antigen) [Máu]",
@@ -30187,11 +32851,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94307"
   },
   {
-    "STT": 1509,
+    "STT": 1564,
     "MA_DICH_VU": "23.0142.1557",
     "TEN_DICH_VU": "Định lượng RF (Rheumatoid Factor) [Máu]",
     "TEN_DVKT_GIA": "Định lượng RF (Rheumatoid Factor) [Máu]",
@@ -30207,11 +32872,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94077"
   },
   {
-    "STT": 1510,
+    "STT": 1565,
     "MA_DICH_VU": "23.0143.1503",
     "TEN_DICH_VU": "Định lượng Sắt [Máu]",
     "TEN_DVKT_GIA": "Định lượng Sắt [Máu]",
@@ -30227,11 +32893,33 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94072"
   },
   {
-    "STT": 1511,
+    "STT": 1566,
+    "MA_DICH_VU": "23.0151.1563",
+    "TEN_DICH_VU": "Định lượng Testosterol [Máu]",
+    "TEN_DVKT_GIA": "Định lượng Testosterol [Máu]",
+    "DON_GIA": 97500,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093381,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 97500,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "DVKT",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1567,
     "MA_DICH_VU": "23.0157.1567",
     "TEN_DICH_VU": "Định lượng Transferrin [Máu]",
     "TEN_DVKT_GIA": "Định lượng Transferrin [Máu]",
@@ -30247,11 +32935,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94195"
   },
   {
-    "STT": 1512,
+    "STT": 1568,
     "MA_DICH_VU": "23.0158.1506",
     "TEN_DICH_VU": "Định lượng Triglycerid (máu) [Máu]",
     "TEN_DVKT_GIA": "Định lượng Triglycerid (máu) [Máu]",
@@ -30267,11 +32956,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94062"
   },
   {
-    "STT": 1513,
+    "STT": 1569,
     "MA_DICH_VU": "23.0161.1569",
     "TEN_DICH_VU": "Định lượng Troponin I [Máu]",
     "TEN_DVKT_GIA": "Định lượng Troponin I [Máu]",
@@ -30287,11 +32977,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94256"
   },
   {
-    "STT": 1514,
+    "STT": 1570,
     "MA_DICH_VU": "23.0162.1570",
     "TEN_DICH_VU": "Định lượng TSH (Thyroid Stimulating hormone) [Máu]",
     "TEN_DVKT_GIA": "Định lượng TSH (Thyroid Stimulating hormone) [Máu]",
@@ -30307,11 +32998,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94181"
   },
   {
-    "STT": 1515,
+    "STT": 1571,
     "MA_DICH_VU": "23.0166.1494",
     "TEN_DICH_VU": "Định lượng Urê máu [Máu]",
     "TEN_DVKT_GIA": "Định lượng Urê máu [Máu]",
@@ -30327,11 +33019,33 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Mỗi chất",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94044"
   },
   {
-    "STT": 1516,
+    "STT": 1572,
+    "MA_DICH_VU": "23.0170.1546",
+    "TEN_DICH_VU": "Định lượng yếu tố tân tạo mạch máu PLGF (Placental Growth Factor) [Máu]",
+    "TEN_DVKT_GIA": "Định lượng yếu tố tân tạo mạch máu PLGF (Placental Growth Factor) [Máu]",
+    "DON_GIA": 761300,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093250,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 761300,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "DVKT",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1573,
     "MA_DICH_VU": "23.0172.1580",
     "TEN_DICH_VU": "Điện giải (Na, K, Cl) [niệu]",
     "TEN_DVKT_GIA": "Điện giải (Na, K, Cl) [niệu]",
@@ -30347,11 +33061,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Áp dụng cho cả trường hợp cho kết quả nhiều hơn 3 chỉ số.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94067"
   },
   {
-    "STT": 1517,
+    "STT": 1574,
     "MA_DICH_VU": "23.0183.1480",
     "TEN_DICH_VU": "Định lượng Cortisol (niệu)",
     "TEN_DVKT_GIA": "Định lượng Cortisol (niệu)",
@@ -30367,11 +33082,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94308"
   },
   {
-    "STT": 1518,
+    "STT": 1575,
     "MA_DICH_VU": "23.0184.1598",
     "TEN_DICH_VU": "Định lượng Creatinin (niệu)",
     "TEN_DVKT_GIA": "Định lượng Creatinin (niệu)",
@@ -30387,11 +33103,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94026"
   },
   {
-    "STT": 1519,
+    "STT": 1576,
     "MA_DICH_VU": "23.0201.1593",
     "TEN_DICH_VU": "Định lượng Protein (niệu)",
     "TEN_DVKT_GIA": "Định lượng Protein (niệu)",
@@ -30407,11 +33124,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94016"
   },
   {
-    "STT": 1520,
+    "STT": 1577,
     "MA_DICH_VU": "23.0206.1596",
     "TEN_DICH_VU": "Tổng phân tích nước tiểu (Bằng máy tự động)",
     "TEN_DVKT_GIA": "Tổng phân tích nước tiểu (Bằng máy tự động)",
@@ -30427,11 +33145,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94065"
   },
   {
-    "STT": 1521,
+    "STT": 1578,
     "MA_DICH_VU": "23.0207.1604",
     "TEN_DICH_VU": "Định lượng Clo [dịch não tủy]",
     "TEN_DVKT_GIA": "Định lượng Clo [dịch não tủy]",
@@ -30447,11 +33166,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94046"
   },
   {
-    "STT": 1522,
+    "STT": 1579,
     "MA_DICH_VU": "23.0217.1605",
     "TEN_DICH_VU": "Định lượng Glucose [dịch chọc dò]",
     "TEN_DVKT_GIA": "Định lượng Glucose [dịch chọc dò]",
@@ -30467,11 +33187,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94012"
   },
   {
-    "STT": 1523,
+    "STT": 1580,
     "MA_DICH_VU": "23.0218.1534",
     "TEN_DICH_VU": "Đo hoạt độ LDH (Lactat dehydrogenase) [dịch chọc dò]",
     "TEN_DVKT_GIA": "Đo hoạt độ LDH (Lactat dehydrogenase) [dịch chọc dò]",
@@ -30487,11 +33208,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94063"
   },
   {
-    "STT": 1524,
+    "STT": 1581,
     "MA_DICH_VU": "23.0219.1494",
     "TEN_DICH_VU": "Định lượng Protein [dịch chọc dò]",
     "TEN_DVKT_GIA": "Định lượng Protein [dịch chọc dò]",
@@ -30507,11 +33229,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "Mỗi chất",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94045"
   },
   {
-    "STT": 1525,
+    "STT": 1582,
     "MA_DICH_VU": "23.0228.1483",
     "TEN_DICH_VU": "Định lượng CRP (C-Reactive Protein)",
     "TEN_DVKT_GIA": "Định lượng CRP (C-Reactive Protein)",
@@ -30527,11 +33250,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94136"
   },
   {
-    "STT": 1526,
+    "STT": 1583,
     "MA_DICH_VU": "24.0001.1714",
     "TEN_DICH_VU": "Vi khuẩn nhuộm soi",
     "TEN_DVKT_GIA": "Vi khuẩn nhuộm soi",
@@ -30547,11 +33271,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94254"
   },
   {
-    "STT": 1527,
+    "STT": 1584,
     "MA_DICH_VU": "24.0003.1715",
     "TEN_DICH_VU": "Vi khuẩn nuôi cấy và định danh phương pháp thông thường",
     "TEN_DVKT_GIA": "Vi khuẩn nuôi cấy và định danh phương pháp thông thường",
@@ -30567,11 +33292,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94608"
   },
   {
-    "STT": 1528,
+    "STT": 1585,
     "MA_DICH_VU": "24.0117.1646",
     "TEN_DICH_VU": "HBsAg test nhanh",
     "TEN_DVKT_GIA": "HBsAg test nhanh",
@@ -30587,11 +33313,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94171"
   },
   {
-    "STT": 1529,
+    "STT": 1586,
     "MA_DICH_VU": "24.0119.1649",
     "TEN_DICH_VU": "HBsAg miễn dịch tự động",
     "TEN_DVKT_GIA": "HBsAg miễn dịch tự động",
@@ -30607,11 +33334,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94259"
   },
   {
-    "STT": 1530,
+    "STT": 1587,
     "MA_DICH_VU": "24.0122.1643",
     "TEN_DICH_VU": "HBsAb test nhanh",
     "TEN_DVKT_GIA": "HBsAb test nhanh",
@@ -30627,11 +33355,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94191"
   },
   {
-    "STT": 1531,
+    "STT": 1588,
     "MA_DICH_VU": "24.0130.1645",
     "TEN_DICH_VU": "HBeAg test nhanh",
     "TEN_DVKT_GIA": "HBeAg test nhanh",
@@ -30647,11 +33376,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94192"
   },
   {
-    "STT": 1532,
+    "STT": 1589,
     "MA_DICH_VU": "24.0132.1644",
     "TEN_DICH_VU": "HBeAg miễn dịch tự động",
     "TEN_DVKT_GIA": "HBeAg miễn dịch tự động",
@@ -30667,11 +33397,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94338"
   },
   {
-    "STT": 1533,
+    "STT": 1590,
     "MA_DICH_VU": "24.0144.1621",
     "TEN_DICH_VU": "HCV Ab test nhanh",
     "TEN_DVKT_GIA": "HCV Ab test nhanh",
@@ -30687,11 +33418,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94172"
   },
   {
-    "STT": 1534,
+    "STT": 1591,
     "MA_DICH_VU": "24.0146.1622",
     "TEN_DICH_VU": "HCV Ab miễn dịch tự động",
     "TEN_DVKT_GIA": "HCV Ab miễn dịch tự động",
@@ -30707,11 +33439,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94394"
   },
   {
-    "STT": 1535,
+    "STT": 1592,
     "MA_DICH_VU": "24.0155.1696",
     "TEN_DICH_VU": "HAV Ab test nhanh",
     "TEN_DVKT_GIA": "HAV Ab test nhanh",
@@ -30727,11 +33460,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94395"
   },
   {
-    "STT": 1536,
+    "STT": 1593,
     "MA_DICH_VU": "24.0184.1637",
     "TEN_DICH_VU": "Dengue virus NS1Ag/IgM - IgG test nhanh",
     "TEN_DVKT_GIA": "Dengue virus NS1Ag/IgM - IgG test nhanh",
@@ -30747,11 +33481,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94410"
   },
   {
-    "STT": 1537,
+    "STT": 1594,
     "MA_DICH_VU": "24.0225.2041",
     "TEN_DICH_VU": "EV71 IgM/IgG test nhanh",
     "TEN_DVKT_GIA": "EV71 IgM/IgG test nhanh",
@@ -30767,11 +33502,33 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94384"
   },
   {
-    "STT": 1538,
+    "STT": 1595,
+    "MA_DICH_VU": "24.0239.1667",
+    "TEN_DICH_VU": "HPV Real-time PCR",
+    "TEN_DVKT_GIA": "HPV Real-time PCR",
+    "DON_GIA": 409300,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": 1,
+    "MA_GIA": 105093251,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 409300,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260412,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "DVKT",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94029"
+  },
+  {
+    "STT": 1596,
     "MA_DICH_VU": "24.0240.1718",
     "TEN_DICH_VU": "HPV genotype Real-time PCR",
     "TEN_DVKT_GIA": "HPV genotype Real-time PCR",
@@ -30787,11 +33544,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95038"
   },
   {
-    "STT": 1539,
+    "STT": 1597,
     "MA_DICH_VU": "24.0249.1697",
     "TEN_DICH_VU": "Rotavirus test nhanh",
     "TEN_DVKT_GIA": "Rotavirus test nhanh",
@@ -30807,11 +33565,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94504"
   },
   {
-    "STT": 1540,
+    "STT": 1598,
     "MA_DICH_VU": "24.0256.1700",
     "TEN_DICH_VU": "Rubella virus IgM miễn dịch tự động",
     "TEN_DVKT_GIA": "Rubella virus IgM miễn dịch tự động",
@@ -30827,11 +33586,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94445"
   },
   {
-    "STT": 1541,
+    "STT": 1599,
     "MA_DICH_VU": "24.0258.1699",
     "TEN_DICH_VU": "Rubella virus IgG miễn dịch tự động",
     "TEN_DVKT_GIA": "Rubella virus IgG miễn dịch tự động",
@@ -30847,11 +33607,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94396"
   },
   {
-    "STT": 1542,
+    "STT": 1600,
     "MA_DICH_VU": "24.0263.1665",
     "TEN_DICH_VU": "Hồng cầu, bạch cầu trong phân soi tươi",
     "TEN_DVKT_GIA": "Hồng cầu, bạch cầu trong phân soi tươi",
@@ -30867,11 +33628,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94110"
   },
   {
-    "STT": 1543,
+    "STT": 1601,
     "MA_DICH_VU": "24.0276.1717",
     "TEN_DICH_VU": "Cysticercus cellulosae (Sán lợn) Ab miễn dịch bán tự động",
     "TEN_DVKT_GIA": "Cysticercus cellulosae (Sán lợn) Ab miễn dịch bán tự động",
@@ -30887,11 +33649,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94709"
   },
   {
-    "STT": 1544,
+    "STT": 1602,
     "MA_DICH_VU": "24.0280.1717",
     "TEN_DICH_VU": "Entamoeba histolytica (Amip) Ab miễn dịch bán tự động",
     "TEN_DVKT_GIA": "Entamoeba histolytica (Amip) Ab miễn dịch bán tự động",
@@ -30907,11 +33670,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94710"
   },
   {
-    "STT": 1545,
+    "STT": 1603,
     "MA_DICH_VU": "24.0282.1703",
     "TEN_DICH_VU": "Fasciola (Sán lá gan lớn) Ab miễn dịch bán tự động",
     "TEN_DVKT_GIA": "Fasciola (Sán lá gan lớn) Ab miễn dịch bán tự động",
@@ -30927,11 +33691,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94505"
   },
   {
-    "STT": 1546,
+    "STT": 1604,
     "MA_DICH_VU": "24.0285.1717",
     "TEN_DICH_VU": "Gnathostoma (Giun đầu gai) Ab miễn dịch bán tự động",
     "TEN_DVKT_GIA": "Gnathostoma (Giun đầu gai) Ab miễn dịch bán tự động",
@@ -30947,11 +33712,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94711"
   },
   {
-    "STT": 1547,
+    "STT": 1605,
     "MA_DICH_VU": "24.0289.1694",
     "TEN_DICH_VU": "Plasmodium (Ký sinh trùng sốt rét) nhuộm soi định tính",
     "TEN_DVKT_GIA": "Plasmodium (Ký sinh trùng sốt rét) nhuộm soi định tính",
@@ -30967,11 +33733,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94073"
   },
   {
-    "STT": 1548,
+    "STT": 1606,
     "MA_DICH_VU": "24.0294.1717",
     "TEN_DICH_VU": "Strongyloides stercoralis (Giun lươn) Ab miễn dịch bán tự động",
     "TEN_DVKT_GIA": "Strongyloides stercoralis (Giun lươn) Ab miễn dịch bán tự động",
@@ -30987,11 +33754,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94712"
   },
   {
-    "STT": 1549,
+    "STT": 1607,
     "MA_DICH_VU": "24.0296.1717",
     "TEN_DICH_VU": "Toxocara (Giun đũa chó, mèo) Ab miễn dịch bán tự động",
     "TEN_DVKT_GIA": "Toxocara (Giun đũa chó, mèo) Ab miễn dịch bán tự động",
@@ -31007,11 +33775,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94713"
   },
   {
-    "STT": 1550,
+    "STT": 1608,
     "MA_DICH_VU": "24.0299.1706",
     "TEN_DICH_VU": "Toxoplasma IgM miễn dịch tự động",
     "TEN_DVKT_GIA": "Toxoplasma IgM miễn dịch tự động",
@@ -31027,11 +33796,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94397"
   },
   {
-    "STT": 1551,
+    "STT": 1609,
     "MA_DICH_VU": "24.0301.1705",
     "TEN_DICH_VU": "Toxoplasma IgG miễn dịch tự động",
     "TEN_DVKT_GIA": "Toxoplasma IgG miễn dịch tự động",
@@ -31047,11 +33817,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94398"
   },
   {
-    "STT": 1552,
+    "STT": 1610,
     "MA_DICH_VU": "24.0319.1674",
     "TEN_DICH_VU": "Vi nấm soi tươi",
     "TEN_DVKT_GIA": "Vi nấm soi tươi",
@@ -31067,11 +33838,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94119"
   },
   {
-    "STT": 1553,
+    "STT": 1611,
     "MA_DICH_VU": "25.0015.1758",
     "TEN_DICH_VU": "Chọc hút kim nhỏ các hạch",
     "TEN_DVKT_GIA": "Chọc hút kim nhỏ các hạch",
@@ -31087,11 +33859,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94702"
   },
   {
-    "STT": 1554,
+    "STT": 1612,
     "MA_DICH_VU": "25.0029.1751",
     "TEN_DICH_VU": "Xét nghiệm mô bệnh học thường quy cố định, chuyển, đúc, cắt, nhuộm… các bệnh phẩm tử thiết",
     "TEN_DVKT_GIA": "Xét nghiệm mô bệnh học thường quy cố định, chuyển, đúc, cắt, nhuộm… các bệnh phẩm tử thiết",
@@ -31107,11 +33880,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20140530_1904/QĐ-BYT"
   },
   {
-    "STT": 1555,
+    "STT": 1613,
     "MA_DICH_VU": "25.0030.1751",
     "TEN_DICH_VU": "Xét nghiệm mô bệnh học thường quy cố định, chuyển, đúc, cắt, nhuộm…các bệnh phẩm sinh thiết",
     "TEN_DVKT_GIA": "Xét nghiệm mô bệnh học thường quy cố định, chuyển, đúc, cắt, nhuộm…các bệnh phẩm sinh thiết",
@@ -31127,11 +33901,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 3,
+    "MA_NHOM": "PTTT-3",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94791"
   },
   {
-    "STT": 1556,
+    "STT": 1614,
     "MA_DICH_VU": "27.0147.0502",
     "TEN_DICH_VU": "Phẫu thuật nội soi mở thông dạ dày",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi mở thông dạ dày",
@@ -31147,11 +33922,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95222"
   },
   {
-    "STT": 1557,
+    "STT": 1615,
     "MA_DICH_VU": "27.0166.1196",
     "TEN_DICH_VU": "Phẫu thuật nội soi khâu thủng tá tràng",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi khâu thủng tá tràng",
@@ -31167,11 +33943,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95141"
   },
   {
-    "STT": 1558,
+    "STT": 1616,
     "MA_DICH_VU": "27.0178.0455",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt dây dính hay dây chằng",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt dây dính hay dây chằng",
@@ -31187,11 +33964,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95215"
   },
   {
-    "STT": 1559,
+    "STT": 1617,
     "MA_DICH_VU": "27.0179.0502",
     "TEN_DICH_VU": "Phẫu thuật nội soi mở hỗng tràng ra da",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi mở hỗng tràng ra da",
@@ -31207,11 +33985,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95223"
   },
   {
-    "STT": 1560,
+    "STT": 1618,
     "MA_DICH_VU": "27.0183.0462",
     "TEN_DICH_VU": "Phẫu thuật nội soi tháo lồng ruột và cố định manh tràng",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi tháo lồng ruột và cố định manh tràng",
@@ -31227,11 +34006,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm nâng trực tràng, dao siêu âm hoặc dao hàn mô hoặc dao hàn mạch.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95586"
   },
   {
-    "STT": 1561,
+    "STT": 1619,
     "MA_DICH_VU": "27.0183.0462_GT",
     "TEN_DICH_VU": "Phẫu thuật nội soi tháo lồng ruột và cố định manh tràng",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi tháo lồng ruột và cố định manh tràng",
@@ -31247,11 +34027,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm nâng trực tràng, dao siêu âm hoặc dao hàn mô hoặc dao hàn mạch, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95426"
   },
   {
-    "STT": 1562,
+    "STT": 1620,
     "MA_DICH_VU": "27.0187.2039",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt ruột thừa",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt ruột thừa",
@@ -31267,11 +34048,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95275"
   },
   {
-    "STT": 1563,
+    "STT": 1621,
     "MA_DICH_VU": "27.0188.2039",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt ruột thừa + rửa bụng",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt ruột thừa + rửa bụng",
@@ -31287,11 +34069,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95276"
   },
   {
-    "STT": 1564,
+    "STT": 1622,
     "MA_DICH_VU": "27.0189.2039",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt lại mỏm ruột thừa",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt lại mỏm ruột thừa",
@@ -31307,11 +34090,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95277"
   },
   {
-    "STT": 1565,
+    "STT": 1623,
     "MA_DICH_VU": "27.0190.2039",
     "TEN_DICH_VU": "Phẫu thuật nội soi điều trị áp xe ruột thừa trong ổ bụng",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi điều trị áp xe ruột thừa trong ổ bụng",
@@ -31327,11 +34111,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95278"
   },
   {
-    "STT": 1566,
+    "STT": 1624,
     "MA_DICH_VU": "27.0191.0451",
     "TEN_DICH_VU": "Phẫu thuật nội soi viêm phúc mạc do viêm ruột thừa",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi viêm phúc mạc do viêm ruột thừa",
@@ -31347,11 +34132,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95314"
   },
   {
-    "STT": 1567,
+    "STT": 1625,
     "MA_DICH_VU": "27.0260.1196",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt chỏm nang gan",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt chỏm nang gan",
@@ -31367,11 +34153,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95142"
   },
   {
-    "STT": 1568,
+    "STT": 1626,
     "MA_DICH_VU": "27.0265.0473",
     "TEN_DICH_VU": "Phẫu thuật nội soi mở ống mật chủ lấy sỏi",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi mở ống mật chủ lấy sỏi",
@@ -31387,11 +34174,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95371"
   },
   {
-    "STT": 1569,
+    "STT": 1627,
     "MA_DICH_VU": "27.0273.0473",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt túi mật",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt túi mật",
@@ -31407,11 +34195,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95372"
   },
   {
-    "STT": 1570,
+    "STT": 1628,
     "MA_DICH_VU": "27.0274.1196",
     "TEN_DICH_VU": "Phẫu thuật nội soi mở túi mật ra da",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi mở túi mật ra da",
@@ -31427,11 +34216,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95143"
   },
   {
-    "STT": 1571,
+    "STT": 1629,
     "MA_DICH_VU": "27.0313.1196",
     "TEN_DICH_VU": "Phẫu thuật nội soi đặt tấm lưới nhân tạo đường vào hoàn toàn trước phúc mạc (TEP)",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi đặt tấm lưới nhân tạo đường vào hoàn toàn trước phúc mạc (TEP)",
@@ -31447,11 +34237,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm tấm lưới nhân tạo.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95144"
   },
   {
-    "STT": 1572,
+    "STT": 1630,
     "MA_DICH_VU": "27.0333.1197",
     "TEN_DICH_VU": "Nội soi ổ bụng chẩn đoán",
     "TEN_DVKT_GIA": "Nội soi ổ bụng chẩn đoán",
@@ -31467,11 +34258,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95035"
   },
   {
-    "STT": 1573,
+    "STT": 1631,
     "MA_DICH_VU": "27.0371.0418",
     "TEN_DICH_VU": "Phẫu thuật nội soi sau phúc mạc lấy sỏi niệu quản",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi sau phúc mạc lấy sỏi niệu quản",
@@ -31487,11 +34279,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95571"
   },
   {
-    "STT": 1574,
+    "STT": 1632,
     "MA_DICH_VU": "27.0391.0440",
     "TEN_DICH_VU": "Nội soi bàng quang tán sỏi",
     "TEN_DVKT_GIA": "Nội soi bàng quang tán sỏi",
@@ -31507,11 +34300,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm sonde JJ, rọ lấy sỏi.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95009"
   },
   {
-    "STT": 1575,
+    "STT": 1633,
     "MA_DICH_VU": "27.0392.1197",
     "TEN_DICH_VU": "Nội soi khâu lỗ thủng bàng quang qua ổ bụng",
     "TEN_DVKT_GIA": "Nội soi khâu lỗ thủng bàng quang qua ổ bụng",
@@ -31527,11 +34321,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95036"
   },
   {
-    "STT": 1576,
+    "STT": 1634,
     "MA_DICH_VU": "27.0408.1197",
     "TEN_DICH_VU": "Nội soi tán sỏi niệu đạo",
     "TEN_DVKT_GIA": "Nội soi tán sỏi niệu đạo",
@@ -31547,11 +34342,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95037"
   },
   {
-    "STT": 1577,
+    "STT": 1635,
     "MA_DICH_VU": "27.0414.1196",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt khối chửa ngoài tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt khối chửa ngoài tử cung",
@@ -31567,11 +34363,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95145"
   },
   {
-    "STT": 1578,
+    "STT": 1636,
     "MA_DICH_VU": "27.0418.1196",
     "TEN_DICH_VU": "Phẫu thuật nội soi GEU thể huyết tụ thành nang",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi GEU thể huyết tụ thành nang",
@@ -31587,11 +34384,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95146"
   },
   {
-    "STT": 1579,
+    "STT": 1637,
     "MA_DICH_VU": "27.0421.0687",
     "TEN_DICH_VU": "Phẫu thuật nội soi bóc u xơ tử cung",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi bóc u xơ tử cung",
@@ -31607,11 +34405,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95626"
   },
   {
-    "STT": 1580,
+    "STT": 1638,
     "MA_DICH_VU": "27.0427.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt tử cung hoàn toàn để lại 2 phần phụ",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt tử cung hoàn toàn để lại 2 phần phụ",
@@ -31627,11 +34426,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95614"
   },
   {
-    "STT": 1581,
+    "STT": 1639,
     "MA_DICH_VU": "27.0431.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi cắt góc buồng trứng",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi cắt góc buồng trứng",
@@ -31647,11 +34447,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95615"
   },
   {
-    "STT": 1582,
+    "STT": 1640,
     "MA_DICH_VU": "27.0433.0689",
     "TEN_DICH_VU": "Cắt u buồng trứng qua nội soi",
     "TEN_DVKT_GIA": "Cắt u buồng trứng qua nội soi",
@@ -31667,11 +34468,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95616"
   },
   {
-    "STT": 1583,
+    "STT": 1641,
     "MA_DICH_VU": "27.0434.0689",
     "TEN_DICH_VU": "Phẫu thuật nội soi u nang buồng trứng",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi u nang buồng trứng",
@@ -31687,11 +34489,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95617"
   },
   {
-    "STT": 1584,
+    "STT": 1642,
     "MA_DICH_VU": "27.0469.0542",
     "TEN_DICH_VU": "Phẫu thuật nội soi tái tạo lại dây chằng chéo trước",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi tái tạo lại dây chằng chéo trước",
@@ -31707,11 +34510,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm nẹp vít, ốc, dao cắt sụn và lưỡi bào, bộ dây bơm nước, đầu đốt, tay dao điện, gân sinh học, gân đồng loại.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95579"
   },
   {
-    "STT": 1585,
+    "STT": 1643,
     "MA_DICH_VU": "27.0470.0542",
     "TEN_DICH_VU": "Phẫu thuật nội soi tái tạo dây chằng chéo sau",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi tái tạo dây chằng chéo sau",
@@ -31727,11 +34531,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 8,
+    "MA_NHOM": "PTTT-8",
     "GHICHU": "Chưa bao gồm nẹp vít, ốc, dao cắt sụn và lưỡi bào, bộ dây bơm nước, đầu đốt, tay dao điện, gân sinh học, gân đồng loại.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95580"
   },
   {
-    "STT": 1586,
+    "STT": 1644,
     "MA_DICH_VU": "27.0481.0541",
     "TEN_DICH_VU": "Phẫu thuật nội soi gỡ dính khớp gối",
     "TEN_DVKT_GIA": "Phẫu thuật nội soi gỡ dính khớp gối",
@@ -31747,11 +34552,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm lưỡi bào, lưỡi cắt, bộ dây bơm nước, đầu đốt, tay dao đốt điện, nẹp, ốc, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95423"
   },
   {
-    "STT": 1587,
+    "STT": 1645,
     "MA_DICH_VU": "28.0003.0573",
     "TEN_DICH_VU": "Phẫu thuật che phủ vết thương khuyết da đầu mang tóc bằng vạt tại chỗ",
     "TEN_DVKT_GIA": "Phẫu thuật che phủ vết thương khuyết da đầu mang tóc bằng vạt tại chỗ",
@@ -31767,11 +34573,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95429"
   },
   {
-    "STT": 1588,
+    "STT": 1646,
     "MA_DICH_VU": "28.0013.0575",
     "TEN_DICH_VU": "Tạo hình khuyết da đầu bằng ghép da mỏng [diện tích < 10 cm2]",
     "TEN_DVKT_GIA": "Tạo hình khuyết da đầu bằng ghép da mỏng [diện tích < 10 cm2]",
@@ -31787,11 +34594,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95300"
   },
   {
-    "STT": 1589,
+    "STT": 1647,
     "MA_DICH_VU": "28.0013.0575_GT",
     "TEN_DICH_VU": "Tạo hình khuyết da đầu bằng ghép da mỏng [diện tích ≥10 cm2]",
     "TEN_DVKT_GIA": "Tạo hình khuyết da đầu bằng ghép da mỏng [diện tích ≥10 cm2]",
@@ -31807,11 +34615,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95168"
   },
   {
-    "STT": 1590,
+    "STT": 1648,
     "MA_DICH_VU": "28.0110.0584",
     "TEN_DICH_VU": "Khâu vết thương vùng môi",
     "TEN_DVKT_GIA": "Khâu vết thương vùng môi",
@@ -31827,11 +34636,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95028"
   },
   {
-    "STT": 1591,
+    "STT": 1649,
     "MA_DICH_VU": "28.0158.0910",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ u sụn vành tai [gây tê]",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ u sụn vành tai [gây tê]",
@@ -31847,11 +34657,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94966"
   },
   {
-    "STT": 1592,
+    "STT": 1650,
     "MA_DICH_VU": "28.0159.1044",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ u da lành tính vành tai",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ u da lành tính vành tai",
@@ -31867,11 +34678,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94949"
   },
   {
-    "STT": 1593,
+    "STT": 1651,
     "MA_DICH_VU": "28.0161.0576",
     "TEN_DICH_VU": "Phẫu thuật khâu đơn giản vết thương vùng mặt cổ",
     "TEN_DVKT_GIA": "Phẫu thuật khâu đơn giản vết thương vùng mặt cổ",
@@ -31887,11 +34699,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95227"
   },
   {
-    "STT": 1594,
+    "STT": 1652,
     "MA_DICH_VU": "28.0161.0576_GT",
     "TEN_DICH_VU": "Phẫu thuật khâu đơn giản vết thương vùng mặt cổ",
     "TEN_DVKT_GIA": "Phẫu thuật khâu đơn giản vết thương vùng mặt cổ",
@@ -31907,11 +34720,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95073"
   },
   {
-    "STT": 1595,
+    "STT": 1653,
     "MA_DICH_VU": "28.0217.1059",
     "TEN_DICH_VU": "Cắt u máu vùng đầu mặt cổ",
     "TEN_DVKT_GIA": "Cắt u máu vùng đầu mặt cổ",
@@ -31927,11 +34741,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95379"
   },
   {
-    "STT": 1596,
+    "STT": 1654,
     "MA_DICH_VU": "28.0218.1059",
     "TEN_DICH_VU": "Cắt dị dạng bạch mạch đầu mặt cổ",
     "TEN_DVKT_GIA": "Cắt dị dạng bạch mạch đầu mặt cổ",
@@ -31947,11 +34762,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95380"
   },
   {
-    "STT": 1597,
+    "STT": 1655,
     "MA_DICH_VU": "28.0264.0653",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ u xơ vú",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ u xơ vú",
@@ -31967,11 +34783,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95310"
   },
   {
-    "STT": 1598,
+    "STT": 1656,
     "MA_DICH_VU": "28.0264.0653_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ u xơ vú",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ u xơ vú",
@@ -31987,11 +34804,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95174"
   },
   {
-    "STT": 1599,
+    "STT": 1657,
     "MA_DICH_VU": "28.0265.0653",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ tuyến vú phụ",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ tuyến vú phụ",
@@ -32007,11 +34825,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95311"
   },
   {
-    "STT": 1600,
+    "STT": 1658,
     "MA_DICH_VU": "28.0265.0653_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ tuyến vú phụ",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ tuyến vú phụ",
@@ -32027,11 +34846,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 7,
+    "MA_NHOM": "PTTT-7",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95175"
   },
   {
-    "STT": 1601,
+    "STT": 1659,
     "MA_DICH_VU": "28.0266.0653",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ vú thừa",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ vú thừa",
@@ -32047,11 +34867,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95312"
   },
   {
-    "STT": 1602,
+    "STT": 1660,
     "MA_DICH_VU": "28.0266.0653_GT",
     "TEN_DICH_VU": "Phẫu thuật cắt bỏ vú thừa",
     "TEN_DVKT_GIA": "Phẫu thuật cắt bỏ vú thừa",
@@ -32067,11 +34888,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95176"
   },
   {
-    "STT": 1603,
+    "STT": 1661,
     "MA_DICH_VU": "28.0335.0556",
     "TEN_DICH_VU": "Phẫu thuật gãy đốt bàn ngón tay kết hợp xương với Kirschner hoặc nẹp vít",
     "TEN_DVKT_GIA": "Phẫu thuật gãy đốt bàn ngón tay kết hợp xương với Kirschner hoặc nẹp vít",
@@ -32087,11 +34909,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm xương nhân tạo hoặc sản phẩm sinh học thay thế xương, xi măng, đinh, nẹp, vít.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95548"
   },
   {
-    "STT": 1604,
+    "STT": 1662,
     "MA_DICH_VU": "28.0337.0559",
     "TEN_DICH_VU": "Nối gân gấp",
     "TEN_DVKT_GIA": "Nối gân gấp",
@@ -32107,11 +34930,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm gân nhân tạo.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95362"
   },
   {
-    "STT": 1605,
+    "STT": 1663,
     "MA_DICH_VU": "28.0337.0559_GT",
     "TEN_DICH_VU": "Nối gân gấp",
     "TEN_DVKT_GIA": "Nối gân gấp",
@@ -32127,11 +34951,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 6,
+    "MA_NHOM": "PTTT-6",
     "GHICHU": "Chưa bao gồm gân nhân tạo, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95184"
   },
   {
-    "STT": 1606,
+    "STT": 1664,
     "MA_DICH_VU": "28.0338.0559",
     "TEN_DICH_VU": "Phẫu thuật ghép gân gấp không sử dụng vi phẫu thuật",
     "TEN_DVKT_GIA": "Phẫu thuật ghép gân gấp không sử dụng vi phẫu thuật",
@@ -32147,11 +34972,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm gân nhân tạo.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95363"
   },
   {
-    "STT": 1607,
+    "STT": 1665,
     "MA_DICH_VU": "28.0338.0559_GT",
     "TEN_DICH_VU": "Phẫu thuật ghép gân gấp không sử dụng vi phẫu thuật",
     "TEN_DVKT_GIA": "Phẫu thuật ghép gân gấp không sử dụng vi phẫu thuật",
@@ -32167,11 +34993,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm gân nhân tạo, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95185"
   },
   {
-    "STT": 1608,
+    "STT": 1666,
     "MA_DICH_VU": "28.0340.0559",
     "TEN_DICH_VU": "Nối gân duỗi",
     "TEN_DVKT_GIA": "Nối gân duỗi",
@@ -32187,11 +35014,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm gân nhân tạo.",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95364"
   },
   {
-    "STT": 1609,
+    "STT": 1667,
     "MA_DICH_VU": "28.0340.0559_GT",
     "TEN_DICH_VU": "Nối gân duỗi",
     "TEN_DVKT_GIA": "Nối gân duỗi",
@@ -32207,11 +35035,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": 5,
+    "MA_NHOM": "PTTT-5",
     "GHICHU": "Chưa bao gồm gân nhân tạo, thuốc và oxy",
     "QUYET_DINH": "20241219_277/NQ-HĐND_95186"
   },
   {
-    "STT": 1610,
+    "STT": 1668,
     "MA_DICH_VU": "K03.NO1",
     "TEN_DICH_VU": "Giường Nội khoa loại 1 - Khoa Nội tổng hợp",
     "TEN_DVKT_GIA": "Giường Nội khoa loại 1 - Khoa Nội tổng hợp",
@@ -32227,11 +35056,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94564"
   },
   {
-    "STT": 1611,
+    "STT": 1669,
     "MA_DICH_VU": "K03.NO2",
     "TEN_DICH_VU": "Giường Nội khoa loại 2 - Khoa Nội tổng hợp",
     "TEN_DVKT_GIA": "Giường Nội khoa loại 2 - Khoa Nội tổng hợp",
@@ -32247,11 +35077,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94518"
   },
   {
-    "STT": 1612,
+    "STT": 1670,
     "MA_DICH_VU": "K18.NG2",
     "TEN_DICH_VU": "Giường Ngoại khoa loại 2 - Khoa Nhi",
     "TEN_DVKT_GIA": "Giường Ngoại khoa loại 2 - Khoa Nhi",
@@ -32267,11 +35098,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94622"
   },
   {
-    "STT": 1613,
+    "STT": 1671,
     "MA_DICH_VU": "K18.NG3",
     "TEN_DICH_VU": "Giường Ngoại khoa loại 3 - Khoa Nhi",
     "TEN_DVKT_GIA": "Giường Ngoại khoa loại 3 - Khoa Nhi",
@@ -32287,11 +35119,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94551"
   },
   {
-    "STT": 1614,
+    "STT": 1672,
     "MA_DICH_VU": "K18.NG4",
     "TEN_DICH_VU": "Giường Ngoại khoa loại 4 - Khoa Nhi",
     "TEN_DVKT_GIA": "Giường Ngoại khoa loại 4 - Khoa Nhi",
@@ -32307,11 +35140,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94515"
   },
   {
-    "STT": 1615,
+    "STT": 1673,
     "MA_DICH_VU": "K18.NO1",
     "TEN_DICH_VU": "Giường Nội khoa loại 1 - Khoa Nhi",
     "TEN_DVKT_GIA": "Giường Nội khoa loại 1 - Khoa Nhi",
@@ -32327,11 +35161,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94565"
   },
   {
-    "STT": 1616,
+    "STT": 1674,
     "MA_DICH_VU": "K19.NG2",
     "TEN_DICH_VU": "Giường Ngoại khoa loại 2 - Khoa Ngoại tổng hợp",
     "TEN_DVKT_GIA": "Giường Ngoại khoa loại 2 - Khoa Ngoại tổng hợp",
@@ -32347,11 +35182,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94623"
   },
   {
-    "STT": 1617,
+    "STT": 1675,
     "MA_DICH_VU": "K19.NG3",
     "TEN_DICH_VU": "Giường Ngoại khoa loại 3 - Khoa Ngoại tổng hợp",
     "TEN_DVKT_GIA": "Giường Ngoại khoa loại 3 - Khoa Ngoại tổng hợp",
@@ -32367,11 +35203,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94552"
   },
   {
-    "STT": 1618,
+    "STT": 1676,
     "MA_DICH_VU": "K19.NG4",
     "TEN_DICH_VU": "Giường Ngoại khoa loại 4 - Khoa Ngoại tổng hợp",
     "TEN_DVKT_GIA": "Giường Ngoại khoa loại 4 - Khoa Ngoại tổng hợp",
@@ -32387,11 +35224,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94516"
   },
   {
-    "STT": 1619,
+    "STT": 1677,
     "MA_DICH_VU": "K19.NO2",
     "TEN_DICH_VU": "Giường Nội khoa loại 2 - Khoa Ngoại tổng hợp",
     "TEN_DVKT_GIA": "Giường Nội khoa loại 2 - Khoa Ngoại tổng hợp",
@@ -32407,11 +35245,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94519"
   },
   {
-    "STT": 1620,
+    "STT": 1678,
     "MA_DICH_VU": "K27.NG2",
     "TEN_DICH_VU": "Giường Ngoại khoa loại 2 - Khoa Phụ - Sản",
     "TEN_DVKT_GIA": "Giường Ngoại khoa loại 2 - Khoa Phụ - Sản",
@@ -32427,11 +35266,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94624"
   },
   {
-    "STT": 1621,
+    "STT": 1679,
     "MA_DICH_VU": "K27.NG3",
     "TEN_DICH_VU": "Giường Ngoại khoa loại 3 - Khoa Phụ - Sản",
     "TEN_DVKT_GIA": "Giường Ngoại khoa loại 3 - Khoa Phụ - Sản",
@@ -32447,11 +35287,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94553"
   },
   {
-    "STT": 1622,
+    "STT": 1680,
     "MA_DICH_VU": "K27.NG4",
     "TEN_DICH_VU": "Giường Ngoại khoa loại 4 - Khoa Phụ - Sản",
     "TEN_DVKT_GIA": "Giường Ngoại khoa loại 4 - Khoa Phụ - Sản",
@@ -32467,11 +35308,12 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94517"
   },
   {
-    "STT": 1623,
+    "STT": 1681,
     "MA_DICH_VU": "K27.NO2",
     "TEN_DICH_VU": "Giường Nội khoa loại 2 - Khoa Phụ - Sản",
     "TEN_DVKT_GIA": "Giường Nội khoa loại 2 - Khoa Phụ - Sản",
@@ -32487,6 +35329,7 @@ export const DANH_MUC_DVKT_M05 = [
     "DEN_NGAY": 20260630,
     "MA_CSKCB": "",
     "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
     "GHICHU": "",
     "QUYET_DINH": "20241219_277/NQ-HĐND_94520"
   }
