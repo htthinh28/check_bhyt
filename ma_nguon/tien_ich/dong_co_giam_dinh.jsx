@@ -964,6 +964,22 @@ const hamLuongM03KhopXml2 = (rowXml, rowDm) => {
     return a === b || a.includes(b) || b.includes(a);
 };
 
+const layMaDuongDungTuDmThuocM03 = (rowDm) => {
+    const raw = layGiaTriAnToan(rowDm, 'MA_DUONG_DUNG')
+        || rowDm?.MA_DUONG_DUNG
+        || layGiaTriAnToan(rowDm, 'DUONG_DUNG')
+        || rowDm?.DUONG_DUNG;
+    return String(raw || '').trim();
+};
+
+const duongDungM03KhopXml2 = (rowXml, rowDm) => {
+    const maXml = String(rowXml?.MA_DUONG_DUNG || rowXml?.DUONG_DUNG || '').trim().replace(/\s+/g, '');
+    const maDm = layMaDuongDungTuDmThuocM03(rowDm).replace(/\s+/g, '');
+    if (!maXml && !maDm) return true;
+    if (!maXml || !maDm) return false;
+    return maXml === maDm;
+};
+
 /**
  * Cùng MA_THUOC nhưng Mẫu 03 nhiều dòng: chọn dòng khớp TEN_THUOC + DON_VI_TINH + HAM_LUONG với XML2
  * (tránh lấy nhầm GIA_BH_TT từ dòng khác cùng mã).
@@ -1481,13 +1497,14 @@ const taiDanhMucHeThong = async () => {
             fetchChunkedData('DANH_MUC_MA_THE_QUYEN_LOI'),
             fetchChunkedData('DANH_MUC_THUOC_DIEU_KIEN_TT'),
         ]);
-        const [pl1,pl2,pl3,pl4,pl5,pl6,pl7,pl8,pl9,pl10,pl11,pl12] = await Promise.all([
+        const [pl1,pl2,pl3,pl4,pl5,pl6,pl7,pl8,pl9,pl10,pl11,pl12,pl13] = await Promise.all([
             fetchChunkedData('BYT_7603_PL1_DVKT'), fetchChunkedData('BYT_7603_PL2_KHAM'),
             fetchChunkedData('BYT_7603_PL3_GIUONG'), fetchChunkedData('BYT_7603_PL4_GIUONG_BN'),
             fetchChunkedData('BYT_7603_PL5_THUOC'), fetchChunkedData('BYT_7603_PL6_THUOC_YHCT'),
             fetchChunkedData('BYT_7603_PL7_BENH_YHCT'), fetchChunkedData('BYT_7603_PL8_VTYT'),
             fetchChunkedData('BYT_7603_PL9_MAU'), fetchChunkedData('BYT_7603_PL10_DOI_TUONG'),
-            fetchChunkedData('BYT_7603_PL11_CLS'), fetchChunkedData('BYT_7603_PL12_NHIEN_LIEU')
+            fetchChunkedData('BYT_7603_PL11_CLS'), fetchChunkedData('BYT_7603_PL12_NHIEN_LIEU'),
+            fetchChunkedData('BYT_7603_PL13_DUONG_DUNG'),
         ]);
 
         const buildMap = (arr, keyField) => {
@@ -1515,6 +1532,13 @@ const taiDanhMucHeThong = async () => {
 
         const khoaArr = Array.isArray(khoaArrRaw) ? khoaArrRaw : [];
         const boQuyTacDoiTuongKcb = taoBoQuyTacDoiTuongKcb(pl10);
+        const setMaDuongDungByt = new Set();
+        if (Array.isArray(pl13)) {
+            pl13.forEach((i) => {
+                const m = String(i.MA_DUONG_DUNG || i['MÃ ĐƯỜNG DÙNG'] || i['MA DUONG DUNG'] || '').trim();
+                if (m) setMaDuongDungByt.add(m);
+            });
+        }
 
         const phacDoRows = await fetchChunkedData('CDSS_DATA_PHAC_DO_V3');
         const metaPhacDo = taoMetaPhacDoCdssTuBang(phacDoRows);
@@ -1581,6 +1605,7 @@ const taiDanhMucHeThong = async () => {
             MAP_BYT_PL5: buildMapMulti(pl5, 'MÃ THUỐC', 'MA_THUOC'),
             MAP_BYT_PL8: buildMapMulti(pl8, 'MÃ VẬT TƯ', 'MA_VTYT'),
             MAP_BYT_PL11: buildMapMulti(pl11, 'MÃ DỊCH VỤ', 'MA_DVKT'),
+            SET_MA_DUONG_DUNG_BYT: setMaDuongDungByt,
         };
         return cache_DanhMucHeThong;
     } catch (_e) {
@@ -1606,7 +1631,8 @@ const taiDanhMucHeThong = async () => {
             DM_MA_THE_QUYEN_LOI_ROWS: [],
             MAP_MA_THE_QUYEN_LOI: new Map(),
             DM_THUOC_DIEU_KIEN_TT_ROWS: [],
-            MAP_BYT_PL1: new Map(), MAP_BYT_PL5: new Map(), MAP_BYT_PL8: new Map(), MAP_BYT_PL11: new Map()
+            MAP_BYT_PL1: new Map(), MAP_BYT_PL5: new Map(), MAP_BYT_PL8: new Map(), MAP_BYT_PL11: new Map(),
+            SET_MA_DUONG_DUNG_BYT: new Set(),
         };
     }
 };
@@ -2515,6 +2541,34 @@ const laDieuTriNgoaiTru = (xml1 = {}) => {
     return laHoSoNgoaiTruTheoQd824(xml1);
 };
 
+/** MA_LYDO_VVIEN 1 = đúng tuyến; 5 = thông tuyến — dùng đối chiếu lỗi portal «đúng tuyến ≥15% LCS». */
+const laVaoVienDungTuyenTheoXml1 = (xml1 = {}) => {
+    const lyDo = String(xml1?.MA_LYDO_VVIEN || xml1?.MA_LY_DO_VVIEN || xml1?.MA_LY_DO_VV || '').trim();
+    if (!lyDo) return null;
+    return lyDo === '1' || lyDo === '5';
+};
+
+/** Có mốc NGAY_YL / NGAY_TH_YL / NGAY_KQ sau thời điểm NGAY_RA (lỗi portal BHXH). */
+const coChiPhiCoNgayYLenhSauRaVien = (xml1, xml2, xml3) => {
+    const raMs = parseNgayGioXmlThanhMs(xml1?.NGAY_RA);
+    if (raMs == null) return false;
+    const sauRa = (val) => {
+        const ms = parseNgayGioXmlThanhMs(val);
+        return ms != null && ms > raMs;
+    };
+    const r2 = Array.isArray(xml2) ? xml2 : [];
+    const r3 = Array.isArray(xml3) ? xml3 : [];
+    for (let i = 0; i < r2.length; i += 1) {
+        if (laBHYTKhôngThanhToan(r2[i])) continue;
+        if (sauRa(r2[i]?.NGAY_YL) || sauRa(r2[i]?.NGAY_TH_YL)) return true;
+    }
+    for (let i = 0; i < r3.length; i += 1) {
+        if (laBHYTKhôngThanhToan(r3[i])) continue;
+        if (sauRa(r3[i]?.NGAY_YL) || sauRa(r3[i]?.NGAY_TH_YL) || sauRa(r3[i]?.NGAY_KQ)) return true;
+    }
+    return false;
+};
+
 /** VBHN 17 — đếm số ngày điều trị nội trú (tiền giường): (d) ≤4h→0; (c) >4h–<24h cùng ngày hoặc qua đêm→1; (a) D+1 hoặc (b) D. Chỉ nội trú; ngoại trú trả null. */
 const KY_VONG_SO_NGAY_DTRI_VBHN17 = (x1) => {
     if (!x1 || laDieuTriNgoaiTru(x1)) return null;
@@ -3078,6 +3132,21 @@ const giamDinhQuyenLoiTheoDoiTuongVaThe = (hoSo, dm) => {
         }
     }
 
+    if (
+        laVaoVienDungTuyenTheoXml1(xml1) === true
+        && !laMotLanKcbDuoi15PhanTramLCS(xml1)
+        && VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(xml1)
+    ) {
+        addLỗi(
+            'HC-06f',
+            'Đúng tuyến ≥15% LCS — sai mức hưởng',
+            'Vào viện đúng tuyến, Chi phí >=15% TLCS, Bệnh viện đề nghị sai Mức hưởng — T_BHTT không khớp tỷ lệ quyền lợi theo thẻ BHYT so với T_TONGCHI_BH.',
+            'Error',
+            'MUC_HUONG',
+            layCoSoPhapLyHanhChinh('HC_252'),
+        );
+    }
+
     return ds;
 };
 
@@ -3589,8 +3658,8 @@ const giamDinhDanhMucNoiBo = (hoSo, dm) => {
 
         if (trongBV === false) {
             if (trongBYT === true)
-                addLỗi('XML2', idx, 'DM-THUOC-01', 'Thuốc ngoài DM BV',
-                    `XUẤT TOÁN: Thuốc [${ma}] có trong danh mục BYT nhưng BV chưa phê duyệt trong danh mục nội bộ được sử dụng/thanh toán BHYT.`,
+                addLỗi('XML2', idx, 'DM-THUOC-01', 'Thuốc ngoài danh mục sử dụng tại BV',
+                    `Thuốc ngoài danh mục sử dụng tại BV: mã [${ma}] có trong DM BYT nhưng chưa có trong danh mục nội bộ BV được phê duyệt.`,
                     'Critical',
                     'MA_THUOC',
                     CO_SO_PHAP_LY_THUOC.DANH_MUC_BHYT);
@@ -3625,11 +3694,38 @@ const giamDinhDanhMucNoiBo = (hoSo, dm) => {
                 const nhanManhKhop = rowsCungMa.length > 1
                     ? ' Đối chiếu theo tên/ĐVT/hàm lượng cùng mã trên Mẫu 03; tham chiếu GIA_BH_TT / DON_GIA_TT.'
                     : ' Tham chiếu GIA_BH_TT / DON_GIA_TT trên Mẫu 03.';
-                addLỗi('XML2', idx, 'DM-THUOC-04', 'Giá thuốc vượt trúng thầu',
-                    `Đơn giá XML2 [${ma}] ${tenXml} (DON_GIA) = ${giaHS.toLocaleString()}đ vượt giá trúng thầu BHYT trên danh mục nội bộ Mẫu 03 (${giaTT.toLocaleString()}đ).${nhanManhKhop}`,
+                addLỗi('XML2', idx, 'DM-THUOC-04', 'Giá thuốc thanh toán lớn hơn giá phê duyệt',
+                    `Giá thuốc thanh toán lớn hơn giá thuốc được phê duyệt: [${ma}] ${tenXml} DON_GIA=${giaHS.toLocaleString()}đ > giá Mẫu 03 ${giaTT.toLocaleString()}đ.${nhanManhKhop}`,
                     'Error',
                     'DON_GIA',
                     CO_SO_PHAP_LY_THUOC.NOI_BO_GIA_THAU);
+            }
+            if (dmT) {
+                const hlXml = layGiaTriAnToan(row, 'HAM_LUONG') || row.HAM_LUONG || '—';
+                const hlDm = layGiaTriAnToan(dmT, 'HAM_LUONG') || dmT.HAM_LUONG || '—';
+                if (!hamLuongM03KhopXml2(row, dmT)) {
+                    addLỗi('XML2', idx, 'DM-THUOC-05', 'Thuốc sai hàm lượng so với danh mục BV',
+                        `Thuốc sai hàm lượng so với danh mục sử dụng tại BV: [${ma}] HAM_LUONG XML2 [${hlXml}] ≠ Mẫu 03 [${hlDm}].`,
+                        'Error',
+                        'HAM_LUONG',
+                        CO_SO_PHAP_LY_THUOC.DANH_MUC_BHYT);
+                }
+                const maDdXml = String(row.MA_DUONG_DUNG || row.DUONG_DUNG || '').trim();
+                const maDdDm = layMaDuongDungTuDmThuocM03(dmT);
+                if (maDdXml && maDdDm && !duongDungM03KhopXml2(row, dmT)) {
+                    addLỗi('XML2', idx, 'DM-THUOC-06', 'Thuốc sai đường dùng so với danh mục BV',
+                        `Thuốc sai đường dùng so với danh mục sử dụng tại BV: [${ma}] MA_DUONG_DUNG XML2 [${maDdXml}] ≠ Mẫu 03 [${maDdDm}].`,
+                        'Error',
+                        'MA_DUONG_DUNG',
+                        CO_SO_PHAP_LY_THUOC.DANH_MUC_BHYT);
+                }
+                if (maDdXml && dm.SET_MA_DUONG_DUNG_BYT?.size > 0 && !dm.SET_MA_DUONG_DUNG_BYT.has(maDdXml)) {
+                    addLỗi('XML2', idx, 'DM-THUOC-07', 'Thuốc sai đường dùng so với BYT',
+                        `Thuốc sai đường dùng so với TT40,T30,TT05: MA_DUONG_DUNG [${maDdXml}] không thuộc danh mục PL13 BYT (QĐ 130/3176).`,
+                        'Error',
+                        'MA_DUONG_DUNG',
+                        CO_SO_PHAP_LY_THUOC.DANH_MUC_BHYT);
+                }
             }
         }
     });
@@ -3709,8 +3805,8 @@ const giamDinhDanhMucNoiBo = (hoSo, dm) => {
 
         if (trongBV === false) {
             if (trongBYT)
-                addLỗi('XML3', idx, 'DM-DVKT-01', 'DVKT ngoài DM BV',
-                    `XUẤT TOÁN: Dịch vụ [${ma}] có trong DM BYT nhưng BV chưa phê duyệt/đủ điều kiện thanh toán tại cơ sở KCB.`, 'Critical', 'MA_DICH_VU',
+                addLỗi('XML3', idx, 'DM-DVKT-01', 'DVKT không nằm trong danh mục được thực hiện',
+                    `DVKT không nằm trong danh mục được thực hiện: mã [${ma}] có trong DM BYT nhưng BV chưa phê duyệt tại cơ sở KCB.`, 'Critical', 'MA_DICH_VU',
                     CO_SO_PHAP_LY_DVKT.DANH_MUC_NOI_BO);
             else if (dm.MAP_BYT_PL1 && dm.MAP_BYT_PL1.size > 0)
                 addLỗi('XML3', idx, 'DM-DVKT-02', 'DVKT ngoài cả hai DM',
@@ -4260,7 +4356,35 @@ const giamDinhGiuong = (hoSo, dm) => {
             tongGiuong += TO_NUMBER(r.SO_LUONG);
     });
 
-    if (tongGiuong > 0 && Math.abs(tongGiuong - soNgayDtri) > 1)
+    const kyVong = KY_VONG_SO_NGAY_DTRI_VBHN17(xml1);
+    if (kyVong === 0 && tongGiuong > 0) {
+        ds.push({
+            phan_he: 'XML1',
+            index: -1,
+            truong_loi: 'SO_NGAY_DTRI',
+            canh_bao: 'Thanh toán ngày giường sai quy định (1 ngày giường nhỏ hơn 4h): thời gian nằm viện ≤4h theo VBHN 17 nhưng hồ sơ vẫn phát sinh tiền giường BHYT.',
+            muc_do: 'Error',
+            ma_luat: 'CLN-GIUONG-02',
+            ten_quy_tac: 'Giường khi nằm viện ≤4h',
+            dieu_kien: 'BUILT-IN',
+        });
+    }
+    if (kyVong !== null && tongGiuong > 0 && Math.abs(tongGiuong - kyVong) > 0.5) {
+        ds.push({
+            phan_he: 'XML1',
+            index: -1,
+            truong_loi: 'SO_NGAY_DTRI',
+            canh_bao: dinhKemChiTietCanhBao(
+                `Thanh toán ngày giường sai quy định (ngoài các trường hợp đặc biệt): tổng ngày giường XML3 [${tongGiuong}] lệch quy đếm VBHN 17 [${kyVong}].`,
+                'Dòng giường XML3',
+                [taoTomTatDichVuGiuong(xml3, dm)],
+            ),
+            muc_do: 'Error',
+            ma_luat: 'CLN-GIUONG-03',
+            ten_quy_tac: 'Ngày giường lệch VBHN 17',
+            dieu_kien: 'BUILT-IN',
+        });
+    } else if (tongGiuong > 0 && Math.abs(tongGiuong - soNgayDtri) > 1) {
         ds.push({ phan_he: 'XML1', index: -1, truong_loi: 'SO_NGAY_DTRI',
             canh_bao: dinhKemChiTietCanhBao(
                 `Tổng ngày giường XML3 [${tongGiuong}] không khớp SO_NGAY_DTRI XML1 [${soNgayDtri}]. Chênh ${Math.abs(tongGiuong-soNgayDtri)} ngày (QĐ 130 khoản 3.2).`,
@@ -4268,7 +4392,60 @@ const giamDinhGiuong = (hoSo, dm) => {
                 [taoTomTatDichVuGiuong(xml3, dm)]
             ),
             muc_do: 'Warning', ma_luat: 'CLN-GIUONG-01', ten_quy_tac: 'Số ngày giường', dieu_kien: 'BUILT-IN' });
+    }
     return ds;
+};
+
+const giamDinhTienKhamChuyenKhoa = (hoSo) => {
+    const ds = [];
+    const xml3 = hoSo.XML3 || hoSo.xml3 || [];
+    const byKey = new Map();
+    xml3.forEach((row, idx) => {
+        if (laBHYTKhôngThanhToan(row)) return;
+        const maNhom = String(row.MA_NHOM || '').trim().replace(/^0+/, '') || '';
+        if (maNhom !== '1') return;
+        const ngay = String(row.NGAY_YL || row.NGAY_TH_YL || '').substring(0, 8);
+        const ck = UPPER(row.MA_KHOA || row.MA_CHUYEN_KHOA || row.MA_DICH_VU || '');
+        if (!ngay || !ck) return;
+        const key = `${ngay}|${ck}`;
+        if (!byKey.has(key)) byKey.set(key, []);
+        byKey.get(key).push(idx);
+    });
+    byKey.forEach((indices) => {
+        if (indices.length < 2) return;
+        indices.slice(1).forEach((idx) => {
+            ds.push({
+                phan_he: 'XML3',
+                index: idx,
+                truong_loi: 'MA_DICH_VU',
+                canh_bao: 'Đề nghị tiền khám trên 1 chuyên khoa sai quy định — nhiều dòng phí khám (MA_NHOM=1) cùng khoa/chuyên khoa trong một ngày.',
+                muc_do: 'Error',
+                ma_luat: 'CLN-KHAM-01',
+                ten_quy_tac: 'Tiền khám trùng chuyên khoa/ngày',
+                dieu_kien: 'BUILT-IN',
+            });
+        });
+    });
+    return ds;
+};
+
+const giamDinhYLenhSauRaVienPortal = (hoSo) => {
+    const xml1 = _getXML1(hoSo);
+    if (!xml1 || IS_EMPTY(xml1.NGAY_RA)) return [];
+    const xml2 = hoSo.XML2 || hoSo.xml2 || [];
+    const xml3 = hoSo.XML3 || hoSo.xml3 || [];
+    if (!coChiPhiCoNgayYLenhSauRaVien(xml1, xml2, xml3)) return [];
+    return [{
+        phan_he: 'XML1',
+        index: -1,
+        truong_loi: 'NGAY_RA',
+        canh_bao: 'Thanh toán chi phí có ngày y lệnh sau ngày ra viện — có dòng XML2/XML3 BHYT có NGAY_YL hoặc NGAY_TH_YL sau thời điểm NGAY_RA.',
+        muc_do: 'Error',
+        ma_luat: 'CLN-HC-45',
+        ten_quy_tac: 'Y lệnh sau ngày ra viện (portal BHXH)',
+        dieu_kien: 'BUILT-IN',
+        co_so_phap_ly: layCoSoPhapLyHanhChinh('HC_45'),
+    }];
 };
 
 const giamDinhPTTT = (hoSo) => {
@@ -6505,6 +6682,8 @@ export const chayGiamDinhToanDienV15 = async (hoSo) => {
     allLỗi = allLỗi.concat(giamDinhNguoiThucHienKhamVaDvktXml3(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhCongKhamTmhVaNoiSoiTrungMocXml3(hoSo));
     allLỗi = allLỗi.concat(giamDinhGiuong(hoSo, danhMuc));
+    allLỗi = allLỗi.concat(giamDinhTienKhamChuyenKhoa(hoSo));
+    allLỗi = allLỗi.concat(giamDinhYLenhSauRaVienPortal(hoSo));
     allLỗi = allLỗi.concat(giamDinhPTTT(hoSo));
     allLỗi = allLỗi.concat(giamDinhChuyenTuyen(hoSo));
     allLỗi = allLỗi.concat(giamDinhTongChiPhi(hoSo, danhMuc));
@@ -6614,7 +6793,7 @@ export const chayDongCoGiamDinh = (hoSoXML, danhMucMap) => {
     const QUY_TAC = [
         { MA_LUAT: 'XML3_DM_BV_01', TEN_QUY_TAC: 'DVKT theo DM BV',
           DIEU_KIEN: (r,dm) => dm.DVKT_BV && !dm.DVKT_BV.has(r.MA_DICH_VU?.trim()),
-          CANH_BAO: 'Mã DVKT không tồn tại trong Danh mục được phê duyệt của Bệnh viện.' },
+          CANH_BAO: 'DVKT không nằm trong danh mục được thực hiện.' },
         { MA_LUAT: 'XML3_DM_BYT_02', TEN_QUY_TAC: 'DVKT theo DM BYT',
           DIEU_KIEN: (r,dm) => dm.DVKT_BYT && !dm.DVKT_BYT.has(r.MA_DICH_VU?.trim()),
           CANH_BAO: 'Mã DVKT không khớp với Danh mục dùng chung của Bộ Y tế (TT 23/2024).' },
@@ -6629,7 +6808,7 @@ export const chayDongCoGiamDinh = (hoSoXML, danhMucMap) => {
           CANH_BAO: 'Mã thuốc không khớp danh mục thuốc BHYT theo 15/VBHN-BYT (2024).' },
         { MA_LUAT: 'XML2_GIA_03', TEN_QUY_TAC: 'Giá trúng thầu Thuốc',
           DIEU_KIEN: (r,dm) => { if(!dm.THUOC_BV) return false; const t=dm.THUOC_BV.get(r.MA_THUOC?.trim()); return t && Number(r.DON_GIA)>Number(t.DON_GIA_THAU); },
-          CANH_BAO: 'Đơn giá thuốc thanh toán cao hơn giá trúng thầu.' },
+          CANH_BAO: 'Giá thuốc thanh toán lớn hơn giá thuốc được phê duyệt.' },
     ];
     ['XML2','XML3'].forEach(bang => {
         const bang_data = hoSoXML[bang];

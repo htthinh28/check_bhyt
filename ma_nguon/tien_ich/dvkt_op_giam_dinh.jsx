@@ -117,7 +117,7 @@ const DEFAULT_DVKT_RULES = [
   { RULE_CODE: 'DVKT-OP-06', RULE_NAME: 'Hiệu lực DVKT', OPERATOR: 'CHECK_VALIDITY', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT ngoài khoảng hiệu lực áp dụng.' },
   { RULE_CODE: 'DVKT-OP-07', RULE_NAME: 'Phân loại PTTT', OPERATOR: 'CHECK_PTTT_LEVEL', STATUS: 'OFF', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Thông tin phân loại PTTT chưa đúng quy định.' },
   { RULE_CODE: 'DVKT-OP-08', RULE_NAME: 'Ghi chú đặc thù', OPERATOR: 'CHECK_GHICHU', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'Thông tin VTYT không phù hợp ghi chú đặc thù DVKT.' },
-  { RULE_CODE: 'DVKT-OP-09', RULE_NAME: 'Khám và giường bệnh (nội bộ) được phê duyệt', OPERATOR: 'CHECK_INTERNAL_APPROVAL', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT không nằm trong danh mục Khám và giường bệnh (nội bộ) được phê duyệt.' },
+  { RULE_CODE: 'DVKT-OP-09', RULE_NAME: 'Khám và giường bệnh (nội bộ) được phê duyệt', OPERATOR: 'CHECK_INTERNAL_APPROVAL', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT không nằm trong danh mục được thực hiện (khám/giường nội bộ chưa phê duyệt).' },
   { RULE_CODE: 'DVKT-OP-10', RULE_NAME: 'Thời gian hành nghề bác sỹ', OPERATOR: 'CHECK_STAFF_PRACTICE_TIME', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'Thông tin hành nghề bác sỹ không hợp lệ tại thời điểm thực hiện DVKT.' },
   { RULE_CODE: 'DVKT-OP-11', RULE_NAME: 'Danh mục 3 tạm thời chưa thanh toán', OPERATOR: 'CHECK_TEMP_LIST3', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT thuộc danh mục tạm thời chưa được quỹ BHYT thanh toán.' },
   { RULE_CODE: 'DVKT-OP-13', RULE_NAME: 'Đối soát tên DVKT theo danh mục', OPERATOR: 'CHECK_CATALOG_NAME_MATCH', STATUS: 'ON', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Tên DVKT trên hồ sơ không khớp danh mục nội bộ M05.' },

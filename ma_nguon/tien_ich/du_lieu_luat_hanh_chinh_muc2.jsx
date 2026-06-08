@@ -1,5 +1,5 @@
 /** AUTO-GENERATED from DuLieu_LUAT_HANH_CHINH (7).xlsx + HC_249; HC_13…HC_205 mức hưởng theo QĐ 1018/QĐ-BHXH (ký tự thứ 3 thẻ) + HC_251 (CV 38/BYT-BH, NQ 261/2025/QH15) */
-export const PHIEN_BAN_SEED_LUAT_HANH_CHINH_MUC2 = '2026-04-23_HC_doc_xml_130_3176_4210_7464';
+export const PHIEN_BAN_SEED_LUAT_HANH_CHINH_MUC2 = '2026-06-08_portal_bhxh_errors';
 export const COT_SEED_LUAT_HANH_CHINH_MUC2 = ["TRANG_THAI","MA_LUAT","TEN_QUY_TAC","DIEU_KIEN","CANH_BAO","NGUON_DU_LIEU"];
 export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   {
@@ -598,7 +598,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "MA_LUAT": "HC_65",
     "TEN_QUY_TAC": "Mốc chỉ định/thực hiện/kết quả DV ngoài khoảng vào–ra viện",
     "DIEU_KIEN": "HC_65_CO_MOC_DV_NGOAI_KHOANG_VAO_RA(XML1, XML2, XML3, XML4)",
-    "CANH_BAO": "⛔ Lỗi logic: Có mốc thời gian (chỉ định NGAY_YL, thực hiện NGAY_TH_YL, kết quả NGAY_KQ trên XML3/XML4; thuốc NGAY_YL trên XML2) nằm trước thời điểm vào viện hoặc sau thời điểm ra viện — so sánh sau khi parse định dạng YYYYMMDDHHmm. (Không dùng NGAY_TTOAN so với NGAY_RA; thanh toán có thể trước giờ ra viện.)",
+    "CANH_BAO": "⛔ Thanh toán chi phí có ngày y lệnh sau ngày ra viện (hoặc mốc DV ngoài khoảng vào–ra): có NGAY_YL/NGAY_TH_YL/NGAY_KQ trên XML2–4 trước NGAY_VAO hoặc sau NGAY_RA (parse YYYYMMDDHHmm).",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
     "GHI_CHU_SUA": "✏️ Đổi từ NGAY_TTOAN < NGAY_RA sang HC_65_CO_MOC_DV_NGOAI_KHOANG_VAO_RA: parse ngày giờ rồi kiểm tra mốc DV trong [NGAY_VAO, NGAY_RA]."
   },
@@ -1208,7 +1208,7 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "MA_LUAT": "HC_130",
     "TEN_QUY_TAC": "Số ngày điều trị nội trú lệch VBHN 17 (ngày giường)",
     "DIEU_KIEN": "KY_VONG_SO_NGAY_DTRI_VBHN17(XML1) != null && TO_NUMBER(XML1.SO_NGAY_DTRI) != KY_VONG_SO_NGAY_DTRI_VBHN17(XML1)",
-    "CANH_BAO": "⛔ Lỗi kế toán: SO_NGAY_DTRI không khớp quy đếm ngày điều trị nội trú theo VBHN 17 (≤4h→0; >4h–<24h cùng ngày/qua đêm→1; trường hợp (a) D+1 với KET_QUA_DTRI=5 hoặc chuyển MA_LOAI_RV 2/3; còn lại (b) D = ngày ra − ngày vào theo lịch).",
+    "CANH_BAO": "⛔ Thanh toán ngày giường sai quy định (ngoài các trường hợp đặc biệt): SO_NGAY_DTRI không khớp quy đếm VBHN 17 (≤4h→0; >4h–<24h cùng ngày/qua đêm→1; (a) D+1 với KET_QUA_DTRI=5 hoặc MA_LOAI_RV 2/3; còn lại (b) D = ngày ra − ngày vào).",
     "NGUON_DU_LIEU": "DuLieu_LUAT_HANH_CHINH (7).xlsx",
     "GHI_CHU_SUA": "✏️ VBHN 17: thay so khớp thuần DIFF_DAYS bằng KY_VONG_SO_NGAY_DTRI_VBHN17(XML1) trong dong_co_giam_dinh.jsx"
   },
@@ -2334,5 +2334,14 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "DIEU_KIEN": "XML1.MA_THE_BHYT STARTS_WITH 'LH' AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
     "CANH_BAO": "⛔ [LH / mức quyền lợi]: Từ 01/01/2026 theo NQ 261/2025/QH15 và Công văn 38/BYT-BH (06/01/2026), đối tượng LH được chuyển mã quyền lợi từ 4 (80%) sang 2 (100%) trong phạm vi chi trả; engine suy tỷ lệ theo `KY_HIEU_SO_THU_BA_THE_CHO_TYLE_TT` (kể cả khi ký tự thứ 3 trên XML còn 4). Trước 01/01/2026 vẫn theo QĐ 1018 — mức 4 → 80%. T_BHTT chưa khớp tỷ lệ so với T_TONGCHI_BH.",
     "NGUON_DU_LIEU": "dong_co_giam_dinh.jsx (KY_HIEU_SO_THU_BA_THE_CHO_TYLE_TT) + Công văn 38/BYT-BH"
+  },
+  {
+    "id": "SEED_HANHCHINH_252",
+    "TRANG_THAI": "ON",
+    "MA_LUAT": "HC_252",
+    "TEN_QUY_TAC": "Đúng tuyến ≥15% LCS — sai mức hưởng (portal BHXH)",
+    "DIEU_KIEN": "XML1.T_TONGCHI_BH >= 351000 AND (XML1.MA_LYDO_VVIEN == '1' OR XML1.MA_LYDO_VVIEN == '5') AND VI_PHAM_TYLE_T_BHTT_TONGCHI_BH(XML1)",
+    "CANH_BAO": "⛔ Vào viện đúng tuyến, Chi phí >=15% TLCS, Bệnh viện đề nghị sai Mức hưởng — T_BHTT không khớp tỷ lệ quyền lợi theo thẻ so với T_TONGCHI_BH.",
+    "NGUON_DU_LIEU": "Portal BHXH / dong_co_giam_dinh.jsx (HC-06f)"
   }
 ];
