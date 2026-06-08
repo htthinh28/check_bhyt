@@ -17,21 +17,34 @@ const laMoiTruongWeb = () => Platform.OS === 'web' && typeof window !== 'undefin
 
 const coTheDungIdbHeThong = () => Platform.OS === 'web' && typeof window !== 'undefined' && !!getIndexedDb();
 
-/** Web: đọc cả AsyncStorage + localStorage rồi gộp — dùng khi migrate từ legacy. */
-const gopHaiMangTaiKhoan = (arrA, arrB) => {
-  const a = Array.isArray(arrA) ? arrA : [];
-  const b = Array.isArray(arrB) ? arrB : [];
-  const [first, second] = a.length <= b.length ? [a, b] : [b, a];
+/** Web: gộp hai nguồn tài khoản — ưu tiên bản ghi có capNhatLuc/taoLuc mới hơn. */
+export const gopHaiMangTaiKhoan = (arrA, arrB) => {
   const map = new Map();
+  const tsTaiKhoan = (u) => Date.parse(u?.capNhatLuc || u?.taoLuc || '') || 0;
   const them = (u) => {
     if (!u || typeof u !== 'object') return;
     const email = String(u.email || '').trim().toLowerCase();
     if (!email) return;
-    map.set(email, { ...map.get(email), ...u });
+    const existing = map.get(email);
+    if (!existing) {
+      map.set(email, u);
+      return;
+    }
+    const merged = tsTaiKhoan(u) >= tsTaiKhoan(existing)
+      ? { ...existing, ...u }
+      : { ...u, ...existing };
+    map.set(email, merged);
   };
-  for (const u of first) them(u);
-  for (const u of second) them(u);
+  for (const u of [...(Array.isArray(arrA) ? arrA : []), ...(Array.isArray(arrB) ? arrB : [])]) them(u);
   return Array.from(map.values());
+};
+
+/** Hàng đợi ghi tuần tự — tránh last-write-wins khi tạo/sửa song song. */
+let _chuoiGhiTaiKhoan = Promise.resolve();
+const voiKhoaGhiTaiKhoan = (fn) => {
+  const job = _chuoiGhiTaiKhoan.then(fn, fn);
+  _chuoiGhiTaiKhoan = job.catch(() => {});
+  return job;
 };
 
 const chonChuoiMangDaiHon = (r1, r2) => {
@@ -96,6 +109,16 @@ const idbHtPut = async (key, value) => {
   });
 };
 
+const idbHtDelete = async (key) => {
+  const db = await moHeThongDb();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(IDB_HT_STORE, 'readwrite');
+    tx.objectStore(IDB_HT_STORE).delete(key);
+    tx.oncomplete = () => resolve(true);
+    tx.onerror = () => reject(tx.error);
+  });
+};
+
 /** Legacy (localStorage + AsyncStorage, cùng quota) — chỉ dùng khi migrate / fallback. */
 const docLegacyWebRaw = async (key) => {
   let rAsync = null;
@@ -139,9 +162,32 @@ const docChuoiHeThongWeb = async (key) => {
     console.warn('[nhat_ky_he_thong] IndexedDB đọc lỗi:', key, e?.message || e);
     tuIdb = undefined;
   }
-  if (tuIdb !== undefined && tuIdb !== null) return tuIdb;
 
   const legacy = await docLegacyWebRaw(key);
+
+  if (key === KHOA_TAI_KHOAN) {
+    const fromIdb = tuIdb != null ? anToanArray(tuIdb) : [];
+    const fromLeg = legacy != null ? anToanArray(legacy) : [];
+    const merged = gopHaiMangTaiKhoan(fromIdb, fromLeg);
+    if (!merged.length) return null;
+    const mergedJson = JSON.stringify(merged);
+    const canDongBoIdb = fromLeg.length > 0 && (
+      merged.length > fromIdb.length
+      || (legacy != null && tuIdb != null && legacy !== tuIdb)
+    );
+    if (canDongBoIdb) {
+      try {
+        await idbHtPut(key, mergedJson);
+        await xoaLegacyWeb(key);
+      } catch (e) {
+        console.warn('[nhat_ky_he_thong] đồng bộ merge tài khoản sang IDB:', e?.message || e);
+      }
+    }
+    return mergedJson;
+  }
+
+  if (tuIdb !== undefined && tuIdb !== null) return tuIdb;
+
   if (legacy != null) {
     try {
       await idbHtPut(key, legacy);
@@ -190,6 +236,11 @@ const ghiStorage = async (key, value) => {
       return;
     } catch (e) {
       console.warn('[nhat_ky_he_thong] IndexedDB ghi lỗi, thử legacy:', key, e?.message || e);
+      try {
+        await idbHtDelete(key);
+      } catch {
+        /* xóa bản IDB cũ để đọc không lệch với legacy */
+      }
     }
   }
 
@@ -269,8 +320,7 @@ export const docDanhSachTaiKhoan = async () => {
   return chuanHoaDanhSachTaiKhoan(anToanArray(raw));
 };
 
-export const luuDanhSachTaiKhoan = async (danhSach, nguoiCapNhat = 'SYSTEM') => {
-  const dsChuan = chuanHoaDanhSachTaiKhoan(danhSach, nguoiCapNhat);
+const xacNhanVaTraDanhSachDaLuu = async (dsChuan) => {
   await ghiStorage(KHOA_TAI_KHOAN, JSON.stringify(dsChuan));
   const dsDaLuu = await docDanhSachTaiKhoan();
   const thieuTaiKhoan = dsChuan.some((item) => !dsDaLuu.some((saved) => saved.email === item.email));
@@ -280,16 +330,35 @@ export const luuDanhSachTaiKhoan = async (danhSach, nguoiCapNhat = 'SYSTEM') => 
   return dsDaLuu;
 };
 
-export const capNhatTaiKhoanTheoEmail = async (email, patch = {}, nguoiCapNhat = 'SYSTEM') => {
+export const luuDanhSachTaiKhoan = async (danhSach, nguoiCapNhat = 'SYSTEM') => voiKhoaGhiTaiKhoan(async () => {
+  const dsChuan = chuanHoaDanhSachTaiKhoan(danhSach, nguoiCapNhat);
+  return xacNhanVaTraDanhSachDaLuu(dsChuan);
+});
+
+/** Thêm một tài khoản mới — đọc lại storage trong khóa ghi để tránh ghi đè user vừa tạo. */
+export const themTaiKhoanMoi = async (banGhiMoi, nguoiCapNhat = 'ADMIN') => voiKhoaGhiTaiKhoan(async () => {
+  const hienTai = await docDanhSachTaiKhoan();
+  const email = String(banGhiMoi?.email || '').trim().toLowerCase();
+  if (!email) {
+    throw new Error('Email tài khoản không hợp lệ.');
+  }
+  if (hienTai.some((u) => u.email === email)) {
+    throw new Error(`Email ${email} đã tồn tại.`);
+  }
+  const dsChuan = chuanHoaDanhSachTaiKhoan([...hienTai, banGhiMoi], nguoiCapNhat);
+  return xacNhanVaTraDanhSachDaLuu(dsChuan);
+});
+
+export const capNhatTaiKhoanTheoEmail = async (email, patch = {}, nguoiCapNhat = 'SYSTEM') => voiKhoaGhiTaiKhoan(async () => {
   const ds = await docDanhSachTaiKhoan();
   const emailChuan = String(email || '').trim().toLowerCase();
   const idx = ds.findIndex((item) => item.email === emailChuan);
   if (idx < 0) return { ok: false, danhSach: ds };
 
   ds[idx] = chuanHoaTaiKhoan({ ...ds[idx], ...patch, email: emailChuan }, nguoiCapNhat);
-  await ghiStorage(KHOA_TAI_KHOAN, JSON.stringify(ds));
-  return { ok: true, danhSach: ds, taiKhoan: ds[idx] };
-};
+  const dsDaLuu = await xacNhanVaTraDanhSachDaLuu(ds);
+  return { ok: true, danhSach: dsDaLuu, taiKhoan: dsDaLuu.find((item) => item.email === emailChuan) || ds[idx] };
+});
 
 export const ghiNhatKyHeThong = async ({ hanhDong, doiTuong = '', chiTiet = '', taiKhoan = '', vaiTro = 'USER' }) => {
   try {

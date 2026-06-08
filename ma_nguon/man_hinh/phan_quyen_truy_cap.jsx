@@ -21,7 +21,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { CD } from '../tien_ich/chu_de_giao_dien';
 import { quayLaiAnToan } from '../tien_ich/dieu_huong_an_toan';
-import { docDanhSachTaiKhoan, ghiNhatKyHeThong, layNhatKyHeThong, luuDanhSachTaiKhoan } from '../tien_ich/nhat_ky_he_thong';
+import { capNhatTaiKhoanTheoEmail, docDanhSachTaiKhoan, ghiNhatKyHeThong, layNhatKyHeThong, luuDanhSachTaiKhoan, themTaiKhoanMoi } from '../tien_ich/nhat_ky_he_thong';
 import { docPhienDangNhap } from '../tien_ich/phien_dang_nhap';
 import {
     dongBoLegacyAclTheoRBAC,
@@ -348,7 +348,7 @@ export default function ManHinhPhanQuyen({ navigation }) {
       setDangTaoTaiKhoan(false);
       setCapDoThongBaoTaoTaiKhoan('ERROR');
       setThongBaoTaoTaiKhoan('Tạo tài khoản đang bị treo quá lâu. Vui lòng bấm tạo lại hoặc tải lại màn hình.');
-    }, 22000);
+    }, 60000);
     return () => clearTimeout(timer);
   }, [dangTaoTaiKhoan]);
 
@@ -471,17 +471,11 @@ export default function ManHinhPhanQuyen({ navigation }) {
         );
       }
 
-      const [dsNguoiDungHienTai, cfgHienTai] = await voiTimeout(
-        Promise.all([docDanhSachTaiKhoan(), taiRBAC()]),
+      const cfgHienTai = await voiTimeout(
+        taiRBAC(),
         15000,
         'Hết thời gian tải dữ liệu hệ thống khi tạo tài khoản. Vui lòng thử lại.'
       );
-      if (dsNguoiDungHienTai.some((u) => u.email === email)) {
-        setCapDoThongBaoTaoTaiKhoan('ERROR');
-        setThongBaoTaoTaiKhoan(`Email ${email} đã tồn tại.`);
-        Alert.alert('Trùng tài khoản', 'Email này đã tồn tại.');
-        return;
-      }
 
       const bindingKhoiTao = taoBindingTheoTaiKhoan(bindingNguoiDungMoi);
       const laAdminToanQuyen = laBindingAdmin(bindingKhoiTao);
@@ -501,8 +495,8 @@ export default function ManHinhPhanQuyen({ navigation }) {
         buocDoiMatKhau: false,
       });
       const nextUsers = await voiTimeout(
-        luuDanhSachTaiKhoan([...dsNguoiDungHienTai, banGhiMoi], adminEmail || 'ADMIN'),
-        15000,
+        themTaiKhoanMoi(banGhiMoi, adminEmail || 'ADMIN'),
+        20000,
         'Hết thời gian lưu danh sách tài khoản. Vui lòng kiểm tra storage và thử lại.'
       );
 
@@ -595,14 +589,14 @@ export default function ManHinhPhanQuyen({ navigation }) {
         return;
       }
 
-      const nextUsers = await luuDanhSachTaiKhoan(
-        users.map((u) => (
-          u.email === editingUser.email
-            ? { ...u, ten: hoTen, hoTen, khoa, phong, chucDanh, soDienThoai }
-            : u
-        )),
-        adminEmail || 'ADMIN'
+      const { ok, danhSach: nextUsers } = await capNhatTaiKhoanTheoEmail(
+        editingUser.email,
+        { ten: hoTen, hoTen, khoa, phong, chucDanh, soDienThoai },
+        adminEmail || 'ADMIN',
       );
+      if (!ok) {
+        throw new Error('Không tìm thấy tài khoản cần cập nhật.');
+      }
 
       setUsers(nextUsers);
       setShowEditUser(false);

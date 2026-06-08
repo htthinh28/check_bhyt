@@ -115,8 +115,6 @@ const ManHinhDangNhap = ({ navigation }) => {
             buocDoiMatKhau: false,
           },
         ], 'SYSTEM');
-      } else {
-        dsUsers = await luuDanhSachTaiKhoan(dsUsers, 'SYSTEM');
       }
 
       const userHopLe = dsUsers.find((u) => u.email === tkChuan);
