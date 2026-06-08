@@ -188,6 +188,7 @@ const DANH_MUC_QUY_TAC_NOI_BO_THEO_NHOM = Object.freeze([
   { tab_id: 'LUAT_CDHA', ma_luat: 'DVKT-OP-07', ten_quy_tac: 'No-code DVKT: Phân loại PTTT' },
   { tab_id: 'LUAT_CDHA', ma_luat: 'DVKT-OP-08', ten_quy_tac: 'No-code DVKT: Ghi chú đặc thù' },
   { tab_id: 'LUAT_CDHA', ma_luat: 'DVKT-OP-09', ten_quy_tac: 'No-code DVKT: Khám & giường bệnh (nội bộ) phê duyệt' },
+  { tab_id: 'LUAT_CDHA', ma_luat: 'DVKT-OP-17', ten_quy_tac: 'No-code DVKT: DVKT trong danh mục M05 được phê duyệt' },
   { tab_id: 'LUAT_CDHA', ma_luat: 'DVKT-OP-16', ten_quy_tac: 'No-code DVKT: Cảnh báo mã giường dạng cũ Kxx.xxxx (tùy chọn)' },
   { tab_id: 'LUAT_CDHA', ma_luat: 'DVKT-OP-10', ten_quy_tac: 'No-code DVKT: Thời gian hành nghề bác sĩ' },
   { tab_id: 'LUAT_CDHA', ma_luat: 'DVKT-OP-11', ten_quy_tac: 'No-code DVKT: Danh mục 3 tạm thời' },

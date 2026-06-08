@@ -117,7 +117,8 @@ const DEFAULT_DVKT_RULES = [
   { RULE_CODE: 'DVKT-OP-06', RULE_NAME: 'Hiệu lực DVKT', OPERATOR: 'CHECK_VALIDITY', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT ngoài khoảng hiệu lực áp dụng.' },
   { RULE_CODE: 'DVKT-OP-07', RULE_NAME: 'Phân loại PTTT', OPERATOR: 'CHECK_PTTT_LEVEL', STATUS: 'OFF', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Thông tin phân loại PTTT chưa đúng quy định.' },
   { RULE_CODE: 'DVKT-OP-08', RULE_NAME: 'Ghi chú đặc thù', OPERATOR: 'CHECK_GHICHU', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'Thông tin VTYT không phù hợp ghi chú đặc thù DVKT.' },
-  { RULE_CODE: 'DVKT-OP-09', RULE_NAME: 'Khám và giường bệnh (nội bộ) được phê duyệt', OPERATOR: 'CHECK_INTERNAL_APPROVAL', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT không nằm trong danh mục được thực hiện (khám/giường nội bộ chưa phê duyệt).' },
+  { RULE_CODE: 'DVKT-OP-09', RULE_NAME: 'Khám và giường bệnh (nội bộ) được phê duyệt', OPERATOR: 'CHECK_INTERNAL_APPROVAL', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT không nằm trong danh mục được thực hiện' },
+  { RULE_CODE: 'DVKT-OP-17', RULE_NAME: 'DVKT trong danh mục M05 được phê duyệt', OPERATOR: 'CHECK_APPROVED_CATALOG', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT không nằm trong danh mục được thực hiện' },
   { RULE_CODE: 'DVKT-OP-10', RULE_NAME: 'Thời gian hành nghề bác sỹ', OPERATOR: 'CHECK_STAFF_PRACTICE_TIME', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'Thông tin hành nghề bác sỹ không hợp lệ tại thời điểm thực hiện DVKT.' },
   { RULE_CODE: 'DVKT-OP-11', RULE_NAME: 'Danh mục 3 tạm thời chưa thanh toán', OPERATOR: 'CHECK_TEMP_LIST3', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT thuộc danh mục tạm thời chưa được quỹ BHYT thanh toán.' },
   { RULE_CODE: 'DVKT-OP-13', RULE_NAME: 'Đối soát tên DVKT theo danh mục', OPERATOR: 'CHECK_CATALOG_NAME_MATCH', STATUS: 'ON', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Tên DVKT trên hồ sơ không khớp danh mục nội bộ M05.' },
@@ -154,6 +155,7 @@ const TT_01_META = 'TT 01/2025/TT-BYT';
 const QD_3618_BHXH_META = 'QĐ 3618/QĐ-BHXH';
 const LEGAL_BASIS_BY_OPERATOR = {
   CHECK_INTERNAL_APPROVAL: `${VBHN_17_META}: Điều 3 khoản 1 điểm a; Điều 3 khoản 2. ${ND_188_META}. ${TT_01_META}. ${QD_3618_BHXH_META}`,
+  CHECK_APPROVED_CATALOG: `${VBHN_17_META}: Điều 3 khoản 1 điểm a; Điều 3 khoản 2. ${ND_188_META}. ${TT_01_META}. ${QD_3618_BHXH_META}`,
   CHECK_PHAMVI: `${VBHN_17_META}: Điều 3 khoản 1 điểm b; Điều 3 khoản 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
   CHECK_STAFF_PRACTICE_TIME: `${VBHN_17_META}: Điều 3 khoản 1 điểm b; Điều 3 khoản 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
   CHECK_EQUIPMENT: `${VBHN_17_META}: Điều 3 khoản 1 điểm b; Điều 3 khoản 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
@@ -1008,6 +1010,8 @@ const buildEngineConfig = async () => {
   }));
 
   const dmktByCode = buildDmktMapFromRows(dmktRows);
+  const m05OnlyRows = mergeDvktRowsWithBuiltin(Array.isArray(dmkt) ? dmkt : [], DANH_MUC_DVKT_M05);
+  const m05OnlyByCode = buildDmktMapFromRows(m05OnlyRows);
   const approvalRows = internalApprovalRowsResolved;
   const internalApprovalByCode = buildInternalApprovalMapFromRows(approvalRows);
 
@@ -1105,6 +1109,7 @@ const buildEngineConfig = async () => {
   cacheConfig = {
     activeRules,
     dmktByCode,
+    m05OnlyByCode,
     internalApprovalByCode,
     op09DmktByCode,
     op09InternalApprovalByCode,
@@ -1772,6 +1777,37 @@ const isXml3HuongUngDvktOp09 = (line) => {
   return kieuMaGiuongBv;
 };
 
+/**
+ * DVKT-OP-17: mã DVKT XML3 phải có trong danh mục M05 nội bộ BV (được phê duyệt).
+ * Dòng khám/giường thuộc phạm vi DVKT-OP-09 được bỏ qua để tránh trùng.
+ */
+const checkApprovedCatalog = ({ rule, line, claim, config }) => {
+  if (isXml3HuongUngDvktOp09(line) && hasTenHoacMaLienQuanGiuongKhamNoiDm(line)) return pass();
+  const dmMap = config.m05OnlyByCode || config.dmktByCode;
+  if (!dmMap || dmMap.size === 0) return pass();
+  const ma = line.maTuongDuong;
+  if (!ma) return pass();
+  const dmRow = dmMap.get(ma);
+  if (!dmRow) {
+    return fail('REJECT', `${rule.ALERT_MESSAGE}. Mã [${ma}] không có trong danh mục DVKT M05 nội bộ BV.`, 'MA_DICH_VU');
+  }
+  if (dmRow.approvalActive === false) {
+    return fail('REJECT', `${rule.ALERT_MESSAGE}. Mã [${ma}] đang ở trạng thái không được phê duyệt trong danh mục M05.`, 'MA_DICH_VU');
+  }
+  if (dmRow.maCskcb && claim.maCskcb && dmRow.maCskcb !== claim.maCskcb) {
+    return fail('REJECT', `${rule.ALERT_MESSAGE}. Mã [${ma}] không thuộc danh mục phê duyệt của cơ sở ${claim.maCskcb}.`, 'MA_CSKCB');
+  }
+  if (line.ngayYlKey) {
+    if (dmRow.tuNgayKey && line.ngayYlKey < dmRow.tuNgayKey) {
+      return fail('REJECT', `${rule.ALERT_MESSAGE}. Mã [${ma}] chưa đến ngày hiệu lực trong danh mục M05.`, 'NGAY_YL');
+    }
+    if (dmRow.denNgayKey && line.ngayYlKey > dmRow.denNgayKey) {
+      return fail('REJECT', `${rule.ALERT_MESSAGE}. Mã [${ma}] đã hết hiệu lực trong danh mục M05.`, 'NGAY_YL');
+    }
+  }
+  return pass();
+};
+
 const checkInternalApproval = ({ rule, line, claim, config }) => {
   if (!isXml3HuongUngDvktOp09(line)) return pass();
   if (!hasTenHoacMaLienQuanGiuongKhamNoiDm(line)) return pass();
@@ -2043,6 +2079,7 @@ const OPERATOR_HANDLERS = {
   CHECK_PHAMVI: checkPhamVi,
   CHECK_EQUIPMENT: checkEquipment,
   CHECK_INTERNAL_APPROVAL: checkInternalApproval,
+  CHECK_APPROVED_CATALOG: checkApprovedCatalog,
   CHECK_STAFF_PRACTICE_TIME: checkStaffPracticeTime,
   CHECK_TEMP_LIST3: checkTempList3,
   CHECK_PRICE: checkPrice,

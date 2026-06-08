@@ -3809,12 +3809,12 @@ const giamDinhDanhMucNoiBo = (hoSo, dm) => {
                     `DVKT không nằm trong danh mục được thực hiện: mã [${ma}] có trong DM BYT nhưng BV chưa phê duyệt tại cơ sở KCB.`, 'Critical', 'MA_DICH_VU',
                     CO_SO_PHAP_LY_DVKT.DANH_MUC_NOI_BO);
             else if (dm.MAP_BYT_PL1 && dm.MAP_BYT_PL1.size > 0)
-                addLỗi('XML3', idx, 'DM-DVKT-02', 'DVKT ngoài cả hai DM',
-                    `XUẤT TOÁN: Dịch vụ [${ma}] không có trong DM BV lẫn DM BYT. Không được thanh toán BHYT.`, 'Critical', 'MA_DICH_VU',
+                addLỗi('XML3', idx, 'DM-DVKT-02', 'DVKT không nằm trong danh mục được thực hiện',
+                    `DVKT không nằm trong danh mục được thực hiện: mã [${ma}] không có trong DM BV (và không khớp DM BYT đã nạp).`, 'Critical', 'MA_DICH_VU',
                     CO_SO_PHAP_LY_DVKT.DANH_MUC_NOI_BO);
             else
-                addLỗi('XML3', idx, 'DM-DVKT-03', 'Cần xác minh DVKT',
-                    `Dịch vụ [${ma}] chưa xác minh trong DM nội bộ. Đề nghị cập nhật danh mục BV.`, 'Warning', 'MA_DICH_VU',
+                addLỗi('XML3', idx, 'DM-DVKT-03', 'DVKT không nằm trong danh mục được thực hiện',
+                    `DVKT không nằm trong danh mục được thực hiện: mã [${ma}] chưa có trong DM nội bộ BV — đề nghị cập nhật danh mục M05.`, 'Warning', 'MA_DICH_VU',
                     CO_SO_PHAP_LY_DVKT.DANH_MUC_NOI_BO);
         } else if (trongBV === true) {
             const dmDV = dm.MAP_DVKT_BV.get(ma);

@@ -23,7 +23,7 @@ const PORTAL_ERRORS = [
 ];
 
 const RULE_HINTS = {
-  'DVKT không nằm trong danh mục được thực hiện': ['DM-DVKT-01', 'DVKT-OP-09', 'XML3_DM_BV_01'],
+  'DVKT không nằm trong danh mục được thực hiện': ['DM-DVKT-01', 'DVKT-OP-09', 'DVKT-OP-17', 'CHECK_APPROVED_CATALOG', 'XML3_DM_BV_01'],
   'Giá thuốc thanh toán lớn hơn giá thuốc được phê duyệt': ['DM-THUOC-04', 'XML2_GIA_03'],
   'Thanh toán chi phí có ngày y lệnh sau ngày ra viện': ['CLN-HC-45', 'HC_65'],
   'Thanh toán ngày giường sai quy định (ngoài các trường hợp đặc biệt)': ['CLN-GIUONG-03', 'HC_130'],
