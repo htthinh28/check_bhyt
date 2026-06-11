@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T13:33:22.701Z",
+  "generatedAt": "2026-06-11T02:53:46.241Z",
   "items": [
     {
       "id": "txt:_extract_cv266/PL1_plain.txt",
@@ -929,6 +929,16 @@
         "the_tri_thuc",
         "ai_huan_luyen",
         "thuoc"
+      ]
+    },
+    {
+      "id": "md:The_tri_thuc_CV_302_BHYT_LCS_AI.md",
+      "relPath": "The_tri_thuc_CV_302_BHYT_LCS_AI.html",
+      "title": "THẺ TRI THỨC: CÔNG VĂN CV 302/CSYT-CĐ — QUY ĐỊNH BHYT TỪ 01/7/2026",
+      "nguon": "markdown",
+      "tags": [
+        "the_tri_thuc",
+        "ai_huan_luyen"
       ]
     },
     {

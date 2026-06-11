@@ -50,6 +50,8 @@ import { damBaoSeedLuatHanhChinhMuc2 } from './seed_luat_hanh_chinh_muc2';
 import { damBaoSeedLuatPtttMuc11 } from './seed_luat_pttt_muc11';
 import { damBaoSeedLuatThuocMuc8 } from './seed_luat_thuoc_muc8';
 import { laCapCuuTheoXml1, viPhamQuy_tacCapCuuIcd10 } from './giam_dinh_icd10_cap_cuu';
+import { giamDinhCv302Bhyt } from './giam_dinh_cv302_bhyt';
+import { laMotLanKcbDuoi15PhanTramLcs as laMotLanKcbDuoi15PhanTramLCS } from './muc_luong_co_so_bhyt';
 import { tachChuoiNhieuMa } from './catalog_mapping_chuoi_ma';
 import { hopNhatQuyTacTrungTheoDoiTuong } from './hop_nhat_quy_tac_trung_lap';
 
@@ -144,9 +146,6 @@ const SUBSTR = (val, start, length) => {
  * trên thẻ — CN (hộ cận nghèo) từ 3→2; LH (≥75 tuổi, trợ cấp hưu trí xã hội) từ 4→2 kể từ 01/01/2026.
  * Hồ sơ XML có thể còn ký tự thứ 3 in cũ; `KY_HIEU_SO_THU_BA_THE_CHO_TYLE_TT` quy đổi khi suy tỷ lệ T_BHTT.
  */
-const DONG_LUONG_CO_SO_BHYT_MM = 2340000;
-const NGUONG_MOT_LAN_KCB_15_PHAN_TRAM_LCS = 0.15 * DONG_LUONG_CO_SO_BHYT_MM;
-
 const KY_HIEU_SO_THU_BA_THE_BHYT = (xml1) => String(SUBSTR(xml1?.MA_THE_BHYT, 3, 1) || '').trim();
 
 /** YYYYMMDD từ NGAY_VAO / NGAY_RA / NGAY_TTOAN — so sánh chuỗi với mốc pháp lý. */
@@ -198,11 +197,6 @@ const TY_LE_KCB_BHYT_THEO_SO3 = (xml1) => {
     if (d === '3') return 0.95;
     if (d === '4') return 0.8;
     return -1;
-};
-
-const laMotLanKcbDuoi15PhanTramLCS = (xml1) => {
-    const tt = TO_NUMBER(xml1?.T_TONGCHI_BH);
-    return tt > 0 && tt < NGUONG_MOT_LAN_KCB_15_PHAN_TRAM_LCS;
 };
 
 /** Heuristic tuyến xã / trạm y tế / PK khu vực — không thay DM CSKCB. */
@@ -3062,7 +3056,7 @@ const giamDinhQuyenLoiTheoDoiTuongVaThe = (hoSo, dm) => {
         const allHigher = mucHuongValues.every((value) => value >= expected + 5);
         const allLower = mucHuongValues.every((value) => value <= expected - 5);
         if (allHigher || allLower) {
-            // Ngoại lệ (cùng khung QĐ BHXH / CV 38): một lần KCB có T_TONGCHI_BH < 15% LCS (2.340.000đ) → trong phạm vi được chi trả 100%;
+            // Ngoại lệ (QĐ BHXH / CV 38 / CV 302): một lần KCB < 15% LCS theo ngày KCB → 100% phạm vi;
             // MUC_HUONG chi tiết ~100% với thẻ mức 4 (80%) không coi là lệch HC-06d.
             if (!(allHigher && laMotLanKcbDuoi15PhanTramLCS(xml1))) {
                 const huongThucTe = Math.round((mucHuongValues.reduce((sum, value) => sum + value, 0) / mucHuongValues.length) * 10) / 10;
@@ -3075,6 +3069,28 @@ const giamDinhQuyenLoiTheoDoiTuongVaThe = (hoSo, dm) => {
                     rule.legalBasis || layCoSoPhapLyHanhChinh('HC-06')
                 );
             }
+        }
+    }
+
+    if (
+        rule.factor === 0.5
+        && !rule.independentFromCard
+        && thongTinThe.benefitPercent !== null
+        && mucHuongValues.length > 0
+        && coPhatSinhThanhToanBHYT
+    ) {
+        const expectedPercent = Math.round(thongTinThe.benefitPercent * 0.5 * 10) / 10;
+        const allHigher = mucHuongValues.every((value) => value >= expectedPercent + 10);
+        if (allHigher) {
+            const huongThucTe = Math.round((mucHuongValues.reduce((sum, value) => sum + value, 0) / mucHuongValues.length) * 10) / 10;
+            addLỗi(
+                'HC-06f',
+                'Quyền lợi BHYT 50% (CV 302)',
+                `Mã đối tượng KCB [${rule.code}] từ 01/7/2026 được hưởng 50% phạm vi theo mức hưởng thẻ (kỳ vọng ~${expectedPercent}% với thẻ mức ${thongTinThe.benefitCode} = ${thongTinThe.benefitPercent}%), nhưng mức hưởng chi tiết đang quanh ${huongThucTe}%.`,
+                'Warning',
+                'MUC_HUONG',
+                rule.legalBasis || 'Công văn CV 302/CSYT-CĐ; Khoản 4 Điều 22 Luật BHYT; NĐ 188/2025/NĐ-CP',
+            );
         }
     }
 
@@ -3288,7 +3304,8 @@ const locCanhBaoDuongTinhGiaTheoNguCanh = (hoSo, dsLỗi, dm) => {
         if (/^DMBV-/.test(ma)) return false;
         if (ma === 'HC-06' && laDoiTuongKcbHopLeMoRong(xml1.MA_DOITUONG_KCB, dm)) return false;
         /* HC_06 (seed): chi phí < 15% LCS — khám ngoại trú (1/01) thường khác cơ chế kê đơn/tổng chi so với nội trú; tránh dương tính giả */
-        if (ma === 'HC_06' && /351\.000|15%\s*LCS/i.test(canhBao) && MATCH_ANY_MA_LOAI_KCB(xml1?.MA_LOAI_KCB, '1', '01')) return false;
+        if (ma === 'HC_06' && /351\.000|379\.500|15%\s*LCS/i.test(canhBao) && MATCH_ANY_MA_LOAI_KCB(xml1?.MA_LOAI_KCB, '1', '01')) return false;
+        if ((ma === 'HC-302A' || ma === 'HC_302A') && MATCH_ANY_MA_LOAI_KCB(xml1?.MA_LOAI_KCB, '1', '01')) return false;
         if (ma === 'XML_19' && coHc171) return false;
         if (ma === 'XML_21' && !coSauNgayRa) return false;
         if (ma === 'XML_47' && (tatCaMucHuong100 || (Math.abs(cctKyVong - bncctKhaiBao) <= 10 && bncctKhaiBao <= 10))) return false;
@@ -3508,7 +3525,7 @@ const giamDinhHanhChinh = (hoSo, dm) => {
             addLỗi('HC-10', 'Cân bằng tài chính BH', `T_TONGCHI_BH [${tTongBH.toLocaleString()}] không bằng BHTT+BNCCT [${tongThanhToanBH.toLocaleString()}]. Chênh: ${chenh.toLocaleString()}đ.`, 'Warning', 'T_TONGCHI_BH');
     }
 
-    return ds.concat(giamDinhQuyenLoiTheoDoiTuongVaThe(hoSo, dm));
+    return ds.concat(giamDinhQuyenLoiTheoDoiTuongVaThe(hoSo, dm)).concat(giamDinhCv302Bhyt(hoSo, dm));
 };
 
 // ============================================================
