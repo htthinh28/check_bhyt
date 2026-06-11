@@ -2940,6 +2940,26 @@ const isClaimAllowedPrescriptionOver30Days = (xml1, dm) => {
     return icdCodes.some((code) => isIcdInAllowed30DayCatalog(code, ruleSet));
 };
 
+const layRuleSetKeDon30Ngay = (dm) => dm?.BO_QUY_TAC_ICD10_KE_DON_TREN_30_NGAY;
+
+const tatCaMaIcdThuocDanhMucKeDon30Ngay = (codes, ruleSet) => {
+    const arr = Array.isArray(codes) ? codes : [];
+    if (arr.length === 0) return false;
+    return arr.every((code) => isIcdInAllowed30DayCatalog(code, ruleSet));
+};
+
+/** Bệnh chính (MA_BENH_CHINH) và bệnh kèm (MA_BENH_KT) đều có mã thuộc Phụ lục VII TT 26/2025. */
+const hoSoBenhChinhVaBenhKemDeuThuocDmKeDon30Ngay = (xml1, dm) => {
+    const ruleSet = layRuleSetKeDon30Ngay(dm);
+    if ((!ruleSet?.exact || ruleSet.exact.size === 0) && (!Array.isArray(ruleSet?.ranges) || ruleSet.ranges.length === 0)) {
+        return false;
+    }
+    const maChinh = extractIcdCodesFromClaim(xml1?.MA_BENH_CHINH);
+    const maKem = extractIcdCodesFromClaim(xml1?.MA_BENH_KT, xml1?.MA_BENHKEM, xml1?.MA_BENHKT);
+    return tatCaMaIcdThuocDanhMucKeDon30Ngay(maChinh, ruleSet)
+        && tatCaMaIcdThuocDanhMucKeDon30Ngay(maKem, ruleSet);
+};
+
 /**
  * Đường dùng tiêm / chích / truyền theo XML2 (MA_DUONG_DUNG PL BYT — nhóm 2.x; bổ sung từ khóa DUONG_DUNG).
  * Dùng để ngoại lệ gợi ý kê đơn >30 ngày theo danh mục ICD (thuốc tiêm thường tách luồng nghiệp vụ).
@@ -4144,6 +4164,7 @@ const giamDinhThuoc = (hoSo, dm) => {
     const laNgoaiTru = _laHoSoNgoaiTru(xml1);
     const laNoiTru = _laHoSoNoiTru(xml1);
     const duocKeDonQua30Ngay = laNgoaiTru && !laNoiTru && isClaimAllowedPrescriptionOver30Days(xml1, dm);
+    const phaiKeDonTren30Ngay = laNgoaiTru && !laNoiTru && hoSoBenhChinhVaBenhKemDeuThuocDmKeDon30Ngay(xml1, dm);
     const coTiêmChíchBHYT = coBHYTThuocTiêmChíchTrongHoSo(hoSo);
     let daGhiClnThuoc05 = false;
     const maThuocMap = new Map();
@@ -4181,6 +4202,19 @@ const giamDinhThuoc = (hoSo, dm) => {
                 canh_bao: `Thuốc [${ma || 'N/A'}] có số ngày sử dụng ${soNgaySuDung} (>30 ngày) nhưng hồ sơ không thuộc danh mục ICD10 được phép kê ngoại trú quá 30 ngày.`,
                 muc_do: 'Warning', ma_luat: 'CLN-THUOC-04', ten_quy_tac: 'Số ngày sử dụng thuốc', dieu_kien: 'BUILT-IN',
                 co_so_phap_ly: CO_SO_PHAP_LY_THUOC.SO_NGAY_SU_DUNG });
+
+        if (phaiKeDonTren30Ngay && soNgaySuDung > 0 && soNgaySuDung <= 30)
+            ds.push({
+                phan_he: 'XML2',
+                index: idx,
+                truong_loi: 'SO_NGAY',
+                canh_bao: `Thuốc [${ma || 'N/A'}] có số ngày sử dụng ${soNgaySuDung} (≤30 ngày) trong khi bệnh chính [${String(xml1?.MA_BENH_CHINH || '').trim() || 'N/A'}] và bệnh kèm theo [${String(xml1?.MA_BENH_KT || xml1?.MA_BENHKEM || '').trim() || 'N/A'}] đều thuộc danh mục Phụ lục VII TT 26/2025 — cần kê đơn trên 30 ngày (tối đa 90 ngày theo lâm sàng).`,
+                muc_do: 'Warning',
+                ma_luat: 'CLN-THUOC-06',
+                ten_quy_tac: 'Kê đơn ≤30 ngày — bệnh chính và bệnh kèm đều trong danh mục >30 ngày',
+                dieu_kien: 'BUILT-IN',
+                co_so_phap_ly: CO_SO_PHAP_LY_THUOC.SO_NGAY_SU_DUNG,
+            });
 
         if (
             laNgoaiTru
