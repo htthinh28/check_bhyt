@@ -1022,6 +1022,7 @@ const buildEngineConfig = async () => {
   const op09DmktByTenNorm = buildOp09DmktByTenNorm(giuongBkMapped, op09DmktByCode);
 
   const staffById = new Map();
+  const staffByMacchn = new Map();
   (Array.isArray(staff) ? staff : []).forEach((row) => {
     const ids = [
       ...collectFieldValues(row, STAFF_LOOKUP_ID_KEYS),
@@ -1056,6 +1057,9 @@ const buildEngineConfig = async () => {
     ids.forEach((id) => {
       if (!staffById.has(id)) staffById.set(id, { ...staffEntry, lookupId: id });
     });
+    if (staffEntry.macchn && !staffByMacchn.has(staffEntry.macchn)) {
+      staffByMacchn.set(staffEntry.macchn, { ...staffEntry, lookupId: staffEntry.macchn });
+    }
   });
 
   const staffIdsByName = new Map();
@@ -1112,6 +1116,7 @@ const buildEngineConfig = async () => {
     op09InternalApprovalByCode,
     op09DmktByTenNorm,
     staffById,
+    staffByMacchn,
     equipmentByPrefix,
     equipmentByCode,
     servicePractitionerByCode,
@@ -1531,25 +1536,32 @@ const collectActorCandidateIds = (line) => {
   parseList(line?.nguoiThucHien).forEach(pushId);
   return ids;
 };
+/** XML3 MA_BAC_SI / NGUOI_THUC_HIEN đối chiếu cột MACCHN danh mục nhân sự; khớp = tìm thấy. */
+const findStaffByActorCode = (config, actorCode) => {
+  const id = toUpper(actorCode);
+  if (!id || !config) return null;
+  const byMacchn = config.staffByMacchn?.get(id);
+  if (byMacchn) return byMacchn;
+  return config.staffById?.get(id) || null;
+};
 const resolveStaffEvidence = (line, config) => {
   const maBacSiClaimId = toUpper(line?.maBacSi);
   const nguoiThucHienCandidates = parseList(line?.nguoiThucHien).map((id) => toUpper(id)).filter(Boolean);
   const actorCandidateIds = collectActorCandidateIds(line);
   const servicePractitionerEntry = findServicePractitionerEntry(line, config);
   const preferredActorId = servicePractitionerEntry
-    ? actorCandidateIds.find((id) => servicePractitionerEntry.allowedStaffIds.has(id) && config?.staffById?.has(id))
+    ? actorCandidateIds.find((id) => servicePractitionerEntry.allowedStaffIds.has(id) && findStaffByActorCode(config, id))
     : '';
   const nguoiThucHienId = (
     preferredActorId
     || (
-    (maBacSiClaimId && nguoiThucHienCandidates.includes(maBacSiClaimId) && config?.staffById?.has(maBacSiClaimId) && maBacSiClaimId)
-    || nguoiThucHienCandidates.find((id) => config?.staffById?.has(id))
-    || nguoiThucHienCandidates[0]
+    (maBacSiClaimId && nguoiThucHienCandidates.includes(maBacSiClaimId) && findStaffByActorCode(config, maBacSiClaimId) && maBacSiClaimId)
+    || nguoiThucHienCandidates.find((id) => findStaffByActorCode(config, id))
     || ''
     )
   );
-  const nguoiThucHienStaff = nguoiThucHienId ? config?.staffById?.get(nguoiThucHienId) : null;
-  const maBacSiStaff = maBacSiClaimId ? config?.staffById?.get(maBacSiClaimId) : null;
+  const nguoiThucHienStaff = nguoiThucHienId ? findStaffByActorCode(config, nguoiThucHienId) : null;
+  const maBacSiStaff = maBacSiClaimId ? findStaffByActorCode(config, maBacSiClaimId) : null;
   const selectedStaff = nguoiThucHienStaff || maBacSiStaff || null;
   const selectedId = nguoiThucHienStaff
     ? nguoiThucHienId
@@ -1652,7 +1664,7 @@ const checkPhamVi = ({ rule, line, config }) => {
   const evidence = resolveStaffEvidence(line, config);
   const staffId = evidence.selectedId || line.maBacSi;
   if (isEmpty(staffId)) return fail('WARNING', `${rule.ALERT_MESSAGE} Thiếu MA_BAC_SI để đối chiếu phạm vi hành nghề.`, 'MA_BAC_SI');
-  const staff = evidence.selectedStaff || config.staffById.get(staffId);
+  const staff = evidence.selectedStaff || findStaffByActorCode(config, staffId);
   const nhanSuText = formatStaffDisplay(staff, staffId);
   if (!staff) return fail('WARNING', `${rule.ALERT_MESSAGE} Không tìm thấy nhân viên ${nhanSuText} trong danh mục để kết luận.`, 'MA_BAC_SI');
   if (staff.activeStatus === false) return fail('REJECT', `${rule.ALERT_MESSAGE} Nhân viên ${nhanSuText} đang ở trạng thái không hoạt động.`, 'MA_BAC_SI');
@@ -1843,7 +1855,7 @@ const checkStaffPracticeTime = ({ rule, line, claim, config }) => {
   const evidence = resolveStaffEvidence(line, config);
   const staffId = evidence.selectedId || line.maBacSi;
   if (isEmpty(staffId)) return fail('WARNING', `${rule.ALERT_MESSAGE} Thiếu MA_BAC_SI để đối chiếu thời gian hành nghề.`, 'MA_BAC_SI');
-  const staff = evidence.selectedStaff || config.staffById.get(staffId);
+  const staff = evidence.selectedStaff || findStaffByActorCode(config, staffId);
   const nhanSuText = formatStaffDisplay(staff, staffId);
   if (!staff) return fail('WARNING', `${rule.ALERT_MESSAGE} Không tìm thấy nhân viên ${nhanSuText} trong danh mục để đối chiếu.`, 'MA_BAC_SI');
   if (staff.activeStatus === false) return fail('REJECT', `${rule.ALERT_MESSAGE} Nhân viên ${nhanSuText} đang ở trạng thái không hoạt động.`, 'MA_BAC_SI');

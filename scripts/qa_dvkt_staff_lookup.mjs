@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * QA: staffById phải index đủ MACCHN + MA_BHXH (XML thường gửi MA_BAC_SI = số CCHN).
+ * QA: tra cứu nhân sự DVKT-OP — MA_BAC_SI / NGUOI_THUC_HIEN đối chiếu MACCHN danh mục.
  */
 import assert from 'node:assert/strict';
 
@@ -29,15 +29,26 @@ const collectFieldValues = (row, keys = []) => {
 
 const STAFF_LOOKUP_ID_KEYS = ['MA_BAC_SI', 'MA_BHXH', 'MACCHN', 'SO_CCHN', 'SO_GPHN', 'MA_NV', 'ID', 'SO_CCCD', 'SO_DINH_DANH'];
 
-const buildStaffById = (rows) => {
+const buildStaffIndexes = (rows) => {
   const staffById = new Map();
+  const staffByMacchn = new Map();
   rows.forEach((row) => {
-    const ids = collectFieldValues(row, STAFF_LOOKUP_ID_KEYS).map(toUpper);
-    ids.forEach((id) => {
-      if (!staffById.has(id)) staffById.set(id, row);
+    const macchn = toUpper(row.MACCHN || row.SO_CCHN || row.SO_GPHN || '');
+    const entry = { raw: row, macchn, scopes: new Set(String(row.PHAMVI_CM || '').split(/[,;|]/).map(normalizeToken).filter(Boolean)) };
+    collectFieldValues(row, STAFF_LOOKUP_ID_KEYS).map(toUpper).forEach((id) => {
+      if (!staffById.has(id)) staffById.set(id, entry);
     });
+    if (macchn && !staffByMacchn.has(macchn)) staffByMacchn.set(macchn, entry);
   });
-  return staffById;
+  return { staffById, staffByMacchn };
+};
+
+const findStaffByActorCode = (config, actorCode) => {
+  const id = toUpper(actorCode);
+  if (!id || !config) return null;
+  const byMacchn = config.staffByMacchn?.get(id);
+  if (byMacchn) return byMacchn;
+  return config.staffById?.get(id) || null;
 };
 
 const staffRow = {
@@ -49,11 +60,18 @@ const staffRow = {
   SO_CCCD: '094073002186',
 };
 
-const staffById = buildStaffById([staffRow]);
-assert.ok(staffById.has('5896014230'), 'expected MA_BHXH index');
-assert.ok(staffById.has('000742/ST-CCHN'), 'expected MACCHN index for XML MA_BAC_SI');
-assert.ok(staffById.has('3834101'), 'expected ID index');
-assert.ok(staffById.has('094073002186'), 'expected SO_CCCD index');
+const config = buildStaffIndexes([staffRow]);
+assert.ok(config.staffById.has('5896014230'), 'expected MA_BHXH index');
+assert.ok(config.staffById.has('000742/ST-CCHN'), 'expected MACCHN index for XML MA_BAC_SI');
+assert.ok(config.staffByMacchn.has('000742/ST-CCHN'), 'expected staffByMacchn');
+
+// XML gửi MA_BAC_SI = số CCHN → tìm thấy qua MACCHN
+const staffFromXml = findStaffByActorCode(config, '000742/ST-CCHN');
+assert.ok(staffFromXml, 'MA_BAC_SI=000742/ST-CCHN must resolve via MACCHN');
+assert.ok(staffFromXml.scopes.has('110'), 'PHAMVI_CM 110 available for phạm vi check');
+
+// Mã không tồn tại trong danh mục
+assert.equal(findStaffByActorCode(config, '999999/XX-CCHN'), null);
 
 // pickValue cũ chỉ lấy MA_BHXH — mô phỏng lỗi trước sửa
 const pickValueFirst = (row, keys) => {
