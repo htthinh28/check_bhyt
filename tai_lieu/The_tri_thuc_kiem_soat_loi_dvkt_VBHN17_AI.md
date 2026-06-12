@@ -1,7 +1,7 @@
 # THẺ TRI THỨC: KIỂM SOÁT LỖI DỊCH VỤ KỸ THUẬT (DVKT) THEO 17/VBHN-BYT — CHO AI KIỂM TRA BHYT
 
-Phiên bản tài liệu: 1.0  
-Ngày cập nhật: 10/04/2026
+Phiên bản tài liệu: 1.1  
+Ngày cập nhật: 12/06/2026
 
 ## 1. Mục đích
 
@@ -36,7 +36,7 @@ Tài liệu này là **khung kiểm soát lỗi**; chi tiết từng Điều xem
 | 4 | Gói PTTT, ICD, thuốc kèm gói | XML3 + XML1 + XML2 | **`DVKT_2587`**, **`DVKT_2588`** — ca **000308** |
 | 5 | CĐHA — thời gian, nội trú | XML1 ngày vào; XML3 ngày chỉ định | **`CDHA_164`** — ca **000502** |
 | 6 | CĐHA — thiết bị / mã máy | `XML3.MA_MAY`, DM thiết bị | **`CDHA_101`** — ca **000538** |
-| 7 | Trùng / gộp công đoạn | Toàn bộ XML3 cùng kỳ | **Điều 4 khoản 4**; không kết luận chỉ từ hai dòng tách nếu thiếu bảng giá |
+| 7 | Trùng / gộp công đoạn | Toàn bộ XML3 cùng kỳ, cột ghi chú/điều kiện thanh toán | **Điều 4 khoản 4**; `DVKT-OP-17` chỉ bắt dấu hiệu rõ “không thanh toán riêng / đã kết cấu / công đoạn đã tính giá” |
 | 8 | 4a–4d (giá gộp, khám, giường, DV đặc thù) | XML1, XML3, XML2, mô tả giá | TT **39/2024**; rule từng nhóm trong seed / nội bộ |
 | 9 | Mốc hiệu lực & một lượt KCB | Ngày vào/ra, ngày y lệnh | **Điều 5**, **Điều 4 khoản 7** (TT 39) |
 
@@ -45,8 +45,9 @@ Tài liệu này là **khung kiểm soát lỗi**; chi tiết từng Điều xem
 1. **Ba nhánh mã khác nhau:** `DVKT_*` (số, seed PTTT), `CDHA_*` (hardcoded), `DVKT-OP-*` (no-code) — không đồng nhất “cùng là DVKT” về cách sửa hay mức rủi ro.
 2. **Một hồ sơ, nhiều lớp:** Ví dụ vừa cảnh báo **thiếu thuốc gói mổ** vừa có **`CDHA_164`** — tách giải thích theo **từng mã** và **từng XML**.
 3. **“Cảnh báo” ≠ “xuất toán”:** Nhiều rule mang tính **kiểm tra / gợi ý**; mức xử lý do nghiệp vụ + BHXH.
-4. **Engine ≠ cả Phụ lục:** Thiếu seed hoặc rule **OFF** có thể **im** cảnh báo — ghi nhận giới hạn, không kết luận “đúng tuyệt đối” từ im lặng.
-5. **Thiếu Excel Phụ lục / HĐ KCB:** Nói rõ *cần đối chiếu tại thời điểm hồ sơ* — không điền số giả.
+4. **Điều 4 khoản 4/4a/4d:** Nếu chỉ có cụm “không thanh toán đồng thời” nhưng chưa có mapping cặp DV, không tự kết luận; `DVKT-OP-17` ưu tiên dấu hiệu một dòng/cấu phần không được thanh toán riêng.
+5. **Engine ≠ cả Phụ lục:** Thiếu seed hoặc rule **OFF** có thể **im** cảnh báo — ghi nhận giới hạn, không kết luận “đúng tuyệt đối” từ im lặng.
+6. **Thiếu Excel Phụ lục / HĐ KCB:** Nói rõ *cần đối chiếu tại thời điểm hồ sơ* — không điền số giả.
 
 ## 5. Prompt mẫu cho huấn luyện AI
 

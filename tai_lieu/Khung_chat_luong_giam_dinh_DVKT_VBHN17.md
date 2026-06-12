@@ -1,13 +1,13 @@
 # Khung chất lượng kiểm tra DVKT, chuyên đề và VBHN 17
 
-Phiên bản: 1.0  
-Ngày: 11/04/2026
+Phiên bản: 1.1  
+Ngày: 12/06/2026
 
 ## 1. Mục tiêu
 
 - Giảm **dương tính giả** (cảnh báo khi hồ sơ thực tế đúng danh mục / đúng VBHN 17).
 - Tránh hiển thị cảnh báo từ quy tắc **không thể đánh giá đúng trên XML130** (thiếu biến, DSL không khớp engine).
-- Giữ **một lớp quy tắc** bám **danh mục nội bộ M05/M06** và metadata VBHN 17 (điều kiện tỷ lệ, thanh toán, phân loại PTTT…) nơi đã có ánh xạ rõ ràng trong mã nguồn.
+- Giữ **một lớp quy tắc** bám **danh mục nội bộ M05/M06** và metadata VBHN 17 (điều kiện tỷ lệ, thanh toán, phân loại PTTT, công đoạn/gói không thanh toán riêng…) nơi đã có ánh xạ rõ ràng trong mã nguồn.
 
 ## 2. Ba lớp trong hệ thống (vai trò khác nhau)
 
@@ -19,10 +19,11 @@ Ngày: 11/04/2026
 
 ## 3. Quy tắc vận hành (ban kiểm tra)
 
-1. **Ưu tiên lớp A** khi thêm quy tắc mới về DVKT / thiết bị / phạm vi / giá VBHN 17.
+1. **Ưu tiên lớp A** khi thêm quy tắc mới về DVKT / thiết bị / phạm vi / giá / điều kiện thanh toán VBHN 17.
 2. **Lớp B**: trước khi thêm rule kiểm tra “có bằng chứng trên XML5”, xác nhận XML nguồn thực tế của BV **luôn** có dòng tương ứng; tránh pattern đã loại bỏ (Thực hiện + đếm XML5 mù).
 3. **Lớp C**: không bật hàng loạt; chỉ bật từng mã sau khi đối chiếu một file XML mẫu và xác nhận predicate chạy đúng.
 4. **Đối chiếu VBHN 17**: mỗi quy tắc nên có `co_so_phap_ly` / tham chiếu điều khoản; trùng khớp mã DVKT trên **M05 nội bộ**, không dùng mã giả lập (`CHUP_MRI`, …) trong điều kiện engine XML trừ khi đã ánh xạ sang `MA_DICH_VU`.
+5. **Điều 4 khoản 4 / 4a / 4d**: rule tự động chỉ kết luận khi danh mục hoặc dòng XML có dấu hiệu rõ như “không thanh toán riêng”, “đã kết cấu trong giá”, “công đoạn đã tính trong giá”, “kết quả tính toán từ DV khác”; các trường hợp “không thanh toán đồng thời” cần mapping cặp DV cụ thể trước khi bật rule riêng.
 
 ## 4. Lộ trình CHUYEN_DE → XML130
 
@@ -34,6 +35,7 @@ Ngày: 11/04/2026
 
 - Xóa khỏi seed các quy tắc **Thực hiện -** có `COUNT_IF(DS_XML5` (ví dụ nhóm liên quan TSH, CBC laser, glucose dịch não tủy…); phiên bản seed ghi trong `du_lieu_luat_pttt_muc11.jsx` và lọc cache trong `seed_luat_pttt_muc11.jsx`.
 - Script đối chiếu báo lỗi: bỏ nhánh xử lý riêng các mã đã gỡ (ví dụ `DVKT_2335`).
+- Bổ sung `DVKT-OP-17` trong `dvkt_op_giam_dinh.jsx`: phát hiện dòng XML3 còn phát sinh thanh toán khi chính dòng/danh mục có dấu hiệu công đoạn hoặc cấu phần đã gộp, không thanh toán riêng theo VBHN 17 Điều 4 khoản 4, Điều 4a khoản 3, Điều 4d khoản 1.
 
 ## 6. Checklist nhanh trước khi merge quy tắc DVKT
 

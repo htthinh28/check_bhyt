@@ -128,6 +128,7 @@ const DEFAULT_DVKT_RULES = [
   { RULE_CODE: 'DVKT-OP-09', RULE_NAME: 'Khám và giường bệnh (nội bộ) được phê duyệt', OPERATOR: 'CHECK_INTERNAL_APPROVAL', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT không nằm trong danh mục Khám và giường bệnh (nội bộ) được phê duyệt.' },
   { RULE_CODE: 'DVKT-OP-10', RULE_NAME: 'Thời gian hành nghề bác sỹ', OPERATOR: 'CHECK_STAFF_PRACTICE_TIME', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'Thông tin hành nghề bác sỹ không hợp lệ tại thời điểm thực hiện DVKT.' },
   { RULE_CODE: 'DVKT-OP-11', RULE_NAME: 'Danh mục 3 tạm thời chưa thanh toán', OPERATOR: 'CHECK_TEMP_LIST3', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT thuộc danh mục tạm thời chưa được quỹ BHYT thanh toán.' },
+  { RULE_CODE: 'DVKT-OP-17', RULE_NAME: 'Điều kiện thanh toán: công đoạn/gói không thanh toán riêng', OPERATOR: 'CHECK_BUNDLED_OR_DERIVED_PAYMENT', STATUS: 'ON', SEVERITY: 'REJECT', ALERT_MESSAGE: 'DVKT/cấu phần đã được kết cấu trong giá dịch vụ khác hoặc không thanh toán riêng nhưng vẫn phát sinh thanh toán BHYT.' },
   { RULE_CODE: 'DVKT-OP-13', RULE_NAME: 'Đối soát tên DVKT theo danh mục', OPERATOR: 'CHECK_CATALOG_NAME_MATCH', STATUS: 'ON', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Tên DVKT trên hồ sơ không khớp danh mục nội bộ M05.' },
   { RULE_CODE: 'DVKT-OP-14', RULE_NAME: 'Danh mục DVKT phải có đơn giá', OPERATOR: 'CHECK_CATALOG_PRICE_CONFIG', STATUS: 'ON', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Danh mục nội bộ M05 chưa cấu hình đơn giá cho DVKT.' },
   { RULE_CODE: 'DVKT-OP-15', RULE_NAME: 'Danh mục DVKT phải có quyết định', OPERATOR: 'CHECK_CATALOG_DECISION', STATUS: 'ON', SEVERITY: 'WARNING', ALERT_MESSAGE: 'Danh mục nội bộ M05 chưa có thông tin quyết định phê duyệt DVKT.' },
@@ -169,6 +170,7 @@ const LEGAL_BASIS_BY_OPERATOR = {
   CHECK_VALIDITY: `${VBHN_17_META}: Điều 3 khoản 2. ${ND_188_META}. ${QD_3618_BHXH_META}`,
   CHECK_GHICHU: `${VBHN_17_META}: Điều 2 khoản 2, 3; Điều 4a khoản 2, 3. ${ND_188_META}. ${QD_3618_BHXH_META}`,
   CHECK_TEMP_LIST3: `${VBHN_17_META}: Điều 1 khoản 2 điểm c; Điều 4 khoản 6. ${ND_188_META}. ${QD_3618_BHXH_META}`,
+  CHECK_BUNDLED_OR_DERIVED_PAYMENT: `${VBHN_17_META}: Điều 4 khoản 4; Điều 4a khoản 3; Điều 4d khoản 1. ${ND_188_META}. ${QD_3618_BHXH_META}`,
   CHECK_ICD_INDICATION: `${VBHN_17_META}: Điều 3 khoản 1 điểm b. ${ND_188_META}. ${QD_3618_BHXH_META}`,
   CHECK_ICD_CONTRAINDICATION: `${VBHN_17_META}: Điều 3 khoản 1 điểm b. ${ND_188_META}. ${QD_3618_BHXH_META}`,
   CHECK_PTTT_LEVEL: `${VBHN_17_META}: Điều 3 khoản 1 điểm b. ${ND_188_META}. ${QD_3618_BHXH_META}`,
@@ -575,6 +577,27 @@ const locTrungRuleTheoYNgia = (rules = []) => {
   return Array.from(map.values());
 };
 
+const tronRuleMacDinhVaRuleDongTheoMa = (defaultRules = [], dynamicRules = []) => {
+  const output = [];
+  const indexByCode = new Map();
+  const addOrReplace = (rule) => {
+    const code = normalizeToken(rule?.RULE_CODE || rule?.MA_LUAT || '');
+    if (!code) {
+      output.push(rule);
+      return;
+    }
+    if (indexByCode.has(code)) {
+      output[indexByCode.get(code)] = rule;
+      return;
+    }
+    indexByCode.set(code, output.length);
+    output.push(rule);
+  };
+  (Array.isArray(defaultRules) ? defaultRules : []).forEach(addOrReplace);
+  (Array.isArray(dynamicRules) ? dynamicRules : []).forEach(addOrReplace);
+  return output;
+};
+
 const taoKhoaGopKetQua = (detail = {}) => {
   const phanHe = toUpper(detail.source_xml || '');
   const idx = Number.isFinite(detail.line_index) ? detail.line_index : -1;
@@ -911,7 +934,7 @@ const buildEngineConfig = async () => {
   ]);
 
   const rules = normalizeRules(rulesRaw);
-  const activeRules = locTrungRuleTheoYNgia((rules.length > 0 ? rules : DEFAULT_DVKT_RULES)
+  const activeRules = locTrungRuleTheoYNgia(tronRuleMacDinhVaRuleDongTheoMa(DEFAULT_DVKT_RULES, rules)
     .filter((r) => isRuleOn(r.STATUS))
     .filter((r) => toUpper(r.RULE_CODE || r.MA_LUAT || '') !== 'DVKT-OP-12')
     .filter((r) => isQuyTacNoiBoDangBat(r.RULE_CODE || r.MA_LUAT || '', mapTrangThaiNoiBo, true))
@@ -1460,6 +1483,20 @@ const extractDvktLines = (hoSo) => {
       maVatTu: toUpper(pickValue(row, ['MA_VAT_TU'])),
       maMay: toUpper(pickValue(row, ['MA_MAY'])),
       stt: String(pickValue(row, ['STT'])),
+      soLuong: toNumber(pickValue(row, ['SO_LUONG', 'SOLUONG'])),
+      thanhTienBh: toNumber(pickValue(row, ['THANH_TIEN_BH', 'T_BHTT', 'T_BNTT'])),
+      thanhTien: toNumber(pickValue(row, ['THANH_TIEN', 'THANH_TIEN_BV'])),
+      tyleTt: toNumber(pickValue(row, ['TYLE_TT', 'TY_LE_TT', 'TYLE_TT_BH'])),
+      ghiChuDongNorm: normalizeText(collectFieldValues(row, [
+        'GHI_CHU',
+        'GHICHU',
+        'DIEU_KIEN_THANH_TOAN',
+        'DIEU_KIEN',
+        'COT_3',
+        'MO_TA',
+        'TEN_VAT_TU',
+        'TEN_DICH_VU',
+      ]).join(' ')),
       /** QĐ 130 XML3 — mã giường tại khoa (đối chiếu DM Giường & khám BV khi có). */
       maGiuong: normalizeDvktCode(pickValue(row, ['MA_GIUONG'])),
     });
@@ -1611,6 +1648,30 @@ const isTempList3NotPay = (dmRow) => {
     || token.includes('DANHMUCTAMTHOI')
     || token.includes('TAMTHOICHUATHANHTOAN')
     || (token.includes('DANHMUC3') && token.includes('CHUATHANHTOAN'));
+};
+const coPhatSinhThanhToanBhyt = (line) => {
+  if (!line) return false;
+  if (Number(line.thanhTienBh || 0) > 0) return true;
+  if (Number(line.thanhTien || 0) > 0) return true;
+  if (Number(line.donGiaClaim || 0) > 0 && Number(line.soLuong || 0) > 0) return true;
+  if (Number(line.tyleTt || 0) > 0 && Number(line.donGiaClaim || 0) > 0) return true;
+  return false;
+};
+const laDauHieuKhongThanhToanRiengHoacDaKetCau = (rawText) => {
+  const text = normalizeText(rawText || '');
+  const token = normalizeToken(text);
+  if (!token) return false;
+  return token.includes('KHONGTHANHTOANRIENG')
+    || token.includes('KHONGDUOCTHANHTOANRIENG')
+    || token.includes('KHONGTINHTHANHTOANRIENG')
+    || token.includes('DAKETCAUTRONGGIA')
+    || token.includes('DAKETCAUTRONGCHIPHI')
+    || token.includes('DAKETCAUTRONGCOCAUGIA')
+    || token.includes('DACOTRONGCOCAUGIA')
+    || (token.includes('CONGDOAN') && token.includes('DATINH') && token.includes('GIA'))
+    || (token.includes('THUOCQUYTRINH') && token.includes('DATINH') && token.includes('GIA'))
+    || (token.includes('KETQUA') && token.includes('TINHTOANTU') && token.includes('DICHVU'))
+    || (token.includes('KETQUA') && token.includes('THUCHIEN') && token.includes('DICHVU'));
 };
 const laDongCanLamSangKhongDuDuLieuNguoiThucHien = ({
   line,
@@ -2068,6 +2129,22 @@ const checkGhiChu = ({ rule, line, claim, config }) => {
   return pass();
 };
 
+const checkBundledOrDerivedPayment = ({ rule, line, config }) => {
+  if (!coPhatSinhThanhToanBhyt(line)) return pass();
+  const dmRow = config.dmktByCode.get(line.maTuongDuong);
+  const textNguon = [
+    line.ghiChuDongNorm,
+    dmRow?.dieuKienThanhToanNorm,
+    dmRow?.ghiChuNorm,
+  ].filter(Boolean).join(' ');
+  if (!laDauHieuKhongThanhToanRiengHoacDaKetCau(textNguon)) return pass();
+  return fail(
+    'REJECT',
+    `${rule.ALERT_MESSAGE} Dấu hiệu điều kiện: "${String(textNguon).slice(0, 180)}".`,
+    'DIEU_KIEN_THANH_TOAN',
+  );
+};
+
 const checkCatalogNameMatch = ({ rule, line, config }) => {
   const dmRow = config.dmktByCode.get(line.maTuongDuong);
   if (!dmRow) return pass();
@@ -2119,6 +2196,7 @@ const OPERATOR_HANDLERS = {
   CHECK_VALIDITY: checkValidity,
   CHECK_PTTT_LEVEL: checkPtttLevel,
   CHECK_GHICHU: checkGhiChu,
+  CHECK_BUNDLED_OR_DERIVED_PAYMENT: checkBundledOrDerivedPayment,
   CHECK_CATALOG_NAME_MATCH: checkCatalogNameMatch,
   CHECK_CATALOG_PRICE_CONFIG: checkCatalogPriceConfig,
   CHECK_CATALOG_DECISION: checkCatalogDecision,
