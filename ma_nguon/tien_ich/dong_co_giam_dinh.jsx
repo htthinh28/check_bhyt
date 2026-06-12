@@ -2646,6 +2646,108 @@ const tachDanhSachTuKhoaTuRule = (raw = '') => String(raw || '')
     .map((x) => normalizeTextNoAccent(String(x || '')).toUpperCase().trim())
     .filter(Boolean);
 
+const normalizeIcdThuocDktt = (value) => UPPER(value || '').replace(/[^A-Z0-9.]/g, '');
+
+const parseIcdThuocDktt = (value) => {
+    const normalized = normalizeIcdThuocDktt(value).replace(/\./g, '');
+    const match = normalized.match(/^([A-TV-Z])(\d{2})([0-9A-Z]{0,2})$/);
+    if (!match) return null;
+    return {
+        letter: match[1],
+        major: parseInt(match[2], 10),
+        suffix: match[3] || '',
+        normalized,
+    };
+};
+
+const khoaIcdThuocDkttDayDu = (parsed) => `${parsed.letter}${String(parsed.major).padStart(2, '0')}${String(parsed.suffix || '').padEnd(2, '0')}`;
+const khoaIcdThuocDkttNhom = (parsed) => `${parsed.letter}${String(parsed.major).padStart(2, '0')}`;
+
+const icdThuocDkttKhopToken = (tokenRaw, icdHoSoRaw) => {
+    const tokenText = UPPER(tokenRaw || '').replace(/\s+/g, '');
+    const icdHoSo = parseIcdThuocDktt(icdHoSoRaw);
+    if (!tokenText || !icdHoSo) return false;
+
+    const rangeMatch = tokenText.match(/^([A-TV-Z]\d{2}(?:\.[0-9A-Z]{1,2})?)(?:-|–|—|DEN|ĐEN|ĐẾN)([A-TV-Z]\d{2}(?:\.[0-9A-Z]{1,2})?)$/);
+    if (rangeMatch) {
+        const start = parseIcdThuocDktt(rangeMatch[1]);
+        const end = parseIcdThuocDktt(rangeMatch[2]);
+        if (!start || !end || start.letter !== end.letter || icdHoSo.letter !== start.letter) return false;
+        const useCategory = !start.suffix && !end.suffix;
+        const value = useCategory ? khoaIcdThuocDkttNhom(icdHoSo) : khoaIcdThuocDkttDayDu(icdHoSo);
+        const from = useCategory ? khoaIcdThuocDkttNhom(start) : khoaIcdThuocDkttDayDu(start);
+        const to = useCategory ? khoaIcdThuocDkttNhom(end) : khoaIcdThuocDkttDayDu(end);
+        return value >= from && value <= to;
+    }
+
+    const rule = parseIcdThuocDktt(tokenText);
+    if (!rule) return false;
+    if (rule.normalized === icdHoSo.normalized) return true;
+    const ruleCategory = khoaIcdThuocDkttNhom(rule);
+    const hoSoCategory = khoaIcdThuocDkttNhom(icdHoSo);
+    if (!rule.suffix && hoSoCategory === ruleCategory) return true;
+    return !icdHoSo.suffix && ruleCategory === hoSoCategory;
+};
+
+const chuanHoaKhoaDoiChieuThuoc = (value) => String(value || '').trim().toUpperCase();
+const chuanHoaTenDoiChieuThuoc = (value) => normalizeTextNoAccent(String(value || '')).toUpperCase().replace(/\s+/g, ' ').trim();
+const themVaoMapDanhSach = (map, key, row) => {
+    const k = String(key || '').trim();
+    if (!k) return;
+    if (!map.has(k)) map.set(k, []);
+    map.get(k).push(row);
+};
+
+const layKhoaMaThuocDkttTuRule = (rule = {}) => [
+    rule.MA_THUOC_QD7603,
+    rule.MA_THUOC_QD130,
+    rule.MA_THUOC,
+    rule.MA_HOAT_CHAT,
+    rule.MA_HOAT_CHAT_QD7603,
+    rule.MA_HOAT_CHAT_QD130,
+    rule.MA_HOAT_CHAT_BYT,
+    rule.MA_HOAT_CHAT_BHYT,
+].map(chuanHoaKhoaDoiChieuThuoc).filter(Boolean);
+
+const layKhoaTenThuocDkttTuRule = (rule = {}) => [
+    rule.TEN_HOAT_CHAT,
+    rule.HOAT_CHAT,
+    rule.TEN_HOAT_CHAT_BYT,
+    rule.TEN_THUOC,
+].map(chuanHoaTenDoiChieuThuoc).filter((x) => x.length >= 3);
+
+const layKhoaMaThuocDkttTuXml2 = (row = {}) => [
+    row.MA_THUOC,
+    row.MA_HOAT_CHAT,
+].map(chuanHoaKhoaDoiChieuThuoc).filter(Boolean);
+
+const layKhoaTenThuocDkttTuXml2 = (row = {}) => [
+    row.TEN_HOAT_CHAT,
+    row.HOAT_CHAT,
+    row.TEN_THUOC,
+].map(chuanHoaTenDoiChieuThuoc).filter((x) => x.length >= 3);
+
+const layDanhSachRuleThuocDkttChoDongXml2 = (byMaThuoc, byTenHoatChat, row) => {
+    const out = [];
+    const seen = new Set();
+    const pushRule = (rule) => {
+        if (!rule) return;
+        const key = `${String(rule.MA_GIAM_DINH || '')}\0${String(rule.MA_THUOC_QD7603 || rule.MA_THUOC || rule.MA_HOAT_CHAT || '')}\0${String(rule.TEN_QUY_TAC || '')}`;
+        if (seen.has(key)) return;
+        seen.add(key);
+        out.push(rule);
+    };
+    layKhoaMaThuocDkttTuXml2(row).forEach((key) => (byMaThuoc.get(key) || []).forEach(pushRule));
+    const tenDong = layKhoaTenThuocDkttTuXml2(row);
+    tenDong.forEach((ten) => {
+        (byTenHoatChat.get(ten) || []).forEach(pushRule);
+        byTenHoatChat.forEach((rules, key) => {
+            if (key.length >= 3 && (ten.includes(key) || key.includes(ten))) rules.forEach(pushRule);
+        });
+    });
+    return out;
+};
+
 const layTuoiNamHoSo = (xml1 = {}) => {
     const tuoiNam = TO_NUMBER(xml1?.TUOI);
     if (Number.isFinite(tuoiNam) && tuoiNam > 0) return tuoiNam;
@@ -2665,17 +2767,17 @@ const coCumTuChiDinhTuoiDuoi6 = (rule = {}, dongThuoc = {}) => {
 const coIcdPhuHopThuocDieuKien = (icdChinh = '', icdKem = '', dsIcdRule = []) => {
     if (!Array.isArray(dsIcdRule) || dsIcdRule.length === 0) return false;
     const tapIcdHoSo = new Set([
-        UPPER(icdChinh || ''),
+        normalizeIcdThuocDktt(icdChinh || ''),
         ...String(icdKem || '')
             .split(/[;,\s|]+/)
-            .map((x) => String(x || '').trim().toUpperCase())
+            .map((x) => normalizeIcdThuocDktt(x || ''))
             .filter(Boolean),
     ]);
     for (const icd of dsIcdRule) {
         if (!icd) continue;
         for (const h of tapIcdHoSo) {
             if (!h) continue;
-            if (h === icd || h.startsWith(`${icd}.`) || icd.startsWith(`${h}.`)) return true;
+            if (icdThuocDkttKhopToken(icd, h)) return true;
         }
     }
     return false;
@@ -2700,11 +2802,10 @@ const giamDinhThuocDieuKienThanhToan = (hoSo, dm) => {
     if (!xml1 || !Array.isArray(xml2) || xml2.length === 0 || rules.length === 0) return ds;
 
     const byMaThuoc = new Map();
+    const byTenHoatChat = new Map();
     rules.forEach((r) => {
-        const ma = UPPER(r?.MA_THUOC_QD7603 || '');
-        if (!ma) return;
-        if (!byMaThuoc.has(ma)) byMaThuoc.set(ma, []);
-        byMaThuoc.get(ma).push(r);
+        layKhoaMaThuocDkttTuRule(r).forEach((ma) => themVaoMapDanhSach(byMaThuoc, ma, r));
+        layKhoaTenThuocDkttTuRule(r).forEach((ten) => themVaoMapDanhSach(byTenHoatChat, ten, r));
     });
 
     const maBenhChinh = UPPER(xml1?.MA_BENH_CHINH || '');
@@ -2713,9 +2814,8 @@ const giamDinhThuocDieuKienThanhToan = (hoSo, dm) => {
 
     xml2.forEach((row, idx) => {
         if (laBHYTKhôngThanhToan(row)) return;
-        const maThuoc = UPPER(row?.MA_THUOC || '');
-        if (!maThuoc) return;
-        const danhSachRule = byMaThuoc.get(maThuoc) || [];
+        const maThuoc = UPPER(row?.MA_THUOC || row?.MA_HOAT_CHAT || '');
+        const danhSachRule = layDanhSachRuleThuocDkttChoDongXml2(byMaThuoc, byTenHoatChat, row);
         if (danhSachRule.length === 0) return;
 
         danhSachRule.forEach((rule, ridx) => {
@@ -5966,15 +6066,92 @@ const taoHamDieuKienLuatDong = (jsQuery = '') => {
                 return !codes.some((k) => m.has(k));
             };
             const chuanHoaMaIcdPhacDoCdss = ${chuanHoaMaIcdPhacDoCdss.toString()};
-            const CO_CO_DONG_MAPPING_ICD_THUOC = (maThuoc) => {
-                const st = danhMucHeThong && danhMucHeThong.SET_MA_THUOC_CO_MAPPING_ICD;
-                const mm = String(maThuoc || '').trim();
-                return !!(st && typeof st.has === 'function' && mm && st.has(mm));
+            const normalizeTextNoAccent = ${normalizeTextNoAccent.toString()};
+            const tachMap = (x) => String(x || '').trim().replace(/\\|/g,';').replace(/,/g,';').split(';').map(z=>String(z||'').trim()).filter(Boolean);
+            const normalizeDrugMappingName = (x) => normalizeTextNoAccent(String(x || '')).toLowerCase().replace(/\\s+/g, ' ').trim();
+            const collectTargetCodesIcdDrug = (row) => {
+                const md = row && row.metadata && typeof row.metadata === 'object' ? row.metadata : {};
+                if (Array.isArray(md.target_codes) && md.target_codes.length) {
+                    return md.target_codes.map(c=>String(c||'').trim()).filter(Boolean);
+                }
+                return tachMap(row && row.target_code);
             };
-            const CO_ICD_KHOP_MAPPING_THUOC = (maThuoc) => {
+            const collectTargetNamesIcdDrug = (row) => {
+                const md = row && row.metadata && typeof row.metadata === 'object' ? row.metadata : {};
+                const arr = [
+                    row && row.target_name,
+                    ...(Array.isArray(md.target_names) ? md.target_names : []),
+                    ...(Array.isArray(md.ten_thuoc_aliases) ? md.ten_thuoc_aliases : []),
+                    ...(Array.isArray(md.hoat_chat_aliases) ? md.hoat_chat_aliases : []),
+                    ...(Array.isArray(md.ten_hoat_chat_aliases) ? md.ten_hoat_chat_aliases : []),
+                ];
+                return arr.map(normalizeDrugMappingName).filter(x => x.length >= 3);
+            };
+            const dongThuocKhopDongIcdDrug = (mThuoc, maHc, tenT, hoatT, row, useMoRong) => {
+                const tgts = collectTargetCodesIcdDrug(row);
+                if ((mThuoc && tgts.indexOf(mThuoc) !== -1) || (maHc && tgts.indexOf(maHc) !== -1)) return true;
+                if (!useMoRong) return false;
+                const tenDong = [
+                    normalizeDrugMappingName(tenT),
+                    normalizeDrugMappingName(hoatT),
+                ].filter(x => x.length >= 3);
+                if (tenDong.length === 0) return false;
+                const aliases = collectTargetNamesIcdDrug(row);
+                return tenDong.some((ten) => aliases.some((alias) => ten.includes(alias) || alias.includes(ten)));
+            };
+            const parseIcdComparableDrugMapping = (value) => {
+                const normalized = String(value || '').toUpperCase().replace(/[^A-Z0-9.]/g, '').replace(/\\./g, '');
+                const match = normalized.match(/^([A-TV-Z])(\\d{2})([0-9A-Z]{0,2})$/);
+                if (!match) return null;
+                return { letter: match[1], major: parseInt(match[2], 10), suffix: match[3] || '', normalized };
+            };
+            const buildIcdFullKeyDrugMapping = (p) => \`\${p.letter}\${String(p.major).padStart(2, '0')}\${String(p.suffix || '').padEnd(2, '0')}\`;
+            const buildIcdCategoryKeyDrugMapping = (p) => \`\${p.letter}\${String(p.major).padStart(2, '0')}\`;
+            const icdTokenKhopIcdHoSoDrugMapping = (tokenRaw, icdHoSoRaw) => {
+                const token = String(tokenRaw || '').toUpperCase().replace(/\\s+/g, '');
+                const hoSo = parseIcdComparableDrugMapping(icdHoSoRaw);
+                if (!token || !hoSo) return false;
+                const range = token.match(/^([A-TV-Z]\\d{2}(?:\\.[0-9A-Z]{1,2})?)(?:-|–|—|DEN|ĐEN|ĐẾN)([A-TV-Z]\\d{2}(?:\\.[0-9A-Z]{1,2})?)$/);
+                if (range) {
+                    const start = parseIcdComparableDrugMapping(range[1]);
+                    const end = parseIcdComparableDrugMapping(range[2]);
+                    if (!start || !end || start.letter !== end.letter || hoSo.letter !== start.letter) return false;
+                    const categoryOnly = !start.suffix && !end.suffix;
+                    const value = categoryOnly ? buildIcdCategoryKeyDrugMapping(hoSo) : buildIcdFullKeyDrugMapping(hoSo);
+                    const from = categoryOnly ? buildIcdCategoryKeyDrugMapping(start) : buildIcdFullKeyDrugMapping(start);
+                    const to = categoryOnly ? buildIcdCategoryKeyDrugMapping(end) : buildIcdFullKeyDrugMapping(end);
+                    return value >= from && value <= to;
+                }
+                const rule = parseIcdComparableDrugMapping(token);
+                if (!rule) return false;
+                if (rule.normalized === hoSo.normalized) return true;
+                const ruleCategory = buildIcdCategoryKeyDrugMapping(rule);
+                const hoSoCategory = buildIcdCategoryKeyDrugMapping(hoSo);
+                if (!rule.suffix && ruleCategory === hoSoCategory) return true;
+                return !hoSo.suffix && ruleCategory === hoSoCategory;
+            };
+            const CO_CO_DONG_MAPPING_ICD_THUOC = (maThuoc, maHoatChat, tenThuoc, hoatChat) => {
                 const rowsAll = danhMucHeThong && danhMucHeThong.DM_MAPPING_ICD_THUOC_ROWS;
                 const mThuoc = String(maThuoc || '').trim();
-                if (!Array.isArray(rowsAll) || !mThuoc) return true;
+                const maHc = String(maHoatChat || '').trim();
+                const useMoRong = !!(maHc || String(tenThuoc || '').trim() || String(hoatChat || '').trim());
+                if (!useMoRong) {
+                    const st = danhMucHeThong && danhMucHeThong.SET_MA_THUOC_CO_MAPPING_ICD;
+                    return !!(st && typeof st.has === 'function' && mThuoc && st.has(mThuoc));
+                }
+                if (!Array.isArray(rowsAll)) return false;
+                return rowsAll.some((row) => {
+                    if (String(row.mapping_type || '').toUpperCase() !== 'ICD_DRUG') return false;
+                    if (row.is_active === false) return false;
+                    return dongThuocKhopDongIcdDrug(mThuoc, maHc, tenThuoc, hoatChat, row, true);
+                });
+            };
+            const CO_ICD_KHOP_MAPPING_THUOC = (maThuoc, maHoatChat, tenThuoc, hoatChat) => {
+                const rowsAll = danhMucHeThong && danhMucHeThong.DM_MAPPING_ICD_THUOC_ROWS;
+                const mThuoc = String(maThuoc || '').trim();
+                const maHc = String(maHoatChat || '').trim();
+                const useMoRong = !!(maHc || String(tenThuoc || '').trim() || String(hoatChat || '').trim());
+                if (!Array.isArray(rowsAll) || (!mThuoc && !maHc && !String(tenThuoc || '').trim() && !String(hoatChat || '').trim())) return true;
                 let ngayT = Date.now();
                 try {
                     const nx = XML1 && (XML1.NGAY_RA || XML1.NGAY_VAO || '');
@@ -5984,32 +6161,23 @@ const taoHamDieuKienLuatDong = (jsQuery = '') => {
                         if (Number.isFinite(d.getTime())) ngayT = d.getTime();
                     }
                 } catch (_e) {}
-                const icdChoPhep = new Set();
-                const tachMap = (x) => String(x || '').trim().replace(/\\|/g,';').replace(/,/g,';').split(';').map(z=>String(z||'').trim()).filter(Boolean);
+                const icdChoPhep = [];
                 rowsAll.forEach((row) => {
                     if (String(row.mapping_type || '').toUpperCase() !== 'ICD_DRUG') return;
                     if (row.is_active === false) return;
                     if (row.effective_from && new Date(row.effective_from).getTime() > ngayT) return;
                     if (row.effective_to && new Date(row.effective_to).getTime() < ngayT) return;
                     const md = row.metadata && typeof row.metadata === 'object' ? row.metadata : {};
-                    let tgts = [];
-                    if (Array.isArray(md.target_codes) && md.target_codes.length) tgts = md.target_codes.map(c=>String(c||'').trim()).filter(Boolean);
-                    else tgts = tachMap(row.target_code);
-                    if (tgts.indexOf(mThuoc) === -1) return;
+                    if (!dongThuocKhopDongIcdDrug(mThuoc, maHc, tenThuoc, hoatChat, row, useMoRong)) return;
                     let srcs = [];
                     if (Array.isArray(md.source_icd_codes) && md.source_icd_codes.length) srcs = md.source_icd_codes.map(c=>String(c||'').trim()).filter(Boolean);
                     else srcs = tachMap(row.source_code);
-                    srcs.forEach((icdRaw) => {
-                        const x = chuanHoaMaIcdPhacDoCdss(icdRaw);
-                        const k = x ? String(x).replace(/\\./g,'').toUpperCase() : '';
-                        if (k) icdChoPhep.add(k);
-                    });
+                    srcs.forEach((icdRaw) => { if (String(icdRaw || '').trim()) icdChoPhep.push(icdRaw); });
                 });
-                if (icdChoPhep.size === 0) return true;
+                if (icdChoPhep.length === 0) return true;
                 const hs = layMaIcdGopChinhVaKemKhongTrung(XML1);
-                return hs.some((icd) => icdChoPhep.has(icd));
+                return hs.some((icd) => icdChoPhep.some((token) => icdTokenKhopIcdHoSoDrugMapping(token, icd)));
             };
-            const normalizeTextNoAccent = ${normalizeTextNoAccent.toString()};
             const tachMapCdContra = (x) => String(x || '').trim().replace(/\\|/g,';').replace(/,/g,';').split(';').map(z=>String(z||'').trim()).filter(Boolean);
             const parseIcdTokensToKeysCdContra = (tokRaw) => {
                 const t = String(tokRaw || '').trim().toUpperCase().replace(/\\s+/g, '');

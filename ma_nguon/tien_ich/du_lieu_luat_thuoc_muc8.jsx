@@ -1,5 +1,5 @@
 /** AUTO-GENERATED from DuLieu_LUAT_THUOC (9).xlsx */
-export const PHIEN_BAN_SEED_LUAT_THUOC_MUC8 = '2026-05-01_THUOC540_HCT_chong_chi_dinh';
+export const PHIEN_BAN_SEED_LUAT_THUOC_MUC8 = '2026-06-12_VBHN15_ICD_hoat_chat';
 export const COT_SEED_LUAT_THUOC_MUC8 = ["TRANG_THAI","MA_LUAT","TEN_QUY_TAC","DIEU_KIEN","CANH_BAO","GHI_CHU","NGUON_DU_LIEU"];
 export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   {
@@ -5386,5 +5386,16 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "CANH_BAO": "⛔ [NGUY HIỂM / CHỐNG CHỈ ĐỊNH]: Thuốc có Hydrochlorothiazide (HCT/HCTZ, kể cả phối hợp hạ áp) — bệnh nhân có ICD-10 chính/kèm: gút (M10, M1A), tăng acid uric máu (E79.0), vô niệu/thiểu niệu (R34), suy tuyến thượng thận/Addison (E27.4), tăng calci máu (E83.52), suy thận giai đoạn cuối/nặng (N18.4–N18.6), suy gan nặng (K72.*). Kê đơn không phù hợp chống chỉ định — đối chiếu SmPC và hồ sơ lâm sàng.",
     "GHI_CHU": "Engine: dong_co_giam_dinh — nhận diện tên/hoạt chất (XML2 + DM thuốc BV); ICD qua tachMaIcd (MA_BENH_CHINH, MA_BENH_KT, MA_BENHKEM).",
     "NGUON_DU_LIEU": "engine_THUOC_540_HCT_ICD"
+  },
+  {
+    "id": "SEED_THUOC_541",
+    "TRANG_THAI": "ON",
+    "MA_LUAT": "THUOC_541",
+    "MUC_DO": "Critical",
+    "TEN_QUY_TAC": "[15/VBHN-BYT] Hoạt chất có điều kiện thanh toán gắn ICD-10",
+    "DIEU_KIEN": "NOT IS_EMPTY(XML2.MA_THUOC) AND CO_THUOC_TRONG_DM_BV(XML2.MA_THUOC) AND CO_CO_DONG_MAPPING_ICD_THUOC(XML2.MA_THUOC, XML2.MA_HOAT_CHAT, XML2.TEN_THUOC, XML2.TEN_HOAT_CHAT) AND NOT CO_ICD_KHOP_MAPPING_THUOC(XML2.MA_THUOC, XML2.MA_HOAT_CHAT, XML2.TEN_THUOC, XML2.TEN_HOAT_CHAT)",
+    "CANH_BAO": "⛔ [XUẤT TOÁN / 15-VBHN-BYT]: Thuốc/hoạt chất {MA_THUOC} {TEN_THUOC} có điều kiện thanh toán tại Phụ lục I cột 8 nhưng ICD-10 trên XML1 không khớp mapping ICD_DRUG đã cấu hình. Rà soát mã bệnh chính/kèm và chỉ định thanh toán theo hoạt chất.",
+    "GHI_CHU": "DSL: mapping ICD_DRUG có thể target MA_THUOC, MA_HOAT_CHAT hoặc alias tên hoạt chất/sinh phẩm; hỗ trợ mã ICD nhóm và range (ví dụ C00-C97).",
+    "NGUON_DU_LIEU": "15/VBHN-BYT_2024_Phu_luc_I_cot_8"
   }
 ];
