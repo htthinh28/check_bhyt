@@ -223,3 +223,20 @@ The goal: Be helpful without being annoying. Check in a few times a day, do usef
 ## Make It Yours
 
 This is a starting point. Add your own conventions, style, and rules as you figure out what works.
+
+## Cursor Cloud specific instructions
+
+Environment: Node 22, Python 3.12. Dependencies are refreshed automatically on startup (`npm install --legacy-peer-deps`). Plain `npm install` can fail on peer-dep conflicts — always use `--legacy-peer-deps` (also why `node_modules` should be wiped before reinstalling if things look off).
+
+Services (this is an Expo React Native app exported to web; main product = the Expo web dev server):
+
+- **Web app (primary):** `npm run web` → http://localhost:8081. The `preweb`/`prestart` hook auto-runs `npm run chuyen-de:prepare-build` (several codegen/QA node scripts) before Metro starts, so the first boot takes a bit and prints lots of Vietnamese log lines — that is expected, not an error.
+- **Login is fully local** (AsyncStorage); no Firebase needed for dev. There is a built-in emergency ADMIN account hardcoded in `ma_nguon/man_hinh/dang_nhap.jsx`: `htthinh28@gmail.com` / `Tramanh@2010##`. Logging in auto-creates the default admin if local storage is empty.
+- **Core flow to smoke-test the product:** dashboard → "Nạp hồ sơ XML" → "Chọn XML" → pick a claim XML → "CHUYỂN DỮ LIỆU ĐỂ SỬA LỖI" runs the audit engine and lists detected violations under "Danh mục vi phạm phát hiện (QPS)". Real sample XML130 claim files live in `test_xml/huan_luyen/*.xml` (e.g. `TRAINHL03_OP30.xml`). Note `tai_nguyen/ip/`, `tai_nguyen/xml/` are gitignored/empty, so `npm run qa:claim-audit-smoke` fails with "Claim file not found" — that is a missing-input issue, not a code bug; use the `test_xml` fixtures instead.
+- **Express LAN server (optional):** `npm run start:lan` (`server.js`, port 8080) serves `dist/` if present, otherwise proxies to the Expo dev server on 8081.
+- **Python FastAPI service (optional, hybrid AI):** not part of the auto update script. Needs the `python3-venv` apt package, then `python3 -m venv venv && ./venv/bin/pip install -r python_service/requirements.txt`. The `py:install`/`py:start` npm scripts call bare `python` (only `python3` exists here) — prefer the venv binaries directly. Run without GPU using `CDSS_AI_MOCK=1 ./venv/bin/python -m uvicorn python_service.app.main:app --host 0.0.0.0 --port 8000`. Smoke test: `npm run qa:python-service` (service must be running on :8000).
+
+Lint/test:
+
+- `npm run lint` = `expo lint` + `encoding:check` + `font:check`. `npx expo lint` and `encoding:check` pass, but `font:check` currently FAILS only on pre-existing checked-in web export artifacts under `web_export_test/` and `web_export_verify/` (not source). Treat that as a known pre-existing repo condition.
+- Fast node QA units that need no external data: `qa:config-versioning`, `qa:tai-khoan-storage`, `qa:tai-khoan-rbac`, `qa:audit-fixtures` (audit-fixtures exercises the core engine over committed fixtures).
