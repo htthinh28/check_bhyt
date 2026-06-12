@@ -2748,6 +2748,76 @@ const layDanhSachRuleThuocDkttChoDongXml2 = (byMaThuoc, byTenHoatChat, row) => {
     return out;
 };
 
+const layTargetCodesMappingIcdDrug = (row = {}) => {
+    const md = row?.metadata && typeof row.metadata === 'object' ? row.metadata : {};
+    if (Array.isArray(md.target_codes) && md.target_codes.length) {
+        return md.target_codes.map((c) => String(c || '').trim()).filter(Boolean);
+    }
+    return tachChuoiNhieuMa(row?.target_code || '');
+};
+
+const laySourceIcdMappingIcdDrug = (row = {}) => {
+    const md = row?.metadata && typeof row.metadata === 'object' ? row.metadata : {};
+    if (Array.isArray(md.source_icd_codes) && md.source_icd_codes.length) {
+        return md.source_icd_codes.map((c) => String(c || '').trim()).filter(Boolean);
+    }
+    return tachChuoiNhieuMa(row?.source_code || '');
+};
+
+const layTargetNamesMappingIcdDrug = (row = {}) => {
+    const md = row?.metadata && typeof row.metadata === 'object' ? row.metadata : {};
+    return [
+        row?.target_name,
+        ...(Array.isArray(md.target_names) ? md.target_names : []),
+        ...(Array.isArray(md.ten_thuoc_aliases) ? md.ten_thuoc_aliases : []),
+        ...(Array.isArray(md.hoat_chat_aliases) ? md.hoat_chat_aliases : []),
+        ...(Array.isArray(md.ten_hoat_chat_aliases) ? md.ten_hoat_chat_aliases : []),
+    ].map(chuanHoaTenDoiChieuThuoc).filter((x) => x.length >= 3);
+};
+
+const dongThuocKhopMappingIcdDrug = (rowXml2 = {}, rowMapping = {}) => {
+    const maThuoc = chuanHoaKhoaDoiChieuThuoc(rowXml2?.MA_THUOC);
+    const maHoatChat = chuanHoaKhoaDoiChieuThuoc(rowXml2?.MA_HOAT_CHAT);
+    const targetCodes = layTargetCodesMappingIcdDrug(rowMapping).map(chuanHoaKhoaDoiChieuThuoc);
+    if ((maThuoc && targetCodes.includes(maThuoc)) || (maHoatChat && targetCodes.includes(maHoatChat))) return true;
+    const tenDong = layKhoaTenThuocDkttTuXml2(rowXml2);
+    if (tenDong.length === 0) return false;
+    const aliases = layTargetNamesMappingIcdDrug(rowMapping);
+    return tenDong.some((ten) => aliases.some((alias) => ten.includes(alias) || alias.includes(ten)));
+};
+
+const layIcdHoSoChoMappingThuoc = (xml1 = {}) => Array.from(new Set([
+    normalizeIcdThuocDktt(xml1?.MA_BENH_CHINH || ''),
+    ...String(xml1?.MA_BENH_KT || '')
+        .split(/[;,\s|]+/)
+        .map((x) => normalizeIcdThuocDktt(x || ''))
+        .filter(Boolean),
+    ...String(xml1?.MA_BENHKEM || '')
+        .split(/[;,\s|]+/)
+        .map((x) => normalizeIcdThuocDktt(x || ''))
+        .filter(Boolean),
+].filter(Boolean)));
+
+const coDongMappingIcdDrugChoThuoc = (rowXml2 = {}, rowsMapping = []) => (Array.isArray(rowsMapping) ? rowsMapping : []).some((row) => {
+    if (String(row?.mapping_type || '').trim().toUpperCase() !== 'ICD_DRUG') return false;
+    if (row?.is_active === false) return false;
+    return dongThuocKhopMappingIcdDrug(rowXml2, row);
+});
+
+const coIcdHoSoKhopMappingIcdDrugChoThuoc = (xml1 = {}, rowXml2 = {}, rowsMapping = []) => {
+    const icdHoSo = layIcdHoSoChoMappingThuoc(xml1);
+    if (icdHoSo.length === 0) return false;
+    const sourceTokens = [];
+    (Array.isArray(rowsMapping) ? rowsMapping : []).forEach((row) => {
+        if (String(row?.mapping_type || '').trim().toUpperCase() !== 'ICD_DRUG') return;
+        if (row?.is_active === false) return;
+        if (!dongThuocKhopMappingIcdDrug(rowXml2, row)) return;
+        sourceTokens.push(...laySourceIcdMappingIcdDrug(row));
+    });
+    if (sourceTokens.length === 0) return true;
+    return icdHoSo.some((icd) => sourceTokens.some((token) => icdThuocDkttKhopToken(token, icd)));
+};
+
 const layTuoiNamHoSo = (xml1 = {}) => {
     const tuoiNam = TO_NUMBER(xml1?.TUOI);
     if (Number.isFinite(tuoiNam) && tuoiNam > 0) return tuoiNam;
@@ -5555,6 +5625,30 @@ const taoBoXuLyRuleDongDacBiet = (rule, conditionStr = '') => {
                 const blob = ghepVanBanNhanDangHctTuXml2(cur, mapThuoc);
                 if (!laVanBanCoHydrochlorothiazide(blob)) return;
                 if (!coHoSoCoIcdChongChiDinhHydrochlorothiazide(xml1)) return;
+                violations.push(taoCanhBaoViPhamRuleDong(ruleMeta, { phan_he: 'XML2', index, truong_loi: 'MA_THUOC' }));
+            });
+            return violations;
+        };
+    }
+
+    /**
+     * THUOC_541: 15/VBHN-BYT Phụ lục I cột 8 — thuốc/hoạt chất/sinh phẩm có mapping ICD_DRUG
+     * phải khớp ICD-10 trên XML1. Mapping có thể target MA_THUOC, MA_HOAT_CHAT hoặc alias hoạt chất.
+     */
+    if (maLuat === 'THUOC_541') {
+        return (ruleMeta, contextRuleDong, danhMucHeThong) => {
+            const xml1 = contextRuleDong?.baseCtx?.XML1 || {};
+            const rows = contextRuleDong?.rowsByTable?.XML2 || [];
+            const preparedRows = contextRuleDong?.preparedRowsByTable?.XML2 || [];
+            const rowsMapping = danhMucHeThong?.DM_MAPPING_ICD_THUOC_ROWS || [];
+            const violations = [];
+            if (!Array.isArray(rowsMapping) || rowsMapping.length === 0) return violations;
+            rows.forEach((row, index) => {
+                if (!row || laBHYTKhôngThanhToan(row)) return;
+                const cur = preparedRows[index] || enrichXML2Data(row);
+                if (IS_EMPTY(cur?.MA_THUOC)) return;
+                if (!coDongMappingIcdDrugChoThuoc(cur, rowsMapping)) return;
+                if (coIcdHoSoKhopMappingIcdDrugChoThuoc(xml1, cur, rowsMapping)) return;
                 violations.push(taoCanhBaoViPhamRuleDong(ruleMeta, { phan_he: 'XML2', index, truong_loi: 'MA_THUOC' }));
             });
             return violations;

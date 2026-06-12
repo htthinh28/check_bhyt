@@ -5393,7 +5393,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "MA_LUAT": "THUOC_541",
     "MUC_DO": "Critical",
     "TEN_QUY_TAC": "[15/VBHN-BYT] Hoạt chất có điều kiện thanh toán gắn ICD-10",
-    "DIEU_KIEN": "NOT IS_EMPTY(XML2.MA_THUOC) AND CO_THUOC_TRONG_DM_BV(XML2.MA_THUOC) AND CO_CO_DONG_MAPPING_ICD_THUOC(XML2.MA_THUOC, XML2.MA_HOAT_CHAT, XML2.TEN_THUOC, XML2.TEN_HOAT_CHAT) AND NOT CO_ICD_KHOP_MAPPING_THUOC(XML2.MA_THUOC, XML2.MA_HOAT_CHAT, XML2.TEN_THUOC, XML2.TEN_HOAT_CHAT)",
+    "DIEU_KIEN": "NOT IS_EMPTY(XML2.MA_THUOC) AND CO_CO_DONG_MAPPING_ICD_THUOC(XML2.MA_THUOC, XML2.MA_HOAT_CHAT, XML2.TEN_THUOC, XML2.TEN_HOAT_CHAT) AND NOT CO_ICD_KHOP_MAPPING_THUOC(XML2.MA_THUOC, XML2.MA_HOAT_CHAT, XML2.TEN_THUOC, XML2.TEN_HOAT_CHAT)",
     "CANH_BAO": "⛔ [XUẤT TOÁN / 15-VBHN-BYT]: Thuốc/hoạt chất {MA_THUOC} {TEN_THUOC} có điều kiện thanh toán tại Phụ lục I cột 8 nhưng ICD-10 trên XML1 không khớp mapping ICD_DRUG đã cấu hình. Rà soát mã bệnh chính/kèm và chỉ định thanh toán theo hoạt chất.",
     "GHI_CHU": "DSL: mapping ICD_DRUG có thể target MA_THUOC, MA_HOAT_CHAT hoặc alias tên hoạt chất/sinh phẩm; hỗ trợ mã ICD nhóm và range (ví dụ C00-C97).",
     "NGUON_DU_LIEU": "15/VBHN-BYT_2024_Phu_luc_I_cot_8"
