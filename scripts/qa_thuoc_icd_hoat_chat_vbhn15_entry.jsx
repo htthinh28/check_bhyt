@@ -83,24 +83,31 @@ const buildHoSo = (maBenhChinh, overrides = {}) => ({
 const hasRule = (warnings, maLuat) =>
   warnings.some((w) => String(w?.ma_luat || '').trim().toUpperCase() === maLuat);
 
-await seedStorage();
-const saiIcdDynamic = await chayBoMayGiamDinhV3(buildHoSo('C50'));
-assert.equal(hasRule(saiIcdDynamic, 'THUOC_541'), true, 'THUOC_541 must warn when mapped active ingredient ICD does not match');
+const main = async () => {
+  await seedStorage();
+  const saiIcdDynamic = await chayBoMayGiamDinhV3(buildHoSo('C50'));
+  assert.equal(hasRule(saiIcdDynamic, 'THUOC_541'), true, 'THUOC_541 must warn when mapped active ingredient ICD does not match');
 
-await seedStorage();
-const dungIcdDynamic = await chayBoMayGiamDinhV3(buildHoSo('M05.9'));
-assert.equal(hasRule(dungIcdDynamic, 'THUOC_541'), false, 'THUOC_541 must not warn when ICD is inside M05-M06 range');
+  await seedStorage();
+  const dungIcdDynamic = await chayBoMayGiamDinhV3(buildHoSo('M05.9'));
+  assert.equal(hasRule(dungIcdDynamic, 'THUOC_541'), false, 'THUOC_541 must not warn when ICD is inside M05-M06 range');
 
-await seedStorage();
-const saiIcdBuiltin = await chayGiamDinhToanDienV15(buildHoSo('C50'));
-assert.equal(hasRule(saiIcdBuiltin, 'DKTT_ADALIMUMAB_ICD'), true, 'Built-in DKTT must match by MA_HOAT_CHAT');
+  await seedStorage();
+  const saiIcdBuiltin = await chayGiamDinhToanDienV15(buildHoSo('C50'));
+  assert.equal(hasRule(saiIcdBuiltin, 'DKTT_ADALIMUMAB_ICD'), true, 'Built-in DKTT must match by MA_HOAT_CHAT');
 
-await seedStorage();
-const dungIcdBuiltin = await chayGiamDinhToanDienV15(buildHoSo('M06'));
-assert.equal(hasRule(dungIcdBuiltin, 'DKTT_ADALIMUMAB_ICD'), false, 'Built-in DKTT must accept ICD category range M05-M06');
+  await seedStorage();
+  const dungIcdBuiltin = await chayGiamDinhToanDienV15(buildHoSo('M06'));
+  assert.equal(hasRule(dungIcdBuiltin, 'DKTT_ADALIMUMAB_ICD'), false, 'Built-in DKTT must accept ICD category range M05-M06');
 
-await seedStorage();
-const saiIcdByAlias = await chayBoMayGiamDinhV3(buildHoSo('C50', { MA_HOAT_CHAT: '' }));
-assert.equal(hasRule(saiIcdByAlias, 'THUOC_541'), true, 'THUOC_541 must fall back to active ingredient alias when MA_HOAT_CHAT is missing');
+  await seedStorage();
+  const saiIcdByAlias = await chayBoMayGiamDinhV3(buildHoSo('C50', { MA_HOAT_CHAT: '' }));
+  assert.equal(hasRule(saiIcdByAlias, 'THUOC_541'), true, 'THUOC_541 must fall back to active ingredient alias when MA_HOAT_CHAT is missing');
 
-console.log('qa_thuoc_icd_hoat_chat_vbhn15: OK');
+  console.log('qa_thuoc_icd_hoat_chat_vbhn15: OK');
+};
+
+main().catch((error) => {
+  console.error(error && error.stack ? error.stack : error);
+  process.exit(1);
+});
