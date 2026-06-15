@@ -6,7 +6,7 @@ set -euo pipefail
 cd "$(dirname "$0")/.."
 
 REMOTE_NAME="${REMOTE_NAME:-sadec}"
-REMOTE_URL="${REMOTE_URL:-https://github.com/htthinh28/bhyt_pc_sadec.git}"
+REMOTE_URL="${REMOTE_URL:-https://github.com/htthinh28/bhyt-pc-sadec.git}"
 SOURCE_BRANCH="${SOURCE_BRANCH:-cursor/tenant-model-a-3bv-e6c3}"
 TARGET_BRANCH="${TARGET_BRANCH:-main}"
 
