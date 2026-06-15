@@ -19,6 +19,11 @@ import { CD } from '../tien_ich/chu_de_giao_dien';
 import { chayBoMayGiamDinhV3, enrichViTriCanhBaoXml } from '../tien_ich/dong_co_giam_dinh';
 import { layNhieuHoSoTuKho, luuHoSoVaoKho } from '../tien_ich/kho_du_lieu';
 import NhapFileXML from '../tien_ich/nhap_file_xml';
+import {
+  contentThanhCuonDocBenPhai,
+  propsThanhCuonDocBenPhai,
+  styleThanhCuonDocBenPhai,
+} from '../tien_ich/thanh_cuon_web';
 import { xuatHoSoThanhXML130 } from '../tien_ich/xml_helper';
 
 const choUICapNhat = () => new Promise((resolve) => setTimeout(resolve, 0));
@@ -621,7 +626,12 @@ const ManHinhDocXML = ({ route }) => {
               })}
             </View>
 
-            <ScrollView ref={mainScrollRef} style={{ flex: 1 }}>
+            <ScrollView
+              ref={mainScrollRef}
+              style={[{ flex: 1 }, styleThanhCuonDocBenPhai]}
+              contentContainerStyle={styles.cuon_doc_noi_dung}
+              {...propsThanhCuonDocBenPhai}
+            >
               {mangDinhDang.map((row, rIdx) => {
                 const laDongThongTinNguoiBenh = tabHienTai === 'XML1';
                 const hangCoLoiNay = ketQuaLoiHienTai.some(l =>
@@ -926,7 +936,11 @@ const ManHinhDocXML = ({ route }) => {
           <View style={styles.main_content_layout}>
              <View style={styles.sidebar_tab_trai}>
                 <Text style={styles.sidebar_tab_title}>BẢNG XML</Text>
-                <ScrollView showsVerticalScrollIndicator={false}>
+                <ScrollView
+                  style={styleThanhCuonDocBenPhai}
+                  contentContainerStyle={styles.cuon_doc_noi_dung}
+                  {...propsThanhCuonDocBenPhai}
+                >
                   {danhSachTabDong.map(tab => (
                     <TouchableOpacity key={tab} onPress={() => setTabHienTai(tab)} style={[styles.tab_btn, tabHienTai === tab && styles.tab_on]}>
                       <Text style={[styles.tab_txt, tabHienTai === tab && styles.tab_txt_on]}>{tab}</Text>
@@ -952,7 +966,11 @@ const ManHinhDocXML = ({ route }) => {
                     </Text>
                   </TouchableOpacity>
                 </View>
-                <ScrollView style={styles.audit_list}>
+                <ScrollView
+                  style={[styles.audit_list, styleThanhCuonDocBenPhai]}
+                  contentContainerStyle={styles.cuon_doc_noi_dung}
+                  {...propsThanhCuonDocBenPhai}
+                >
                   {renderSoTayGiamDinh()}
                 </ScrollView>
              </View>
@@ -1161,6 +1179,9 @@ const styles = StyleSheet.create({
 
   // --- DATA GRID INTERNALS ---
   scroll_ngang: { flex: 1 },
+  cuon_doc_noi_dung: {
+    ...contentThanhCuonDocBenPhai,
+  },
   header_row: { flexDirection: 'row', backgroundColor: CD.bg.table_header },
   cell_h: { padding: 10, borderRightWidth: 1, borderColor: CD.border.divider, justifyContent: 'center' },
   txt_h: { fontSize: 20, fontWeight: '700', color: CD.text.table_header, textAlign: 'center' },

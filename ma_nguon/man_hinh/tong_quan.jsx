@@ -70,6 +70,11 @@ import NhapFileXML, {
   taiNguonPhuThuocNhapXml,
   xuLyMotFileXmlChoBanGiamDinh,
 } from '../tien_ich/nhap_file_xml';
+import {
+  contentThanhCuonDocBenPhai,
+  propsThanhCuonDocBenPhai,
+  styleThanhCuonDocBenPhai,
+} from '../tien_ich/thanh_cuon_web';
 import { BREAKPOINTS, useLayoutMode } from '../tien_ich/diem_anh_man_hinh';
 
 const LOGO_PC = 'https://i.ibb.co/nNr9SQYr/logo-pc.png';
@@ -1269,7 +1274,11 @@ ${phanDongKhoi.join('\n')}
               </Text>
             </View>
           ) : null}
-          <ScrollView style={styles.sidebar_scroll} showsVerticalScrollIndicator={false}>
+          <ScrollView
+            style={[styles.sidebar_scroll, styleThanhCuonDocBenPhai]}
+            contentContainerStyle={styles.sidebar_scroll_content}
+            {...propsThanhCuonDocBenPhai}
+          >
             <View style={styles.module_grid_sidebar}>
               {menuSidebar.map((item) => {
                 const cfg = MODULE_ICONS[item.id] || { icon: '📦', mau: '#607D8B', mauNhat: '#ECEFF1' };
@@ -1338,7 +1347,11 @@ ${phanDongKhoi.join('\n')}
           </ScrollView>
         </View>
 
-        <ScrollView style={styles.dashboard_main} showsVerticalScrollIndicator={false}>
+        <ScrollView
+          style={[styles.dashboard_main, styleThanhCuonDocBenPhai]}
+          contentContainerStyle={styles.dashboard_main_content}
+          {...propsThanhCuonDocBenPhai}
+        >
 
         {/* ── 4. KHU VỰC VẬN HÀNH THỐNG NHẤT (thẻ nạp gọn) ── */}
         <View style={[styles.section_block, styles.section_block_import_tight]}>
@@ -2288,7 +2301,13 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 16,
   },
+  sidebar_scroll_content: {
+    ...contentThanhCuonDocBenPhai,
+  },
   dashboard_main: { flex: 1 },
+  dashboard_main_content: {
+    ...contentThanhCuonDocBenPhai,
+  },
 
   // ── KPI CARDS ──
   kpi_row: {

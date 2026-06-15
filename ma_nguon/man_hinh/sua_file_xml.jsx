@@ -29,6 +29,11 @@ import { layDanhSachCot } from '../quy_tac/quyluat_cautrucdulieu/quyluat_cau_tru
 import { CD } from '../tien_ich/chu_de_giao_dien';
 import { layNhieuHoSoTuKho, luuHoSoVaoKho } from '../tien_ich/kho_du_lieu';
 import { DANH_MUC_QUY_TAC_NOI_BO, khopMaLuatTheoMau } from '../tien_ich/quy_tac_on_off_noi_bo';
+import {
+    contentThanhCuonDocBenPhai,
+    propsThanhCuonDocBenPhai,
+    styleThanhCuonDocBenPhai,
+} from '../tien_ich/thanh_cuon_web';
 import { xuatHoSoThanhXML130 } from '../tien_ich/xml_helper';
 
 // Danh sách tất cả phân hệ XML
@@ -613,7 +618,11 @@ const SuaFileXML = ({ route, navigation }) => {
                 <View style={styles.body_layout}>
                     <View style={styles.sidebar_tab_trai}>
                         <Text style={styles.sidebar_tab_title}>BẢNG XML</Text>
-                        <ScrollView showsVerticalScrollIndicator={false}>
+                        <ScrollView
+                            style={styleThanhCuonDocBenPhai}
+                            contentContainerStyle={styles.cuon_doc_noi_dung}
+                            {...propsThanhCuonDocBenPhai}
+                        >
                             {DANH_SACH_XML.map((tab) => {
                                 const nLoiBang = demLoiTheoBang(danhSachLoiHienTai, tab);
                                 return (
@@ -637,7 +646,11 @@ const SuaFileXML = ({ route, navigation }) => {
                     </View>
 
                     {/* KHU VỰC CHỈNH SỬA */}
-                    <ScrollView style={styles.editor_area}>
+                    <ScrollView
+                        style={[styles.editor_area, styleThanhCuonDocBenPhai]}
+                        contentContainerStyle={styles.cuon_doc_noi_dung}
+                        {...propsThanhCuonDocBenPhai}
+                    >
                         {renderEditor()}
                         <View style={{ height: 120 }} />
                     </ScrollView>
@@ -786,6 +799,9 @@ const styles = StyleSheet.create({
 
     // Editor
     editor_area: { flex: 5.9 },
+    cuon_doc_noi_dung: {
+        ...contentThanhCuonDocBenPhai,
+    },
     khung_form: {
         backgroundColor: CD.bg.glass_card, padding: 18, borderRadius: 20,
         borderWidth: 1, borderColor: CD.border.glass,
