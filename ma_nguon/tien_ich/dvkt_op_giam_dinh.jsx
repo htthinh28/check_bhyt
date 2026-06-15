@@ -1508,7 +1508,7 @@ const appendLegalBasisIfMissing = (message, legalBasis) => {
   const normText = normalizeText(text);
   const normBasis = normalizeText(legalBasis);
   if (normText && normBasis && normText.includes(normBasis)) return text;
-  return `${text} Can cu: ${legalBasis}.`.trim();
+  return `${text}\nCăn cứ: ${legalBasis}`.trim();
 };
 const formatStaffDisplay = (staff, fallbackId = '') => {
   const license = toUpper(staff?.macchn || staff?.soGphn || '');
