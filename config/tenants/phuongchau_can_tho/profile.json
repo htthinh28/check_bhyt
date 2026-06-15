@@ -2,7 +2,7 @@
   "orgId": "phuongchau_can_tho",
   "tenHienThi": "Phương Châu Cần Thơ",
   "tenDayDu": "Bệnh viện Quốc tế Phương Châu Cần Thơ",
-  "maCskcb": "94171",
+  "maCskcb": "92114",
   "appName": "CDSS BHYT Phương Châu Cần Thơ",
   "firebaseOrgId": "phuongchau_can_tho",
   "legacyOrgAliases": [],
@@ -15,7 +15,7 @@
     "orgCode": "phuongchau_can_tho"
   },
   "thongTinCoSo": {
-    "MA_CSKCB": "94171",
+    "MA_CSKCB": "92114",
     "TEN_CSKCB": "Bệnh viện Quốc tế Phương Châu Cần Thơ",
     "DON_VI_THU_HUONG": "Công Ty TNHH MTV Phương Châu",
     "CAP_CHUYEN_MON": "Cơ bản",

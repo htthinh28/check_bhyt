@@ -7,10 +7,8 @@ Phiên bản: 1.0 · Ngày: 2026-06-12
 | org_id | Tên | MA_CSKCB |
 |--------|-----|----------|
 | `phuongchau_soc_trang` | Bệnh viện Quốc tế Phương Châu Sóc Trăng | 94170 |
-| `phuongchau_can_tho` | Bệnh viện Quốc tế Phương Châu Cần Thơ | 94171* |
-| `phuongchau_sa_dec` | Bệnh viện Phương Châu Sa Đéc | 94172* |
-
-\* Mã CSKCB Cần Thơ / Sa Đéc cần cập nhật trong `config/tenants/<org_id>/profile.json` khi có hợp đồng chính thức.
+| `phuongchau_can_tho` | Bệnh viện Quốc tế Phương Châu Cần Thơ | 92114 |
+| `phuongchau_sa_dec` | Bệnh viện Phương Châu Sa Đéc | 87189 |
 
 Alias legacy: `phuongchau` → `phuongchau_soc_trang` (migration + Firebase path cũ).
 
