@@ -52,6 +52,7 @@ import { damBaoSeedLuatThuocMuc8 } from './seed_luat_thuoc_muc8';
 import { laCapCuuTheoXml1, viPhamQuy_tacCapCuuIcd10 } from './giam_dinh_icd10_cap_cuu';
 import { tachChuoiNhieuMa } from './catalog_mapping_chuoi_ma';
 import { hopNhatQuyTacTrungTheoDoiTuong } from './hop_nhat_quy_tac_trung_lap';
+import { tenantGetItem, tenantMultiGet } from './tenant_storage';
 
 // ============================================================
 // [PHẦN 1] CACHE VÀ HÀM TIỆN ÍCH CƠ BẢN
@@ -1153,19 +1154,19 @@ const fetchChunkedData = async (key) => {
             datCacheChunk(key, data);
             return data;
         }
-        const chunksStr = await AsyncStorage.getItem(`${key}_CHUNKS`);
+        const chunksStr = await tenantGetItem(`${key}_CHUNKS`);
         if (chunksStr) {
             const totalChunks = parseInt(chunksStr, 10);
             let fullData = [];
             const chunkKeys = Array.from({ length: totalChunks }, (_, i) => `${key}_CHUNK_${i}`);
-            const chunkPairs = await AsyncStorage.multiGet(chunkKeys);
+            const chunkPairs = await tenantMultiGet(chunkKeys);
             chunkPairs.forEach(([, chunkStr]) => {
                 if (chunkStr) fullData = fullData.concat(JSON.parse(chunkStr));
             });
             datCacheChunk(key, fullData);
             return fullData;
         }
-        const raw = await AsyncStorage.getItem(key);
+        const raw = await tenantGetItem(key);
         const parsed = raw ? JSON.parse(raw) : [];
         datCacheChunk(key, parsed);
         return parsed;

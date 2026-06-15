@@ -17,6 +17,7 @@ import {
     writeBatch,
 } from 'firebase/firestore';
 import { DVKT_DATASET_SCHEMA_VERSION, danhGiaConflictPolicyTaiXuong } from './config_dataset_versioning';
+import { resolveFirebaseOrgId } from './tenant_context';
   import appConfig from '../../app.json';
 
 const LOCAL_CHUNK_SIZE = 320000;
@@ -234,7 +235,7 @@ const resolveFirebaseConfig = () => {
 
   return {
     enabled,
-    orgId: toSafeToken(orgIdRaw || 'default_org'),
+    orgId: toSafeToken(resolveFirebaseOrgId() || orgIdRaw || 'default_org'),
     authMode,
     authEmail,
     authPassword,

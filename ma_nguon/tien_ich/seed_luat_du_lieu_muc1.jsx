@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
+import { tenantDocRaw as docRaw, tenantGhiRaw as ghiRaw } from './tenant_storage';
 import {
     COT_SEED_LUAT_DU_LIEU_MUC1,
     DU_LIEU_SEED_LUAT_DU_LIEU_MUC1,
@@ -109,25 +110,6 @@ const chuanHoaDongLuat = (row, index = 0) => ({
   GHI_CHU_SUA: String(row?.GHI_CHU_SUA || '').trim(),
   NGUON_DU_LIEU: String(row?.NGUON_DU_LIEU || 'DuLieu_LUAT_DU_LIEU (12).xlsx').trim(),
 });
-
-const docRaw = async (key) => {
-  if (laMoiTruongWeb()) {
-    const rawWeb = window.localStorage.getItem(key);
-    if (rawWeb !== null && rawWeb !== undefined) return rawWeb;
-  }
-  return AsyncStorage.getItem(key);
-};
-
-const ghiRaw = async (key, raw) => {
-  if (laMoiTruongWeb()) {
-    try {
-      window.localStorage.setItem(key, raw);
-    } catch {
-      // ignore localStorage write issues
-    }
-  }
-  await AsyncStorage.setItem(key, raw).catch(() => {});
-};
 
 const docDuLieuHienTai = async (keys, fallback) => {
   for (const key of keys) {

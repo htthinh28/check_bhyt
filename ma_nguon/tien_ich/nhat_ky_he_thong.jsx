@@ -1,5 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
+import { resolveIdbName } from './tenant_context';
+import { tenantGetItem, tenantSetItem, tenantRemoveItem } from './tenant_storage';
 
 const KHOA_NHAT_KY = 'HE_THONG_NHAT_KY_HOAT_DONG';
 const KHOA_TAI_KHOAN = 'DANH_SACH_TAI_KHOAN';
@@ -7,8 +9,9 @@ const SO_BAN_GHI_TOI_DA = 2000;
 
 const getIndexedDb = () => globalThis?.indexedDB ?? null;
 
-/** IndexedDB riêng cho tài khoản + nhật ký (web) — không dùng chung quota 5MB của localStorage. */
-const IDB_HT_NAME = 'CDSS_HE_THONG_DB';
+/** IndexedDB riêng cho tài khoản + nhật ký (web) — theo org tenant. */
+const IDB_HT_BASE = 'CDSS_HE_THONG_DB';
+const getIdbHtName = () => resolveIdbName(IDB_HT_BASE);
 const IDB_HT_VERSION = 1;
 const IDB_HT_STORE = 'kv';
 let _idbHtDb = null;
@@ -62,7 +65,7 @@ const moHeThongDb = () => {
       reject(new Error('IndexedDB không khả dụng'));
       return;
     }
-    const req = idb.open(IDB_HT_NAME, IDB_HT_VERSION);
+    const req = idb.open(getIdbHtName(), IDB_HT_VERSION);
     req.onupgradeneeded = (e) => {
       const db = e.target.result;
       if (!db.objectStoreNames.contains(IDB_HT_STORE)) {
@@ -201,17 +204,7 @@ const docChuoiHeThongWeb = async (key) => {
   return null;
 };
 
-const docStorage = async (key) => {
-  if (laMoiTruongWeb()) {
-    try {
-      const localValue = window.localStorage.getItem(key);
-      if (localValue !== null && localValue !== undefined) return localValue;
-    } catch {
-      /* */
-    }
-  }
-  return AsyncStorage.getItem(key);
-};
+const docStorage = tenantGetItem;
 
 /** Đọc key hệ thống: web → IndexedDB (+ migrate); native → AsyncStorage. */
 const docChuoiHeThong = async (key) => {
@@ -244,23 +237,7 @@ const ghiStorage = async (key, value) => {
     }
   }
 
-  const tasks = [
-    AsyncStorage.setItem(key, normalizedValue).catch((e) => {
-      console.warn('[nhat_ky_he_thong] AsyncStorage.setItem lỗi:', key, e?.message || e);
-    }),
-  ];
-
-  if (laMoiTruongWeb()) {
-    tasks.push((async () => {
-      try {
-        window.localStorage.setItem(key, normalizedValue);
-      } catch (e) {
-        console.warn('[nhat_ky_he_thong] localStorage.setItem lỗi:', key, e?.message || e);
-      }
-    })());
-  }
-
-  await Promise.all(tasks);
+  await tenantSetItem(key, normalizedValue);
 };
 
 const nowISO = () => new Date().toISOString();

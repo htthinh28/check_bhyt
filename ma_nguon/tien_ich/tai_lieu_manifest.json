@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-25T13:33:22.701Z",
+  "generatedAt": "2026-06-15T04:38:06.366Z",
   "items": [
     {
       "id": "txt:_extract_cv266/PL1_plain.txt",
@@ -1421,6 +1421,12 @@
       "tags": [
         "kiem_thu_quy_tac"
       ]
+    },
+    {
+      "id": "md:Trien_khai_mo_hinh_A_3_benh_vien.md",
+      "relPath": "Trien_khai_mo_hinh_A_3_benh_vien.html",
+      "title": "Triển khai Mô hình A — 3 bệnh viện Phương Châu",
+      "nguon": "markdown"
     }
   ]
 }

@@ -23,6 +23,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 import { chuanHoaHoSoCanhBao } from './chuan_hoa_van_ban';
+import { resolveIdbName } from './tenant_context';
+import { damBaoMigrationTenant } from './tenant_migration';
+import { tenantGetItem, tenantSetItem, tenantRemoveItem, tenantMultiGet, tenantMultiSet, tenantMultiRemove, tenantGetAllKeys } from './tenant_storage';
 
 const laMoiTruongWeb = () => Platform.OS === 'web' || typeof window !== 'undefined' || typeof document !== 'undefined';
 const getIndexedDb = () => globalThis?.indexedDB || null;
@@ -31,7 +34,8 @@ const getLocalStorage = () => globalThis?.localStorage || null;
 // ============================================================================
 // PHẦN 1: INDEXEDDB — DÙNG TRÊN WEB
 // ============================================================================
-const IDB_NAME = 'CDSS_HO_SO_DB';
+const IDB_BASE_NAME = 'CDSS_HO_SO_DB';
+const getIdbName = () => resolveIdbName(IDB_BASE_NAME);
 const IDB_STORE = 'ho_so';
 const IDB_STORE_DANH_MUC = 'danh_muc';
 /** Lịch sử các lần kiểm tra theo MA_BN (cùng IndexedDB/ổ đĩa như trên) — không xóa khi xóa kho làm việc. */
@@ -63,7 +67,7 @@ const _openDB = () => {
       return;
     }
 
-    const req = indexedDb.open(IDB_NAME, IDB_VERSION);
+    const req = indexedDb.open(getIdbName(), IDB_VERSION);
     req.onupgradeneeded = (e) => {
       const db = e.target.result;
       if (!db.objectStoreNames.contains(IDB_STORE)) {
@@ -411,7 +415,7 @@ const ghiMotLanLichSu = async (hoSo) => {
   }
 
   const key = `${PREFIX_LICH_SU_MOBILE}${ma_bn}`;
-  const raw = await AsyncStorage.getItem(key);
+  const raw = await tenantGetItem(key);
   let rec = raw ? parseJsonAnToan(raw) : null;
   if (!rec || !Array.isArray(rec.cac_lan)) rec = { ma_bn, cac_lan: [] };
   rec.cac_lan = rec.cac_lan.filter((x) => x?.ma_lk !== ma_lk);
@@ -419,13 +423,13 @@ const ghiMotLanLichSu = async (hoSo) => {
   rec.cac_lan.sort((a, b) => String(b.ngay_ra || '').localeCompare(String(a.ngay_ra || '')));
   rec.cac_lan = rec.cac_lan.slice(0, MAX_LAN_LICH_SU_PER_BN);
   rec.cap_nhat = Date.now();
-  await AsyncStorage.setItem(key, JSON.stringify(rec));
+  await tenantSetItem(key, JSON.stringify(rec));
 
-  const rawIdx = await AsyncStorage.getItem(KHO_LICH_SU_INDEX_MOBILE);
+  const rawIdx = await tenantGetItem(KHO_LICH_SU_INDEX_MOBILE);
   const idx = rawIdx ? (parseJsonAnToan(rawIdx) || []) : [];
   if (!idx.includes(ma_bn)) {
     idx.push(ma_bn);
-    await AsyncStorage.setItem(KHO_LICH_SU_INDEX_MOBILE, JSON.stringify(idx));
+    await tenantSetItem(KHO_LICH_SU_INDEX_MOBILE, JSON.stringify(idx));
   }
 };
 
@@ -477,13 +481,13 @@ const ghiMotPhienGiamDinh = async (hoSoChuan) => {
   }
 
   const key = `${PREFIX_PHIEN_GD_MOBILE}${ma_lk}`;
-  const raw = await AsyncStorage.getItem(key);
+  const raw = await tenantGetItem(key);
   let rec = raw ? parseJsonAnToan(raw) : null;
   if (!rec || !Array.isArray(rec.cac_phien)) rec = { ma_lk, cac_phien: [] };
   rec.cac_phien.unshift(phien);
   rec.cac_phien = rec.cac_phien.slice(0, MAX_PHIEN_GD_PER_MA_LK);
   rec.cap_nhat = Date.now();
-  await AsyncStorage.setItem(key, JSON.stringify(rec));
+  await tenantSetItem(key, JSON.stringify(rec));
 };
 
 /** Gọi từ module lưu kho khác (ví dụ kho EMR) khi đã có `ket_qua_giam_dinh` + MA_LK. */
@@ -535,17 +539,17 @@ const chuanHoaDuLieuDanhMuc = (value) => (Array.isArray(value) ? value : []);
 const docJsonChunkTheoKhoa = async (key) => {
   const baseKey = chuanHoaKhoaChunk(key);
   if (!baseKey) return null;
-  const chunkCount = Number(await AsyncStorage.getItem(`${baseKey}_CHUNKS`)) || 0;
+  const chunkCount = Number(await tenantGetItem(`${baseKey}_CHUNKS`)) || 0;
   if (chunkCount > 0) {
     const chunkKeys = Array.from({ length: chunkCount }, (_, index) => `${baseKey}_CHUNK_${index}`);
-    const chunkPairs = await AsyncStorage.multiGet(chunkKeys);
+    const chunkPairs = await tenantMultiGet(chunkKeys);
     let payload = '';
     chunkPairs.forEach(([, raw]) => {
       if (raw) payload += String(raw);
     });
     return parseJsonAnToan(payload);
   }
-  return parseJsonAnToan(await AsyncStorage.getItem(baseKey));
+  return parseJsonAnToan(await tenantGetItem(baseKey));
 };
 const docJsonChunkTuLocalStorageDongBo = (key) => {
   const baseKey = chuanHoaKhoaChunk(key);
@@ -571,15 +575,15 @@ const luuJsonChunkTheoKhoa = async (key, value, chunkBytes = DETAIL_CHUNK_BYTES)
 
   const payload = JSON.stringify(value ?? []);
   const keyMeta = `${baseKey}_CHUNKS`;
-  const oldChunkCount = Number(await AsyncStorage.getItem(keyMeta)) || 0;
+  const oldChunkCount = Number(await tenantGetItem(keyMeta)) || 0;
 
   if (payload.length <= chunkBytes) {
-    await AsyncStorage.setItem(baseKey, payload);
+    await tenantSetItem(baseKey, payload);
     const dsCanXoa = [keyMeta];
     for (let index = 0; index < oldChunkCount; index += 1) {
       dsCanXoa.push(`${baseKey}_CHUNK_${index}`);
     }
-    if (dsCanXoa.length > 0) await AsyncStorage.multiRemove(dsCanXoa);
+    if (dsCanXoa.length > 0) await tenantMultiRemove(dsCanXoa);
     return true;
   }
 
@@ -588,25 +592,25 @@ const luuJsonChunkTheoKhoa = async (key, value, chunkBytes = DETAIL_CHUNK_BYTES)
   chunks.forEach((chunk, index) => {
     pairs.push([`${baseKey}_CHUNK_${index}`, chunk]);
   });
-  await AsyncStorage.multiSet(pairs);
+  await tenantMultiSet(pairs);
 
   const dsCanXoa = [baseKey];
   for (let index = chunks.length; index < oldChunkCount; index += 1) {
     dsCanXoa.push(`${baseKey}_CHUNK_${index}`);
   }
-  if (dsCanXoa.length > 0) await AsyncStorage.multiRemove(dsCanXoa);
+  if (dsCanXoa.length > 0) await tenantMultiRemove(dsCanXoa);
   return true;
 };
 
 const xoaJsonChunkTheoKhoa = async (key) => {
   const baseKey = chuanHoaKhoaChunk(key);
   if (!baseKey) return false;
-  const oldChunkCount = Number(await AsyncStorage.getItem(`${baseKey}_CHUNKS`)) || 0;
+  const oldChunkCount = Number(await tenantGetItem(`${baseKey}_CHUNKS`)) || 0;
   const dsCanXoa = [`${baseKey}_CHUNKS`, baseKey];
   for (let index = 0; index < oldChunkCount; index += 1) {
     dsCanXoa.push(`${baseKey}_CHUNK_${index}`);
   }
-  await AsyncStorage.multiRemove(dsCanXoa).catch(() => {});
+  await tenantMultiRemove(dsCanXoa).catch(() => {});
   return true;
 };
 
@@ -622,7 +626,7 @@ const migrateDanhMucWebToIndexedDb = async ({ force = false } = {}) => {
         return { ok: true, count: 0, skipped: true };
       }
 
-      const allKeys = await AsyncStorage.getAllKeys().catch(() => []);
+      const allKeys = await tenantGetAllKeys().catch(() => []);
       const baseKeys = Array.from(
         new Set((Array.isArray(allKeys) ? allKeys : []).map((key) => chuanHoaKhoaChunk(key)).filter(laKhoaDanhMucUngDung))
       );
@@ -659,7 +663,7 @@ const migrateDanhMucWebToIndexedDb = async ({ force = false } = {}) => {
  * Web: IndexedDB (dung lượng GB). Mobile: AsyncStorage (phân mảnh).
  */
 const docDanhSachMaLKMobile = async () => {
-  const indexData = await AsyncStorage.getItem(KHO_INDEX_KEY);
+  const indexData = await tenantGetItem(KHO_INDEX_KEY);
   if (!indexData) return [];
   return chuanHoaDanhSachMaLK(parseJsonAnToan(indexData) || []);
 };
@@ -670,7 +674,7 @@ const docNhieuPayloadHoSoMobile = async (danhSachMaLK = []) => {
 
   const dsKhoaHoSo = dsMaLK.map((maLK) => taoKhoaHoSo(maLK));
   const dsKhoaMeta = dsMaLK.map((maLK) => taoKhoaMetaChunkHoSo(maLK));
-  const basePairs = await AsyncStorage.multiGet([...dsKhoaHoSo, ...dsKhoaMeta]);
+  const basePairs = await tenantMultiGet([...dsKhoaHoSo, ...dsKhoaMeta]);
   const baseMap = new Map(basePairs);
   const chunkCountMap = new Map();
   const dsKhoaChunk = [];
@@ -684,7 +688,7 @@ const docNhieuPayloadHoSoMobile = async (danhSachMaLK = []) => {
   });
 
   const chunkMap = dsKhoaChunk.length > 0
-    ? new Map(await AsyncStorage.multiGet(dsKhoaChunk))
+    ? new Map(await tenantMultiGet(dsKhoaChunk))
     : new Map();
 
   return dsMaLK.map((maLK) => {
@@ -704,15 +708,15 @@ const luuChiTietHoSoMobile = async (maLK, hoSo) => {
   const key = taoKhoaHoSo(maLK);
   const keyMeta = taoKhoaMetaChunkHoSo(maLK);
   const payload = JSON.stringify(hoSo);
-  const oldChunkCount = Number(await AsyncStorage.getItem(keyMeta)) || 0;
+  const oldChunkCount = Number(await tenantGetItem(keyMeta)) || 0;
 
   if (payload.length <= DETAIL_CHUNK_BYTES) {
-    await AsyncStorage.setItem(key, payload);
+    await tenantSetItem(key, payload);
     const dsCanXoa = [keyMeta];
     for (let i = 0; i < oldChunkCount; i += 1) {
       dsCanXoa.push(taoKhoaChunkHoSo(maLK, i));
     }
-    if (dsCanXoa.length > 0) await AsyncStorage.multiRemove(dsCanXoa);
+    if (dsCanXoa.length > 0) await tenantMultiRemove(dsCanXoa);
     return;
   }
 
@@ -721,24 +725,24 @@ const luuChiTietHoSoMobile = async (maLK, hoSo) => {
   chunks.forEach((chunk, index) => {
     pairs.push([taoKhoaChunkHoSo(maLK, index), chunk]);
   });
-  await AsyncStorage.multiSet(pairs);
+  await tenantMultiSet(pairs);
 
   const dsCanXoa = [key];
   for (let i = chunks.length; i < oldChunkCount; i += 1) {
     dsCanXoa.push(taoKhoaChunkHoSo(maLK, i));
   }
-  if (dsCanXoa.length > 0) await AsyncStorage.multiRemove(dsCanXoa);
+  if (dsCanXoa.length > 0) await tenantMultiRemove(dsCanXoa);
 };
 
 const xoaChiTietHoSoMobile = async (maLK) => {
   const key = taoKhoaHoSo(maLK);
   const keyMeta = taoKhoaMetaChunkHoSo(maLK);
-  const chunkCount = Number(await AsyncStorage.getItem(keyMeta)) || 0;
+  const chunkCount = Number(await tenantGetItem(keyMeta)) || 0;
   const dsCanXoa = [key, keyMeta];
   for (let i = 0; i < chunkCount; i += 1) {
     dsCanXoa.push(taoKhoaChunkHoSo(maLK, i));
   }
-  await AsyncStorage.multiRemove(dsCanXoa);
+  await tenantMultiRemove(dsCanXoa);
 };
 
 export const layDanhSachMaLKTuKho = async () => {
@@ -799,7 +803,7 @@ export const luuHoSoVaoKho = async (danhSachHoSoMoi) => {
         await luuChiTietHoSoMobile(maLK, chuanHoaBanGhiHoSo({ ...hoSoLuu, ma_lk: maLK }));
         if (!dsMaLK.includes(maLK)) dsMaLK.push(maLK);
       }
-      await AsyncStorage.setItem(KHO_INDEX_KEY, JSON.stringify(chuanHoaDanhSachMaLK(dsMaLK)));
+      await tenantSetItem(KHO_INDEX_KEY, JSON.stringify(chuanHoaDanhSachMaLK(dsMaLK)));
     }
 
     for (const hoSo of danhSachHoSoMoi) {
@@ -855,7 +859,7 @@ export const xoaHoSoKhoiKho = async (maLK_CanXoa) => {
     } else {
       await xoaChiTietHoSoMobile(maLK_CanXoa);
       const dsMaLK = await docDanhSachMaLKMobile();
-      await AsyncStorage.setItem(
+      await tenantSetItem(
         KHO_INDEX_KEY,
         JSON.stringify(dsMaLK.filter((ma) => ma !== maLK_CanXoa))
       );
@@ -881,7 +885,7 @@ export const layLichSuDieuTriTheoMaBN = async (ma_bn) => {
       const r = await idbLichSu.get(m);
       return r && Array.isArray(r.cac_lan) ? r : { ma_bn: m, cac_lan: [] };
     }
-    const raw = await AsyncStorage.getItem(`${PREFIX_LICH_SU_MOBILE}${m}`);
+    const raw = await tenantGetItem(`${PREFIX_LICH_SU_MOBILE}${m}`);
     const rec = raw ? parseJsonAnToan(raw) : null;
     return rec && Array.isArray(rec.cac_lan) ? rec : { ma_bn: m, cac_lan: [] };
   } catch (e) {
@@ -950,7 +954,7 @@ export const layLichSuPhienGiamDinhTheoMaLK = async (ma_lk) => {
       const r = await idbPhienGd.get(m);
       return r && Array.isArray(r.cac_phien) ? r : { ma_lk: m, cac_phien: [] };
     }
-    const raw = await AsyncStorage.getItem(`${PREFIX_PHIEN_GD_MOBILE}${m}`);
+    const raw = await tenantGetItem(`${PREFIX_PHIEN_GD_MOBILE}${m}`);
     const rec = raw ? parseJsonAnToan(raw) : null;
     return rec && Array.isArray(rec.cac_phien) ? rec : { ma_lk: m, cac_phien: [] };
   } catch (e) {
@@ -972,11 +976,11 @@ export const xoaToanBoLichSuPhienGiamDinh = async () => {
       });
       return true;
     }
-    const allKeys = await AsyncStorage.getAllKeys().catch(() => []);
+    const allKeys = await tenantGetAllKeys().catch(() => []);
     const toRemove = (Array.isArray(allKeys) ? allKeys : []).filter(
       (k) => typeof k === 'string' && k.startsWith(PREFIX_PHIEN_GD_MOBILE)
     );
-    if (toRemove.length > 0) await AsyncStorage.multiRemove(toRemove);
+    if (toRemove.length > 0) await tenantMultiRemove(toRemove);
     return true;
   } catch (e) {
     console.error('[KHO_DU_LIEU] xoaToanBoLichSuPhienGiamDinh:', e);
@@ -997,12 +1001,12 @@ export const xoaToanBoLichSuDieuTri = async () => {
       });
       return true;
     }
-    const rawIdx = await AsyncStorage.getItem(KHO_LICH_SU_INDEX_MOBILE);
+    const rawIdx = await tenantGetItem(KHO_LICH_SU_INDEX_MOBILE);
     const idx = rawIdx ? (parseJsonAnToan(rawIdx) || []) : [];
     for (const m of idx) {
-      await AsyncStorage.removeItem(`${PREFIX_LICH_SU_MOBILE}${m}`);
+      await tenantRemoveItem(`${PREFIX_LICH_SU_MOBILE}${m}`);
     }
-    await AsyncStorage.removeItem(KHO_LICH_SU_INDEX_MOBILE);
+    await tenantRemoveItem(KHO_LICH_SU_INDEX_MOBILE);
     return true;
   } catch (e) {
     console.error('[KHO_DU_LIEU] xoaToanBoLichSuDieuTri:', e);
@@ -1021,7 +1025,7 @@ export const xoaToanBoKho = async () => {
       for (const maLK of dsMaLK) {
         await xoaChiTietHoSoMobile(maLK);
       }
-      await AsyncStorage.removeItem(KHO_INDEX_KEY);
+      await tenantRemoveItem(KHO_INDEX_KEY);
     }
     console.log('[KHO_DU_LIEU] Đã xóa toàn bộ kho lưu trữ.');
     return true;
@@ -1114,7 +1118,7 @@ export const dongBoTuBoNho = async ({ force = false } = {}) => {
         return { ok: true, count: records.length };
       }
 
-      const allKeys = await AsyncStorage.getAllKeys().catch(() => []);
+      const allKeys = await tenantGetAllKeys().catch(() => []);
       const baseKeys = Array.from(
         new Set((Array.isArray(allKeys) ? allKeys : []).map((key) => chuanHoaKhoaChunk(key)).filter(laKhoaDanhMucUngDung))
       );

@@ -1,57 +1,17 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
+import { tenantGetItem, tenantSetItem, tenantRemoveItem } from './tenant_storage';
 
 const SESSION_ACCOUNT_KEY = 'USER_ACCOUNT';
 const SESSION_ROLE_KEY = 'USER_ROLE';
 
 const laMoiTruongWeb = () => Platform.OS === 'web' && typeof window !== 'undefined' && !!window.localStorage;
 
-const docGiaTriPhien = async (key) => {
-  if (laMoiTruongWeb()) {
-    try {
-      const localValue = window.localStorage.getItem(key);
-      if (localValue) return localValue;
-    } catch {
-      // ignore localStorage read error and fallback to AsyncStorage
-    }
-  }
+const docGiaTriPhien = tenantGetItem;
 
-  const asyncValue = await AsyncStorage.getItem(key).catch(() => '');
-  return String(asyncValue || '');
-};
+const ghiGiaTriPhien = tenantSetItem;
 
-const ghiGiaTriPhien = async (key, value) => {
-  const normalizedValue = String(value || '');
-  const tasks = [AsyncStorage.setItem(key, normalizedValue).catch(() => {})];
-
-  if (laMoiTruongWeb()) {
-    tasks.push((async () => {
-      try {
-        window.localStorage.setItem(key, normalizedValue);
-      } catch {
-        // ignore localStorage write error
-      }
-    })());
-  }
-
-  await Promise.all(tasks);
-};
-
-const xoaGiaTriPhien = async (key) => {
-  const tasks = [AsyncStorage.removeItem(key).catch(() => {})];
-
-  if (laMoiTruongWeb()) {
-    tasks.push((async () => {
-      try {
-        window.localStorage.removeItem(key);
-      } catch {
-        // ignore localStorage remove error
-      }
-    })());
-  }
-
-  await Promise.all(tasks);
-};
+const xoaGiaTriPhien = tenantRemoveItem;
 
 export const docPhienDangNhap = async () => {
   const [email, role] = await Promise.all([

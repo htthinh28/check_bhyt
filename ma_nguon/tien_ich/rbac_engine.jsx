@@ -1,5 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
+import {
+  tenantGetItem,
+  tenantSetItem,
+  tenantRemoveItem,
+} from './tenant_storage';
 
 export const RBAC_KEYS = {
   RESOURCES: 'RBAC_RESOURCES_V1',
@@ -13,51 +18,11 @@ export const RBAC_ACTIONS = ['VIEW', 'CREATE', 'UPDATE', 'DELETE', 'EXPORT'];
 
 const laMoiTruongWeb = () => Platform.OS === 'web' && typeof window !== 'undefined' && !!window.localStorage;
 
-const docStorage = async (key) => {
-  if (laMoiTruongWeb()) {
-    try {
-      const localValue = window.localStorage.getItem(key);
-      if (localValue !== null && localValue !== undefined) return localValue;
-    } catch {
-      // fallback AsyncStorage
-    }
-  }
+const docStorage = tenantGetItem;
 
-  return AsyncStorage.getItem(key);
-};
+const ghiStorage = tenantSetItem;
 
-const ghiStorage = async (key, value) => {
-  const normalizedValue = String(value || '');
-  const tasks = [AsyncStorage.setItem(key, normalizedValue).catch(() => {})];
-
-  if (laMoiTruongWeb()) {
-    tasks.push((async () => {
-      try {
-        window.localStorage.setItem(key, normalizedValue);
-      } catch {
-        // ignore localStorage write error
-      }
-    })());
-  }
-
-  await Promise.all(tasks);
-};
-
-const xoaStorage = async (key) => {
-  const tasks = [AsyncStorage.removeItem(key).catch(() => {})];
-
-  if (laMoiTruongWeb()) {
-    tasks.push((async () => {
-      try {
-        window.localStorage.removeItem(key);
-      } catch {
-        // ignore localStorage remove error
-      }
-    })());
-  }
-
-  await Promise.all(tasks);
-};
+const xoaStorage = tenantRemoveItem;
 
 export const xoaLegacyAclTheoEmail = async (email) => {
   const emailChuan = String(email || '').trim().toLowerCase();

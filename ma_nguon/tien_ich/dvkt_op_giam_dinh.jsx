@@ -32,6 +32,7 @@ import { layDanhSachLuatNhanSuHardcoded } from './luat_nhan_su_hardcoded';
 import { layDanhSachLuatThuocHardcoded } from './luat_thuoc_hardcoded';
 import { isQuyTacNoiBoDangBat, taiMapTrangThaiQuyTacNoiBo } from './quy_tac_on_off_noi_bo';
 import { damBaoSeedLuatPtttMuc11 } from './seed_luat_pttt_muc11';
+import { tenantGetItem, tenantMultiGet } from './tenant_storage';
 
 export const DVKT_ENGINE_STORAGE_KEYS = {
   RULES: 'DVKT_RULES',
@@ -632,7 +633,7 @@ const fetchChunkedData = async (key) => {
   const loader = (async () => {
     try {
       if (laMoiTruongWeb()) {
-        const rawWeb = window.localStorage.getItem(key);
+        const rawWeb = await tenantGetItem(key);
         const parsedWeb = parseRawStorageRows(rawWeb);
         if (parsedWeb.length > 0) {
           setStorageCache(key, parsedWeb);
@@ -640,12 +641,12 @@ const fetchChunkedData = async (key) => {
         }
       }
 
-      const chunks = await AsyncStorage.getItem(`${key}_CHUNKS`);
+      const chunks = await tenantGetItem(`${key}_CHUNKS`);
       if (chunks) {
         const total = Number(chunks) || 0;
         let full = [];
         const chunkKeys = Array.from({ length: total }, (_, i) => `${key}_CHUNK_${i}`);
-        const chunkPairs = await AsyncStorage.multiGet(chunkKeys);
+        const chunkPairs = await tenantMultiGet(chunkKeys);
         chunkPairs.forEach(([, raw]) => {
           if (!raw) return;
           const parsed = JSON.parse(raw);
@@ -654,7 +655,7 @@ const fetchChunkedData = async (key) => {
         setStorageCache(key, full);
         return full;
       }
-      const raw = await AsyncStorage.getItem(key);
+      const raw = await tenantGetItem(key);
       if (!raw) {
         setStorageCache(key, []);
         return [];

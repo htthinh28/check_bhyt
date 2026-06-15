@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
+import { tenantDocRaw as docRaw, tenantGhiRaw as ghiRaw } from './tenant_storage';
 import {
     COT_SEED_LUAT_THUOC_MUC8,
     DU_LIEU_SEED_LUAT_THUOC_MUC8,
@@ -114,25 +115,6 @@ const hopNhatDongLuat = (existingRows = [], seedRows = []) => {
   });
 
   return { mergedRows: merged, addedCount: seedNorm.length };
-};
-
-const docRaw = async (key) => {
-  if (laMoiTruongWeb()) {
-    const rawWeb = window.localStorage.getItem(key);
-    if (rawWeb !== null && rawWeb !== undefined) return rawWeb;
-  }
-  return AsyncStorage.getItem(key);
-};
-
-const ghiRaw = async (key, raw) => {
-  if (laMoiTruongWeb()) {
-    try {
-      window.localStorage.setItem(key, raw);
-    } catch {
-      // ignore localStorage quota/write issues here; AsyncStorage remains the fallback.
-    }
-  }
-  await AsyncStorage.setItem(key, raw).catch(() => {});
 };
 
 const docDuLieuHienTai = async (keys) => {
