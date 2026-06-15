@@ -56,6 +56,7 @@ import { giamDinhCv3231Bhyt } from './giam_dinh_cv3231_bhyt';
 import { laMotLanKcbDuoi15PhanTramLcs as laMotLanKcbDuoi15PhanTramLCS } from './muc_luong_co_so_bhyt';
 import { tachChuoiNhieuMa } from './catalog_mapping_chuoi_ma';
 import { hopNhatQuyTacTrungTheoDoiTuong } from './hop_nhat_quy_tac_trung_lap';
+import { chuanHoaKhoaCanhBaoDedupe, rutGonPhanHoiQuyTac } from './rut_gon_phan_hoi_quy_tac';
 
 // ============================================================
 // [PHẦN 1] CACHE VÀ HÀM TIỆN ÍCH CƠ BẢN
@@ -1227,10 +1228,7 @@ const layLỗiCauTrucTienXuLy = (hoSo) => {
     });
 };
 
-const chuanHoaChuoiGomCanhBao = (s) => String(s || '')
-    .replace(/\r\n/g, '\n')
-    .replace(/\s+/g, ' ')
-    .trim();
+const chuanHoaChuoiGomCanhBao = (s) => chuanHoaKhoaCanhBaoDedupe(s);
 
 /**
  * Gộp các dòng cảnh báo trùng trên cùng một hồ sơ: cùng mã luật + cùng nội dung cảnh báo (sau chuẩn hóa),
@@ -3222,7 +3220,7 @@ const boSungChiTietCanhBaoGiaiTrinh = (hoSo, dsLỗi, dm) => (Array.isArray(dsL�
     const phanHe = UPPER(loi?.phan_he || '');
     const truong = UPPER(loi?.truong_loi || '');
     const maLuat = UPPER(loi?.ma_luat || '');
-    let canhBao = lamSachChuoiHienThi(loi?.canh_bao || '');
+    let canhBao = rutGonPhanHoiQuyTac(lamSachChuoiHienThi(loi?.canh_bao || ''));
     const dong = layDongTheoLỗi(hoSo, loi);
 
     if (dong && phanHe === 'XML2') {
@@ -3264,7 +3262,7 @@ const boSungChiTietCanhBaoGiaiTrinh = (hoSo, dsLỗi, dm) => (Array.isArray(dsL�
 
     return {
         ...loi,
-        canh_bao: canhBao,
+        canh_bao: rutGonPhanHoiQuyTac(canhBao),
     };
 });
 
@@ -3801,6 +3799,12 @@ const layGiaTriDanhMuc = (row, danhSachKhoa = []) => {
 
 const lamSachChuoiHienThi = (value) => String(value || '').replace(/\s+/g, ' ').trim();
 
+const lamSachChuoiHienThiCoXuongDong = (value) => String(value || '')
+    .replace(/\r\n/g, '\n')
+    .replace(/[ \t]+/g, ' ')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim();
+
 const taoNhomChiTietDuyNhat = (items = []) => {
     const seen = new Set();
     const out = [];
@@ -3816,14 +3820,14 @@ const taoNhomChiTietDuyNhat = (items = []) => {
 };
 
 const dinhKemChiTietCanhBao = (message = '', label = 'Chi tiết', details = []) => {
-    const text = lamSachChuoiHienThi(message);
+    const text = lamSachChuoiHienThiCoXuongDong(message);
     const chiTiet = taoNhomChiTietDuyNhat(details).join('; ');
     if (!chiTiet) return text;
     const tokenMessage = UPPER(text).replace(/[^A-Z0-9]/g, '');
     const tokenDetail = UPPER(chiTiet).replace(/[^A-Z0-9]/g, '');
     if (tokenMessage && tokenDetail && tokenMessage.includes(tokenDetail)) return text;
-    const ketThuc = text.endsWith('.') ? text : `${text}.`;
-    return `${ketThuc} ${label}: ${chiTiet}.`;
+    const ketThuc = text.endsWith('.') || text.endsWith('\n') ? text : `${text}.`;
+    return `${ketThuc}\n${label}: ${chiTiet}`;
 };
 
 const dinhDangMaTen = (ma = '', ten = '', fallback = '') => {
