@@ -54,6 +54,7 @@ import {
   NHOM_VI_PHAM_TAT_CA,
   locDanhSachLoiChiTiet,
   phangHoaDanhSachLoiChiTiet,
+  taoMetaXuatBacSiTuChiTietLoi,
   tongHopQuyTacTuDanhSachChiTiet,
 } from '../tien_ich/thong_ke_loi_dung_chung';
 import {
@@ -141,6 +142,7 @@ const taoCacDongXuatXmlGocSangNhomTheoPhanHe = (danhSachChiTietLoc, timHoSo) => 
       _XUAT_BANG_XML: phan,
       _XUAT_INDEX_DONG: loi.index,
       _XUAT_TRUONG_LOI: String(loi.truong_loi || '').trim(),
+      ...taoMetaXuatBacSiTuChiTietLoi(detail, loi, hs),
     };
     if (row && typeof row === 'object' && !Array.isArray(row) && Object.keys(row).length > 0) {
       nhom.push({ ...metaDau, ...phangDongXmlChoOExcel(row) });
@@ -1151,7 +1153,7 @@ const ManHinhTongQuan = ({ navigation }) => {
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <BaoCaoViPhamQPS xmlns="urn:cdss-bhyt:bao-cao-vi-pham" phien_ban="1.0" tao_luc="${escapeXmlBaoCaoViPham(new Date().toISOString())}" so_dong="${sttG}">
-  <GhiChu>Chỉ các dòng dữ liệu gốc XML tương ứng từng cảnh báo (bảng XML2, XML3, …) sau lọc; cột _XUAT_* là phần cảnh báo/lỗi tham chiếu.</GhiChu>
+  <GhiChu>Chỉ các dòng dữ liệu gốc XML tương ứng từng cảnh báo (bảng XML2, XML3, …) sau lọc; cột _XUAT_* là phần cảnh báo/lỗi tham chiếu (gồm mã BS khám, BS dòng lỗi, BS chỉ định, BS thực hiện).</GhiChu>
 ${phanDongKhoi.join('\n')}
 </BaoCaoViPhamQPS>
 `;

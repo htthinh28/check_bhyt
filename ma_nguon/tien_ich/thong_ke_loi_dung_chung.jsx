@@ -500,6 +500,25 @@ export const layNgayYLenhNgayKqVaBacSiTuLoiHoSo = (loi = {}, hoSo = {}) => {
   return out;
 };
 
+const chuanHoaMaBsChoXuatBaoCao = (val = '') => {
+  const s = String(val || '').trim();
+  return s === 'KHONG_RO' ? '' : s;
+};
+
+/**
+ * Cột _XUAT_MA_BS_* cho xuất Excel/XML báo cáo lỗi trên dashboard.
+ * @returns {{ _XUAT_MA_BS_KHAM: string, _XUAT_MA_BS_DONG_LOI: string, _XUAT_MA_BS_CHI_DINH: string, _XUAT_MA_BS_THUC_HIEN: string }}
+ */
+export const taoMetaXuatBacSiTuChiTietLoi = (detail = {}, loi = {}, hoSo = {}) => {
+  const bsTheoDong = layNgayYLenhNgayKqVaBacSiTuLoiHoSo(loi, hoSo);
+  return {
+    _XUAT_MA_BS_KHAM: chuanHoaMaBsChoXuatBaoCao(detail.ma_bac_si),
+    _XUAT_MA_BS_DONG_LOI: chuanHoaMaBsChoXuatBaoCao(detail.ma_bac_si_dong),
+    _XUAT_MA_BS_CHI_DINH: chuanHoaMaBsChoXuatBaoCao(bsTheoDong.bacSiChiDinh),
+    _XUAT_MA_BS_THUC_HIEN: chuanHoaMaBsChoXuatBaoCao(bsTheoDong.bacSiThucHien),
+  };
+};
+
 /**
  * Vị trí cụ thể trong XML: bảng, thứ tự dòng, trường kiểm tra, gợi ý đối tượng dòng (DV/thuốc) nếu truy được từ hồ sơ.
  */
