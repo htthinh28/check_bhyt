@@ -20,6 +20,7 @@ import * as FileSystem from 'expo-file-system';
 import * as DocumentPicker from 'expo-document-picker';
 import { xuatExcelBaoCao } from '../dich_vu/bao_cao_xuat_file';
 import {
+  damBaoLuuTruBenTrenWeb,
   khoiPhucHoSoGiamDinhVaoKho,
   layDanhSachHoSoGiamDinhLuuTru,
   layHoSoGiamDinhLuuTruTheoId,
@@ -27,6 +28,7 @@ import {
   layLichSuPhienGiamDinhTheoMaLK,
   layRawXmlImport,
   layTatCaHoSoTuKho,
+  layThongTinDungLuongKho,
   luuBanGhiImportXml,
   luuHoSoVaoKho,
   luuThuCongHoSoGiamDinhVaoLichSu,
@@ -227,9 +229,15 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
   const [danhSachLichSuGd, setDanhSachLichSuGd] = useState([]);
   const [tuKhoaLichSuGd, setTuKhoaLichSuGd] = useState('');
   const [banGhiLichSuDangXem, setBanGhiLichSuDangXem] = useState(null);
+  const [thongTinDungLuong, setThongTinDungLuong] = useState(null);
 
   useEffect(() => {
     taiDuLieuKho();
+    void (async () => {
+      await damBaoLuuTruBenTrenWeb();
+      const dl = await layThongTinDungLuongKho();
+      setThongTinDungLuong(dl);
+    })();
   }, []);
 
   const taiDanhSachLichSuGd = async () => {
@@ -1048,14 +1056,39 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
     );
   };
 
+  const renderThanhDungLuongKho = () => {
+    if (!thongTinDungLuong?.ho_tro) return null;
+    const pct = Number(thongTinDungLuong.phan_tram_da_dung) || 0;
+    const mauThanh = pct >= 90 ? '#EF5350' : pct >= 75 ? '#FFB74D' : '#80CBC4';
+    return (
+      <View style={styles.khung_dung_luong}>
+        <Text style={styles.chu_dung_luong_tieu_de}>💾 Dung lượng lưu trữ trình duyệt (IndexedDB)</Text>
+        <View style={styles.thanh_tien_trinh_dung_luong}>
+          <View style={[styles.thanh_tien_trinh_dung_luong_fill, { width: `${Math.min(100, pct)}%`, backgroundColor: mauThanh }]} />
+        </View>
+        <Text style={styles.chu_dung_luong_chi_tiet}>
+          Đã dùng {thongTinDungLuong.usage_hien_thi} / {thongTinDungLuong.quota_hien_thi}
+          {' · '}Còn {thongTinDungLuong.con_lai_hien_thi}
+          {' · '}{pct}%
+          {thongTinDungLuong.luu_ben ? ' · ✅ Lưu bền (persist)' : ' · ⚠️ Chưa xin lưu bền — có thể bị dọn cache'}
+          {thongTinDungLuong.nen_gzip_ho_tro ? ' · Nén gzip lịch sử GD' : ''}
+        </Text>
+        <Text style={styles.chu_dung_luong_phu}>
+          Không giới hạn số bản trong app; khi đầy trình duyệt sẽ báo QuotaExceeded — nên sao lưu Excel/XML định kỳ.
+        </Text>
+      </View>
+    );
+  };
+
   const renderTabLichSuGiamDinh = () => (
     <React.Fragment>
       <View style={styles.khung_canh_bao_lich_su}>
         <Text style={styles.chu_canh_bao_lich_su}>
-          Lịch sử giám định lưu trên IndexedDB / bộ nhớ máy — không bị xóa khi bấm «Làm mới kho» trên Dashboard.
-          Mỗi lần lưu hồ sơ đã chạy engine sẽ tự ghi thêm bản lưu.
+          Lịch sử giám định lưu gọn (XML1 + kết quả lỗi; XML chi tiết tham chiếu kho xml_import) — không bị xóa khi làm mới kho Dashboard.
+          Không giới hạn số bản trong ứng dụng.
         </Text>
       </View>
+      {renderThanhDungLuongKho()}
       <View style={styles.thanh_cong_cu}>
         <TextInput
           style={styles.o_tim_kiem}
@@ -1180,6 +1213,8 @@ const ManHinhKhoLuuTru = ({ navigation }) => {
             );
           })}
         </View>
+
+        {renderThanhDungLuongKho()}
 
         {banGhiLichSuDangXem ? renderModalChiTietLichSuGd()
           : hoSoDangSua ? renderModalSua()
@@ -1373,6 +1408,45 @@ const styles = StyleSheet.create({
     fontSize: 18,
     color: '#B2DFDB',
     lineHeight: 28,
+  },
+  khung_dung_luong: {
+    marginBottom: 14,
+    padding: 14,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(144,202,249,0.35)',
+    backgroundColor: 'rgba(25,118,210,0.1)',
+  },
+  chu_dung_luong_tieu_de: {
+    fontFamily: CD.font.family,
+    fontSize: 18,
+    fontWeight: '800',
+    color: '#90CAF9',
+    marginBottom: 8,
+  },
+  thanh_tien_trinh_dung_luong: {
+    height: 10,
+    borderRadius: 6,
+    backgroundColor: 'rgba(255,255,255,0.12)',
+    overflow: 'hidden',
+    marginBottom: 8,
+  },
+  thanh_tien_trinh_dung_luong_fill: {
+    height: '100%',
+    borderRadius: 6,
+  },
+  chu_dung_luong_chi_tiet: {
+    fontFamily: CD.font.family,
+    fontSize: 17,
+    color: CD.text.primary,
+    lineHeight: 26,
+  },
+  chu_dung_luong_phu: {
+    fontFamily: CD.font.family,
+    fontSize: 15,
+    color: CD.text.muted,
+    marginTop: 6,
+    lineHeight: 22,
   },
 
   // ── BẢNG DỮ LIỆU ──

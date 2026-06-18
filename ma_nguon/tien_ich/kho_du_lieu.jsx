@@ -18,9 +18,9 @@
  *   store `lich_su_phien_gd` (web) / key `CDSS_LSGDMLK_*` (mobile). Không xóa
  *   khi xóa kho làm việc; có API xóa tập trung nếu cần reset quyền riêng tư.
  *
- * Kho lịch sử hồ sơ đã giám định (bản sao đầy đủ kết quả — khôi phục được):
+ * Kho lịch sử hồ sơ đã giám định (metadata + kết quả giám định, XML gốc qua xml_import):
  *   store `ho_so_gd_luu_tru` (web) / key `CDSS_HSGD_*` (mobile). Không xóa khi
- *   `xoaToanBoKho` (làm mới kho làm việc trên Dashboard).
+ *   `xoaToanBoKho`. Không giới hạn số bản trong code — chỉ giới hạn quota trình duyệt.
  *
  * Kho XML đầu vào (file gốc đã import — không dùng AsyncStorage tạm):
  *   store `xml_import` (web) / key `CDSS_XMLIMP_*` (mobile). Lưu raw XML + metadata;
@@ -31,10 +31,124 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Platform } from 'react-native';
 import { chuanHoaHoSoCanhBao } from './chuan_hoa_van_ban';
+import { xuLyFileXML130Va4210 } from './xml_helper';
 
 const laMoiTruongWeb = () => Platform.OS === 'web' || typeof window !== 'undefined' || typeof document !== 'undefined';
 const getIndexedDb = () => globalThis?.indexedDB || null;
 const getLocalStorage = () => globalThis?.localStorage || null;
+const getNavigatorStorage = () => globalThis?.navigator?.storage || null;
+
+const dinhDangBytesChoHienThi = (bytes = 0) => {
+  const n = Number(bytes) || 0;
+  if (n < 1024) return `${n} B`;
+  if (n < 1024 * 1024) return `${(n / 1024).toFixed(1)} KB`;
+  if (n < 1024 * 1024 * 1024) return `${(n / (1024 * 1024)).toFixed(1)} MB`;
+  return `${(n / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+};
+
+const bytesSangBase64 = (bytes) => {
+  const u8 = bytes instanceof Uint8Array ? bytes : new Uint8Array(bytes);
+  let s = '';
+  const chunk = 0x8000;
+  for (let i = 0; i < u8.length; i += chunk) {
+    s += String.fromCharCode(...u8.subarray(i, i + chunk));
+  }
+  return btoa(s);
+};
+
+const base64SangBytes = (b64 = '') => {
+  const s = atob(String(b64 || ''));
+  const out = new Uint8Array(s.length);
+  for (let i = 0; i < s.length; i += 1) out[i] = s.charCodeAt(i);
+  return out;
+};
+
+const coHoTroNenGzipWeb = () => laMoiTruongWeb()
+  && typeof globalThis.CompressionStream !== 'undefined'
+  && typeof globalThis.DecompressionStream !== 'undefined';
+
+const nenJsonGzipBase64 = async (value) => {
+  if (!coHoTroNenGzipWeb()) return null;
+  try {
+    const json = JSON.stringify(value ?? null);
+    const stream = new Blob([json]).stream().pipeThrough(new CompressionStream('gzip'));
+    const buf = await new Response(stream).arrayBuffer();
+    return bytesSangBase64(new Uint8Array(buf));
+  } catch (e) {
+    console.warn('[KHO_DU_LIEU] nenJsonGzipBase64:', e?.message || e);
+    return null;
+  }
+};
+
+const giaiNenJsonGzipBase64 = async (b64) => {
+  if (!coHoTroNenGzipWeb() || !b64) return null;
+  try {
+    const bytes = base64SangBytes(b64);
+    const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+    const text = await new Response(stream).text();
+    try {
+      return JSON.parse(text);
+    } catch {
+      return null;
+    }
+  } catch (e) {
+    console.warn('[KHO_DU_LIEU] giaiNenJsonGzipBase64:', e?.message || e);
+    return null;
+  }
+};
+
+/**
+ * Xin quyền lưu trữ bền trên Web (navigator.storage.persist) — giảm rủi ro trình duyệt dọn cache.
+ */
+export const damBaoLuuTruBenTrenWeb = async () => {
+  if (!laMoiTruongWeb()) {
+    return { ok: true, web: false, persisted: false, ly_do: 'not_web' };
+  }
+  try {
+    const storage = getNavigatorStorage();
+    if (!storage) return { ok: false, web: true, persisted: false, ly_do: 'no_storage_api' };
+    let persisted = false;
+    if (typeof storage.persisted === 'function') {
+      persisted = await storage.persisted();
+    }
+    if (!persisted && typeof storage.persist === 'function') {
+      persisted = await storage.persist();
+    }
+    return { ok: true, web: true, persisted, ly_do: persisted ? 'persisted' : 'denied_or_unsupported' };
+  } catch (e) {
+    return { ok: false, web: true, persisted: false, ly_do: e?.message || 'error' };
+  }
+};
+
+/** Ước lượng dung lượng IndexedDB / origin (chỉ Web). */
+export const layThongTinDungLuongKho = async () => {
+  if (!laMoiTruongWeb()) {
+    return { ho_tro: false, ly_do: 'not_web' };
+  }
+  try {
+    const storage = getNavigatorStorage();
+    if (!storage?.estimate) return { ho_tro: false, ly_do: 'no_estimate_api' };
+    const est = await storage.estimate();
+    const quota = Number(est?.quota) || 0;
+    const usage = Number(est?.usage) || 0;
+    const conLai = Math.max(0, quota - usage);
+    const persisted = typeof storage.persisted === 'function' ? await storage.persisted() : null;
+    return {
+      ho_tro: true,
+      quota_bytes: quota,
+      usage_bytes: usage,
+      con_lai_bytes: conLai,
+      phan_tram_da_dung: quota > 0 ? Math.round((usage / quota) * 1000) / 10 : 0,
+      quota_hien_thi: dinhDangBytesChoHienThi(quota),
+      usage_hien_thi: dinhDangBytesChoHienThi(usage),
+      con_lai_hien_thi: dinhDangBytesChoHienThi(conLai),
+      luu_ben: persisted === true,
+      nen_gzip_ho_tro: coHoTroNenGzipWeb(),
+    };
+  } catch (e) {
+    return { ho_tro: false, ly_do: e?.message || 'error' };
+  }
+};
 
 // ============================================================================
 // PHẦN 1: INDEXEDDB — DÙNG TRÊN WEB
@@ -51,12 +165,8 @@ const IDB_STORE_XML_IMPORT = 'xml_import';
 /** Bản lưu hồ sơ đã chạy giám định — không xóa khi xóa kho làm việc. */
 const IDB_STORE_HO_SO_GD_LUU_TRU = 'ho_so_gd_luu_tru';
 const IDB_VERSION = 6;
-const MAX_LAN_LICH_SU_PER_BN = 48;
-const MAX_PHIEN_GD_PER_MA_LK = 48;
-const MAX_XML_IMPORT_RECORDS = 600;
-const MAX_PHIEN_KET_QUA_SNAPSHOT = 300;
-const MAX_HO_SO_GD_LUU_TRU = 800;
-const MAX_HO_SO_GD_PER_MA_LK = 24;
+/** Bản lưu lịch sử giám định gọn (xml1 + kết quả; XML chi tiết qua xml_import). */
+const PHIEN_BAN_HO_SO_GD_GON = 2;
 
 let _dbCache = null;
 
@@ -545,36 +655,7 @@ const ghiDanhSachIdImportXmlMobile = async (ids = []) => {
 };
 
 const catGiamLichSuImportXml = async () => {
-  try {
-    if (Platform.OS === 'web') {
-      const all = await idbXmlImport.getAll();
-      if (all.length <= MAX_XML_IMPORT_RECORDS) return;
-      const sorted = [...all].sort((a, b) => String(b.ghi_luc_iso || '').localeCompare(String(a.ghi_luc_iso || '')));
-      const canXoa = sorted.slice(MAX_XML_IMPORT_RECORDS);
-      for (const rec of canXoa) {
-        if (rec?.id) await idbXmlImport.delete(rec.id);
-      }
-      return;
-    }
-    const ids = await docDanhSachIdImportXmlMobile();
-    if (ids.length <= MAX_XML_IMPORT_RECORDS) return;
-    const metas = [];
-    for (const id of ids) {
-      const raw = await AsyncStorage.getItem(`${PREFIX_XML_IMPORT_MOBILE}${id}`);
-      const meta = raw ? parseJsonAnToan(raw) : null;
-      if (meta?.id) metas.push(meta);
-    }
-    metas.sort((a, b) => String(b.ghi_luc_iso || '').localeCompare(String(a.ghi_luc_iso || '')));
-    const giu = new Set(metas.slice(0, MAX_XML_IMPORT_RECORDS).map((m) => m.id));
-    for (const meta of metas) {
-      if (giu.has(meta.id)) continue;
-      await AsyncStorage.removeItem(`${PREFIX_XML_IMPORT_MOBILE}${meta.id}`).catch(() => {});
-      await xoaJsonChunkTheoKhoa(`${PREFIX_XML_IMPORT_RAW_MOBILE}${meta.id}`).catch(() => {});
-    }
-    await ghiDanhSachIdImportXmlMobile([...giu]);
-  } catch (e) {
-    console.warn('[KHO_DU_LIEU] catGiamLichSuImportXml:', e?.message || e);
-  }
+  /* Không giới hạn số bản XML import — chỉ quota trình duyệt/OS. */
 };
 
 let migrateXmlImportPromise = null;
@@ -673,7 +754,7 @@ export const luuBanGhiImportXml = async ({
 export const layLichSuImportXml = async ({ ma_lk = '', gioiHan = 300 } = {}) => {
   await damBaoMigrateLichSuXmlSangKhoChinhThuc();
   const maLoc = chuanHoaMaLKImport(ma_lk);
-  const limit = Math.max(1, Math.min(Number(gioiHan) || 300, MAX_XML_IMPORT_RECORDS));
+  const limit = Math.max(1, Number(gioiHan) || 500);
 
   try {
     if (Platform.OS === 'web') {
@@ -817,7 +898,7 @@ const ghiMotLanLichSu = async (hoSo) => {
     cac_lan.sort((a, b) => String(b.ngay_ra || '').localeCompare(String(a.ngay_ra || '')));
     await idbLichSu.put({
       ma_bn,
-      cac_lan: cac_lan.slice(0, MAX_LAN_LICH_SU_PER_BN),
+      cac_lan: cac_lan,
       cap_nhat: Date.now(),
     });
     return;
@@ -830,7 +911,7 @@ const ghiMotLanLichSu = async (hoSo) => {
   rec.cac_lan = rec.cac_lan.filter((x) => x?.ma_lk !== ma_lk);
   rec.cac_lan.push(lan);
   rec.cac_lan.sort((a, b) => String(b.ngay_ra || '').localeCompare(String(a.ngay_ra || '')));
-  rec.cac_lan = rec.cac_lan.slice(0, MAX_LAN_LICH_SU_PER_BN);
+  rec.cac_lan = rec.cac_lan;
   rec.cap_nhat = Date.now();
   await AsyncStorage.setItem(key, JSON.stringify(rec));
 
@@ -886,12 +967,61 @@ const layMetaXml1TuHoSo = (hoSo = {}) => {
   };
 };
 
-const taoBanGhiHoSoGdLuuTru = (hoSoChuan = {}) => {
+const layKetQuaGiamDinhTuSnapshot = async (snap = {}) => {
+  if (!snap || typeof snap !== 'object') return [];
+  if (Array.isArray(snap.ket_qua_giam_dinh)) return snap.ket_qua_giam_dinh;
+  if (snap.ket_qua_giam_dinh_gzip) {
+    const giai = await giaiNenJsonGzipBase64(snap.ket_qua_giam_dinh_gzip);
+    if (Array.isArray(giai)) return giai;
+  }
+  return [];
+};
+
+const taoHoSoSnapshotGon = async (hoSoChuan = {}, kq = []) => {
+  const x1Data = hoSoChuan?.xml1 || hoSoChuan?.XML1 || {};
+  const x1 = Array.isArray(x1Data) ? { ...(x1Data[0] || {}) } : { ...x1Data };
+  const meta = layMetaXml1TuHoSo(hoSoChuan);
+  const snap = {
+    phien_ban: PHIEN_BAN_HO_SO_GD_GON,
+    ma_lk: String(hoSoChuan.ma_lk || x1.MA_LK || '').trim(),
+    ten_bn: meta.ten_bn,
+    thoi_gian: hoSoChuan.thoi_gian,
+    ten_file_goc: String(hoSoChuan.ten_file_goc || hoSoChuan._ten_file || '').slice(0, 260),
+    xml_import_id: String(hoSoChuan.xml_import_id || '').trim(),
+    xml1: x1,
+  };
+  const gzip = await nenJsonGzipBase64(kq);
+  if (gzip) {
+    snap.ket_qua_giam_dinh_gzip = gzip;
+    snap.nen_ket_qua = true;
+    snap.so_loi_goc = kq.length;
+  } else {
+    snap.ket_qua_giam_dinh = kq;
+  }
+  return snap;
+};
+
+const moRongBanGhiHoSoGdLuuTru = async (rec = null) => {
+  if (!rec || typeof rec !== 'object') return rec;
+  const snap = rec.ho_so_snapshot;
+  if (!snap || typeof snap !== 'object') return rec;
+  const kq = await layKetQuaGiamDinhTuSnapshot(snap);
+  if (!kq.length && !snap.ket_qua_giam_dinh && !snap.ket_qua_giam_dinh_gzip) return rec;
+  return {
+    ...rec,
+    ho_so_snapshot: {
+      ...snap,
+      ket_qua_giam_dinh: kq,
+    },
+  };
+};
+
+const taoBanGhiHoSoGdLuuTru = async (hoSoChuan = {}) => {
   const ma_lk = String(hoSoChuan?.ma_lk || '').trim();
   const kq = hoSoChuan?.ket_qua_giam_dinh;
   if (!ma_lk || !Array.isArray(kq)) return null;
   const meta = layMetaXml1TuHoSo(hoSoChuan);
-  const { _raw, ...hoSoSnapshot } = hoSoChuan;
+  const hoSoSnapshot = await taoHoSoSnapshotGon(hoSoChuan, kq);
   return {
     id: `hsgd_${Date.now()}_${Math.random().toString(36).slice(2, 10)}`,
     ma_lk,
@@ -907,6 +1037,8 @@ const taoBanGhiHoSoGdLuuTru = (hoSoChuan = {}) => {
     so_loi: kq.length,
     tom_tat: tomTatPhienGiamDinh(kq),
     ho_so_snapshot: hoSoSnapshot,
+    luu_gon: true,
+    nen_ket_qua: Boolean(hoSoSnapshot.nen_ket_qua),
   };
 };
 
@@ -922,59 +1054,20 @@ const capNhatIndexHoSoGdLuuMobile = async (ids = []) => {
   return unique;
 };
 
-const catBoHoSoGdLuuTruVuotGioiHan = async (records = []) => {
-  const ds = (Array.isArray(records) ? records : [])
-    .filter((r) => r && r.id)
-    .sort((a, b) => String(b.ghi_luc_iso || '').localeCompare(String(a.ghi_luc_iso || '')));
-
-  const theoMaLk = new Map();
-  ds.forEach((r) => {
-    const mk = String(r.ma_lk || '').trim();
-    if (!theoMaLk.has(mk)) theoMaLk.set(mk, []);
-    theoMaLk.get(mk).push(r);
-  });
-
-  const giu = [];
-  theoMaLk.forEach((arr) => {
-    giu.push(...arr.slice(0, MAX_HO_SO_GD_PER_MA_LK));
-  });
-  giu.sort((a, b) => String(b.ghi_luc_iso || '').localeCompare(String(a.ghi_luc_iso || '')));
-  const giuCat = giu.slice(0, MAX_HO_SO_GD_LUU_TRU);
-  const giuIds = new Set(giuCat.map((r) => r.id));
-  const xoa = ds.filter((r) => !giuIds.has(r.id));
-  return { giu: giuCat, xoa };
-};
-
 /** Ghi bản lưu hồ sơ đã giám định vào kho lịch sử bền (không xóa khi làm mới kho làm việc). */
 const ghiHoSoGiamDinhVaoLichSuLuuTru = async (hoSoChuan) => {
-  const banGhi = taoBanGhiHoSoGdLuuTru(hoSoChuan);
+  const banGhi = await taoBanGhiHoSoGdLuuTru(hoSoChuan);
   if (!banGhi) return null;
 
   if (Platform.OS === 'web') {
     await idbHoSoGdLuuTru.put(banGhi);
-    const all = await idbHoSoGdLuuTru.getAll();
-    const { giu, xoa } = await catBoHoSoGdLuuTruVuotGioiHan(all);
-    for (const r of xoa) {
-      await idbHoSoGdLuuTru.delete(r.id).catch(() => {});
-    }
     return banGhi;
   }
 
   await luuJsonChunkTheoKhoa(`${PREFIX_HO_SO_GD_LUU_MOBILE}${banGhi.id}`, banGhi);
   const ids = await docDanhSachIdHoSoGdLuuMobile();
-  ids.unshift(banGhi.id);
+  if (!ids.includes(banGhi.id)) ids.unshift(banGhi.id);
   await capNhatIndexHoSoGdLuuMobile(ids);
-
-  const metaList = [];
-  for (const id of ids) {
-    const raw = await docJsonChunkTheoKhoa(`${PREFIX_HO_SO_GD_LUU_MOBILE}${id}`);
-    if (raw && raw.id) metaList.push(raw);
-  }
-  const { giu, xoa } = await catBoHoSoGdLuuTruVuotGioiHan(metaList);
-  await capNhatIndexHoSoGdLuuMobile(giu.map((r) => r.id));
-  for (const r of xoa) {
-    await xoaJsonChunkTheoKhoa(`${PREFIX_HO_SO_GD_LUU_MOBILE}${r.id}`).catch(() => {});
-  }
   return banGhi;
 };
 
@@ -985,13 +1078,13 @@ const ghiMotPhienGiamDinh = async (hoSoChuan) => {
   if (!ma_lk || !Array.isArray(kq)) return;
 
   const meta = layMetaXml1TuHoSo(hoSoChuan);
-  const snapshot = kq.slice(0, MAX_PHIEN_KET_QUA_SNAPSHOT).map(rutGonDongKetQuaPhien);
+  const snapshot = kq.map(rutGonDongKetQuaPhien);
   const phien = {
     id_phien: `${Date.now()}_${Math.random().toString(36).slice(2, 10)}`,
     ghi_luc_iso: new Date().toISOString(),
     tom_tat: tomTatPhienGiamDinh(kq),
     ket_qua_snapshot: snapshot,
-    so_dong_bi_cat: kq.length > MAX_PHIEN_KET_QUA_SNAPSHOT ? kq.length - MAX_PHIEN_KET_QUA_SNAPSHOT : 0,
+    so_dong_bi_cat: 0,
     xml_import_id: String(hoSoChuan?.xml_import_id || '').trim() || undefined,
     ten_file_goc: String(hoSoChuan?.ten_file_goc || hoSoChuan?._ten_file || '').slice(0, 260) || undefined,
     ten_bn: meta.ten_bn || undefined,
@@ -1006,7 +1099,7 @@ const ghiMotPhienGiamDinh = async (hoSoChuan) => {
     cac_phien.unshift(phien);
     await idbPhienGd.put({
       ma_lk,
-      cac_phien: cac_phien.slice(0, MAX_PHIEN_GD_PER_MA_LK),
+      cac_phien: cac_phien,
       cap_nhat: Date.now(),
     });
     return;
@@ -1017,7 +1110,7 @@ const ghiMotPhienGiamDinh = async (hoSoChuan) => {
   let rec = raw ? parseJsonAnToan(raw) : null;
   if (!rec || !Array.isArray(rec.cac_phien)) rec = { ma_lk, cac_phien: [] };
   rec.cac_phien.unshift(phien);
-  rec.cac_phien = rec.cac_phien.slice(0, MAX_PHIEN_GD_PER_MA_LK);
+  rec.cac_phien = rec.cac_phien;
   rec.cap_nhat = Date.now();
   await AsyncStorage.setItem(key, JSON.stringify(rec));
 };
@@ -1485,8 +1578,7 @@ export const phanTichKhoangCachDieuTri = async (hoSo) => {
 };
 
 /**
- * Lịch sử các phiên kiểm tra đã lưu (theo MA_LK): mới nhất trước, tối đa MAX_PHIEN_GD_PER_MA_LK.
- * Mỗi phiên: id_phien, ghi_luc_iso, tom_tat, ket_qua_snapshot (tối đa MAX_PHIEN_KET_QUA_SNAPSHOT dòng).
+ * Lịch sử các phiên kiểm tra đã lưu (theo MA_LK). Không giới hạn số phiên trong code.
  */
 export const layLichSuPhienGiamDinhTheoMaLK = async (ma_lk) => {
   const m = String(ma_lk || '').trim();
@@ -1544,33 +1636,91 @@ export const layDanhSachHoSoGiamDinhLuuTru = async () => {
   }
 };
 
-/** Lấy đầy đủ bản lưu (gồm ho_so_snapshot) theo id. */
+/** Lấy đầy đủ bản lưu (gồm ho_so_snapshot đã giải nén) theo id. */
 export const layHoSoGiamDinhLuuTruTheoId = async (id) => {
   const key = String(id || '').trim();
   if (!key) return null;
   try {
+    let rec = null;
     if (Platform.OS === 'web') {
-      return await idbHoSoGdLuuTru.get(key);
+      rec = await idbHoSoGdLuuTru.get(key);
+    } else {
+      rec = await docJsonChunkTheoKhoa(`${PREFIX_HO_SO_GD_LUU_MOBILE}${key}`);
     }
-    return await docJsonChunkTheoKhoa(`${PREFIX_HO_SO_GD_LUU_MOBILE}${key}`);
+    return await moRongBanGhiHoSoGdLuuTru(rec);
   } catch (e) {
     console.warn('[KHO_DU_LIEU] layHoSoGiamDinhLuuTruTheoId:', e);
     return null;
   }
 };
 
+const timHoSoTrongMangXmlTheoMaLK = (ds = [], maLK = '') => {
+  const target = String(maLK || '').trim().toUpperCase();
+  if (!target) return null;
+  return (Array.isArray(ds) ? ds : []).find((hs) => {
+    const x1 = hs?.xml1 || hs?.XML1;
+    const x1o = Array.isArray(x1) ? (x1[0] || {}) : (x1 || {});
+    const mk = String(hs?.ma_lk || x1o.MA_LK || x1o.ma_lk || '').trim().toUpperCase();
+    return mk === target;
+  }) || null;
+};
+
+const dungHoSoTuSnapshotGon = async (banGhi = {}, snap = {}) => {
+  const maLK = String(banGhi.ma_lk || snap.ma_lk || '').trim();
+  const kq = await layKetQuaGiamDinhTuSnapshot(snap);
+  const xmlId = String(banGhi.xml_import_id || snap.xml_import_id || '').trim();
+  const rawXml = xmlId ? await layRawXmlImport({ id: xmlId, ma_lk: maLK }) : '';
+  if (rawXml) {
+    const ds = xuLyFileXML130Va4210(rawXml);
+    const found = timHoSoTrongMangXmlTheoMaLK(ds, maLK) || (ds.length === 1 ? ds[0] : null);
+    if (found) {
+      return chuanHoaBanGhiHoSo({
+        ...found,
+        ma_lk: maLK,
+        ket_qua_giam_dinh: kq,
+        xml_import_id: xmlId,
+        ten_file_goc: banGhi.ten_file_goc || snap.ten_file_goc || found.ten_file_goc,
+        thoi_gian: banGhi.thoi_gian || snap.thoi_gian || new Date().toLocaleString('vi-VN'),
+      });
+    }
+  }
+  return chuanHoaBanGhiHoSo({
+    ma_lk: maLK,
+    ten_bn: banGhi.ten_bn || snap.ten_bn,
+    xml1: snap.xml1 || {},
+    ket_qua_giam_dinh: kq,
+    xml_import_id: xmlId,
+    ten_file_goc: banGhi.ten_file_goc || snap.ten_file_goc,
+    thoi_gian: banGhi.thoi_gian || snap.thoi_gian || new Date().toLocaleString('vi-VN'),
+  });
+};
+
 /** Khôi phục hồ sơ từ lịch sử giám định vào kho làm việc. */
 export const khoiPhucHoSoGiamDinhVaoKho = async (id) => {
   const banGhi = await layHoSoGiamDinhLuuTruTheoId(id);
   const snap = banGhi?.ho_so_snapshot;
-  if (!snap || typeof snap !== 'object') return { ok: false, loi: 'Không tìm thấy bản lưu hồ sơ.' };
-  const hoSo = chuanHoaBanGhiHoSo({
-    ...snap,
-    ma_lk: snap.ma_lk || banGhi.ma_lk,
-    thoi_gian: banGhi.thoi_gian || snap.thoi_gian || new Date().toLocaleString('vi-VN'),
-  });
+  if (!snap || typeof snap !== 'object') {
+    return { ok: false, loi: 'Không tìm thấy bản lưu hồ sơ.' };
+  }
+
+  let hoSo;
+  const laSnapshotGon = snap.phien_ban === PHIEN_BAN_HO_SO_GD_GON
+    || (snap.nen_ket_qua === true)
+    || (Array.isArray(snap.ket_qua_giam_dinh) && !snap.du_lieu_goc && !snap.xml2 && !snap.XML2);
+
+  if (laSnapshotGon) {
+    hoSo = await dungHoSoTuSnapshotGon(banGhi, snap);
+  } else {
+    hoSo = chuanHoaBanGhiHoSo({
+      ...snap,
+      ma_lk: snap.ma_lk || banGhi.ma_lk,
+      thoi_gian: banGhi.thoi_gian || snap.thoi_gian || new Date().toLocaleString('vi-VN'),
+    });
+  }
+
+  if (!hoSo?.ma_lk) return { ok: false, loi: 'Bản lưu thiếu MA_LK.' };
   await luuHoSoVaoKho([hoSo]);
-  return { ok: true, ma_lk: hoSo.ma_lk };
+  return { ok: true, ma_lk: hoSo.ma_lk, tu_xml_import: Boolean(snap.xml_import_id) };
 };
 
 /** Lưu thủ công danh sách hồ sơ đã giám định vào kho lịch sử bền. */
@@ -1817,6 +1967,8 @@ const KhoDuLieu = {
   luuThuCongHoSoGiamDinhVaoLichSu,
   xoaHoSoGiamDinhLuuTru,
   xoaToanBoHoSoGiamDinhLuuTru,
+  damBaoLuuTruBenTrenWeb,
+  layThongTinDungLuongKho,
   ghiPhienGiamDinhSauLuuKho,
   phanTichKhoangCachDieuTri,
   xoaToanBoLichSuDieuTri,
