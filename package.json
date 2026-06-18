@@ -77,6 +77,7 @@
     "qa:excel-bac-si-loi": "node ./scripts/qa_excel_bac_si_loi.mjs",
     "qa:cln-thuoc-06": "node ./scripts/qa_cln_thuoc_06_ke_don_30.mjs",
     "qa:kho-chinh-thuc": "node ./scripts/qa_kho_chinh_thuc_luu.mjs",
+    "qa:kho-luu-tru-a-e": "node ./scripts/qa_kho_luu_tru_a_e.mjs",
     "qa:tai-khoan-storage": "node ./scripts/qa_tai_khoan_storage.mjs",
     "qa:tai-khoan-rbac": "node ./scripts/qa_tai_khoan_rbac.mjs",
     "qa:audit-all": "npm run chuyen-de:prepare-build && npm run tai_lieu:index-huan-luyen && npm run qa:audit-fixtures && npm run qa:on-off-match && npm run qa:rule-schema && npm run qa:rule-trang-thai && npm run qa:claim-audit-smoke && npm run qa:danh-muc-xml-mau && npm run qa:chuyen-de-thuc-chien && npm run tai_lieu:prepare",
