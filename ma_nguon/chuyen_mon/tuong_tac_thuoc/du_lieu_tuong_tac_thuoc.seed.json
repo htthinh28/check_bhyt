@@ -1,5 +1,5 @@
 {
-  "phien_ban": "2026.04.24.226.ma-normal",
+  "phien_ban": "2026.06.16.226-audit-fix",
   "columns": [
     "id",
     "TRANG_THAI",
@@ -206,10 +206,10 @@
       "id": "tt-TUONGTAC_020",
       "MA_TUONG_TAC": "TUONGTAC_020",
       "MA_THUOC_A": "40.775",
-      "MA_THUOC_B": "",
-      "NOI_DUNG_TUONG_TAC": "[40.775] Methylprednisolon (hoặc Dexamethason) vs Các NSAID",
+      "MA_THUOC_B": "40.39",
+      "NOI_DUNG_TUONG_TAC": "[40.775] Methylprednisolon (hoặc Dexamethason) vs Các NSAID ([40.39] Ketorolac, [40.37] Ibuprofen, [40.41] Meloxicam, [40.28] Celecoxib, [40.38] Ketoprofen)",
       "CANH_BAO_HE_THONG": "⚠️ Loét/Thủng dạ dày - tá tràng: Phối hợp Corticosteroid và NSAID làm tăng nguy cơ biến chứng loét đường tiêu hóa lên nhiều lần. Khuyến cáo kê thêm PPI dự phòng xuất huyết [14].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "0",
+      "DU_LIEU_CAP_DOI_DAY_DU": "1",
       "TRANG_THAI": "ON"
     },
     {
@@ -246,10 +246,10 @@
       "id": "tt-TUONGTAC_024",
       "MA_TUONG_TAC": "TUONGTAC_024",
       "MA_THUOC_A": "40.483",
-      "MA_THUOC_B": "",
-      "NOI_DUNG_TUONG_TAC": "[40.483] Amiodaron hydroclorid vs Nhóm chẹn Beta",
+      "MA_THUOC_B": "40.493",
+      "NOI_DUNG_TUONG_TAC": "[40.483] Amiodaron hydroclorid vs Nhóm chẹn Beta ([40.493] Bisoprolol, [40.497] Carvedilol, [40.515] Metoprolol, [40.517] Nebivolol)",
       "CANH_BAO_HE_THONG": "⚠️ Ngưng xoang / Block nhĩ thất: Phối hợp làm ức chế mạnh hệ thống dẫn truyền cơ tim. Chỉ dùng dưới sự giám sát chặt chẽ của bác sĩ chuyên khoa Tim mạch, theo dõi sát ECG [6].",
-      "DU_LIEU_CAP_DOI_DAY_DU": "0",
+      "DU_LIEU_CAP_DOI_DAY_DU": "1",
       "TRANG_THAI": "ON"
     },
     {

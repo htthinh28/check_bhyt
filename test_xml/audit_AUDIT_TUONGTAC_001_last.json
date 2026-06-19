@@ -1,34 +1,49 @@
 {
   "meta": {
-    "generated_at": "2026-04-18T02:40:42.365Z",
-    "claim_path": "C:\\Users\\admin\\Documents\\Google Drive\\ung_dung_cdss_bhyt\\test_xml\\huan_luyen\\AUDIT_TUONGTAC_001.xml",
+    "generated_at": "2026-06-19T08:07:35.288Z",
+    "claim_path": "/workspace/test_xml/huan_luyen/AUDIT_TUONGTAC_001.xml",
     "ma_lk": "AUDIT_TUONGTAC_001",
-    "total_warnings": 93,
+    "total_warnings": 76,
     "tuong_tac_only": false,
     "by_severity": {
-      "Critical": 22,
-      "Error": 30,
-      "Warning": 41
+      "Critical": 25,
+      "Error": 20,
+      "Warning": 31
+    },
+    "by_tang_V15": {
+      "L0": 36,
+      "L1": 23,
+      "L23": 11,
+      "L4": 6
     },
     "by_namespace": {
       "HANH_CHINH_BUILTIN": 1,
       "HANH_CHINH_HARDCODED": 11,
       "ICD10_TT06_BUILTIN": 1,
-      "QUY_TAC_NOI_BO": 71,
-      "THUOC_HARDCODED": 7,
-      "XDC_BUILTIN": 2
+      "QUY_TAC_NOI_BO": 58,
+      "THUOC_DANH_MUC_BUILTIN": 1,
+      "THUOC_HARDCODED": 3,
+      "XDC_BUILTIN": 1
     },
     "by_source": {
-      "dong_co_giam_dinh": 75,
+      "dong_co_giam_dinh": 62,
       "luat_hanh_chinh_hardcoded": 11,
-      "luat_thuoc_hardcoded": 7
+      "luat_thuoc_hardcoded": 3
     },
     "focus_summary": {
       "TUONGTAC_001": 1
     }
   },
   "unique_rule_codes": [
+    "CLN-THUOC-06",
     "CLN-XDC-02",
+    "GDH_4210_103",
+    "GDH_4210_23",
+    "GDH_4210_24",
+    "GDH_4210_31",
+    "GDH_4210_34",
+    "GDH_4210_41",
+    "GDH_9324_4",
     "HC_12",
     "HC_136",
     "HC_160",
@@ -44,10 +59,7 @@
     "HD_04",
     "ICD-TT06-CU-THE-HON",
     "THUOC_249",
-    "THUOC_329",
     "THUOC_406",
-    "THUOC_425",
-    "THUOC_448",
     "TUONGTAC_001",
     "XML_109",
     "XML_49",
@@ -59,32 +71,19 @@
     "XML1-REQ-LY_DO_VV",
     "XML1-REQ-MA_DANTOC",
     "XML1-REQ-MA_KHOA",
-    "XML1-REQ-MA_KHUVUC",
     "XML1-REQ-MA_LOAI_RV",
     "XML1-REQ-MA_NGHE_NGHIEP",
     "XML1-REQ-MA_QUOCTICH",
-    "XML1-REQ-MA_TTDV",
-    "XML1-REQ-MAHUYEN_CU_TRU",
     "XML1-REQ-MATINH_CU_TRU",
     "XML1-REQ-NAM_QT",
     "XML1-REQ-NGAY_SINH",
-    "XML1-REQ-PP_DIEU_TRI",
     "XML1-REQ-STT",
     "XML1-REQ-T_BNTT",
     "XML1-REQ-T_NGUONKHAC",
     "XML1-REQ-T_VTYT",
     "XML1-REQ-THANG_QT",
     "XML1-UNKNOWN-MA_TINH",
-    "XML10-MISSING-TABLE",
-    "XML11-MISSING-TABLE",
-    "XML12-MISSING-TABLE",
-    "XML13-MISSING-TABLE",
-    "XML14-MISSING-TABLE",
-    "XML15-MISSING-TABLE",
     "XML2-DATE12-NGAY_YL",
-    "XML2-REQ-DUONG_DUNG",
-    "XML2-REQ-HAM_LUONG",
-    "XML2-REQ-MA_DICH_VU",
     "XML2-REQ-MA_PTTT",
     "XML2-REQ-PHAM_VI",
     "XML2-REQ-STT",
@@ -92,17 +91,22 @@
     "XML2-REQ-T_BNCCT",
     "XML2-REQ-T_BNTT",
     "XML2-REQ-T_NGUONKHAC",
-    "XML2-REQ-TEN_HOAT_CHAT",
-    "XML2-REQ-THANH_TIEN_BV",
     "XML2-REQ-TT_THAU",
     "XML2-REQ-TYLE_TT",
     "XML2-UNKNOWN-SL_MOI_NGAY",
     "XML2-UNKNOWN-SO_NGAY",
-    "XML2-UNKNOWN-THANH_TIEN",
-    "XML9-MISSING-TABLE"
+    "XML2-UNKNOWN-THANH_TIEN"
   ],
   "rule_summary": {
-    "CLN-XDC-02": 2,
+    "CLN-THUOC-06": 1,
+    "CLN-XDC-02": 1,
+    "GDH_4210_103": 1,
+    "GDH_4210_23": 1,
+    "GDH_4210_24": 1,
+    "GDH_4210_31": 1,
+    "GDH_4210_34": 1,
+    "GDH_4210_41": 2,
+    "GDH_9324_4": 1,
     "HC_12": 1,
     "HC_136": 1,
     "HC_160": 1,
@@ -118,10 +122,7 @@
     "HD_04": 1,
     "ICD-TT06-CU-THE-HON": 1,
     "THUOC_249": 1,
-    "THUOC_329": 1,
     "THUOC_406": 2,
-    "THUOC_425": 2,
-    "THUOC_448": 1,
     "TUONGTAC_001": 1,
     "XML_109": 1,
     "XML_49": 1,
@@ -133,32 +134,19 @@
     "XML1-REQ-LY_DO_VV": 1,
     "XML1-REQ-MA_DANTOC": 1,
     "XML1-REQ-MA_KHOA": 1,
-    "XML1-REQ-MA_KHUVUC": 1,
     "XML1-REQ-MA_LOAI_RV": 1,
     "XML1-REQ-MA_NGHE_NGHIEP": 1,
     "XML1-REQ-MA_QUOCTICH": 1,
-    "XML1-REQ-MA_TTDV": 1,
-    "XML1-REQ-MAHUYEN_CU_TRU": 1,
     "XML1-REQ-MATINH_CU_TRU": 1,
     "XML1-REQ-NAM_QT": 1,
     "XML1-REQ-NGAY_SINH": 1,
-    "XML1-REQ-PP_DIEU_TRI": 1,
     "XML1-REQ-STT": 1,
     "XML1-REQ-T_BNTT": 1,
     "XML1-REQ-T_NGUONKHAC": 1,
     "XML1-REQ-T_VTYT": 1,
     "XML1-REQ-THANG_QT": 1,
     "XML1-UNKNOWN-MA_TINH": 1,
-    "XML10-MISSING-TABLE": 1,
-    "XML11-MISSING-TABLE": 1,
-    "XML12-MISSING-TABLE": 1,
-    "XML13-MISSING-TABLE": 1,
-    "XML14-MISSING-TABLE": 1,
-    "XML15-MISSING-TABLE": 1,
     "XML2-DATE12-NGAY_YL": 2,
-    "XML2-REQ-DUONG_DUNG": 2,
-    "XML2-REQ-HAM_LUONG": 2,
-    "XML2-REQ-MA_DICH_VU": 2,
     "XML2-REQ-MA_PTTT": 2,
     "XML2-REQ-PHAM_VI": 2,
     "XML2-REQ-STT": 2,
@@ -166,16 +154,111 @@
     "XML2-REQ-T_BNCCT": 2,
     "XML2-REQ-T_BNTT": 2,
     "XML2-REQ-T_NGUONKHAC": 2,
-    "XML2-REQ-TEN_HOAT_CHAT": 2,
-    "XML2-REQ-THANH_TIEN_BV": 2,
     "XML2-REQ-TT_THAU": 2,
     "XML2-REQ-TYLE_TT": 2,
     "XML2-UNKNOWN-SL_MOI_NGAY": 2,
     "XML2-UNKNOWN-SO_NGAY": 2,
-    "XML2-UNKNOWN-THANH_TIEN": 2,
-    "XML9-MISSING-TABLE": 1
+    "XML2-UNKNOWN-THANH_TIEN": 2
   },
   "warnings": [
+    {
+      "phan_he": "XML1",
+      "index": -1,
+      "truong_loi": "NGAY_RA",
+      "canh_bao": "XML1: ⛔ [GDH 4210/103] Đề nghị thanh toán khác năm tài chính hiện tại (năm ra 804, hiện 2026) — GDH 103.",
+      "muc_do": "Critical",
+      "ma_luat": "GDH_4210_103",
+      "ten_quy_tac": "Chặn GDH — sai logic XML",
+      "dieu_kien": "STATIC_GDH",
+      "namespace_quy_tac": "QUY_TAC_NOI_BO",
+      "nguon_quy_tac": "dong_co_giam_dinh",
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L1"
+    },
+    {
+      "phan_he": "XML1",
+      "index": -1,
+      "truong_loi": "NGAY_VAO",
+      "canh_bao": "XML1: ⛔ [GDH 4210/23] NGAY_VAO phải đủ 12 chữ số YYYYMMDDHHMM và là thời điểm hợp lệ (GDH 23).",
+      "muc_do": "Critical",
+      "ma_luat": "GDH_4210_23",
+      "ten_quy_tac": "Chặn GDH — sai logic XML",
+      "dieu_kien": "STATIC_GDH",
+      "namespace_quy_tac": "QUY_TAC_NOI_BO",
+      "nguon_quy_tac": "dong_co_giam_dinh",
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L1"
+    },
+    {
+      "phan_he": "XML1",
+      "index": -1,
+      "truong_loi": "NGAY_RA",
+      "canh_bao": "XML1: ⛔ [GDH 4210/24] NGAY_RA phải đủ 12 chữ số YYYYMMDDHHMM và là thời điểm hợp lệ (GDH 24).",
+      "muc_do": "Critical",
+      "ma_luat": "GDH_4210_24",
+      "ten_quy_tac": "Chặn GDH — sai logic XML",
+      "dieu_kien": "STATIC_GDH",
+      "namespace_quy_tac": "QUY_TAC_NOI_BO",
+      "nguon_quy_tac": "dong_co_giam_dinh",
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L1"
+    },
+    {
+      "phan_he": "XML1",
+      "index": -1,
+      "truong_loi": "T_BHTT",
+      "canh_bao": "XML1: ⛔ [GDH 4210/31] T_BHTT XML1 khác tổng T_BHTT các dòng XML2 + XML3 (GDH 4210 mã 31).",
+      "muc_do": "Critical",
+      "ma_luat": "GDH_4210_31",
+      "ten_quy_tac": "Chặn GDH — sai logic XML",
+      "dieu_kien": "STATIC_GDH",
+      "namespace_quy_tac": "QUY_TAC_NOI_BO",
+      "nguon_quy_tac": "dong_co_giam_dinh",
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L1"
+    },
+    {
+      "phan_he": "XML1",
+      "index": -1,
+      "truong_loi": "T_TONGCHI_BV",
+      "canh_bao": "XML1: ⛔ [GDH 4210/34] T_TONGCHI_BV không khớp T_BNTT + T_BNCCT + T_BHTT + T_NGUONKHAC (GDH 34 theo văn bản cổng).",
+      "muc_do": "Critical",
+      "ma_luat": "GDH_4210_34",
+      "ten_quy_tac": "Chặn GDH — sai logic XML",
+      "dieu_kien": "STATIC_GDH",
+      "namespace_quy_tac": "QUY_TAC_NOI_BO",
+      "nguon_quy_tac": "dong_co_giam_dinh",
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L1"
+    },
+    {
+      "phan_he": "XML2",
+      "index": 0,
+      "truong_loi": "THANH_TIEN_BV",
+      "canh_bao": "XML2: Dong 1: ⛔ [GDH 4210/41] THANH_TIEN không khớp T_BNTT+T_BNCCT+T_BHTT+T_NGUONKHAC — GDH 41.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
+      "muc_do": "Critical",
+      "ma_luat": "GDH_4210_41",
+      "ten_quy_tac": "Chặn GDH — sai logic XML",
+      "dieu_kien": "STATIC_GDH",
+      "namespace_quy_tac": "QUY_TAC_NOI_BO",
+      "nguon_quy_tac": "dong_co_giam_dinh",
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L23"
+    },
+    {
+      "phan_he": "XML2",
+      "index": 1,
+      "truong_loi": "THANH_TIEN_BV",
+      "canh_bao": "XML2: Dong 2: ⛔ [GDH 4210/41] THANH_TIEN không khớp T_BNTT+T_BNCCT+T_BHTT+T_NGUONKHAC — GDH 41.\nChi tiết thuốc: [40.671] Antacid audit TT",
+      "muc_do": "Critical",
+      "ma_luat": "GDH_4210_41",
+      "ten_quy_tac": "Chặn GDH — sai logic XML",
+      "dieu_kien": "STATIC_GDH",
+      "namespace_quy_tac": "QUY_TAC_NOI_BO",
+      "nguon_quy_tac": "dong_co_giam_dinh",
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L23"
+    },
     {
       "phan_he": "XML1",
       "index": -1,
@@ -187,7 +270,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -200,7 +284,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -213,7 +298,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -226,7 +312,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -239,7 +326,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -252,7 +340,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -265,20 +354,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML1",
-      "index": -1,
-      "truong_loi": "MA_KHUVUC",
-      "canh_bao": "XML1: Thiếu trường bắt buộc [MA_KHUVUC] theo đặc tả XML hiện hành.",
-      "muc_do": "Critical",
-      "ma_luat": "XML1-REQ-MA_KHUVUC",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -291,7 +368,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -304,7 +382,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -317,33 +396,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML1",
-      "index": -1,
-      "truong_loi": "MA_TTDV",
-      "canh_bao": "XML1: Thiếu trường bắt buộc [MA_TTDV] theo đặc tả XML hiện hành.",
-      "muc_do": "Critical",
-      "ma_luat": "XML1-REQ-MA_TTDV",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML1",
-      "index": -1,
-      "truong_loi": "MAHUYEN_CU_TRU",
-      "canh_bao": "XML1: Thiếu trường bắt buộc [MAHUYEN_CU_TRU] theo đặc tả XML hiện hành.",
-      "muc_do": "Critical",
-      "ma_luat": "XML1-REQ-MAHUYEN_CU_TRU",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -356,7 +410,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -369,7 +424,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -382,20 +438,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML1",
-      "index": -1,
-      "truong_loi": "PP_DIEU_TRI",
-      "canh_bao": "XML1: Thiếu trường bắt buộc [PP_DIEU_TRI] theo đặc tả XML hiện hành.",
-      "muc_do": "Critical",
-      "ma_luat": "XML1-REQ-PP_DIEU_TRI",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -408,7 +452,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -421,7 +466,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -434,7 +480,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -447,7 +494,8 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML1",
@@ -460,403 +508,310 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "NGAY_YL",
-      "canh_bao": "XML2: Dong 1: Giá trị [NGAY_YL] phải theo YYYYMMDDHHMM và là thời điểm hợp lệ. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Giá trị [NGAY_YL] phải theo YYYYMMDDHHMM và là thời điểm hợp lệ.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-DATE12-NGAY_YL",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L23"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "NGAY_YL",
-      "canh_bao": "XML2: Dong 2: Giá trị [NGAY_YL] phải theo YYYYMMDDHHMM và là thời điểm hợp lệ. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Giá trị [NGAY_YL] phải theo YYYYMMDDHHMM và là thời điểm hợp lệ.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-DATE12-NGAY_YL",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML2",
-      "index": 0,
-      "truong_loi": "DUONG_DUNG",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [DUONG_DUNG] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
-      "muc_do": "Error",
-      "ma_luat": "XML2-REQ-DUONG_DUNG",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML2",
-      "index": 1,
-      "truong_loi": "DUONG_DUNG",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [DUONG_DUNG] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
-      "muc_do": "Error",
-      "ma_luat": "XML2-REQ-DUONG_DUNG",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML2",
-      "index": 0,
-      "truong_loi": "HAM_LUONG",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [HAM_LUONG] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
-      "muc_do": "Error",
-      "ma_luat": "XML2-REQ-HAM_LUONG",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML2",
-      "index": 1,
-      "truong_loi": "HAM_LUONG",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [HAM_LUONG] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
-      "muc_do": "Error",
-      "ma_luat": "XML2-REQ-HAM_LUONG",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML2",
-      "index": 0,
-      "truong_loi": "MA_DICH_VU",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [MA_DICH_VU] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
-      "muc_do": "Error",
-      "ma_luat": "XML2-REQ-MA_DICH_VU",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML2",
-      "index": 1,
-      "truong_loi": "MA_DICH_VU",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [MA_DICH_VU] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
-      "muc_do": "Error",
-      "ma_luat": "XML2-REQ-MA_DICH_VU",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L23"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "MA_PTTT",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [MA_PTTT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [MA_PTTT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-MA_PTTT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "MA_PTTT",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [MA_PTTT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [MA_PTTT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-MA_PTTT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "PHAM_VI",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [PHAM_VI] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [PHAM_VI] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-PHAM_VI",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "PHAM_VI",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [PHAM_VI] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [PHAM_VI] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-PHAM_VI",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "STT",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [STT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [STT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-STT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "STT",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [STT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [STT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-STT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "T_BHTT",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [T_BHTT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [T_BHTT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-T_BHTT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "T_BHTT",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [T_BHTT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [T_BHTT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-T_BHTT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "T_BNCCT",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [T_BNCCT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [T_BNCCT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-T_BNCCT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "T_BNCCT",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [T_BNCCT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [T_BNCCT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-T_BNCCT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "T_BNTT",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [T_BNTT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [T_BNTT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-T_BNTT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "T_BNTT",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [T_BNTT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [T_BNTT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-T_BNTT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "T_NGUONKHAC",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [T_NGUONKHAC] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [T_NGUONKHAC] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-T_NGUONKHAC",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "T_NGUONKHAC",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [T_NGUONKHAC] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [T_NGUONKHAC] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-T_NGUONKHAC",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML2",
-      "index": 0,
-      "truong_loi": "TEN_HOAT_CHAT",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [TEN_HOAT_CHAT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
-      "muc_do": "Error",
-      "ma_luat": "XML2-REQ-TEN_HOAT_CHAT",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML2",
-      "index": 1,
-      "truong_loi": "TEN_HOAT_CHAT",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [TEN_HOAT_CHAT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
-      "muc_do": "Error",
-      "ma_luat": "XML2-REQ-TEN_HOAT_CHAT",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML2",
-      "index": 0,
-      "truong_loi": "THANH_TIEN_BV",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [THANH_TIEN_BV] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
-      "muc_do": "Error",
-      "ma_luat": "XML2-REQ-THANH_TIEN_BV",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML2",
-      "index": 1,
-      "truong_loi": "THANH_TIEN_BV",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [THANH_TIEN_BV] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
-      "muc_do": "Error",
-      "ma_luat": "XML2-REQ-THANH_TIEN_BV",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "TT_THAU",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [TT_THAU] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [TT_THAU] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-TT_THAU",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "TT_THAU",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [TT_THAU] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [TT_THAU] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-TT_THAU",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "TYLE_TT",
-      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [TYLE_TT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Thiếu trường bắt buộc [TYLE_TT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-TYLE_TT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "TYLE_TT",
-      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [TYLE_TT] theo đặc tả XML hiện hành. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Thiếu trường bắt buộc [TYLE_TT] theo đặc tả XML hiện hành.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Error",
       "ma_luat": "XML2-REQ-TYLE_TT",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L0"
     },
     {
       "phan_he": "XML2",
       "index": 0,
+      "truong_loi": "SO_NGAY",
+      "canh_bao": "Thuốc [40.558] có số ngày sử dụng 10 (≤30 ngày) trong khi bệnh chính [E11] thuộc danh mục Phụ lục VII TT 26/2025 và không có bệnh kèm theo — cần kê đơn trên 30 ngày (tối đa 90 ngày theo lâm sàng).\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
+      "muc_do": "Warning",
+      "ma_luat": "CLN-THUOC-06",
+      "ten_quy_tac": "Kê đơn ≤30 ngày — bệnh chính (± kèm theo) trong danh mục TT26 >30 ngày",
+      "dieu_kien": "BUILT-IN",
+      "co_so_phap_ly": "26/2025/TT-BYT: Điều 6 khoản 8 (số ngày sử dụng mỗi thuốc). TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
+      "namespace_quy_tac": "THUOC_DANH_MUC_BUILTIN",
+      "nguon_quy_tac": "dong_co_giam_dinh",
+      "luong_giai_trinh": "XML2 -> built-in thuốc/danh mục",
+      "tab_quan_tri_goi_y": "LUAT_THUOC",
+      "tang_V15": "L4"
+    },
+    {
+      "phan_he": "XML2",
+      "index": 1,
       "truong_loi": "LIEU_DUNG",
-      "canh_bao": "Không suy ra được liều/ngày từ LIEU_DUNG; rủi ro sai khớp quy tắc liều (MA_THUOC: 40.558). Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "Không suy ra được liều/ngày từ LIEU_DUNG; rủi ro sai khớp quy tắc liều (MA_THUOC: 40.671).\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Warning",
       "ma_luat": "CLN-XDC-02",
       "ten_quy_tac": "Parse liều từ LIEU_DUNG",
@@ -865,22 +820,22 @@
       "namespace_quy_tac": "XDC_BUILTIN",
       "nguon_quy_tac": "dong_co_giam_dinh",
       "luong_giai_trinh": "XML1↔XML2 đa tầng / đa biến",
-      "tab_quan_tri_goi_y": "LUAT_DU_LIEU"
+      "tab_quan_tri_goi_y": "LUAT_DU_LIEU",
+      "tang_V15": "L4"
     },
     {
-      "phan_he": "XML2",
-      "index": 1,
-      "truong_loi": "LIEU_DUNG",
-      "canh_bao": "Không suy ra được liều/ngày từ LIEU_DUNG; rủi ro sai khớp quy tắc liều (MA_THUOC: 40.671). Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "phan_he": "XML1",
+      "index": -1,
+      "truong_loi": "T_TONGCHI_BV",
+      "canh_bao": "XML1: ⛔ [GDH 9324/4] T_TONGCHI_BV không khớp tổng thành tiền BV chi tiết (lệch >2đ) — kiểm tra theo GDH mã 4 (thành tiền BV).",
       "muc_do": "Warning",
-      "ma_luat": "CLN-XDC-02",
-      "ten_quy_tac": "Parse liều từ LIEU_DUNG",
-      "dieu_kien": "BUILT-IN",
-      "co_so_phap_ly": "Quyết định 130/QĐ-BYT: quy định cấu trúc và danh mục chỉ tiêu dữ liệu XML KCB BHYT. Nghị định 188/2025/NĐ-CP: quy định về thanh toán chi phí KCB BHYT, thủ tục thanh toán và xử lý vi phạm hành chính. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
-      "namespace_quy_tac": "XDC_BUILTIN",
+      "ma_luat": "GDH_9324_4",
+      "ten_quy_tac": "Chặn GDH — sai logic XML",
+      "dieu_kien": "STATIC_GDH",
+      "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "XML1↔XML2 đa tầng / đa biến",
-      "tab_quan_tri_goi_y": "LUAT_DU_LIEU"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L1"
     },
     {
       "id": "HC_12",
@@ -896,7 +851,8 @@
       "namespace_quy_tac": "HANH_CHINH_HARDCODED",
       "nguon_quy_tac": "luat_hanh_chinh_hardcoded",
       "luong_giai_trinh": "XML1 -> hardcoded hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "id": "HC_136",
@@ -912,7 +868,8 @@
       "namespace_quy_tac": "HANH_CHINH_HARDCODED",
       "nguon_quy_tac": "luat_hanh_chinh_hardcoded",
       "luong_giai_trinh": "XML1 -> hardcoded hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "id": "HC_160",
@@ -928,7 +885,8 @@
       "namespace_quy_tac": "HANH_CHINH_HARDCODED",
       "nguon_quy_tac": "luat_hanh_chinh_hardcoded",
       "luong_giai_trinh": "XML1 -> hardcoded hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "id": "HC_199",
@@ -944,7 +902,8 @@
       "namespace_quy_tac": "HANH_CHINH_HARDCODED",
       "nguon_quy_tac": "luat_hanh_chinh_hardcoded",
       "luong_giai_trinh": "XML1 -> hardcoded hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "id": "HC_210",
@@ -960,7 +919,8 @@
       "namespace_quy_tac": "HANH_CHINH_HARDCODED",
       "nguon_quy_tac": "luat_hanh_chinh_hardcoded",
       "luong_giai_trinh": "XML1 -> hardcoded hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "id": "HC_246",
@@ -976,7 +936,8 @@
       "namespace_quy_tac": "HANH_CHINH_HARDCODED",
       "nguon_quy_tac": "luat_hanh_chinh_hardcoded",
       "luong_giai_trinh": "XML1 -> hardcoded hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "id": "HC_37",
@@ -992,7 +953,8 @@
       "namespace_quy_tac": "HANH_CHINH_HARDCODED",
       "nguon_quy_tac": "luat_hanh_chinh_hardcoded",
       "luong_giai_trinh": "XML1 -> hardcoded hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "id": "HC_42",
@@ -1008,7 +970,8 @@
       "namespace_quy_tac": "HANH_CHINH_HARDCODED",
       "nguon_quy_tac": "luat_hanh_chinh_hardcoded",
       "luong_giai_trinh": "XML1 -> hardcoded hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "id": "HC_62",
@@ -1024,7 +987,8 @@
       "namespace_quy_tac": "HANH_CHINH_HARDCODED",
       "nguon_quy_tac": "luat_hanh_chinh_hardcoded",
       "luong_giai_trinh": "XML1 -> hardcoded hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "id": "HC_71",
@@ -1040,7 +1004,8 @@
       "namespace_quy_tac": "HANH_CHINH_HARDCODED",
       "nguon_quy_tac": "luat_hanh_chinh_hardcoded",
       "luong_giai_trinh": "XML1 -> hardcoded hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "id": "HC_99",
@@ -1056,7 +1021,8 @@
       "namespace_quy_tac": "HANH_CHINH_HARDCODED",
       "nguon_quy_tac": "luat_hanh_chinh_hardcoded",
       "luong_giai_trinh": "XML1 -> hardcoded hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "phan_he": "XML1",
@@ -1071,7 +1037,8 @@
       "namespace_quy_tac": "HANH_CHINH_BUILTIN",
       "nguon_quy_tac": "dong_co_giam_dinh",
       "luong_giai_trinh": "XML1 -> built-in hành chính",
-      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH"
+      "tab_quan_tri_goi_y": "LUAT_HANH_CHINH",
+      "tang_V15": "L1"
     },
     {
       "id": "HD_04",
@@ -1087,7 +1054,8 @@
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
       "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
-      "tab_quan_tri_goi_y": ""
+      "tab_quan_tri_goi_y": "",
+      "tang_V15": "L1"
     },
     {
       "phan_he": "XML1",
@@ -1102,13 +1070,14 @@
       "namespace_quy_tac": "ICD10_TT06_BUILTIN",
       "nguon_quy_tac": "dong_co_giam_dinh",
       "luong_giai_trinh": "XML1 MA_BENH — TT 06/2026/BYT (danh mục ICD-10)",
-      "tab_quan_tri_goi_y": "LUAT_DU_LIEU"
+      "tab_quan_tri_goi_y": "LUAT_DU_LIEU",
+      "tang_V15": "L23"
     },
     {
       "id": "THUOC_249",
       "phan_he": "XML2",
       "truong_loi": "MA_THUOC",
-      "canh_bao": "⛔ [XUẤT TOÁN]: Thuốc Hamigel-S chỉ được thanh toán cho chẩn đoán Trào ngược (K21) hoặc Loét dạ dày (K25, K26). Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "⛔ [XUẤT TOÁN]: Thuốc Hamigel-S chỉ được thanh toán cho chẩn đoán Trào ngược (K21) hoặc Loét dạ dày (K25, K26). Chi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Warning",
       "index": 1,
       "ma_luat": "THUOC_249",
@@ -1118,29 +1087,14 @@
       "namespace_quy_tac": "THUOC_HARDCODED",
       "nguon_quy_tac": "luat_thuoc_hardcoded",
       "luong_giai_trinh": "XML2 -> hardcoded thuốc",
-      "tab_quan_tri_goi_y": "LUAT_THUOC"
-    },
-    {
-      "id": "THUOC_329",
-      "phan_he": "XML2",
-      "truong_loi": "MA_THUOC",
-      "canh_bao": "⛔ [XUẤT TOÁN]: Thuốc Rosuvastatin chỉ được thanh toán cho chẩn đoán Rối loạn Lipoprotein máu (E78). Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
-      "muc_do": "Warning",
-      "index": 0,
-      "ma_luat": "THUOC_329",
-      "ten_quy_tac": "[Rosuvastatin] Kiểm tra Chỉ định ICD-10",
-      "dieu_kien": "XML2.MA_THUOC == '40.558' AND XML1.MA_BENH_CHINH NOT IN ('E78', 'E78.0', 'E78.1', 'E78.2', 'E78.3', 'E78.4', 'E78.5', 'E78.6', 'E78.8', 'E78.9') AND XML1.MA_BENH_KT NOT REGEXP '(^|;)E78(\\.[0-9]{1,2})?(;|$)' AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(TĂNG CHOLESTEROL|RỐI LOẠN LIPID|TĂNG TRIGLYCERID|TĂNG LIPID MÁU HỖN HỢP)'",
-      "co_so_phap_ly": "15/VBHN-BYT (2024) hợp nhất TT 20/2022/TT-BYT và TT 37/2024/TT-BYT: Điều 1, Điều 2, Điều 20; Thông tư 37/2024/TT-BYT: Điều 8 về nguyên tắc thanh toán thuốc BHYT. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
-      "namespace_quy_tac": "THUOC_HARDCODED",
-      "nguon_quy_tac": "luat_thuoc_hardcoded",
-      "luong_giai_trinh": "XML2 -> hardcoded thuốc",
-      "tab_quan_tri_goi_y": "LUAT_THUOC"
+      "tab_quan_tri_goi_y": "LUAT_THUOC",
+      "tang_V15": "L4"
     },
     {
       "id": "THUOC_406",
       "phan_he": "XML2",
       "truong_loi": "NGAY_YL",
-      "canh_bao": "⛔ [TT 26/2025]: Đơn thuốc ngoại trú chỉ có giá trị mua/lĩnh thuốc trong vòng 05 ngày kể từ ngày kê đơn. Quá hạn hệ thống phải khóa đơn. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "⛔ [TT 26/2025]: Đơn thuốc ngoại trú chỉ có giá trị mua/lĩnh thuốc trong vòng 05 ngày kể từ ngày kê đơn. Quá hạn hệ thống phải khóa đơn. Chi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Warning",
       "index": 0,
       "ma_luat": "THUOC_406",
@@ -1150,13 +1104,14 @@
       "namespace_quy_tac": "THUOC_HARDCODED",
       "nguon_quy_tac": "luat_thuoc_hardcoded",
       "luong_giai_trinh": "XML2 -> hardcoded thuốc",
-      "tab_quan_tri_goi_y": "LUAT_THUOC"
+      "tab_quan_tri_goi_y": "LUAT_THUOC",
+      "tang_V15": "L4"
     },
     {
       "id": "THUOC_406",
       "phan_he": "XML2",
       "truong_loi": "NGAY_YL",
-      "canh_bao": "⛔ [TT 26/2025]: Đơn thuốc ngoại trú chỉ có giá trị mua/lĩnh thuốc trong vòng 05 ngày kể từ ngày kê đơn. Quá hạn hệ thống phải khóa đơn. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "⛔ [TT 26/2025]: Đơn thuốc ngoại trú chỉ có giá trị mua/lĩnh thuốc trong vòng 05 ngày kể từ ngày kê đơn. Quá hạn hệ thống phải khóa đơn. Chi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Warning",
       "index": 1,
       "ma_luat": "THUOC_406",
@@ -1166,61 +1121,14 @@
       "namespace_quy_tac": "THUOC_HARDCODED",
       "nguon_quy_tac": "luat_thuoc_hardcoded",
       "luong_giai_trinh": "XML2 -> hardcoded thuốc",
-      "tab_quan_tri_goi_y": "LUAT_THUOC"
-    },
-    {
-      "id": "THUOC_425",
-      "phan_he": "XML2",
-      "truong_loi": "MA_KHOA",
-      "canh_bao": "⚠️ [TT 26/2025]: Khoa chỉ định thuốc ngoại trú không khớp với khoa khám bệnh chính tại Bảng 1. Kiểm tra lại quy trình chuyển khoa nội bộ. Chi tiết thuốc: [40.558] Rosuvastatin audit TT. Khoa liên quan: [K01] Khoa Khám bệnh; Bàn khám: 6; Loại KCB: 1; LDLK: 2.",
-      "muc_do": "Warning",
-      "index": 0,
-      "ma_luat": "THUOC_425",
-      "ten_quy_tac": "Kê đơn không trùng khớp khoa",
-      "dieu_kien": "XML2.MA_KHOA != XML1.MA_KHOA AND XML1.MA_LOAI_KCB == '1'",
-      "co_so_phap_ly": "15/VBHN-BYT (2024) hợp nhất TT 20/2022/TT-BYT và TT 37/2024/TT-BYT: Điều 1, Điều 2, Điều 20; Thông tư 37/2024/TT-BYT: Điều 8 về nguyên tắc thanh toán thuốc BHYT. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
-      "namespace_quy_tac": "THUOC_HARDCODED",
-      "nguon_quy_tac": "luat_thuoc_hardcoded",
-      "luong_giai_trinh": "XML2 -> hardcoded thuốc",
-      "tab_quan_tri_goi_y": "LUAT_THUOC"
-    },
-    {
-      "id": "THUOC_425",
-      "phan_he": "XML2",
-      "truong_loi": "MA_KHOA",
-      "canh_bao": "⚠️ [TT 26/2025]: Khoa chỉ định thuốc ngoại trú không khớp với khoa khám bệnh chính tại Bảng 1. Kiểm tra lại quy trình chuyển khoa nội bộ. Chi tiết thuốc: [40.671] Antacid audit TT. Khoa liên quan: [K01] Khoa Khám bệnh; Bàn khám: 6; Loại KCB: 1; LDLK: 2.",
-      "muc_do": "Warning",
-      "index": 1,
-      "ma_luat": "THUOC_425",
-      "ten_quy_tac": "Kê đơn không trùng khớp khoa",
-      "dieu_kien": "XML2.MA_KHOA != XML1.MA_KHOA AND XML1.MA_LOAI_KCB == '1'",
-      "co_so_phap_ly": "15/VBHN-BYT (2024) hợp nhất TT 20/2022/TT-BYT và TT 37/2024/TT-BYT: Điều 1, Điều 2, Điều 20; Thông tư 37/2024/TT-BYT: Điều 8 về nguyên tắc thanh toán thuốc BHYT. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
-      "namespace_quy_tac": "THUOC_HARDCODED",
-      "nguon_quy_tac": "luat_thuoc_hardcoded",
-      "luong_giai_trinh": "XML2 -> hardcoded thuốc",
-      "tab_quan_tri_goi_y": "LUAT_THUOC"
-    },
-    {
-      "id": "THUOC_448",
-      "phan_he": "XML2",
-      "truong_loi": "MA_THUOC",
-      "canh_bao": "⛔ [NGUY HIỂM]: Tổng liều Rosuvastatin vượt 40mg/ngày. Nguy cơ cao gây tiêu cơ vân. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
-      "muc_do": "Warning",
-      "index": 0,
-      "ma_luat": "THUOC_448",
-      "ten_quy_tac": "Rosuvastatin: Kiểm soát liều 24h",
-      "dieu_kien": "XML2.MA_THUOC == '40.558' AND (XML2.SO_LUONG * 10) > 40",
-      "co_so_phap_ly": "15/VBHN-BYT (2024) hợp nhất TT 20/2022/TT-BYT và TT 37/2024/TT-BYT: Điều 1, Điều 2, Điều 20; Thông tư 37/2024/TT-BYT: Điều 8 về nguyên tắc thanh toán thuốc BHYT. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
-      "namespace_quy_tac": "THUOC_HARDCODED",
-      "nguon_quy_tac": "luat_thuoc_hardcoded",
-      "luong_giai_trinh": "XML2 -> hardcoded thuốc",
-      "tab_quan_tri_goi_y": "LUAT_THUOC"
+      "tab_quan_tri_goi_y": "LUAT_THUOC",
+      "tang_V15": "L4"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "MA_THUOC",
-      "canh_bao": "⚠️ Giảm hấp thu: Thuốc kháng acid làm giảm khoảng 20-30% nồng độ Rosuvastatin (Courtois, Danapha-Rosu 20, Rosuvastatin 10 mg) trong máu. Yêu cầu điều dưỡng/bệnh nhân uống cách nhau ít nhất 2 giờ [1]. Điều kiện XML2: cùng ngày y lệnh/thực hiện y lệnh (26/20/0804). Đợt KCB ngoại trú, MA_LK AUDIT_TUONGTAC_001 — đối chiếu toàn bộ dòng thuốc XML2 do BHYT thanh toán. (Cặp mã: [40.558] + [40.671].). Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "⚠️ Giảm hấp thu: Thuốc kháng acid làm giảm khoảng 20-30% nồng độ Rosuvastatin (Courtois, Danapha-Rosu 20, Rosuvastatin 10 mg) trong máu. Yêu cầu điều dưỡng/bệnh nhân uống cách nhau ít nhất 2 giờ [1]. Điều kiện XML2: cùng ngày y lệnh/thực hiện y lệnh (26/20/0804). Đợt KCB ngoại trú, MA_LK AUDIT_TUONGTAC_001 — đối chiếu toàn bộ dòng thuốc XML2 do BHYT thanh toán. (Cặp mã: [40.558] + [40.671].).\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Warning",
       "ma_luat": "TUONGTAC_001",
       "ten_quy_tac": "Tương tác thuốc (XML2 — cùng đợt, đồng thời A và B)",
@@ -1228,7 +1136,8 @@
       "co_so_phap_ly": "Luật Khám bệnh, chữa bệnh (15/2023/QH15; VBHN 26/VBHN-VPQH 2026 — hợp nhất): quyền/nghĩa vụ người bệnh; tổ chức KCB; người hành nghề; hồ sơ bệnh án; chất lượng và an toàn KCB — căn cứ chuyên môn khi kiểm tra chủ động / độ hợp lý dịch vụ (kết hợp TT 12/2026 Điều 10 khoản 1 điểm e, g, i). Nghị định 96/2023/NĐ-CP: hướng dẫn Luật Khám bệnh, chữa bệnh (điều kiện hoạt động CSKCB, phạm vi hành nghề, phân tuyến kỹ thuật, quản lý chất lượng). Thông tư 32/2023/TT-BYT: hướng dẫn Luật Khám bệnh, chữa bệnh (quy trình KCB, bệnh án, biểu mẫu hồ sơ — đối chiếu QĐ 130/QĐ-BYT và kiểm tra chủ động). Nghị định 188/2025/NĐ-CP: quy định về thanh toán chi phí KCB BHYT, thủ tục thanh toán và xử lý vi phạm hành chính. Quyết định 3618/QĐ-BHXH: quy trình kiểm tra BHYT và bộ danh mục, chỉ tiêu dữ liệu phục vụ kiểm tra điện tử. TT 12/2026/TT-BTC: Điều 10 khoản 1; Điều 13 khoản 1–3",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L4"
     },
     {
       "id": "XML_109",
@@ -1244,7 +1153,8 @@
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
       "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
-      "tab_quan_tri_goi_y": ""
+      "tab_quan_tri_goi_y": "",
+      "tang_V15": "L1"
     },
     {
       "id": "XML_49",
@@ -1260,7 +1170,8 @@
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
       "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
-      "tab_quan_tri_goi_y": ""
+      "tab_quan_tri_goi_y": "",
+      "tang_V15": "L1"
     },
     {
       "id": "XML_59",
@@ -1276,7 +1187,8 @@
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
       "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
-      "tab_quan_tri_goi_y": ""
+      "tab_quan_tri_goi_y": "",
+      "tang_V15": "L1"
     },
     {
       "phan_he": "XML1",
@@ -1289,176 +1201,92 @@
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML10",
-      "index": -1,
-      "truong_loi": "CAU_TRUC",
-      "canh_bao": "XML10: Không tìm thấy bảng XML10 trong hồ sơ để kiểm tra cấu trúc.",
-      "muc_do": "Warning",
-      "ma_luat": "XML10-MISSING-TABLE",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML11",
-      "index": -1,
-      "truong_loi": "CAU_TRUC",
-      "canh_bao": "XML11: Không tìm thấy bảng XML11 trong hồ sơ để kiểm tra cấu trúc.",
-      "muc_do": "Warning",
-      "ma_luat": "XML11-MISSING-TABLE",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML12",
-      "index": -1,
-      "truong_loi": "CAU_TRUC",
-      "canh_bao": "XML12: Không tìm thấy bảng XML12 trong hồ sơ để kiểm tra cấu trúc.",
-      "muc_do": "Warning",
-      "ma_luat": "XML12-MISSING-TABLE",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML13",
-      "index": -1,
-      "truong_loi": "CAU_TRUC",
-      "canh_bao": "XML13: Không tìm thấy bảng XML13 trong hồ sơ để kiểm tra cấu trúc.",
-      "muc_do": "Warning",
-      "ma_luat": "XML13-MISSING-TABLE",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML14",
-      "index": -1,
-      "truong_loi": "CAU_TRUC",
-      "canh_bao": "XML14: Không tìm thấy bảng XML14 trong hồ sơ để kiểm tra cấu trúc.",
-      "muc_do": "Warning",
-      "ma_luat": "XML14-MISSING-TABLE",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML15",
-      "index": -1,
-      "truong_loi": "CAU_TRUC",
-      "canh_bao": "XML15: Không tìm thấy bảng XML15 trong hồ sơ để kiểm tra cấu trúc.",
-      "muc_do": "Warning",
-      "ma_luat": "XML15-MISSING-TABLE",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L1"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "SL_MOI_NGAY",
-      "canh_bao": "XML2: Dong 1: Cột [SL_MOI_NGAY] không nằm trong danh mục chỉ tiêu quy định. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Cột [SL_MOI_NGAY] không nằm trong danh mục chỉ tiêu quy định.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Warning",
       "ma_luat": "XML2-UNKNOWN-SL_MOI_NGAY",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L23"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "SL_MOI_NGAY",
-      "canh_bao": "XML2: Dong 2: Cột [SL_MOI_NGAY] không nằm trong danh mục chỉ tiêu quy định. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Cột [SL_MOI_NGAY] không nằm trong danh mục chỉ tiêu quy định.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Warning",
       "ma_luat": "XML2-UNKNOWN-SL_MOI_NGAY",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L23"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "SO_NGAY",
-      "canh_bao": "XML2: Dong 1: Cột [SO_NGAY] không nằm trong danh mục chỉ tiêu quy định. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Cột [SO_NGAY] không nằm trong danh mục chỉ tiêu quy định.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Warning",
       "ma_luat": "XML2-UNKNOWN-SO_NGAY",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L23"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "SO_NGAY",
-      "canh_bao": "XML2: Dong 2: Cột [SO_NGAY] không nằm trong danh mục chỉ tiêu quy định. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Cột [SO_NGAY] không nằm trong danh mục chỉ tiêu quy định.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Warning",
       "ma_luat": "XML2-UNKNOWN-SO_NGAY",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L23"
     },
     {
       "phan_he": "XML2",
       "index": 0,
       "truong_loi": "THANH_TIEN",
-      "canh_bao": "XML2: Dong 1: Cột [THANH_TIEN] không nằm trong danh mục chỉ tiêu quy định. Chi tiết thuốc: [40.558] Rosuvastatin audit TT.",
+      "canh_bao": "XML2: Dong 1: Cột [THANH_TIEN] không nằm trong danh mục chỉ tiêu quy định.\nChi tiết thuốc: [40.558] Rosuvastatin audit TT",
       "muc_do": "Warning",
       "ma_luat": "XML2-UNKNOWN-THANH_TIEN",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L23"
     },
     {
       "phan_he": "XML2",
       "index": 1,
       "truong_loi": "THANH_TIEN",
-      "canh_bao": "XML2: Dong 2: Cột [THANH_TIEN] không nằm trong danh mục chỉ tiêu quy định. Chi tiết thuốc: [40.671] Antacid audit TT.",
+      "canh_bao": "XML2: Dong 2: Cột [THANH_TIEN] không nằm trong danh mục chỉ tiêu quy định.\nChi tiết thuốc: [40.671] Antacid audit TT",
       "muc_do": "Warning",
       "ma_luat": "XML2-UNKNOWN-THANH_TIEN",
       "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
       "dieu_kien": "STATIC",
       "namespace_quy_tac": "QUY_TAC_NOI_BO",
       "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
-    },
-    {
-      "phan_he": "XML9",
-      "index": -1,
-      "truong_loi": "CAU_TRUC",
-      "canh_bao": "XML9: Không tìm thấy bảng XML9 trong hồ sơ để kiểm tra cấu trúc.",
-      "muc_do": "Warning",
-      "ma_luat": "XML9-MISSING-TABLE",
-      "ten_quy_tac": "Kiểm tra cấu trúc XML theo QĐ3176",
-      "dieu_kien": "STATIC",
-      "namespace_quy_tac": "QUY_TAC_NOI_BO",
-      "nguon_quy_tac": "dong_co_giam_dinh",
-      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML"
+      "luong_giai_trinh": "Suy ra từ MA_LUAT / phân hệ XML",
+      "tang_V15": "L23"
     }
   ]
 }

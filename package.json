@@ -47,6 +47,7 @@
     "qa:promote-bv-pttt-catalog": "python scripts/promote_bv_catalog_pttt_dataset_to_builtin.py",
     "qa:claim-audit-smoke": "node ./scripts/run_claim_audit.js tai_nguyen/ip/PC022601307_IP26000073.xml --out=test_xml/claim_audit_engine_smoke.json",
     "qa:tuong-tac-audit": "node ./scripts/qa_tuong_tac_audit.mjs",
+    "qa:tuong-tac-seed-integrity": "node ./scripts/qa_tuong_tac_seed_integrity.mjs",
     "qa:danh-muc-xml-mau": "node ./scripts/qa_danh_muc_xml_vs_mau.mjs",
     "qa:tuong-tac-audit-xml-dir": "node ./scripts/run_claim_audit.js --dir=tai_nguyen/xml --out=test_xml/audit_tuong_tac_tai_nguyen_xml.json --tuong-tac-only",
     "qa:claim-audit-tai-nguyen-xml-layers": "node ./scripts/run_claim_audit.js --dir=tai_nguyen/xml --out=test_xml/audit_tai_nguyen_xml_layers.json",
