@@ -79,6 +79,7 @@
     "qa:kho-chinh-thuc": "node ./scripts/qa_kho_chinh_thuc_luu.mjs",
     "qa:kho-luu-tru-a-e": "node ./scripts/qa_kho_luu_tru_a_e.mjs",
     "qa:pl02-diacerein-ppi-bs": "node ./scripts/qa_pl02_diacerein_ppi_bs.mjs",
+    "qa:pl02-full-coverage": "node ./scripts/qa_pl02_full_coverage.mjs",
     "qa:tai-khoan-storage": "node ./scripts/qa_tai_khoan_storage.mjs",
     "qa:tai-khoan-rbac": "node ./scripts/qa_tai_khoan_rbac.mjs",
     "qa:audit-all": "npm run chuyen-de:prepare-build && npm run tai_lieu:index-huan-luyen && npm run qa:audit-fixtures && npm run qa:on-off-match && npm run qa:rule-schema && npm run qa:rule-trang-thai && npm run qa:claim-audit-smoke && npm run qa:danh-muc-xml-mau && npm run qa:chuyen-de-thuc-chien && npm run tai_lieu:prepare",

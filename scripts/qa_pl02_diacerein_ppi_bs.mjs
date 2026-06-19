@@ -27,7 +27,7 @@ const requiredSnippets = [
   ['engine', 'giamDinhBacSiPl02KhamBenhDongThoiPttt', 'CLN-BS-PL02-04'],
   ['chuyen', 'CHUYEN_DE_XML130_VI_PHAM_DIACEREIN_THANH_TOAN_CV266_TH21'],
   ['chuyen', 'CHUYEN_DE_XML130_DUOC_CHI_DINH_PPI_CV266_TH72'],
-  ['chuyen', '2026-06-16-pl02-th21-th72-bs-y-lenh'],
+  ['chuyen', '2026-06-16-pl02-logic-audit'],
   ['muc8', '2026-06-16_pl02_th21_th72_sync'],
   ['muc8', 'Không thanh toán BN ≥ 65 tuổi (PL02 TH21)'],
 ];
