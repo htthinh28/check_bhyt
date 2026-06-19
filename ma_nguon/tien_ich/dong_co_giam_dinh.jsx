@@ -5037,6 +5037,85 @@ const giamDinhCongKhamTmhVaNoiSoiTrungMocXml3 = (hoSo) => {
     return ds;
 };
 
+/** Mã DVKT CRP thường / CRP-hs / Procalcitonin (VBHN 17 — mục 11 PTTT). */
+const MA_DVKT_CRP_THUONG = '23.0228.1483';
+const MA_DVKT_CRP_HS = '23.0050.1484';
+const MA_DVKT_PROCALCITONIN = '23.0125.1483';
+
+const laMaDvCrpThucHien = (maDv) => {
+    const ma = UPPER(String(maDv || '').replace(/\s/g, ''));
+    return ma === MA_DVKT_CRP_THUONG || ma === MA_DVKT_CRP_HS;
+};
+const laMaDvProcalcitonin = (maDv) => UPPER(String(maDv || '').replace(/\s/g, '')) === MA_DVKT_PROCALCITONIN;
+
+/** Mốc so sánh CRP ↔ PCT: ưu tiên phút (≥12 số), fallback ngày (≥8 số). */
+const layMocCrpPctXml3 = (row) => {
+    const raw = String(row?.NGAY_TH_YL || row?.NGAY_YL || '').replace(/\D/g, '');
+    if (raw.length >= 12) return { kind: 'minute', key: raw.slice(0, 12) };
+    if (raw.length >= 8) return { kind: 'day', key: raw.slice(0, 8) };
+    return null;
+};
+
+/**
+ * CLN-DVKT-CRP-01: CRP (thường/hs) và Procalcitonin không được ghi nhận cùng ngày, cùng mốc thực hiện.
+ */
+const giamDinhCrpProcalcitoninTrungMocXml3 = (hoSo) => {
+    const ds = [];
+    const rawXml3 = hoSo?.XML3 || hoSo?.xml3 || [];
+    if (!Array.isArray(rawXml3) || rawXml3.length < 2) return ds;
+    const prepared = rawXml3.map((row) => prepareData(row));
+    const seenCap = new Set();
+
+    for (let i = 0; i < prepared.length; i += 1) {
+        if (laBHYTKhôngThanhToan(rawXml3[i])) continue;
+        const ri = prepared[i];
+        const maI = UPPER(ri.MA_DV || ri.MA_DICH_VU || '');
+        const laCrpI = laMaDvCrpThucHien(maI);
+        const laPctI = laMaDvProcalcitonin(maI);
+        if (!laCrpI && !laPctI) continue;
+        const mocI = layMocCrpPctXml3(ri);
+        if (!mocI) continue;
+
+        for (let j = i + 1; j < prepared.length; j += 1) {
+            if (laBHYTKhôngThanhToan(rawXml3[j])) continue;
+            const rj = prepared[j];
+            const maJ = UPPER(rj.MA_DV || rj.MA_DICH_VU || '');
+            const laCrpJ = laMaDvCrpThucHien(maJ);
+            const laPctJ = laMaDvProcalcitonin(maJ);
+            if (!((laCrpI && laPctJ) || (laPctI && laCrpJ))) continue;
+            const mocJ = layMocCrpPctXml3(rj);
+            if (!mocJ || mocJ.kind !== mocI.kind || mocJ.key !== mocI.key) continue;
+            const capKey = `${i}|${j}|${mocI.key}`;
+            if (seenCap.has(capKey)) continue;
+            seenCap.add(capKey);
+
+            const idxCrp = laCrpI ? i : j;
+            const idxPct = laPctI ? i : j;
+            const maCrp = UPPER(prepared[idxCrp].MA_DV || prepared[idxCrp].MA_DICH_VU || '');
+            const maPct = UPPER(prepared[idxPct].MA_DV || prepared[idxPct].MA_DICH_VU || '');
+            const nhanThoiGian = mocI.kind === 'minute'
+                ? `cùng mốc phút ${mocI.key} (NGAY_TH_YL/NGAY_YL)`
+                : `cùng ngày ${mocI.key} (chưa đủ phút trên XML — đối chiếu phiếu XN)`;
+            const canhBao = `⛔ Xuất toán: Không chỉ định đồng thời CRP [${maCrp}] và Procalcitonin [${maPct}] ${nhanThoiGian}. Chỉ chọn một marker viêm theo VBHN 17.`;
+
+            [idxCrp, idxPct].forEach((idx) => {
+                ds.push({
+                    phan_he: 'XML3',
+                    index: idx,
+                    truong_loi: 'NGAY_YL',
+                    canh_bao,
+                    muc_do: 'Error',
+                    ma_luat: 'CLN-DVKT-CRP-01',
+                    ten_quy_tac: 'CRP và Procalcitonin trùng mốc thực hiện',
+                    dieu_kien: 'BUILT-IN',
+                    co_so_phap_ly: CO_SO_PHAP_LY_DVKT.DANH_MUC_NOI_BO,
+                });
+            });
+        }
+    }
+    return ds;
+};
+
 const taoBatchContextGiamDinh = (danhSachHoSo = []) => {
     const danhSachDauVao = Array.isArray(danhSachHoSo) ? danhSachHoSo.filter(Boolean) : [];
     const entryByHoSo = new WeakMap();
@@ -5798,6 +5877,13 @@ const normalizeTargetTable = (rawTargetTable, conditionStr) => {
     return mapped;
 };
 
+const suyRaMucDoTuCanhBao = (canhBao = '') => {
+    const s = String(canhBao || '');
+    if (/🚨|⛔|🔴/.test(s)) return 'Error';
+    if (/ℹ️|ℹ/.test(s)) return 'Info';
+    return 'Warning';
+};
+
 const normalizeSeverity = (rawSeverity) => {
     const s = String(rawSeverity || '').trim().toLowerCase();
     if (!s) return 'Warning';
@@ -6194,7 +6280,11 @@ const chuanHoaRuleDong = (rule) => {
     rule._maLuat = String(layGiaTriAnToan(rule, 'maluat')).trim() || 'N/A';
     rule._tenQuyTac = String(layGiaTriAnToan(rule, 'tenquytac')).trim() || 'N/A';
     rule._canhBao = String(layGiaTriAnToan(rule, 'canhbao')).trim() || 'Vi phạm quy tắc';
-    rule._mucDo = normalizeSeverity(layGiaTriAnToan(rule, 'mucdo') || layGiaTriAnToan(rule, 'cannang'));
+    rule._mucDo = normalizeSeverity(
+        layGiaTriAnToan(rule, 'mucdo')
+        || layGiaTriAnToan(rule, 'cannang')
+        || suyRaMucDoTuCanhBao(rule._canhBao),
+    );
     rule._coSoPhapLy = String(
         layGiaTriAnToan(rule, 'co_so_phap_ly')
         || layGiaTriAnToan(rule, 'cosophaply')
@@ -6584,6 +6674,7 @@ export const chayGiamDinhToanDienV15 = async (hoSo) => {
     allLỗi = allLỗi.concat(giamDinhCDHA(hoSo));
     allLỗi = allLỗi.concat(giamDinhNguoiThucHienKhamVaDvktXml3(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhCongKhamTmhVaNoiSoiTrungMocXml3(hoSo));
+    allLỗi = allLỗi.concat(giamDinhCrpProcalcitoninTrungMocXml3(hoSo));
     allLỗi = allLỗi.concat(giamDinhCv4262Bhyt(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhCv3231Bhyt(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhGiuong(hoSo, danhMuc));

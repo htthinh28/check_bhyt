@@ -33255,6 +33255,27 @@ export const DANH_MUC_DVKT_M05 = [
     "QUYET_DINH": "20241219_277/NQ-HĐND_94136"
   },
   {
+    "STT": 1582.5,
+    "MA_DICH_VU": "23.0125.1483",
+    "TEN_DICH_VU": "Định lượng Procalcitonin (PCT) [Máu]",
+    "TEN_DVKT_GIA": "Định lượng Procalcitonin (PCT) [Máu]",
+    "DON_GIA": 198000,
+    "QUY_TRINH": "",
+    "CS_THUCHIEN": "",
+    "TINHTRANG_DV": "",
+    "MA_GIA": 103106291,
+    "TEN_GIA": "",
+    "GIA_TT_BHYT": 198000,
+    "MA_PTTT": "",
+    "TU_NGAY": 20260101,
+    "DEN_NGAY": 20260630,
+    "MA_CSKCB": "",
+    "PHAN_LOAI_PTTT": "",
+    "MA_NHOM": "",
+    "GHICHU": "",
+    "QUYET_DINH": "20241219_277/NQ-HĐND_94136"
+  },
+  {
     "STT": 1583,
     "MA_DICH_VU": "24.0001.1714",
     "TEN_DICH_VU": "Vi khuẩn nhuộm soi",

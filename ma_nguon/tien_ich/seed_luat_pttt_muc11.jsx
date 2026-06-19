@@ -10,7 +10,7 @@ const KHOA_MIGRATION_SEED = 'CDSS_RULE_SEED_MIGRATIONS_V1';
 const KHOA_PHIEN_BAN_SEED = 'LUAT_PTTT_MUC11';
 const KHOA_DU_LIEU = ['CDSS_DATA_LUAT_PTTT', 'CDSS_DATA_PTTT'];
 const KHOA_COT = ['CDSS_COLS_LUAT_PTTT', 'CDSS_COLS_PTTT'];
-const COT_MAC_DINH = ['TRANG_THAI', 'MA_LUAT', 'TEN_QUY_TAC', 'DIEU_KIEN', 'CANH_BAO', 'GHI_CHU', 'NGUON_DU_LIEU'];
+const COT_MAC_DINH = ['TRANG_THAI', 'MA_LUAT', 'TEN_QUY_TAC', 'DIEU_KIEN', 'CANH_BAO', 'GHI_CHU', 'NGUON_DU_LIEU', 'MUC_DO'];
 
 let promiseDamBaoSeed = null;
 
@@ -36,6 +36,7 @@ const chuanHoaDongLuat = (row, index = 0) => ({
   CANH_BAO: String(row?.CANH_BAO || '').trim(),
   GHI_CHU: String(row?.GHI_CHU || '').trim(),
   NGUON_DU_LIEU: String(row?.NGUON_DU_LIEU || 'Template_LUAT_PTTT_MUC11').trim(),
+  MUC_DO: String(row?.MUC_DO || '').trim(),
 });
 
 const taoKhoaDongLuat = (row = {}) => {
@@ -80,6 +81,7 @@ const tomTatNoiDungDongLuat = (row, index = 0) => {
     CANH_BAO: n.CANH_BAO,
     GHI_CHU: n.GHI_CHU,
     NGUON_DU_LIEU: n.NGUON_DU_LIEU,
+    MUC_DO: n.MUC_DO,
   };
 };
 
