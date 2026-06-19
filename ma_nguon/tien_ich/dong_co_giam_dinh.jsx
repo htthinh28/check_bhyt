@@ -5037,6 +5037,268 @@ const giamDinhCongKhamTmhVaNoiSoiTrungMocXml3 = (hoSo) => {
     return ds;
 };
 
+const CO_SO_PHAP_LY_PL02_CV266 = '266/CV-BHXH Phụ lục 2 — chuyên đề thanh toán thuốc/DVKT (TH21, TH72, kiểm soát y lệnh BS).';
+
+const MA_THUOC_DIACEREIN = '40.63';
+
+const laThuocDiacereinRow = (row = {}) => {
+    const ma = UPPER(String(row?.MA_THUOC || '').trim());
+    if (ma === MA_THUOC_DIACEREIN) return true;
+    const t = UPPER(String(row?.TEN_THUOC || '') + String(row?.TEN_HOAT_CHAT || ''));
+    return t.includes('DIACEREIN') || t.includes('DIACEREINA') || t.includes('ARTRODAR');
+};
+
+const laThuocPpiPl02Row = (row = {}) => {
+    const t = UPPER(String(row?.TEN_THUOC || '') + String(row?.TEN_HOAT_CHAT || ''));
+    return t.includes('OMEPRAZOL') || t.includes('ESOMEPRAZOL') || t.includes('PANTOPRAZOL') || t.includes('RABEPRAZOL');
+};
+
+const coIcdThoaHoaKhopGoiGong = (xml1 = {}) => {
+    const parts = [xml1?.MA_BENH_CHINH, xml1?.MA_BENH_KT, xml1?.MA_BENH, xml1?.MA_BENHKEM];
+    return parts.some((val) => {
+        const s = UPPER(String(val || ''));
+        return s.includes('M15') || s.includes('M16') || s.includes('M17');
+    });
+};
+
+const coIcdViEmXoGan = (xml1 = {}) => {
+    const parts = [xml1?.MA_BENH_CHINH, xml1?.MA_BENH_KT, xml1?.MA_BENH, xml1?.MA_BENHKEM];
+    return parts.some((val) => {
+        const s = UPPER(String(val || ''));
+        return s.includes('K70') || s.includes('K71') || s.includes('K72')
+            || s.includes('K73') || s.includes('K74') || s.includes('K76');
+    });
+};
+
+const coIcdChiDinhPpiPl02 = (xml1 = {}) => {
+    const parts = [xml1?.MA_BENH_CHINH, xml1?.MA_BENH_KT, xml1?.MA_BENH, xml1?.MA_BENHKEM];
+    return parts.some((val) => {
+        const s = UPPER(String(val || ''));
+        return s.includes('K21') || s.includes('K25') || s.includes('K26')
+            || s.includes('K27') || s.includes('K28') || s.includes('K29') || s.includes('E16');
+    });
+};
+
+const laDongXml3IcuHoacThoMay = (row = {}) => {
+    const ten = UPPER(String(row?.TEN_DICH_VU || row?.TEN_DVKT || ''));
+    if (!ten) return false;
+    return ten.includes('HỒI SỨC') || ten.includes('HOI SUC') || ten.includes('ICU')
+        || ten.includes('HSTC') || ten.includes('THỞ MÁY') || ten.includes('THO MAY')
+        || ten.includes('VENTILATOR') || ten.includes('INTUBAT');
+};
+
+const coChiDinhPpiPl02HoSo = (hoSo, xml1) => {
+    if (coIcdChiDinhPpiPl02(xml1)) return true;
+    const xml3 = hoSo?.XML3 || hoSo?.xml3 || [];
+    return Array.isArray(xml3) && xml3.some((row) => !laBHYTKhôngThanhToan(row) && laDongXml3IcuHoacThoMay(prepareData(row)));
+};
+
+const layLyDoViPhamDiacereinPl02 = (xml1) => {
+    const tuoi = layTuoiNamHoSo(xml1);
+    const lyDo = [];
+    if (tuoi != null && tuoi >= 65) lyDo.push('≥65 tuổi');
+    if (tuoi != null && tuoi < 18) lyDo.push('<18 tuổi');
+    if (coIcdViEmXoGan(xml1)) lyDo.push('bệnh gan (K70–K76)');
+    if (!coIcdThoaHoaKhopGoiGong(xml1)) lyDo.push('không có ICD thoái hóa khớp gối/hông (M15/M16/M17)');
+    return lyDo.length ? lyDo.join('; ') : 'không đúng CV5543/889';
+};
+
+/** CLN-THUOC-PL02-21 — Diacerein: PL02 CV266 / TH21. */
+const giamDinhDiacereinPl02Th21 = (hoSo) => {
+    const ds = [];
+    const xml1 = prepareData(_getXML1(hoSo) || {});
+    const xml2Raw = layDanhSachXml(hoSo, 'XML2');
+    xml2Raw.forEach((row, idx) => {
+        if (laBHYTKhôngThanhToan(row)) return;
+        if (!laThuocDiacereinRow(row)) return;
+        const tuoi = layTuoiNamHoSo(xml1);
+        const viPham = (tuoi != null && tuoi >= 65)
+            || !coIcdThoaHoaKhopGoiGong(xml1)
+            || coIcdViEmXoGan(xml1)
+            || (tuoi != null && tuoi < 18);
+        if (!viPham) return;
+        ds.push({
+            phan_he: 'XML2',
+            index: idx,
+            truong_loi: 'MA_THUOC',
+            canh_bao: `⛔ Xuất toán: Diacerein không đúng CV5543/889 QLD-ĐK (${layLyDoViPhamDiacereinPl02(xml1)}) — PL02 CV266 / TH21.`,
+            muc_do: 'Error',
+            ma_luat: 'CLN-THUOC-PL02-21',
+            ten_quy_tac: 'Diacerein PL02 TH21',
+            dieu_kien: 'BUILT-IN',
+            co_so_phap_ly: CO_SO_PHAP_LY_PL02_CV266,
+        });
+    });
+    return ds;
+};
+
+/** CLN-THUOC-PL02-72 — PPI (Omeprazol/Esomeprazol/Pantoprazol/Rabeprazol): PL02 CV266 / TH72. */
+const giamDinhPpiPl02Th72 = (hoSo) => {
+    const ds = [];
+    const xml1 = prepareData(_getXML1(hoSo) || {});
+    if (coChiDinhPpiPl02HoSo(hoSo, xml1)) return ds;
+    const xml2Raw = layDanhSachXml(hoSo, 'XML2');
+    xml2Raw.forEach((row, idx) => {
+        if (laBHYTKhôngThanhToan(row)) return;
+        if (!laThuocPpiPl02Row(row)) return;
+        ds.push({
+            phan_he: 'XML2',
+            index: idx,
+            truong_loi: 'MA_THUOC',
+            canh_bao: '⛔ Xuất toán: Omeprazol/Esomeprazol/Pantoprazol/Rabeprazol ngoài chỉ định (TT 20/2022 PL I STT 682–685; TT 37/2024 Điều 8 khoản 3 — loét/GERD/Zollinger hoặc dự phòng loét stress ICU/thở máy) — PL02 CV266 / TH72.',
+            muc_do: 'Error',
+            ma_luat: 'CLN-THUOC-PL02-72',
+            ten_quy_tac: 'PPI PL02 TH72',
+            dieu_kien: 'BUILT-IN',
+            co_so_phap_ly: CO_SO_PHAP_LY_PL02_CV266,
+        });
+    });
+    return ds;
+};
+
+const laMaLoaiKcbNgoaiTru = (maLoai) => MATCH_MA_LOAI_KCB(maLoai, '1');
+
+const laMaLoaiKcbNoiTruHoacBanNgay = (maLoai) => MATCH_MA_LOAI_KCB(maLoai, '3')
+    || MATCH_MA_LOAI_KCB(maLoai, '9')
+    || MATCH_MA_LOAI_KCB(maLoai, '4');
+
+const laDongXml3CongKhamKhoaKham = (row, dmKham) => {
+    if (laMaDvThuocDanhMuc(row?.MA_DV || row?.MA_DICH_VU, dmKham)) return true;
+    const ten = UPPER(String(row?.TEN_DICH_VU || row?.TEN_DVKT || ''));
+    if (!ten) return false;
+    return ten.includes('CÔNG KHÁM') || ten.includes('CONG KHAM') || ten.includes('KHÁM BAN ĐẦU')
+        || (ten.includes('KHÁM') && ten.includes('BỆNH'));
+};
+
+const layMocYLenhPhutHoSo = (row = {}, xml1 = {}) => {
+    const raw = String(row?.NGAY_YL || row?.NGAY_TH_YL || row?.NGAY_KQ || xml1?.NGAY_VAO || '').replace(/\D/g, '');
+    if (raw.length >= 12) return raw.slice(0, 12);
+    if (raw.length >= 8) return raw.slice(0, 8);
+    return '';
+};
+
+const dayKeyTuMoc = (moc) => (moc.length >= 8 ? moc.slice(0, 8) : '');
+
+const themCanhBaoBsPl02TrungMoc = (ds, seen, payload) => {
+    const key = payload.key;
+    if (seen.has(key)) return;
+    seen.add(key);
+    ds.push({
+        phan_he: payload.phan_he,
+        index: payload.index,
+        truong_loi: payload.truong_loi,
+        canh_bao: payload.canh_bao,
+        muc_do: 'Error',
+        ma_luat: 'CLN-BS-PL02-04',
+        ten_quy_tac: 'BS y lệnh khám bệnh đồng thời PT/TT (PL02)',
+        dieu_kien: 'BUILT-IN',
+        co_so_phap_ly: CO_SO_PHAP_LY_PL02_CV266,
+    });
+};
+
+/**
+ * CLN-BS-PL02-04 — Một BS không đồng thời y lệnh KCB tại khoa khám bệnh và PT/TT tại khoa lâm sàng
+ * (cùng ngày/cùng mốc phút); mở rộng: y lệnh nội trú vs ngoại trú trên batch.
+ */
+const giamDinhBacSiPl02KhamBenhDongThoiPttt = (hoSo, danhMuc, batchContext = null) => {
+    const ds = [];
+    const seen = new Set();
+    const xml1 = prepareData(_getXML1(hoSo) || {});
+    const dmKham = taoTapDanhMucTuMang(danhMuc?.DM_KHAM);
+    const rawXml3 = hoSo?.XML3 || hoSo?.xml3 || [];
+    const preparedXml3 = rawXml3.map((row) => prepareData(row));
+
+    for (let i = 0; i < preparedXml3.length; i += 1) {
+        if (laBHYTKhôngThanhToan(rawXml3[i])) continue;
+        const rKham = preparedXml3[i];
+        if (!laDongXml3CongKhamKhoaKham(rKham, dmKham)) continue;
+        const docI = layMaHanhNgheThucHienXml3(rKham, xml1);
+        const timeI = layMocYLenhPhutHoSo(rKham, xml1);
+        if (!docI || !timeI) continue;
+
+        for (let j = 0; j < preparedXml3.length; j += 1) {
+            if (i === j || laBHYTKhôngThanhToan(rawXml3[j])) continue;
+            const rPttt = preparedXml3[j];
+            if (!laDongPtttThucSu(rPttt)) continue;
+            const docJ = layMaHanhNgheThucHienXml3(rPttt, xml1);
+            const timeJ = layMocYLenhPhutHoSo(rPttt, xml1);
+            if (docJ !== docI) continue;
+            const cungPhut = timeI.length >= 12 && timeJ.length >= 12 && timeI === timeJ;
+            const cungNgay = !cungPhut && dayKeyTuMoc(timeI) && dayKeyTuMoc(timeI) === dayKeyTuMoc(timeJ);
+            if (!cungPhut && !cungNgay) continue;
+            const nhanThoiGian = cungPhut ? `cùng mốc phút ${timeI}` : `cùng ngày ${dayKeyTuMoc(timeI)}`;
+            const maKham = UPPER(rKham.MA_DV || rKham.MA_DICH_VU || '');
+            const maPttt = UPPER(rPttt.MA_DV || rPttt.MA_DICH_VU || '');
+            themCanhBaoBsPl02TrungMoc(ds, seen, {
+                key: `xml3|${i}|${j}|${timeI}`,
+                phan_he: 'XML3',
+                index: j,
+                truong_loi: 'MA_BAC_SI',
+                canh_bao: `⛔ Xuất toán: Bác sĩ [${docI}] ${nhanThoiGian} vừa phát sinh chi phí khám bệnh [${maKham}] (STT ${i + 1}) vừa y lệnh PT/TT [${maPttt}] (STT ${j + 1}) — một BS không thể đồng thời tại khoa khám bệnh và khoa lâm sàng (PL02).`,
+            });
+        }
+    }
+
+    const rawXml2 = layDanhSachXml(hoSo, 'XML2');
+    rawXml2.forEach((rowRaw, idx2) => {
+        if (laBHYTKhôngThanhToan(rowRaw)) return;
+        const row2 = prepareData(rowRaw);
+        const doc2 = layMaBacSiLienHoSo(row2, xml1);
+        const time2 = layMocYLenhPhutHoSo(row2, xml1);
+        if (!doc2 || !time2) return;
+        preparedXml3.forEach((rPttt, idx3) => {
+            if (laBHYTKhôngThanhToan(rawXml3[idx3])) return;
+            if (!laDongPtttThucSu(rPttt)) return;
+            const doc3 = layMaHanhNgheThucHienXml3(rPttt, xml1);
+            const time3 = layMocYLenhPhutHoSo(rPttt, xml1);
+            if (doc3 !== doc2) return;
+            const cungPhut = time2.length >= 12 && time3.length >= 12 && time2 === time3;
+            const cungNgay = !cungPhut && dayKeyTuMoc(time2) && dayKeyTuMoc(time2) === dayKeyTuMoc(time3);
+            if (!cungPhut && !cungNgay) return;
+            const nhanThoiGian = cungPhut ? `cùng mốc phút ${time2}` : `cùng ngày ${dayKeyTuMoc(time2)}`;
+            const maThuoc = UPPER(row2.MA_THUOC || '');
+            const maPttt = UPPER(rPttt.MA_DV || rPttt.MA_DICH_VU || '');
+            themCanhBaoBsPl02TrungMoc(ds, seen, {
+                key: `xml2|${idx2}|${idx3}|${time2}`,
+                phan_he: 'XML2',
+                index: idx2,
+                truong_loi: 'MA_BAC_SI',
+                canh_bao: `⛔ Xuất toán: Bác sĩ [${doc2}] ${nhanThoiGian} vừa y lệnh thuốc/DVKT ngoại trú [${maThuoc}] (XML2 STT ${idx2 + 1}) vừa PT/TT [${maPttt}] (XML3 STT ${idx3 + 1}) — kiểm soát y lệnh nội trú/ngoại trú đồng thời (PL02).`,
+            });
+        });
+    });
+
+    const currentEntry = layEntryBatchHienTai(batchContext, hoSo);
+    if (currentEntry && batchContext?.xml3ByDoctorTime) {
+        currentEntry.xml3Prepared.forEach((row, rowIndex) => {
+            const doctorKey = layMaBacSiLienHoSo(row, currentEntry.xml1);
+            const timeKey = layMocThoiGianLienHoSo(row, currentEntry.xml1);
+            if (!doctorKey || !timeKey) return;
+            const related = (batchContext.xml3ByDoctorTime.get(`${doctorKey}|${timeKey}`) || []).filter((item) => {
+                return item.entry.batchKey !== currentEntry.batchKey || item.rowIndex !== rowIndex;
+            });
+            if (related.length === 0) return;
+            const laNoi = laMaLoaiKcbNoiTruHoacBanNgay(currentEntry.xml1?.MA_LOAI_KCB);
+            const laNgoai = laMaLoaiKcbNgoaiTru(currentEntry.xml1?.MA_LOAI_KCB);
+            if (!laNoi && !laNgoai) return;
+            const coDoiNguoc = related.some((item) => {
+                const mk = item.entry?.xml1?.MA_LOAI_KCB;
+                return (laNgoai && laMaLoaiKcbNoiTruHoacBanNgay(mk)) || (laNoi && laMaLoaiKcbNgoaiTru(mk));
+            });
+            if (!coDoiNguoc) return;
+            themCanhBaoBsPl02TrungMoc(ds, seen, {
+                key: `batch|${currentEntry.batchKey}|${rowIndex}|${timeKey}`,
+                phan_he: 'XML3',
+                index: rowIndex,
+                truong_loi: 'MA_BAC_SI',
+                canh_bao: `⛔ Xuất toán: Bác sĩ [${doctorKey}] có y lệnh cùng mốc ${timeKey} trên cả hồ sơ ngoại trú và nội trú/ban ngày — một BS không được đồng thời phát sinh y lệnh nội trú và ngoại trú (PL02).`,
+            });
+        });
+    }
+
+    return ds;
+};
+
 const taoBatchContextGiamDinh = (danhSachHoSo = []) => {
     const danhSachDauVao = Array.isArray(danhSachHoSo) ? danhSachHoSo.filter(Boolean) : [];
     const entryByHoSo = new WeakMap();
@@ -6547,7 +6809,7 @@ export const chayBoMayGiamDinhNhieuHoSoV3 = async (danhSachHoSo = [], options = 
  * @param {object} hoSo - Hồ sơ KCB: { XML1, XML2, XML3, XML4, XML5, XML6 }
  * @returns {Array} Danh sách cảnh báo, sắp xếp Critical→Error→Warning→Info
  */
-export const chayGiamDinhToanDienV15 = async (hoSo) => {
+export const chayGiamDinhToanDienV15 = async (hoSo, options = {}) => {
     if (!hoSo) return [];
     const danhMuc = await taiDanhMucHeThong();
     let allLỗi = layLỗiCauTrucTienXuLy(hoSo);
@@ -6584,6 +6846,9 @@ export const chayGiamDinhToanDienV15 = async (hoSo) => {
     allLỗi = allLỗi.concat(giamDinhCDHA(hoSo));
     allLỗi = allLỗi.concat(giamDinhNguoiThucHienKhamVaDvktXml3(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhCongKhamTmhVaNoiSoiTrungMocXml3(hoSo));
+    allLỗi = allLỗi.concat(giamDinhDiacereinPl02Th21(hoSo));
+    allLỗi = allLỗi.concat(giamDinhPpiPl02Th72(hoSo));
+    allLỗi = allLỗi.concat(giamDinhBacSiPl02KhamBenhDongThoiPttt(hoSo, danhMuc, options?.batchContext || null));
     allLỗi = allLỗi.concat(giamDinhCv4262Bhyt(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhCv3231Bhyt(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhGiuong(hoSo, danhMuc));
@@ -6650,13 +6915,15 @@ export const chayGiamDinhNhieuHoSoV15 = async (danhSachHoSo = [], options = {}) 
         }
     }
 
+    const batchContext = taoBatchContextGiamDinh(danhSachDauVao);
+
     for (let index = 0; index < danhSachDauVao.length; index += 1) {
         const hoSo = danhSachDauVao[index];
         if (!hoSo) continue;
         const coKetQuaCu = Array.isArray(hoSo?.ket_qua_giam_dinh);
         const ketQuaHoSo = (!forceReaudit && coKetQuaCu)
             ? hoSo.ket_qua_giam_dinh
-            : await chayGiamDinhToanDienV15(hoSo);
+            : await chayGiamDinhToanDienV15(hoSo, { batchContext });
         ketQua.push({
             ...hoSo,
             ket_qua_giam_dinh: ketQuaHoSo,

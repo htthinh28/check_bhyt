@@ -1,5 +1,5 @@
 /** AUTO-GENERATED from DuLieu_LUAT_THUOC (9).xlsx */
-export const PHIEN_BAN_SEED_LUAT_THUOC_MUC8 = '2026-06-15_canh_bao_gon';
+export const PHIEN_BAN_SEED_LUAT_THUOC_MUC8 = '2026-06-16_pl02_th21_th72_sync';
 export const COT_SEED_LUAT_THUOC_MUC8 = ["TRANG_THAI","MA_LUAT","TEN_QUY_TAC","DIEU_KIEN","CANH_BAO","GHI_CHU","NGUON_DU_LIEU"];
 export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
   {
@@ -1217,8 +1217,8 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_122",
     "TEN_QUY_TAC": "[Diacerein] Chống chỉ định lâm sàng",
-    "DIEU_KIEN": "XML2.MA_THUOC == '40.63' AND (XML1.MA_BENH_CHINH IN ('K70', 'K71', 'K72') OR XML1.MA_BENH_KT REGEXP 'K70|K71|K72')",
-    "CANH_BAO": "⛔ [NGUY HIỂM]: Thuốc chống chỉ định cho bệnh nhân có Bệnh lý gan tiến triển (K70, K71, K72).",
+    "DIEU_KIEN": "XML2.MA_THUOC == '40.63' AND (XML1.MA_BENH_CHINH REGEXP 'K70|K71|K72|K73|K74|K76' OR XML1.MA_BENH_KT REGEXP 'K70|K71|K72|K73|K74|K76')",
+    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thuốc chống chỉ định cho bệnh nhân có bệnh lý gan (K70–K76) — PL02 CV266 / TH21 (CV5543/889 QLD-ĐK).",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
@@ -1228,18 +1228,18 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "MA_LUAT": "THUOC_123",
     "TEN_QUY_TAC": "[Diacerein] Kiểm tra Chỉ định ICD-10",
     "DIEU_KIEN": "XML2.MA_THUOC == '40.63' AND CO_THUOC_TRONG_DM_BV(XML2.MA_THUOC) AND CO_CO_DONG_MAPPING_ICD_THUOC(XML2.MA_THUOC) AND NOT CO_ICD_KHOP_MAPPING_THUOC(XML2.MA_THUOC) AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(THOÁI HÓA KHỚP|THOÁI HOÁ KHỚP|VIÊM XƯƠNG KHỚP|THOÁI HÓA KHỚP GỐI|THOÁI HOÁ KHỚP GỐI)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: [Diacerein] — ICD/XML1 không khớp chỉ định. Chỉ định: Cytan — Thoái hóa khớp (M15, M17).",
-    "GHI_CHU": "SỬA 21/03/2026: Bổ sung M17 (Thoái hóa khớp gối) - phát hiện từ rà soát HĐ thực tế BN TRƯƠNG THANH TÂM (401929)",
+    "CANH_BAO": "⛔ [XUẤT TOÁN]: [Diacerein] — ICD/XML1 không khớp chỉ định. Chỉ định: thoái hóa khớp gối/hông (M15, M16, M17) — PL02 CV266 / TH21.",
+    "GHI_CHU": "SỬA 21/03/2026: Bổ sung M17 (Thoái hóa khớp gối). 16/06/2026: đồng bộ M16 + PL02 TH21.",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
   {
     "id": "SEED_THUOC_123A",
     "TRANG_THAI": "ON",
     "MA_LUAT": "THUOC_123a",
-    "TEN_QUY_TAC": "[Diacerein] Khuyến cáo người cao tuổi ≥ 65",
+    "TEN_QUY_TAC": "[Diacerein] Không thanh toán BN ≥ 65 tuổi (PL02 TH21)",
     "DIEU_KIEN": "XML2.MA_THUOC == '40.63' AND XML1.TUOI_NAM >= 65",
-    "CANH_BAO": "⚠️ [KHUYẾN CÁO]: Người cao tuổi: Khuyến cáo không kê Diacerein cho bệnh nhân từ 65 tuổi trở lên.",
-    "GHI_CHU": "",
+    "CANH_BAO": "⛔ [XUẤT TOÁN]: Thanh toán Diacerein cho bệnh nhân từ 65 tuổi trở lên — không đúng CV5543/889 QLD-ĐK; PL02 CV266 / TH21.",
+    "GHI_CHU": "Nâng cấp từ khuyến cáo → xuất toán theo PL02 16/06/2026",
     "NGUON_DU_LIEU": "Bo sung quy tac theo yeu cau 30/04/2026"
   },
   {
@@ -1508,7 +1508,7 @@ export const DU_LIEU_SEED_LUAT_THUOC_MUC8 = [
     "MA_LUAT": "THUOC_150",
     "TEN_QUY_TAC": "[Esomeprazol] Kiểm tra Chỉ định ICD-10",
     "DIEU_KIEN": "XML2.MA_THUOC == '40.678' AND CO_THUOC_TRONG_DM_BV(XML2.MA_THUOC) AND CO_CO_DONG_MAPPING_ICD_THUOC(XML2.MA_THUOC) AND NOT CO_ICD_KHOP_MAPPING_THUOC(XML2.MA_THUOC) AND XML1.CHAN_DOAN_RV NOT REGEXP '(?i)(TRÀO NGƯỢC DẠ DÀY|GERD|LOÉT DẠ DÀY|LOÉT TÁ TRÀNG)'",
-    "CANH_BAO": "⛔ [XUẤT TOÁN]: [Esomeprazol] — ICD/XML1 không khớp chỉ định. Chỉ định: Stadnex 20 CAP — Trào ngược dạ dày thực quản (K21) hoặc Loét (K25, K26).",
+    "CANH_BAO": "⛔ [XUẤT TOÁN]: [Esomeprazol] — ICD/XML1 không khớp chỉ định. Chỉ định: GERD/loét (K21, K25, K26) hoặc dự phòng loét stress ICU — PL02 CV266 / TH72.",
     "GHI_CHU": "",
     "NGUON_DU_LIEU": "DuLieu_LUAT_THUOC (9).xlsx"
   },
