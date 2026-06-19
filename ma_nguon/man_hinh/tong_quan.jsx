@@ -46,15 +46,18 @@ import { docPhienDangNhap, xoaPhienDangNhap } from '../tien_ich/phien_dang_nhap'
 import { dieuHuongMoTabMoi } from '../tien_ich/dieu_huong_mo_tab_moi';
 import { DANH_MUC_QUY_TAC_NOI_BO, khopMaLuatTheoMau, suyRaThongTinQuanTriQuyTac } from '../tien_ich/quy_tac_on_off_noi_bo';
 import { locModuleTheoRBAC, taiRBAC } from '../tien_ich/rbac_engine';
+import { taiMapNhanSuBaoCao } from '../tien_ich/dinh_dang_cchn_bao_cao';
 import {
   DANH_SACH_NHOM_CAP_LOAI_KCB_LOC,
   DANH_SACH_NHOM_VI_PHAM_LOC,
+  KHOA_COT_XUAT_CUOI_XML1,
   layDongXmlLienQuanLoi,
   layNhomCapLoaiKcb802,
   NHOM_VI_PHAM_TAT_CA,
   locDanhSachLoiChiTiet,
   phangHoaDanhSachLoiChiTiet,
   taoMetaXuatBacSiTuChiTietLoi,
+  taoMetaXuatCchnTenBsKhamXml1,
   tongHopQuyTacTuDanhSachChiTiet,
 } from '../tien_ich/thong_ke_loi_dung_chung';
 import {
@@ -119,7 +122,7 @@ const phangDongXmlChoOExcel = (row) => {
   return o;
 };
 
-const taoCacDongXuatXmlGocSangNhomTheoPhanHe = (danhSachChiTietLoc, timHoSo) => {
+const taoCacDongXuatXmlGocSangNhomTheoPhanHe = (danhSachChiTietLoc, timHoSo, mapsNhanSu = {}) => {
   const theoPhanHe = new Map();
   (Array.isArray(danhSachChiTietLoc) ? danhSachChiTietLoc : []).forEach((detail, stt) => {
     const loi = detail.doi_tuong_goc || {};
@@ -143,6 +146,7 @@ const taoCacDongXuatXmlGocSangNhomTheoPhanHe = (danhSachChiTietLoc, timHoSo) => 
       _XUAT_INDEX_DONG: loi.index,
       _XUAT_TRUONG_LOI: String(loi.truong_loi || '').trim(),
       ...taoMetaXuatBacSiTuChiTietLoi(detail, loi, hs),
+      ...(phan === 'XML1' ? taoMetaXuatCchnTenBsKhamXml1(detail, mapsNhanSu) : {}),
     };
     if (row && typeof row === 'object' && !Array.isArray(row) && Object.keys(row).length > 0) {
       nhom.push({ ...metaDau, ...phangDongXmlChoOExcel(row) });
@@ -164,9 +168,19 @@ const sapXepKhoaCotCacDongXuat = (rows) => {
     }
   });
   const all = Array.from(s);
-  const p = (k) => (k.startsWith('_XUAT_') ? 0 : 1);
+  const cotCuoi = new Set(KHOA_COT_XUAT_CUOI_XML1);
+  const uuTien = (k) => {
+    if (cotCuoi.has(k)) return 2;
+    if (k.startsWith('_XUAT_')) return 0;
+    return 1;
+  };
   return all.sort((a, b) => {
-    if (p(a) !== p(b)) return p(a) - p(b);
+    const pa = uuTien(a);
+    const pb = uuTien(b);
+    if (pa !== pb) return pa - pb;
+    if (pa === 2) {
+      return KHOA_COT_XUAT_CUOI_XML1.indexOf(a) - KHOA_COT_XUAT_CUOI_XML1.indexOf(b);
+    }
     return a.localeCompare(b, 'vi');
   });
 };
@@ -1101,7 +1115,12 @@ const ManHinhTongQuan = ({ navigation }) => {
       return;
     }
 
-    const theoPhanHe = taoCacDongXuatXmlGocSangNhomTheoPhanHe(danhSachLoiChiTietSauLocXuat, timHoSoTrongKhoTheoMaLK);
+    const mapsNhanSu = await taiMapNhanSuBaoCao();
+    const theoPhanHe = taoCacDongXuatXmlGocSangNhomTheoPhanHe(
+      danhSachLoiChiTietSauLocXuat,
+      timHoSoTrongKhoTheoMaLK,
+      mapsNhanSu,
+    );
     const wb = XLSX.utils.book_new();
     const daDung = new Set();
     theoPhanHe.forEach((rows, phan) => {
@@ -1135,7 +1154,12 @@ const ManHinhTongQuan = ({ navigation }) => {
       return;
     }
 
-    const theoPhanHe = taoCacDongXuatXmlGocSangNhomTheoPhanHe(danhSachLoiChiTietSauLocXuat, timHoSoTrongKhoTheoMaLK);
+    const mapsNhanSu = await taiMapNhanSuBaoCao();
+    const theoPhanHe = taoCacDongXuatXmlGocSangNhomTheoPhanHe(
+      danhSachLoiChiTietSauLocXuat,
+      timHoSoTrongKhoTheoMaLK,
+      mapsNhanSu,
+    );
     const phanDongKhoi = [];
     let sttG = 0;
     theoPhanHe.forEach((rows, phan) => {
@@ -1153,7 +1177,7 @@ const ManHinhTongQuan = ({ navigation }) => {
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <BaoCaoViPhamQPS xmlns="urn:cdss-bhyt:bao-cao-vi-pham" phien_ban="1.0" tao_luc="${escapeXmlBaoCaoViPham(new Date().toISOString())}" so_dong="${sttG}">
-  <GhiChu>Chỉ các dòng dữ liệu gốc XML tương ứng từng cảnh báo (bảng XML2, XML3, …) sau lọc; cột _XUAT_* là phần cảnh báo/lỗi tham chiếu (gồm mã BS khám, BS dòng lỗi, BS chỉ định, BS thực hiện).</GhiChu>
+  <GhiChu>Chỉ các dòng dữ liệu gốc XML tương ứng từng cảnh báo (bảng XML2, XML3, …) sau lọc; cột _XUAT_* là phần cảnh báo/lỗi tham chiếu (gồm mã BS khám, BS dòng lỗi, BS chỉ định, BS thực hiện). Sheet XML1 bổ sung hai cột cuối: Mã Chứng chỉ hành nghề và Tên Bác sỹ khám bệnh (tra DM nhân sự).</GhiChu>
 ${phanDongKhoi.join('\n')}
 </BaoCaoViPhamQPS>
 `;

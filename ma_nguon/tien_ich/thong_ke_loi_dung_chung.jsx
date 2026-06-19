@@ -1,4 +1,5 @@
 import { chuanHoaCanhBaoGiamDinh } from './chuan_hoa_van_ban';
+import { suyRaMaCchnVaTenBacSiKhamChoXuat } from './dinh_dang_cchn_bao_cao';
 import { suyRaNamespaceVaNguonQuyTac } from './dong_co_giam_dinh';
 import { loiKhopBoLocIcd10ViPham } from './icd10_loc_vi_pham';
 import { DANH_MUC_QUY_TAC_NOI_BO, khopMaLuatTheoMau, suyRaThongTinQuanTriQuyTac } from './quy_tac_on_off_noi_bo';
@@ -505,6 +506,12 @@ const chuanHoaMaBsChoXuatBaoCao = (val = '') => {
   return s === 'KHONG_RO' ? '' : s;
 };
 
+/** Hai cột bổ sung cuối sheet XML1 — xuất Excel chi tiết dashboard. */
+export const KHOA_COT_XUAT_CUOI_XML1 = Object.freeze([
+  'Mã Chứng chỉ hành nghề',
+  'Tên Bác sỹ khám bệnh',
+]);
+
 /**
  * Cột _XUAT_MA_BS_* cho xuất Excel/XML báo cáo lỗi trên dashboard.
  * @returns {{ _XUAT_MA_BS_KHAM: string, _XUAT_MA_BS_DONG_LOI: string, _XUAT_MA_BS_CHI_DINH: string, _XUAT_MA_BS_THUC_HIEN: string }}
@@ -516,6 +523,22 @@ export const taoMetaXuatBacSiTuChiTietLoi = (detail = {}, loi = {}, hoSo = {}) =
     _XUAT_MA_BS_DONG_LOI: chuanHoaMaBsChoXuatBaoCao(detail.ma_bac_si_dong),
     _XUAT_MA_BS_CHI_DINH: chuanHoaMaBsChoXuatBaoCao(bsTheoDong.bacSiChiDinh),
     _XUAT_MA_BS_THUC_HIEN: chuanHoaMaBsChoXuatBaoCao(bsTheoDong.bacSiThucHien),
+  };
+};
+
+/**
+ * Cột CCHN + tên BS khám (sheet XML1) — nối tiếp sau các cột dữ liệu gốc.
+ * @param {object} detail — dòng chi tiết lỗi (phangHoa)
+ * @param {{ mapHoTen?: Map<string,string>, mapBsSangCchn?: Map<string,string> }} [mapsNhanSu]
+ */
+export const taoMetaXuatCchnTenBsKhamXml1 = (detail = {}, mapsNhanSu = {}) => {
+  const { ma_cchn, ten_bac_si } = suyRaMaCchnVaTenBacSiKhamChoXuat(
+    chuanHoaMaBsChoXuatBaoCao(detail.ma_bac_si),
+    mapsNhanSu,
+  );
+  return {
+    [KHOA_COT_XUAT_CUOI_XML1[0]]: ma_cchn,
+    [KHOA_COT_XUAT_CUOI_XML1[1]]: ten_bac_si,
   };
 };
 

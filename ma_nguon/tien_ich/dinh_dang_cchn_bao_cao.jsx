@@ -56,12 +56,46 @@ export const boSungHoTenChoMaBacSiBaoCao = (raw, mapHoTen) => {
 };
 
 export const taiMapHoTenNhanSuBaoCao = async () => {
+  const maps = await taiMapNhanSuBaoCao();
+  return maps.mapHoTen;
+};
+
+/** Map tra cứu nhân sự phục vụ xuất báo cáo (họ tên + MACCHN). */
+export const taiMapNhanSuBaoCao = async () => {
   const { data } = await taiBoDuLieuDanhMuc({
     dataKey: 'DANH_MUC_NHAN_SU',
     columnsKey: 'COLS_DANH_MUC_NHAN_SU',
     fallbackColumns: COT_DANH_MUC_NHAN_SU,
   });
-  return taoMapHoTenTheoMaNhanSu(data);
+  const rows = Array.isArray(data) ? data : [];
+  return {
+    mapHoTen: taoMapHoTenTheoMaNhanSu(rows),
+    mapBsSangCchn: taoMapMaNhanSuSangMacchn(rows),
+  };
+};
+
+/**
+ * Suy ra mã CCHN và họ tên BS khám từ MA_BS_KHAM (XML1) khi xuất Excel dashboard.
+ * @param {string} maBsKham — MA_BS_KHAM hoặc mã định danh tương đương
+ * @ {{ mapHoTen?: Map<string,string>, mapBsSangCchn?: Map<string,string> }} maps
+ */
+export const suyRaMaCchnVaTenBacSiKhamChoXuat = (maBsKham = '', maps = {}) => {
+  const maGoc = String(maBsKham ?? '').trim();
+  if (!maGoc || maGoc === 'N/A' || maGoc === 'KHONG_RO') {
+    return { ma_cchn: '', ten_bac_si: '' };
+  }
+  const mapBsSangCchn = maps?.mapBsSangCchn;
+  const mapHoTen = maps?.mapHoTen;
+  const maU = maGoc.toUpperCase();
+  let macchn = String(mapBsSangCchn?.get(maU) || '').trim();
+  if (!macchn && laChuoiGiongMaChungChiHanhNghe(maGoc)) macchn = maGoc;
+  if (!macchn) macchn = maGoc;
+  const ten = String(
+    mapHoTen?.get(macchn.toUpperCase())
+    || mapHoTen?.get(maU)
+    || '',
+  ).trim();
+  return { ma_cchn: macchn, ten_bac_si: ten };
 };
 
 const KHOA_ANH_XA_BS_SANG_CCHN = ['MA_BHXH', 'MA_BAC_SI', 'MA_NV', 'ID', 'SO_CCCD', 'SO_DINH_DANH'];
