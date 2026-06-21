@@ -1,0 +1,2818 @@
+[
+  {
+    "id": "d9d3def5-6101-4048-a036-17a2b4c58595",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "H81;R42",
+    "target_code": "40.685",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_03_1",
+      "ma_luat": "THUOC_03",
+      "ten_quy_tac": "[Acetyl leucin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "H81",
+        "R42"
+      ],
+      "target_codes": [
+        "40.685"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825007+00:00",
+    "updated_at": "2026-06-21T15:58:26.825007+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "1ae15f1e-fee0-4ca3-8b5d-6bc40ad24b81",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "B00;B02",
+    "target_code": "40.260",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_06_2",
+      "ma_luat": "THUOC_06",
+      "ten_quy_tac": "[Aciclovir] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "B00",
+        "B02"
+      ],
+      "target_codes": [
+        "40.260"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825055+00:00",
+    "updated_at": "2026-06-21T15:58:26.825055+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "b8d0379b-476c-4196-9665-14c68686378d",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I46;R57;T81.1",
+    "target_code": "40.86",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_10_3",
+      "ma_luat": "THUOC_10",
+      "ten_quy_tac": "[Adrenalin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I46",
+        "R57",
+        "T81.1"
+      ],
+      "target_codes": [
+        "40.86"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825064+00:00",
+    "updated_at": "2026-06-21T15:58:26.825064+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "b9265845-8b5f-4fc5-9813-e83e77de0ad8",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "N40",
+    "target_code": "40.412",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_14_4",
+      "ma_luat": "THUOC_14",
+      "ten_quy_tac": "[Alfuzosin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "N40"
+      ],
+      "target_codes": [
+        "40.412"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825070+00:00",
+    "updated_at": "2026-06-21T15:58:26.825070+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "8807c650-3a2c-4c5a-b1d6-7acc558950a4",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "M10;N20",
+    "target_code": "40.59",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_21_5",
+      "ma_luat": "THUOC_21",
+      "ten_quy_tac": "[Allopurinol] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "M10",
+        "N20"
+      ],
+      "target_codes": [
+        "40.59"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825074+00:00",
+    "updated_at": "2026-06-21T15:58:26.825074+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "93c2b03b-8cdd-4e30-8b50-fd9e29e46469",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J06;J20;R05",
+    "target_code": "40.988",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_25_6",
+      "ma_luat": "THUOC_25",
+      "ten_quy_tac": "[Ambroxol HCl] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J06",
+        "J20",
+        "R05"
+      ],
+      "target_codes": [
+        "40.988"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825078+00:00",
+    "updated_at": "2026-06-21T15:58:26.825078+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "822460ee-05e3-4343-848c-27e089d866aa",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I47;I48",
+    "target_code": "40.483",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_28_7",
+      "ma_luat": "THUOC_28",
+      "ten_quy_tac": "[Amiodaron] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I47",
+        "I48"
+      ],
+      "target_codes": [
+        "40.483"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825082+00:00",
+    "updated_at": "2026-06-21T15:58:26.825082+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "c0c1a6bd-acfc-49f1-b6d5-429692bb8fa5",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "F32;R52.2",
+    "target_code": "40.961",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_30_8",
+      "ma_luat": "THUOC_30",
+      "ten_quy_tac": "[Amitriptylin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "F32",
+        "R52.2"
+      ],
+      "target_codes": [
+        "40.961"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825086+00:00",
+    "updated_at": "2026-06-21T15:58:26.825086+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "d352b1a9-fe45-40aa-b60e-d46b19ad56ac",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10",
+    "target_code": "40.30.501",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_33_9",
+      "ma_luat": "THUOC_33",
+      "ten_quy_tac": "[Amlodipin + valsartan] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10"
+      ],
+      "target_codes": [
+        "40.30.501"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825089+00:00",
+    "updated_at": "2026-06-21T15:58:26.825089+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "6b259c96-c3e3-4a46-ab9d-111ddb5d0420",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10;I20",
+    "target_code": "40.491",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_36_10",
+      "ma_luat": "THUOC_36",
+      "ten_quy_tac": "[Amlodipin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10",
+        "I20"
+      ],
+      "target_codes": [
+        "40.491"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825093+00:00",
+    "updated_at": "2026-06-21T15:58:26.825093+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "d00ad868-4538-4ea3-a341-700e89cb2e2b",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10",
+    "target_code": "40.30.497",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_38_11",
+      "ma_luat": "THUOC_38",
+      "ten_quy_tac": "[Amlodipine + Lisinopril] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10"
+      ],
+      "target_codes": [
+        "40.30.497"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825097+00:00",
+    "updated_at": "2026-06-21T15:58:26.825097+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "8590dc6c-003e-4008-9531-f0ce888d0462",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J01;J03;J06;J15;J20;K04",
+    "target_code": "40.154",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_44_12",
+      "ma_luat": "THUOC_44",
+      "ten_quy_tac": "[Amoxicillin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J01",
+        "J03",
+        "J06",
+        "J15",
+        "J20",
+        "K04"
+      ],
+      "target_codes": [
+        "40.154"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825101+00:00",
+    "updated_at": "2026-06-21T15:58:26.825101+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "8d3c8ec6-3cf3-4c64-8269-04f5824b5639",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E78.0;E78.1;E78.2",
+    "target_code": "40.30.567",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_48_13",
+      "ma_luat": "THUOC_48",
+      "ten_quy_tac": "[Atorvastatin + ezetimibe] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E78.0",
+        "E78.1",
+        "E78.2"
+      ],
+      "target_codes": [
+        "40.30.567"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825104+00:00",
+    "updated_at": "2026-06-21T15:58:26.825104+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "63c22c27-b573-4a51-89fb-a3890a3d0e2d",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E78.0;E78.1;E78.2;E78.9",
+    "target_code": "40.549",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_51_14",
+      "ma_luat": "THUOC_51",
+      "ten_quy_tac": "[Atorvastatin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E78.0",
+        "E78.1",
+        "E78.2",
+        "E78.9"
+      ],
+      "target_codes": [
+        "40.549"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825108+00:00",
+    "updated_at": "2026-06-21T15:58:26.825108+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "6f403d02-40ee-4266-8b56-649adf31784f",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "R00.1;T60",
+    "target_code": "40.96",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_54_15",
+      "ma_luat": "THUOC_54",
+      "ten_quy_tac": "[Atropin sulfat] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "R00.1",
+        "T60"
+      ],
+      "target_codes": [
+        "40.96"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825112+00:00",
+    "updated_at": "2026-06-21T15:58:26.825112+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "bb2e17f3-feec-40d9-aad2-e95b3d36d287",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "A56;H66;J01;J03;J15;J20;L01;L02;L03",
+    "target_code": "40.219",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_58_16",
+      "ma_luat": "THUOC_58",
+      "ten_quy_tac": "[Azithromycin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "A56",
+        "H66",
+        "J01",
+        "J03",
+        "J15",
+        "J20",
+        "L01",
+        "L02",
+        "L03"
+      ],
+      "target_codes": [
+        "40.219"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825115+00:00",
+    "updated_at": "2026-06-21T15:58:26.825115+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "8eb29939-7283-4d51-9f6d-552391f6f651",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "A09;K59.1;R19.7",
+    "target_code": "40.719",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_61_17",
+      "ma_luat": "THUOC_61",
+      "ten_quy_tac": "[Bacillus clausii] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "A09",
+        "K59.1",
+        "R19.7"
+      ],
+      "target_codes": [
+        "40.719"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825119+00:00",
+    "updated_at": "2026-06-21T15:58:26.825119+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "65c92cca-4d61-4bc8-b2b7-b244635c1512",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "H81",
+    "target_code": "40.899",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_67_18",
+      "ma_luat": "THUOC_67",
+      "ten_quy_tac": "[Betahistin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "H81"
+      ],
+      "target_codes": [
+        "40.899"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825123+00:00",
+    "updated_at": "2026-06-21T15:58:26.825123+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "c708894a-e546-44db-8312-2d6619cd4867",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J20;R05",
+    "target_code": "40.989",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_72_19",
+      "ma_luat": "THUOC_72",
+      "ten_quy_tac": "[Bromhexin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J20",
+        "R05"
+      ],
+      "target_codes": [
+        "40.989"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825127+00:00",
+    "updated_at": "2026-06-21T15:58:26.825127+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "7f4ceccf-7ba0-4335-9053-021f5d878353",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10;I20;I50",
+    "target_code": "40.497",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_82_20",
+      "ma_luat": "THUOC_82",
+      "ten_quy_tac": "[Carvedilol] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10",
+        "I20",
+        "I50"
+      ],
+      "target_codes": [
+        "40.497"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825130+00:00",
+    "updated_at": "2026-06-21T15:58:26.825130+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "5810e705-1fb7-42df-867e-f92465f6abc0",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J15;L01;M86;Z29.2",
+    "target_code": "40.166",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_85_21",
+      "ma_luat": "THUOC_85",
+      "ten_quy_tac": "[Cefazolin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J15",
+        "L01",
+        "M86",
+        "Z29.2"
+      ],
+      "target_codes": [
+        "40.166"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825134+00:00",
+    "updated_at": "2026-06-21T15:58:26.825134+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "c6421bda-f8e8-42ef-96a1-21b35a8d8fdd",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J01;J03;J15;J20;L01",
+    "target_code": "40.167",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_89_22",
+      "ma_luat": "THUOC_89",
+      "ten_quy_tac": "[Cefdinir] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J01",
+        "J03",
+        "J15",
+        "J20",
+        "L01"
+      ],
+      "target_codes": [
+        "40.167"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825138+00:00",
+    "updated_at": "2026-06-21T15:58:26.825138+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "8aa5021a-19f3-4e80-8706-2ed773016a78",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J01;J03;J06;J15;N10;N30",
+    "target_code": "40.169",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_92_23",
+      "ma_luat": "THUOC_92",
+      "ten_quy_tac": "[Cefixim] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J01",
+        "J03",
+        "J06",
+        "J15",
+        "N10",
+        "N30"
+      ],
+      "target_codes": [
+        "40.169"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825142+00:00",
+    "updated_at": "2026-06-21T15:58:26.825142+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "3b67d9ad-b5a0-4995-88f7-dda19b9a3ff6",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "M05;M06;M15;M25.5;M45",
+    "target_code": "40.28",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_98_24",
+      "ma_luat": "THUOC_98",
+      "ten_quy_tac": "[Celecoxib] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "M05",
+        "M06",
+        "M15",
+        "M25.5",
+        "M45"
+      ],
+      "target_codes": [
+        "40.28"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825145+00:00",
+    "updated_at": "2026-06-21T15:58:26.825145+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "bb494859-5c63-49ff-8e6f-1ed8825b7dc0",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J30;L50",
+    "target_code": "40.79",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_102_25",
+      "ma_luat": "THUOC_102",
+      "ten_quy_tac": "[Cetirizin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J30",
+        "L50"
+      ],
+      "target_codes": [
+        "40.79"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825149+00:00",
+    "updated_at": "2026-06-21T15:58:26.825149+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "c3003781-d0ee-4a14-ba29-7c1ce7203505",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "H81;R42",
+    "target_code": "40.80",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_104_26",
+      "ma_luat": "THUOC_104",
+      "ten_quy_tac": "[Cinnarizin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "H81",
+        "R42"
+      ],
+      "target_codes": [
+        "40.80"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825153+00:00",
+    "updated_at": "2026-06-21T15:58:26.825153+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "c79658db-9b05-4491-adb8-036bcb20f8d6",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J01;J03;L01;L02;L03",
+    "target_code": "40.217",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_107_27",
+      "ma_luat": "THUOC_107",
+      "ten_quy_tac": "[Clindamycin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J01",
+        "J03",
+        "L01",
+        "L02",
+        "L03"
+      ],
+      "target_codes": [
+        "40.217"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825156+00:00",
+    "updated_at": "2026-06-21T15:58:26.825156+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "f66e12ce-28ac-4ad5-85b6-3c7e8b0a596d",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I20;I21;I25;I63;I65;I70;I74",
+    "target_code": "40.540",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_111_28",
+      "ma_luat": "THUOC_111",
+      "ten_quy_tac": "[Clopidogrel] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I20",
+        "I21",
+        "I25",
+        "I63",
+        "I65",
+        "I70",
+        "I74"
+      ],
+      "target_codes": [
+        "40.540"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825160+00:00",
+    "updated_at": "2026-06-21T15:58:26.825160+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "47f277c7-6a4a-419c-87bb-af8622c16c40",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "B35;B36;B37",
+    "target_code": "40.593",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_113_29",
+      "ma_luat": "THUOC_113",
+      "ten_quy_tac": "[Clotrimazol] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "B35",
+        "B36",
+        "B37"
+      ],
+      "target_codes": [
+        "40.593"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825164+00:00",
+    "updated_at": "2026-06-21T15:58:26.825164+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "173eacd9-34a7-419a-ac0d-418f4f3ecae3",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "M10",
+    "target_code": "40.61",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_116_30",
+      "ma_luat": "THUOC_116",
+      "ten_quy_tac": "[Colchicin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "M10"
+      ],
+      "target_codes": [
+        "40.61"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825168+00:00",
+    "updated_at": "2026-06-21T15:58:26.825168+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "003695f0-dcac-411a-b15a-8f134088f7ac",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "M15;M17",
+    "target_code": "40.63",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_123_31",
+      "ma_luat": "THUOC_123",
+      "ten_quy_tac": "[Diacerein] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "M15",
+        "M17"
+      ],
+      "target_codes": [
+        "40.63"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825172+00:00",
+    "updated_at": "2026-06-21T15:58:26.825172+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "ab2ba269-c2b5-43f3-9fa3-28e4451baa8a",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "K71;K73;K76.0",
+    "target_code": "05C.28.2",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_126_32",
+      "ma_luat": "THUOC_126",
+      "ten_quy_tac": "[Diệp hạ châu đắng...] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "K71",
+        "K73",
+        "K76.0"
+      ],
+      "target_codes": [
+        "05C.28.2"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825179+00:00",
+    "updated_at": "2026-06-21T15:58:26.825179+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "2b1a3a62-2c2c-4d65-aff9-afba1ccf44d7",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "A09;K52.9",
+    "target_code": "40.722",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_128_33",
+      "ma_luat": "THUOC_128",
+      "ten_quy_tac": "[Diosmectit] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "A09",
+        "K52.9"
+      ],
+      "target_codes": [
+        "40.722"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825184+00:00",
+    "updated_at": "2026-06-21T15:58:26.825184+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "827d60d6-35c4-41ef-b0c9-551cbc6d5117",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I83;I84;I87;I87.2",
+    "target_code": "40.736",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_131_34",
+      "ma_luat": "THUOC_131",
+      "ten_quy_tac": "[Diosmin; Hesperidin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I83",
+        "I84",
+        "I87",
+        "I87.2"
+      ],
+      "target_codes": [
+        "40.736"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825188+00:00",
+    "updated_at": "2026-06-21T15:58:26.825188+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "d6862a64-4c7e-471d-a416-e1232229665f",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "L50;T78.4",
+    "target_code": "40.84",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_135_35",
+      "ma_luat": "THUOC_135",
+      "ten_quy_tac": "[Diphenhydramin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "L50",
+        "T78.4"
+      ],
+      "target_codes": [
+        "40.84"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825191+00:00",
+    "updated_at": "2026-06-21T15:58:26.825191+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "69a26b8c-626d-4d3b-bbfa-1351b0bc6e68",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "M15;M53;M54;M62.6",
+    "target_code": "40.829",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_145_36",
+      "ma_luat": "THUOC_145",
+      "ten_quy_tac": "[Eperison HCl] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "M15",
+        "M53",
+        "M54",
+        "M62.6"
+      ],
+      "target_codes": [
+        "40.829"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825195+00:00",
+    "updated_at": "2026-06-21T15:58:26.825195+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "53a5703e-e349-48a5-847d-f45ef523b977",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "K21;K25;K26",
+    "target_code": "40.678",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_150_37",
+      "ma_luat": "THUOC_150",
+      "ten_quy_tac": "[Esomeprazol] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "K21",
+        "K25",
+        "K26"
+      ],
+      "target_codes": [
+        "40.678"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825198+00:00",
+    "updated_at": "2026-06-21T15:58:26.825198+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "fc421709-db40-42d7-b17a-417f758eb423",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "F41.1;F41.2;F41.9;F48.9",
+    "target_code": "40.934",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_153_38",
+      "ma_luat": "THUOC_153",
+      "ten_quy_tac": "[Etifoxin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "F41.1",
+        "F41.2",
+        "F41.9",
+        "F48.9"
+      ],
+      "target_codes": [
+        "40.934"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825202+00:00",
+    "updated_at": "2026-06-21T15:58:26.825202+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "3ce1a2b0-7fb5-41c2-8900-99a197ce0323",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "M05;M10;M15;M45",
+    "target_code": "40.33",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_156_39",
+      "ma_luat": "THUOC_156",
+      "ten_quy_tac": "[Etoricoxib] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "M05",
+        "M10",
+        "M15",
+        "M45"
+      ],
+      "target_codes": [
+        "40.33"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825206+00:00",
+    "updated_at": "2026-06-21T15:58:26.825206+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "1fd91290-181b-408f-81b3-332272b7204a",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "K21;K25;K26",
+    "target_code": "40.666",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_160_40",
+      "ma_luat": "THUOC_160",
+      "ten_quy_tac": "[Famotidin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "K21",
+        "K25",
+        "K26"
+      ],
+      "target_codes": [
+        "40.666"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825209+00:00",
+    "updated_at": "2026-06-21T15:58:26.825209+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "bec913d4-ab22-4074-8e2f-442ba7761a1f",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10;I20",
+    "target_code": "40.502",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_164_41",
+      "ma_luat": "THUOC_164",
+      "ten_quy_tac": "[Felodipin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10",
+        "I20"
+      ],
+      "target_codes": [
+        "40.502"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825213+00:00",
+    "updated_at": "2026-06-21T15:58:26.825213+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "415ed575-ee41-4686-947f-42779aa46e03",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E78.0;E78.1;E78.2",
+    "target_code": "40.553",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_167_42",
+      "ma_luat": "THUOC_167",
+      "ten_quy_tac": "[Fenofibrat] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E78.0",
+        "E78.1",
+        "E78.2"
+      ],
+      "target_codes": [
+        "40.553"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825216+00:00",
+    "updated_at": "2026-06-21T15:58:26.825216+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "661f4d98-3185-45df-a6ad-57b73107b56d",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J30;L50",
+    "target_code": "40.87",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_171_43",
+      "ma_luat": "THUOC_171",
+      "ten_quy_tac": "[Fexofenadin hydroclorid] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J30",
+        "L50"
+      ],
+      "target_codes": [
+        "40.87"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825220+00:00",
+    "updated_at": "2026-06-21T15:58:26.825220+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "b9c0f5c1-deda-491b-ae77-e7fdbe8a9f65",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "B35;B36;B37",
+    "target_code": "40.288",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_175_44",
+      "ma_luat": "THUOC_175",
+      "ten_quy_tac": "[Fluconazol] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "B35",
+        "B36",
+        "B37"
+      ],
+      "target_codes": [
+        "40.288"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825224+00:00",
+    "updated_at": "2026-06-21T15:58:26.825224+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "0dae2321-dfb5-43ec-9795-a57bdde97694",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "G43;H81",
+    "target_code": "40.336",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_177_45",
+      "ma_luat": "THUOC_177",
+      "ten_quy_tac": "[Flunarizin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "G43",
+        "H81"
+      ],
+      "target_codes": [
+        "40.336"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825228+00:00",
+    "updated_at": "2026-06-21T15:58:26.825228+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "12120422-06c7-4663-969b-aff3f02eb35d",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10;I50;N04",
+    "target_code": "40.659",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_184_46",
+      "ma_luat": "THUOC_184",
+      "ten_quy_tac": "[Furosemid] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10",
+        "I50",
+        "N04"
+      ],
+      "target_codes": [
+        "40.659"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825232+00:00",
+    "updated_at": "2026-06-21T15:58:26.825232+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "c0695229-4a99-42ed-9902-110b80c4eb5e",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "G40;G53.0;M79.2",
+    "target_code": "40.132",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_188_47",
+      "ma_luat": "THUOC_188",
+      "ten_quy_tac": "[Gabapentin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "G40",
+        "G53.0",
+        "M79.2"
+      ],
+      "target_codes": [
+        "40.132"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825236+00:00",
+    "updated_at": "2026-06-21T15:58:26.825236+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "1ab50637-a705-438d-8446-73c39ab8c071",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E11",
+    "target_code": "40.800",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_196_48",
+      "ma_luat": "THUOC_196",
+      "ten_quy_tac": "[Gliclazid] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E11"
+      ],
+      "target_codes": [
+        "40.800"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825239+00:00",
+    "updated_at": "2026-06-21T15:58:26.825239+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "194238fb-7cee-4014-ae3c-b38b44712cf3",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E11",
+    "target_code": "40.801",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_198_49",
+      "ma_luat": "THUOC_198",
+      "ten_quy_tac": "[Glimepiride] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E11"
+      ],
+      "target_codes": [
+        "40.801"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825243+00:00",
+    "updated_at": "2026-06-21T15:58:26.825243+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "70755e86-4164-48ca-967e-38006d0c615b",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J06;J20;R05",
+    "target_code": "05C.150",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_207_50",
+      "ma_luat": "THUOC_207",
+      "ten_quy_tac": "[Húng chanh, Núc nác, Cineol] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J06",
+        "J20",
+        "R05"
+      ],
+      "target_codes": [
+        "05C.150"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825246+00:00",
+    "updated_at": "2026-06-21T15:58:26.825246+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "5a61b0df-1980-470e-8442-9dfcac4719c6",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "M06;M15;R50;R52",
+    "target_code": "40.37",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_213_51",
+      "ma_luat": "THUOC_213",
+      "ten_quy_tac": "[Ibuprofen] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "M06",
+        "M15",
+        "R50",
+        "R52"
+      ],
+      "target_codes": [
+        "40.37"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825250+00:00",
+    "updated_at": "2026-06-21T15:58:26.825250+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "4cd64a49-8527-4d3d-b3c2-7d2d9f76d16a",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E10;E11",
+    "target_code": "40.806",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_216_52",
+      "ma_luat": "THUOC_216",
+      "ten_quy_tac": "[Insulin glargine] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E10",
+        "E11"
+      ],
+      "target_codes": [
+        "40.806"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825254+00:00",
+    "updated_at": "2026-06-21T15:58:26.825254+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "c0c57347-3b4b-465c-9515-2d01d6b7c3c4",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I20;I25;I50",
+    "target_code": "40.479",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_218_53",
+      "ma_luat": "THUOC_218",
+      "ten_quy_tac": "[Isosorbid mononitrat] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I20",
+        "I25",
+        "I50"
+      ],
+      "target_codes": [
+        "40.479"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825258+00:00",
+    "updated_at": "2026-06-21T15:58:26.825258+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "9f0a4b91-f9ff-47c7-9c69-bc3591637ec2",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E87.6",
+    "target_code": "40.567",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_222_54",
+      "ma_luat": "THUOC_222",
+      "ten_quy_tac": "[Kali chloride] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E87.6"
+      ],
+      "target_codes": [
+        "40.567"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825262+00:00",
+    "updated_at": "2026-06-21T15:58:26.825262+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "436e2727-ff1a-4792-947e-2d7cbfd4ec37",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "A09;E60",
+    "target_code": "40.725",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_225_55",
+      "ma_luat": "THUOC_225",
+      "ten_quy_tac": "[Kẽm gluconat] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "A09",
+        "E60"
+      ],
+      "target_codes": [
+        "40.725"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825267+00:00",
+    "updated_at": "2026-06-21T15:58:26.825267+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "c1f5586f-871d-426e-b6c5-3a28ce2e193e",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "K35;M54;O82;R52;Z48",
+    "target_code": "40.39",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_228_56",
+      "ma_luat": "THUOC_228",
+      "ten_quy_tac": "[Ketoprofen] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "K35",
+        "M54",
+        "O82",
+        "R52",
+        "Z48"
+      ],
+      "target_codes": [
+        "40.39"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825270+00:00",
+    "updated_at": "2026-06-21T15:58:26.825270+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "e3ebd9f6-159e-425b-ad24-962715b951b0",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "F51.0;G47.0",
+    "target_code": "05C.135.5",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_235_57",
+      "ma_luat": "THUOC_235",
+      "ten_quy_tac": "[Lá sen,Vông nem...] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "F51.0",
+        "G47.0"
+      ],
+      "target_codes": [
+        "05C.135.5"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825276+00:00",
+    "updated_at": "2026-06-21T15:58:26.825276+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "f27448b9-22ce-4128-912f-f05000b63a92",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J30;L50",
+    "target_code": "40.90",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_240_58",
+      "ma_luat": "THUOC_240",
+      "ten_quy_tac": "[Levocetirizin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J30",
+        "L50"
+      ],
+      "target_codes": [
+        "40.90"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825280+00:00",
+    "updated_at": "2026-06-21T15:58:26.825280+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "ac4d363f-9383-4c26-8736-14cfff1a358e",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J01;J15;J20;N10;N30;N41",
+    "target_code": "40.229",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_242_59",
+      "ma_luat": "THUOC_242",
+      "ten_quy_tac": "[Levofloxacin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J01",
+        "J15",
+        "J20",
+        "N10",
+        "N30",
+        "N41"
+      ],
+      "target_codes": [
+        "40.229"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825284+00:00",
+    "updated_at": "2026-06-21T15:58:26.825284+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "d40bf094-a2af-40b2-bf75-3f2dd4e8a68e",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "M05;M06;M15;M45",
+    "target_code": "40.41",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_255_60",
+      "ma_luat": "THUOC_255",
+      "ten_quy_tac": "[Meloxicam] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "M05",
+        "M06",
+        "M15",
+        "M45"
+      ],
+      "target_codes": [
+        "40.41"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825288+00:00",
+    "updated_at": "2026-06-21T15:58:26.825288+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "8c5dac1a-3e3e-49d0-bd7e-baa1c410d86d",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "K50;K51",
+    "target_code": "40.748",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_259_61",
+      "ma_luat": "THUOC_259",
+      "ten_quy_tac": "[Mesalamin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "K50",
+        "K51"
+      ],
+      "target_codes": [
+        "40.748"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825292+00:00",
+    "updated_at": "2026-06-21T15:58:26.825292+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "c5bce365-f681-44c3-b121-36f08bde26c3",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E11",
+    "target_code": "40.807",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_262_62",
+      "ma_luat": "THUOC_262",
+      "ten_quy_tac": "[Metformin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E11"
+      ],
+      "target_codes": [
+        "40.807"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825296+00:00",
+    "updated_at": "2026-06-21T15:58:26.825296+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "fbdab3d8-2608-4051-a34a-f1f5be156994",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "R11",
+    "target_code": "40.690",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_269_63",
+      "ma_luat": "THUOC_269",
+      "ten_quy_tac": "[Metoclopramid] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "R11"
+      ],
+      "target_codes": [
+        "40.690"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825299+00:00",
+    "updated_at": "2026-06-21T15:58:26.825299+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "70f5117c-037d-45b4-b260-05a53310de67",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10;I20;I50",
+    "target_code": "40.515",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_272_64",
+      "ma_luat": "THUOC_272",
+      "ten_quy_tac": "[Metoprolol] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10",
+        "I20",
+        "I50"
+      ],
+      "target_codes": [
+        "40.515"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825303+00:00",
+    "updated_at": "2026-06-21T15:58:26.825303+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "0dc5454a-01c7-4992-9bff-f02d461ac7a5",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "A04;A06;K25;K26",
+    "target_code": "40.212",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_276_65",
+      "ma_luat": "THUOC_276",
+      "ten_quy_tac": "[Metronidazol] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "A04",
+        "A06",
+        "K25",
+        "K26"
+      ],
+      "target_codes": [
+        "40.212"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825307+00:00",
+    "updated_at": "2026-06-21T15:58:26.825307+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "7e79551d-a8ec-4bb9-8bf0-b229f609198a",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J20;J44;R05",
+    "target_code": "40.998",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_281_66",
+      "ma_luat": "THUOC_281",
+      "ten_quy_tac": "[N-Acetylcystein] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J20",
+        "J44",
+        "R05"
+      ],
+      "target_codes": [
+        "40.998"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825310+00:00",
+    "updated_at": "2026-06-21T15:58:26.825310+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "3d14a46f-bdd9-47e8-9619-3417bcd42122",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "T40",
+    "target_code": "40.114",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_286_67",
+      "ma_luat": "THUOC_286",
+      "ten_quy_tac": "[Naloxon] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "T40"
+      ],
+      "target_codes": [
+        "40.114"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825314+00:00",
+    "updated_at": "2026-06-21T15:58:26.825314+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "712f9594-45a8-4966-b2b3-2d4a2d93d4d7",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E87.2",
+    "target_code": "40.116",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_288_68",
+      "ma_luat": "THUOC_288",
+      "ten_quy_tac": "[Natri bicarbonat] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E87.2"
+      ],
+      "target_codes": [
+        "40.116"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825318+00:00",
+    "updated_at": "2026-06-21T15:58:26.825318+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "abf163db-b8e7-4a14-9c00-fd285634f41d",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J30;J45",
+    "target_code": "40.979",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_290_69",
+      "ma_luat": "THUOC_290",
+      "ten_quy_tac": "[Natri montelukast] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J30",
+        "J45"
+      ],
+      "target_codes": [
+        "40.979"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825321+00:00",
+    "updated_at": "2026-06-21T15:58:26.825321+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "c663f2af-030a-47dd-b49d-6534c07db772",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10;I50",
+    "target_code": "40.517",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_292_70",
+      "ma_luat": "THUOC_292",
+      "ten_quy_tac": "[Nebivolol] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10",
+        "I50"
+      ],
+      "target_codes": [
+        "40.517"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825325+00:00",
+    "updated_at": "2026-06-21T15:58:26.825325+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "db719868-83ce-4674-9e8f-d2c39a3cb475",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "G89;R52",
+    "target_code": "40.47",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_296_71",
+      "ma_luat": "THUOC_296",
+      "ten_quy_tac": "[Nefopam] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "G89",
+        "R52"
+      ],
+      "target_codes": [
+        "40.47"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825329+00:00",
+    "updated_at": "2026-06-21T15:58:26.825329+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "40ad2bc5-583f-4dae-a267-4dfc1f5080f8",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "G70",
+    "target_code": "40.832",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_298_72",
+      "ma_luat": "THUOC_298",
+      "ten_quy_tac": "[Neostigmin methylsulfat] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "G70"
+      ],
+      "target_codes": [
+        "40.832"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825332+00:00",
+    "updated_at": "2026-06-21T15:58:26.825332+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "80f9f2a8-2f68-4a3d-9eff-0bd416b6a3f9",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10;I20;O13;O14;O15;O16;O60",
+    "target_code": "40.519",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_305_73",
+      "ma_luat": "THUOC_305",
+      "ten_quy_tac": "[Nifedipin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10",
+        "I20",
+        "O13",
+        "O14",
+        "O15",
+        "O16",
+        "O60"
+      ],
+      "target_codes": [
+        "40.519"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825336+00:00",
+    "updated_at": "2026-06-21T15:58:26.825336+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "a6f0fab3-0f08-438b-8247-16af952924c3",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10",
+    "target_code": "40.521",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_315_74",
+      "ma_luat": "THUOC_315",
+      "ten_quy_tac": "[Perindopril + amlodipin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10"
+      ],
+      "target_codes": [
+        "40.521"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825341+00:00",
+    "updated_at": "2026-06-21T15:58:26.825341+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "6bf78b97-9cdb-4327-8533-a466de949e23",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "F03;G45;H81",
+    "target_code": "40.576",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_318_75",
+      "ma_luat": "THUOC_318",
+      "ten_quy_tac": "[Piracetam] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "F03",
+        "G45",
+        "H81"
+      ],
+      "target_codes": [
+        "40.576"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825345+00:00",
+    "updated_at": "2026-06-21T15:58:26.825345+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "89bb1f09-53bf-42d6-a96e-c94404a070dc",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E78.0;E78.1;E78.2;E78.9",
+    "target_code": "40.558",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_329_76",
+      "ma_luat": "THUOC_329",
+      "ten_quy_tac": "[Rosuvastatin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E78.0",
+        "E78.1",
+        "E78.2",
+        "E78.9"
+      ],
+      "target_codes": [
+        "40.558"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825348+00:00",
+    "updated_at": "2026-06-21T15:58:26.825348+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "b81909fa-6e5e-4b79-800e-8fc9ddd623a6",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E11;F51.0;G47.0",
+    "target_code": "40.937",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_331_77",
+      "ma_luat": "THUOC_331",
+      "ten_quy_tac": "[Rotundin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E11",
+        "F51.0",
+        "G47.0"
+      ],
+      "target_codes": [
+        "40.937"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825352+00:00",
+    "updated_at": "2026-06-21T15:58:26.825352+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "7a9cac7a-dc3f-441a-9c5f-2caedd3d8b61",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "D50;O25",
+    "target_code": "40.433",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_340_78",
+      "ma_luat": "THUOC_340",
+      "ten_quy_tac": "[Sắt (III)] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "D50",
+        "O25"
+      ],
+      "target_codes": [
+        "40.433"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825356+00:00",
+    "updated_at": "2026-06-21T15:58:26.825356+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "837047aa-dfa6-45fe-ab22-3b60f4b98bbc",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "D50;O25",
+    "target_code": "40.429",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_342_79",
+      "ma_luat": "THUOC_342",
+      "ten_quy_tac": "[Sắt fumarat + Acid Folic] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "D50",
+        "O25"
+      ],
+      "target_codes": [
+        "40.429"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825360+00:00",
+    "updated_at": "2026-06-21T15:58:26.825360+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "24b8e162-bdcc-496a-b206-946c8db53951",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10",
+    "target_code": "40.527",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_353_80",
+      "ma_luat": "THUOC_353",
+      "ten_quy_tac": "[Telmisartan + hydroclorothiazid] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10"
+      ],
+      "target_codes": [
+        "40.527"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825363+00:00",
+    "updated_at": "2026-06-21T15:58:26.825363+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "f322c3fb-7ddb-41b2-a4da-7ec1772d03c2",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10",
+    "target_code": "40.526",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_355_81",
+      "ma_luat": "THUOC_355",
+      "ten_quy_tac": "[Telmisartan] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10"
+      ],
+      "target_codes": [
+        "40.526"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825367+00:00",
+    "updated_at": "2026-06-21T15:58:26.825367+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "98f5dd70-6dce-4d35-b466-57547843643a",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "J44;J45",
+    "target_code": "40.983",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_358_82",
+      "ma_luat": "THUOC_358",
+      "ten_quy_tac": "[Terbutalin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "J44",
+        "J45"
+      ],
+      "target_codes": [
+        "40.983"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825371+00:00",
+    "updated_at": "2026-06-21T15:58:26.825371+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "bb239a81-0710-4a28-9f2b-31f7308e949a",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I20",
+    "target_code": "40.481",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_363_83",
+      "ma_luat": "THUOC_363",
+      "ten_quy_tac": "[Trimetazidin] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I20"
+      ],
+      "target_codes": [
+        "40.481"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825375+00:00",
+    "updated_at": "2026-06-21T15:58:26.825375+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "9774ec27-2e96-4b12-9f62-6b2a06157eaf",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "I10;I50",
+    "target_code": "40.528",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_368_84",
+      "ma_luat": "THUOC_368",
+      "ten_quy_tac": "[Valsartan] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "I10",
+        "I50"
+      ],
+      "target_codes": [
+        "40.528"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825378+00:00",
+    "updated_at": "2026-06-21T15:58:26.825378+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "6aa08d10-16b0-4d91-a853-66ae7dd47e7c",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "D64;E54",
+    "target_code": "40.1057",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_378_85",
+      "ma_luat": "THUOC_378",
+      "ten_quy_tac": "[Vitamin C] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "D64",
+        "E54"
+      ],
+      "target_codes": [
+        "40.1057"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825382+00:00",
+    "updated_at": "2026-06-21T15:58:26.825382+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  },
+  {
+    "id": "2aec35c5-34e0-4f07-bb4a-41c7340d949a",
+    "mapping_type": "ICD_DRUG",
+    "source_catalog": "icd10",
+    "target_catalog": "drug_items",
+    "source_id": 0,
+    "target_id": 0,
+    "source_code": "E56;E60;N97",
+    "target_code": "40.1061",
+    "effective_from": null,
+    "effective_to": null,
+    "priority": 0,
+    "is_active": true,
+    "metadata": {
+      "rule_id": "SEED_ICD_CD_THUOC_381_86",
+      "ma_luat": "THUOC_381",
+      "ten_quy_tac": "[Vitamin E] Kiểm tra Chỉ định ICD-10",
+      "source_icd_codes": [
+        "E56",
+        "E60",
+        "N97"
+      ],
+      "target_codes": [
+        "40.1061"
+      ],
+      "nguon_dong": "active_rules_inventory"
+    },
+    "approval_status": "APPROVED",
+    "created_at": "2026-06-21T15:58:26.825386+00:00",
+    "updated_at": "2026-06-21T15:58:26.825386+00:00",
+    "created_by": "build_seed_icd_drug_from_muc8_rules.py",
+    "updated_by": ""
+  }
+]

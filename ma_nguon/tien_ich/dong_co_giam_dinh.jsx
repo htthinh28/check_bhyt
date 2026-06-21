@@ -18,6 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { chuanHoaMaIcdPhacDoCdss } from '../chuyen_mon/phac_do_benh_vien/phac_do_cdss_columns';
 import { chuanHoaBangTuongTacKhongTrungKey } from '../chuyen_mon/tuong_tac_thuoc/chuan_hoa_bang_tuong_tac';
 import tuongTacThuocSeed from '../chuyen_mon/tuong_tac_thuoc/du_lieu_tuong_tac_thuoc.seed.json';
+import seedIcdDrugBhyt from './seed_icd_drug_bhyt.json';
 import seedIcdDrugContraBhyt from './seed_icd_drug_contra_bhyt.json';
 import { DANH_MUC_ICD10_CAP_CUU } from '../thanh_phan/icd10_nhap_vien_cap_cuu';
 import { BANG_ICD10_TT06, PHIEN_BAN_ICD10_TT06 } from '../thanh_phan/icd10_tt06_bang_ma';
@@ -1415,8 +1416,9 @@ const layMaThuocTuRowMappingIcdDrug = (row) => {
 
 const taoMetaTuBangMappingIcdThuoc = (rowsRaw) => {
     const fromStorage = Array.isArray(rowsRaw) ? rowsRaw : [];
-    const seedArr = Array.isArray(seedIcdDrugContraBhyt) ? seedIcdDrugContraBhyt : [];
-    const rows = [...seedArr, ...fromStorage];
+    const seedChiDinh = Array.isArray(seedIcdDrugBhyt) ? seedIcdDrugBhyt : [];
+    const seedContra = Array.isArray(seedIcdDrugContraBhyt) ? seedIcdDrugContraBhyt : [];
+    const rows = [...seedChiDinh, ...seedContra, ...fromStorage];
     const icdDrug = rows.filter((r) => String(r.mapping_type || '').trim().toUpperCase() === 'ICD_DRUG');
     const icdDrugContra = rows.filter((r) => String(r.mapping_type || '').trim().toUpperCase() === 'ICD_DRUG_CONTRA');
     const setMa = new Set();
@@ -6017,7 +6019,16 @@ const taoHamDieuKienLuatDong = (jsQuery = '') => {
                 });
                 if (icdChoPhep.size === 0) return true;
                 const hs = layMaIcdGopChinhVaKemKhongTrung(XML1);
-                return hs.some((icd) => icdChoPhep.has(icd));
+                return hs.some((icdBnFlat) => {
+                    const icdBn = String(icdBnFlat || '').toUpperCase();
+                    if (!icdBn) return false;
+                    if (icdChoPhep.has(icdBn)) return true;
+                    for (const cam of icdChoPhep) {
+                        const cs = String(cam || '');
+                        if (cs.length >= 3 && icdBn.length >= cs.length && icdBn.startsWith(cs)) return true;
+                    }
+                    return false;
+                });
             };
             const normalizeTextNoAccent = ${normalizeTextNoAccent.toString()};
             const tachMapCdContra = (x) => String(x || '').trim().replace(/\\|/g,';').replace(/,/g,';').split(';').map(z=>String(z||'').trim()).filter(Boolean);
