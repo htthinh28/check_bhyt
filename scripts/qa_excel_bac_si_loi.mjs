@@ -17,10 +17,25 @@ const layChuoiKhacRongTuDong = (row, keys) => {
 
 const layNgayYLenhNgayKqVaBacSiTuLoiHoSo = (loi = {}, hoSo = {}) => {
   const phanHe = String(loi.phan_he || '').trim().toUpperCase();
+  const out = { bacSiChiDinh: '', bacSiThucHien: '' };
+  if (phanHe === 'XML1') {
+    const x1 = hoSo?.xml1 || {};
+    const xml3 = hoSo?.xml3 || [];
+    for (const row of xml3) {
+      const ten = String(row?.TEN_DICH_VU || '').toUpperCase();
+      if (ten.includes('KHAM') || String(row?.MA_NHOM) === '1') {
+        out.bacSiChiDinh = String(row?.MA_BAC_SI || '').trim();
+        if (out.bacSiChiDinh) break;
+      }
+    }
+    if (!out.bacSiChiDinh) {
+      out.bacSiChiDinh = layChuoiKhacRongTuDong(x1, ['MA_BS_KHAM', 'MA_BAC_SI']);
+    }
+    return out;
+  }
   const idx = Number(loi.index);
   const mang = hoSo?.[phanHe.toLowerCase()] || hoSo?.[phanHe] || [];
   const row = Number.isFinite(idx) && idx >= 0 ? mang[idx] : null;
-  const out = { bacSiChiDinh: '', bacSiThucHien: '' };
   if (!row) return out;
   if (phanHe === 'XML3') {
     out.bacSiChiDinh = layChuoiKhacRongTuDong(row, ['MA_BAC_SI', 'MA_BS']);
@@ -31,11 +46,16 @@ const layNgayYLenhNgayKqVaBacSiTuLoiHoSo = (loi = {}, hoSo = {}) => {
 
 const taoMetaXuatBacSiTuChiTietLoi = (detail = {}, loi = {}, hoSo = {}) => {
   const bsTheoDong = layNgayYLenhNgayKqVaBacSiTuLoiHoSo(loi, hoSo);
+  const phanHe = String(loi?.phan_he || '').trim().toUpperCase();
+  const maBn = String(detail.ma_bn || hoSo?.xml1?.MA_BN || '').trim();
+  const pc = String(detail.pc || (phanHe === 'XML2' ? maBn : '') || '').trim();
   return {
     _XUAT_MA_BS_KHAM: chuanHoaMaBsChoXuatBaoCao(detail.ma_bac_si),
     _XUAT_MA_BS_DONG_LOI: chuanHoaMaBsChoXuatBaoCao(detail.ma_bac_si_dong),
     _XUAT_MA_BS_CHI_DINH: chuanHoaMaBsChoXuatBaoCao(bsTheoDong.bacSiChiDinh),
     _XUAT_MA_BS_THUC_HIEN: chuanHoaMaBsChoXuatBaoCao(bsTheoDong.bacSiThucHien),
+    _XUAT_MA_BN: maBn,
+    _XUAT_PC: pc,
   };
 };
 
@@ -61,5 +81,14 @@ const metaTrong = taoMetaXuatBacSiTuChiTietLoi(
 );
 assert.equal(metaTrong._XUAT_MA_BS_KHAM, '');
 assert.equal(metaTrong._XUAT_MA_BS_DONG_LOI, '');
+assert.equal(metaTrong._XUAT_PC, '');
+
+const metaThuoc = taoMetaXuatBacSiTuChiTietLoi(
+  { ma_bn: 'BN99', pc: 'BN99', ma_bac_si_dong: 'BS01' },
+  { phan_he: 'XML2', index: 0 },
+  { xml1: { MA_BN: 'BN99' } },
+);
+assert.equal(metaThuoc._XUAT_PC, 'BN99');
+assert.equal(metaThuoc._XUAT_MA_BN, 'BN99');
 
 console.log('qa_excel_bac_si_loi: OK');

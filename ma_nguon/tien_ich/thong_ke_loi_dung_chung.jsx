@@ -448,6 +448,41 @@ const layChuoiKhacRongTuDong = (dong = {}, tenTruongs = []) => {
   return '';
 };
 
+/** MA_BN (mã bệnh nhân / PC) trên XML1 — dùng cho lỗi thuốc XML2 và tra cứu dược lâm sàng. */
+export const layMaBenhNhanTuHoSo = (hoSo = {}) => String(
+  layXml1HoSo(hoSo)?.MA_BN
+  || hoSo?.ma_bn
+  || ''
+).trim();
+
+/**
+ * MA_BAC_SI (CCHN) từ dòng tiền công khám XML3 — không lấy MA_TTDV (thủ trưởng đơn vị) trên XML1.
+ * Ưu tiên dòng khớp DM_KHAM (nếu có trên hồ sơ), sau đó heuristic công khám / MA_NHOM khám (1).
+ */
+export const layMaBacSiTuDongCongKhamXml3 = (hoSo = {}) => {
+  const xml3 = layMangXmlTheoPhanHe(hoSo, 'XML3') || [];
+  const dmKhamRaw = hoSo?.dm_kham || hoSo?.DM_KHAM || hoSo?.metadata?.DM_KHAM;
+  const dmKham = new Set(
+    (Array.isArray(dmKhamRaw) ? dmKhamRaw : [])
+      .map((x) => String(x || '').trim().toUpperCase())
+      .filter(Boolean),
+  );
+
+  for (let i = 0; i < xml3.length; i += 1) {
+    const row = xml3[i];
+    if (!row || typeof row !== 'object') continue;
+    const maDv = String(row.MA_DICH_VU || row.MA_DV || '').trim().toUpperCase();
+    const nhom = String(row.MA_NHOM || '').replace(/^0+/, '') || String(row.MA_NHOM || '');
+    const laCongKham = (dmKham.size > 0 && maDv && dmKham.has(maDv))
+      || laDongXml3LaCongKhamHeuristic(row)
+      || (nhom === '1' && !laDongXml3LaGiuongHeuristic(row));
+    if (!laCongKham) continue;
+    const maBs = layChuoiKhacRongTuDong(row, ['MA_BAC_SI', 'MA_BS', 'NGUOI_THUC_HIEN']);
+    if (maBs) return maBs;
+  }
+  return '';
+};
+
 /**
  * Ngày y lệnh, ngày kết quả, BS chỉ định, BS thực hiện — theo chuẩn trường QĐ 3176 từng bảng XML.
  * Dùng cho xuất Excel báo cáo vi phạm (tổng quan).
@@ -460,9 +495,19 @@ export const layNgayYLenhNgayKqVaBacSiTuLoiHoSo = (loi = {}, hoSo = {}) => {
     bacSiChiDinh: '',
     bacSiThucHien: '',
   };
-  if (!row || typeof row !== 'object') return out;
-
   const p = String(phanHeBang || '').trim().toUpperCase() || 'XML';
+
+  if (p === 'XML1') {
+    const x1 = (row && typeof row === 'object') ? row : layXml1HoSo(hoSo);
+    out.ngayYLenh = layChuoiKhacRongTuDong(x1, ['NGAY_VAO', 'NGAY_VAO_NOI_TRU']);
+    out.ngayKetQua = layChuoiKhacRongTuDong(x1, ['NGAY_RA', 'NGAY_TTOAN']);
+    out.bacSiChiDinh = layMaBacSiTuDongCongKhamXml3(hoSo)
+      || layChuoiKhacRongTuDong(x1, ['MA_BS_KHAM', 'MA_BAC_SI']);
+    out.bacSiThucHien = layChuoiKhacRongTuDong(x1, ['MA_BS_DIEU_TRI', 'MA_BAC_SI_DIEU_TRI']);
+    return out;
+  }
+
+  if (!row || typeof row !== 'object') return out;
 
   if (p === 'XML2') {
     out.ngayYLenh = layChuoiKhacRongTuDong(row, ['NGAY_YL', 'NGAY_TH_YL']);
@@ -485,11 +530,6 @@ export const layNgayYLenhNgayKqVaBacSiTuLoiHoSo = (loi = {}, hoSo = {}) => {
     out.ngayYLenh = layChuoiKhacRongTuDong(row, ['NGAY_CD_BD', 'NGAY_VAO']);
     out.ngayKetQua = layChuoiKhacRongTuDong(row, ['NGAY_KQ_XN_TLVR', 'THOI_DIEM_XN_HIV']);
     out.bacSiChiDinh = layChuoiKhacRongTuDong(row, ['MA_BAC_SI', 'MA_BS']);
-  } else if (p === 'XML1') {
-    out.ngayYLenh = layChuoiKhacRongTuDong(row, ['NGAY_VAO', 'NGAY_VAO_NOI_TRU']);
-    out.ngayKetQua = layChuoiKhacRongTuDong(row, ['NGAY_RA', 'NGAY_TTOAN']);
-    out.bacSiChiDinh = layChuoiKhacRongTuDong(row, ['MA_BS_KHAM', 'MA_TTDV', 'MA_BAC_SI']);
-    out.bacSiThucHien = layChuoiKhacRongTuDong(row, ['MA_BS_DIEU_TRI', 'MA_BAC_SI_DIEU_TRI']);
   } else {
     out.ngayYLenh = layChuoiKhacRongTuDong(row, ['NGAY_YL', 'NGAY_TH_YL']);
     out.ngayKetQua = layChuoiKhacRongTuDong(row, ['NGAY_KQ']);
@@ -506,16 +546,21 @@ const chuanHoaMaBsChoXuatBaoCao = (val = '') => {
 };
 
 /**
- * Cột _XUAT_MA_BS_* cho xuất Excel/XML báo cáo lỗi trên dashboard.
- * @returns {{ _XUAT_MA_BS_KHAM: string, _XUAT_MA_BS_DONG_LOI: string, _XUAT_MA_BS_CHI_DINH: string, _XUAT_MA_BS_THUC_HIEN: string }}
+ * Cột _XUAT_MA_BS_* / _XUAT_PC cho xuất Excel/XML báo cáo lỗi trên dashboard.
+ * @returns {{ _XUAT_MA_BS_KHAM: string, _XUAT_MA_BS_DONG_LOI: string, _XUAT_MA_BS_CHI_DINH: string, _XUAT_MA_BS_THUC_HIEN: string, _XUAT_MA_BN: string, _XUAT_PC: string }}
  */
 export const taoMetaXuatBacSiTuChiTietLoi = (detail = {}, loi = {}, hoSo = {}) => {
   const bsTheoDong = layNgayYLenhNgayKqVaBacSiTuLoiHoSo(loi, hoSo);
+  const phanHe = String(loi?.phan_he || layBangXmlTuCanhBao(loi) || '').trim().toUpperCase();
+  const maBn = String(detail.ma_bn || layMaBenhNhanTuHoSo(hoSo) || '').trim();
+  const pc = String(detail.pc || (phanHe === 'XML2' ? maBn : '') || '').trim();
   return {
     _XUAT_MA_BS_KHAM: chuanHoaMaBsChoXuatBaoCao(detail.ma_bac_si),
     _XUAT_MA_BS_DONG_LOI: chuanHoaMaBsChoXuatBaoCao(detail.ma_bac_si_dong),
     _XUAT_MA_BS_CHI_DINH: chuanHoaMaBsChoXuatBaoCao(bsTheoDong.bacSiChiDinh),
     _XUAT_MA_BS_THUC_HIEN: chuanHoaMaBsChoXuatBaoCao(bsTheoDong.bacSiThucHien),
+    _XUAT_MA_BN: maBn,
+    _XUAT_PC: pc,
   };
 };
 
@@ -558,9 +603,9 @@ export const taoViTriXmlBaoCaoDayDuTuLoi = (loi = {}, hoSo = {}) => {
   if (phanHe === 'XML1' && (!mang || !Number.isFinite(idx) || idx < 0)) {
     const x1 = layXml1HoSo(hoSo);
     const maKhoa = String(x1?.MA_KHOA || '').trim();
-    const maBs = String(x1?.MA_BS_KHAM || '').trim();
+    const maBs = layMaBacSiTuDongCongKhamXml3(hoSo) || String(x1?.MA_BS_KHAM || '').trim();
     if (maKhoa || maBs) {
-      chunks.push(`Tham chiếu XML1: khoa ${maKhoa || '—'}, BS khám ${maBs || '—'}`);
+      chunks.push(`Tham chiếu XML1: khoa ${maKhoa || '—'}, BS khám (MA_BAC_SI công khám XML3) ${maBs || '—'}`);
     }
   }
 
@@ -689,8 +734,12 @@ export const taoBanGhiLoiChiTiet = (hoSo = {}, loi = {}, stt = 0) => {
   });
   const bsTheoDong = layNgayYLenhNgayKqVaBacSiTuLoiHoSo(daChuan, hoSo);
   const maBsDongRaw = String(bsTheoDong.bacSiChiDinh || bsTheoDong.bacSiThucHien || '').trim();
+  const maBsKhamCongKham = layMaBacSiTuDongCongKhamXml3(hoSo);
   const maBsKhamXml1 = String(xml1?.MA_BS_KHAM || '').trim();
-  const ma_bac_si_dong = maBsDongRaw || maBsKhamXml1 || 'KHONG_RO';
+  const ma_bac_si_ho_so = maBsKhamXml1 || maBsKhamCongKham || 'KHONG_RO';
+  const ma_bac_si_dong = maBsDongRaw || maBsKhamCongKham || maBsKhamXml1 || 'KHONG_RO';
+  const ma_bn = layMaBenhNhanTuHoSo(hoSo) || 'KHONG_RO';
+  const pc = phanHe === 'XML2' && ma_bn !== 'KHONG_RO' ? ma_bn : '';
   const { row: rowDongXml } = layDongXmlLienQuanLoi(daChuan, hoSo);
   const ma_thuoc_dong = rowDongXml && typeof rowDongXml === 'object'
     ? String(rowDongXml.MA_THUOC || '').trim()
@@ -720,7 +769,9 @@ export const taoBanGhiLoiChiTiet = (hoSo = {}, loi = {}, stt = 0) => {
     nhan_nhom_cap_loai_kcb: nhanNhomCapLoaiKcb,
     ma_khoa: maKhoaRaw || 'KHONG_RO',
     ma_khoa_chuan: maKhoaChuan,
-    ma_bac_si: String(xml1?.MA_BS_KHAM || 'KHONG_RO'),
+    ma_bn,
+    pc,
+    ma_bac_si: ma_bac_si_ho_so,
     ma_bac_si_dong,
     ma_thuoc_dong,
     ten_thuoc_dong,
@@ -891,6 +942,8 @@ export const locDanhSachLoiChiTiet = (danhSachChiTiet = [], boLoc = {}) => {
     const noiDungTim = chuanHoaTokenThongKeLoi([
       item.ma_lk,
       item.ten_bn,
+      item.ma_bn,
+      item.pc,
       item.ma_luat,
       item.ten_quy_tac,
       item.canh_bao,
@@ -907,6 +960,7 @@ export const locDanhSachLoiChiTiet = (danhSachChiTiet = [], boLoc = {}) => {
       item.ma_khoa,
       item.ma_khoa_chuan,
       item.ma_bac_si,
+      item.ma_bac_si_dong,
     ].filter(Boolean).join(' | '));
     return noiDungTim.includes(tuKhoa);
   });

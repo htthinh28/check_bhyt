@@ -1153,7 +1153,7 @@ const ManHinhTongQuan = ({ navigation }) => {
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <BaoCaoViPhamQPS xmlns="urn:cdss-bhyt:bao-cao-vi-pham" phien_ban="1.0" tao_luc="${escapeXmlBaoCaoViPham(new Date().toISOString())}" so_dong="${sttG}">
-  <GhiChu>Chỉ các dòng dữ liệu gốc XML tương ứng từng cảnh báo (bảng XML2, XML3, …) sau lọc; cột _XUAT_* là phần cảnh báo/lỗi tham chiếu (gồm mã BS khám, BS dòng lỗi, BS chỉ định, BS thực hiện).</GhiChu>
+  <GhiChu>Chỉ các dòng dữ liệu gốc XML tương ứng từng cảnh báo (bảng XML2, XML3, …) sau lọc; cột _XUAT_* là phần cảnh báo/lỗi tham chiếu (gồm mã BS khám từ MA_BAC_SI dòng công khám XML3, BS dòng lỗi, BS chỉ định, BS thực hiện; _XUAT_PC/_XUAT_MA_BN = MA_BN XML1 cho lỗi thuốc XML2).</GhiChu>
 ${phanDongKhoi.join('\n')}
 </BaoCaoViPhamQPS>
 `;
