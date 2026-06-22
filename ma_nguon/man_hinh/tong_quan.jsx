@@ -64,6 +64,7 @@ import {
   loiKhopBoLocIcd10ViPham,
   PHIEN_BAN_ICD10_TT06,
 } from '../tien_ich/icd10_loc_vi_pham';
+import { layMapHoTenNhanSuChoXuatBaoCao } from '../tien_ich/dinh_dang_cchn_bao_cao';
 
 // [CẬP NHẬT LÕI]: Thống nhất dùng kho_du_lieu để đồng bộ với man_hinh_kho_luu_tru
 import { gomTrungLapCanhBaoTheoMaLuatVaNoiDung, xoaCacheBoMayGiamDinh } from '../tien_ich/dong_co_giam_dinh';
@@ -119,7 +120,7 @@ const phangDongXmlChoOExcel = (row) => {
   return o;
 };
 
-const taoCacDongXuatXmlGocSangNhomTheoPhanHe = (danhSachChiTietLoc, timHoSo) => {
+const taoCacDongXuatXmlGocSangNhomTheoPhanHe = (danhSachChiTietLoc, timHoSo, mapHoTen = null) => {
   const theoPhanHe = new Map();
   (Array.isArray(danhSachChiTietLoc) ? danhSachChiTietLoc : []).forEach((detail, stt) => {
     const loi = detail.doi_tuong_goc || {};
@@ -142,7 +143,7 @@ const taoCacDongXuatXmlGocSangNhomTheoPhanHe = (danhSachChiTietLoc, timHoSo) => 
       _XUAT_BANG_XML: phan,
       _XUAT_INDEX_DONG: loi.index,
       _XUAT_TRUONG_LOI: String(loi.truong_loi || '').trim(),
-      ...taoMetaXuatBacSiTuChiTietLoi(detail, loi, hs),
+      ...taoMetaXuatBacSiTuChiTietLoi(detail, loi, hs, mapHoTen),
     };
     if (row && typeof row === 'object' && !Array.isArray(row) && Object.keys(row).length > 0) {
       nhom.push({ ...metaDau, ...phangDongXmlChoOExcel(row) });
@@ -1101,7 +1102,8 @@ const ManHinhTongQuan = ({ navigation }) => {
       return;
     }
 
-    const theoPhanHe = taoCacDongXuatXmlGocSangNhomTheoPhanHe(danhSachLoiChiTietSauLocXuat, timHoSoTrongKhoTheoMaLK);
+    const mapHoTen = await layMapHoTenNhanSuChoXuatBaoCao();
+    const theoPhanHe = taoCacDongXuatXmlGocSangNhomTheoPhanHe(danhSachLoiChiTietSauLocXuat, timHoSoTrongKhoTheoMaLK, mapHoTen);
     const wb = XLSX.utils.book_new();
     const daDung = new Set();
     theoPhanHe.forEach((rows, phan) => {
@@ -1135,7 +1137,8 @@ const ManHinhTongQuan = ({ navigation }) => {
       return;
     }
 
-    const theoPhanHe = taoCacDongXuatXmlGocSangNhomTheoPhanHe(danhSachLoiChiTietSauLocXuat, timHoSoTrongKhoTheoMaLK);
+    const mapHoTen = await layMapHoTenNhanSuChoXuatBaoCao();
+    const theoPhanHe = taoCacDongXuatXmlGocSangNhomTheoPhanHe(danhSachLoiChiTietSauLocXuat, timHoSoTrongKhoTheoMaLK, mapHoTen);
     const phanDongKhoi = [];
     let sttG = 0;
     theoPhanHe.forEach((rows, phan) => {
@@ -1153,7 +1156,7 @@ const ManHinhTongQuan = ({ navigation }) => {
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <BaoCaoViPhamQPS xmlns="urn:cdss-bhyt:bao-cao-vi-pham" phien_ban="1.0" tao_luc="${escapeXmlBaoCaoViPham(new Date().toISOString())}" so_dong="${sttG}">
-  <GhiChu>Chỉ các dòng dữ liệu gốc XML tương ứng từng cảnh báo (bảng XML2, XML3, …) sau lọc; cột _XUAT_* là phần cảnh báo/lỗi tham chiếu (gồm mã BS khám từ MA_BAC_SI dòng công khám XML3, BS dòng lỗi, BS chỉ định, BS thực hiện; _XUAT_PC/_XUAT_MA_BN = MA_BN XML1 cho lỗi thuốc XML2).</GhiChu>
+  <GhiChu>Chỉ các dòng dữ liệu gốc XML tương ứng từng cảnh báo (bảng XML2, XML3, …) sau lọc; cột _XUAT_* là phần cảnh báo/lỗi tham chiếu (BS: Họ tên (Số CCHN) từ DM nhân sự; _XUAT_PC/_XUAT_MA_BN = MA_BN XML1 cho lỗi thuốc XML2).</GhiChu>
 ${phanDongKhoi.join('\n')}
 </BaoCaoViPhamQPS>
 `;

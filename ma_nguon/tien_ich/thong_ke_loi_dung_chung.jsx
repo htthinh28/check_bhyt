@@ -1,4 +1,5 @@
 import { chuanHoaCanhBaoGiamDinh } from './chuan_hoa_van_ban';
+import { dinhDangChuoiBacSiHoTenKemCchnBaoCao } from './dinh_dang_cchn_bao_cao';
 import { suyRaNamespaceVaNguonQuyTac } from './dong_co_giam_dinh';
 import { loiKhopBoLocIcd10ViPham } from './icd10_loc_vi_pham';
 import { DANH_MUC_QUY_TAC_NOI_BO, khopMaLuatTheoMau, suyRaThongTinQuanTriQuyTac } from './quy_tac_on_off_noi_bo';
@@ -547,18 +548,26 @@ const chuanHoaMaBsChoXuatBaoCao = (val = '') => {
 
 /**
  * Cột _XUAT_MA_BS_* / _XUAT_PC cho xuất Excel/XML báo cáo lỗi trên dashboard.
- * @returns {{ _XUAT_MA_BS_KHAM: string, _XUAT_MA_BS_DONG_LOI: string, _XUAT_MA_BS_CHI_DINH: string, _XUAT_MA_BS_THUC_HIEN: string, _XUAT_MA_BN: string, _XUAT_PC: string }}
+ * BS: `Họ và tên (Số CCHN)` — tra DM nhân sự; nhiều BS cách nhau `;`.
+ * @param {Map<string, string>|null|undefined} [mapHoTen] — từ `layMapHoTenNhanSuChoXuatBaoCao`
  */
-export const taoMetaXuatBacSiTuChiTietLoi = (detail = {}, loi = {}, hoSo = {}) => {
+export const taoMetaXuatBacSiTuChiTietLoi = (detail = {}, loi = {}, hoSo = {}, mapHoTen = null) => {
   const bsTheoDong = layNgayYLenhNgayKqVaBacSiTuLoiHoSo(loi, hoSo);
   const phanHe = String(loi?.phan_he || layBangXmlTuCanhBao(loi) || '').trim().toUpperCase();
   const maBn = String(detail.ma_bn || layMaBenhNhanTuHoSo(hoSo) || '').trim();
   const pc = String(detail.pc || (phanHe === 'XML2' ? maBn : '') || '').trim();
+  const dinhDangBsXuat = (val) => {
+    const s = chuanHoaMaBsChoXuatBaoCao(val);
+    if (!s) return '';
+    return mapHoTen && mapHoTen.size > 0
+      ? dinhDangChuoiBacSiHoTenKemCchnBaoCao(s, mapHoTen)
+      : s;
+  };
   return {
-    _XUAT_MA_BS_KHAM: chuanHoaMaBsChoXuatBaoCao(detail.ma_bac_si),
-    _XUAT_MA_BS_DONG_LOI: chuanHoaMaBsChoXuatBaoCao(detail.ma_bac_si_dong),
-    _XUAT_MA_BS_CHI_DINH: chuanHoaMaBsChoXuatBaoCao(bsTheoDong.bacSiChiDinh),
-    _XUAT_MA_BS_THUC_HIEN: chuanHoaMaBsChoXuatBaoCao(bsTheoDong.bacSiThucHien),
+    _XUAT_MA_BS_KHAM: dinhDangBsXuat(detail.ma_bac_si),
+    _XUAT_MA_BS_DONG_LOI: dinhDangBsXuat(detail.ma_bac_si_dong),
+    _XUAT_MA_BS_CHI_DINH: dinhDangBsXuat(bsTheoDong.bacSiChiDinh),
+    _XUAT_MA_BS_THUC_HIEN: dinhDangBsXuat(bsTheoDong.bacSiThucHien),
     _XUAT_MA_BN: maBn,
     _XUAT_PC: pc,
   };
