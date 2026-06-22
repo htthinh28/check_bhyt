@@ -15,6 +15,8 @@ const DEFAULT_KEY_PREFIXES = [
   'DANH_MUC_',
   'BYT_7603_',
   'DVKT_',
+  'CATALOG_MAP_V1__',
+  'CATALOG_MAPPING_V1',
   'DATA_XML',
   'KHO_XML_',
   'SESSION_DOC_XML_',

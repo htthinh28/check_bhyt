@@ -7,6 +7,7 @@ import { gopBanGhiMappingTuLegacyVaShard } from './config_dataset_versioning.pur
 import { chuanHoaChuoiMaChoSoSanh, tachChuoiNhieuMa } from './catalog_mapping_chuoi_ma';
 import { timMaKhongThuocDanhMuc } from './catalog_mapping_catalog_loaders';
 import { docMangDanhMucTuStorage, ghiMangDanhMucVaoStorage } from './luu_tru_danh_muc';
+import { damBaoSeedCatalogMapping } from './seed_catalog_mapping';
 import {
   layCauHinhLoaiMapping,
   MAPPING_TYPE_CONFIG,
@@ -68,6 +69,9 @@ const ghiTatCaShardTuHang = async (rows) => {
 };
 
 export const taiTatCaBanGhiMapping = async () => {
+  await damBaoSeedCatalogMapping().catch((e) => {
+    console.warn('damBaoSeedCatalogMapping:', e);
+  });
   const tuShard = [];
   for (const { mapping_type } of MAPPING_TYPE_CONFIG) {
     tuShard.push(...(await docShard(mapping_type)));

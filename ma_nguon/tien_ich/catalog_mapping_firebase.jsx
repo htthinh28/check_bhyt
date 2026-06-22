@@ -45,12 +45,18 @@ export const taiTatCaCatalogMappingTuFirebase = async () => {
   const missingRemote = [];
 
   for (const k of keys) {
+    const localRows = normalizeArray(await docMangDanhMucTuStorage(k));
     const res = await hydrateDvktTableFromFirebase({ datasetKey: k, persistLocal: false });
     if (!res?.ok) {
       missingRemote.push({ key: k, reason: String(res?.reason || '') });
       continue;
     }
-    await ghiMangDanhMucVaoStorage(k, normalizeArray(res.data), { syncedWithFirebase: true });
+    const remoteRows = normalizeArray(res.data);
+    if (localRows.length > 0 && remoteRows.length === 0) {
+      missingRemote.push({ key: k, reason: 'remote_empty_kept_local' });
+      continue;
+    }
+    await ghiMangDanhMucVaoStorage(k, remoteRows, { syncedWithFirebase: true });
     downloaded += 1;
   }
 

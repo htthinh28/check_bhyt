@@ -51,6 +51,7 @@ import { damBaoSeedLuatDuLieuMuc1 } from './seed_luat_du_lieu_muc1';
 import { damBaoSeedLuatHanhChinhMuc2 } from './seed_luat_hanh_chinh_muc2';
 import { damBaoSeedLuatPtttMuc11 } from './seed_luat_pttt_muc11';
 import { damBaoSeedLuatThuocMuc8 } from './seed_luat_thuoc_muc8';
+import { damBaoSeedCatalogMapping } from './seed_catalog_mapping';
 import { laCapCuuTheoXml1, viPhamQuy_tacCapCuuIcd10 } from './giam_dinh_icd10_cap_cuu';
 import { giamDinhCv302Bhyt } from './giam_dinh_cv302_bhyt';
 import { giamDinhCv4262Bhyt } from './giam_dinh_cv4262_bhyt';
@@ -5641,6 +5642,7 @@ const taiDanhSachTabLuatDong = async () => {
         damBaoSeedLuatHanhChinhMuc2(),
         damBaoSeedLuatPtttMuc11(),
         damBaoSeedLuatThuocMuc8(),
+        damBaoSeedCatalogMapping(),
     ]);
     const tatCaStorageKeys = await AsyncStorage.getAllKeys().catch(() => []);
     const tabIdsDong = (Array.isArray(tatCaStorageKeys) ? tatCaStorageKeys : [])
