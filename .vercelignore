@@ -1,0 +1,60 @@
+# Vercel — loại tài nguyên nội bộ / file lớn khỏi gói deploy (build web chỉ cần ma_nguon + tai_lieu nguồn + scripts).
+
+# Hồ sơ thật, fixture audit, huấn luyện cục bộ
+tai_nguyen/
+test_xml/
+training_data/
+
+# Backend Python / desktop / đóng gói — không dùng trên Vercel static
+python_service/
+packaging/
+release-desktop/
+offline_update_packs/
+electron-main.cjs
+electron-builder.desktop.yml
+.desktop-staging/
+
+# Bản export web cũ (trùng nội dung, rất nặng)
+web_export_test/
+web_export_verify/
+.tmp_web_export/
+
+# PDF — chỉ dùng nội bộ / máy local
+**/*.pdf
+
+# Office / nén — bản .md/.html trong tai_lieu đủ cho Thư viện web
+**/*.docx
+**/*.xlsx
+**/*.xls
+**/*.zip
+**/*.7z
+**/*.rar
+**/*.exe
+**/*.msi
+
+# Text extract lớn (plain/full từ PDF, luận văn, hợp đồng…)
+**/_extract*/
+**/*_plain.txt
+**/*_full.txt
+full_source_code.txt
+temp_*_extract*.txt
+temp_rule_scan*.txt
+
+# Chỉ mục / merge audit cục bộ (nhạy cảm + nặng)
+tai_lieu/_index_*.json
+tai_lieu/_huan_luyen_merge_*.json
+
+# Agent / IDE / log cục bộ
+.openclaw/
+memory/
+server.log
+firebase-debug.log
+__pycache__/
+*.pyc
+
+# Native / deps (Vercel cài lại)
+node_modules/
+.expo/
+dist/
+android/
+ios/
