@@ -1,16 +1,15 @@
 /**
  * Ngữ cảnh tenant (Mô hình A): mỗi build gắn một org_id cố định.
- * Đọc từ EXPO_PUBLIC_ORG_ID → app.config extra → mặc định phuongchau_can_tho.
+ * Đọc từ EXPO_PUBLIC_ORG_ID → app.config extra → mặc định phuongchau_soc_trang.
  */
 import { Platform } from 'react-native';
 
 const ORG_PREFIX = 'CDSS_ORG_';
-const DEFAULT_ORG_ID = 'phuongchau_can_tho';
+const DEFAULT_ORG_ID = 'phuongchau_soc_trang';
 
 /** Alias org cũ → org chuẩn (migration / Firebase legacy). */
 const LEGACY_ORG_MAP = Object.freeze({
-  phuongchau: 'phuongchau_can_tho',
-  phuongchau_soc_trang: 'phuongchau_can_tho',
+  phuongchau: 'phuongchau_soc_trang',
 });
 
 /** Key UI thiết bị — không prefix theo BV. */
