@@ -1,0 +1,509 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Danh mục DVKT — QĐ 7603 &amp; Thông tư 23 | Phương Châu</title>
+  <!-- Nhúng thư viện Tailwind CSS phục vụ giao diện Premium -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
+<style>/* Tuỳ chỉnh thanh cuộn cho bảng dữ liệu mượt mà */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #fda4af;
+      border-radius: 4px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #f43f5e;
+    }
+    .dvkt-stat-chip {
+      width: 3cm;
+      min-width: 3cm;
+      height: 3cm;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.15rem;
+      padding: 0.25rem;
+      border-radius: 0.5rem;
+      border: 1px solid rgba(0,0,0,0.06);
+      text-align: center;
+      line-height: 1.1;
+    }
+    .dvkt-stat-chip .dvkt-stat-label {
+      font-size: 7px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.02em;
+      opacity: 0.9;
+      max-height: 1.4em;
+      overflow: hidden;
+    }
+    .dvkt-stat-chip .dvkt-stat-value {
+      font-size: 0.95rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+    .dvkt-stats-strip {
+      scrollbar-width: thin;
+    }
+    .dvkt-stats-strip::-webkit-scrollbar {
+      height: 4px;
+    }
+    .dvkt-stats-strip::-webkit-scrollbar-thumb {
+      background: rgba(244, 63, 94, 0.35);
+      border-radius: 4px;
+    }</style>
+  <!-- TOAST NOTIFICATION SYSTEM -->
+<div id="toastContainer" class="fixed top-5 right-5 z-[9999] flex flex-col gap-2 pointer-events-none"></div>
+  <!-- CUSTOM DIALOGS (Thay thế hoàn toàn alert & confirm thô sơ) -->
+<div id="dialogOverlay" class="fixed inset-0 bg-black/50 z-[9000] hidden items-center justify-center p-4 transition-all duration-200">
+  <div id="dialogBox" class="bg-white rounded-2xl shadow-xl w-full max-w-md transform scale-95 transition-transform duration-200 overflow-hidden">
+    <div id="dialogHeader" class="p-5 text-white font-bold text-lg">Thông báo</div>
+    <div id="dialogBody" class="p-6 text-sm text-slate-600 leading-relaxed">Nội dung thông báo ở đây.</div>
+    <div id="dialogFooter" class="p-4 bg-slate-50 flex justify-end gap-3 border-t border-slate-100"></div>
+  </div>
+</div>
+  <!-- HEADER GRADIENT THEO PHONG CÁCH PHƯƠNG CHÂU (PINK THEME) -->
+<header class="bg-gradient-to-r from-rose-600 via-rose-500 to-pink-500 text-white shadow-md">
+  <div class="max-w-[1920px] mx-auto px-3 py-2 sm:px-4 flex flex-col sm:flex-row items-center justify-between gap-2">
+    <div class="flex items-center space-x-2.5">
+      <div class="h-9 w-9 rounded-full bg-white flex items-center justify-center shadow-inner shrink-0">
+        <span class="text-rose-600 font-extrabold text-lg">PC</span>
+      </div>
+      <div>
+        <h1 class="text-base sm:text-lg font-bold tracking-wide leading-tight">PHUONG CHAU MEDICAL GROUP</h1>
+        <p class="text-[10px] text-rose-100 font-light uppercase tracking-wide">QĐ 7603 · TT23 · TT32 PVHN</p>
+      </div>
+    </div>
+    <div class="flex flex-wrap items-center justify-center sm:justify-end gap-1.5">
+      <span class="bg-rose-700/40 text-[10px] px-2 py-0.5 rounded-full text-rose-50 border border-rose-300/60 font-semibold">QĐ 7603</span>
+      <span class="bg-emerald-800/50 text-[10px] px-2 py-0.5 rounded-full text-emerald-50 border border-emerald-300/60 font-semibold">TT23</span>
+    <div class="flex flex-wrap items-center gap-1.5 mt-1 sm:mt-0">
+      <button type="button" onclick="openPcDuocThuApp({section:'duocthu'})" class="text-[10px] px-2.5 py-1 rounded-full bg-white/20 hover:bg-white/30 text-white border border-white/40 font-semibold" title="Mở Dược thư Phương Châu">💊 Dược thư</button>
+      <button type="button" onclick="openPcDvktApp({tab:'quytrinhkt'})" class="text-[10px] px-2.5 py-1 rounded-full bg-white/20 hover:bg-white/30 text-white border border-white/40 font-semibold" title="Quy trình kỹ thuật">📋 QTKT</button>
+    </div>
+    </div>
+  </div>
+  <span id="statPl1" class="hidden" aria-hidden="true">0</span>
+  <div class="border-t border-white/25 bg-white/95 backdrop-blur-sm">
+    <div class="max-w-[1920px] mx-auto px-2 sm:px-4 py-2">
+      <div class="dvkt-stats-strip flex flex-nowrap gap-1.5 overflow-x-auto pb-0.5">
+        <div class="dvkt-stat-chip shrink-0 bg-rose-50 border-rose-100">
+          <p class="dvkt-stat-label text-rose-700">QĐ7603 PL1</p>
+          <p id="statTagQd7603" class="dvkt-stat-value text-rose-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-emerald-50 border-emerald-100">
+          <p class="dvkt-stat-label text-emerald-700">TT23 PL1</p>
+          <p id="statTagTt23Pl1" class="dvkt-stat-value text-emerald-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-violet-50 border-violet-100">
+          <p class="dvkt-stat-label text-violet-700">TT23 PL2</p>
+          <p id="statTagTt23Pl2" class="dvkt-stat-value text-violet-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-sky-50 border-sky-100">
+          <p class="dvkt-stat-label text-sky-700">Map TT23</p>
+          <p id="statMapped" class="dvkt-stat-value text-sky-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-amber-50 border-amber-100">
+          <p class="dvkt-stat-label text-amber-700">Chưa khớp</p>
+          <p id="statUnmapped" class="dvkt-stat-value text-amber-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-slate-50 border-slate-200">
+          <p class="dvkt-stat-label text-slate-600">Liên kết 2C</p>
+          <p id="statLinked" class="dvkt-stat-value text-slate-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-blue-50 border-blue-100">
+          <p class="dvkt-stat-label text-blue-700">PVHN</p>
+          <p id="statPvhnMapped" class="dvkt-stat-value text-blue-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-indigo-50 border-indigo-100">
+          <p class="dvkt-stat-label text-indigo-700">Map 3 nguồn</p>
+          <p id="statFullMapped" class="dvkt-stat-value text-indigo-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-cyan-50 border-cyan-100">
+          <p class="dvkt-stat-label text-cyan-700">BV PCST</p>
+          <p id="statBvPcstMapped" class="dvkt-stat-value text-cyan-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-teal-50 border-teal-100">
+          <p class="dvkt-stat-label text-teal-700">BV PCCT</p>
+          <p id="statBvPcctMapped" class="dvkt-stat-value text-teal-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-emerald-50 border-emerald-100">
+          <p class="dvkt-stat-label text-emerald-700">BV Sa Đéc</p>
+          <p id="statBvPsdMapped" class="dvkt-stat-value text-emerald-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-indigo-50 border-indigo-200">
+          <p class="dvkt-stat-label text-indigo-800">Map 5 nguồn</p>
+          <p id="statMasterFull" class="dvkt-stat-value text-indigo-800">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-amber-50 border-amber-100">
+          <p class="dvkt-stat-label text-amber-800">PL2 Δ</p>
+          <p id="statPl2" class="dvkt-stat-value text-amber-800">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-red-50 border-red-100">
+          <p class="dvkt-stat-label text-red-700">PL3 huỷ</p>
+          <p id="statPl3" class="dvkt-stat-value text-red-900">0</p>
+        </div>
+        <div class="dvkt-stat-chip shrink-0 bg-sky-50 border-sky-100">
+          <p class="dvkt-stat-label text-sky-800">Trường</p>
+          <p id="statFields" class="dvkt-stat-value text-sky-800">0</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+  <!-- CORE WORKSPACE -->
+<div id="dvktWorkspace" class="flex-1 flex w-full max-w-[1920px] mx-auto relative min-h-0">
+  <div id="dvktSidebarBackdrop" class="hidden fixed inset-0 bg-black/40 z-[6998] lg:hidden" onclick="closeMobileSidebar()"></div>
+  <aside id="dvktSidebar" class="fixed lg:sticky top-0 left-0 z-[6999] h-full lg:h-auto lg:max-h-screen w-[17.5rem] xl:w-72 bg-white border-r border-slate-200 shadow-xl lg:shadow-none flex flex-col -translate-x-full lg:translate-x-0 transition-transform duration-200 shrink-0">
+    <div class="px-4 py-3 border-b border-slate-100 bg-gradient-to-r from-slate-50 to-white flex items-center justify-between">
+      <div>
+        <h2 class="text-xs font-bold uppercase tracking-wider text-slate-700">Danh mục DVKT</h2>
+        <p class="text-[10px] text-slate-400 mt-0.5">Phụ lục &amp; nguồn dữ liệu</p>
+      </div>
+      <button type="button" onclick="closeMobileSidebar()" class="lg:hidden text-slate-400 hover:text-slate-600 text-xl leading-none px-1" aria-label="Đóng">✕</button>
+    </div>
+    <nav id="dvktSidebarNav" class="flex-1 overflow-y-auto py-3 px-2 space-y-4">
+      <div>
+        <p class="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-rose-600">Quyết định 7603/QĐ-BYT</p>
+        <div class="space-y-0.5">
+          <button type="button" onclick="switchTab('pl1')" id="tabBtn-pl1" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 bg-rose-50 text-rose-900 border-rose-500">
+            <span class="truncate text-left">📋 PL1 — Danh mục đầy đủ</span>
+            <span id="tabCount-pl1" class="text-xs px-2 py-0.5 rounded-full bg-rose-100 text-rose-800 font-semibold shrink-0">0</span>
+          </button>
+          <button type="button" onclick="switchTab('pl2')" id="tabBtn-pl2" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
+            <span class="truncate text-left">🔄 PL2 — Thay đổi / bổ sung</span>
+            <span id="tabCount-pl2" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">0</span>
+          </button>
+          <button type="button" onclick="switchTab('pl3')" id="tabBtn-pl3" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
+            <span class="truncate text-left">🚫 PL3 — Mã đã huỷ</span>
+            <span id="tabCount-pl3" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">0</span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <p class="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-emerald-700">Thông tư 23/2024/TT-BYT</p>
+        <div class="space-y-0.5">
+          <button type="button" onclick="switchTab('tt23pl1')" id="tabBtn-tt23pl1" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
+            <span class="truncate text-left">📗 TT23 — Phụ lục 1</span>
+            <span id="tabCount-tt23pl1" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">0</span>
+          </button>
+          <button type="button" onclick="switchTab('tt23pl2')" id="tabBtn-tt23pl2" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
+            <span class="truncate text-left">📘 TT23 — Phụ lục 2</span>
+            <span id="tabCount-tt23pl2" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">0</span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <div>
+          <p class="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-blue-700">BHXH — Chức danh CM</p>
+          <div class="space-y-0.5">
+            <button type="button" onclick="switchTab('pvhnbhxh')" id="tabBtn-pvhnbhxh" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
+              <span class="truncate text-left">📋 Mã PVHN BHXH 2024</span>
+              <span id="tabCount-pvhnbhxh" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">0</span>
+            </button>
+          </div>
+        </div>
+        
+        <div>
+          <p class="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-amber-700">Quy trình kỹ thuật BYT</p>
+          <div class="space-y-0.5">
+            <button type="button" onclick="switchTab('quytrinhkt')" id="tabBtn-quytrinhkt" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
+              <span class="truncate text-left">🧭 Quy trình kỹ thuật</span>
+              <span id="tabCount-quytrinhkt" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">0</span>
+            </button>
+          </div>
+        </div>
+
+        <p class="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-indigo-700">Mapping &amp; báo cáo</p>
+        <div class="space-y-0.5">
+          <button type="button" onclick="switchTab('mapfull')" id="tabBtn-mapfull" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
+            <span class="truncate text-left">🔗 Mapping tổng hợp</span>
+            <span id="tabCount-mapfull" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">0</span>
+          </button>
+          <button type="button" onclick="switchTab('baocao')" id="tabBtn-baocao" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
+            <span class="truncate text-left">📊 Báo cáo tùy biến</span>
+            <span id="tabCount-baocao" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">—</span>
+          </button>
+        </div>
+      </div>
+      <div>
+        <p class="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-cyan-700">Bệnh viện Phương Châu</p>
+        <div class="space-y-0.5">
+          <button type="button" onclick="switchTab('bvpcst')" id="tabBtn-bvpcst" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
+            <span class="truncate text-left">🏥 PC Sóc Trăng</span>
+            <span id="tabCount-bvpcst" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">0</span>
+          </button>
+          <button type="button" onclick="switchTab('bvpcct')" id="tabBtn-bvpcct" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
+            <span class="truncate text-left">🏥 PC Cần Thơ</span>
+            <span id="tabCount-bvpcct" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">0</span>
+          </button>
+          <button type="button" onclick="switchTab('bvpsd')" id="tabBtn-bvpsd" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
+            <span class="truncate text-left">🏥 PC Sa Đéc</span>
+            <span id="tabCount-bvpsd" class="text-xs px-2 py-0.5 rounded-full bg-slate-100 text-slate-600 shrink-0">0</span>
+          </button>
+        </div>
+      </div>
+    </nav>
+  </aside>
+  <main class="flex-1 min-w-0 px-3 sm:px-4 lg:px-6 py-4 lg:py-6">
+    <div class="lg:hidden mb-4 flex items-center gap-3">
+      <button type="button" onclick="toggleMobileSidebar()" class="shrink-0 flex items-center gap-2 px-3 py-2 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold rounded-lg shadow-md">
+        <span class="text-lg leading-none">☰</span>
+        <span>Danh mục</span>
+      </button>
+      <p id="dvktActiveTabLabel" class="text-sm font-semibold text-slate-700 truncate flex-1">PL1 — Danh mục đầy đủ</p>
+    </div>
+      <!-- CONTAINER CHÍNH -->
+    <div class="bg-white rounded-xl shadow-md border border-slate-200 p-4 sm:p-6">
+      <div id="dvktReportPanel" class="hidden"></div>
+      <div id="dvktDataPanel"><!-- BỘ LỌC TÌM KIẾM VÀ CÁC THAO TÁC NHANH -->
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-6 pb-6 border-b border-slate-100">
+          <div class="flex flex-wrap items-center gap-3 flex-1">
+            <div class="relative flex-1 min-w-[280px]">
+              <span class="absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400">🔍</span>
+              <input type="text" id="searchInput" oninput="handleSearch(this.value)" placeholder="Tìm kiếm theo mã, tên kỹ thuật, chuyên khoa..." class="w-full pl-10 pr-4 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
+            </div>
+            <div>
+              <select id="filterTheNguon" onchange="handleFilterTheNguon(this.value)" class="px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
+                <option value="">-- Mọi thẻ nguồn --</option>
+                <option value="QD_7603">🏷️ QĐ 7603/QĐ-BYT</option>
+                <option value="TT23_PL1">🏷️ TT23 — Phụ lục 1</option>
+                <option value="TT23_PL2">🏷️ TT23 — Phụ lục 2</option>
+                <option value="KHONG_KHOP">⚠ Chưa khớp / chỉ một nguồn</option>
+                <option value="DA_LIEN_KET">🔗 Đã liên kết QĐ7603 ↔ TT23</option>
+                <option value="CO_PVHN">🏷️ Đã gắn phạm vi hành nghề</option>
+                <option value="KHONG_PVHN">⚠ Chưa gắn phạm vi hành nghề</option>
+                <option value="FULL_MAPPING">✅ Mapping đủ 7603+TT23+PVHN+BHXH</option>
+              <option value="CO_BHXH">🏷️ Đã có mã BHXH</option>
+              <option value="KHONG_BHXH">⚠ Chưa có mã BHXH</option>
+              <option value="FULL_WITH_BHXH">✅ Đủ 7603+TT23+PVHN+BHXH</option>
+                <option value="CO_TAI_BV_PCST">🏥 Có tại BV PC Sóc Trăng</option>
+                <option value="CO_TAI_BV_PCCT">🏥 Có tại BV PC Cần Thơ</option>
+                <option value="CO_TAI_BV_PSD">🏥 Có tại BV PC Sa Đéc</option>
+                <option value="FULL_7603_TT23_PVHN_BHXH">✅ Đủ 7603+TT23+PVHN+BHXH</option>
+              <option value="FULL_7603_TT23_PVHN">✅ Đủ 7603+TT23+PVHN</option>
+                <option value="FULL_ALL">✅ Đủ 7603+TT23+PVHN+có BV</option>
+                <option value="CO_CA_3_BV">🏥 Có tại cả 3 BV</option>
+                <option value="CO_IT_NHAT_1_BV">🏥 Có tại ≥1 BV</option>
+                <option value="CHENH_GIA_BV">💰 Chênh giá giữa các BV</option>
+                <option value="CHUA_DU_MAPPING">⚠ Chưa đủ mapping</option>
+                <option value="CHI_BV_CHUA_MAP">⚠ Chỉ BV (chưa QĐ7603)</option>
+                <option value="KHONG_TT23">⚠ Chưa liên kết TT23</option>
+              </select>
+            </div>
+            <div>
+              <select id="filterPhamVi" onchange="handleFilterPhamVi(this.value)" class="px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
+                <option value="">-- Mọi phạm vi HN --</option>
+                <option value="CO_PVHN">Đã gắn PVHN</option>
+                <option value="KHONG_PVHN">Chưa gắn PVHN</option>
+                <option value="PVHN_BSYK">BS Y khoa</option>
+                <option value="PVHN_BSCK">BS Chuyên khoa</option>
+                <option value="PVHN_KTY">Kỹ thuật y</option>
+                <option value="PVHN_DD">Điều dưỡng</option>
+                <option value="PVHN_CCNV">Cấp cứu ngoại viện</option>
+              </select>
+            </div>
+            <div>
+              <select id="filterPhanTuyen" onchange="handleFilterPhanTuyen(this.value)" class="px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-rose-500 focus:border-rose-500">
+                <option value="">-- Mọi phân tuyến --</option>
+                <option value="A">Tuyến A</option>
+                <option value="B">Tuyến B</option>
+                <option value="C">Tuyến C</option>
+                <option value="D">Tuyến D</option>
+              </select>
+            </div>
+            <button id="clearFilterBtn" onclick="clearFilters()" class="text-xs text-rose-500 hover:text-rose-700 font-semibold hidden">Xóa bộ lọc ✕</button>
+          </div>
+        <!-- Các nút Chức năng và Tùy Biến -->
+          <div class="flex flex-wrap items-center gap-2">
+            <button onclick="openReportModal()" class="bg-indigo-50 text-indigo-700 border border-indigo-200 hover:bg-indigo-100 px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-1" title="Tạo báo cáo tùy biến theo cột và phạm vi hành nghề">
+              <span>📊 Báo cáo</span>
+            </button>
+            <button onclick="openFieldModal()" class="bg-sky-50 text-sky-700 border border-sky-200 hover:bg-sky-100 px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-1" title="Tự định nghĩa thêm cột thông tin mới">
+              <span>➕ Cấu hình Trường</span>
+            </button>
+            <button onclick="downloadTemplate()" class="bg-slate-100 text-slate-700 hover:bg-slate-200 px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-1" title="Tải file mẫu định dạng Excel (.xlsx)">
+              <span>📥 Tải File Mẫu</span>
+            </button>
+            <button onclick="triggerImport()" class="bg-emerald-50 text-emerald-700 border border-emerald-200 hover:bg-emerald-100 px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-1" title="Nhập danh sách từ file Excel (.xlsx)">
+              <span>📂 Nhập Excel</span>
+            </button>
+            <input type="file" id="xlsxFileInput" onchange="handleImportCSV(event)" accept=".xlsx,.xls" class="hidden">
+            <button onclick="exportXlsx()" class="bg-rose-50 text-rose-700 border border-rose-200 hover:bg-rose-100 px-3 py-2 rounded-lg text-sm font-medium flex items-center space-x-1" title="Xuất bảng hiện tại ra tệp Excel (.xlsx)">
+              <span>📤 Xuất Excel</span>
+            </button>
+          </div>
+        </div>
+      <!-- QUẢN TRỊ DÒNG - THÊM MỚI VÀ XÓA HÀNG LOẠT -->
+        <div class="flex items-center justify-between mb-4">
+          <div class="flex items-center space-x-2">
+            <button onclick="openAddModal()" class="bg-rose-600 hover:bg-rose-700 text-white px-4 py-2 rounded-lg text-sm font-semibold flex items-center space-x-1.5 shadow-sm">
+              <span>➕ Thêm Dịch Vụ Mới</span>
+            </button>
+            <button id="batchDeleteBtn" onclick="handleBatchDelete()" class="bg-red-100 text-red-700 hover:bg-red-200 border border-red-200 px-4 py-2 rounded-lg text-sm font-semibold flex items-center space-x-1 hidden">
+              <span>🗑️ Xóa đã chọn (
+                <span id="batchCount">0</span>)
+              </span>
+            </button>
+          </div>
+          <div class="text-xs text-slate-500">Hiển thị 
+            <b id="displayedCount">0</b> trong tổng số 
+            <b id="totalFilteredCount">0</b> kết quả tìm thấy.
+          </div>
+        </div>
+      <!-- BẢNG DỮ LIỆU ĐỘNG CO GIÃN HỢP LÝ -->
+        <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-inner bg-slate-50">
+          <table class="w-full text-left border-collapse text-sm">
+            <thead>
+              <tr id="tableHeaderRow" class="bg-slate-100 text-slate-700 border-b border-slate-200"><!-- Header sẽ được dựng tự động bằng JavaScript --></tr>
+            </thead>
+            <tbody id="tableBody" class="divide-y divide-slate-200 bg-white"><!-- Dòng dữ liệu được render tự động --></tbody>
+          </table>
+        </div>
+      <!-- THANH PHÂN TRANG -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-4 mt-6">
+          <div class="flex items-center space-x-2 text-sm text-slate-500">
+            <span>Hiển thị mỗi trang:</span>
+            <select id="itemsPerPageSelect" onchange="handleItemsPerPageChange(this.value)" class="border border-slate-300 rounded px-2 py-1 text-xs focus:ring-rose-500">
+              <option value="10">10 dòng</option>
+              <option value="25">25 dòng</option>
+              <option value="50">50 dòng</option>
+              <option value="100">100 dòng</option>
+            </select>
+          </div>
+          <div class="flex items-center space-x-2">
+            <button id="prevPageBtn" onclick="navigatePage(-1)" class="px-3 py-1 text-xs font-semibold rounded-lg border border-slate-300 transition-all text-slate-700 bg-white hover:bg-slate-100">◀ Trước</button>
+            <span class="text-sm text-slate-600">Trang 
+              <b id="currentPageIndicator">1</b> / 
+              <span id="totalPagesIndicator">1</span>
+            </span>
+            <button id="nextPageBtn" onclick="navigatePage(1)" class="px-3 py-1 text-xs font-semibold rounded-lg border border-slate-300 transition-all text-slate-700 bg-white hover:bg-slate-100">Sau ▶</button>
+          </div>
+        </div>
+      </div><!-- /dvktDataPanel -->
+    </div>
+  </main>
+</div><!-- /dvktWorkspace -->
+  <!-- FOOTER CHUẨN ĐỊNH HƯỚNG QUẢN TRỊ -->
+<footer class="bg-slate-950 text-slate-400 py-8 border-t border-slate-800 text-xs">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-4">
+    <div class="text-center md:text-left">
+      <p class="font-semibold text-slate-300 text-sm">DANH MỤC DVKT — QĐ 7603/QĐ-BYT &amp; THÔNG TƯ 23/2024/TT-BYT</p>
+      <p class="mt-1 text-slate-500">Thẻ nguồn: 
+        <span class="text-rose-400">QĐ 7603</span> · 
+        <span class="text-emerald-400">TT23-PL1</span> · 
+        <span class="text-violet-400">TT23-PL2</span> · 
+        <span class="text-blue-400">PVHN TT32</span>
+      </p>
+      <p class="mt-1">Dành riêng cho cán bộ quản lý chất lượng, phòng Kế hoạch tổng hợp và đội ngũ Bác sỹ Lâm sàng.</p>
+      <p class="mt-0.5">Tiêu chuẩn JCI: Tổ chức quản lý chuyên môn và hồ sơ bệnh án khoa học, nhất quán.</p>
+    </div>
+    <div class="text-center md:text-right">
+      <p>© 2026 Phuong Chau Medical Group. Bản quyền thuộc về Ban Giám Đốc Công Nghệ &amp; Quản Lý Chất Lượng.</p>
+      <p class="mt-1 text-rose-400">An toàn - Chuyên nghiệp - Chuẩn JCI Quốc tế</p>
+    </div>
+  </div>
+</footer>
+  <!-- MODAL 1: THÊM / SỬA DỊCH VỤ -->
+<div id="editModal" class="fixed inset-0 bg-black/50 z-[8000] hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-2xl max-h-[90vh] overflow-hidden flex flex-col"><!-- Header modal -->
+    <div class="p-6 bg-gradient-to-r from-rose-500 to-pink-500 text-white flex justify-between items-center">
+      <div>
+        <h3 id="editModalTitle" class="text-lg font-bold">Thêm mới dịch vụ</h3>
+        <p class="text-xs text-rose-100">Vui lòng điền đúng thông tin theo các trường dữ liệu chuẩn của Phụ lục</p>
+      </div>
+      <button onclick="closeEditModal()" class="text-white hover:text-rose-100 text-2xl font-bold">✕</button>
+    </div>
+      <!-- Form -->
+    <form id="editForm" onsubmit="handleSaveItem(event)" class="flex-1 overflow-y-auto p-6 space-y-4">
+      <div id="editFormFields" class="grid grid-cols-1 md:grid-cols-2 gap-4"><!-- Các trường động được sinh bằng JS --></div>
+        <!-- Chân modal -->
+      <div class="pt-6 border-t border-slate-100 flex items-center justify-end space-x-3 bg-slate-50 -mx-6 -mb-6 p-6">
+        <button type="button" onclick="closeEditModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-semibold rounded-lg hover:bg-slate-100">Hủy bỏ</button>
+        <button type="submit" class="px-5 py-2 bg-rose-600 hover:bg-rose-700 text-white text-sm font-semibold rounded-lg shadow-md">Lưu dữ liệu</button>
+      </div>
+    </form>
+  </div>
+</div>
+  <!-- MODAL 2: CẤU HÌNH TRƯỜNG ĐỘNG -->
+<div id="fieldModal" class="fixed inset-0 bg-black/50 z-[8000] hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-md overflow-hidden flex flex-col">
+    <div class="p-5 bg-sky-600 text-white flex justify-between items-center">
+      <div>
+        <h3 class="text-base font-bold">🛠️ THÊM TRƯỜNG THÔNG TIN TÙY BIẾN</h3>
+        <p class="text-xs text-sky-100">Cột mới sẽ xuất hiện trên bảng và biểu mẫu nhập liệu</p>
+      </div>
+      <button onclick="closeFieldModal()" class="text-white hover:text-sky-100 text-2xl font-bold">✕</button>
+    </div>
+    <form onsubmit="handleAddCustomField(event)" class="p-5 space-y-4">
+      <div class="flex flex-col">
+        <label class="text-xs font-semibold text-slate-700 mb-1">Tên hiển thị trên bảng (Ví dụ: Đơn giá Phương Châu, Ghi chú JCI...)</label>
+        <input type="text" id="newFieldName" oninput="syncFieldKey(this.value)" placeholder="Ví dụ: Đơn giá Bệnh viện" required="" class="border border-slate-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-sky-500">
+      </div>
+      <div class="flex flex-col">
+        <label class="text-xs font-semibold text-slate-700 mb-1">Mã biến lưu trữ (Hệ thống tự động sinh, nên để nguyên)</label>
+        <input type="text" id="newFieldKey" placeholder="donGiaBenhVien" required="" class="border border-slate-300 rounded-lg p-2 text-sm bg-slate-50 focus:ring-2 focus:ring-sky-500">
+      </div>
+      <div class="flex flex-col">
+        <label class="text-xs font-semibold text-slate-700 mb-1">Loại trường thông tin</label>
+        <select id="newFieldType" onchange="toggleOptionsInput(this.value)" class="border border-slate-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-sky-500">
+          <option value="text">Ký tự / Văn bản ngắn</option>
+          <option value="number">Số / Đơn giá</option>
+          <option value="select">Hộp lựa chọn (Dropdown list)</option>
+        </select>
+      </div>
+      <div id="optionsInputWrapper" class="flex flex-col hidden">
+        <label class="text-xs font-semibold text-slate-700 mb-1">Các giá trị lựa chọn (Mỗi giá trị ngăn cách bằng dấu phẩy)</label>
+        <input type="text" id="newFieldOptions" placeholder="Ví dụ: Nội khoa, Ngoại khoa, Sản khoa" class="border border-slate-300 rounded-lg p-2 text-sm focus:ring-2 focus:ring-sky-500">
+      </div>
+      <div class="pt-4 border-t border-slate-100 flex items-center justify-end space-x-2">
+        <button type="button" onclick="closeFieldModal()" class="px-4 py-2 border border-slate-300 text-slate-700 text-sm font-semibold rounded-lg hover:bg-slate-100">Hủy bỏ</button>
+        <button type="submit" class="px-4 py-2 bg-sky-600 hover:bg-sky-700 text-white text-sm font-semibold rounded-lg shadow-md">Xác nhận thêm</button>
+      </div>
+    </form>
+  </div>
+</div>
+  <!-- MODAL 3: BÁO CÁO TÙY BIẾN -->
+<div id="reportModal" class="fixed inset-0 bg-black/50 z-[8500] hidden items-center justify-center p-4">
+  <div class="bg-white rounded-2xl shadow-xl w-full max-w-4xl max-h-[90vh] overflow-hidden flex flex-col">
+    <div class="p-5 bg-indigo-600 text-white flex justify-between items-center">
+      <div>
+        <h3 class="text-base font-bold">Báo cáo tùy biến DVKT</h3>
+        <p class="text-xs text-indigo-100">QĐ 7603 · TT23 · Phạm vi hành nghề TT32</p>
+      </div>
+      <button onclick="closeReportModal()" class="text-white hover:text-indigo-100 text-2xl font-bold">✕</button>
+    </div>
+    <div id="reportModalBody" class="flex-1 overflow-y-auto p-5"></div>
+    <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end gap-2">
+      <button onclick="closeReportModal()" class="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg text-sm font-semibold">Đóng</button>
+      <button onclick="exportDvktReport()" class="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-semibold">Xuất Excel (.xlsx)</button>
+    </div>
+  </div>
+</div>
+
+  <div id="dvktLoadingOverlay" class="hidden fixed inset-0 z-[9000] flex items-center justify-center bg-slate-900/60 backdrop-blur-sm">
+    <div class="bg-white rounded-2xl shadow-2xl px-8 py-6 text-center max-w-sm mx-4">
+      <div class="text-3xl mb-3 animate-pulse">⏳</div>
+      <p class="text-sm font-semibold text-slate-800">Đang tải danh mục DVKT</p>
+      <p id="dvktLoadingMessage" class="text-xs text-slate-500 mt-2">Vui lòng đợi...</p>
+    </div>
+  </div>
+
+  <script src="/static/js/_pc_crosslink.js"></script>
+  <script src="/static/js/_dvkt_header.js"></script>
+  <script src="/static/js/_pvhn_bhxh_embed.js"></script>
+  <script src="/static/js/_dvkt_bootstrap.js"></script>
+  <script src="/static/js/_dvkt_runtime.js"></script>
+  <script src="/static/js/_dvkt_master_map.js"></script>
+  <script src="/static/js/_dvkt_report.js"></script>
+  <script src="/static/js/_dvkt_qtkt.js"></script>
+  <script>fetch("/static/pc_apps.json").then(r=>r.json()).then(j=>{window.PC_APP_LINKS=Object.assign(window.PC_APP_LINKS||{},j);}).catch(()=>{});</script>
+</body>
+</html>
