@@ -1,0 +1,1296 @@
+{
+  "tabs": [
+    "pl1",
+    "pl2",
+    "pl3",
+    "tt23pl1",
+    "tt23pl2",
+    "bvpcst",
+    "bvpcct",
+    "bvpsd",
+    "pvhnbhxh",
+    "quytrinhkt"
+  ],
+  "version": "2026-06-25",
+  "columns": {
+    "pl1": [
+      {
+        "key": "stt",
+        "label": "STT",
+        "type": "number",
+        "required": true
+      },
+      {
+        "key": "maTuongDuong",
+        "label": "Mã Tương Đương",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "maTT43",
+        "label": "Mã TT43/50/21",
+        "type": "text"
+      },
+      {
+        "key": "tenTT43",
+        "label": "Tên theo Thông tư 43/50/21",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "tagsMapping",
+        "label": "Thẻ mapping QĐ7603 · TT23 · PVHN",
+        "type": "computed"
+      },
+      {
+        "key": "theNguonGoc",
+        "label": "Thẻ nguồn gốc",
+        "type": "text"
+      },
+      {
+        "key": "theLienKetTT23",
+        "label": "Thẻ liên kết TT23",
+        "type": "text"
+      },
+      {
+        "key": "thePhamViHanhNghe",
+        "label": "Phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "tenPhamViHanhNghe",
+        "label": "Tên phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "chuyenKhoaPVHN",
+        "label": "Chuyên khoa (BS CK…)",
+        "type": "text"
+      },
+      {
+        "key": "chiTietChuyenKhoaPVHN",
+        "label": "Chi tiết chuyên khoa",
+        "type": "text"
+      },
+      {
+        "key": "maPhamViBHXH",
+        "label": "Mã PVHN BHXH (PHAMVI_CM)",
+        "type": "text"
+      },
+      {
+        "key": "tenChucDanhBHXH",
+        "label": "Chức danh được phép (BHXH)",
+        "type": "text"
+      },
+      {
+        "key": "soChucDanhBHXH",
+        "label": "Số chức danh BHXH",
+        "type": "number"
+      },
+      {
+        "key": "doTinCayBHXH",
+        "label": "Độ tin cậy mapping BHXH",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayPhamVi",
+        "label": "Độ tin cậy PVHN",
+        "type": "text"
+      },
+      {
+        "key": "maKyThuatTT23",
+        "label": "Mã kỹ thuật TT23",
+        "type": "text"
+      },
+      {
+        "key": "tenKyThuatTT23",
+        "label": "Tên kỹ thuật TT23",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayMapping",
+        "label": "Độ tin cậy mapping",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuMapping",
+        "label": "Ghi chú mapping",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuPhamVi",
+        "label": "Ghi chú PVHN",
+        "type": "text"
+      },
+      {
+        "key": "phanTuyen",
+        "label": "Phân Tuyến",
+        "type": "select",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "key": "phanLoai",
+        "label": "Phân Loại PTTT",
+        "type": "text"
+      },
+      {
+        "key": "sttTT39",
+        "label": "STT TT39",
+        "type": "text"
+      },
+      {
+        "key": "tenTT39",
+        "label": "Tên theo Danh mục giá TT39",
+        "type": "text"
+      },
+      {
+        "key": "giaTT39",
+        "label": "Giá TT39 (VNĐ)",
+        "type": "number"
+      },
+      {
+        "key": "chuyenKhoa",
+        "label": "Chuyên Khoa",
+        "type": "text"
+      },
+      {
+        "key": "maLienThong",
+        "label": "Mã Giá Liên Thông BHYT",
+        "type": "text"
+      },
+      {
+        "key": "vanBanNguon",
+        "label": "Văn bản gốc",
+        "type": "text"
+      },
+      {
+        "key": "coTaiBV_PCST",
+        "label": "Có tại BV PCST",
+        "type": "text"
+      },
+      {
+        "key": "donGiaPCST",
+        "label": "Đơn giá PCST",
+        "type": "number"
+      },
+      {
+        "key": "maGiaPCST",
+        "label": "Mã giá PCST",
+        "type": "number"
+      },
+      {
+        "key": "ghiChuBV_PCST",
+        "label": "Ghi chú BV PCST",
+        "type": "text"
+      },
+      {
+        "key": "coTaiBV_PCCT",
+        "label": "Có tại BV PCCT",
+        "type": "text"
+      },
+      {
+        "key": "donGiaPCCT",
+        "label": "Đơn giá PCCT",
+        "type": "number"
+      },
+      {
+        "key": "maGiaPCCT",
+        "label": "Mã giá PCCT",
+        "type": "number"
+      },
+      {
+        "key": "ghiChuBV_PCCT",
+        "label": "Ghi chú BV PCCT",
+        "type": "text"
+      },
+      {
+        "key": "coTaiBV_PSD",
+        "label": "Có tại BV Sa Đéc",
+        "type": "text"
+      },
+      {
+        "key": "donGiaPSD",
+        "label": "Đơn giá Sa Đéc",
+        "type": "number"
+      },
+      {
+        "key": "maGiaPSD",
+        "label": "Mã giá Sa Đéc",
+        "type": "number"
+      },
+      {
+        "key": "ghiChuBV_PSD",
+        "label": "Ghi chú BV Sa Đéc",
+        "type": "text"
+      }
+    ],
+    "pvhnbhxh": [
+      {
+        "key": "stt",
+        "label": "STT",
+        "type": "number"
+      },
+      {
+        "key": "maPhamVi",
+        "label": "Mã PHAMVI_CM (BHXH)",
+        "type": "text"
+      },
+      {
+        "key": "chucDanh",
+        "label": "Chức danh chuyên môn",
+        "type": "text"
+      },
+      {
+        "key": "nhomCapNhat",
+        "label": "Nhóm cập nhật",
+        "type": "text"
+      },
+      {
+        "key": "heThong",
+        "label": "Hệ thống cập nhật",
+        "type": "text"
+      },
+      {
+        "key": "ghiChu",
+        "label": "Ghi chú",
+        "type": "text"
+      },
+      {
+        "key": "pvhnTagTT32",
+        "label": "Thẻ PVHN TT32 tương ứng",
+        "type": "text"
+      },
+      {
+        "key": "soDvktDuocPhep",
+        "label": "Số DVKT QĐ7603 được phép",
+        "type": "number"
+      },
+      {
+        "key": "soDvktTT23",
+        "label": "Số DVKT có liên kết TT23",
+        "type": "number"
+      },
+      {
+        "key": "soDvktTaiBV",
+        "label": "Số lượt DVKT tại BV (3 cơ sở)",
+        "type": "number"
+      },
+      {
+        "key": "maDvktMau",
+        "label": "Mã DVKT mẫu (TT43)",
+        "type": "text"
+      },
+      {
+        "key": "maTuongDuongMau",
+        "label": "Mã QĐ7603 mẫu",
+        "type": "text"
+      },
+      {
+        "key": "tenDvktMau",
+        "label": "Tên DVKT mẫu",
+        "type": "text"
+      },
+      {
+        "key": "vanBanNguon",
+        "label": "Văn bản gốc",
+        "type": "text"
+      }
+    ],
+    "tt23pl1": [
+      {
+        "key": "stt",
+        "label": "STT",
+        "type": "number",
+        "required": true
+      },
+      {
+        "key": "maKyThuat",
+        "label": "Mã kỹ thuật TT23",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "tenKyThuat",
+        "label": "Tên kỹ thuật TT23",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "tagsMapping",
+        "label": "Thẻ mapping QĐ7603 · TT23 · PVHN",
+        "type": "computed"
+      },
+      {
+        "key": "thePhamViHanhNghe",
+        "label": "Phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "tenPhamViHanhNghe",
+        "label": "Tên phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "chuyenKhoaPVHN",
+        "label": "Chuyên khoa (BS CK…)",
+        "type": "text"
+      },
+      {
+        "key": "chiTietChuyenKhoaPVHN",
+        "label": "Chi tiết chuyên khoa",
+        "type": "text"
+      },
+      {
+        "key": "maPhamViBHXH",
+        "label": "Mã PVHN BHXH (PHAMVI_CM)",
+        "type": "text"
+      },
+      {
+        "key": "tenChucDanhBHXH",
+        "label": "Chức danh được phép (BHXH)",
+        "type": "text"
+      },
+      {
+        "key": "soChucDanhBHXH",
+        "label": "Số chức danh BHXH",
+        "type": "number"
+      },
+      {
+        "key": "doTinCayBHXH",
+        "label": "Độ tin cậy mapping BHXH",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayPhamVi",
+        "label": "Độ tin cậy PVHN",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuPhamVi",
+        "label": "Ghi chú PVHN",
+        "type": "text"
+      },
+      {
+        "key": "chuong",
+        "label": "Chương/Chuyên khoa",
+        "type": "text"
+      },
+      {
+        "key": "lienKetQD7603",
+        "label": "Mã QĐ7603 liên kết",
+        "type": "text"
+      },
+      {
+        "key": "tenTT43QD7603",
+        "label": "Tên QĐ7603 liên kết",
+        "type": "text"
+      },
+      {
+        "key": "theNguonGoc",
+        "label": "Thẻ nguồn",
+        "type": "text"
+      },
+      {
+        "key": "vanBanNguon",
+        "label": "Văn bản gốc",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayMapping",
+        "label": "Độ tin cậy mapping",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuMapping",
+        "label": "Ghi chú mapping",
+        "type": "text"
+      }
+    ],
+    "tt23pl2": [
+      {
+        "key": "stt",
+        "label": "STT PL2",
+        "type": "number",
+        "required": true
+      },
+      {
+        "key": "maKyThuat",
+        "label": "Mã kỹ thuật TT23",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "tenKyThuat",
+        "label": "Tên phẫu thuật TT23",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "tagsMapping",
+        "label": "Thẻ mapping QĐ7603 · TT23 · PVHN",
+        "type": "computed"
+      },
+      {
+        "key": "thePhamViHanhNghe",
+        "label": "Phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "tenPhamViHanhNghe",
+        "label": "Tên phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "chuyenKhoaPVHN",
+        "label": "Chuyên khoa (BS CK…)",
+        "type": "text"
+      },
+      {
+        "key": "chiTietChuyenKhoaPVHN",
+        "label": "Chi tiết chuyên khoa",
+        "type": "text"
+      },
+      {
+        "key": "maPhamViBHXH",
+        "label": "Mã PVHN BHXH (PHAMVI_CM)",
+        "type": "text"
+      },
+      {
+        "key": "tenChucDanhBHXH",
+        "label": "Chức danh được phép (BHXH)",
+        "type": "text"
+      },
+      {
+        "key": "soChucDanhBHXH",
+        "label": "Số chức danh BHXH",
+        "type": "number"
+      },
+      {
+        "key": "doTinCayBHXH",
+        "label": "Độ tin cậy mapping BHXH",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayPhamVi",
+        "label": "Độ tin cậy PVHN",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuPhamVi",
+        "label": "Ghi chú PVHN",
+        "type": "text"
+      },
+      {
+        "key": "chuong",
+        "label": "Chương",
+        "type": "text"
+      },
+      {
+        "key": "lienKetQD7603",
+        "label": "Mã QĐ7603 liên kết",
+        "type": "text"
+      },
+      {
+        "key": "tenTT43QD7603",
+        "label": "Tên QĐ7603 liên kết",
+        "type": "text"
+      },
+      {
+        "key": "theNguonGoc",
+        "label": "Thẻ nguồn",
+        "type": "text"
+      },
+      {
+        "key": "vanBanNguon",
+        "label": "Văn bản gốc",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayMapping",
+        "label": "Độ tin cậy mapping",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuMapping",
+        "label": "Ghi chú mapping",
+        "type": "text"
+      }
+    ],
+    "bvpcst": [
+      {
+        "key": "stt",
+        "label": "STT",
+        "type": "number"
+      },
+      {
+        "key": "maDichVu",
+        "label": "Mã dịch vụ BV",
+        "type": "text"
+      },
+      {
+        "key": "tenDichVu",
+        "label": "Tên dịch vụ BV",
+        "type": "text"
+      },
+      {
+        "key": "tagsMapping",
+        "label": "Thẻ mapping QĐ7603 · TT23 · PVHN",
+        "type": "computed"
+      },
+      {
+        "key": "lienKetQD7603",
+        "label": "Liên kết QĐ7603",
+        "type": "text"
+      },
+      {
+        "key": "maTT43",
+        "label": "Mã TT43",
+        "type": "text"
+      },
+      {
+        "key": "tenTT43",
+        "label": "Tên TT43 (QĐ7603)",
+        "type": "text"
+      },
+      {
+        "key": "theLienKetTT23",
+        "label": "Thẻ TT23",
+        "type": "text"
+      },
+      {
+        "key": "maKyThuatTT23",
+        "label": "Mã TT23",
+        "type": "text"
+      },
+      {
+        "key": "tenKyThuatTT23",
+        "label": "Tên TT23",
+        "type": "text"
+      },
+      {
+        "key": "thePhamViHanhNghe",
+        "label": "Phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "tenPhamViHanhNghe",
+        "label": "Tên phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "chuyenKhoaPVHN",
+        "label": "Chuyên khoa (BS CK…)",
+        "type": "text"
+      },
+      {
+        "key": "chiTietChuyenKhoaPVHN",
+        "label": "Chi tiết chuyên khoa",
+        "type": "text"
+      },
+      {
+        "key": "maPhamViBHXH",
+        "label": "Mã PVHN BHXH (PHAMVI_CM)",
+        "type": "text"
+      },
+      {
+        "key": "tenChucDanhBHXH",
+        "label": "Chức danh được phép (BHXH)",
+        "type": "text"
+      },
+      {
+        "key": "soChucDanhBHXH",
+        "label": "Số chức danh BHXH",
+        "type": "number"
+      },
+      {
+        "key": "doTinCayBHXH",
+        "label": "Độ tin cậy mapping BHXH",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayPhamVi",
+        "label": "Độ tin cậy PVHN",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuPhamVi",
+        "label": "Ghi chú PVHN",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayMapping",
+        "label": "Độ tin cậy mapping",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuMapping",
+        "label": "Ghi chú mapping",
+        "type": "text"
+      },
+      {
+        "key": "donGia",
+        "label": "Đơn giá BV",
+        "type": "number"
+      },
+      {
+        "key": "maGia",
+        "label": "Mã giá",
+        "type": "number"
+      },
+      {
+        "key": "giaBhyt",
+        "label": "Giá TT BHYT",
+        "type": "number"
+      },
+      {
+        "key": "phanLoaiPttt",
+        "label": "Phân loại PTTT",
+        "type": "text"
+      },
+      {
+        "key": "tuNgay",
+        "label": "Từ ngày",
+        "type": "text"
+      },
+      {
+        "key": "denNgay",
+        "label": "Đến ngày",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuBV",
+        "label": "Ghi chú BV",
+        "type": "text"
+      },
+      {
+        "key": "quyetDinh",
+        "label": "Quyết định giá",
+        "type": "text"
+      },
+      {
+        "key": "maCSKCB",
+        "label": "Mã CSKCB",
+        "type": "text"
+      },
+      {
+        "key": "tenBenhVien",
+        "label": "Bệnh viện",
+        "type": "text"
+      }
+    ],
+    "bvpcct": [
+      {
+        "key": "stt",
+        "label": "STT",
+        "type": "number"
+      },
+      {
+        "key": "maDichVu",
+        "label": "Mã dịch vụ BV",
+        "type": "text"
+      },
+      {
+        "key": "tenDichVu",
+        "label": "Tên dịch vụ BV",
+        "type": "text"
+      },
+      {
+        "key": "tagsMapping",
+        "label": "Thẻ mapping QĐ7603 · TT23 · PVHN",
+        "type": "computed"
+      },
+      {
+        "key": "lienKetQD7603",
+        "label": "Liên kết QĐ7603",
+        "type": "text"
+      },
+      {
+        "key": "maTT43",
+        "label": "Mã TT43",
+        "type": "text"
+      },
+      {
+        "key": "tenTT43",
+        "label": "Tên TT43 (QĐ7603)",
+        "type": "text"
+      },
+      {
+        "key": "theLienKetTT23",
+        "label": "Thẻ TT23",
+        "type": "text"
+      },
+      {
+        "key": "maKyThuatTT23",
+        "label": "Mã TT23",
+        "type": "text"
+      },
+      {
+        "key": "tenKyThuatTT23",
+        "label": "Tên TT23",
+        "type": "text"
+      },
+      {
+        "key": "thePhamViHanhNghe",
+        "label": "Phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "tenPhamViHanhNghe",
+        "label": "Tên phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "chuyenKhoaPVHN",
+        "label": "Chuyên khoa (BS CK…)",
+        "type": "text"
+      },
+      {
+        "key": "chiTietChuyenKhoaPVHN",
+        "label": "Chi tiết chuyên khoa",
+        "type": "text"
+      },
+      {
+        "key": "maPhamViBHXH",
+        "label": "Mã PVHN BHXH (PHAMVI_CM)",
+        "type": "text"
+      },
+      {
+        "key": "tenChucDanhBHXH",
+        "label": "Chức danh được phép (BHXH)",
+        "type": "text"
+      },
+      {
+        "key": "soChucDanhBHXH",
+        "label": "Số chức danh BHXH",
+        "type": "number"
+      },
+      {
+        "key": "doTinCayBHXH",
+        "label": "Độ tin cậy mapping BHXH",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayPhamVi",
+        "label": "Độ tin cậy PVHN",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuPhamVi",
+        "label": "Ghi chú PVHN",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayMapping",
+        "label": "Độ tin cậy mapping",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuMapping",
+        "label": "Ghi chú mapping",
+        "type": "text"
+      },
+      {
+        "key": "donGia",
+        "label": "Đơn giá BV",
+        "type": "number"
+      },
+      {
+        "key": "maGia",
+        "label": "Mã giá",
+        "type": "number"
+      },
+      {
+        "key": "giaBhyt",
+        "label": "Giá TT BHYT",
+        "type": "number"
+      },
+      {
+        "key": "phanLoaiPttt",
+        "label": "Phân loại PTTT",
+        "type": "text"
+      },
+      {
+        "key": "tuNgay",
+        "label": "Từ ngày",
+        "type": "text"
+      },
+      {
+        "key": "denNgay",
+        "label": "Đến ngày",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuBV",
+        "label": "Ghi chú BV",
+        "type": "text"
+      },
+      {
+        "key": "quyetDinh",
+        "label": "Quyết định giá",
+        "type": "text"
+      },
+      {
+        "key": "maCSKCB",
+        "label": "Mã CSKCB",
+        "type": "text"
+      },
+      {
+        "key": "tenBenhVien",
+        "label": "Bệnh viện",
+        "type": "text"
+      }
+    ],
+    "bvpsd": [
+      {
+        "key": "stt",
+        "label": "STT",
+        "type": "number"
+      },
+      {
+        "key": "maDichVu",
+        "label": "Mã dịch vụ BV",
+        "type": "text"
+      },
+      {
+        "key": "tenDichVu",
+        "label": "Tên dịch vụ BV",
+        "type": "text"
+      },
+      {
+        "key": "tagsMapping",
+        "label": "Thẻ mapping QĐ7603 · TT23 · PVHN",
+        "type": "computed"
+      },
+      {
+        "key": "lienKetQD7603",
+        "label": "Liên kết QĐ7603",
+        "type": "text"
+      },
+      {
+        "key": "maTT43",
+        "label": "Mã TT43",
+        "type": "text"
+      },
+      {
+        "key": "tenTT43",
+        "label": "Tên TT43 (QĐ7603)",
+        "type": "text"
+      },
+      {
+        "key": "theLienKetTT23",
+        "label": "Thẻ TT23",
+        "type": "text"
+      },
+      {
+        "key": "maKyThuatTT23",
+        "label": "Mã TT23",
+        "type": "text"
+      },
+      {
+        "key": "tenKyThuatTT23",
+        "label": "Tên TT23",
+        "type": "text"
+      },
+      {
+        "key": "thePhamViHanhNghe",
+        "label": "Phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "tenPhamViHanhNghe",
+        "label": "Tên phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "chuyenKhoaPVHN",
+        "label": "Chuyên khoa (BS CK…)",
+        "type": "text"
+      },
+      {
+        "key": "chiTietChuyenKhoaPVHN",
+        "label": "Chi tiết chuyên khoa",
+        "type": "text"
+      },
+      {
+        "key": "maPhamViBHXH",
+        "label": "Mã PVHN BHXH (PHAMVI_CM)",
+        "type": "text"
+      },
+      {
+        "key": "tenChucDanhBHXH",
+        "label": "Chức danh được phép (BHXH)",
+        "type": "text"
+      },
+      {
+        "key": "soChucDanhBHXH",
+        "label": "Số chức danh BHXH",
+        "type": "number"
+      },
+      {
+        "key": "doTinCayBHXH",
+        "label": "Độ tin cậy mapping BHXH",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayPhamVi",
+        "label": "Độ tin cậy PVHN",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuPhamVi",
+        "label": "Ghi chú PVHN",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayMapping",
+        "label": "Độ tin cậy mapping",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuMapping",
+        "label": "Ghi chú mapping",
+        "type": "text"
+      },
+      {
+        "key": "donGia",
+        "label": "Đơn giá BV",
+        "type": "number"
+      },
+      {
+        "key": "maGia",
+        "label": "Mã giá",
+        "type": "number"
+      },
+      {
+        "key": "giaBhyt",
+        "label": "Giá TT BHYT",
+        "type": "number"
+      },
+      {
+        "key": "phanLoaiPttt",
+        "label": "Phân loại PTTT",
+        "type": "text"
+      },
+      {
+        "key": "tuNgay",
+        "label": "Từ ngày",
+        "type": "text"
+      },
+      {
+        "key": "denNgay",
+        "label": "Đến ngày",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuBV",
+        "label": "Ghi chú BV",
+        "type": "text"
+      },
+      {
+        "key": "quyetDinh",
+        "label": "Quyết định giá",
+        "type": "text"
+      },
+      {
+        "key": "maCSKCB",
+        "label": "Mã CSKCB",
+        "type": "text"
+      },
+      {
+        "key": "tenBenhVien",
+        "label": "Bệnh viện",
+        "type": "text"
+      }
+    ],
+    "pl2": [
+      {
+        "key": "sttPl1",
+        "label": "STT tại PL1",
+        "type": "number",
+        "required": true
+      },
+      {
+        "key": "maTuongDuong",
+        "label": "Mã Tương Đương",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "maTT43",
+        "label": "Mã TT43/50/21",
+        "type": "text"
+      },
+      {
+        "key": "tenTT43",
+        "label": "Tên theo Thông tư 43/50/21",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "thePhamViHanhNghe",
+        "label": "Phạm vi hành nghề (mã)",
+        "type": "text"
+      },
+      {
+        "key": "maPhamViBHXH",
+        "label": "Mã PVHN BHXH",
+        "type": "text"
+      },
+      {
+        "key": "tenChucDanhBHXH",
+        "label": "Chức danh BHXH",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayBHXH",
+        "label": "Độ tin cậy BHXH",
+        "type": "text"
+      },
+      {
+        "key": "phanTuyen",
+        "label": "Phân Tuyến",
+        "type": "select",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "key": "phanLoai",
+        "label": "Phân Loại PTTT",
+        "type": "text"
+      },
+      {
+        "key": "tenTT39",
+        "label": "Tên theo Danh mục giá TT39",
+        "type": "text"
+      },
+      {
+        "key": "lyDoThayDoi",
+        "label": "Ghi chú thay đổi",
+        "type": "text"
+      },
+      {
+        "key": "giaTT39",
+        "label": "Giá TT39 (VNĐ)",
+        "type": "number"
+      }
+    ],
+    "pl3": [
+      {
+        "key": "stt",
+        "label": "STT",
+        "type": "number",
+        "required": true
+      },
+      {
+        "key": "maTuongDuong",
+        "label": "Mã Tương Đương",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "maTT43",
+        "label": "Mã TT43/50/21",
+        "type": "text"
+      },
+      {
+        "key": "tenTT43",
+        "label": "Tên theo Thông tư 43/50/21",
+        "type": "text",
+        "required": true
+      },
+      {
+        "key": "thePhamViHanhNghe",
+        "label": "Phạm vi hành nghề (mã)",
+        "type": "text"
+      },
+      {
+        "key": "maPhamViBHXH",
+        "label": "Mã PVHN BHXH",
+        "type": "text"
+      },
+      {
+        "key": "tenChucDanhBHXH",
+        "label": "Chức danh BHXH",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayBHXH",
+        "label": "Độ tin cậy BHXH",
+        "type": "text"
+      },
+      {
+        "key": "phanTuyen",
+        "label": "Phân Tuyến",
+        "type": "select",
+        "options": [
+          "A",
+          "B",
+          "C",
+          "D"
+        ]
+      },
+      {
+        "key": "phanLoai",
+        "label": "Phân Loại PTTT",
+        "type": "text"
+      },
+      {
+        "key": "tenTT39",
+        "label": "Tên theo Danh mục giá TT39",
+        "type": "text"
+      },
+      {
+        "key": "lyDoHuy",
+        "label": "Lý Do Hủy",
+        "type": "text",
+        "required": true
+      }
+    ],
+    "quytrinhkt": [
+      {
+        "key": "stt",
+        "label": "STT",
+        "type": "number"
+      },
+      {
+        "key": "quyTrinhSo",
+        "label": "QT số (trong tài liệu)",
+        "type": "number"
+      },
+      {
+        "key": "maKyThuat",
+        "label": "Mã kỹ thuật (TT23)",
+        "type": "text"
+      },
+      {
+        "key": "tenKyThuat",
+        "label": "Tên kỹ thuật (quy trình)",
+        "type": "text"
+      },
+      {
+        "key": "tenKyThuatTT23",
+        "label": "Tên kỹ thuật TT23",
+        "type": "text"
+      },
+      {
+        "key": "maICDChiDinh",
+        "label": "Mã ICD-10 chỉ định",
+        "type": "text"
+      },
+      {
+        "key": "tenBenhICDChiDinh",
+        "label": "Tên bệnh ICD chỉ định",
+        "type": "text"
+      },
+      {
+        "key": "maICDChongChiDinh",
+        "label": "Mã ICD-10 chống chỉ định",
+        "type": "text"
+      },
+      {
+        "key": "tenBenhICDChongChiDinh",
+        "label": "Tên bệnh ICD chống chỉ định",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayICDChiDinh",
+        "label": "Độ tin cậy ICD chỉ định",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayICDChongChiDinh",
+        "label": "Độ tin cậy ICD chống chỉ định",
+        "type": "text"
+      },
+      {
+        "key": "chiDinh",
+        "label": "Chỉ định (nguyên văn)",
+        "type": "text"
+      },
+      {
+        "key": "chongChiDinh",
+        "label": "Chống chỉ định (nguyên văn)",
+        "type": "text"
+      },
+      {
+        "key": "thoiGianThucHien",
+        "label": "Thời gian thực hiện",
+        "type": "text"
+      },
+      {
+        "key": "nhanSuThucHien",
+        "label": "Nhân sự / Phạm vi hành nghề",
+        "type": "text"
+      },
+      {
+        "key": "soQuyetDinh",
+        "label": "Số QĐ BYT",
+        "type": "text"
+      },
+      {
+        "key": "ngayBanHanh",
+        "label": "Ngày ban hành",
+        "type": "text"
+      },
+      {
+        "key": "tenTaiLieu",
+        "label": "Tài liệu nguồn",
+        "type": "text"
+      },
+      {
+        "key": "chuyenKhoa",
+        "label": "Chuyên khoa / Tập",
+        "type": "text"
+      },
+      {
+        "key": "tenFileNguon",
+        "label": "File nguồn",
+        "type": "text"
+      },
+      {
+        "key": "lienKetQD7603",
+        "label": "Mã QĐ7603 liên kết",
+        "type": "text"
+      },
+      {
+        "key": "maTT43",
+        "label": "Mã TT43 (QĐ7603)",
+        "type": "text"
+      },
+      {
+        "key": "maTuongDuong",
+        "label": "Mã tương đương",
+        "type": "text"
+      },
+      {
+        "key": "tenTT43",
+        "label": "Tên QĐ7603",
+        "type": "text"
+      },
+      {
+        "key": "lienKetTT23",
+        "label": "Mã TT23 liên kết",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayMapping",
+        "label": "Độ tin cậy mapping",
+        "type": "text"
+      },
+      {
+        "key": "tagsMapping",
+        "label": "Thẻ mapping",
+        "type": "computed"
+      }
+    ]
+  }
+}
