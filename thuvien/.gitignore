@@ -1,0 +1,21 @@
+__pycache__/
+*.pyc
+*.pyo
+.Python
+
+# Sao lưu / log
+*.bak
+*.log
+_audit_out.txt
+_repair_*.txt
+_html_tail_check.txt
+_pvhn_pdf_extract.txt
+
+# Embed cũ (đã tách sang dvkt_app/data)
+_bv_embed.js
+_bvpcst_embed.js
+_extracted_main.js
+_probe_drive.html
+
+# PDF quy trình kỹ thuật (~800 MB) — tải lại: python _download_qtkt_sources.py
+data/qtkt_source/
