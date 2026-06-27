@@ -7,6 +7,8 @@ const SKIP_DIRS = new Set([
   '.git',
   '.expo',
   '.tmp_web_export',
+  'web_export_test',
+  'web_export_verify',
   'node_modules',
   'android',
   'ios',
