@@ -5,6 +5,11 @@ on:
     branches: [ main ]
     paths:
       - 'ma_nguon/**'
+      - 'app.json'
+      - 'package.json'
+      - 'package-lock.json'
+      - 'vercel.json'
+      - '.vercelignore'
       - 'python_service/**'
       - 'server.js'
       - 'tai_lieu/**'
