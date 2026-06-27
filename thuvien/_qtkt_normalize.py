@@ -152,8 +152,26 @@ def normalize_qtkt_row(row: dict) -> dict:
     return row
 
 
+_ICD_JS_ENTRY_RE = re.compile(r'\{"m":"([^"]+)","t":"((?:\\.|[^"\\])*)"', re.S)
+
+
+def _parse_icd_js_entries(text: str) -> list[tuple[str, str, list[str]]]:
+    """Trích (ma, ten, flags) từ chunk icd-*.js — tránh JSON.parse trên file lớn."""
+    out: list[tuple[str, str, list[str]]] = []
+    for m in _ICD_JS_ENTRY_RE.finditer(text):
+        ma = m.group(1).strip().upper().rstrip("*")
+        if not ma or not ICD_RE.match(ma):
+            continue
+        ten = m.group(2).strip()
+        tail = text[m.end() : m.end() + 80]
+        fm = re.search(r'"f":\[([^\]]*)\]', tail)
+        flags = re.findall(r'"([^"]+)"', fm.group(1)) if fm else []
+        out.append((ma, ten, flags))
+    return out
+
+
 def load_icd_from_duocthu_data(base: Path | None = None):
-    """Tải ICD-10 từ thuvien/duocthu_data/icd-*.js (TT06 / bộ dược thư PC)."""
+    """Tải ICD-10 từ thuvien/duocthu_data/icd-*.js (TT06 / tab ICD Thư viện tra cứu)."""
     from _update_icd_deep import norm
 
     root = base or Path(__file__).resolve().parent
@@ -164,39 +182,16 @@ def load_icd_from_duocthu_data(base: Path | None = None):
     children: dict[str, list] = defaultdict(list)
     for js in sorted(data_dir.glob("icd-*.js")):
         text = js.read_text(encoding="utf-8", errors="replace")
-        marker = ']=['
-        pos = text.find(marker)
-        if pos < 0:
-            continue
-        arr_text = text[pos + 2 :]
-        depth = 0
-        end = -1
-        for i, ch in enumerate(arr_text):
-            if ch == "[":
-                depth += 1
-            elif ch == "]":
-                depth -= 1
-                if depth == 0:
-                    end = i + 1
-                    break
-        if end <= 0:
-            continue
-        try:
-            items = json.loads(arr_text[:end])
-        except json.JSONDecodeError:
-            continue
-        for x in items:
-            ma = str(x.get("m") or "").strip().upper().rstrip("*")
-            if not ma or not ICD_RE.match(ma):
-                continue
-            ten = str(x.get("t") or "").strip()
-            flag4 = "4" in (x.get("f") or [])
+        for ma, ten, flags in _parse_icd_js_entries(text):
+            flag4 = "4" in flags
             entry = {"ma": ma, "ten": ten, "norm_ten": norm(ten), "flag4": flag4}
-            if ma not in catalog or len(ten) > len(catalog[ma].get("ten", "")):
+            prev = catalog.get(ma)
+            if not prev or len(ten) > len(prev.get("ten", "")):
                 catalog[ma] = entry
-            children[ma.split(".")[0]].append(entry)
     if not catalog:
         return None, None, None
+    for entry in catalog.values():
+        children[entry["ma"].split(".")[0]].append(entry)
     from _qtkt_icd_bridge import _build_long_name_index
 
     return catalog, children, _build_long_name_index(catalog)

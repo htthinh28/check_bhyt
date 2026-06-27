@@ -27,6 +27,8 @@
     "thuvien:prepare": "node ./scripts/prepare_thuvien_static.mjs",
     "qtkt:refresh": "cd thuvien && python3 _refresh_qtkt_full.py",
     "qtkt:reparse-titles": "cd thuvien && python3 _reparse_qtkt_titles.py",
+    "qtkt:reparse-indications": "cd thuvien && python3 _reparse_qtkt_indications.py",
+    "qtkt:reenrich-icd": "cd thuvien && python3 _reenrich_qtkt_icd.py",
     "thuvien:start": "python3 thuvien/dvkt_app/app.py",
     "qa:thuvien": "npm run thuvien:prepare && node ./scripts/smoke_test_thu_vien.mjs",
     "qa:thuvien:flask": "node ./scripts/smoke_test_thu_vien.mjs",
