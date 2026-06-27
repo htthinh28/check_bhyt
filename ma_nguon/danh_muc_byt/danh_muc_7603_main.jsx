@@ -632,6 +632,15 @@ const DanhMucBYTMain = ({ navigation }) => {
         <View style={styles.top_brand_spacer} />
       </View>
 
+      <TouchableOpacity
+        style={styles.banner_thu_vien_pc}
+        onPress={() => navigation.navigate('TraCuuThuVienPC')}
+        activeOpacity={0.85}
+      >
+        <Text style={styles.banner_thu_vien_pc_tieu_de}>📖 Tra cứu DM DVKT & Dược thư (Flask)</Text>
+        <Text style={styles.banner_thu_vien_pc_phu}>QĐ 7603 · TT23 · QTKT · Dược thư PC — chạy npm run thuvien:start</Text>
+      </TouchableOpacity>
+
       {dungSidebarTrai ? (
         <View style={styles.main_split}>
           {khoiChonPhuLuc}
@@ -713,6 +722,16 @@ const styles = StyleSheet.create({
   chu_nut_back_home: { color: '#E3F2FD', fontSize: 14, fontWeight: '800', fontFamily: 'Arial' },
   top_brand_trung_tam: { flex: 1, flexDirection: 'row', alignItems: 'center', justifyContent: 'center', minWidth: 0 },
   top_brand_spacer: { minWidth: 132 },
+  banner_thu_vien_pc: {
+    backgroundColor: '#E8F5E9',
+    borderBottomWidth: 1,
+    borderBottomColor: '#A5D6A7',
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    ...Platform.select({ web: { cursor: 'pointer' } }),
+  },
+  banner_thu_vien_pc_tieu_de: { fontFamily: 'Arial', fontWeight: '800', fontSize: 14, color: '#1B5E20' },
+  banner_thu_vien_pc_phu: { fontFamily: 'Arial', fontSize: 12, color: '#388E3C', marginTop: 4 },
   logo_header: { width: 90, height: 90, borderRadius: 45, marginRight: 20, backgroundColor: '#FFF' },
   top_brand_text_main: { color: '#FFF', fontSize: 32, fontWeight: 'bold', fontFamily: 'Arial', letterSpacing: 0.5, textAlign: 'center' },
   top_brand_text_sub: { color: '#BBDEFB', fontSize: 20, fontFamily: 'Arial', marginTop: 4, fontStyle: 'italic', textAlign: 'center' },

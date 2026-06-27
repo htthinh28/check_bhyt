@@ -439,6 +439,7 @@ const ManHinhTongQuan = ({ navigation }) => {
     { id: 'MOD_DANH_MUC', route: 'QuanLyDanhMuc', ten: '📋 DM NỘI BỘ' },
     { id: 'MOD_MAPPING_DM', route: 'MappingNghiepVu', ten: '🔗 MAPPING DM' },
     { id: 'MOD_DANH_MUC_BYT', route: 'DanhMucBYTMain', ten: '🏥 DM BỘ Y TẾ' },
+    { id: 'MOD_TRA_CUU_PC', route: 'TraCuuThuVienPC', ten: '📖 TRA CỨU DVKT & DƯỢC THƯ' },
     { id: 'MOD_QUAN_LY_LUAT', route: 'QuanLyLuat', ten: '⚙️ QUẢN LÝ LUẬT' },
     { id: 'MOD_QUY_TAC_ON_OFF', route: 'QuanLyQuyTacOnOff', ten: '🎚 QUY TẮC ON/OFF' },
     { id: 'MOD_BAO_CAO_THONG_KE', route: 'BaoCaoVaThongKe', ten: '📊 BÁO CÁO' },

@@ -171,13 +171,17 @@ def data(tab_id: str):
 
 
 def main():
+    import os
+
     if not DATA_DIR.is_dir():
         print("Chua co du lieu. Chay: python _extract_dvkt_data.py")
         sys.exit(1)
     warmup_cache()
-    print("Mo trinh duyet: http://127.0.0.1:5050")
-    print("Duoc thu:      http://127.0.0.1:5050/duocthu")
-    app.run(host="127.0.0.1", port=5050, debug=False, threaded=True)
+    host = os.environ.get("CDSS_THUVIEN_HOST", "127.0.0.1").strip() or "127.0.0.1"
+    port = int(os.environ.get("CDSS_THUVIEN_PORT", "5050") or "5050")
+    print(f"Mo trinh duyet: http://{host}:{port}")
+    print(f"Duoc thu:      http://{host}:{port}/duocthu")
+    app.run(host=host, port=port, debug=False, threaded=True)
 
 
 if __name__ == "__main__":

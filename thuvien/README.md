@@ -2,7 +2,26 @@
 
 Danh mục DVKT (QĐ 7603, TT23, QTKT, ICD-10) và Dược thư Phương Châu.
 
-## Chạy nhanh
+Repo này được **nhúng trong** [`check_bhyt`](https://github.com/htthinh28/check_bhyt) tại thư mục `thuvien/`.
+
+## Chạy từ repo CDSS (khuyến nghị)
+
+```bash
+npm run thuvien:install   # một lần
+npm run thuvien:start     # Flask cổng 5050
+npm run qa:thuvien        # smoke test
+```
+
+Trong app CDSS: **Tổng quan → 📖 TRA CỨU DVKT & DƯỢC THƯ** hoặc **📚 Thư viện → DVKT & Dược thư PC**.
+
+Cấu hình URL (điện thoại thật / LAN): `app.json` → `expo.extra.thuvienTraCuu.baseUrl` (ví dụ `http://192.168.1.10:5050`).
+
+Biến môi trường khi chạy Flask:
+
+- `CDSS_THUVIEN_HOST` — mặc định `127.0.0.1`; đặt `0.0.0.0` để lắng nghe LAN
+- `CDSS_THUVIEN_PORT` — mặc định `5050`
+
+## Chạy nhanh (Windows)
 
 ```bat
 run_dvkt.bat
@@ -17,9 +36,10 @@ Mở trình duyệt:
 
 Thư mục `data/qtkt_source/` không nằm trong git (dung lượng lớn). Sau khi clone:
 
-```bat
-python _download_qtkt_sources.py
-python _merge_qtkt_mapping.py
+```bash
+cd thuvien
+python3 _download_qtkt_sources.py
+python3 _merge_qtkt_mapping.py
 ```
 
 ## Cấu trúc chính

@@ -56,6 +56,7 @@ import ManHinhThuVien from '../man_hinh/thu_vien';
 import ManHinhTriThucTuGiamDinh from '../man_hinh/tri_thuc_tu_giam_dinh';
 import ManHinhTroLyTriThucChat from '../man_hinh/tro_ly_tri_thuc_chat';
 import CongTiepNhanHIS from '../man_hinh/cong_tiep_nhan_his';
+import TraCuuThuVienPC from '../man_hinh/tra_cuu_thu_vien_pc';
 
 import { CAU_HINH_LIEN_KET } from './cau_hinh_lien_ket';
 
@@ -208,7 +209,8 @@ const DieuHuongChinh = () => {
         <Stack.Screen name="QuanLyQuyTacOnOff" component={ManHinhQuanLyQuyTacOnOff} />
         <Stack.Screen name="QuanLyDanhMuc" component={ManHinhQuanLyDanhMuc} />
         <Stack.Screen name="MappingNghiepVu" component={MappingNghiepVu} />
-        <Stack.Screen name="DanhMucBYTMain" component={DanhMucBYTMain} /> 
+        <Stack.Screen name="DanhMucBYTMain" component={DanhMucBYTMain} />
+        <Stack.Screen name="TraCuuThuVienPC" component={TraCuuThuVienPC} />
         <Stack.Screen name="QuanLyChuyenMon" component={QuanLyChuyenMon} />
         <Stack.Screen name="ThuVien" component={ManHinhThuVien} />
         <Stack.Screen name="TriThucTuGiamDinh" component={ManHinhTriThucTuGiamDinh} />

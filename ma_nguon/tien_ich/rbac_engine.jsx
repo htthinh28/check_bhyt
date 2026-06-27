@@ -53,6 +53,7 @@ const DEFAULT_RESOURCES = [
   { id: 'RES_PHAN_QUYEN', name: 'Quản trị phân quyền', moduleId: 'MOD_ACL', route: 'PhanQuyenTruyCap', actions: ['VIEW', 'CREATE', 'UPDATE', 'DELETE'] },
   { id: 'RES_HELPER', name: 'Helper vận hành', moduleId: 'MOD_HELPER', route: 'Helper', actions: ['VIEW'] },
   { id: 'RES_THU_VIEN', name: 'Thư viện tài liệu', moduleId: 'MOD_THU_VIEN', route: 'ThuVien', actions: ['VIEW'] },
+  { id: 'RES_TRA_CUU_THU_VIEN_PC', name: 'Tra cứu DVKT & Dược thư PC', moduleId: 'MOD_TRA_CUU_PC', route: 'TraCuuThuVienPC', actions: ['VIEW'] },
   { id: 'RES_TRO_LY_TRI_THUC', name: 'Trợ lý tri thức kiểm tra (RAG nội bộ)', moduleId: 'MOD_TRO_LY_TRI_THUC', route: 'TroLyTriThuc', actions: ['VIEW'] },
   { id: 'RES_XML1', name: 'XML1', moduleId: null, route: 'XML1', actions: ['VIEW', 'CREATE', 'UPDATE', 'DELETE', 'EXPORT'] },
   { id: 'RES_XML2', name: 'XML2', moduleId: null, route: 'XML2', actions: ['VIEW', 'CREATE', 'UPDATE', 'DELETE', 'EXPORT'] },
@@ -210,7 +211,7 @@ const taoMatrixMacDinh = (roles, resources) => {
       });
     }
 
-    if (res.moduleId === 'MOD_THU_VIEN') {
+    if (res.moduleId === 'MOD_THU_VIEN' || res.moduleId === 'MOD_TRA_CUU_PC') {
       ['ROLE_DOCTOR', 'ROLE_NURSE', 'ROLE_ACCOUNTANT', 'ROLE_QUALITY_MANAGER', 'ROLE_HEAD_OF_DEPT'].forEach((r) => {
         if (!has(r, 'VIEW')) set(r, 'VIEW', true);
       });

@@ -18,6 +18,7 @@ export const CAU_HINH_LIEN_KET = {
       QuanLyDanhMuc: 'master-data',
       MappingNghiepVu: 'mapping-nghiep-vu',
       DanhMucBYTMain: 'danh-muc-byt',
+      TraCuuThuVienPC: 'tra-cuu-thu-vien-pc',
       PhanQuyenTruyCap: 'permissions',
       QuanLyChuyenMon: 'clinical-guidelines',
       ThuVien: 'thu-vien',

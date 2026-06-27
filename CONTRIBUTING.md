@@ -18,13 +18,13 @@ Tài liệu này cung cấp hướng dẫn về cách đóng góp cho dự án.
 ```bash
 # Trên GitHub UI, click "Fork" button
 # Hoặc dùng GitHub CLI
-gh repo fork HttphinH28/ung-dung-cdss-bhyt --clone
+gh repo fork htthinh28/check_bhyt --clone
 ```
 
 ### 2. Clone Fork Của Bạn
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/ung-dung-cdss-bhyt.git
+git clone https://github.com/YOUR_USERNAME/check_bhyt.git
 cd ung_dung_cdss_bhyt
 ```
 

@@ -53,6 +53,12 @@
         "baseUrl": "",
         "timeoutMs": 20000,
         "chatTimeoutMs": 120000
+      },
+      "thuvienTraCuu": {
+        "enabled": true,
+        "baseUrl": "",
+        "port": 5050,
+        "timeoutMs": 12000
       }
     },
     "plugins": [

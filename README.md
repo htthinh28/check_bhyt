@@ -172,6 +172,22 @@ The sample audit endpoint currently returns:
 
 This is a safe scaffold to start moving selected processing from the app into Python without breaking the current local audit flow.
 
+## Thư viện tra cứu DVKT & Dược thư (`thuvien/`)
+
+Flask app phục vụ tra cứu **DM DVKT** (QĐ 7603, TT23, QTKT) và **Dược thư Phương Châu** — chạy song song với Expo (8081) và Python audit (8000).
+
+```bash
+npm run thuvien:install
+npm run thuvien:start
+npm run qa:thuvien
+```
+
+- DVKT: http://127.0.0.1:5050/
+- Dược thư: http://127.0.0.1:5050/duocthu
+- Trong app: màn **📖 TRA CỨU DVKT & DƯỢC THƯ** (Tổng quan) hoặc liên kết từ **DM Bộ Y tế** / **📚 Thư viện**
+- Cấu hình: `app.json` → `extra.thuvienTraCuu` (baseUrl, port, timeoutMs)
+- Chi tiết: [`thuvien/README.md`](thuvien/README.md)
+
 ## Offline web export — gói cập nhật delta (nội bộ)
 
 Sau `npm run desktop:export`, thư mục `dist/` là bản web tĩnh có thể đặt trên máy chủ nội bộ (offline). Để **chỉ đóng gói phần thay đổi** so với lần đóng gói trước (và áp lên bản cũ như bản vá):
