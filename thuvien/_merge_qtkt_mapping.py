@@ -7,8 +7,8 @@ import os
 import sys
 from pathlib import Path
 
-from _dvkt_data_io import DATASET_IDS, DEFAULT_DATA_DIR, load_dataset, save_dataset
-from _merge_tt23_mapping import name_similarity, norm_code, norm_text
+from _dvkt_data_io import DEFAULT_DATA_DIR, load_dataset, save_dataset
+from _qtkt_dvkt_bridge import link_qtkt_row, load_mapping_context, is_polluted_tt23_name
 from _qtkt_icd_bridge import _build_long_name_index, apply_qtkt_icd_fields, validate_icd_fields
 from _parse_qtkt_pdf import audit_qtkt_sources, parse_qtkt_pdf
 from _update_icd_deep import try_load_xlsx
@@ -28,6 +28,8 @@ QTKT_COLUMNS = [
     {"key": "maKyThuat", "label": "Mã kỹ thuật (TT23)", "type": "text"},
     {"key": "tenKyThuat", "label": "Tên kỹ thuật (quy trình)", "type": "text"},
     {"key": "tenKyThuatTT23", "label": "Tên kỹ thuật TT23", "type": "text"},
+    {"key": "phuLucTT23", "label": "Phụ lục TT23", "type": "text"},
+    {"key": "chuongTT23", "label": "Chương TT23", "type": "text"},
     {"key": "maICDChiDinh", "label": "Mã ICD-10 chỉ định", "type": "text"},
     {"key": "tenBenhICDChiDinh", "label": "Tên bệnh ICD chỉ định", "type": "text"},
     {"key": "maICDChongChiDinh", "label": "Mã ICD-10 chống chỉ định", "type": "text"},
@@ -47,6 +49,12 @@ QTKT_COLUMNS = [
     {"key": "maTT43", "label": "Mã TT43 (QĐ7603)", "type": "text"},
     {"key": "maTuongDuong", "label": "Mã tương đương", "type": "text"},
     {"key": "tenTT43", "label": "Tên QĐ7603", "type": "text"},
+    {"key": "maDichVuBV", "label": "Mã DVKT bệnh viện", "type": "text"},
+    {"key": "tenDichVuBV", "label": "Tên DVKT bệnh viện", "type": "text"},
+    {"key": "benhVienDVKT", "label": "Nguồn DM bệnh viện", "type": "text"},
+    {"key": "doTinCayMappingBV", "label": "Độ tin cậy DM BV", "type": "text"},
+    {"key": "ghiChuMappingBV", "label": "Ghi chú DM BV", "type": "text"},
+    {"key": "ghiChuMapping", "label": "Ghi chú mapping pháp lý", "type": "text"},
     {"key": "lienKetTT23", "label": "Mã TT23 liên kết", "type": "text"},
     {"key": "doTinCayMapping", "label": "Độ tin cậy mapping", "type": "text"},
     {"key": "tagsMapping", "label": "Thẻ mapping", "type": "computed"},
@@ -75,125 +83,13 @@ def load_icd_catalog() -> tuple[dict, dict, list[tuple[str, dict]]] | tuple[None
     return None, None, None
 
 
-def index_pl1(rows: list[dict]) -> dict[str, dict]:
-    by_ma43: dict[str, dict] = {}
-    by_ma7603: dict[str, dict] = {}
-    by_ten: dict[str, dict] = {}
-    for row in rows:
-        m43 = norm_code(row.get("maTT43", ""))
-        if m43:
-            by_ma43[m43] = row
-        m76 = row.get("maTuongDuong", "")
-        if m76:
-            by_ma7603[m76] = row
-        tn = norm_text(row.get("tenTT43", ""))
-        if tn:
-            by_ten[tn] = row
-    return {"by_ma43": by_ma43, "by_ma7603": by_ma7603, "by_ten": by_ten}
-
-
-def index_tt23(rows: list[dict]) -> dict[str, dict]:
-    by_ma: dict[str, dict] = {}
-    by_ten: dict[str, dict] = {}
-    by_stt: dict[str, dict] = {}
-    for row in rows:
-        ma = norm_code(row.get("maKyThuat", ""))
-        if ma:
-            by_ma[ma] = row
-        stt = str(row.get("stt", "")).strip()
-        if stt:
-            by_stt[stt] = row
-        tn = norm_text(row.get("tenKyThuat", ""))
-        if tn:
-            by_ten[tn] = row
-    return {"by_ma": by_ma, "by_ten": by_ten, "by_stt": by_stt}
-
-
-def find_tt23_match(row: dict, tt23_pl1: dict, tt23_pl2: dict) -> tuple[dict | None, str]:
-    """Tìm dòng TT23 (PL1 hoặc PL2) theo mã / STT / tên."""
-    ma = norm_code(row.get("maKyThuat", ""))
-    name = norm_text(row.get("tenKyThuat", "") or row.get("tenKyThuatTT23", ""))
-    stt = str(row.get("sttKyThuat", "")).strip()
-
-    for idx, label in ((tt23_pl1, "PL1"), (tt23_pl2, "PL2")):
-        if ma and ma in idx["by_ma"]:
-            return idx["by_ma"][ma], label
-        if stt and stt in idx["by_stt"]:
-            return idx["by_stt"][stt], label
-    if ma and ma.isdigit():
-        for idx, label in ((tt23_pl1, "PL1"), (tt23_pl2, "PL2")):
-            if ma in idx["by_stt"]:
-                return idx["by_stt"][ma], label
-    if name:
-        for idx, label in ((tt23_pl1, "PL1"), (tt23_pl2, "PL2")):
-            if name in idx["by_ten"]:
-                return idx["by_ten"][name], label
-        best = None
-        best_score = 0.0
-        for idx, label in ((tt23_pl1, "PL1"), (tt23_pl2, "PL2")):
-            for cand in idx["by_ten"].values():
-                sc = name_similarity(name, norm_text(cand.get("tenKyThuat", "")))
-                if sc > best_score:
-                    best_score = sc
-                    best = (cand, label)
-        if best and best_score >= 0.82:
-            return best[0], best[1]
-    return None, ""
-
-
-def link_qtkt_row(row: dict, tt23_pl1: dict, tt23_pl2: dict, pl1_idx: dict) -> dict:
-    tt23, src = find_tt23_match(row, tt23_pl1, tt23_pl2)
-    pl1 = None
-    conf = "Thấp"
-    if tt23:
-        row["lienKetTT23"] = tt23.get("maKyThuat", "")
-        row["tenKyThuatTT23"] = row.get("tenKyThuatTT23") or tt23.get("tenKyThuat", "")
-        link = tt23.get("lienKetQD7603", "")
-        if link and link in pl1_idx["by_ma7603"]:
-            pl1 = pl1_idx["by_ma7603"][link]
-        elif norm_code(row.get("maKyThuat", "")) in pl1_idx["by_ma43"]:
-            pl1 = pl1_idx["by_ma43"][norm_code(row.get("maKyThuat", ""))]
-        conf = "Cao" if link else ("Trung bình" if src else "Thấp")
-    if not tt23:
-        tn = norm_text(row.get("tenKyThuat", "") or row.get("tenKyThuatTT23", ""))
-        ma43 = norm_code(row.get("maKyThuat", ""))
-        if ma43 and ma43 in pl1_idx["by_ma43"]:
-            pl1 = pl1_idx["by_ma43"][ma43]
-            conf = "Trung bình"
-        elif tn:
-            sc_best = 0.0
-            for cand in pl1_idx["by_ten"].values():
-                sc = name_similarity(tn, norm_text(cand.get("tenTT43", "")))
-                if sc > sc_best:
-                    sc_best = sc
-                    if sc >= 0.82:
-                        pl1 = cand
-            if pl1:
-                conf = "Trung bình"
-    if pl1:
-        row["lienKetQD7603"] = pl1.get("maTuongDuong", "")
-        row["maTT43"] = pl1.get("maTT43", "")
-        row["maTuongDuong"] = pl1.get("maTuongDuong", "")
-        row["tenTT43"] = pl1.get("tenTT43", "")
-        if conf != "Cao":
-            conf = "Cao" if row.get("lienKetTT23") else "Trung bình"
-    row["doTinCayMapping"] = conf if (row.get("lienKetTT23") or row.get("lienKetQD7603")) else ""
-    return row
-
-
 def enrich_qtkt_rows(
     rows: list[dict],
     catalog: dict | None,
     children: dict | None,
     long_names: list[tuple[str, dict]] | None = None,
 ) -> list[dict]:
-    pl1_pack = load_dataset("pl1", DEFAULT_DATA_DIR)
-    tt23_pl1_pack = load_dataset("tt23pl1", DEFAULT_DATA_DIR)
-    tt23_pl2_pack = load_dataset("tt23pl2", DEFAULT_DATA_DIR)
-    pl1_idx = index_pl1(pl1_pack["rows"] if pl1_pack else [])
-    tt23_pl1 = index_tt23(tt23_pl1_pack["rows"] if tt23_pl1_pack else [])
-    tt23_pl2 = index_tt23(tt23_pl2_pack["rows"] if tt23_pl2_pack else [])
-
+    ctx = load_mapping_context()
     out: list[dict] = []
     for i, row in enumerate(rows, start=1):
         from _qtkt_normalize import normalize_qtkt_row
@@ -202,7 +98,7 @@ def enrich_qtkt_rows(
         row["stt"] = i
         if catalog and children:
             apply_qtkt_icd_fields(row, catalog, children, long_names)
-        row = link_qtkt_row(row, tt23_pl1, tt23_pl2, pl1_idx)
+        row = link_qtkt_row(row, ctx)
         row["_rowId"] = f"qtkt-{row.get('quyTrinhSo','')}-{row.get('maKyThuat','')}-{row.get('tenFileNguon','')[:12]}"
         out.append(row)
     return out
@@ -222,9 +118,10 @@ def update_manifest(columns: list[dict], *, version: str | None = None, row_coun
     meta["quytrinhkt"] = {
         "nguon": "Quy trình kỹ thuật ban hành kèm QĐ-BYT theo chuyên khoa (2025–2026)",
         "canCuPhapLy": [
-            "TT 32/2023/TT-BYT — điều kiện thực hiện & thanh toán DVKT",
+            "TT 23/2024/TT-BYT — danh mục kỹ thuật (PL1/PL2)",
             "QĐ 7603/QĐ-BYT — danh mục DVKT",
             "ICD-10 (TT06/QĐ 3176) — chỉ định / chống chỉ định",
+            "Danh mục DVKT bệnh viện (PCST · PCCT · PSD)",
         ],
         "capNhat": version or manifest.get("version", ""),
         "soQuyTrinh": row_count,
@@ -342,11 +239,15 @@ def main() -> None:
     log(f"Quy trinh: {len(rows)} ban ghi")
     linked_tt23 = sum(1 for r in rows if r.get("lienKetTT23"))
     linked_7603 = sum(1 for r in rows if r.get("lienKetQD7603"))
+    linked_bv = sum(1 for r in rows if r.get("maDichVuBV"))
+    official_tt23 = sum(1 for r in rows if r.get("tenKyThuatTT23") and not is_polluted_tt23_name(r.get("tenKyThuatTT23", "")))
+    polluted_tt23 = sum(1 for r in rows if is_polluted_tt23_name(r.get("tenKyThuatTT23", "")))
     has_icd = sum(1 for r in rows if r.get("maICDChiDinh"))
     has_icd_cc = sum(1 for r in rows if r.get("maICDChongChiDinh"))
     has_chi_text = sum(1 for r in rows if r.get("chiDinh"))
     icd_issues = sum(1 for r in rows if catalog and validate_icd_fields(r, catalog))
-    log(f"Lien ket TT23: {linked_tt23} | QD7603: {linked_7603}")
+    log(f"Lien ket TT23: {linked_tt23} | QD7603: {linked_7603} | DM BV: {linked_bv}")
+    log(f"Ten TT23 chinh thuc: {official_tt23} | Ten TT23 nhieu (can sua): {polluted_tt23}")
     log(f"Co van ban chi dinh: {has_chi_text} | ICD chi dinh: {has_icd} | ICD chong chi dinh: {has_icd_cc}")
     if icd_issues:
         log(f"Canh bao validate ICD: {icd_issues} ban ghi")

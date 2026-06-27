@@ -1182,6 +1182,16 @@
         "type": "text"
       },
       {
+        "key": "phuLucTT23",
+        "label": "Phụ lục TT23",
+        "type": "text"
+      },
+      {
+        "key": "chuongTT23",
+        "label": "Chương TT23",
+        "type": "text"
+      },
+      {
         "key": "maICDChiDinh",
         "label": "Mã ICD-10 chỉ định",
         "type": "text"
@@ -1277,6 +1287,36 @@
         "type": "text"
       },
       {
+        "key": "maDichVuBV",
+        "label": "Mã DVKT bệnh viện",
+        "type": "text"
+      },
+      {
+        "key": "tenDichVuBV",
+        "label": "Tên DVKT bệnh viện",
+        "type": "text"
+      },
+      {
+        "key": "benhVienDVKT",
+        "label": "Nguồn DM bệnh viện",
+        "type": "text"
+      },
+      {
+        "key": "doTinCayMappingBV",
+        "label": "Độ tin cậy DM BV",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuMappingBV",
+        "label": "Ghi chú DM BV",
+        "type": "text"
+      },
+      {
+        "key": "ghiChuMapping",
+        "label": "Ghi chú mapping pháp lý",
+        "type": "text"
+      },
+      {
         "key": "lienKetTT23",
         "label": "Mã TT23 liên kết",
         "type": "text"
@@ -1297,9 +1337,10 @@
     "quytrinhkt": {
       "nguon": "Quy trình kỹ thuật ban hành kèm QĐ-BYT theo chuyên khoa (2025–2026)",
       "canCuPhapLy": [
-        "TT 32/2023/TT-BYT — điều kiện thực hiện & thanh toán DVKT",
+        "TT 23/2024/TT-BYT — danh mục kỹ thuật (PL1/PL2)",
         "QĐ 7603/QĐ-BYT — danh mục DVKT",
-        "ICD-10 (TT06/QĐ 3176) — chỉ định / chống chỉ định"
+        "ICD-10 (TT06/QĐ 3176) — chỉ định / chống chỉ định",
+        "Danh mục DVKT bệnh viện (PCST · PCCT · PSD)"
       ],
       "capNhat": "2026-06-27",
       "soQuyTrinh": 3160,

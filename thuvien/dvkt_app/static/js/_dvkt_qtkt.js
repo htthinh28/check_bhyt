@@ -26,7 +26,8 @@
       bar.innerHTML = `
         <div class="w-full mb-2 px-3 py-2 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-950 leading-relaxed">
           <strong>Quy trình kỹ thuật BYT (2025–2026):</strong> trích từ QĐ-BYT từng chuyên khoa · liên kết
-          <strong>TT 32/2023</strong> (DVKT) · <strong>QĐ 7603</strong> · <strong>ICD-10 TT06</strong>.
+          <strong>TT 23/2024/TT-BYT</strong> (tên kỹ thuật) · <strong>QĐ 7603/QĐ-BYT</strong> (DVKT) ·
+          <strong>DM bệnh viện</strong> · <strong>ICD-10 TT06</strong>.
           §2 Chỉ định · §3 Chống chỉ định · §5.1 Nhân sự · §5.6 Thời gian.
         </div>
         <span class="text-xs font-bold uppercase text-amber-800 tracking-wide">Hiển thị quy trình:</span>
@@ -83,6 +84,16 @@
       const tags = [];
       if (row.lienKetQD7603) tags.push(`<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-100 text-rose-800 border border-rose-200">QĐ7603 ${escapeQtktHtml(row.maTT43 || row.lienKetQD7603)}</span>`);
       if (row.lienKetTT23) tags.push(`<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200">TT23 ${escapeQtktHtml(row.lienKetTT23)}</span>`);
+      if (row.maDichVuBV) tags.push(`<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-sky-100 text-sky-800 border border-sky-200" title="${escapeQtktHtml(row.benhVienDVKT || '')}">DM BV ${escapeQtktHtml(row.maDichVuBV)}</span>`);
+      if (row.doTinCayMapping) tags.push(`<span class="px-2 py-0.5 text-[10px] font-semibold rounded-full bg-white/20 border border-white/40">${escapeQtktHtml(row.doTinCayMapping)}</span>`);
+      const mappingBlock = (row.tenKyThuatTT23 || row.tenTT43) ? `
+            <section class="rounded-xl border border-emerald-200 bg-emerald-50/50 p-3">
+              <p class="text-[10px] font-bold uppercase text-emerald-800 mb-1">Tên theo văn bản pháp luật</p>
+              ${row.tenKyThuatTT23 ? `<p class="text-xs"><span class="font-semibold text-emerald-900">TT23:</span> ${escapeQtktHtml(row.tenKyThuatTT23)}</p>` : ''}
+              ${row.tenTT43 ? `<p class="text-xs mt-1"><span class="font-semibold text-rose-900">QĐ7603:</span> ${escapeQtktHtml(row.tenTT43)}</p>` : ''}
+              ${row.tenDichVuBV ? `<p class="text-xs mt-1"><span class="font-semibold text-sky-900">DM BV${row.benhVienDVKT ? ' (' + escapeQtktHtml(row.benhVienDVKT) + ')' : ''}:</span> ${escapeQtktHtml(row.tenDichVuBV)}</p>` : ''}
+              ${row.ghiChuMapping ? `<p class="text-[10px] text-slate-500 mt-1 italic">${escapeQtktHtml(row.ghiChuMapping)}</p>` : ''}
+            </section>` : '';
       return `
         <article class="qtkt-info-card border border-amber-200 rounded-2xl bg-gradient-to-br from-white to-amber-50/40 shadow-sm overflow-hidden">
           <header class="px-4 py-3 bg-amber-600/90 text-white">
@@ -99,6 +110,7 @@
             <div class="flex flex-wrap gap-1 mt-2">${tags.join('')}</div>
           </header>
           <div class="p-4 space-y-3 text-sm">
+            ${mappingBlock}
             <section>
               <p class="text-[10px] font-bold uppercase text-emerald-700 mb-1">Chỉ định · ICD-10</p>
               <div class="flex flex-wrap mb-1">${renderQtktIcdChips(row.maICDChiDinh, row.tenBenhICDChiDinh, 'chi')}</div>
@@ -166,10 +178,16 @@
     function renderQtktMappingBadges(item) {
       const parts = [];
       if (item.lienKetQD7603) {
-        parts.push(`<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-100 text-rose-800 border border-rose-200" title="QĐ7603">7603 ${escapeQtktHtml(item.maTT43 || item.lienKetQD7603)}</span>`);
+        const tip = item.tenTT43 ? `${item.tenTT43}` : 'QĐ7603';
+        parts.push(`<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-rose-100 text-rose-800 border border-rose-200" title="${escapeQtktHtml(tip)}">7603 ${escapeQtktHtml(item.maTT43 || item.lienKetQD7603)}</span>`);
       }
       if (item.lienKetTT23) {
-        parts.push(`<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200" title="TT23">TT23 ${escapeQtktHtml(item.lienKetTT23)}</span>`);
+        const tip = item.tenKyThuatTT23 || `TT23 ${item.lienKetTT23}`;
+        parts.push(`<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-800 border border-emerald-200" title="${escapeQtktHtml(tip)}">TT23 ${escapeQtktHtml(item.lienKetTT23)}</span>`);
+      }
+      if (item.maDichVuBV) {
+        const tip = [item.tenDichVuBV, item.benhVienDVKT].filter(Boolean).join(' · ');
+        parts.push(`<span class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-sky-100 text-sky-800 border border-sky-200" title="${escapeQtktHtml(tip)}">BV ${escapeQtktHtml(item.maDichVuBV)}</span>`);
       }
       if (item.doTinCayMapping) {
         const cls = item.doTinCayMapping === 'Cao' ? 'bg-emerald-50 text-emerald-800' : 'bg-amber-50 text-amber-800';

@@ -131,24 +131,19 @@ def normalize_so_quyet_dinh(so: str) -> str:
 def normalize_qtkt_row(row: dict) -> dict:
     row = dict(row)
     row["tenKyThuat"] = dedupe_title(row.get("tenKyThuat", ""))
-    tt23 = dedupe_title(row.get("tenKyThuatTT23", "") or row.get("tenKyThuat", ""))
-    row["tenKyThuatTT23"] = tt23
+    from _qtkt_dvkt_bridge import is_polluted_tt23_name
+
+    tt23_raw = (row.get("tenKyThuatTT23") or "").strip()
+    if is_polluted_tt23_name(tt23_raw):
+        row["tenKyThuatTT23"] = ""
+    elif tt23_raw:
+        row["tenKyThuatTT23"] = dedupe_title(tt23_raw)
     row["chuyenKhoa"] = normalize_chuyen_khoa(row)
     row["soQuyetDinh"] = normalize_so_quyet_dinh(row.get("soQuyetDinh", ""))
     if row.get("chiDinh"):
         row["chiDinh"] = re.sub(r"\n{3,}", "\n\n", row["chiDinh"]).strip()
     if row.get("chongChiDinh"):
         row["chongChiDinh"] = re.sub(r"\n{3,}", "\n\n", row["chongChiDinh"]).strip()
-    tags = []
-    if row.get("lienKetQD7603"):
-        tags.append("QĐ7603")
-    if row.get("lienKetTT23"):
-        tags.append("TT23")
-    if row.get("maICDChiDinh"):
-        tags.append("ICD-10")
-    if row.get("doTinCayMapping"):
-        tags.append(row["doTinCayMapping"])
-    row["tagsMapping"] = "; ".join(tags)
     return row
 
 
