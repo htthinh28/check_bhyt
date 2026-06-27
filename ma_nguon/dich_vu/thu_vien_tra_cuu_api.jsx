@@ -1,12 +1,19 @@
 import Constants from 'expo-constants';
 import { Platform } from 'react-native';
 
+const THUVIEN_WEB_PREFIX = '/thuvien';
+
 const layExtraExpo = () => (
   Constants.expoConfig?.extra
   || Constants.manifest2?.extra
   || Constants.manifest?.extra
   || {}
 );
+
+const layOriginWeb = () => {
+  if (Platform.OS !== 'web' || typeof window === 'undefined') return '';
+  return String(window.location?.origin || '').trim().replace(/\/$/, '');
+};
 
 const layHostMayPhatTrien = () => {
   const hostUri = String(
@@ -39,25 +46,34 @@ const mayAnhLoopbackAndroidGiaLap = (baseUrl) => {
   return trimmed;
 };
 
+/** Web/Vercel: static cùng origin. Native dev: Flask tùy chọn qua baseUrl. */
 export const thuVienTraCuuConfig = () => {
   const extra = layExtraExpo();
   const cfg = extra?.thuvienTraCuu || {};
   const port = Number(cfg.port) > 0 ? Number(cfg.port) : 5050;
   const configured = String(cfg.baseUrl || '').trim().replace(/\/$/, '');
+  const webOrigin = layOriginWeb();
   let baseUrl;
-  if (configured) {
+  let mode = 'static';
+
+  if (webOrigin) {
+    baseUrl = `${webOrigin}${THUVIEN_WEB_PREFIX}`;
+  } else if (configured) {
     baseUrl = configured;
+    mode = 'flask';
   } else {
     const devHost = layHostMayPhatTrien();
     if (devHost) baseUrl = `http://${devHost}:${port}`;
     else if (Platform.OS === 'android') baseUrl = `http://10.0.2.2:${port}`;
     else baseUrl = `http://127.0.0.1:${port}`;
+    mode = 'flask';
   }
   baseUrl = mayAnhLoopbackAndroidGiaLap(baseUrl);
   const timeoutMs = Number(cfg.timeoutMs) > 0 ? Number(cfg.timeoutMs) : 12000;
   return {
     enabled: cfg.enabled !== false,
     baseUrl,
+    mode,
     dvktUrl: `${baseUrl}/`,
     duocThuUrl: `${baseUrl}/duocthu`,
     timeoutMs,
@@ -98,6 +114,7 @@ export const healthCheckThuVienTraCuu = async () => {
     const ok = manifest.ok && duocthu.ok;
     return {
       ok,
+      mode: cfg.mode,
       baseUrl: cfg.baseUrl,
       dvktUrl: cfg.dvktUrl,
       duocThuUrl: cfg.duocThuUrl,
@@ -115,16 +132,21 @@ export const healthCheckThuVienTraCuu = async () => {
       },
       message: ok
         ? `Thư viện tra cứu sẵn sàng (${tabs.length} tab DVKT).`
-        : 'Thư viện tra cứu chưa phản hồi đủ — chạy npm run thuvien:start trên máy chủ.',
+        : cfg.mode === 'static'
+          ? 'Thư viện chưa sẵn sàng — chạy npm run thuvien:prepare rồi build lại web.'
+          : 'Thư viện chưa phản hồi — chạy npm run thuvien:start (Flask dev).',
     };
   } catch (error) {
     const msg = error?.name === 'AbortError' ? 'Timeout' : (error?.message || String(error));
     return {
       ok: false,
+      mode: cfg.mode,
       baseUrl: cfg.baseUrl,
       dvktUrl: cfg.dvktUrl,
       duocThuUrl: cfg.duocThuUrl,
-      message: `Không kết nối được Thư viện tra cứu: ${msg}. Chạy: npm run thuvien:start`,
+      message: cfg.mode === 'static'
+        ? `Không tải được Thư viện: ${msg}. Chạy: npm run thuvien:prepare`
+        : `Không kết nối Flask: ${msg}. Chạy: npm run thuvien:start`,
     };
   }
 };

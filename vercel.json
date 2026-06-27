@@ -12,7 +12,7 @@
   },
   "rewrites": [
     {
-      "source": "/((?!_expo|assets|favicon\\.ico|tai_lieu/).*)",
+      "source": "/((?!_expo|assets|favicon\\.ico|tai_lieu/|thuvien/).*)",
       "destination": "/index.html"
     }
   ]

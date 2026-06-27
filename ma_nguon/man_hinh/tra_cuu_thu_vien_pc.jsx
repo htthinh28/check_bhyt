@@ -1,6 +1,6 @@
 /**
  * Tra cứu Thư viện PC — DM DVKT (QĐ 7603, TT23, QTKT) và Dược thư Phương Châu.
- * Flask service trong thuvien/ (cổng 5050); mở tab trình duyệt hoặc nhúng iframe trên web.
+ * Web/Vercel: static cùng origin (/thuvien). Native dev: Flask tùy chọn.
  */
 import { useCallback, useEffect, useState } from 'react';
 import {
@@ -46,7 +46,7 @@ const TraCuuThuVienPC = ({ navigation }) => {
   const { width: beRong } = useWindowDimensions();
   const cfg = thuVienTraCuuConfig();
   const [probe, setProbe] = useState({ loading: true, ketQua: null });
-  const [nhungWeb, setNhungWeb] = useState(false);
+  const [nhungWeb, setNhungWeb] = useState(Platform.OS === 'web');
 
   const chayKiemTra = useCallback(async () => {
     setProbe({ loading: true, ketQua: null });
@@ -59,6 +59,7 @@ const TraCuuThuVienPC = ({ navigation }) => {
   }, [chayKiemTra]);
 
   const ok = probe.ketQua?.ok === true;
+  const laStatic = cfg.mode === 'static';
 
   return (
     <SafeAreaView style={styles.vung_an_toan}>
@@ -71,18 +72,16 @@ const TraCuuThuVienPC = ({ navigation }) => {
 
       <ScrollView contentContainerStyle={styles.noi_dung}>
         <View style={styles.the}>
-          <Text style={styles.tieu_de_the}>Trạng thái dịch vụ Flask</Text>
+          <Text style={styles.tieu_de_the}>Thư viện tra cứu</Text>
           <Text style={styles.dong_mo_ta}>
-            Base URL:
-            {' '}
-            <Text style={styles.ma}>{cfg.baseUrl}</Text>
+            {laStatic ? 'Chạy trực tiếp trên web — không cần Flask.' : 'Chế độ Flask (dev / native).'}
           </Text>
           {probe.loading ? (
             <ActivityIndicator color={CD.mau_chinh} style={{ marginTop: 12 }} />
           ) : (
             <>
               <View style={[styles.badge, ok ? styles.badge_ok : styles.badge_loi]}>
-                <Text style={styles.badge_text}>{ok ? 'SẴN SÀNG' : 'CHƯA KẾT NỐI'}</Text>
+                <Text style={styles.badge_text}>{ok ? 'SẴN SÀNG' : 'CHƯA SẴN SÀNG'}</Text>
               </View>
               <Text style={styles.dong_mo_ta}>{probe.ketQua?.message || ''}</Text>
               {probe.ketQua?.manifest?.tabCount != null ? (
@@ -130,15 +129,16 @@ const TraCuuThuVienPC = ({ navigation }) => {
           </View>
         ) : null}
 
-        <View style={styles.the}>
-          <Text style={styles.tieu_de_the}>Vận hành (máy chủ nội bộ)</Text>
-          <Text style={styles.huong_dan}>
-            {'1. Cài Python: npm run thuvien:install\n'}
-            {'2. Khởi động: npm run thuvien:start\n'}
-            {'3. Mặc định: http://127.0.0.1:5050\n'}
-            {'4. Điện thoại thật: app.json → extra.thuvienTraCuu.baseUrl = http://<IP-LAN>:5050'}
-          </Text>
-        </View>
+        {!laStatic ? (
+          <View style={styles.the}>
+            <Text style={styles.tieu_de_the}>Flask dev (tùy chọn)</Text>
+            <Text style={styles.huong_dan}>
+              {'1. Cài: npm run thuvien:install\n'}
+              {'2. Chạy: npm run thuvien:start\n'}
+              {'3. Điện thoại: app.json → extra.thuvienTraCuu.baseUrl = http://<IP-LAN>:5050'}
+            </Text>
+          </View>
+        ) : null}
       </ScrollView>
     </SafeAreaView>
   );
@@ -168,7 +168,6 @@ const styles = StyleSheet.create({
   },
   tieu_de_the: { fontFamily: 'Arial', fontWeight: '800', fontSize: 14, color: CD.chu_dam, marginBottom: 8 },
   dong_mo_ta: { fontFamily: 'Arial', fontSize: 13, color: CD.chu_phu, marginTop: 4, lineHeight: 20 },
-  ma: { fontFamily: 'Arial', color: CD.chu_dam },
   badge: {
     alignSelf: 'flex-start',
     paddingHorizontal: 10,

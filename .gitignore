@@ -10,6 +10,7 @@ packaging/out_portable/
 web-build/
 # Bản HTML sinh từ tai_lieu/ (npm run tai_lieu:prepare)
 public/tai_lieu/
+public/thuvien/
 release-desktop/
 # Gói zip cập nhật offline (có thể rất lớn; giữ .gitkeep trong offline_update_packs/)
 offline_update_packs/*.zip

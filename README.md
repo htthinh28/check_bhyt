@@ -174,19 +174,18 @@ This is a safe scaffold to start moving selected processing from the app into Py
 
 ## Thư viện tra cứu DVKT & Dược thư (`thuvien/`)
 
-Flask app phục vụ tra cứu **DM DVKT** (QĐ 7603, TT23, QTKT) và **Dược thư Phương Châu** — chạy song song với Expo (8081) và Python audit (8000).
+Tra cứu **DM DVKT** (QĐ 7603, TT23, QTKT) và **Dược thư Phương Châu** — **web/Vercel chạy trực tiếp cùng origin** (`/thuvien/`), không cần Flask hay cổng 5050.
 
 ```bash
-npm run thuvien:install
-npm run thuvien:start
-npm run qa:thuvien
+npm run thuvien:prepare   # copy static → public/thuvien/
+npm run qa:thuvien        # kiểm tra bản static
+npm run vercel:build      # tự gọi thuvien:prepare trước export
 ```
 
-- DVKT: http://127.0.0.1:5050/
-- Dược thư: http://127.0.0.1:5050/duocthu
+- Web: `/thuvien/` (DVKT), `/thuvien/duocthu` (Dược thư) — tự động trên Vercel sau build
 - Trong app: màn **📖 TRA CỨU DVKT & DƯỢC THƯ** (Tổng quan) hoặc liên kết từ **DM Bộ Y tế** / **📚 Thư viện**
-- Cấu hình: `app.json` → `extra.thuvienTraCuu` (baseUrl, port, timeoutMs)
-- Chi tiết: [`thuvien/README.md`](thuvien/README.md)
+- Flask dev (tùy chọn, native/LAN): `npm run thuvien:install && npm run thuvien:start` — `qa:thuvien:flask`
+- Chi tiết nguồn: [`thuvien/README.md`](thuvien/README.md)
 
 ## Offline web export — gói cập nhật delta (nội bộ)
 

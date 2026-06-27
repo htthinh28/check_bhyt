@@ -7,7 +7,13 @@ training_data/
 
 # Backend Python / desktop / đóng gói — không dùng trên Vercel static
 python_service/
-thuvien/
+# thuvien: giữ nguồn static/data cho npm run thuvien:prepare; bỏ script Python nặng
+thuvien/_*.py
+thuvien/*.py
+thuvien/*.bat
+thuvien/*.html
+thuvien/data/
+thuvien/README.md
 packaging/
 release-desktop/
 offline_update_packs/
