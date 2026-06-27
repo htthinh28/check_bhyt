@@ -7,6 +7,7 @@ from collections import defaultdict
 
 from _dvkt_data_io import DEFAULT_DATA_DIR, load_dataset
 from _merge_tt23_mapping import name_similarity, norm_code, norm_text
+from _qtkt_normalize import sanitize_qtkt_title
 
 POLLUTED_TT23_RE = re.compile(
     r"(^\d{1,3}\s*[-–]\s+|^\d+\.\d+\s+quang|quang tăng sáng quang|"
@@ -115,6 +116,10 @@ def is_polluted_tt23_name(name: str) -> bool:
         return True
     if is_junk_tt23_catalog_name(t):
         return True
+    if re.match(r"^\d+\.\d+\s", t):
+        return True
+    if "quang tăng sáng quang" in t.lower():
+        return True
     if len(t) < 6:
         return True
     words = [w for w in re.split(r"\s+", t) if w]
@@ -187,7 +192,7 @@ def _fuzzy_min_score(qt_raw: str, qt_norm: str) -> float:
     if ":" in (qt_raw or "") and ("dinh luong" in qt_norm or "định lượng" in (qt_raw or "").lower()):
         return 0.62
     if len(qt_norm) >= 20:
-        return 0.65
+        return 0.58
     return 0.88
 
 
@@ -357,38 +362,44 @@ def _fuzzy_pl1_match(qt_title: str, ctx: dict, *, min_score: float = 0.82) -> di
 
 
 def find_tt23_match(row: dict, ctx: dict) -> tuple[dict | None, str, str]:
-    """Tìm dòng danh mục TT23 (PL1/PL2) — tên lấy nguyên văn từ catalog."""
-    ma = norm_code(row.get("maKyThuat", ""))
-    qt_title = norm_text(row.get("tenKyThuat", ""))
-    qt_raw = (row.get("tenKyThuat") or "").strip()
+    """Tìm dòng danh mục TT23 — ưu tiên tên quy trình, không tin mã phụ lục."""
+    qt_raw = sanitize_qtkt_title(row.get("tenKyThuat", "") or "")
+    qt_title = norm_text(qt_raw)
     if not qt_raw or len(qt_raw) < 8:
         return None, "", ""
 
-    # 1) Tên quy trình trùng khớp danh mục TT23
+    # 1) Tên quy trình trùng danh mục TT23
     for idx, label in ((ctx["tt23_pl1"], "PL1"), (ctx["tt23_pl2"], "PL2")):
         for cand in idx.get("by_ten", {}).get(qt_title, []):
             if _has_match_basis(qt_raw, cand.get("tenKyThuat", "")):
                 return cand, label, "tên QTKT = danh mục TT23"
 
-    # 2) Mã gợi ý — chọn trong tất cả dòng cùng mã theo tên quy trình (mã TT23 không duy nhất)
-    by_ma_hits: list[tuple[dict, str, str, float]] = []
-    for key in ma_lookup_keys(str(row.get("maKyThuat", "") or ma), qt_raw):
-        for idx, label in ((ctx["tt23_pl1"], "PL1"), (ctx["tt23_pl2"], "PL2")):
-            for cand in _catalog_rows_by_ma(idx, key):
-                pick, sc = _pick_tt23_catalog_row([cand], qt_raw, qt_title)
-                if pick:
-                    method = "mã TT23 + tên danh mục" if key == ma or not key.upper().startswith("BS_") else f"mã BS + tên ({key})"
-                    by_ma_hits.append((pick, label, method, sc))
-    if by_ma_hits:
-        by_ma_hits.sort(key=lambda x: x[3], reverse=True)
-        best = by_ma_hits[0]
-        return best[0], best[1], best[2]
-
-    # 3) Tên gần đúng trong toàn bộ danh mục TT23
+    # 2) Tên gần đúng trong toàn bộ danh mục (trước mã phụ lục — mã TT23 không duy nhất)
     min_fuzzy = _fuzzy_min_score(qt_raw, qt_title)
     best, best_label, best_score = _fuzzy_tt23_match(qt_title, ctx, min_score=min_fuzzy)
     if best and _has_match_basis(qt_raw, best.get("tenKyThuat", "")):
         return best, best_label, f"tên danh mục TT23 ({best_score:.0%})"
+
+    # 3) Mã gợi ý — chỉ khi tên quy trình khớp dòng catalog được chọn
+    ma = norm_code(row.get("maKyThuat", ""))
+    by_ma_hits: list[tuple[dict, str, str, float]] = []
+    for key in ma_lookup_keys(str(row.get("maKyThuat", "") or ma), qt_raw):
+        pooled: list[dict] = []
+        labels: dict[int, str] = {}
+        for idx, label in ((ctx["tt23_pl1"], "PL1"), (ctx["tt23_pl2"], "PL2")):
+            for cand in _catalog_rows_by_ma(idx, key):
+                pooled.append(cand)
+                labels[id(cand)] = label
+        if not pooled:
+            continue
+        pick, sc = _pick_tt23_catalog_row(pooled, qt_raw, qt_title)
+        if pick:
+            method = "mã TT23 + tên danh mục" if key == ma or not key.upper().startswith("BS_") else f"mã BS + tên ({key})"
+            by_ma_hits.append((pick, labels.get(id(pick), "PL1"), method, sc))
+    if by_ma_hits:
+        by_ma_hits.sort(key=lambda x: x[3], reverse=True)
+        best = by_ma_hits[0]
+        return best[0], best[1], best[2]
     return None, "", ""
 
 
@@ -503,6 +514,9 @@ def link_qtkt_row(row: dict, ctx: dict | None = None) -> dict:
         official_tt23 = official_tt23_name(tt23)
         ma_official = norm_code(tt23.get("maKyThuat", ""))
         if is_polluted_tt23_name(official_tt23):
+            official_tt23 = ""
+            tt23 = None
+        elif not _has_match_basis(sanitize_qtkt_title(row.get("tenKyThuat", "")), official_tt23):
             official_tt23 = ""
             tt23 = None
         else:

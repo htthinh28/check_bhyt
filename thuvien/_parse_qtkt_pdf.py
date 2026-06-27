@@ -763,7 +763,7 @@ def merge_qtkt_records(
                 "maKyThuat": ap.get("maKyThuat", ""),
                 "sttKyThuat": ap.get("sttKyThuat", ""),
                 "tenKyThuat": ten,
-                "tenKyThuatTT23": ap.get("tenKyThuatTT23", "") or ten,
+                "tenKyThuatTT23": "",
                 "chiDinh": pr.get("chiDinh", ""),
                 "chongChiDinh": pr.get("chongChiDinh", ""),
                 "thoiGianThucHien": pr.get("thoiGianThucHien", ""),

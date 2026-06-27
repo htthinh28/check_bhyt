@@ -45,6 +45,30 @@ def dedupe_title(text: str) -> str:
     return t
 
 
+_QTKT_JUNK_PREFIX_RE = re.compile(
+    r"^(?:x-quang tăng sáng|x quang tang sang)\s+",
+    re.I,
+)
+_QTKT_CK_PREFIX_RE = re.compile(
+    r"^-\s*(?:sinh\s*dục\s*nữ|sinh\s*vt\s*n\s*dục\s*nữ|sản\s*khoa)\s*[-–]?\s*",
+    re.I,
+)
+_MA_IN_TITLE_RE = re.compile(r"^\d+\.\d+\s+")
+_DOUBLE_QUANG_RE = re.compile(r"quang tăng sáng\s+quang tăng sáng", re.I)
+
+
+def sanitize_qtkt_title(text: str) -> str:
+    """Làm sạch tên quy trình parse lỗi (phụ lục / tiêu đề lẫn mã TT23)."""
+    t = dedupe_title(text or "")
+    t = _MA_IN_TITLE_RE.sub("", t)
+    t = _DOUBLE_QUANG_RE.sub("X-quang tăng sáng", t)
+    t = _QTKT_JUNK_PREFIX_RE.sub("", t)
+    t = _QTKT_CK_PREFIX_RE.sub("", t)
+    t = re.sub(r"\s+X-?\s*$", "", t, flags=re.I)
+    t = re.sub(r"\s+", " ", t).strip(" -–·")
+    return dedupe_title(t)
+
+
 _BOILERPLATE_CK = re.compile(
     r"bo truong|bo y te|quyet dinh|ban hanh kem theo|thu tuong|chinh phu",
     re.I,
@@ -130,7 +154,7 @@ def normalize_so_quyet_dinh(so: str) -> str:
 
 def normalize_qtkt_row(row: dict) -> dict:
     row = dict(row)
-    row["tenKyThuat"] = dedupe_title(row.get("tenKyThuat", ""))
+    row["tenKyThuat"] = sanitize_qtkt_title(row.get("tenKyThuat", ""))
     from _qtkt_dvkt_bridge import is_polluted_tt23_name
 
     tt23_raw = (row.get("tenKyThuatTT23") or "").strip()

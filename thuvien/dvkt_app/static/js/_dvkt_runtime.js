@@ -480,7 +480,9 @@
         return `<span class="text-xs text-slate-600" title="${val}">${val.length > 48 ? val.slice(0, 48) + '…' : val}</span>`;
       }
       if (col.key === 'tenKyThuatTT23' && val) {
-        return `<span class="text-xs text-emerald-800 leading-snug" title="Thông tư 23/2024/TT-BYT">${String(val).replace(/</g, '&lt;')}</span>`;
+        const s = String(val);
+        if (/^\d+\.\d+\s/i.test(s) || /quang tăng sáng quang/i.test(s)) return '—';
+        return `<span class="text-xs text-emerald-800 leading-snug" title="Thông tư 23/2024/TT-BYT">${s.replace(/</g, '&lt;')}</span>`;
       }
       if (col.key === 'tenTT43' && val) {
         return `<span class="text-xs text-rose-800 leading-snug" title="QĐ 7603/QĐ-BYT">${String(val).replace(/</g, '&lt;')}</span>`;

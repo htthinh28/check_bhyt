@@ -15,7 +15,7 @@
     "preweb": "npm run chuyen-de:prepare-build && npm run thuvien:prepare",
     "web": "expo start --web --port 8081",
     "web:serve:lan": "node ./scripts/serve_web_dist.mjs",
-    "vercel:build": "npm run tai_lieu:prepare && npm run thuvien:prepare && expo export --platform web",
+    "vercel:build": "npm run qtkt:reenrich-mapping && npm run tai_lieu:prepare && npm run thuvien:prepare && expo export --platform web",
     "vercel:deploy": "npm run vercel:build && npx vercel deploy --prebuilt --prod",
     "dvkt:supplement-m05": "node ./scripts/update_dvkt_noi_bo_from_excel.js --supplement=\"C:/Users/admin/Downloads/FileDichVuBV Cập nhật tháng 5 (1).xlsx\"",
     "dvkt:update-m05-full": "node ./scripts/update_dvkt_noi_bo_from_excel.js",
