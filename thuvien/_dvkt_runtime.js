@@ -479,6 +479,16 @@
       if (col.key === 'vanBanNguon' && val) {
         return `<span class="text-xs text-slate-600" title="${val}">${val.length > 48 ? val.slice(0, 48) + '…' : val}</span>`;
       }
+      if (col.key === 'tenKyThuatTT23' && val) {
+        return `<span class="text-xs text-emerald-800 leading-snug" title="Thông tư 23/2024/TT-BYT">${String(val).replace(/</g, '&lt;')}</span>`;
+      }
+      if (col.key === 'tenTT43' && val) {
+        return `<span class="text-xs text-rose-800 leading-snug" title="QĐ 7603/QĐ-BYT">${String(val).replace(/</g, '&lt;')}</span>`;
+      }
+      if (col.key === 'tenDichVuBV' && val) {
+        const src = item.benhVienDVKT ? ` · ${item.benhVienDVKT}` : '';
+        return `<span class="text-xs text-sky-800 leading-snug" title="Danh mục bệnh viện${src}">${String(val).replace(/</g, '&lt;')}</span>`;
+      }
       if (col.key === 'doTinCayMapping' || col.key === 'doTinCayPhamVi' || col.key === 'doTinCayBHXH') {
         const cls = val === 'Cao' ? 'text-emerald-700 bg-emerald-50' : val === 'Trung bình' ? 'text-amber-700 bg-amber-50' : val === 'Không khớp' || val === 'Chỉ TT23' ? 'text-red-700 bg-red-50' : 'text-slate-600 bg-slate-50';
         return `<span class="px-2 py-0.5 text-xs font-semibold rounded ${cls}">${val || '—'}</span>`;
