@@ -96,6 +96,24 @@ PHRASE_HINTS: list[tuple[list[str], str]] = [
     (["loang xuong", "loãng xương"], "M81"),
     (["benh nhiem trung duong sinh duc", "herpes simplex"], "A60"),
     (["viem gan man", "viêm gan mạn"], "K73"),
+    # QTKT BYT — chỉ định thường gặp (dùng chung với _qtkt_icd_bridge)
+    (["dong cung khop vai", "dckv", "viem cung khop vai"], "M75"),
+    (["ho mau nang", " ho mau"], "R04"),
+    (["chay mau mui", "u xo mui hong"], "D14"),
+    (["he mach phoi", "hep tac dong mach phoi"], "Q25"),
+    (["di dang tinh mach", "di dang dong tinh mach"], "Q28"),
+    (["gian dam roi tinh mach thung tinh"], "I86"),
+    (["chan thuong vung canh tay"], "S49"),
+    (["chan thuong ban ngon tay"], "S68"),
+    (["chan thuong vung xuong duoi"], "S79"),
+    (["chan thuong vung xuong cang chan"], "S82"),
+    (["u xuong", "benh ly xuong"], "D16"),
+    (["viem xuong"], "M86"),
+    (["dau khop"], "M25"),
+    (["thoat vi dia dem"], "M51"),
+    (["cong gu cot song", "veo cot song"], "M41"),
+    (["ap xe", "o dich ap xe"], "L02"),
+    (["danh gia chuc nang tim"], "I51"),
 ]
 
 MULTI_DEFAULT: dict[str, list[str]] = {

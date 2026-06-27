@@ -20,11 +20,26 @@ from _update_icd_deep import (
 
 ICD_INLINE_RE = re.compile(r"\b([A-TV-Z][0-9]{2}(?:\.[0-9]{1,2})?\*?)\b", re.I)
 
-# Chỉ định chung — không gán mã bệnh cụ thể (tránh map sai)
+# Chỉ định chung / nhiễu parse PDF — không gán mã bệnh cụ thể (tránh map sai)
 CHI_GENERIC_SKIP_RE = re.compile(
     r"^(tat ca|moi doi tuong|moi benh nhan|nguoi benh den kham|"
     r"khong can chi dinh dac biet|theo chi dinh cua bac si|"
-    r"chi dinh theo pham vi chuyen mon)",
+    r"chi dinh theo pham vi chuyen mon|"
+    r"chong chi dinh|khong co chong chi dinh|"
+    r"mot so chi dinh khac theo huong dan|"
+    r"theo yeu cau chuyen mon cua bac sy|"
+    r"chup mach de phuc vu cho dien quang|"
+    r"theo doi sau dieu tri|kiem tra sau phau thuat|"
+    r"sieu am he tiet nieu hien nay duoc su dung|"
+    r"nguoi benh mang cac thiet bi dien tu|"
+    r"cay ghep oc tai thiet bi bom thuoc|"
+    r"cac kep phau thuat bang kim loai)",
+    re.I,
+)
+
+_SECTION_HEADER_RE = re.compile(
+    r"^\s*\d+\.\s*(chi dinh|chong chi dinh|thoi gian|nhan su|tien hanh|theo doi|"
+    r"dai cuong|than trong|tai lieu)\b",
     re.I,
 )
 
@@ -85,6 +100,36 @@ QTKT_PHRASE_HINTS: list[tuple[list[str], str]] = [
     (["dau that nguc", "dau nguc"], "R07"),
     (["choang", "shock"], "R57"),
     (["mat mau cap", "chay mau nang"], "R58"),
+    # Chẩn đoán hình ảnh / can thiệp mạch / cơ xương khớp (QTKT BYT)
+    (["dong cung khop vai", "dckv", "viem cung khop vai", "dong cung vai"], "M75"),
+    (["ho mau nang", "ho mau keo dai", " ho mau"], "R04"),
+    (["chay mau mui", "u xo mui hong", "khoi u xo mui hong"], "D14"),
+    (["gian dam roi tinh mach thung tinh", "gian tinh mach thung tinh"], "I86"),
+    (["he mach phoi", "hep tac dong mach phoi", "teo hay gian dong mach phoi", "thong dong tinh mach phoi"], "Q25"),
+    (["doan tan dong mach chu bung", "dong mach chau goc", "dong mach chau trong"], "I77"),
+    (["di dang tinh mach", "venous malformation", "di dang mach mau vung"], "Q27"),
+    (["di dang dong tinh mach", "di dang dong tinh mach than", "dich dong tinh mach"], "Q28"),
+    (["chan thuong vung canh tay", "khao sat benh ly xuong o canh tay"], "S49"),
+    (["chan thuong ban ngon tay", "benh ly xuong vung ban ngon tay", "dau ban ngon tay"], "S68"),
+    (["chan thuong vung xuong duoi", "khao sat benh ly xuong o xuong duoi"], "S79"),
+    (["chan thuong vung xuong cang chan", "xuong cang chan o tre em"], "S82"),
+    (["chan thuong vung chau", "ton thuong mach chau", "khoi u vung tieu khung"], "S32"),
+    (["chan thuong vung nguc", "ton thuong mach phoi", "khoi u o phoi trung that"], "S29"),
+    (["u xuong", "khao sat benh ly xuong", "benh ly xuong"], "D16"),
+    (["viem xuong", "viem nhiem xuong"], "M86"),
+    (["hoai tu xuong"], "M87"),
+    (["dau khop vai", "dau khop keo dai", "dau khop thong thuong"], "M25"),
+    (["thoat vi dia dem", "thoat vi dia"], "M51"),
+    (["cong gu cot song", "veo cot song", "khiem khuyet phan eo dot song"], "M41"),
+    (["danh gia hinh thai va chuc nang tim", "danh gia chuc nang tim"], "I51"),
+    (["ap xe", "o dich ap xe", "ap xe o cac tang"], "L02"),
+    (["danh gia chan thuong duong vat"], "S31"),
+    (["benh ly chan thuong cac khoi u viem cua xuong va phan mem cot song"], "M54"),
+    (["tham kham dai trang", "noi soi khong thu duoc do vuong"], "K63"),
+    (["danh gia truc xuong", "lam khop gia"], "M21"),
+    (["benh mach mau nao", "chup dong mach nao"], "I67"),
+    (["ton thuong u", "khoi u co chi dinh dieu tri"], "D48"),
+    (["hoa tri lieu keo dai"], "Z51"),
 ]
 
 QTKT_CHONG_PHRASE_HINTS: list[tuple[list[str], str]] = [
@@ -100,7 +145,41 @@ QTKT_CHONG_PHRASE_HINTS: list[tuple[list[str], str]] = [
     (["hen phan ung", "co that phe quan cap"], "J46"),
     (["mat tri nho", "mat thi luc"], "H54"),
     (["rối loạn tâm thần", "tam than phan liet", "tam than cap"], "F29"),
+    (["huyet khoi tm canh", "huyet khoi tinh mach chu tren", "tm canh trong", "tm chu tren", "tm gan"], "I82"),
+    (["viem da hoai tu", "viem nhiem hoai tu da"], "L98"),
+    (["roi loan nuot muc do nang", "roi loan nuot"], "R13"),
+    (["child pugh c", "chuc nang gan kem", "pts 1"], "K72"),
+    (["tre co chong chi dinh nuoi duong qua duong tieu hoa"], "P92"),
+    (["nuoi duong tinh mach hoan toan"], "Z93"),
+    (["benh nhi trong tinh trang cap cuu"], "R57"),
+    (["thung tang rong"], "K63"),
+    (["hep tac tm chu duoi", "benh ly tm chu duoi"], "I82"),
+    (["ton thuong dong mach lan toa"], "I77"),
 ]
+
+
+def sanitize_qtkt_indication_text(text: str) -> str:
+    """Gỡ tiêu đề mục §2/§3 và dòng nhiễu trước khi map ICD."""
+    if not text:
+        return ""
+    lines: list[str] = []
+    for raw in re.split(r"[\r\n]+", str(text)):
+        line = re.sub(r"^[•\-\*·▪–—]\s*", "", raw.strip())
+        line = re.sub(r"^\d+[.)]\s*", "", line)
+        if not line:
+            continue
+        if _SECTION_HEADER_RE.match(line):
+            continue
+        cn = norm(line)
+        if not cn or CHI_GENERIC_SKIP_RE.match(cn):
+            continue
+        lines.append(line)
+    out = "\n".join(lines).strip()
+    # Cắt phần §3 lẫn vào §2
+    m = re.search(r"(?i)\n\s*3\.\s*chong\s*chi\s*dinh\b", out)
+    if m:
+        out = out[: m.start()].strip()
+    return out
 
 
 def _any_hint(cn: str, patterns: list[str]) -> bool:
@@ -286,8 +365,8 @@ def icd_confidence(entries: list[dict], *, explicit_count: int = 0) -> str:
 
 
 def apply_qtkt_icd_fields(row: dict, catalog: dict, children: dict, long_names: list[tuple[str, dict]] | None = None) -> dict:
-    chi_text = (row.get("chiDinh") or "").strip()
-    chong_text = (row.get("chongChiDinh") or "").strip()
+    chi_text = sanitize_qtkt_indication_text(row.get("chiDinh") or "")
+    chong_text = sanitize_qtkt_indication_text(row.get("chongChiDinh") or "")
     # Chỉ map ICD từ nguyên văn §2/§3 — không suy từ tên kỹ thuật (tránh map sai)
     if len(chi_text) < 8:
         chi_text = ""

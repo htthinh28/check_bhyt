@@ -165,8 +165,14 @@ def normalize_qtkt_row(row: dict) -> dict:
     row["chuyenKhoa"] = normalize_chuyen_khoa(row)
     row["soQuyetDinh"] = normalize_so_quyet_dinh(row.get("soQuyetDinh", ""))
     if row.get("chiDinh"):
+        from _qtkt_icd_bridge import sanitize_qtkt_indication_text
+
+        row["chiDinh"] = sanitize_qtkt_indication_text(row["chiDinh"])
         row["chiDinh"] = re.sub(r"\n{3,}", "\n\n", row["chiDinh"]).strip()
     if row.get("chongChiDinh"):
+        from _qtkt_icd_bridge import sanitize_qtkt_indication_text
+
+        row["chongChiDinh"] = sanitize_qtkt_indication_text(row["chongChiDinh"])
         row["chongChiDinh"] = re.sub(r"\n{3,}", "\n\n", row["chongChiDinh"]).strip()
     return row
 
