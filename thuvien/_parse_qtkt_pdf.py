@@ -805,12 +805,30 @@ def _should_include_pdf(path: Path) -> bool:
     return True
 
 
+def _pdf_size_limits() -> tuple[float, float]:
+    import os
+
+    min_kb = float(os.environ.get("QTKT_MIN_KB", "400") or "0")
+    max_mb = float(os.environ.get("QTKT_MAX_MB", "45") or "0")
+    return min_kb, max_mb
+
+
+def _passes_size_filter(path: Path) -> bool:
+    min_kb, max_mb = _pdf_size_limits()
+    if re.search(r"20(25|26)", path.name):
+        return True
+    if min_kb > 0 and path.stat().st_size < min_kb * 1024:
+        return False
+    if max_mb > 0 and path.stat().st_size > max_mb * 1024 * 1024:
+        return False
+    return True
+
+
 def audit_qtkt_sources(source_dir: Path) -> dict[str, list[dict]]:
     """Phân loại PDF: parse / bỏ qua (nặng, nhỏ, hết hiệu lực)."""
     import os
 
-    min_kb = float(os.environ.get("QTKT_MIN_KB", "400") or "0")
-    max_mb = float(os.environ.get("QTKT_MAX_MB", "28") or "0")
+    min_kb, max_mb = _pdf_size_limits()
     out: dict[str, list[dict]] = {
         "parse": [],
         "skip_heavy": [],
@@ -827,11 +845,11 @@ def audit_qtkt_sources(source_dir: Path) -> dict[str, list[dict]]:
         if "Hết hiệu lực" in str(p.parent) and not _should_include_pdf(p):
             out["skip_expired"].append(entry)
             continue
-        if min_kb > 0 and p.stat().st_size < min_kb * 1024:
-            out["skip_small"].append(entry)
-            continue
-        if max_mb > 0 and p.stat().st_size > max_mb * 1024 * 1024:
-            out["skip_heavy"].append(entry)
+        if not _passes_size_filter(p):
+            if min_kb > 0 and p.stat().st_size < min_kb * 1024:
+                out["skip_small"].append(entry)
+            else:
+                out["skip_heavy"].append(entry)
             continue
         out["parse"].append(entry)
     return out
@@ -840,8 +858,6 @@ def audit_qtkt_sources(source_dir: Path) -> dict[str, list[dict]]:
 def discover_qtkt_files(source_dir: Path) -> list[Path]:
     import os
 
-    min_kb = float(os.environ.get("QTKT_MIN_KB", "400") or "0")
-    max_mb = float(os.environ.get("QTKT_MAX_MB", "28") or "0")
     max_files = int(os.environ.get("QTKT_MAX_FILES", "0") or "0")
     files: list[Path] = []
     if not source_dir.is_dir():
@@ -851,9 +867,7 @@ def discover_qtkt_files(source_dir: Path) -> list[Path]:
             continue
         if "Hết hiệu lực" in str(p.parent) and not _should_include_pdf(p):
             continue
-        if min_kb > 0 and p.stat().st_size < min_kb * 1024:
-            continue
-        if max_mb > 0 and p.stat().st_size > max_mb * 1024 * 1024:
+        if not _passes_size_filter(p):
             continue
         files.append(p)
 
