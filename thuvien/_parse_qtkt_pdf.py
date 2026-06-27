@@ -66,6 +66,20 @@ PROCEDURE_START_2012 = re.compile(
     r"^(KỸ THUẬT|Kỹ thuật|ĐIỀU TRỊ|PHẪU THUẬT|THỦ THUẬT|SINH THIẾT)\s+(.+)$",
     re.I,
 )
+TOC_ENTRY_RE = re.compile(r"^(\d{1,3})\.\s+(.+?)(?:\s*\.{2,}\s*\d+\s*)?$")
+TOC_PHAN_RE = re.compile(r"^PHẦN\s+\d+", re.I)
+TOC_SKIP_LINES = frozenset(
+    {
+        "muc luc",
+        "loi noi dau",
+        "phu luc",
+        "nguyen tac ap dung huong dan quy trinh ky thuat",
+        "phu luc danh muc ky thuat",
+        "ban bien soan",
+    }
+)
+DAI_CUONG_LINE_RE = re.compile(r"^1\.?\s*ĐẠI CƯƠNG\b", re.I)
+BODY_PHAN_RE = re.compile(r"^PHẦN\s+\d+\s*:", re.I)
 
 
 def _norm(s: str) -> str:
@@ -198,6 +212,131 @@ def _extract_ma_from_rest(rest: str) -> tuple[str, str, str]:
     return "", rest.strip(), rest.strip()
 
 
+def _strip_toc_dots(line: str) -> str:
+    return re.sub(r"\s*\.{2,}.*$", "", (line or "")).strip()
+
+
+def _is_valid_toc_title(title: str) -> bool:
+    t = _normalize_article_title(title)
+    if not t or len(t) < 8:
+        return False
+    if _is_section_heading(t):
+        return False
+    if TITLE_GARBAGE_RE.search(_norm(t)):
+        return False
+    if re.match(r"^[\d\.\s;]+$", t):
+        return False
+    return True
+
+
+def parse_qtkt_toc(pages: list[str], fmt: str) -> dict[str, dict]:
+    """Trích tiêu đề bài viết từ Mục lục (nguồn đúng cho tên quy trình)."""
+    if fmt not in ("v2025", "v2016"):
+        return {}
+    by_qt: dict[str, dict] = {}
+    in_toc = False
+    current_num = ""
+    current_parts: list[str] = []
+
+    def flush() -> None:
+        nonlocal current_num, current_parts
+        if not current_num or not current_parts:
+            current_num = ""
+            current_parts = []
+            return
+        title = _clean_line(" ".join(current_parts))
+        title = _strip_toc_dots(title)
+        if _is_valid_toc_title(title):
+            by_qt[current_num] = {
+                "quyTrinhSo": current_num,
+                "tenKyThuat": _normalize_article_title(title),
+            }
+        current_num = ""
+        current_parts = []
+
+    for text in pages[:120]:
+        upper = text.upper()
+        if "MỤC LỤC" in upper or "MUC LUC" in _norm(text):
+            in_toc = True
+        if not in_toc:
+            continue
+        if BODY_PHAN_RE.search(text) and not re.search(r"\.{4,}", text):
+            flush()
+            break
+        if re.search(r"^1\.\s+ĐẠI CƯƠNG\b", text, re.I | re.M) and not re.search(r"\.{4,}", text):
+            flush()
+            break
+        for raw in text.splitlines():
+            line = _clean_line(raw)
+            if not line:
+                continue
+            nline = _norm(line)
+            if nline in TOC_SKIP_LINES:
+                continue
+            if TOC_PHAN_RE.match(line) and re.search(r"\.{2,}", line):
+                flush()
+                continue
+            m = TOC_ENTRY_RE.match(line)
+            if m:
+                flush()
+                current_num = m.group(1)
+                part = _strip_toc_dots(m.group(2))
+                if part:
+                    current_parts = [part]
+                continue
+            if current_num and not re.match(r"^\d{1,3}\.\s+", line):
+                part = _strip_toc_dots(line)
+                if part and not TOC_PHAN_RE.match(part):
+                    current_parts.append(part)
+    flush()
+    return by_qt
+
+
+def _has_dai_cuong_ahead(lines: list[str], idx: int, *, window: int = 6) -> bool:
+    for j in range(idx + 1, min(idx + window, len(lines))):
+        if DAI_CUONG_LINE_RE.match(lines[j]):
+            return True
+    return False
+
+
+def parse_article_titles_from_pages(pages: list[str], fmt: str) -> dict[str, dict]:
+    """Tiêu đề bài viết trong thân tài liệu (sau Mục lục)."""
+    if fmt not in ("v2025", "v2016"):
+        return {}
+    titles: dict[str, dict] = {}
+    in_body = False
+    all_lines: list[str] = []
+    for text in pages:
+        if not in_body:
+            if BODY_PHAN_RE.search(text) and not re.search(r"\.{4,}", text):
+                in_body = True
+            elif re.search(r"^1\.\s+ĐẠI CƯƠNG\b", text, re.I | re.M) and not re.search(r"\.{4,}", text):
+                in_body = True
+        if not in_body:
+            continue
+        if "PHỤ LỤC" in text.upper() and "DANH MỤC KỸ THUẬT" in text.upper():
+            break
+        for raw in text.splitlines():
+            line = _clean_line(raw)
+            if line:
+                all_lines.append(line)
+    for idx, line in enumerate(all_lines):
+        if re.search(r"\.{4,}", line):
+            continue
+        m = re.match(r"^(\d{1,3})\.\s+(.+)$", line)
+        if not m or re.match(r"^\d+\.\d+", line):
+            continue
+        num, title = m.group(1), m.group(2).strip()
+        if _is_section_heading(title):
+            continue
+        if not _has_dai_cuong_ahead(all_lines, idx):
+            continue
+        norm = _normalize_article_title(title)
+        if _is_valid_article_title(norm):
+            titles[num] = {"quyTrinhSo": num, "tenKyThuat": norm}
+    return titles
+
+
 def _parse_appendix_lines(lines: list[str], fmt: str) -> list[dict]:
     rows: list[dict] = []
     i = 0
@@ -212,38 +351,20 @@ def _parse_appendix_lines(lines: list[str], fmt: str) -> list[dict]:
             i += 1
             continue
         qt_so, col2, rest = m.group(1), m.group(2), m.group(3)
-        ma, ten_qt, ten_tt = _extract_ma_from_rest(rest)
+        ma, _, _ = _extract_ma_from_rest(rest)
         if not ma and col2.isdigit() and len(col2) >= 3:
             ma = col2
-        # Tên phụ lục: chỉ lấy phần tên, không ghép dòng rác
-        ten_qt = re.sub(r"\s{2,}\d+\.\d+.*$", "", ten_qt).strip()
-        ten_tt = re.sub(r"\s{2,}\d+\.\d+.*$", "", ten_tt).strip()
-        j = i + 1
-        while j < len(lines):
-            nxt = lines[j]
-            if APPENDIX_ROW_V2025.match(nxt) or APPENDIX_ROW_V2016.match(nxt):
-                break
-            if re.match(r"^\d{1,3}\.\s+[A-ZÀÁẢÃẠ]", nxt):
-                break
-            if (
-                len(nxt) > 8
-                and not re.match(r"^\d", nxt)
-                and not MA_KT_DECIMAL_RE.search(nxt)
-                and not re.search(r"\b\d{4,5}\b", nxt)
-            ):
-                ten_qt = (ten_qt + " " + nxt).strip()
-                ten_tt = ten_qt
-            j += 1
+        # Phụ lục chỉ dùng cho mã/STT — không ghép dòng cột TT23 làm tên quy trình
         rows.append(
             {
                 "quyTrinhSo": qt_so,
                 "sttKyThuat": col2,
                 "maKyThuat": ma,
-                "tenKyThuat": ten_qt or ten_tt,
-                "tenKyThuatTT23": ten_tt or ten_qt,
+                "tenKyThuat": "",
+                "tenKyThuatTT23": "",
             }
         )
-        i = j
+        i += 1
     return rows
 
 
@@ -403,18 +524,23 @@ def _is_valid_appendix_title(title: str) -> bool:
     return True
 
 
-def _resolve_ten_ky_thuat(pr_ten: str, ap_ten: str, *, has_body: bool) -> str:
-    pr_ten = _normalize_article_title(pr_ten)
-    ap_ten = _clean_line(ap_ten)
-    if has_body and pr_ten and _is_valid_article_title(pr_ten, ap_ten):
-        if ap_ten and _is_valid_appendix_title(ap_ten) and _title_similar(pr_ten, ap_ten) >= 0.55:
-            if len(ap_ten) > len(pr_ten) + 6 and _norm(pr_ten) in _norm(ap_ten):
-                return ap_ten
-        return pr_ten
-    if ap_ten and _is_valid_appendix_title(ap_ten):
-        return _normalize_article_title(ap_ten)
-    if pr_ten and _is_valid_article_title(pr_ten, ap_ten):
-        return pr_ten
+def _resolve_ten_ky_thuat(
+    toc_ten: str,
+    pr_ten: str,
+    ap_ten: str,
+    *,
+    has_body: bool,
+) -> str:
+    """Ưu tiên: Mục lục / tiêu đề bài viết — không dùng phụ lục cột TT23."""
+    for candidate in (_normalize_article_title(toc_ten), _normalize_article_title(pr_ten)):
+        if not candidate:
+            continue
+        if _is_valid_article_title(candidate, ap_ten):
+            return candidate
+        if has_body and len(candidate) >= 12 and not _is_section_heading(candidate):
+            letters = [c for c in candidate if c.isalpha()]
+            if letters and sum(1 for c in letters if c.isupper()) / len(letters) >= 0.5:
+                return candidate
     return ""
 
 
@@ -550,6 +676,11 @@ def parse_procedures_from_pages(
     all_lines: list[str] = []
     for text in pages:
         upper = text.upper()
+        if fmt == "v2025":
+            if BODY_PHAN_RE.search(text) and not re.search(r"\.{4,}", text):
+                catalog_done = True
+            if re.search(r"^1\.\s+ĐẠI CƯƠNG\b", text, re.I | re.M) and not re.search(r"\.{4,}", text):
+                catalog_done = True
         if not started and (
             "PHẦN 1" in upper
             or "NGUYÊN TẮC ÁP DỤNG" in upper
@@ -602,22 +733,34 @@ def parse_procedures_from_pages(
     return procedures
 
 
-def merge_qtkt_records(meta: dict, appendix: dict[str, dict], procedures: dict[str, dict]) -> list[dict]:
-    keys = sorted(set(appendix) | set(procedures), key=lambda x: int(x) if str(x).isdigit() else 99999)
+def merge_qtkt_records(
+    meta: dict,
+    appendix: dict[str, dict],
+    procedures: dict[str, dict],
+    toc: dict[str, dict] | None = None,
+    article_titles: dict[str, dict] | None = None,
+) -> list[dict]:
+    toc = toc or {}
+    article_titles = article_titles or {}
+    keys = sorted(set(appendix) | set(procedures) | set(toc) | set(article_titles), key=lambda x: int(x) if str(x).isdigit() else 99999)
     rows: list[dict] = []
     for k in keys:
         ap = appendix.get(k, {})
         pr = procedures.get(k, {})
+        toc_row = toc.get(k, {})
+        art_row = article_titles.get(k, {})
         ap_ten = _clean_line(ap.get("tenKyThuat", ""))
-        pr_ten = _normalize_article_title(pr.get("tenKyThuat", ""))
+        toc_ten = toc_row.get("tenKyThuat", "") or art_row.get("tenKyThuat", "")
+        pr_ten = _normalize_article_title(pr.get("tenKyThuat", "") or art_row.get("tenKyThuat", ""))
         has_body = bool(pr.get("chiDinh") or pr.get("chongChiDinh"))
-        ten = _resolve_ten_ky_thuat(pr_ten, ap_ten, has_body=has_body)
+        ten = _resolve_ten_ky_thuat(toc_ten, pr_ten, ap_ten, has_body=has_body)
         if not ten:
             continue
         rows.append(
             {
                 "quyTrinhSo": k,
                 "maKyThuat": ap.get("maKyThuat", ""),
+                "sttKyThuat": ap.get("sttKyThuat", ""),
                 "tenKyThuat": ten,
                 "tenKyThuatTT23": ap.get("tenKyThuatTT23", "") or ten,
                 "chiDinh": pr.get("chiDinh", ""),
@@ -643,13 +786,23 @@ def parse_qtkt_pdf(pdf_path: Path, max_pages: int | None = None) -> list[dict]:
     print(f"    {len(pages)} trang", flush=True)
     meta = parse_qd_metadata(pages, pdf_path.name)
     fmt = detect_qtkt_format(pages)
+    toc = parse_qtkt_toc(pages, fmt)
     appendix = parse_appendix(pages, fmt)
     if not appendix and fmt == "v2012":
         appendix = parse_muc_luc_2012(pages)
+        if not toc:
+            toc = {k: {"quyTrinhSo": k, "tenKyThuat": v.get("tenKyThuat", "")} for k, v in appendix.items()}
+    article_titles = parse_article_titles_from_pages(pages, fmt)
     procedures = parse_procedures_from_pages(pages, appendix, fmt)
-    rows = merge_qtkt_records(meta, appendix, procedures)
-    print(f"    -> {len(appendix)} PL, {len(procedures)} QT, {len(rows)} dong", flush=True)
+    rows = merge_qtkt_records(meta, appendix, procedures, toc, article_titles)
+    print(f"    -> {len(appendix)} PL, {len(toc)} ML, {len(procedures)} QT, {len(rows)} dong", flush=True)
     return rows
+
+
+def _should_include_pdf(path: Path) -> bool:
+    if "Hết hiệu lực" in str(path.parent):
+        return bool(re.search(r"20(25|26)", path.name))
+    return True
 
 
 def audit_qtkt_sources(source_dir: Path) -> dict[str, list[dict]]:
@@ -671,7 +824,7 @@ def audit_qtkt_sources(source_dir: Path) -> dict[str, list[dict]]:
             continue
         mb = p.stat().st_size / 1024 / 1024
         entry = {"name": p.name, "mb": round(mb, 1), "path": str(p)}
-        if "Hết hiệu lực" in str(p.parent):
+        if "Hết hiệu lực" in str(p.parent) and not _should_include_pdf(p):
             out["skip_expired"].append(entry)
             continue
         if min_kb > 0 and p.stat().st_size < min_kb * 1024:
@@ -696,7 +849,7 @@ def discover_qtkt_files(source_dir: Path) -> list[Path]:
     for p in sorted(source_dir.rglob("*.pdf")):
         if not p.is_file() or p.name.endswith(".crdownload"):
             continue
-        if "Hết hiệu lực" in str(p.parent):
+        if "Hết hiệu lực" in str(p.parent) and not _should_include_pdf(p):
             continue
         if min_kb > 0 and p.stat().st_size < min_kb * 1024:
             continue
