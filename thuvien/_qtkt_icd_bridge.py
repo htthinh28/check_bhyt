@@ -29,7 +29,25 @@ CHI_GENERIC_SKIP_RE = re.compile(
 )
 
 # Gợi ý bổ sung cho DVKT / QTKT (bổ sung PHRASE_HINTS gốc)
+QTKT_NO_CHONG_RE = re.compile(
+    r"^(khong co chong chi dinh|khong co chong chi dinh tuyet doi|"
+    r"chua co chong chi dinh|chong chi dinh\s*:?\s*khong)\.?$",
+    re.I,
+)
+
 QTKT_PHRASE_HINTS: list[tuple[list[str], str]] = [
+    (["huyet khoi", "huyết khối", "cum mau dong", "vte", "tinh mach sau"], "I82"),
+    (["hoi chung cuong aldosteron", "cường aldosteron"], "E26"),
+    (["u co tron tu cung", "u cơ trơn tử cung", "leiomyoma"], "D25"),
+    (["gian tinh mach tinh", "giãn tĩnh mạch tinh", "varicocele"], "I86"),
+    (["bat thuong dong mach phoi", "bất thường động mạch phổi"], "Q25"),
+    (["hep tac cau noi", "hẹp tắc cầu nối"], "I77"),
+    (["xung huyet tieu khung", "xung huyết tiểu khung"], "I86"),
+    (["hep dong mach", "hẹp động mạch", "stenosis"], "I70"),
+    (["phinh mach", "phình mạch", "aneurysm"], "I72"),
+    (["u nao", "u não", "khoi u nao", "khối u não"], "D43"),
+    (["ung thu", "ung thư", "ac tinh", "carcinoma", "neoplasm"], "C80"),
+    (["viem tuyen giap", "nhan tuyen giap", "nang tuyen giap"], "E04"),
     (["suy dinh duong", "sdd", "malnutrition", "nang luong kem"], "E46"),
     (["benh nhiem khuan tiet nieu", "nhiem trung tiet nieu", "viem duong tiet nieu"], "N39"),
     (["suy dinh duong tre em", "suy dd tre"], "E43"),
@@ -70,6 +88,7 @@ QTKT_PHRASE_HINTS: list[tuple[list[str], str]] = [
 ]
 
 QTKT_CHONG_PHRASE_HINTS: list[tuple[list[str], str]] = [
+    (["di ung iod", "di ung thuoc can quang", "mau cam iod", "mau cam thuoc can quang"], "T78"),
     (["mang thai", "thai ky", "phu nu co thai"], "Z33"),
     (["tre so sinh", "so sinh du thang", "tre duoi 28 ngay"], "P96"),
     (["suy dinh duong nang chua dieu tri"], "E43"),
@@ -188,10 +207,20 @@ def map_qtkt_chi_dinh(
     if long_names is None:
         long_names = _build_long_name_index(catalog)
     for cn in search_norms:
-        for entry in match_catalog_substring(cn, long_names):
+        for entry in match_catalog_substring(cn, long_names, min_score=85):
             results[entry["ma"]] = entry
 
     return sorted(results.values(), key=lambda x: x["ma"])[:max_codes]
+
+
+def _is_qtkt_no_chong(text: str) -> bool:
+    cn = norm(text)
+    if not cn:
+        return True
+    if QTKT_NO_CHONG_RE.match(cn):
+        return True
+    clauses = [norm(c) for c in split_clauses(text) if c.strip()]
+    return bool(clauses) and all(QTKT_NO_CHONG_RE.match(c) or not c for c in clauses)
 
 
 def map_qtkt_chong_chi_dinh(
@@ -201,33 +230,43 @@ def map_qtkt_chong_chi_dinh(
     long_names: list[tuple[str, dict]] | None = None,
     *,
     max_codes: int = 15,
+    qtkt_section: bool = True,
 ) -> list[dict]:
-    if not text or not catalog:
+    if not text or not catalog or _is_qtkt_no_chong(text):
         return []
     results: dict[str, dict] = {}
+    clauses = split_clauses(text)
+    norms = [norm(c) for c in clauses if c.strip()]
 
-    for clause in split_clauses(text):
+    for clause in clauses:
         cn = norm(clause)
-        if not cn or RELATIVE_CONTRA_CLAUSE.search(cn):
+        if not cn or RELATIVE_CONTRA_CLAUSE.search(cn) or QTKT_NO_CHONG_RE.match(cn):
             continue
-        if not CHONG_CLAUSE_SIGNAL.search(cn):
+        if not qtkt_section and not CHONG_CLAUSE_SIGNAL.search(cn):
             continue
         for entry in extract_explicit_icd_codes(clause, catalog):
             results[entry["ma"]] = entry
 
-    for entry in map_chong_text_to_icds(text, catalog, children, max_codes=max_codes):
-        results[entry["ma"]] = entry
+    if not qtkt_section:
+        for entry in map_chong_text_to_icds(text, catalog, children, max_codes=max_codes):
+            results[entry["ma"]] = entry
 
-    norms = [norm(c) for c in split_clauses(text) if c.strip()]
-    for ma, entry in _apply_phrase_hints(norms, QTKT_CHONG_PHRASE_HINTS, catalog, children).items():
-        results[ma] = entry
+    for cn in norms:
+        if RELATIVE_CONTRA_CLAUSE.search(cn) or QTKT_NO_CHONG_RE.match(cn):
+            continue
+        if not qtkt_section and not CHONG_CLAUSE_SIGNAL.search(cn):
+            continue
+        for ma, entry in _apply_phrase_hints([cn], QTKT_CHONG_PHRASE_HINTS, catalog, children).items():
+            results[ma] = entry
 
     if long_names is None:
         long_names = _build_long_name_index(catalog)
     for cn in norms:
-        if not CHONG_CLAUSE_SIGNAL.search(cn):
+        if RELATIVE_CONTRA_CLAUSE.search(cn) or QTKT_NO_CHONG_RE.match(cn):
             continue
-        for entry in match_catalog_substring(cn, long_names):
+        if not qtkt_section and not CHONG_CLAUSE_SIGNAL.search(cn):
+            continue
+        for entry in match_catalog_substring(cn, long_names, min_score=88):
             results[entry["ma"]] = entry
 
     return sorted(results.values(), key=lambda x: x["ma"])[:max_codes]
@@ -249,20 +288,17 @@ def icd_confidence(entries: list[dict], *, explicit_count: int = 0) -> str:
 def apply_qtkt_icd_fields(row: dict, catalog: dict, children: dict, long_names: list[tuple[str, dict]] | None = None) -> dict:
     chi_text = (row.get("chiDinh") or "").strip()
     chong_text = (row.get("chongChiDinh") or "").strip()
-    if len(chi_text) < 15:
-        chi_text = " ".join(
-            x for x in (
-                row.get("tenKyThuat", ""),
-                row.get("tenKyThuatTT23", ""),
-                row.get("tenTT43", ""),
-            ) if x
-        ).strip()
-    if len(chong_text) < 10 and chi_text:
-        chong_text = row.get("chongChiDinh") or ""
+    # Chỉ map ICD từ nguyên văn §2/§3 — không suy từ tên kỹ thuật (tránh map sai)
+    if len(chi_text) < 8:
+        chi_text = ""
 
-    explicit_chi = len(extract_explicit_icd_codes(chi_text, catalog))
-    chi_entries = map_qtkt_chi_dinh(chi_text, catalog, children, long_names)
-    chong_entries = map_qtkt_chong_chi_dinh(chong_text, catalog, children, long_names)
+    explicit_chi = len(extract_explicit_icd_codes(chi_text, catalog)) if chi_text else 0
+    chi_entries = map_qtkt_chi_dinh(chi_text, catalog, children, long_names) if chi_text else []
+    chong_entries = (
+        map_qtkt_chong_chi_dinh(chong_text, catalog, children, long_names, qtkt_section=True)
+        if chong_text
+        else []
+    )
     chong_entries = remove_chong_overlap_with_chi(chi_entries, chong_entries)
 
     row["maICDChiDinh"] = ";".join(e["ma"] for e in chi_entries)

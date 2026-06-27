@@ -439,6 +439,7 @@ def _clean_indication_text(text: str) -> str:
     if not text:
         return ""
     t = text
+    t = re.sub(r"^\s*\d+\.?\s*CH[ỐO]NG\s*CH[IỈÍỐO]?\s*ĐỊNH\s*", "", t, flags=re.I | re.M)
     m = re.search(r"(?:TAI LIEU THAM KHAO|tài liệu tham khảo)", t, re.I)
     if m:
         t = t[: m.start()]
