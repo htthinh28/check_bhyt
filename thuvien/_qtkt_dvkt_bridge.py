@@ -13,6 +13,26 @@ POLLUTED_TT23_RE = re.compile(
     r"^\d+\.\d+\s+[a-zàáảãạăằắẳẵặâầấẩẫậđèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵ])",
     re.I,
 )
+MA_BS_RE = re.compile(r"BS[_\s-]?(\d+(?:\.\d+)?)", re.I)
+LATIN_MEDICAL_RE = re.compile(r"^[A-Za-z0-9][A-Za-z0-9 /().,\-+®™]*$")
+JUNK_TT23_FRAGMENTS = frozenset(
+    s.lower()
+    for s in (
+        "GH",
+        "sáng",
+        "phổi",
+        "U đồ",
+        "laser châm",
+        "laser chiếu ngoài",
+        "laser nội mạch",
+        "Thụt tháo",
+        "Thụt giữ",
+        "Soi ối",
+        "Giác hút",
+        "Tập nuốt",
+        "Hào châm",
+    )
+)
 
 BV_DATASETS: list[tuple[str, str]] = [
     ("bvpcst", "BV PC Sóc Trăng"),
@@ -24,10 +44,49 @@ LABEL_TT23 = "Thông tư số 23/2024/TT-BYT"
 LABEL_QD7603 = "Quyết định số 7603/QĐ-BYT"
 
 
+def is_junk_tt23_catalog_name(name: str) -> bool:
+    """Tên rác trong danh mục TT23 (phụ lục parse lỗi): GH, sáng, phổi…"""
+    t = (name or "").strip()
+    if not t:
+        return True
+    if t.lower() in JUNK_TT23_FRAGMENTS:
+        return True
+    if LATIN_MEDICAL_RE.match(t) and len(t) >= 6:
+        return False
+    if len(t) < 8:
+        return True
+    words = [w for w in re.split(r"\s+", t) if w]
+    if len(words) <= 2 and len(t) < 18:
+        if re.search(
+            r"[àáảãạăằắẳẵặâầấẩẫậèéẻẽẹêềếểễệìíỉĩịòóỏõọôồốổỗộơờớởỡợùúủũụưừứửữựỳýỷỹỵ]",
+            t,
+            re.I,
+        ):
+            return True
+    return False
+
+
+def _acceptable_pl1_match(qt_title: str, pl1_row: dict) -> bool:
+    tn = (pl1_row.get("tenTT43") or "").strip()
+    if is_junk_tt23_catalog_name(tn):
+        return False
+    qt_n = norm_text(qt_title or "")
+    if not qt_n or len(qt_n) < 8:
+        return bool(tn)
+    return name_similarity(qt_n, norm_text(tn)) >= 0.32
+
+
 def is_polluted_tt23_name(name: str) -> bool:
     t = (name or "").strip()
-    if not t or len(t) < 6:
+    if not t:
         return True
+    if is_junk_tt23_catalog_name(t):
+        return True
+    if len(t) < 6:
+        return True
+    words = [w for w in re.split(r"\s+", t) if w]
+    if len(words) >= 3 and len(t) >= 18 and not POLLUTED_TT23_RE.search(t):
+        return False
     if POLLUTED_TT23_RE.search(t):
         return True
     if re.match(r"^\d+\.\d+\s", t) and " " in t[8:]:
@@ -40,6 +99,39 @@ def is_polluted_tt23_name(name: str) -> bool:
     if t[0].isupper() and len(t) >= 16:
         return False
     return bool(re.match(r"^[a-zàáảãạ]", t))
+
+
+def ma_lookup_keys(raw_ma: str, qt_title: str = "") -> list[str]:
+    """Sinh các biến thể mã tra cứu TT23 (kể cả BS_ trong tiêu đề)."""
+    keys: list[str] = []
+    ma = str(raw_ma or "").strip()
+    if ma:
+        keys.append(ma)
+        upper = ma.upper()
+        if not upper.startswith("BS_"):
+            keys.append(f"BS_{ma}")
+        elif len(ma) > 3:
+            keys.append(ma[3:])
+    for m in MA_BS_RE.finditer(qt_title or ""):
+        code = m.group(1)
+        keys.extend([f"BS_{code}", code])
+    seen: set[str] = set()
+    out: list[str] = []
+    for k in keys:
+        k = k.strip()
+        if k and k not in seen:
+            seen.add(k)
+            out.append(k)
+    return out
+
+
+def _acceptable_ma_match(qt_title: str, tt23_row: dict) -> bool:
+    official = (tt23_row.get("tenKyThuat") or "").strip()
+    if is_junk_tt23_catalog_name(official):
+        return False
+    if not qt_title or len(qt_title) < 12:
+        return True
+    return name_similarity(qt_title, norm_text(official)) >= 0.15
 
 
 def index_pl1(rows: list[dict]) -> dict[str, dict]:
@@ -103,7 +195,15 @@ def load_mapping_context(data_dir=None) -> dict:
         "tt23_pl1": index_tt23(tt23_pl1_pack["rows"] if tt23_pl1_pack else []),
         "tt23_pl2": index_tt23(tt23_pl2_pack["rows"] if tt23_pl2_pack else []),
         "bv": {},
+        "tt23_fuzzy_pool": [],
     }
+    for idx, label in ((ctx["tt23_pl1"], "PL1"), (ctx["tt23_pl2"], "PL2")):
+        for cand in idx["by_ten"].values():
+            tn = (cand.get("tenKyThuat") or "").strip()
+            if is_junk_tt23_catalog_name(tn):
+                continue
+            words = frozenset(w for w in norm_text(tn).split() if len(w) >= 3)
+            ctx["tt23_fuzzy_pool"].append((norm_text(tn), words, cand, label))
     for ds_id, label in BV_DATASETS:
         pack = load_dataset(ds_id, data_dir)
         if pack and pack.get("rows"):
@@ -111,13 +211,38 @@ def load_mapping_context(data_dir=None) -> dict:
     return ctx
 
 
+def _fuzzy_tt23_match(qt_title: str, ctx: dict, *, min_score: float) -> tuple[dict | None, str, float]:
+    pool: list = ctx.get("tt23_fuzzy_pool") or []
+    if not pool or not qt_title:
+        return None, "", 0.0
+    qt_words = {w for w in qt_title.split() if len(w) >= 3}
+    best = None
+    best_score = 0.0
+    best_label = ""
+    for tn, words, cand, label in pool:
+        if qt_words and words:
+            overlap = len(qt_words & words)
+            if overlap < 2 and overlap / max(len(qt_words), 1) < 0.25:
+                continue
+        sc = name_similarity(qt_title, tn)
+        if sc > best_score:
+            best_score = sc
+            best = cand
+            best_label = label
+    if best and best_score >= min_score:
+        return best, best_label, best_score
+    return None, "", best_score
+
+
 def find_tt23_match(row: dict, ctx: dict) -> tuple[dict | None, str, str]:
     """Tìm dòng TT23 (PL1/PL2). Trả (row, pl_label, method)."""
     ma = norm_code(row.get("maKyThuat", ""))
     stt_kt = str(row.get("sttKyThuat", "")).strip()
     qt_title = norm_text(row.get("tenKyThuat", ""))
+    qt_raw = (row.get("tenKyThuat") or "").strip()
 
     def _pick_best(cands: list[tuple[dict, str, str]]) -> tuple[dict | None, str, str]:
+        cands = [c for c in cands if not is_junk_tt23_catalog_name((c[0].get("tenKyThuat") or ""))]
         if not cands:
             return None, "", ""
         if len(cands) == 1:
@@ -140,35 +265,35 @@ def find_tt23_match(row: dict, ctx: dict) -> tuple[dict | None, str, str]:
         return cands[0]
 
     by_ma_hits: list[tuple[dict, str, str]] = []
-    for idx, label in ((ctx["tt23_pl1"], "PL1"), (ctx["tt23_pl2"], "PL2")):
-        if ma and ma in idx["by_ma"]:
-            by_ma_hits.append((idx["by_ma"][ma], label, "mã TT23"))
+    for key in ma_lookup_keys(str(row.get("maKyThuat", "") or ma), qt_raw):
+        for idx, label in ((ctx["tt23_pl1"], "PL1"), (ctx["tt23_pl2"], "PL2")):
+            if key in idx["by_ma"]:
+                cand = idx["by_ma"][key]
+                if _acceptable_ma_match(qt_title, cand):
+                    method = "mã TT23" if key == ma or not key.upper().startswith("BS_") else f"mã BS ({key})"
+                    by_ma_hits.append((cand, label, method))
     if by_ma_hits:
         return _pick_best(by_ma_hits)
 
     for idx, label in ((ctx["tt23_pl1"], "PL1"), (ctx["tt23_pl2"], "PL2")):
         if stt_kt and stt_kt in idx["by_stt"]:
-            return idx["by_stt"][stt_kt], label, "STT kỹ thuật"
+            cand = idx["by_stt"][stt_kt]
+            if _acceptable_ma_match(qt_title, cand):
+                return cand, label, "STT kỹ thuật"
     if ma and ma.isdigit():
         for idx, label in ((ctx["tt23_pl1"], "PL1"), (ctx["tt23_pl2"], "PL2")):
             if ma in idx["by_stt"]:
-                return idx["by_stt"][ma], label, "STT (mã số)"
+                cand = idx["by_stt"][ma]
+                if _acceptable_ma_match(qt_title, cand):
+                    return cand, label, "STT (mã số)"
 
     if qt_title:
         for idx, label in ((ctx["tt23_pl1"], "PL1"), (ctx["tt23_pl2"], "PL2")):
             if qt_title in idx["by_ten"]:
                 return idx["by_ten"][qt_title], label, "tên QTKT = TT23"
-        best = None
-        best_score = 0.0
-        best_label = ""
-        for idx, label in ((ctx["tt23_pl1"], "PL1"), (ctx["tt23_pl2"], "PL2")):
-            for cand in idx["by_ten"].values():
-                sc = name_similarity(qt_title, norm_text(cand.get("tenKyThuat", "")))
-                if sc > best_score:
-                    best_score = sc
-                    best = cand
-                    best_label = label
-        if best and best_score >= 0.82:
+        min_fuzzy = 0.65 if len(qt_title) >= 22 else 0.82
+        best, best_label, best_score = _fuzzy_tt23_match(qt_title, ctx, min_score=min_fuzzy)
+        if best:
             return best, best_label, f"tên gần đúng ({best_score:.0%})"
     return None, "", ""
 
@@ -252,26 +377,33 @@ def link_qtkt_row(row: dict, ctx: dict | None = None) -> dict:
         ctx = load_mapping_context()
     row = dict(row)
     pl1_idx = ctx["pl1_idx"]
+    pl1 = None
 
     tt23, pl_label, tt23_method = find_tt23_match(row, ctx)
     official_tt23 = ""
     if tt23:
         official_tt23 = (tt23.get("tenKyThuat") or "").strip()
         ma_official = norm_code(tt23.get("maKyThuat", ""))
-        row["lienKetTT23"] = ma_official or row.get("lienKetTT23", "")
-        row["tenKyThuatTT23"] = official_tt23
-        row["phuLucTT23"] = tt23.get("phuLuc", "") or (f"PL0{1 if pl_label == 'PL1' else 2}")
-        row["chuongTT23"] = tt23.get("chuong", "")
-        if ma_official and not row.get("maKyThuat"):
-            row["maKyThuat"] = ma_official
-        link76 = str(tt23.get("lienKetQD7603", "") or tt23.get("maTuongDuongQD7603", "")).strip()
-        if link76 and link76 in pl1_idx["by_ma7603"]:
-            pl1 = pl1_idx["by_ma7603"][link76]
-        elif norm_code(row.get("maKyThuat", "")) in pl1_idx["by_ma43"]:
-            pl1 = pl1_idx["by_ma43"][norm_code(row.get("maKyThuat", ""))]
+        if is_polluted_tt23_name(official_tt23):
+            official_tt23 = ""
+            tt23 = None
         else:
-            pl1 = None
-    else:
+            row["lienKetTT23"] = ma_official or row.get("lienKetTT23", "")
+            row["tenKyThuatTT23"] = official_tt23
+            row["phuLucTT23"] = tt23.get("phuLuc", "") or (f"PL0{1 if pl_label == 'PL1' else 2}")
+            row["chuongTT23"] = tt23.get("chuong", "")
+            if ma_official and official_tt23:
+                row["maKyThuat"] = ma_official
+            link76 = str(tt23.get("lienKetQD7603", "") or tt23.get("maTuongDuongQD7603", "")).strip()
+            if link76 and link76 in pl1_idx["by_ma7603"]:
+                pl1 = pl1_idx["by_ma7603"][link76]
+            elif norm_code(row.get("maKyThuat", "")) in pl1_idx["by_ma43"]:
+                cand = pl1_idx["by_ma43"][norm_code(row.get("maKyThuat", ""))]
+                if _acceptable_pl1_match(row.get("tenKyThuat", ""), cand):
+                    pl1 = cand
+            else:
+                pl1 = None
+    if not tt23:
         pl1 = None
         cur_tt23 = (row.get("tenKyThuatTT23") or "").strip()
         if is_polluted_tt23_name(cur_tt23):
@@ -281,16 +413,23 @@ def link_qtkt_row(row: dict, ctx: dict | None = None) -> dict:
         official_tt23 = row.get("tenKyThuatTT23", "")
         ma43 = norm_code(row.get("maKyThuat", ""))
         if ma43 and ma43 in pl1_idx["by_ma43"]:
-            pl1 = pl1_idx["by_ma43"][ma43]
+            cand = pl1_idx["by_ma43"][ma43]
+            if _acceptable_pl1_match(row.get("tenKyThuat", ""), cand):
+                pl1 = cand
         elif not pl1:
             tn = norm_text(row.get("tenKyThuat", ""))
             if tn:
                 sc_best = 0.0
                 for cand in pl1_idx["by_ten"].values():
+                    if is_junk_tt23_catalog_name(cand.get("tenTT43", "")):
+                        continue
                     sc = name_similarity(tn, norm_text(cand.get("tenTT43", "")))
                     if sc > sc_best and sc >= 0.82:
                         sc_best = sc
                         pl1 = cand
+
+    if pl1 and not official_tt23 and not _acceptable_pl1_match(row.get("tenKyThuat", ""), pl1):
+        pl1 = None
 
     if pl1:
         row["lienKetQD7603"] = str(pl1.get("maTuongDuong", "") or pl1.get("maTT43", "")).strip()
@@ -298,8 +437,10 @@ def link_qtkt_row(row: dict, ctx: dict | None = None) -> dict:
         row["maTuongDuong"] = row["lienKetQD7603"]
         row["tenTT43"] = (pl1.get("tenTT43", "") or "").strip()
         if not official_tt23 and pl1.get("tenKyThuatTT23"):
-            row["tenKyThuatTT23"] = pl1.get("tenKyThuatTT23", "")
-            official_tt23 = row["tenKyThuatTT23"]
+            tn = (pl1.get("tenKyThuatTT23") or "").strip()
+            if not is_polluted_tt23_name(tn):
+                row["tenKyThuatTT23"] = tn
+                official_tt23 = tn
 
     bv, bv_label, bv_method = find_bv_match(row, ctx, official_tt23)
     if bv:
@@ -309,7 +450,9 @@ def link_qtkt_row(row: dict, ctx: dict | None = None) -> dict:
         row["doTinCayMappingBV"] = "Cao" if "Cao" in bv_method else ("Trung bình" if "Trung bình" in bv_method else "Thấp")
         row["ghiChuMappingBV"] = f"DM BV: {bv_method}"
         if not row.get("tenKyThuatTT23") and bv.get("tenKyThuatTT23"):
-            row["tenKyThuatTT23"] = bv.get("tenKyThuatTT23", "").strip()
+            tn = (bv.get("tenKyThuatTT23") or "").strip()
+            if not is_polluted_tt23_name(tn):
+                row["tenKyThuatTT23"] = tn
     else:
         row.setdefault("maDichVuBV", "")
         row.setdefault("tenDichVuBV", "")
@@ -322,6 +465,8 @@ def link_qtkt_row(row: dict, ctx: dict | None = None) -> dict:
     conf = _mapping_confidence(row.get("tenKyThuat", ""), official_tt23, has_ma=has_ma, has_7603=has_7603)
     if tt23 and tt23_method.startswith("mã"):
         conf = "Cao" if conf != "Thấp" else "Trung bình"
+    elif tt23 and tt23_method.startswith("tên gần"):
+        conf = "Trung bình" if conf != "Cao" else conf
     row["doTinCayMapping"] = conf if (has_ma or has_7603) else ""
 
     notes = []
@@ -332,6 +477,13 @@ def link_qtkt_row(row: dict, ctx: dict | None = None) -> dict:
     if bv_label:
         notes.append(f"DM {bv_label}")
     row["ghiChuMapping"] = " · ".join(notes)
+
+    if not row.get("tenKyThuatTT23"):
+        if is_junk_tt23_catalog_name(row.get("tenTT43", "")):
+            row["tenTT43"] = ""
+            row["lienKetQD7603"] = ""
+            row["maTT43"] = ""
+            row["maTuongDuong"] = ""
 
     tags = []
     if row.get("lienKetQD7603"):
