@@ -3,8 +3,8 @@ from pathlib import Path
 
 base = Path(r"G:/My Drive/Thu vien (1)")
 for name in [
-    "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html",
-    "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html.bak",
+    "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html",
+    "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html.bak",
     "index thu vien.txt",
 ]:
     p = base / name

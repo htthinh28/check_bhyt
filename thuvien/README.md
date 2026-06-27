@@ -1,6 +1,6 @@
-# Thư viện tra cứu — TĐYT Phương Châu
+# Thư viện tra cứu — CDSS Bảo hiểm y tế
 
-Danh mục DVKT (QĐ 7603, TT23, QTKT, ICD-10) và Dược thư Phương Châu.
+Danh mục DVKT (QĐ 7603, TT23, QTKT, ICD-10) và Dược thư BHYT.
 
 Repo này được **nhúng trong** [`check_bhyt`](https://github.com/htthinh28/check_bhyt) tại thư mục `thuvien/`.
 
@@ -12,7 +12,7 @@ npm run thuvien:start     # Flask cổng 5050
 npm run qa:thuvien        # smoke test
 ```
 
-Trong app CDSS: **Tổng quan → 📖 TRA CỨU DVKT & DƯỢC THƯ** hoặc **📚 Thư viện → DVKT & Dược thư PC**.
+Trong app CDSS: **Tổng quan → 📖 TRA CỨU DVKT & DƯỢC THƯ** hoặc **📚 Thư viện → DVKT & Dược thư BHYT**.
 
 Cấu hình URL (điện thoại thật / LAN): `app.json` → `expo.extra.thuvienTraCuu.baseUrl` (ví dụ `http://192.168.1.10:5050`).
 
@@ -52,4 +52,4 @@ Web/Vercel: `npm run thuvien:prepare` copy `quytrinhkt` vào `/thuvien/api/data/
 | `dvkt_app/` | Ứng dụng Flask DVKT |
 | `duocthu_data/` | Dữ liệu thuốc, ICD, JCI (tách từ HTML) |
 | `chandoan-html/` | Kháng sinh BYT & vi sinh |
-| `Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html` | Dược thư (mở trực tiếp hoặc qua Flask) |
+| `Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html` | Dược thư (mở trực tiếp hoặc qua Flask) |

@@ -26,7 +26,7 @@ const InfographicPhacDo = ({ maICD = 'J18.9', noiDungPhacDo = null }) => {
       <SafeAreaView style={styles.vung_an_toan}>
         <ScrollView contentContainerStyle={styles.khung_chinh}>
           <View style={styles.the_phan_he}>
-            <Text style={styles.tieu_de_phan}>HÀNH CHÍNH — PHÁC ĐỒ CDSS PHƯƠNG CHÂU</Text>
+            <Text style={styles.tieu_de_phan}>HÀNH CHÍNH — PHÁC ĐỒ CDSS BHYT</Text>
             <View style={styles.noi_dung_hang}>
               <Text style={styles.chu_dam}>Mã ICD-10:</Text>
               <Text style={styles.chu_thuong}> {noiDungPhacDo['MÃ ICD-10'] || maICD}</Text>
@@ -60,7 +60,7 @@ const InfographicPhacDo = ({ maICD = 'J18.9', noiDungPhacDo = null }) => {
         <View style={styles.the_phan_he}>
           <Text style={styles.tieu_de_phan}>I. HÀNH CHÍNH [1]</Text>
           <View style={styles.noi_dung_hang}>
-            <Text style={styles.chu_dam}>Cơ sở y tế:</Text><Text style={styles.chu_thuong}> Tập đoàn Y tế Phương Châu</Text>
+            <Text style={styles.chu_dam}>Cơ sở y tế:</Text><Text style={styles.chu_thuong}> CDSS Bảo hiểm y tế</Text>
           </View>
           <View style={styles.noi_dung_hang}>
             <Text style={styles.chu_dam}>Mã số tài liệu:</Text><Text style={styles.chu_thuong}> PC-COP-PD-{maICD}</Text>
@@ -156,7 +156,7 @@ const InfographicPhacDo = ({ maICD = 'J18.9', noiDungPhacDo = null }) => {
   );
 };
 
-// CSS Chuẩn Pink Theme Phương Châu & Font Arial > 20px
+// CSS Chuẩn Theme CDSS BHYT & Font Arial > 20px
 const styles = StyleSheet.create({
   vung_an_toan: { flex: 1, backgroundColor: '#FFF5F8' },
   khung_chinh: { padding: 30 },

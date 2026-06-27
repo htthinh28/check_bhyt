@@ -4,7 +4,7 @@
  * 1. CRUD Toàn diện: Ghi nhật ký diễn biến bệnh, nội dung hội chẩn, phẫu thuật.
  * 2. Tùy biến No-code: Cột dữ liệu tự động đồng bộ từ Master Schema.
  * 3. JCI Standard: Đảm bảo tính liên tục của dữ liệu lâm sàng (Standard of Care).
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -94,7 +94,7 @@ const ManHinhXML5 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* HEADER PINK THEME PHƯƠNG CHÂU */}
+      {/* HEADER PINK THEME CDSS */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => quayLaiAnToan(navigation, 'DocXML')} style={styles.btn_back}>
           <Text style={styles.txt_btn}>⬅</Text>

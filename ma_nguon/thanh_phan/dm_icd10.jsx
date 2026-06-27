@@ -2,7 +2,7 @@
  * MODULE: QUẢN LÝ DANH MỤC MÃ BỆNH ICD-10 (CHUẨN BỘ Y TẾ)
  * Chức năng: CRUD, Import/Export Excel, Tải File Mẫu, Bulk Delete
  * Căn cứ: QĐ 3176/QĐ-BYT (Danh mục dùng chung)
- * Giao diện: Pink Theme Phương Châu, Arial > 20px
+ * Giao diện: Theme CDSS BHYT, Arial > 20px
  * Nâng cấp (Bản 1.5): Sửa lỗi lưu Import, hiển thị Fullscreen, dãn dòng cột rộng rãi.
  */
 

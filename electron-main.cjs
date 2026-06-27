@@ -96,7 +96,7 @@ function start() {
       height: 800,
       minWidth: 900,
       minHeight: 600,
-      title: 'CDSS BHYT Phuong Chau',
+      title: 'CDSS Bảo hiểm y tế',
       webPreferences: {
         contextIsolation: true,
         nodeIntegration: false,

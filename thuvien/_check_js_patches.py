@@ -4,7 +4,7 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from _apply_icd_patch import JS_REPLACEMENTS, patch_js_head
 
-html = Path(r'G:/My Drive/Thu vien (1)/Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html').read_text(encoding='utf-8')
+html = Path(r'G:/My Drive/Thu vien (1)/Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html').read_text(encoding='utf-8')
 start = html.find('const INITIAL_STANDARD_FIELDS')
 script_start = html.rfind('<script', 0, start)
 script_end = html.find('</script>', start)

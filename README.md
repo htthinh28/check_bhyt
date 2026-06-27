@@ -174,7 +174,7 @@ This is a safe scaffold to start moving selected processing from the app into Py
 
 ## Thư viện tra cứu DVKT & Dược thư (`thuvien/`)
 
-Tra cứu **DM DVKT** (QĐ 7603, TT23, QTKT) và **Dược thư Phương Châu** — **web/Vercel chạy trực tiếp cùng origin** (`/thuvien/`), không cần Flask hay cổng 5050.
+Tra cứu **DM DVKT** (QĐ 7603, TT23, QTKT) và **Dược thư BHYT** — **web/Vercel chạy trực tiếp cùng origin** (`/thuvien/`), không cần Flask hay cổng 5050.
 
 ```bash
 npm run thuvien:prepare   # copy static → public/thuvien/

@@ -6,7 +6,7 @@ from collections import Counter
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
-HTML = BASE / "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html"
+HTML = BASE / "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html"
 
 
 def main() -> None:

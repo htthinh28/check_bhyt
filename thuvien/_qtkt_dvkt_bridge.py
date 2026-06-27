@@ -38,7 +38,7 @@ JUNK_TT23_FRAGMENTS = frozenset(
 BV_DATASETS: list[tuple[str, str]] = [
     ("bvpcst", "BV PC Sóc Trăng"),
     ("bvpcct", "BV PC Cần Thơ"),
-    ("bvpsd", "BV Phương Châu Sài Gòn"),
+    ("bvpsd", "CDSS Bảo hiểm y tế Sài Gòn"),
 ]
 
 LABEL_TT23 = "Thông tư số 23/2024/TT-BYT"

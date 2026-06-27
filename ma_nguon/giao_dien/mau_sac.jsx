@@ -1,7 +1,7 @@
 /**
  * HỆ THỐNG MÀU SẮC TOÀN CỤC (COLOR SYSTEM)
- * Dự án: CDSS BHYT - Tập đoàn Y tế Phương Châu
- * Tiêu chuẩn: JCI v8 - Nhận diện thương hiệu Y tế Phương Châu
+ * Dự án: CDSS Bảo hiểm y tế
+ * Tiêu chuẩn: JCI v8 - CDSS Bảo hiểm y tế
  *
  * TRIẾT LÝ MÀU SẮC:
  *   - Hồng (#FF66A3 / #D81B60): Nhận diện thương hiệu, CTA chính
@@ -19,7 +19,7 @@
  */
 
 // ============================================================
-// 1. BỘ MÀU THƯƠNG HIỆU PHƯƠNG CHÂU
+// 1. BỘ MÀU THƯƠNG HIỆU CDSS BHYT
 // ============================================================
 export const MAU_SAC = {
 

@@ -7,7 +7,7 @@
  * 3. Lưu kho: Cập nhật hồ sơ đã sửa ngược lại vào kho lưu trữ (JCI Audit Trail).
  * 4. Re-Validate: Kiểm tra lại toàn bộ lỗi sau khi sửa trước khi xuất.
  * 5. XML Exporter: Đóng gói JSON thành XML chuẩn QĐ 130, escape ký tự đặc biệt.
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import { useEffect, useMemo, useState } from 'react';

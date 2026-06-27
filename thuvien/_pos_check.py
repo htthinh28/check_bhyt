@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from pathlib import Path
-t = Path(r'G:/My Drive/Thu vien (1)/Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html').read_text(encoding='utf-8')
+t = Path(r'G:/My Drive/Thu vien (1)/Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html').read_text(encoding='utf-8')
 s = t.find('const INITIAL_STANDARD_FIELDS')
 i = t.find('class="icd-data-chunk"')
 d = t.find('class="drugs-data-chunk"')

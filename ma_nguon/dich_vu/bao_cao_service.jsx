@@ -107,7 +107,7 @@ const tongHopPayloadTuNguon = (nguon) => {
     bao_cao_chuyen_mon_muc7: muc7,
     bao_cao_doanh_thu_muc8: muc8,
     hien_thi_bao_cao,
-    /** Đặc tả tài liệu v2.0 (Phương Châu Dynamic BI): snapshot + filter context + template registry */
+    /** Đặc tả tài liệu v2.0 (CDSS Dynamic BI): snapshot + filter context + template registry */
     ma_dac_ta_du_lieu_v2: MA_DAC_TA_DU_LIEU_V2,
     thoi_diem_tao,
     bo_loc_da_ap_dung: {},

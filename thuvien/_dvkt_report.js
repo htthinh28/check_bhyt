@@ -11,7 +11,7 @@
       { id: 'tt23pl2', label: 'TT23 — Phụ lục 2', short: 'TT23-PL2' },
       { id: 'bvpcst', label: 'BV PC Sóc Trăng', short: 'PCST' },
       { id: 'bvpcct', label: 'BV PC Cần Thơ', short: 'PCCT' },
-      { id: 'bvpsd', label: 'BV Phương Châu Sa Đéc', short: 'Sa Đéc' },
+      { id: 'bvpsd', label: 'BV Sa Đéc', short: 'Sa Đéc' },
       { id: 'pvhnbhxh', label: 'PVHN BHXH 2024 — Chức danh CM', short: 'BHXH' },
     ];
 

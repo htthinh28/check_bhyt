@@ -186,7 +186,7 @@ const DieuHuongChinh = () => {
       <Stack.Navigator 
         initialRouteName="DangNhap" 
         screenOptions={{ 
-          headerShown: false, // Sử dụng Header tùy biến của Phương Châu
+          headerShown: false, // Sử dụng Header tùy biến CDSS
           animation: 'slide_from_right', 
           gestureEnabled: true 
         }}

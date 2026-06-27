@@ -1,10 +1,10 @@
-// Liên kết giữa Danh mục DVKT (Flask / dich vụ kỹ thuật.html) và Dược thư Phương Châu
+// Liên kết giữa Danh mục DVKT (Flask / dich vụ kỹ thuật.html) và Dược thư BHYT
 (function (global) {
   const DEFAULT_LINKS = {
     dvktWebUrl: 'http://127.0.0.1:5050/',
     dvktHtmlFallback: 'dich vụ kỹ thuật.html',
     duocThuHtml: 'http://127.0.0.1:5050/duocthu',
-    duocThuHtmlFile: 'Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html',
+    duocThuHtmlFile: 'Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html',
   };
 
   function getPcAppLinks() {

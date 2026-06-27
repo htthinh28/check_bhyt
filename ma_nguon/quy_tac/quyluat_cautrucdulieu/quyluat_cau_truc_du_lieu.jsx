@@ -1,7 +1,7 @@
 /**
  * TRẠM 1: TRUNG TÂM ĐIỀU PHỐI QUY LUẬT CẤU TRÚC (MASTER SCHEMA ENGINE)
  * Chức năng: Định nghĩa các trường chuẩn QĐ 130/QĐ-BYT và tùy biến người dùng.
- * PHONG CÁCH: Pink Theme Phương Châu, Arial > 20px.
+ * PHONG CÁCH: Theme CDSS BHYT, Arial > 20px.
  */
 
 import { DANH_SACH_COT_XML1, QUY_TAC_KIEM_TRA_XML1 } from './xml1';

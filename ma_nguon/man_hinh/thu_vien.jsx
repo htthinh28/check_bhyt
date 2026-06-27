@@ -471,7 +471,7 @@ const ManHinhThuVien = ({ navigation }) => {
           </Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.the_ngan_sang} onPress={() => navigation.navigate('TraCuuThuVienPC')}>
-          <Text style={styles.chu_ngan_sang}>📖 DVKT & Dược thư PC</Text>
+          <Text style={styles.chu_ngan_sang}>📖 DVKT & Dược thư BHYT</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.the_ngan_sang} onPress={() => dieuHuongMoTabMoi(navigation, 'TroLyTriThuc')}>
           <Text style={styles.chu_ngan_sang}>🤖 Trợ lý tri thức</Text>

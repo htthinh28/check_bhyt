@@ -7,7 +7,7 @@ import sys
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
-SRC = BASE / "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html"
+SRC = BASE / "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html"
 DST_DIR = BASE / "dvkt_app" / "static" / "duocthu"
 DST = DST_DIR / "index.html"
 

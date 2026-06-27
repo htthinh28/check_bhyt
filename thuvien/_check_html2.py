@@ -34,8 +34,8 @@ def tail_info(p):
     }
 
 for name in [
-    "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html",
-    "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html.bak",
+    "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html",
+    "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html.bak",
 ]:
     p = base / name
     if not p.exists():

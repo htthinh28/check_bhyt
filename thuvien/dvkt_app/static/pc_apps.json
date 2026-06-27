@@ -2,7 +2,7 @@
   "dvktWebUrl": "http://127.0.0.1:5050/",
   "dvktHtmlFallback": "dich vụ kỹ thuật.html",
   "duocThuHtml": "http://127.0.0.1:5050/duocthu",
-  "duocThuHtmlFile": "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html",
+  "duocThuHtmlFile": "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html",
   "duocThuDataPrefix": "/duocthu_data/",
-  "description": "Liên kết DVKT (Flask) ↔ Dược thư Phương Châu"
+  "description": "Liên kết DVKT (Flask) ↔ Dược thư BHYT"
 }

@@ -6,7 +6,7 @@
 
 ## 1. Nhập CDSS vào module Chuyên môn
 
-1. Mở **Tổng quan → Chuyên môn → Phác đồ Phương Châu** (component `PhacDoBenhVien`).
+1. Mở **Tổng quan → Chuyên môn → Phác đồ CDSS** (component `PhacDoBenhVien`).
 2. Trên Web: **Import** file `FileMau_PhacDo_CDSS 4.xlsx` (sheet `Template`); dữ liệu gộp với bảng hiện có — **ưu tiên nội dung file mới** cho trùng mã ICD (`phac_do_cdss_columns.js`).
 3. **Developer / đồng bộ repo:** chạy từ thư mục gốc dự án:
    ```bash

@@ -23,7 +23,7 @@ export const kiemTraHopDong = (xml1, xml3) => {
   if (!hopDong || !xml1) return danhSachLỗi;
 
   // Giả định các tham số này có thể được KHTH cấu hình trên giao diện Web:
-  // (Mặc định lấy theo Hợp đồng Phương Châu Sóc Trăng 2026)
+  // (Mặc định lấy theo Hợp đồng KCB BHYT Sóc Trăng 2026)
   const DIEU_TRI_BAN_NGAY_HOP_LE = hopDong.DIEU_TRI_BAN_NGAY === "Có" || false; 
   const KHAM_NGOAI_GIO_HOP_LE = hopDong.KHAM_NGOAI_GIO === "Có" || false;
   const maLoaiKcb = chuanHoaMaLoaiKcb(xml1.MA_LOAI_KCB);
@@ -51,7 +51,7 @@ export const kiemTraHopDong = (xml1, xml3) => {
       if (dv.NGAY_YL && dv.NGAY_YL.length >= 12) {
         const gioChiDinh = parseInt(dv.NGAY_YL.substring(8, 12)); // Lấy 4 số cuối: HHMM
         
-        // Căn cứ theo hợp đồng Phương Châu: Hành chính là 07:00-11:30 và 13:00-16:30
+        // Căn cứ theo hợp đồng KCB: Hành chính là 07:00-11:30 và 13:00-16:30
         const laNghiTrua = gioChiDinh > 1130 && gioChiDinh < 1300;
         const laSauGioLam = gioChiDinh > 1630;
         const laTruocGioLam = gioChiDinh < 700;

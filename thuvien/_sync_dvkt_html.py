@@ -258,7 +258,7 @@ def ensure_shell_patches(html: str) -> str:
         html = html.replace(
             "TT23_PL2: { label: 'TT23-PL2', full: 'Thông tư số 23/2024/TT-BYT — Phụ lục 2 (Danh mục phẫu thuật)', cls: 'bg-violet-100 text-violet-800 border border-violet-200' }\n    };",
             "TT23_PL2: { label: 'TT23-PL2', full: 'Thông tư số 23/2024/TT-BYT — Phụ lục 2 (Danh mục phẫu thuật)', cls: 'bg-violet-100 text-violet-800 border border-violet-200' },\n"
-            "      BV_PCST: { label: 'BV PCST', full: 'Bệnh viện Quốc tế Phương Châu Sóc Trăng — Danh mục DVKT M05', cls: 'bg-cyan-100 text-cyan-900 border border-cyan-200' }\n"
+            "      BV_PCST: { label: 'BV PCST', full: 'CSKCB Sóc Trăng (94170) — Danh mục DVKT M05', cls: 'bg-cyan-100 text-cyan-900 border border-cyan-200' }\n"
             "    };",
         )
 
@@ -314,9 +314,9 @@ def ensure_shell_patches(html: str) -> str:
 
     if 'BV_PCCT' not in html:
         html = html.replace(
-            "BV_PCST: { label: 'BV PCST', full: 'Bệnh viện Quốc tế Phương Châu Sóc Trăng — Danh mục DVKT M05', cls: 'bg-cyan-100 text-cyan-900 border border-cyan-200' }\n    };",
-            "BV_PCST: { label: 'BV PCST', full: 'Bệnh viện Quốc tế Phương Châu Sóc Trăng — Danh mục DVKT M05', cls: 'bg-cyan-100 text-cyan-900 border border-cyan-200' },\n"
-            "      BV_PCCT: { label: 'BV PCCT', full: 'Bệnh viện Quốc tế Phương Châu Cần Thơ — Danh mục DVKT', cls: 'bg-teal-100 text-teal-900 border border-teal-200' }\n"
+            "BV_PCST: { label: 'BV PCST', full: 'CSKCB Sóc Trăng (94170) — Danh mục DVKT M05', cls: 'bg-cyan-100 text-cyan-900 border border-cyan-200' }\n    };",
+            "BV_PCST: { label: 'BV PCST', full: 'CSKCB Sóc Trăng (94170) — Danh mục DVKT M05', cls: 'bg-cyan-100 text-cyan-900 border border-cyan-200' },\n"
+            "      BV_PCCT: { label: 'BV PCCT', full: 'CSKCB Cần Thơ — Danh mục DVKT', cls: 'bg-teal-100 text-teal-900 border border-teal-200' }\n"
             "    };",
         )
 
@@ -366,9 +366,9 @@ def ensure_shell_patches(html: str) -> str:
 
     if 'BV_PSD' not in html:
         html = html.replace(
-            "BV_PCCT: { label: 'BV PCCT', full: 'Bệnh viện Quốc tế Phương Châu Cần Thơ — Danh mục DVKT', cls: 'bg-teal-100 text-teal-900 border border-teal-200' }\n    };",
-            "BV_PCCT: { label: 'BV PCCT', full: 'Bệnh viện Quốc tế Phương Châu Cần Thơ — Danh mục DVKT', cls: 'bg-teal-100 text-teal-900 border border-teal-200' },\n"
-            "      BV_PSD: { label: 'BV Sa Đéc', full: 'Bệnh viện Phương Châu Sa Đéc — Danh mục DVKT', cls: 'bg-emerald-100 text-emerald-900 border border-emerald-200' }\n"
+            "BV_PCCT: { label: 'BV PCCT', full: 'CSKCB Cần Thơ — Danh mục DVKT', cls: 'bg-teal-100 text-teal-900 border border-teal-200' }\n    };",
+            "BV_PCCT: { label: 'BV PCCT', full: 'CSKCB Cần Thơ — Danh mục DVKT', cls: 'bg-teal-100 text-teal-900 border border-teal-200' },\n"
+            "      BV_PSD: { label: 'BV Sa Đéc', full: 'BV Sa Đéc — Danh mục DVKT', cls: 'bg-emerald-100 text-emerald-900 border border-emerald-200' }\n"
             "    };",
         )
 

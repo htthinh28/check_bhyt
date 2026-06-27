@@ -73,7 +73,7 @@ SIDEBAR_WORKSPACE_OPEN = """  <!-- CORE WORKSPACE -->
         </div>
 
         <div>
-          <p class="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-cyan-700">Bệnh viện Phương Châu</p>
+          <p class="px-3 mb-1 text-[10px] font-bold uppercase tracking-wider text-cyan-700">CDSS Bảo hiểm y tế</p>
           <div class="space-y-0.5">
             <button type="button" onclick="switchTab('bvpcst')" id="tabBtn-bvpcst" class="dvkt-sidebar-btn w-full flex items-center justify-between gap-2 px-3 py-2.5 text-sm font-medium rounded-r-lg transition-all border-l-4 text-slate-600 hover:bg-slate-50 border-transparent">
               <span class="truncate text-left">🏥 PC Sóc Trăng</span>

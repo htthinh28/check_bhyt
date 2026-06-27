@@ -5,7 +5,7 @@
  * 1. FIX LỖI MẤT DỮ LIỆU: Vượt rào giới hạn 5MB của Web Browser bằng thuật toán Chunking (Băm nhỏ mảng).
  * 2. FIX AUTO-SAVE: Bổ sung cờ isReadyToSave để tránh ghi đè mảng rỗng khi F5.
  * 3. UI FULLSCREEN: Xóa bỏ giới hạn chiều cao, dãn cột (450px) và dãn dòng (padding 18px).
- * Giao diện: Pink Theme Phương Châu, Arial > 20px
+ * Giao diện: Theme CDSS BHYT, Arial > 20px
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';

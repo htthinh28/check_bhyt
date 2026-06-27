@@ -4,7 +4,7 @@
  * 1. CRUD Toàn diện: Quản lý danh mục dịch vụ kỹ thuật và vật tư tiêu hao.
  * 2. Tùy biến No-code: Cấu trúc cột tự động cập nhật từ Trạm trung chuyển quy tắc.
  * 3. Nghiệp vụ: Hỗ trợ tính toán THANH_TIEN_BV và THANH_TIEN_BH tự động.
- * Giao diện: Glassmorphism Dark Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';

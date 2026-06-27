@@ -6,8 +6,8 @@
 export const THONG_TIN_CO_SO = {
   // --- THÔNG TIN HÀNH CHÍNH CƠ BẢN ---
   MA_CSKCB: "94170", 
-  TEN_CSKCB: "Bệnh viện Quốc tế Phương Châu Sóc Trăng", 
-  DON_VI_THU_HUONG: "Chi Nhánh Công Ty TNHH MTV Phương Châu Sóc Trăng",
+  TEN_CSKCB: "CSKCB Sóc Trăng (94170)", 
+  DON_VI_THU_HUONG: "Cơ sở KCB Sóc Trăng",
   
   // --- PHÂN TUYẾN & CHUYÊN MÔN ---
   CAP_CHUYEN_MON: "Cơ bản", 

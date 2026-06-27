@@ -1,6 +1,6 @@
 # Hướng dẫn sử dụng CDSS BHYT cho người không chuyên công nghệ thông tin
 
-**Ứng dụng:** CDSS BHYT Phương Châu (hỗ trợ rà soát, cảnh báo hồ sơ BHYT).  
+**Ứng dụng:** CDSS BHYT CDSS Bảo hiểm y tế (hỗ trợ rà soát, cảnh báo hồ sơ BHYT).  
 **Tài liệu này dành cho:** cán bộ y tế, nhân viên hành chính, kế toán BHYT… chưa quen máy tính hoặc chưa từng cài phần mềm phức tạp.
 
 ---

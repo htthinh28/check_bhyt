@@ -4,7 +4,7 @@
  * 1. CRUD Toàn diện: Quản lý chi phí tiền giường, tiền thuốc, VTYT và tổng hợp thanh toán.
  * 2. Tùy biến No-code: Cấu trúc cột tự động đồng bộ từ Master Schema (66 trường mở rộng).
  * 3. Nghiệp vụ: Hỗ trợ đối soát tổng chi phí và xuất tệp báo cáo Excel.
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -94,7 +94,7 @@ const ManHinhXML6 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* HEADER PINK THEME PHƯƠNG CHÂU */}
+      {/* HEADER PINK THEME CDSS */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => quayLaiAnToan(navigation, 'DocXML')} style={styles.btn_back}>
           <Text style={styles.txt_btn}>⬅</Text>
@@ -121,7 +121,7 @@ const ManHinhXML6 = ({ navigation }) => {
         </View>
       </View>
 
-      {/* BẢNG DỮ LIỆU GRID - PHONG CÁCH PHƯƠNG CHÂU */}
+      {/* BẢNG DỮ LIỆU GRID - PHONG CÁCH CDSS */}
       <ScrollView horizontal style={styles.grid_scroll}>
         <View>
           <View style={styles.row_header}>

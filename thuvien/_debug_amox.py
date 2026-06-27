@@ -4,7 +4,7 @@ sys.stdout.reconfigure(encoding='utf-8')
 from pathlib import Path
 from _update_icd_deep import norm, split_clauses, CHONG_CLAUSE_SIGNAL, RELATIVE_CONTRA_CLAUSE, map_chong_text_to_icds, load_icd_from_html
 
-t = Path(r'G:/My Drive/Thu vien (1)/Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html').read_text(encoding='utf-8')
+t = Path(r'G:/My Drive/Thu vien (1)/Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html').read_text(encoding='utf-8')
 drugs = []
 for m in re.finditer(r'class="drugs-data-chunk"[^>]*>(\[.*?\])</script>', t, re.S):
     drugs.extend(json.loads(m.group(1)))

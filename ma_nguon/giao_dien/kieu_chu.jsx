@@ -1,6 +1,6 @@
 /**
  * HỆ THỐNG KIỂU CHỮ TOÀN CỤC (TYPOGRAPHY SYSTEM)
- * Dự án: CDSS BHYT - Tập đoàn Y tế Phương Châu
+ * Dự án: CDSS Bảo hiểm y tế
  * Tiêu chuẩn: JCI v8 / HIMSS EMRAM Stage 7
  * Nguyên tắc: Mọi văn bản lâm sàng phải >= 20px để đảm bảo an toàn đọc
  *

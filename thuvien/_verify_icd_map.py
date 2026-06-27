@@ -2,7 +2,7 @@
 import json, re
 from pathlib import Path
 
-p = Path(r"C:\Users\admin\Desktop\Thu vien\Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html")
+p = Path(r"C:\Users\admin\Desktop\Thu vien\Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html")
 t = p.read_text(encoding="utf-8")
 print("ends </html>:", t.rstrip().endswith("</html>"))
 drugs = []

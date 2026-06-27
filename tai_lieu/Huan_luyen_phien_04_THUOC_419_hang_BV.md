@@ -2,7 +2,7 @@
 
 **Mục phiên:** AI hiểu rule **THUOC_419** là so sánh **ngưỡng hạng tối thiểu trên danh mục thuốc** (`DM_THUOC.HANG_BV_MIN`) với **hạng cơ sở KCB** (`CSKCB.HANG_BV`) trong ngữ cảnh engine — và **liên hệ** với tra cứu **Phụ lục I cột (4)–(7)** trong thẻ thanh toán thuốc (không thay thế đối chiếu pháp lý tay).
 
-**Neo pháp lý / nghiệp vụ:** [The_tri_thuc_mau_thanh_toan_thuoc_BHYT.md](./The_tri_thuc_mau_thanh_toan_thuoc_BHYT.md) (§3.4 Phụ lục I; §3.5 `MA_CSKCB` 94170 — cột **(6)** cho Phương Châu).
+**Neo pháp lý / nghiệp vụ:** [The_tri_thuc_mau_thanh_toan_thuoc_BHYT.md](./The_tri_thuc_mau_thanh_toan_thuoc_BHYT.md) (§3.4 Phụ lục I; §3.5 `MA_CSKCB` 94170 — cột **(6)** cho CSKCB).
 
 **Neo mã:** `ma_nguon/tien_ich/du_lieu_luat_thuoc_muc8.jsx` — `SEED_THUOC_419`.
 
@@ -38,7 +38,7 @@
 ## 3b. Ví dụ huấn luyện — cẩn trọng
 
 1. **Thiếu `HANG_BV_MIN` trên dòng danh mục thuốc** — điều kiện có thể **không xác định** hoặc hành vi mặc định khác; AI không kết luận “đúng hạng” chỉ vì không thấy cảnh báo.  
-2. **Cơ sở chi nhánh / mã CSKCB đổi** — `MA_CSKCB` 94170 và quy ước **cột (6)** Phụ lục I (thẻ tri thức nội bộ) là **bối cảnh Phương Châu**; cơ sở khác phải tra **đúng hạng** trong danh mục BHXH + Phụ lục I cho từng hoạt chất.  
+2. **Cơ sở chi nhánh / mã CSKCB đổi** — `MA_CSKCB` 94170 và quy ước **cột (6)** Phụ lục I (thẻ tri thức nội bộ) là **bối cảnh CDSS Bảo hiểm y tế**; cơ sở khác phải tra **đúng hạng** trong danh mục BHXH + Phụ lục I cho từng hoạt chất.  
 3. **Chỉ định ICD đúng nhưng hạng BV sai** — vẫn có thể **xuất toán thanh toán** theo Phụ lục I dù lâm sàng hợp lý; AI phân biệt **an toàn kê đơn** vs **điều kiện BHYT thanh toán**.
 
 ---

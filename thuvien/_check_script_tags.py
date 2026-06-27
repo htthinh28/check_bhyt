@@ -5,7 +5,7 @@ from pathlib import Path
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-html_path = Path(r"G:/My Drive/Thu vien (1)/Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html")
+html_path = Path(r"G:/My Drive/Thu vien (1)/Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html")
 text = html_path.read_text(encoding="utf-8")
 
 # Find all </script> positions

@@ -6,7 +6,7 @@ import sys
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
-DUOC_HTML = BASE / "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html"
+DUOC_HTML = BASE / "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html"
 CROSSLINK_SNIPPET = BASE / "_pc_crosslink_snippet.html"
 
 

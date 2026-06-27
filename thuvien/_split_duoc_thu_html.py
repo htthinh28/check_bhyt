@@ -9,7 +9,7 @@ import sys
 from pathlib import Path
 
 BASE = Path(__file__).resolve().parent
-HTML_PATH = BASE / "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html"
+HTML_PATH = BASE / "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html"
 DATA_DIR = BASE / "duocthu_data"
 LIMIT_BYTES = 10 * 1024 * 1024
 

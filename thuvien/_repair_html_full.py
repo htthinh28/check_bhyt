@@ -8,7 +8,7 @@ from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
 
 BASE = Path(r"G:/My Drive/Thu vien (1)")
-HTML = BASE / "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html"
+HTML = BASE / "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html"
 SRC = BASE / "index thu vien.txt"
 MODULE = BASE / "_mapping_module.js"
 BAK = HTML.with_suffix(HTML.suffix + ".pre-repair.bak")

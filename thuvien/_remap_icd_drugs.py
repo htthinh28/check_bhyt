@@ -15,7 +15,7 @@ from _update_icd_deep import (
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-HTML = Path(__file__).resolve().parent / "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html"
+HTML = Path(__file__).resolve().parent / "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html"
 
 
 def main():

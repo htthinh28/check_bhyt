@@ -7,7 +7,7 @@ from pathlib import Path
 sys.stdout.reconfigure(encoding="utf-8")
 
 base = Path(r"G:/My Drive/Thu vien (1)")
-html_path = base / "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html"
+html_path = base / "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html"
 src_path = base / "index thu vien.txt"
 bak_path = html_path.with_suffix(html_path.suffix + ".pre-repair.bak")
 

@@ -1,5 +1,5 @@
 /**
- * Phác đồ CDSS Phương Châu — khớp file mẫu CDSS_Guidelines (sheet PhacDo, cột tiếng Anh).
+ * Phác đồ CDSS BHYT — khớp file mẫu CDSS_Guidelines (sheet PhacDo, cột tiếng Anh).
  * Hiển thị trong UI = tiếng Việt; import Excel có thể dùng khóa EN hoặc VN.
  */
 export const ANH_XA_COT_EXCEL_SANG_VI = Object.freeze({

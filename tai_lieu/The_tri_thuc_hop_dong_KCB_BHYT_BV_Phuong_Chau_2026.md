@@ -1,4 +1,4 @@
-# Hợp đồng khám chữa bệnh BHYT — BV Quốc tế Phương Châu (mẫu tham chiếu 2026)
+# Hợp đồng khám chữa bệnh BHYT — mẫu tham chiếu CSKCB 94170 (2026)
 
 Thẻ tri thức này neo **hợp đồng KCB BHYT** (bản ký với BHXH cơ sở) như một lớp pháp lý bổ sung cho Luật BHYT / NĐ 188: quyền và nghĩa vụ cụ thể của **Bên A (BHXH)** và **Bên B (CSKCB)**, thời hạn hợp đồng, phương thức thanh toán và ràng buộc **dữ liệu điện tử**.
 

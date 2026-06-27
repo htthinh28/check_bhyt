@@ -4,7 +4,7 @@
  * 1. CRUD Toàn diện: Quản lý các chỉ số xét nghiệm, kết quả chẩn đoán hình ảnh.
  * 2. Tùy biến No-code: Cấu trúc cột tự động cập nhật từ Trạm trung chuyển quy tắc.
  * 3. Giao tiếp: Hỗ trợ tìm kiếm nhanh theo tên chỉ số hoặc mã dịch vụ.
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -94,7 +94,7 @@ const ManHinhXML4 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* HEADER PINK THEME PHƯƠNG CHÂU */}
+      {/* HEADER PINK THEME CDSS */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => quayLaiAnToan(navigation, 'DocXML')} style={styles.btn_back}>
           <Text style={styles.txt_btn}>⬅</Text>

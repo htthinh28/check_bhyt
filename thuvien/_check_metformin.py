@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 import json, re, sys
 sys.stdout.reconfigure(encoding='utf-8')
-t = open(r'G:/My Drive/Thu vien (1)/Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html', encoding='utf-8').read()
+t = open(r'G:/My Drive/Thu vien (1)/Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html', encoding='utf-8').read()
 drugs = []
 for m in re.finditer(r'class="drugs-data-chunk"[^>]*>(\[.*?\])</script>', t, re.S):
     drugs.extend(json.loads(m.group(1)))

@@ -101,7 +101,7 @@ Hệ thống được xây dựng để giải quyết các nhu cầu sau:
 
 ### 6.5. Thông tin cấu hình nền tảng
 
-- Tên ứng dụng: `CDSS BHYT Phuong Chau`.
+- Tên ứng dụng: `CDSS Bảo hiểm y tế`.
 - Gói Android: `com.phuongchau.cdss.bhyt`.
 - Bundle iOS: `com.phuongchau.cdss.bhyt`.
 - Chế độ giao diện: `light`.

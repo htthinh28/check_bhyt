@@ -1,9 +1,9 @@
 /**
- * PHÂN HỆ: TRẠM KIỂM TRA & SỬA LỖI XML (PHƯƠNG CHÂU - JCI)
+ * PHÂN HỆ: TRẠM KIỂM TRA & SỬA LỖI XML (CDSS BẢO HIỂM Y TẾ - JCI)
  * Nâng cấp 5.0: 
  * 1. Đọc hàng loạt file XML cùng lúc và duyệt bằng Tab ngang.
  * 2. Layout chia đôi màn hình: Lưới dữ liệu (trái) - Sổ tay lỗi (phải) giúp xem full nội dung.
- * 3. Tối ưu UI chuẩn Phương Châu: Đưa toàn bộ Tabs và Nút chức năng lên GÓC TRÊN PHẢI, cùng kích thước.
+ * 3. Tối ưu UI chuẩn CDSS: Đưa toàn bộ Tabs và Nút chức năng lên GÓC TRÊN PHẢI, cùng kích thước.
  * 4. Dãn dòng, dãn cột linh hoạt, tự động bao trọn Text không bị che khuất (Auto-Height).
  * 5. FIX LỖI: Sửa lỗi typo (sai chính tả) các trường MA_BENH_CHINH, MA_TINH_CU_TRU theo chuẩn QĐ 130.
  * 6. FIX LỖI TRÀN BỘ NHỚ: Tích hợp thuật toán Auto-Chunking để băm nhỏ dữ liệu khi lưu vào LocalStorage.

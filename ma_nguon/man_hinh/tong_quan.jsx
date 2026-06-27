@@ -1278,7 +1278,7 @@ ${phanDongKhoi.join('\n')}
           <View style={styles.header_left}>
             <Image source={{ uri: LOGO_PC }} style={styles.logo} resizeMode="contain" />
             <View>
-              <Text style={styles.header_ten_bv}>BỆNH VIỆN QUỐC TẾ PHƯƠNG CHÂU</Text>
+              <Text style={styles.header_ten_bv}>CDSS BẢO HIỂM Y TẾ</Text>
               <Text style={styles.header_sub}>Hệ thống hỗ trợ kiểm tra hồ sơ BHYT · QĐ 130</Text>
             </View>
           </View>

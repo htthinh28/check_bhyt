@@ -1,7 +1,7 @@
 /**
  * ============================================================================
  * HỆ THỐNG CHỦ ĐỀ GIAO DIỆN (DESIGN TOKEN SYSTEM) v2
- * CDSS Bệnh viện Phương Châu – JCI Standard
+ * CDSS Bảo hiểm y tế – JCI Standard
  * Hỗ trợ: Chế độ SÁNG / TỐI  ×  4 màu chủ đạo  ×  Font Arial
  * ============================================================================
  * Cách dùng:
@@ -215,8 +215,8 @@ const _tealSang   = taoTokenSang('#00838F','#006064','#00ACC1','#80DEEA', _SANG_
 const _violetSang = taoTokenSang('#6A1B9A','#4A148C','#8E24AA','#CE93D8', _SANG_BG, _SANG_MOB);
 
 export const DANH_SACH_CHU_DE = {
-    /** Hồng – Thương hiệu Phương Châu (mặc định) */
-    PINK:   { ten:'Hồng Phương Châu',   icon:'🌸', tokens:_pinkToi,   tokensToi:_pinkToi,   tokensSang:_pinkSang   },
+    /** Hồng – CDSS Bảo hiểm y tế (mặc định) */
+    PINK:   { ten:'Hồng CDSS',   icon:'🌸', tokens:_pinkToi,   tokensToi:_pinkToi,   tokensSang:_pinkSang   },
     /** Xanh dương – Y tế chuyên nghiệp */
     BLUE:   { ten:'Xanh Dương Y Tế',    icon:'💙', tokens:_blueToi,   tokensToi:_blueToi,   tokensSang:_blueSang   },
     /** Xanh ngọc – Hiện đại */

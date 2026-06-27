@@ -4,7 +4,7 @@
  * 1. CRUD Toàn diện: Thêm thuốc, sửa liều dùng, xóa thuốc lỗi, xóa hàng loạt.
  * 2. Tùy biến: Tự động nạp danh sách cột từ Schema trung tâm.
  * 3. Nghiệp vụ: Hỗ trợ kiểm tra đơn giá và thành tiền theo thời gian thực.
- * Giao diện: Glassmorphism Dark Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';

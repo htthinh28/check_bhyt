@@ -2,7 +2,7 @@
 import json, re, sys
 sys.stdout.reconfigure(encoding='utf-8')
 from pathlib import Path
-t = Path(r'G:/My Drive/Thu vien (1)/Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html').read_text(encoding='utf-8')
+t = Path(r'G:/My Drive/Thu vien (1)/Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html').read_text(encoding='utf-8')
 print('size MB', len(t)//1024//1024)
 print('</html>', '</html>' in t)
 print('maICDChiDinh in JS', 'maICDChiDinh' in t[:t.find('class="drugs-data-chunk"')])

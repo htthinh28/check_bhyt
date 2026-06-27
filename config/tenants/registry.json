@@ -3,20 +3,20 @@
   "tenants": [
     {
       "orgId": "phuongchau_soc_trang",
-      "tenHienThi": "Phương Châu Sóc Trăng",
-      "tenDayDu": "Bệnh viện Quốc tế Phương Châu Sóc Trăng",
+      "tenHienThi": "CSKCB Sóc Trăng",
+      "tenDayDu": "CSKCB Sóc Trăng (94170)",
       "maCskcb": "94170"
     },
     {
       "orgId": "phuongchau_can_tho",
-      "tenHienThi": "Phương Châu Cần Thơ",
-      "tenDayDu": "Bệnh viện Quốc tế Phương Châu Cần Thơ",
+      "tenHienThi": "CSKCB Cần Thơ",
+      "tenDayDu": "CSKCB Cần Thơ",
       "maCskcb": "92114"
     },
     {
       "orgId": "phuongchau_sa_dec",
-      "tenHienThi": "Phương Châu Sa Đéc",
-      "tenDayDu": "Bệnh viện Phương Châu Sa Đéc",
+      "tenHienThi": "CSKCB Sa Đéc",
+      "tenDayDu": "BV Sa Đéc",
       "maCskcb": "87189"
     }
   ]

@@ -699,7 +699,7 @@ const InfographicPhacDo = ({ maICD = "J18.9" }) => {
         <View style={styles.the_phan_he}>
           <Text style={styles.tieu_de_phan}>I. HÀNH CHÍNH [1]</Text>
           <View style={styles.noi_dung_hang}>
-            <Text style={styles.chu_dam}>Cơ sở y tế:</Text><Text style={styles.chu_thuong}> Tập đoàn Y tế Phương Châu</Text>
+            <Text style={styles.chu_dam}>Cơ sở y tế:</Text><Text style={styles.chu_thuong}> CDSS Bảo hiểm y tế</Text>
           </View>
           <View style={styles.noi_dung_hang}>
             <Text style={styles.chu_dam}>Mã số tài liệu:</Text><Text style={styles.chu_thuong}> PC-COP-PD-{maICD}</Text>
@@ -795,7 +795,7 @@ const InfographicPhacDo = ({ maICD = "J18.9" }) => {
   );
 };
 
-// CSS Chuẩn Pink Theme Phương Châu & Font Arial > 20px
+// CSS Chuẩn Theme CDSS BHYT & Font Arial > 20px
 const styles = StyleSheet.create({
   vung_an_toan: { flex: 1, backgroundColor: '#FFF5F8' },
   khung_chinh: { padding: 30 },
@@ -870,7 +870,7 @@ const InPhacDo = ({ maICD = "J18.9" }) => {
         
         {/* HEADER BẢN IN */}
         <View style={styles.phan_dau_trang}>
-          <Text style={styles.ten_benh_vien}>TẬP ĐOÀN Y TẾ PHƯƠNG CHÂU</Text>
+          <Text style={styles.ten_benh_vien}>CDSS BẢO HIỂM Y TẾ</Text>
           <Text style={styles.tieu_de_tai_lieu}>PHÁC ĐỒ ĐIỀU TRỊ LÂM SÀNG</Text>
           <Text style={styles.ma_icd_header}>Mã bệnh (ICD-10): {maICD}</Text>
           <View style={styles.duong_ke_ngang} />
@@ -880,7 +880,7 @@ const InPhacDo = ({ maICD = "J18.9" }) => {
         <View style={styles.phan_muc}>
           <Text style={styles.tieu_de_muc}>I. HÀNH CHÍNH</Text>
           <View style={styles.noi_dung_muc}>
-            <Text style={styles.chu_thuong}><Text style={styles.chu_dam}>Cơ sở y tế:</Text> Tập đoàn Y tế Phương Châu (Chuẩn JCI)</Text>
+            <Text style={styles.chu_thuong}><Text style={styles.chu_dam}>Cơ sở y tế:</Text> CDSS Bảo hiểm y tế (Chuẩn JCI)</Text>
             <Text style={styles.chu_thuong}><Text style={styles.chu_dam}>Mã số tài liệu:</Text> PC-COP-PD-{maICD}</Text>
             <Text style={styles.chu_thuong}><Text style={styles.chu_dam}>Phiên bản / Ngày ban hành:</Text> 5.0 / 01/01/2026</Text>
           </View>
@@ -1188,7 +1188,7 @@ const PhacDoBenhVien = () => {
   const renderTable = () => (
     <>
       <View style={styles.thanh_cong_cu_top}>
-        <Text style={styles.tieu_de_chinh}>CDSS: CƠ SỞ DỮ LIỆU PHÁC ĐỒ PHƯƠNG CHÂU</Text>
+        <Text style={styles.tieu_de_chinh}>CDSS: CƠ SỞ DỮ LIỆU PHÁC ĐỒ BHYT</Text>
         <View style={styles.group_buttons}>
           <TouchableOpacity style={styles.btn_pink} onPress={handleAddRow}>
             <Text style={styles.txt_btn}>➕ THÊM DÒNG MỚI</Text>
@@ -1341,7 +1341,7 @@ const InQuyTrinh = ({ maDV, danhSachData }) => {
       <View style={styles.trang_in}>
         
         <View style={styles.phan_dau_trang}>
-          <Text style={styles.ten_benh_vien}>TẬP ĐOÀN Y TẾ PHƯƠNG CHÂU</Text>
+          <Text style={styles.ten_benh_vien}>CDSS BẢO HIỂM Y TẾ</Text>
           <Text style={styles.tieu_de_tai_lieu}>QUY TRÌNH KỸ THUẬT LÂM SÀNG</Text>
           <Text style={styles.ma_icd_header}>Tên kỹ thuật: {quyTrinh['TÊN QUY TRÌNH KỸ THUẬT']}</Text>
           <Text style={styles.chu_thuong}>(Mã DVKT: {quyTrinh['MÃ DỊCH VỤ KT']})</Text>
@@ -2120,7 +2120,7 @@ const DieuHuongChinh = () => {
       <Stack.Navigator 
         initialRouteName="DangNhap" 
         screenOptions={{ 
-          headerShown: false, // Dùng Header tự chế (Pink Theme) của Phương Châu
+          headerShown: false, // Dùng Header tự chế (Pink Theme) của hệ thống CDSS
           animation: 'slide_from_right', // Hiệu ứng chuyển cảnh chuyên nghiệp
           gestureEnabled: true // Cho phép vuốt để back trên Mobile
         }}
@@ -2161,7 +2161,7 @@ FILE: \giao_dien\kieu_chu.jsx
 
 /**
  * HỆ THỐNG KIỂU CHỮ TOÀN CỤC (TYPOGRAPHY SYSTEM)
- * Dự án: CDSS BHYT - Tập đoàn Y tế Phương Châu
+ * Dự án: CDSS Bảo hiểm y tế
  * Tiêu chuẩn: JCI v8 / HIMSS EMRAM Stage 7
  * Nguyên tắc: Mọi văn bản lâm sàng phải >= 20px để đảm bảo an toàn đọc
  *
@@ -2350,8 +2350,8 @@ FILE: \giao_dien\mau_sac.jsx
 
 /**
  * HỆ THỐNG MÀU SẮC TOÀN CỤC (COLOR SYSTEM)
- * Dự án: CDSS BHYT - Tập đoàn Y tế Phương Châu
- * Tiêu chuẩn: JCI v8 - Nhận diện thương hiệu Y tế Phương Châu
+ * Dự án: CDSS Bảo hiểm y tế
+ * Tiêu chuẩn: JCI v8 - CDSS Bảo hiểm y tế
  *
  * TRIẾT LÝ MÀU SẮC:
  *   - Hồng (#FF66A3 / #D81B60): Nhận diện thương hiệu, CTA chính
@@ -2369,7 +2369,7 @@ FILE: \giao_dien\mau_sac.jsx
  */
 
 // ============================================================
-// 1. BỘ MÀU THƯƠNG HIỆU PHƯƠNG CHÂU
+// 1. BỘ MÀU THƯƠNG HIỆU CDSS BHYT
 // ============================================================
 export const MAU_SAC = {
 
@@ -2727,7 +2727,7 @@ export const layDanhSachTuKho = async () => {
 // ============================================================
 // 3. ĐỌC CHI TIẾT HỒ SƠ (Trả về Data gốc + Ghi log XEM)
 // ============================================================
-export const layHoSoTheoMaLK = async (maLK, nguoiDung = 'Bác sĩ Phương Châu') => {
+export const layHoSoTheoMaLK = async (maLK, nguoiDung = 'Người dùng CDSS') => {
   try {
     let allHoSo = await docKhoAnToan();
     const index = allHoSo.findIndex((hs) => hs.ma_lk === maLK);
@@ -2855,7 +2855,7 @@ FILE: \man_hinh\chi_tiet_ca_benh.jsx
  * 1. Truy xuất dữ liệu từ Kho lưu trữ dựa trên MA_LK.
  * 2. Hiển thị toàn diện từ XML1 đến XML6.
  * 3. Tổng hợp các vi phạm kiểm tra để bác sĩ đối soát.
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import { useEffect, useState } from 'react';
@@ -3258,7 +3258,7 @@ const CongTiepNhanHIS = ({ navigation }) => {
   );
 };
 
-// CSS Chuẩn Pink Theme Phương Châu & Font Arial lớn
+// CSS Chuẩn Theme CDSS BHYT & Font Arial lớn
 const styles = StyleSheet.create({
   vung_an_toan: { flex: 1, backgroundColor: '#F0F4F8' },
   thanh_tieu_de: { backgroundColor: '#FF66A3', padding: 20, paddingTop: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },
@@ -3305,7 +3305,7 @@ FILE: \man_hinh\dang_nhap.jsx
 ============================================================
 
 /**
- * PHÂN HỆ: ĐĂNG NHẬP, QUẢN LÝ TÀI KHOẢN & PHÂN QUYỀN (PHƯƠNG CHÂU - JCI)
+ * PHÂN HỆ: ĐĂNG NHẬP, QUẢN LÝ TÀI KHOẢN & PHÂN QUYỀN (CDSS BẢO HIỂM Y TẾ - JCI)
  * 1. Phân quyền:
  * - ADMIN: htthinh28@gmail.com | Pass: Tramanh@2010## (Toàn quyền).
  * - USER: Các tài khoản khác (Chỉ xem, kiểm tra, không Thêm/Sửa/Xóa).
@@ -3430,7 +3430,7 @@ const ManHinhDangNhap = ({ navigation }) => {
           
           {/* Khối Tiêu đề Hệ thống */}
           <View style={styles.khung_tieu_de}>
-            <Text style={styles.tieu_de}>CDSS PHƯƠNG CHÂU</Text>
+            <Text style={styles.tieu_de}>CDSS BẢO HIỂM Y TẾ</Text>
             <Text style={styles.phu_de}>Hệ Thống Trí Tuệ Nhân Tạo & BHYT</Text>
           </View>
           
@@ -3737,11 +3737,11 @@ FILE: \man_hinh\doc_file_xml.jsx
 ============================================================
 
 /**
- * PHÂN HỆ: TRẠM KIỂM TRA & SỬA LỖI XML (PHƯƠNG CHÂU - JCI)
+ * PHÂN HỆ: TRẠM KIỂM TRA & SỬA LỖI XML (CDSS BẢO HIỂM Y TẾ - JCI)
  * Nâng cấp 5.0: 
  * 1. Đọc hàng loạt file XML cùng lúc và duyệt bằng Tab ngang.
  * 2. Layout chia đôi màn hình: Lưới dữ liệu (trái) - Sổ tay lỗi (phải) giúp xem full nội dung.
- * 3. Tối ưu UI chuẩn Phương Châu: Đưa toàn bộ Tabs và Nút chức năng lên GÓC TRÊN PHẢI, cùng kích thước.
+ * 3. Tối ưu UI chuẩn CDSS: Đưa toàn bộ Tabs và Nút chức năng lên GÓC TRÊN PHẢI, cùng kích thước.
  * 4. Dãn dòng, dãn cột linh hoạt, tự động bao trọn Text không bị che khuất (Auto-Height).
  */
 
@@ -4288,7 +4288,7 @@ FILE: \man_hinh\man_hinh_kho_luu_tru.jsx
  * 4. Xuất dữ liệu: Xuất hàng loạt file XML và báo cáo Excel.
  * 5. Tự động ghi nhớ: Sửa lỗi mất dữ liệu khi Refresh, tự động đồng bộ (Auto-Save).
  * Tiêu chuẩn JCI: MCI.3 (Bảo mật & Truy vết) và QPS (Cải thiện chất lượng).
- * Giao diện: Pink Theme Phương Châu, Font Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Font Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -4843,7 +4843,7 @@ import QuyTrinhMauBYT from '../chuyen_mon/quytrinhkt_byt/quytrinh_mau_byt';
 
 // Định nghĩa 3 phân hệ chuyên môn
 const PHAN_HE_CHUYEN_MON = [
-  { id: 'PHAC_DO_BV', ten: '🏥 PHÁC ĐỒ PHƯƠNG CHÂU' },
+  { id: 'PHAC_DO_BV', ten: '🏥 PHÁC ĐỒ CDSS BHYT' },
   { id: 'HUONG_DAN_BYT', ten: '📖 HƯỚNG DẪN BỘ Y TẾ' },
   { id: 'QUY_TRINH_KT', ten: '⚙️ QUY TRÌNH KỸ THUẬT' }
 ];
@@ -4953,7 +4953,7 @@ FILE: \man_hinh\quan_ly_danh_muc.jsx
  * MODULE: QUẢN LÝ DANH MỤC TỔNG THỂ (MASTER DATA TABS)
  * Nâng cấp: Tích hợp trực tiếp Danh mục ICD-10 vào chung hệ thống Bảng động (Dynamic Table).
  * Tính năng MỚI: Khắc phục lỗi mất dữ liệu khi Refresh. Tích hợp Auto-Save & Lưu vật lý tức thì khi Import Excel.
- * Giao diện: Pink Theme Phương Châu, Arial > 20px
+ * Giao diện: Theme CDSS BHYT, Arial > 20px
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -5811,7 +5811,7 @@ FILE: \man_hinh\quan_ly_xml1_130.jsx
  * 1. CRUD Toàn diện: Thêm, Sửa, Xóa, Xóa hàng loạt.
  * 2. Linh hoạt: Tự động cập nhật cột từ Schema No-code.
  * 3. Giao tiếp dữ liệu: Import/Export Excel chuẩn BHYT.
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -6000,7 +6000,7 @@ FILE: \man_hinh\quan_ly_xml2_thuoc.jsx
  * 1. CRUD Toàn diện: Thêm thuốc, sửa liều dùng, xóa thuốc lỗi, xóa hàng loạt.
  * 2. Tùy biến: Tự động nạp danh sách cột từ Schema trung tâm.
  * 3. Nghiệp vụ: Hỗ trợ kiểm tra đơn giá và thành tiền theo thời gian thực.
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -6201,7 +6201,7 @@ FILE: \man_hinh\quan_ly_xml3.jsx
  * 1. CRUD Toàn diện: Quản lý danh mục dịch vụ kỹ thuật và vật tư tiêu hao.
  * 2. Tùy biến No-code: Cấu trúc cột tự động cập nhật từ Trạm trung chuyển quy tắc.
  * 3. Nghiệp vụ: Hỗ trợ tính toán THANH_TIEN_BV và THANH_TIEN_BH tự động.
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -6403,7 +6403,7 @@ FILE: \man_hinh\quan_ly_xml4.jsx
  * 1. CRUD Toàn diện: Quản lý các chỉ số xét nghiệm, kết quả chẩn đoán hình ảnh.
  * 2. Tùy biến No-code: Cấu trúc cột tự động cập nhật từ Trạm trung chuyển quy tắc.
  * 3. Giao tiếp: Hỗ trợ tìm kiếm nhanh theo tên chỉ số hoặc mã dịch vụ.
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -6490,7 +6490,7 @@ const ManHinhXML4 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* HEADER PINK THEME PHƯƠNG CHÂU */}
+      {/* HEADER PINK THEME CDSS BHYT */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.btn_back}>
           <Text style={styles.txt_btn}>⬅</Text>
@@ -6594,7 +6594,7 @@ FILE: \man_hinh\quan_ly_xml5.jsx
  * 1. CRUD Toàn diện: Ghi nhật ký diễn biến bệnh, nội dung hội chẩn, phẫu thuật.
  * 2. Tùy biến No-code: Cột dữ liệu tự động đồng bộ từ Master Schema.
  * 3. JCI Standard: Đảm bảo tính liên tục của dữ liệu lâm sàng (Standard of Care).
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -6681,7 +6681,7 @@ const ManHinhXML5 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* HEADER PINK THEME PHƯƠNG CHÂU */}
+      {/* HEADER PINK THEME CDSS BHYT */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.btn_back}>
           <Text style={styles.txt_btn}>⬅</Text>
@@ -6785,7 +6785,7 @@ FILE: \man_hinh\quan_ly_xml6.jsx
  * 1. CRUD Toàn diện: Quản lý chi phí tiền giường, tiền thuốc, VTYT và tổng hợp thanh toán.
  * 2. Tùy biến No-code: Cấu trúc cột tự động đồng bộ từ Master Schema (66 trường mở rộng).
  * 3. Nghiệp vụ: Hỗ trợ đối soát tổng chi phí và xuất tệp báo cáo Excel.
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -6872,7 +6872,7 @@ const ManHinhXML6 = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* HEADER PINK THEME PHƯƠNG CHÂU */}
+      {/* HEADER PINK THEME CDSS BHYT */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()} style={styles.btn_back}>
           <Text style={styles.txt_btn}>⬅</Text>
@@ -6899,7 +6899,7 @@ const ManHinhXML6 = ({ navigation }) => {
         </View>
       </View>
 
-      {/* BẢNG DỮ LIỆU GRID - PHONG CÁCH PHƯƠNG CHÂU */}
+      {/* BẢNG DỮ LIỆU GRID - PHONG CÁCH CDSS BHYT */}
       <ScrollView horizontal style={styles.grid_scroll}>
         <View>
           <View style={styles.row_header}>
@@ -6975,7 +6975,7 @@ FILE: \man_hinh\sua_file_xml.jsx
  * 1. Visual Editor: Sửa trực tiếp 66 trường XML1 và các bảng XML2, XML3...
  * 2. XML Exporter: Đóng gói JSON ngược lại thành cấu trúc XML chuẩn QĐ 130.
  * 3. JCI Audit: Lưu vết mọi thay đổi trước khi xuất bản file.
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import { useState } from 'react';
@@ -7217,7 +7217,7 @@ FILE: \man_hinh\tong_quan.jsx
  * 1. Bổ sung chức năng Xuất báo cáo Excel chi tiết các lỗi kiểm tra.
  * 2. Giữ nguyên 100% giao diện Pink Theme, Logic đếm lỗi và Navigation.
  * 3. Bổ sung useEffect và ID định danh để Ghi nhớ dữ liệu vĩnh viễn khi Refresh (F5).
- * Giao diện: Pink Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';
@@ -7452,7 +7452,7 @@ const ManHinhTongQuan = ({ navigation }) => {
 
       {/* 5. FOOTER BẢN QUYỀN */}
       <View style={styles.footer}>
-        <Text style={styles.txt_footer}>© 2026 Bản quyền phần mềm thuộc về <Text style={{fontWeight: 'bold'}}>Hồ Tấn Thịnh</Text> - Bệnh viện Quốc tế Phương Châu Sóc Trăng.</Text>
+        <Text style={styles.txt_footer}>© 2026 Bản quyền phần mềm thuộc về <Text style={{fontWeight: 'bold'}}>Hồ Tấn Thịnh</Text> - CSKCB Sóc Trăng (94170).</Text>
         <Text style={styles.txt_footer_sub}>Sản phẩm đáp ứng tiêu chuẩn quản lý chất lượng JCI (MOI & QPS).</Text>
       </View>
     </SafeAreaView>
@@ -7525,7 +7525,7 @@ FILE: \quy_tac\quyluat_cautrucdulieu\quyluat_cau_truc_du_lieu.jsx
 /**
  * TRẠM 1: TRUNG TÂM ĐIỀU PHỐI QUY LUẬT CẤU TRÚC (MASTER SCHEMA ENGINE)
  * Chức năng: Định nghĩa 66 trường chuẩn QĐ 130/QĐ-BYT cho XML1 và các bảng phụ.
- * PHONG CÁCH: Pink Theme Phương Châu, Arial > 20px.
+ * PHONG CÁCH: Theme CDSS BHYT, Arial > 20px.
  */
 
 // DANH MỤC 66 TRƯỜNG XML1 CHUẨN QĐ 130/QĐ-BYT
@@ -8001,7 +8001,7 @@ export const kiemTraHopDong = (xml1, xml3) => {
   if (!hopDong || !xml1) return danhSachLoi;
 
   // Giả định các tham số này có thể được KHTH cấu hình trên giao diện Web:
-  // (Mặc định lấy theo Hợp đồng Phương Châu Sóc Trăng 2026)
+  // (Mặc định lấy theo Hợp đồng KCB BHYT Sóc Trăng 2026)
   const DIEU_TRI_BAN_NGAY_HOP_LE = hopDong.DIEU_TRI_BAN_NGAY === "Có" || false; 
   const KHAM_NGOAI_GIO_HOP_LE = hopDong.KHAM_NGOAI_GIO === "Có" || false;
 
@@ -8028,7 +8028,7 @@ export const kiemTraHopDong = (xml1, xml3) => {
       if (dv.NGAY_YL && dv.NGAY_YL.length >= 12) {
         const gioChiDinh = parseInt(dv.NGAY_YL.substring(8, 12)); // Lấy 4 số cuối: HHMM
         
-        // Căn cứ theo hợp đồng Phương Châu: Hành chính là 07:00-11:30 và 13:00-16:30
+        // Căn cứ theo hợp đồng KCB: Hành chính là 07:00-11:30 và 13:00-16:30
         const laNghiTrua = gioChiDinh > 1130 && gioChiDinh < 1300;
         const laSauGioLam = gioChiDinh > 1630;
         const laTruocGioLam = gioChiDinh < 700;
@@ -8287,7 +8287,7 @@ FILE: \thanh_phan\dm_icd10.jsx
  * MODULE: QUẢN LÝ DANH MỤC MÃ BỆNH ICD-10 (CHUẨN BỘ Y TẾ)
  * Chức năng: CRUD, Import/Export Excel, Tải File Mẫu, Bulk Delete
  * Căn cứ: QĐ 3176/QĐ-BYT (Danh mục dùng chung)
- * Giao diện: Pink Theme Phương Châu, Arial > 20px
+ * Giao diện: Theme CDSS BHYT, Arial > 20px
  * Tiêu chuẩn JCI: MCI.3 (Chuẩn hóa thuật ngữ chẩn đoán lâm sàng)
  */
 
@@ -8680,7 +8680,7 @@ FILE: \thanh_phan\ha_tang.jsx
 /**
  * DANH MỤC HẠ TẦNG VÀ HỆ THỐNG PHỤ TRỢ (FACILITY & INFRASTRUCTURE)
  * Phục vụ báo cáo năng lực KBCB BHYT và Quản trị rủi ro cơ sở vật chất (JCI FMS)
- * Dữ liệu: Bệnh viện Quốc tế Phương Châu Sóc Trăng
+ * Dữ liệu: CSKCB Sóc Trăng (94170)
  */
 
 export const DANH_MUC_HA_TANG = {
@@ -8883,8 +8883,8 @@ FILE: \thanh_phan\thong_tin_co_so.jsx
 export const THONG_TIN_CO_SO = {
   // --- THÔNG TIN HÀNH CHÍNH CƠ BẢN ---
   MA_CSKCB: "94027", 
-  TEN_CSKCB: "Bệnh viện Quốc tế Phương Châu Sóc Trăng", 
-  DON_VI_THU_HUONG: "Chi Nhánh Công Ty TNHH MTV Phương Châu Sóc Trăng",
+  TEN_CSKCB: "CSKCB Sóc Trăng (94170)", 
+  DON_VI_THU_HUONG: "Cơ sở KCB Sóc Trăng",
   
   // --- PHÂN TUYẾN & CHUYÊN MÔN ---
   CAP_CHUYEN_MON: "Cơ bản", 
@@ -9148,9 +9148,9 @@ FILE: \tien_ich\bo_luat_bhyt.jsx
 
 /**
  * TỆP LÕI: HỆ QUẢN TRỊ QUY TẮC BHYT ĐỘNG (NO-CODE RULE ENGINE CMS)
- * Chức năng: Quản trị 12 trạm luật Phương Châu dưới dạng bảng dữ liệu động.
+ * Chức năng: Quản trị 12 trạm luật CDSS BHYT dưới dạng bảng dữ liệu động.
  * Đột phá 5.0: Tích hợp công tắc BẬT/TẮT (ON/OFF) trạng thái luật và Chọn hàng loạt (Select All).
- * Giao diện: Pink Theme Phương Châu, Arial > 20px
+ * Giao diện: Theme CDSS BHYT, Arial > 20px
  * Tiêu chuẩn JCI: MOI.3 & COP
  */
 
@@ -9453,7 +9453,7 @@ const BoLuatBHYT = ({ navigation }) => {
 
 export default BoLuatBHYT;
 
-// ================= CSS (PHƯƠNG CHÂU PINK THEME) =================
+// ================= CSS (CDSS BHYT PINK THEME) =================
 const styles = StyleSheet.create({
   vung_an_toan: { flex: 1, backgroundColor: '#F4F6F8' },
   thanh_tieu_de: { backgroundColor: '#FF66A3', padding: 20, paddingTop: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },

@@ -2,7 +2,7 @@
 import json, re, sys
 sys.stdout.reconfigure(encoding='utf-8')
 from pathlib import Path
-html = Path(r'G:/My Drive/Thu vien (1)/Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html').read_text(encoding='utf-8')
+html = Path(r'G:/My Drive/Thu vien (1)/Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html').read_text(encoding='utf-8')
 drugs = []
 for m in re.finditer(r'class="drugs-data-chunk"[^>]*>(\[.*?\])</script>', html, re.S):
     drugs.extend(json.loads(m.group(1)))

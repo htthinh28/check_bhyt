@@ -8,7 +8,7 @@ export const PHEN_BAN_VIZ = 'SPEC-VIZ-2.0.3';
 /** Giữ định danh phiên bản trước cho tài liệu / audit so sánh */
 export const PHEN_BAN_VIZ_LEGACY = 'SPEC-VIZ-1';
 
-/** Pink theme Phương Châu + đối lập bổ trợ (WCAG-friendly pairs) */
+/** Theme CDSS BHYT + đối lập bổ trợ (WCAG-friendly pairs) */
 const PALETTE_PHUONG_CHAU = ['#E83E8C', '#FF6B6B', '#4ECDC4', '#45B7D1', '#9B59B6', '#F06292', '#26A69A', '#42A5F5'];
 
 const widgetBase = () => ({
@@ -373,7 +373,7 @@ export const layMetaVizDataset = (hienThi, idDataset) => hienThi?.dataset_meta_v
 export const layMauHeatmap = (hienThi, tyLe) => {
   const palette0 = Array.isArray(hienThi?.theme?.palette) ? hienThi.theme.palette[0] : null;
   const a = Math.min(1, Math.max(0, Number(tyLe) || 0));
-  /** MVP: gradient theo theme.palette[0] khi là #RRGGBB; ngược lại tone mặc định Phương Châu. */
+  /** MVP: gradient theo theme.palette[0] khi là #RRGGBB; ngược lại tone mặc định CDSS. */
   if (palette0 && /^#[0-9A-Fa-f]{6}$/.test(palette0)) {
     const r = parseInt(palette0.slice(1, 3), 16);
     const g = parseInt(palette0.slice(3, 5), 16);

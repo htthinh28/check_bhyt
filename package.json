@@ -1,7 +1,7 @@
 {
   "name": "ung_dung_cdss_bhyt",
   "description": "CDSS BHYT — kiểm tra hồ sơ BHYT; web/mobile + portable Windows (export đủ tài liệu/chỉ mục nội bộ).",
-  "author": "BV Phương Châu",
+  "author": "CDSS Bảo hiểm y tế",
   "main": "index.js",
   "version": "1.2.1",
   "scripts": {
@@ -162,7 +162,6 @@
     "react-native-svg": "15.12.1",
     "react-native-web": "^0.21.0",
     "react-native-worklets": "0.5.1",
-    "marked": "^18.0.0",
     "xlsx": "^0.18.5"
   },
   "devDependencies": {
@@ -173,6 +172,7 @@
     "eslint": "^9.25.0",
     "eslint-config-expo": "~10.0.0",
     "firebase-admin": "^13.0.0",
+    "marked": "^18.0.5",
     "playwright": "^1.59.1",
     "typescript": "~5.9.2"
   },

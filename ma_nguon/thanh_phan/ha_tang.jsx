@@ -1,7 +1,7 @@
 /**
  * DANH MỤC HẠ TẦNG VÀ HỆ THỐNG PHỤ TRỢ (FACILITY & INFRASTRUCTURE)
  * Phục vụ báo cáo năng lực KBCB BHYT và Quản trị rủi ro cơ sở vật chất (JCI FMS)
- * Dữ liệu: Bệnh viện Quốc tế Phương Châu Sóc Trăng
+ * Dữ liệu: CSKCB Sóc Trăng (94170)
  */
 
 export const DANH_MUC_HA_TANG = {

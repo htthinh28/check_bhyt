@@ -86,7 +86,7 @@ def load_shell() -> str:
     text = patch_bhxh_filter_options(text)
     crosslink_nav = """
     <div class="flex flex-wrap items-center gap-1.5 mt-1 sm:mt-0">
-      <button type="button" onclick="openPcDuocThuApp({section:'duocthu'})" class="text-[10px] px-2.5 py-1 rounded-full bg-white/20 hover:bg-white/30 text-white border border-white/40 font-semibold" title="Mở Dược thư Phương Châu">💊 Dược thư</button>
+      <button type="button" onclick="openPcDuocThuApp({section:'duocthu'})" class="text-[10px] px-2.5 py-1 rounded-full bg-white/20 hover:bg-white/30 text-white border border-white/40 font-semibold" title="Mở Dược thư BHYT">💊 Dược thư</button>
       <button type="button" onclick="openPcDvktApp({tab:'quytrinhkt'})" class="text-[10px] px-2.5 py-1 rounded-full bg-white/20 hover:bg-white/30 text-white border border-white/40 font-semibold" title="Quy trình kỹ thuật">📋 QTKT</button>
     </div>"""
     if "openPcDuocThuApp" not in text:

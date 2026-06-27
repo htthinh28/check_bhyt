@@ -1,8 +1,8 @@
 /**
  * TỆP LÕI: HỆ QUẢN TRỊ QUY TẮC BHYT ĐỘNG (NO-CODE RULE ENGINE CMS)
- * Chức năng: Quản trị 12 trạm luật Phương Châu dưới dạng bảng dữ liệu động.
+ * Chức năng: Quản trị 12 trạm luật CDSS BHYT dưới dạng bảng dữ liệu động.
  * Đột phá 5.0: Tích hợp công tắc BẬT/TẮT (ON/OFF) trạng thái luật và Chọn hàng loạt (Select All).
- * Giao diện: Pink Theme Phương Châu, Arial > 20px
+ * Giao diện: Theme CDSS BHYT, Arial > 20px
  * Tiêu chuẩn JCI: MOI.3 & COP
  */
 
@@ -407,7 +407,7 @@ const BoLuatBHYT = ({ navigation }) => {
 
 export default BoLuatBHYT;
 
-// ================= CSS (PHƯƠNG CHÂU PINK THEME) =================
+// ================= CSS (HỒNG CDSS THEME) =================
 const styles = StyleSheet.create({
   vung_an_toan: { flex: 1, backgroundColor: '#F4F6F8' },
   thanh_tieu_de: { backgroundColor: '#FF66A3', padding: 20, paddingTop: 40, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' },

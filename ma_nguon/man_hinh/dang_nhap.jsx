@@ -1,5 +1,5 @@
 /**
- * PHÂN HỆ: ĐĂNG NHẬP (PHƯƠNG CHÂU - JCI)
+ * PHÂN HỆ: ĐĂNG NHẬP (CDSS BẢO HIỂM Y TẾ - JCI)
  * Phiên bản UI: 2.0 - Modern Split Layout
  * JCI Standard SQE.1: Kiểm soát truy cập nghiêm ngặt.
  */
@@ -234,8 +234,8 @@ const ManHinhDangNhap = ({ navigation }) => {
                 <Text style={styles.brand_icon_txt}>🏥</Text>
               </View>
 
-              <Text style={styles.brand_name}>PHƯƠNG CHÂU</Text>
-              <Text style={styles.brand_subtitle}>BỆNH VIỆN QUỐC TẾ SÓC TRĂNG</Text>
+              <Text style={styles.brand_name}>CDSS BẢO HIỂM Y TẾ</Text>
+              <Text style={styles.brand_subtitle}>HỖ TRỢ GIÁM ĐỊNH & RA QUYẾT ĐỊNH LÂM SÀNG</Text>
 
               <View style={styles.brand_divider} />
 
@@ -275,7 +275,7 @@ const ManHinhDangNhap = ({ navigation }) => {
                   <View style={styles.brand_icon_ring_sm}>
                     <Text style={{ fontSize: 32 }}>🏥</Text>
                   </View>
-                  <Text style={styles.mobile_brand_name}>CDSS PHƯƠNG CHÂU</Text>
+                  <Text style={styles.mobile_brand_name}>CDSS BẢO HIỂM Y TẾ</Text>
                   <Text style={styles.mobile_brand_sub}>Hệ Thống BHYT & Lâm Sàng</Text>
                 </View>
               )}

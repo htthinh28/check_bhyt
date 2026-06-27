@@ -25,9 +25,9 @@ from _update_icd_deep import (  # noqa: E402
 sys.stdout.reconfigure(encoding="utf-8")
 
 WORKSPACE = Path(__file__).resolve().parent
-HTML = WORKSPACE / "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html"
-BACKUP = WORKSPACE / "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html.pre-head-move.bak"
-CORRUPT_BAK = WORKSPACE / "Dược thư Phương Châu - CHỈ MỞ FILE NÀY (1).html.pre-icd-patch.bak"
+HTML = WORKSPACE / "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html"
+BACKUP = WORKSPACE / "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html.pre-head-move.bak"
+CORRUPT_BAK = WORKSPACE / "Dược thư BHYT - CHỈ MỞ FILE NÀY (1).html.pre-icd-patch.bak"
 
 JS_REPLACEMENTS: list[tuple[str, str]] = [
     (

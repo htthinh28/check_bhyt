@@ -4,7 +4,7 @@
  * 1. CRUD Toàn diện: Thêm, Sửa, Xóa, Xóa hàng loạt.
  * 2. Linh hoạt: Tự động cập nhật cột từ Schema No-code.
  * 3. Giao tiếp dữ liệu: Import/Export Excel chuẩn BHYT.
- * Giao diện: Glassmorphism Dark Theme Phương Châu, Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Arial > 20px.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';

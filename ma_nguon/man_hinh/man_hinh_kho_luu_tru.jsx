@@ -7,7 +7,7 @@
  * 4. Xuất dữ liệu: Xuất hàng loạt file XML; Excel (đã chọn + báo cáo toàn danh sách đang lọc); In/PDF báo cáo danh sách.
  * 5. Tự động ghi nhớ: Sửa lỗi mất dữ liệu khi Refresh, tự động đồng bộ (Auto-Save).
  * Tiêu chuẩn JCI: MCI.3 (Bảo mật & Truy vết) và QPS (Cải thiện chất lượng).
- * Giao diện: Pink Theme Phương Châu, Font Arial > 20px.
+ * Giao diện: Theme CDSS BHYT, Font Arial > 20px.
  * [CẬP NHẬT LÕI]: Tích hợp cơ chế Index-Detail từ kho_du_lieu.jsx chống tràn RAM.
  */
 

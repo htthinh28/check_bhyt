@@ -9,7 +9,7 @@ const InQuyTrinh = ({ maDV, danhSachData }) => {
       <View style={styles.trang_in}>
         
         <View style={styles.phan_dau_trang}>
-          <Text style={styles.ten_benh_vien}>TẬP ĐOÀN Y TẾ PHƯƠNG CHÂU</Text>
+          <Text style={styles.ten_benh_vien}>CDSS BẢO HIỂM Y TẾ</Text>
           <Text style={styles.tieu_de_tai_lieu}>QUY TRÌNH KỸ THUẬT LÂM SÀNG</Text>
           <Text style={styles.ma_icd_header}>Tên kỹ thuật: {quyTrinh['TÊN QUY TRÌNH KỸ THUẬT']}</Text>
           <Text style={styles.chu_thuong}>(Mã DVKT: {quyTrinh['MÃ DỊCH VỤ KT']})</Text>

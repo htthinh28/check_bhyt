@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 
 /**
- * Thẻ KPI tái sử dụng — Pink Theme Phương Châu, font Arial (web/iOS; Android fallback sans-serif nếu không có Arial).
+ * Thẻ KPI tái sử dụng — Theme CDSS BHYT, font Arial (web/iOS; Android fallback sans-serif nếu không có Arial).
  * @param {object} props
  * @param {string} props.title
  * @param {string} props.value — đã định dạng sẵn (tiền / % / số)

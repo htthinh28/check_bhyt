@@ -110,7 +110,7 @@ def main() -> None:
     data_mb = data_bytes / 1024 / 1024
     ok = code_mb <= LIMIT_MB
 
-    print("=== Rà soát mã nguồn Phương Châu / DVKT ===")
+    print("=== Rà soát mã nguồn CDSS Bảo hiểm y tế / DVKT ===")
     print(f"Mã nguồn (ước tính): {code_mb:.2f} MB  {'✓' if ok else '✗ VƯỢT ' + str(LIMIT_MB) + ' MB'}")
     print(f"Dữ liệu tách / PDF / HTML nhúng: {data_mb:.2f} MB")
     print(f"Giới hạn mã nguồn: {LIMIT_MB:.0f} MB")

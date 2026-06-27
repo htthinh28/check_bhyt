@@ -26,7 +26,7 @@ const InPhacDo = ({ maICD = 'J18.9', noiDungPhacDo = null }) => {
       <ScrollView style={styles.vung_an_toan}>
         <View style={styles.trang_in}>
           <View style={styles.phan_dau_trang}>
-            <Text style={styles.ten_benh_vien}>TẬP ĐOÀN Y TẾ PHƯƠNG CHÂU</Text>
+            <Text style={styles.ten_benh_vien}>CDSS BẢO HIỂM Y TẾ</Text>
             <Text style={styles.tieu_de_tai_lieu}>PHÁC ĐỒ ĐIỀU TRỊ — CDSS GUIDELINES</Text>
             <Text style={styles.ma_icd_header}>
               Mã ICD-10: {noiDungPhacDo['MÃ ICD-10'] || maICD}
@@ -62,7 +62,7 @@ const InPhacDo = ({ maICD = 'J18.9', noiDungPhacDo = null }) => {
         
         {/* HEADER BẢN IN */}
         <View style={styles.phan_dau_trang}>
-          <Text style={styles.ten_benh_vien}>TẬP ĐOÀN Y TẾ PHƯƠNG CHÂU</Text>
+          <Text style={styles.ten_benh_vien}>CDSS BẢO HIỂM Y TẾ</Text>
           <Text style={styles.tieu_de_tai_lieu}>PHÁC ĐỒ ĐIỀU TRỊ LÂM SÀNG</Text>
           <Text style={styles.ma_icd_header}>Mã bệnh (ICD-10): {maICD}</Text>
           <View style={styles.duong_ke_ngang} />
@@ -72,7 +72,7 @@ const InPhacDo = ({ maICD = 'J18.9', noiDungPhacDo = null }) => {
         <View style={styles.phan_muc}>
           <Text style={styles.tieu_de_muc}>I. HÀNH CHÍNH</Text>
           <View style={styles.noi_dung_muc}>
-            <Text style={styles.chu_thuong}><Text style={styles.chu_dam}>Cơ sở y tế:</Text> Tập đoàn Y tế Phương Châu (Chuẩn JCI)</Text>
+            <Text style={styles.chu_thuong}><Text style={styles.chu_dam}>Cơ sở y tế:</Text> CDSS Bảo hiểm y tế (Chuẩn JCI)</Text>
             <Text style={styles.chu_thuong}><Text style={styles.chu_dam}>Mã số tài liệu:</Text> PC-COP-PD-{maICD}</Text>
             <Text style={styles.chu_thuong}><Text style={styles.chu_dam}>Phiên bản / Ngày ban hành:</Text> 5.0 / 01/01/2026</Text>
           </View>
