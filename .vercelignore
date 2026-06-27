@@ -7,6 +7,7 @@ training_data/
 
 # Backend Python / desktop / đóng gói — không dùng trên Vercel static
 python_service/
+thuvien/
 packaging/
 release-desktop/
 offline_update_packs/
