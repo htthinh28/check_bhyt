@@ -7,9 +7,15 @@ on:
 
 jobs:
   deploy:
-    if: ${{ secrets.VERCEL_TOKEN != '' }}
     runs-on: ubuntu-latest
     steps:
+      - name: Require Vercel secrets
+        run: |
+          if [ -z "${{ secrets.VERCEL_TOKEN }}" ]; then
+            echo "::error::Thiếu secret VERCEL_TOKEN trên GitHub repo. Thêm VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID trong Settings → Secrets."
+            exit 1
+          fi
+
       - uses: actions/checkout@v4
 
       - name: Setup Node.js
