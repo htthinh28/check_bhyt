@@ -1,5 +1,5 @@
 import Constants from 'expo-constants';
-import { Platform } from 'react-native';
+import { Alert, Linking, Platform } from 'react-native';
 
 const THUVIEN_WEB_PREFIX = '/thuvien';
 
@@ -148,5 +148,28 @@ export const healthCheckThuVienTraCuu = async () => {
         ? `Không tải được Thư viện: ${msg}. Chạy: npm run thuvien:prepare`
         : `Không kết nối Flask: ${msg}. Chạy: npm run thuvien:start`,
     };
+  }
+};
+
+/** Mở DVKT hoặc Dược thư trong tab/cửa sổ trình duyệt mới. */
+export const moThuVienTraCuuTabMoi = async (loai) => {
+  const cfg = thuVienTraCuuConfig();
+  const url = loai === 'duocthu' ? cfg.duocThuUrl : cfg.dvktUrl;
+  const label = loai === 'duocthu' ? 'Dược thư' : 'DM DVKT';
+  const trimmed = String(url || '').trim();
+  if (!trimmed) {
+    Alert.alert('Thiếu URL', `Chưa cấu hình ${label}.`);
+    return;
+  }
+  try {
+    if (Platform.OS === 'web' && typeof window !== 'undefined') {
+      window.open(trimmed, '_blank', 'noopener,noreferrer');
+      return;
+    }
+    const supported = await Linking.canOpenURL(trimmed);
+    if (supported) await Linking.openURL(trimmed);
+    else Alert.alert('Không mở được', trimmed);
+  } catch (e) {
+    Alert.alert('Lỗi mở liên kết', String(e?.message || e));
   }
 };

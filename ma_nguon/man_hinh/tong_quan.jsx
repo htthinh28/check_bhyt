@@ -44,6 +44,7 @@ import {
 } from '../tien_ich/giam_dinh_hybrid_dong_bo';
 import { docPhienDangNhap, xoaPhienDangNhap } from '../tien_ich/phien_dang_nhap';
 import { dieuHuongMoTabMoi } from '../tien_ich/dieu_huong_mo_tab_moi';
+import NutTraCuuThuVienHeader from '../thanh_phan/nut_tra_cuu_thu_vien_header';
 import { DANH_MUC_QUY_TAC_NOI_BO, khopMaLuatTheoMau, suyRaThongTinQuanTriQuyTac } from '../tien_ich/quy_tac_on_off_noi_bo';
 import { locModuleTheoRBAC, taiRBAC } from '../tien_ich/rbac_engine';
 import {
@@ -1266,6 +1267,7 @@ ${phanDongKhoi.join('\n')}
     { label: 'Có lỗi', value: thongKe.loi, icon: '⚠️', mau: '#C62828', mauNhat: '#FFEBEE' },
     { label: 'Tỉ lệ lỗi', value: `${phanTramLoi}%`, icon: '📊', mau: '#E65100', mauNhat: '#FFF3E0' },
   ];
+  const coQuyenTraCuuThuVien = menuHienThi.some((m) => m.id === 'MOD_TRA_CUU_PC');
 
   return (
     <SafeAreaView style={styles.vung_an_toan}>
@@ -1316,6 +1318,12 @@ ${phanDongKhoi.join('\n')}
             </View>
           </View>
         </View>
+        {coQuyenTraCuuThuVien ? (
+          <View style={styles.header_tra_cuu_row}>
+            <Text style={styles.header_tra_cuu_nhan}>Tra cứu:</Text>
+            <NutTraCuuThuVienHeader variant="dashboard" />
+          </View>
+        ) : null}
       </View>
 
       <View style={[styles.dashboard_layout, dungSidebarTrai ? styles.dashboard_layout_row : styles.dashboard_layout_col]}>
@@ -2330,6 +2338,21 @@ const styles = StyleSheet.create({
     ...Platform.select({ web: { backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)', cursor: 'pointer' } }),
   },
   btn_logout_txt: { fontSize: 16, color: '#FFF', fontWeight: '600', fontFamily: CD.font.family },
+  header_tra_cuu_row: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    flexWrap: 'wrap',
+    paddingTop: 4,
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(255,255,255,0.15)',
+  },
+  header_tra_cuu_nhan: {
+    fontSize: 13,
+    fontWeight: '700',
+    color: 'rgba(255,255,255,0.85)',
+    fontFamily: CD.font.family,
+  },
 
   // ── DASHBOARD LAYOUT ──
   dashboard_layout: {
