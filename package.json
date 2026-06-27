@@ -25,6 +25,7 @@
     "py:start": "python3 -m uvicorn python_service.app.main:app --host 0.0.0.0 --port 8000 --reload",
     "thuvien:install": "python3 -m pip install -r thuvien/dvkt_app/requirements.txt",
     "thuvien:prepare": "node ./scripts/prepare_thuvien_static.mjs",
+    "qtkt:refresh": "cd thuvien && python3 _refresh_qtkt_full.py",
     "thuvien:start": "python3 thuvien/dvkt_app/app.py",
     "qa:thuvien": "npm run thuvien:prepare && node ./scripts/smoke_test_thu_vien.mjs",
     "qa:thuvien:flask": "node ./scripts/smoke_test_thu_vien.mjs",

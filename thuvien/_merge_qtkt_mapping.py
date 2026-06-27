@@ -67,6 +67,11 @@ def load_icd_catalog() -> tuple[dict, dict, list[tuple[str, dict]]] | tuple[None
         catalog, _, children = load_icd_from_html(text)
         if catalog:
             return catalog, children, _build_long_name_index(catalog)
+    from _qtkt_normalize import load_icd_from_duocthu_data
+
+    loaded = load_icd_from_duocthu_data(BASE)
+    if loaded and loaded[0]:
+        return loaded
     return None, None, None
 
 
@@ -191,7 +196,9 @@ def enrich_qtkt_rows(
 
     out: list[dict] = []
     for i, row in enumerate(rows, start=1):
-        row = dict(row)
+        from _qtkt_normalize import normalize_qtkt_row
+
+        row = normalize_qtkt_row(dict(row))
         row["stt"] = i
         if catalog and children:
             apply_qtkt_icd_fields(row, catalog, children, long_names)
@@ -201,14 +208,28 @@ def enrich_qtkt_rows(
     return out
 
 
-def update_manifest(columns: list[dict]) -> None:
+def update_manifest(columns: list[dict], *, version: str | None = None, row_count: int | None = None) -> None:
     manifest_path = DEFAULT_DATA_DIR / "manifest.json"
     manifest = json.loads(manifest_path.read_text(encoding="utf-8")) if manifest_path.is_file() else {"tabs": [], "columns": {}}
     tabs = list(manifest.get("tabs", []))
     if "quytrinhkt" not in tabs:
         tabs.append("quytrinhkt")
     manifest["tabs"] = tabs
+    if version:
+        manifest["version"] = version
     manifest.setdefault("columns", {})["quytrinhkt"] = columns
+    meta = manifest.setdefault("meta", {})
+    meta["quytrinhkt"] = {
+        "nguon": "Quy trình kỹ thuật ban hành kèm QĐ-BYT theo chuyên khoa (2025–2026)",
+        "canCuPhapLy": [
+            "TT 32/2023/TT-BYT — điều kiện thực hiện & thanh toán DVKT",
+            "QĐ 7603/QĐ-BYT — danh mục DVKT",
+            "ICD-10 (TT06/QĐ 3176) — chỉ định / chống chỉ định",
+        ],
+        "capNhat": version or manifest.get("version", ""),
+        "soQuyTrinh": row_count,
+        "cauTruc": "§2 Chỉ định · §3 Chống chỉ định · §5.1 Nhân sự · §5.6 Thời gian (mẫu BYT)",
+    }
     manifest_path.write_text(json.dumps(manifest, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
@@ -330,7 +351,7 @@ def main() -> None:
     if icd_issues:
         log(f"Canh bao validate ICD: {icd_issues} ban ghi")
     save_dataset("quytrinhkt", cols, rows, DEFAULT_DATA_DIR)
-    update_manifest(cols)
+    update_manifest(cols, version=__import__("datetime").date.today().isoformat(), row_count=len(rows))
     log("Da ghi dvkt_app/data/quytrinhkt.json.gz")
 
 

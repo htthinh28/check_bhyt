@@ -40,7 +40,10 @@ Thư mục `data/qtkt_source/` không nằm trong git (dung lượng lớn). Sau
 cd thuvien
 python3 _download_qtkt_sources.py
 python3 _merge_qtkt_mapping.py
+npm run qtkt:refresh          # từ repo gốc: chuẩn hóa + ICD + TT23/QĐ7603 (không cần PDF)
 ```
+
+Web/Vercel: `npm run thuvien:prepare` copy `quytrinhkt` vào `/thuvien/api/data/`.
 
 ## Cấu trúc chính
 

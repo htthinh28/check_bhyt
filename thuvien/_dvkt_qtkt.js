@@ -24,6 +24,11 @@
       bar.id = 'qtktViewToolbar';
       bar.className = 'hidden mb-4 flex flex-wrap items-center gap-2';
       bar.innerHTML = `
+        <div class="w-full mb-2 px-3 py-2 rounded-lg bg-amber-50 border border-amber-200 text-[11px] text-amber-950 leading-relaxed">
+          <strong>Quy trình kỹ thuật BYT (2025–2026):</strong> trích từ QĐ-BYT từng chuyên khoa · liên kết
+          <strong>TT 32/2023</strong> (DVKT) · <strong>QĐ 7603</strong> · <strong>ICD-10 TT06</strong>.
+          §2 Chỉ định · §3 Chống chỉ định · §5.1 Nhân sự · §5.6 Thời gian.
+        </div>
         <span class="text-xs font-bold uppercase text-amber-800 tracking-wide">Hiển thị quy trình:</span>
         <button type="button" id="qtktViewTableBtn" onclick="setQtktViewMode('table')"
           class="px-3 py-1.5 text-xs font-semibold rounded-lg border border-amber-300 bg-amber-600 text-white">📋 Bảng</button>

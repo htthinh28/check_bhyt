@@ -18,7 +18,7 @@ def main() -> None:
         raise SystemExit("Không tải được danh mục ICD-10")
     rows = enrich_qtkt_rows(pack["rows"], catalog, children, long_names)
     save_dataset("quytrinhkt", QTKT_COLUMNS, rows, DEFAULT_DATA_DIR)
-    update_manifest(QTKT_COLUMNS)
+    update_manifest(QTKT_COLUMNS, version=__import__("datetime").date.today().isoformat(), row_count=len(rows))
     has_cd = sum(1 for r in rows if r.get("maICDChiDinh"))
     has_cc = sum(1 for r in rows if r.get("maICDChongChiDinh"))
     has_text = sum(1 for r in rows if r.get("chiDinh"))

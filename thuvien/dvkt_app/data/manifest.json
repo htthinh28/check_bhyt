@@ -11,7 +11,7 @@
     "pvhnbhxh",
     "quytrinhkt"
   ],
-  "version": "2026-06-25",
+  "version": "2026-06-27",
   "columns": {
     "pl1": [
       {
@@ -1292,5 +1292,18 @@
         "type": "computed"
       }
     ]
+  },
+  "meta": {
+    "quytrinhkt": {
+      "nguon": "Quy trình kỹ thuật ban hành kèm QĐ-BYT theo chuyên khoa (2025–2026)",
+      "canCuPhapLy": [
+        "TT 32/2023/TT-BYT — điều kiện thực hiện & thanh toán DVKT",
+        "QĐ 7603/QĐ-BYT — danh mục DVKT",
+        "ICD-10 (TT06/QĐ 3176) — chỉ định / chống chỉ định"
+      ],
+      "capNhat": "2026-06-27",
+      "soQuyTrinh": 3160,
+      "cauTruc": "§2 Chỉ định · §3 Chống chỉ định · §5.1 Nhân sự · §5.6 Thời gian (mẫu BYT)"
+    }
   }
 }

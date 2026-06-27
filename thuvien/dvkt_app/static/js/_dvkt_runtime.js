@@ -178,7 +178,7 @@
       bvpcct: 'BV PC Cần Thơ',
       bvpsd: 'BV PC Sa Đéc',
       pvhnbhxh: 'Mã PVHN BHXH 2024',
-      quytrinhkt: 'Quy trình kỹ thuật BYT',
+      quytrinhkt: 'QTKT BYT (TT32 · QĐ7603)',
     };
 
     const TAB_SIDEBAR_COUNT_ACTIVE = {

@@ -247,8 +247,18 @@ def icd_confidence(entries: list[dict], *, explicit_count: int = 0) -> str:
 
 
 def apply_qtkt_icd_fields(row: dict, catalog: dict, children: dict, long_names: list[tuple[str, dict]] | None = None) -> dict:
-    chi_text = row.get("chiDinh") or ""
-    chong_text = row.get("chongChiDinh") or ""
+    chi_text = (row.get("chiDinh") or "").strip()
+    chong_text = (row.get("chongChiDinh") or "").strip()
+    if len(chi_text) < 15:
+        chi_text = " ".join(
+            x for x in (
+                row.get("tenKyThuat", ""),
+                row.get("tenKyThuatTT23", ""),
+                row.get("tenTT43", ""),
+            ) if x
+        ).strip()
+    if len(chong_text) < 10 and chi_text:
+        chong_text = row.get("chongChiDinh") or ""
 
     explicit_chi = len(extract_explicit_icd_codes(chi_text, catalog))
     chi_entries = map_qtkt_chi_dinh(chi_text, catalog, children, long_names)

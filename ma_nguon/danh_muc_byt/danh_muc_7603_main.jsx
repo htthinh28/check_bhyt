@@ -637,8 +637,8 @@ const DanhMucBYTMain = ({ navigation }) => {
         onPress={() => navigation.navigate('TraCuuThuVienPC')}
         activeOpacity={0.85}
       >
-        <Text style={styles.banner_thu_vien_pc_tieu_de}>📖 Tra cứu DM DVKT & Dược thư (Flask)</Text>
-        <Text style={styles.banner_thu_vien_pc_phu}>QĐ 7603 · TT23 · QTKT · Dược thư PC — chạy npm run thuvien:start</Text>
+        <Text style={styles.banner_thu_vien_pc_tieu_de}>📖 Tra cứu DM DVKT & Dược thư</Text>
+        <Text style={styles.banner_thu_vien_pc_phu}>QĐ 7603 · TT32/2023 · QTKT BYT 2025–26 — mở từ header dashboard</Text>
       </TouchableOpacity>
 
       {dungSidebarTrai ? (
