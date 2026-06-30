@@ -1,5 +1,5 @@
 /** AUTO-GENERATED from DuLieu_LUAT_HANH_CHINH (7).xlsx + HC_249; HC_13…HC_205 mức hưởng theo QĐ 1018/QĐ-BHXH (ký tự thứ 3 thẻ) + HC_251 (CV 38) + HC_302 (CV 302/CSYT-CĐ, LCS 2.530.000 từ 01/7/2026) */
-export const PHIEN_BAN_SEED_LUAT_HANH_CHINH_MUC2 = '2026-06-30_icd10_cap_cuu_ma_tach';
+export const PHIEN_BAN_SEED_LUAT_HANH_CHINH_MUC2 = '2026-06-30_hc249_noitru_capcuu_xuat_toan';
 export const COT_SEED_LUAT_HANH_CHINH_MUC2 = ["TRANG_THAI","MA_LUAT","TEN_QUY_TAC","DIEU_KIEN","CANH_BAO","NGUON_DU_LIEU"];
 export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
   {
@@ -2312,9 +2312,9 @@ export const DU_LIEU_SEED_LUAT_HANH_CHINH_MUC2 = [
     "id": "SEED_HANHCHINH_249",
     "TRANG_THAI": "ON",
     "MA_LUAT": "HC_249",
-    "TEN_QUY_TAC": "Cấp cứu: ICD và lý do/tình trạng theo danh mục ICD-10 cấp cứu (Nhi NH** / Người lớn NL** / Chuyên khoa HCQ**)",
+    "TEN_QUY_TAC": "Nội trú cấp cứu (MA_DOITUONG_KCB=2): ICD-10 và lý do nhập viện theo danh mục ICD-10 cấp cứu",
     "DIEU_KIEN": "HC_249_BUILTIN_ICD10_CAP_CUU",
-    "CANH_BAO": "⚠️ [ICD cấp cứu]: MA_LY_DO_VV=2 (cấp cứu) nhưng chưa đối chiếu được với danh mục nội bộ: (1) MA_BENH_CHINH phải khớp mã trích từ cột Ma_ICD_Chinh hoặc Ma_ICD_Kem_Theo của ít nhất một dòng đúng nhóm tuổi (mã dòng NH** cho trẻ dưới 16 tuổi, NL** hoặc HCQ** từ 16 tuổi trở lên); (2) CHẨN ĐOÁN/ghi chú cần phản ánh ít nhất một phần nội dung Tinh_Trang_Benh hoặc Ly_Do_Nhap_Vien của cùng dòng đó. Cập nhật DM tại Quản lý danh mục → ICD10 cấp cứu nếu cần.",
+    "CANH_BAO": "⛔ [XUẤT TOÁN]: Chỉ định vào điều trị nội trú chưa phù hợp, đề nghị mô tả kỹ lý do vào viện và tình trạng vào viện theo Quyết định số 79/QĐ-BYT của Bộ Y tế ngày 09/01/2026.",
     "NGUON_DU_LIEU": "giam_dinh_icd10_cap_cuu.jsx + DANH_MUC_ICD10_CAP_CUU"
   },
   {

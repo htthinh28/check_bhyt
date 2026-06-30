@@ -23,7 +23,7 @@ export const BO_LOC_ICD10_VI_PHAM = Object.freeze([
   { id: 'ICD-HC-DL', label: 'Hành chính & XML', moTa: 'HC-07, thiếu/trống ICD (XML_14–35)', nhom: 'KHAC' },
   { id: 'ICD-THUOC', label: 'Thuốc', moTa: 'Mapping chỉ định/chống CĐ, kê >30 ngày', nhom: 'KHAC' },
   { id: 'ICD-DVKT', label: 'DVKT', moTa: 'DVKT-OP chỉ định / chống chỉ định ICD', nhom: 'KHAC' },
-  { id: 'ICD-CAP-CUU', label: 'Cấp cứu', moTa: 'HC_249 — ICD cấp cứu', nhom: 'KHAC' },
+  { id: 'ICD-CAP-CUU', label: 'Cấp cứu', moTa: 'HC_249 — Nội trú cấp cứu (MA_DOITUONG_KCB=2)', nhom: 'KHAC' },
   { id: 'ICD-CDSS', label: 'CDSS', moTa: 'Phác đồ chuyên môn theo ICD', nhom: 'KHAC' },
 ]);
 
