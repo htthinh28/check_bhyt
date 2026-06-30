@@ -7,7 +7,7 @@ training_data/
 
 # Backend Python / desktop / đóng gói — không dùng trên Vercel static
 python_service/
-# thuvien: giữ nguồn static/data cho npm run thuvien:prepare; bỏ script Python nặng
+# thuvien: giữ dvkt_app/static + dvkt_app/data cho npm run thuvien:prepare; bỏ script Python (vercel:build không chạy qtkt:reenrich-mapping)
 thuvien/_*.py
 thuvien/*.py
 thuvien/*.bat
