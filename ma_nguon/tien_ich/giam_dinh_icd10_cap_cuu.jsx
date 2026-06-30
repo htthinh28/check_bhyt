@@ -1,6 +1,7 @@
 /**
- * Đối chiếu hồ sơ "cấp cứu" (XML1) với danh mục nội bộ ICD-10 nhập viện cấp cứu
- * (cột Tinh_Trang_Benh, Ly_Do_Nhap_Vien, Ma_ICD_Chinh, Ma_ICD_Kem_Theo; phân nhánh NH** / NL** / HCQ**).
+ * Đối chiếu hồ sơ nội trú cấp cứu (XML1) với danh mục nội bộ ICD-10 nhập viện cấp cứu.
+ * Phạm vi: MA_LOAI_KCB nội trú (03/09) + MA_DOITUONG_KCB = 2 (Cấp cứu — PL10).
+ * Khớp: Ma_ICD_Chinh + (Ten_ICD_Chinh trong chẩn đoán HOẶC LY_DO_VNT theo từ khóa Ly_Do_Nhap_Vien).
  */
 
 const ICD_RG = /[A-TV-Z]\d{2}(?:\.\d+)?/gi;
@@ -14,6 +15,14 @@ const normalizeTextNoAccent = (value) =>
         .toLowerCase();
 
 const chuanHoaMaIcd = (raw) => String(raw || '').replace(/\s/g, '').replace(/\./g, '').toUpperCase();
+
+const chuanHoaMaLoaiKcb = (raw) => {
+    const s = String(raw ?? '').trim();
+    if (!s) return '';
+    if (s === '03') return '3';
+    if (s === '09') return '9';
+    return s.replace(/^0+/, '') || s;
+};
 
 export const trichMaIcdTuChuoiMoTa = (s) => {
     const out = [];
@@ -53,6 +62,51 @@ export const icdChinhPhuHopDongDanhMuc = (xml1, row) => {
     return pool.some((c) => khopMaIcd(maChinh, c));
 };
 
+const trichTuKhoaTuDanhMuc = (row) => {
+    const out = [];
+    const seen = new Set();
+    const push = (token) => {
+        const t = normalizeTextNoAccent(token).trim();
+        if (t.length >= 4 && !seen.has(t)) {
+            seen.add(t);
+            out.push(t);
+        }
+    };
+
+    String(row?.Tu_Khoa || '')
+        .split(/[,;|/]+/)
+        .forEach((part) => push(part));
+
+    normalizeTextNoAccent(`${row?.Ly_Do_Nhap_Vien || ''} ${row?.Tinh_Trang_Benh || ''}`)
+        .split(/[\s,.;:()[\]"/]+/)
+        .forEach((part) => push(part));
+
+    return out;
+};
+
+/**
+ * CHẨN ĐOÁN/ghi chú phản ánh ít nhất một cụm tên bệnh trong Ten_ICD_Chinh.
+ */
+export const chanDoanPhuHopTenIcdChinh = (hoSoNorm, row) => {
+    const tenBlob = String(row?.Ten_ICD_Chinh || row?.ICD_Chinh || '');
+    const segments = tenBlob
+        .split(/[;]/)
+        .map((s) => normalizeTextNoAccent(s.trim()))
+        .filter((s) => s.length >= 4);
+    if (segments.length === 0) return false;
+    return segments.some((seg) => hoSoNorm.includes(seg));
+};
+
+/**
+ * LY_DO_VNT (lý do nhập viện nội trú) chứa từ khóa từ Ly_Do_Nhap_Vien / Tu_Khoa của dòng danh mục.
+ */
+export const lyDoVntPhuHopDanhMuc = (xml1, row) => {
+    const lyDoVntNorm = normalizeTextNoAccent(xml1?.LY_DO_VNT || '');
+    if (!lyDoVntNorm) return false;
+    const keywords = trichTuKhoaTuDanhMuc(row);
+    return keywords.some((kw) => lyDoVntNorm.includes(kw));
+};
+
 /**
  * Có ít nhất một từ khóa đủ dài từ Tinh_Trang_Benh hoặc Ly_Do_Nhap_Vien xuất hiện trong văn bản hồ sơ.
  */
@@ -72,6 +126,26 @@ export const laCapCuuTheoXml1 = (xml1) => {
     const lyVien = String(xml1?.MA_LY_DO_VVIEN ?? xml1?.MA_LYDO_VVIEN ?? xml1?.MA_LY_DO_VNT ?? '').trim();
     return lyVien === '2';
 };
+
+/** MA_DOITUONG_KCB = 2 — Cấp cứu (Phụ lục 10 QĐ 7603/BYT). */
+export const laDoiTuongCapCuuTheoXml1 = (xml1) => {
+    const raw = String(xml1?.MA_DOITUONG_KCB ?? '').trim();
+    if (!raw) return false;
+    if (raw === '2') return true;
+    const num = Number(raw.replace(',', '.'));
+    return Number.isFinite(num) && num === 2;
+};
+
+/** Điều trị nội trú theo QĐ 824 (mã 03 hoặc 09). */
+export const laNoiTruTheoXml1 = (xml1) => {
+    const maLoai = chuanHoaMaLoaiKcb(xml1?.MA_LOAI_KCB);
+    if (maLoai === '3' || maLoai === '9') return true;
+    return Boolean(String(xml1?.NGAY_VAO_NOI_TRU ?? '').trim());
+};
+
+/** Nội trú + đối tượng KCB cấp cứu (MA_DOITUONG_KCB = 2). */
+export const laNoiTruCapCuuTheoXml1 = (xml1) =>
+    laNoiTruTheoXml1(xml1) && laDoiTuongCapCuuTheoXml1(xml1);
 
 export const laTreEmTheoXml1 = (xml1) => {
     const tn = Number(xml1?.TUOI_NAM);
@@ -95,13 +169,23 @@ export const locDongDanhMucTheoDoTuoi = (rows, laTre) => {
 };
 
 export const ghepVanBanLamSangXml1 = (xml1) =>
-    [xml1?.CHAN_DOAN_VAO, xml1?.CHAN_DOAN_RV, xml1?.GHI_CHU, xml1?.PP_DIEU_TRI].filter(Boolean).join(' ');
+    [xml1?.CHAN_DOAN_VAO, xml1?.CHAN_DOAN_RV, xml1?.GHI_CHU, xml1?.PP_DIEU_TRI, xml1?.LY_DO_VNT]
+        .filter(Boolean)
+        .join(' ');
+
+const dongDanhMucPhuHopHoSo = (xml1, row, hoSoNorm) => {
+    if (!icdChinhPhuHopDongDanhMuc(xml1, row)) return false;
+    return (
+        chanDoanPhuHopTenIcdChinh(hoSoNorm, row)
+        || lyDoVntPhuHopDanhMuc(xml1, row)
+    );
+};
 
 /**
- * @returns {boolean} true = vi phạm (cần cảnh báo)
+ * @returns {boolean} true = vi phạm (cần cảnh báo XUẤT TOÁN)
  */
 export const viPhamQuy_tacCapCuuIcd10 = (xml1, rowsCapCuu) => {
-    if (!xml1 || !laCapCuuTheoXml1(xml1)) return false;
+    if (!xml1 || !laNoiTruCapCuuTheoXml1(xml1)) return false;
     const rows = Array.isArray(rowsCapCuu) ? rowsCapCuu : [];
     if (rows.length === 0) return false;
 
@@ -112,9 +196,10 @@ export const viPhamQuy_tacCapCuuIcd10 = (xml1, rowsCapCuu) => {
     const hoSoNorm = normalizeTextNoAccent(ghepVanBanLamSangXml1(xml1));
 
     for (let i = 0; i < ds.length; i += 1) {
-        const row = ds[i];
-        if (!icdChinhPhuHopDongDanhMuc(xml1, row)) continue;
-        if (vanBanHoSoCoPhanAnhLyDoHoacTinhTrang(hoSoNorm, row)) return false;
+        if (dongDanhMucPhuHopHoSo(xml1, ds[i], hoSoNorm)) return false;
     }
     return true;
 };
+
+export const CANH_BAO_HC_249_XUAT_TOAN =
+    '⛔ [XUẤT TOÁN]: Chỉ định vào điều trị nội trú chưa phù hợp, đề nghị mô tả kỹ lý do vào viện và tình trạng vào viện theo Quyết định số 79/QĐ-BYT của Bộ Y tế ngày 09/01/2026.';

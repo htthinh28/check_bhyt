@@ -5148,7 +5148,7 @@ const taoBoXuLyRuleDongDacBiet = (rule, conditionStr = '') => {
                 taoCanhBaoViPhamRuleDong(ruleMeta, {
                     phan_he: 'XML1',
                     index: -1,
-                    truong_loi: 'CHAN_DOAN_VAO',
+                    truong_loi: 'LY_DO_VNT',
                 }),
             ];
         };

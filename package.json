@@ -90,6 +90,7 @@
     "qa:dvkt-phamvi-nguoi-thuc-hien": "node ./scripts/qa_dvkt_phamvi_nguoi_thuc_hien.mjs",
     "qa:icd10-tt26-ke-don-loc": "node ./scripts/qa_icd10_tt26_ke_don_loc.mjs",
     "qa:icd10-loc-vi-pham": "node ./scripts/qa_icd10_loc_vi_pham.mjs",
+    "qa:icd10-cap-cuu": "node ./scripts/qa_icd10_cap_cuu.mjs",
     "qa:excel-bac-si-loi": "node ./scripts/qa_excel_bac_si_loi.mjs",
     "qa:thong-ke-bs-pc": "node ./scripts/qa_thong_ke_bs_pc_smoke.mjs",
     "qa:dinh-dang-bs-bao-cao": "node ./scripts/qa_dinh_dang_bs_bao_cao.mjs",
