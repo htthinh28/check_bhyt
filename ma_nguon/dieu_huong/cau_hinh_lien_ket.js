@@ -3,11 +3,18 @@
  * Giữ khớp với Stack.Screen trong tuyen_duong.jsx.
  */
 export const CAU_HINH_LIEN_KET = {
-  prefixes: ['http://localhost', 'https://cdssbhyt.vercel.app', 'phuongchau://'],
+  prefixes: ['http://localhost', 'https://cdssbhyt.vercel.app', 'https://checkbhytdev.vercel.app', 'phuongchau://'],
   config: {
     screens: {
-      DangNhap: 'login',
+      ChonBenhVien: 'chon-benh-vien',
+      DangNhap: {
+        path: 'login',
+        parse: {
+          cauHinhHeThong: (value) => value === true || value === 'true' || value === '1',
+        },
+      },
       DoiMatKhau: 'account/password',
+      QuanTriTaiKhoanBv: 'admin/hospital-accounts',
       TongQuan: 'dashboard',
       Helper: 'helper',
       DocXML: 'auditing',

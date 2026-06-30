@@ -18,6 +18,19 @@ import {
 import { docDanhSachTaiKhoan } from '../tien_ich/nhat_ky_he_thong';
 import { coPhienDangNhapHopLe, docPhienDangNhap } from '../tien_ich/phien_dang_nhap';
 import { coQuyenManHinh, taiRBAC } from '../tien_ich/rbac_engine';
+import { laTaiKhoanAdminToiCao } from '../tien_ich/admin_toi_cao';
+import { coGateSessionHopLe } from '../tien_ich/gate_session';
+import {
+  laManHinhDangNhapCauHinh,
+  taoRouteDangNhapCauHinh,
+} from '../tien_ich/gate_dieu_huong';
+import { damBaoKhoiDongTenant } from '../tien_ich/tenant_bootstrap';
+import { laCheDoBuildDonTenant } from '../tien_ich/tenant_context';
+import { coTenantSessionHopLe } from '../tien_ich/tenant_session';
+
+// 0. CỔNG ĐA BỆNH VIỆN
+import ManHinhChonBenhVien from '../man_hinh/chon_benh_vien';
+import QuanTriTaiKhoanBv from '../man_hinh/quan_tri_tai_khoan_bv';
 
 // 1. NHÓM MÀN HÌNH HỆ THỐNG & TỔNG QUAN
 import ManHinhDangNhap from '../man_hinh/dang_nhap';
@@ -71,24 +84,81 @@ const layManHinhDangMo = (state) => {
   return route.name || '';
 };
 
+const layParamsManHinhDangMo = (state) => {
+  if (!state || !Array.isArray(state.routes) || typeof state.index !== 'number') return {};
+  const route = state.routes[state.index];
+  if (!route) return {};
+  if (route.state) return layParamsManHinhDangMo(route.state);
+  return route.params || {};
+};
+
+const MAN_HINH_KHONG_CAN_TENANT = new Set(['ChonBenhVien', 'QuanTriTaiKhoanBv']);
+const MAN_HINH_KHONG_CAN_DANG_NHAP = new Set(['ChonBenhVien', 'DangNhap']);
+
 const DieuHuongChinh = () => {
   const [daKhoiPhucXong, setDaKhoiPhucXong] = useState(false);
   const [trangThaiKhoiPhuc, setTrangThaiKhoiPhuc] = useState(undefined);
+  const [manHinhKhoiDau, setManHinhKhoiDau] = useState('DangNhap');
   const navRef = useRef(null);
   const daKiemTraKhoiDongRef = useRef(false);
 
   const baoVeDieuHuong = async (state) => {
     const tenManHinh = layManHinhDangMo(state);
+    const params = layParamsManHinhDangMo(state);
     if (!tenManHinh || !navRef.current) return;
 
-    const daDangNhap = await coPhienDangNhapHopLe();
-    if (!daDangNhap && tenManHinh !== 'DangNhap') {
+    const laDangNhapCauHinh = tenManHinh === 'DangNhap' && laManHinhDangNhapCauHinh(params);
+    const coTenant = await coTenantSessionHopLe();
+
+    if (!(coTenant || MAN_HINH_KHONG_CAN_TENANT.has(tenManHinh) || laCheDoBuildDonTenant() || laDangNhapCauHinh)) {
       await AsyncStorage.removeItem(KHOA_DIEU_HUONG).catch(() => {});
-      navRef.current.resetRoot({ index: 0, routes: [{ name: 'DangNhap' }] });
+      navRef.current.resetRoot({ index: 0, routes: [{ name: 'ChonBenhVien' }] });
+      return;
+    }
+
+    if (tenManHinh === 'QuanTriTaiKhoanBv') {
+      if (!(await coGateSessionHopLe())) {
+        await AsyncStorage.removeItem(KHOA_DIEU_HUONG).catch(() => {});
+        navRef.current.resetRoot({ index: 0, routes: [{ name: 'ChonBenhVien' }] });
+        return;
+      }
+      if (!(await coPhienDangNhapHopLe())) {
+        await AsyncStorage.removeItem(KHOA_DIEU_HUONG).catch(() => {});
+        navRef.current.resetRoot({ index: 0, routes: [taoRouteDangNhapCauHinh()] });
+        return;
+      }
+      const session = await docPhienDangNhap();
+      if (!laTaiKhoanAdminToiCao(session?.email)) {
+        await AsyncStorage.removeItem(KHOA_DIEU_HUONG).catch(() => {});
+        navRef.current.resetRoot({ index: 0, routes: [taoRouteDangNhapCauHinh()] });
+      }
+      return;
+    }
+
+    if (laDangNhapCauHinh && !(await coGateSessionHopLe())) {
+      await AsyncStorage.removeItem(KHOA_DIEU_HUONG).catch(() => {});
+      navRef.current.resetRoot({ index: 0, routes: [{ name: 'ChonBenhVien' }] });
+      return;
+    }
+
+    const daDangNhap = await coPhienDangNhapHopLe();
+    if (!daDangNhap && !MAN_HINH_KHONG_CAN_DANG_NHAP.has(tenManHinh)) {
+      await AsyncStorage.removeItem(KHOA_DIEU_HUONG).catch(() => {});
+      navRef.current.resetRoot({
+        index: 0,
+        routes: [{ name: coTenant ? 'DangNhap' : 'ChonBenhVien' }],
+      });
       return;
     }
 
     if (daDangNhap && tenManHinh === 'DangNhap') {
+      if (laDangNhapCauHinh) {
+        const session = await docPhienDangNhap();
+        if (laTaiKhoanAdminToiCao(session?.email) && (await coGateSessionHopLe())) {
+          navRef.current.resetRoot({ index: 0, routes: [{ name: 'QuanTriTaiKhoanBv' }] });
+        }
+        return;
+      }
       navRef.current.resetRoot({ index: 0, routes: [{ name: 'TongQuan' }] });
       return;
     }
@@ -129,12 +199,22 @@ const DieuHuongChinh = () => {
 
     const khoiPhucDieuHuong = async () => {
       try {
+        const bootstrap = await damBaoKhoiDongTenant();
+        const coTenant = await coTenantSessionHopLe();
+        let routeKhoiDau = 'DangNhap';
+        if (laCheDoBuildDonTenant() || (!bootstrap?.needSelectTenant && coTenant)) {
+          if (await coPhienDangNhapHopLe()) routeKhoiDau = 'TongQuan';
+        } else {
+          routeKhoiDau = 'ChonBenhVien';
+        }
+        if (conHieuLuc) setManHinhKhoiDau(routeKhoiDau);
+
         const daDangNhap = await coPhienDangNhapHopLe();
         const duongDanKhoiTao = await Linking.getInitialURL();
         const coDeepLink = typeof duongDanKhoiTao === 'string'
           && duongDanKhoiTao.trim() !== ''
           && !duongDanKhoiTao.endsWith('/');
-        if (!coDeepLink && daDangNhap) {
+        if (!coDeepLink && daDangNhap && coTenant) {
           const trangThaiLuu = await AsyncStorage.getItem(KHOA_DIEU_HUONG);
           if (trangThaiLuu && conHieuLuc) {
             setTrangThaiKhoiPhuc(JSON.parse(trangThaiLuu));
@@ -183,17 +263,18 @@ const DieuHuongChinh = () => {
         baoVeDieuHuong(state).catch(() => {});
       }}
     >
-      <Stack.Navigator 
-        initialRouteName="DangNhap" 
-        screenOptions={{ 
-          headerShown: false, // Sử dụng Header tùy biến CDSS
-          animation: 'slide_from_right', 
-          gestureEnabled: true 
+      <Stack.Navigator
+        initialRouteName={manHinhKhoiDau}
+        screenOptions={{
+          headerShown: false,
+          animation: 'slide_from_right',
+          gestureEnabled: true,
         }}
       >
-        {/* --- PHÂN HỆ TRUY CẬP & HỆ THỐNG --- */}
+        <Stack.Screen name="ChonBenhVien" component={ManHinhChonBenhVien} />
         <Stack.Screen name="DangNhap" component={ManHinhDangNhap} />
         <Stack.Screen name="DoiMatKhau" component={ManHinhDoiMatKhau} />
+        <Stack.Screen name="QuanTriTaiKhoanBv" component={QuanTriTaiKhoanBv} />
         <Stack.Screen name="TongQuan" component={ManHinhTongQuan} />
         <Stack.Screen name="Helper" component={ManHinhHelperHeThong} />
         <Stack.Screen name="PhanQuyenTruyCap" component={ManHinhPhanQuyen} />

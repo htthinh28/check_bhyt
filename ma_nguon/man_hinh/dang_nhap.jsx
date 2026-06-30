@@ -23,11 +23,16 @@ import { CD } from '../tien_ich/chu_de_giao_dien';
 import { capNhatTaiKhoanTheoEmail, docDanhSachTaiKhoan, ghiNhatKyHeThong, luuDanhSachTaiKhoan } from '../tien_ich/nhat_ky_he_thong';
 import { luuPhienDangNhap } from '../tien_ich/phien_dang_nhap';
 import { damBaoMigratePhanQuyen, layVaiTroPhienHieuLuc, taiRBAC } from '../tien_ich/rbac_engine';
+import { laTaiKhoanAdminToiCao } from '../tien_ich/admin_toi_cao';
+import { coGateSessionHopLe } from '../tien_ich/gate_session';
+import { laManHinhDangNhapCauHinh } from '../tien_ich/gate_dieu_huong';
+import { moKhoaTenantSession, coTenantSessionHopLe } from '../tien_ich/tenant_session';
 
 const ADMIN_EMAIL = 'htthinh28@gmail.com';
 const ADMIN_LEGACY_PASSWORD = 'Tramanh@2010##';
 
-const ManHinhDangNhap = ({ navigation }) => {
+const ManHinhDangNhap = ({ navigation, route }) => {
+  const laCauHinhHeThong = laManHinhDangNhapCauHinh(route?.params);
   const [taiKhoan, setTaiKhoan] = useState('');
   const [matKhau, setMatKhau] = useState('');
   const [dangXuLy, setDangXuLy] = useState(false);
@@ -40,7 +45,13 @@ const ManHinhDangNhap = ({ navigation }) => {
     setLoaiThongBao(loai);
   };
 
-  const dieuHuongSauDangNhap = () => {
+  const dieuHuongSauDangNhap = async (email) => {
+    if (laCauHinhHeThong && laTaiKhoanAdminToiCao(email) && (await coGateSessionHopLe())) {
+      if (navigation?.reset) {
+        navigation.reset({ index: 0, routes: [{ name: 'QuanTriTaiKhoanBv' }] });
+        return;
+      }
+    }
     if (navigation?.reset) {
       navigation.reset({ index: 0, routes: [{ name: 'TongQuan' }] });
       return;
@@ -83,7 +94,7 @@ const ManHinhDangNhap = ({ navigation }) => {
           // Không chặn đăng nhập nếu ghi log thất bại.
         }
         capNhatThongBao('Đăng nhập thành công, đang chuyển vào hệ thống...', 'success');
-        dieuHuongSauDangNhap();
+        dieuHuongSauDangNhap(tkChuan);
         setDangXuLy(false);
       };
 
@@ -204,7 +215,7 @@ const ManHinhDangNhap = ({ navigation }) => {
         return;
       }
       capNhatThongBao('Đăng nhập thành công, đang chuyển vào hệ thống...', 'success');
-      dieuHuongSauDangNhap();
+      await dieuHuongSauDangNhap(tkChuan);
     } catch (_e) {
       capNhatThongBao('Không thể khởi tạo phiên làm việc. Vui lòng thử lại.', 'error');
       Alert.alert("Lỗi bộ nhớ", "Không thể khởi tạo phiên làm việc.");
