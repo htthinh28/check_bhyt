@@ -1,6 +1,6 @@
 /**
  * Đối chiếu hồ sơ "cấp cứu" (XML1) với danh mục nội bộ ICD-10 nhập viện cấp cứu
- * (cột Tinh_Trang_Benh, Ly_Do_Nhap_Vien, ICD_Chinh, ICD_Kem_Theo; phân nhánh NHI NH** / NL**).
+ * (cột Tinh_Trang_Benh, Ly_Do_Nhap_Vien, Ma_ICD_Chinh, Ma_ICD_Kem_Theo; phân nhánh NH** / NL** / HCQ**).
  */
 
 const ICD_RG = /[A-TV-Z]\d{2}(?:\.\d+)?/gi;
@@ -37,13 +37,19 @@ const khopMaIcd = (patientNorm, catalogNorm) => {
     return false;
 };
 
+const layChuoiMaIcdTuDong = (row, cotMoi, cotCu) =>
+    String(row?.[cotMoi] || row?.[cotCu] || '');
+
 /**
- * Chẩn đoán chính có xuất hiện trong chuỗi ICD_Chinh hoặc ICD_Kem_Theo của dòng danh mục (theo mã trích được).
+ * Chẩn đoán chính có xuất hiện trong chuỗi Ma_ICD_Chinh hoặc Ma_ICD_Kem_Theo của dòng danh mục (theo mã trích được).
  */
 export const icdChinhPhuHopDongDanhMuc = (xml1, row) => {
     const maChinh = chuanHoaMaIcd(xml1?.MA_BENH_CHINH || xml1?.MA_BENH || '');
     if (!maChinh) return false;
-    const pool = [...trichMaIcdTuChuoiMoTa(row?.ICD_Chinh), ...trichMaIcdTuChuoiMoTa(row?.ICD_Kem_Theo)];
+    const pool = [
+        ...trichMaIcdTuChuoiMoTa(layChuoiMaIcdTuDong(row, 'Ma_ICD_Chinh', 'ICD_Chinh')),
+        ...trichMaIcdTuChuoiMoTa(layChuoiMaIcdTuDong(row, 'Ma_ICD_Kem_Theo', 'ICD_Kem_Theo')),
+    ];
     return pool.some((c) => khopMaIcd(maChinh, c));
 };
 
@@ -79,11 +85,13 @@ export const nhomIdLaNhi = (id) => /^NH\d+/i.test(String(id || ''));
 
 export const nhomIdLaNguoiLon = (id) => /^NL\d+/i.test(String(id || ''));
 
+export const nhomIdLaChuyenKhoa = (id) => /^HCQ\d+/i.test(String(id || ''));
+
 export const locDongDanhMucTheoDoTuoi = (rows, laTre) => {
     if (!Array.isArray(rows)) return [];
     if (laTre === null) return rows;
     if (laTre) return rows.filter((r) => nhomIdLaNhi(r?.ID));
-    return rows.filter((r) => nhomIdLaNguoiLon(r?.ID));
+    return rows.filter((r) => nhomIdLaNguoiLon(r?.ID) || nhomIdLaChuyenKhoa(r?.ID));
 };
 
 export const ghepVanBanLamSangXml1 = (xml1) =>
