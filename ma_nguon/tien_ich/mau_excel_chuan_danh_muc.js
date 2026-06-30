@@ -5,7 +5,7 @@
 
 export const MAU_EXCEL_CHUAN = {
   DANH_MUC_ICD10: ['MÃ BỆNH', 'MÃ BỆNH KHÔNG DẤU', 'DISEASE NAME', 'TÊN BỆNH'],
-  DANH_MUC_ICD10_CAP_CUU: ['ID', 'Nhom_Benh', 'Tinh_Trang_Benh', 'ICD_Chinh', 'Ly_Do_Nhap_Vien', 'ICD_Kem_Theo', 'Ngoai_Le', 'Tu_Khoa'],
+  DANH_MUC_ICD10_CAP_CUU: ['ID', 'Nhom_Benh', 'Tinh_Trang_Benh', 'Ma_ICD_Chinh', 'Ten_ICD_Chinh', 'Ly_Do_Nhap_Vien', 'Ma_ICD_Kem_Theo', 'Ten_ICD_Kem_Theo', 'Ngoai_Le', 'Tu_Khoa'],
   DANH_MUC_ICD10_KE_DON_TREN_30_NGAY: ['TT', 'Mã TT', 'Danh mục bệnh theo các chuyên khoa', 'Mã bệnh theo ICD 10'],
   THONG_TIN_CO_SO: ['MA_CSKCB', 'TEN_CSKCB', 'DIA_CHI', 'TUYEN', 'HANG'],
   DANH_MUC_KHOA_LS_M01: ['STT', 'MA_KHOA', 'TEN_KHOA', 'BAN_KHAM', 'GIUONG_PD', 'GIUONG_TK', 'GIUONG_HSTC', 'GIUONG_HSCC', 'TU_NGAY', 'DEN_NGAY', 'MA_CSKCB', 'ID', 'MA_LOAI_KCB', 'LDLK', 'LIEN_KHOA', 'GIUONG_2015'],

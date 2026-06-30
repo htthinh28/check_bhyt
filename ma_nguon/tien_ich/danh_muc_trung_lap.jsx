@@ -6,7 +6,7 @@
 /** Khóa ổn định theo từng tab (cột hoặc bộ cột). Tên cột trùng MAU_EXCEL_CHUAN / file BYT. */
 export const KHOA_TRUNG_MAC_DINH = {
   DANH_MUC_ICD10: ['MÃ BỆNH'],
-  DANH_MUC_ICD10_CAP_CUU: ['ICD_Chinh'],
+  DANH_MUC_ICD10_CAP_CUU: ['ID'],
   DANH_MUC_ICD10_KE_DON_TREN_30_NGAY: ['Mã bệnh theo ICD 10'],
   THONG_TIN_CO_SO: ['MA_CSKCB'],
   DANH_MUC_KHOA_LS_M01: ['MA_KHOA', 'MA_CSKCB'],
