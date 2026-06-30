@@ -1,23 +1,38 @@
 {
-  "version": 1,
+  "version": "1.0.0",
   "tenants": [
     {
-      "orgId": "phuongchau_soc_trang",
-      "tenHienThi": "CSKCB Sóc Trăng",
-      "tenDayDu": "CSKCB Sóc Trăng (94170)",
-      "maCskcb": "94170"
+      "org_id": "phuongchau_soc_trang",
+      "display_name": "CSKCB Sóc Trăng",
+      "ma_cskcb": "94170",
+      "catalog_policy": "legacy_bundle",
+      "active": true,
+      "branding": {
+        "app_name": "CDSS BHYT — Sóc Trăng",
+        "primary_color": "#C2185B"
+      }
     },
     {
-      "orgId": "phuongchau_can_tho",
-      "tenHienThi": "CSKCB Cần Thơ",
-      "tenDayDu": "CSKCB Cần Thơ",
-      "maCskcb": "92114"
+      "org_id": "phuongchau_can_tho",
+      "display_name": "CSKCB Cần Thơ",
+      "ma_cskcb": "92114",
+      "catalog_policy": "legacy_bundle",
+      "active": true,
+      "branding": {
+        "app_name": "CDSS BHYT — Cần Thơ",
+        "primary_color": "#1F6FEB"
+      }
     },
     {
-      "orgId": "phuongchau_sa_dec",
-      "tenHienThi": "CSKCB Sa Đéc",
-      "tenDayDu": "BV Sa Đéc",
-      "maCskcb": "87189"
+      "org_id": "phuongchau_sa_dec",
+      "display_name": "CSKCB Sa Đéc",
+      "ma_cskcb": "87189",
+      "catalog_policy": "legacy_bundle",
+      "active": true,
+      "branding": {
+        "app_name": "CDSS BHYT — Sa Đéc",
+        "primary_color": "#059669"
+      }
     }
   ]
 }
