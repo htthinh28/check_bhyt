@@ -1,17 +1,36 @@
 import { Platform } from 'react-native';
-import { KHOA_PHIEN_EMAIL, KHOA_PHIEN_ROLE } from './luu_tru_he_thong';
+import {
+  docChuoiHeThong,
+  ghiChuoiHeThong,
+  KHOA_PHIEN_EMAIL,
+  KHOA_PHIEN_ROLE,
+  xoaChuoiHeThong,
+} from './luu_tru_he_thong';
+import { resolveOrgId } from './tenant_context';
 import { tenantGetItem, tenantRemoveItem, tenantSetItem } from './tenant_storage';
 
 const laMoiTruongWeb = () => Platform.OS === 'web' && typeof window !== 'undefined' && !!window.localStorage;
 
+const dungStorageGlobal = () => !resolveOrgId();
+
 const docGiaTriPhien = async (key) => {
+  if (dungStorageGlobal()) {
+    const v = await docChuoiHeThong(key);
+    if (v != null) return String(v);
+    if (laMoiTruongWeb()) {
+      try {
+        const local = window.localStorage.getItem(key);
+        if (local != null) return local;
+      } catch { /* */ }
+    }
+    return '';
+  }
+
   if (laMoiTruongWeb()) {
     try {
       const localValue = window.localStorage.getItem(key);
       if (localValue) return localValue;
-    } catch {
-      // ignore localStorage read error and fallback to AsyncStorage
-    }
+    } catch { /* */ }
   }
 
   const asyncValue = await tenantGetItem(key).catch(() => '');
@@ -20,34 +39,37 @@ const docGiaTriPhien = async (key) => {
 
 const ghiGiaTriPhien = async (key, value) => {
   const normalizedValue = String(value || '');
-  const tasks = [tenantSetItem(key, normalizedValue).catch(() => {})];
 
+  if (dungStorageGlobal()) {
+    await ghiChuoiHeThong(key, normalizedValue);
+    return;
+  }
+
+  const tasks = [tenantSetItem(key, normalizedValue).catch(() => {})];
   if (laMoiTruongWeb()) {
     tasks.push((async () => {
       try {
         window.localStorage.setItem(key, normalizedValue);
-      } catch {
-        // ignore localStorage write error
-      }
+      } catch { /* */ }
     })());
   }
-
   await Promise.all(tasks);
 };
 
 const xoaGiaTriPhien = async (key) => {
-  const tasks = [tenantRemoveItem(key).catch(() => {})];
+  if (dungStorageGlobal()) {
+    await xoaChuoiHeThong(key);
+    return;
+  }
 
+  const tasks = [tenantRemoveItem(key).catch(() => {})];
   if (laMoiTruongWeb()) {
     tasks.push((async () => {
       try {
         window.localStorage.removeItem(key);
-      } catch {
-        // ignore localStorage remove error
-      }
+      } catch { /* */ }
     })());
   }
-
   await Promise.all(tasks);
 };
 

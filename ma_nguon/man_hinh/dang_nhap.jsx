@@ -4,7 +4,7 @@
  * JCI Standard SQE.1: Kiểm soát truy cập nghiêm ngặt.
  */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Alert,
     KeyboardAvoidingView,
@@ -16,41 +16,99 @@ import {
     TouchableOpacity,
     View,
 } from 'react-native';
+import { useRoute } from '@react-navigation/native';
 import { BREAKPOINTS, useLayoutMode } from '../tien_ich/diem_anh_man_hinh';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import AnhHeroTrangDau from '../thanh_phan/anh_hero_trang_dau';
 import ChanTrangUngDung from '../thanh_phan/chan_trang_ung_dung';
 import { CD } from '../tien_ich/chu_de_giao_dien';
+import { laLuongAdminHeThong, laLuongThanhVien } from '../tien_ich/che_do_truy_cap';
 import { capNhatTaiKhoanTheoEmail, docDanhSachTaiKhoan, ghiNhatKyHeThong, luuDanhSachTaiKhoan } from '../tien_ich/nhat_ky_he_thong';
 import { luuPhienDangNhap } from '../tien_ich/phien_dang_nhap';
 import { damBaoMigratePhanQuyen, layVaiTroPhienHieuLuc, taiRBAC } from '../tien_ich/rbac_engine';
-import { laTaiKhoanAdminToiCao } from '../tien_ich/admin_toi_cao';
-import { coGateSessionHopLe } from '../tien_ich/gate_session';
-import { laManHinhDangNhapCauHinh } from '../tien_ich/gate_dieu_huong';
-import { moKhoaTenantSession, coTenantSessionHopLe } from '../tien_ich/tenant_session';
+import {
+  ADMIN_EMAIL_TOI_CAO as ADMIN_EMAIL,
+  laTaiKhoanAdminToiCao,
+} from '../tien_ich/tai_khoan_admin_he_thong';
+import { currentTenantDescriptor, laCheDoBuildDonTenant, applyLockedOrgId } from '../tien_ich/tenant_context';
+import { docTenantSession, moKhoaTenantSession } from '../tien_ich/tenant_session';
+import { coGateSessionHopLe } from '../tien_ich/deploy_gate';
+import {
+  dieuHuongVaoModuleCauHinh,
+  laManHinhDangNhapCauHinh,
+} from '../tien_ich/dieu_huong_admin_he_thong';
+import {
+  dangNhapAdminToiCao,
+  khoiPhucMatKhauAdminToiCao,
+  MAT_KHAU_ADMIN_MAC_DINH,
+} from '../tien_ich/dang_nhap_admin_toi_cao';
 
-const ADMIN_EMAIL = 'htthinh28@gmail.com';
-const ADMIN_LEGACY_PASSWORD = 'Tramanh@2010##';
+const ADMIN_LEGACY_PASSWORD = MAT_KHAU_ADMIN_MAC_DINH;
 
-const ManHinhDangNhap = ({ navigation, route }) => {
-  const laCauHinhHeThong = laManHinhDangNhapCauHinh(route?.params);
-  const [taiKhoan, setTaiKhoan] = useState('');
+const ManHinhDangNhap = ({ navigation }) => {
+  const route = useRoute();
+  const cauHinhHeThong = laManHinhDangNhapCauHinh(route?.params);
+
+  const [taiKhoan, setTaiKhoan] = useState(cauHinhHeThong ? ADMIN_EMAIL : '');
   const [matKhau, setMatKhau] = useState('');
   const [dangXuLy, setDangXuLy] = useState(false);
   const [hienMatKhau, setHienMatKhau] = useState(false);
   const [thongBaoDangNhap, setThongBaoDangNhap] = useState('');
   const [loaiThongBao, setLoaiThongBao] = useState('info');
 
+  const tenantHienTai = cauHinhHeThong ? null : currentTenantDescriptor();
+  const hienDoiBenhVien = !laCheDoBuildDonTenant() && !cauHinhHeThong;
+
+  useEffect(() => {
+    if (cauHinhHeThong) return;
+    let huy = false;
+    (async () => {
+      const session = await docTenantSession();
+      if (huy) return;
+      if (session?.org_id) {
+        applyLockedOrgId(session.org_id);
+      } else if (!laCheDoBuildDonTenant()) {
+        capNhatThongBao('Chưa chọn cơ sở KCB. Vui lòng quay lại màn hình đầu.', 'warning');
+      }
+    })();
+    return () => { huy = true; };
+  }, [cauHinhHeThong]);
+
+  useEffect(() => {
+    if (!cauHinhHeThong) return;
+    let huy = false;
+    (async () => {
+      const gateMo = await coGateSessionHopLe();
+      if (huy) return;
+      if (!gateMo) {
+        Alert.alert(
+          'Cổng đã đóng',
+          'Vui lòng mở cổng triển khai trước khi đăng nhập module cấu hình.',
+          [{ text: 'OK', onPress: () => navigation.reset({ index: 0, routes: [{ name: 'ChonBenhVien' }] }) }],
+        );
+      }
+    })();
+    return () => { huy = true; };
+  }, [cauHinhHeThong, navigation]);
+
+  const doiBenhVien = async () => {
+    try {
+      await moKhoaTenantSession();
+      navigation.reset({ index: 0, routes: [{ name: 'ChonBenhVien' }] });
+    } catch (e) {
+      Alert.alert('Lỗi', String(e?.message || e));
+    }
+  };
+
   const capNhatThongBao = (noiDung, loai = 'info') => {
     setThongBaoDangNhap(String(noiDung || ''));
     setLoaiThongBao(loai);
   };
 
-  const dieuHuongSauDangNhap = async (email) => {
-    if (laCauHinhHeThong && laTaiKhoanAdminToiCao(email) && (await coGateSessionHopLe())) {
-      if (navigation?.reset) {
-        navigation.reset({ index: 0, routes: [{ name: 'QuanTriTaiKhoanBv' }] });
-        return;
-      }
+  const dieuHuongSauDangNhap = () => {
+    if (cauHinhHeThong) {
+      dieuHuongVaoModuleCauHinh(navigation);
+      return;
     }
     if (navigation?.reset) {
       navigation.reset({ index: 0, routes: [{ name: 'TongQuan' }] });
@@ -76,6 +134,26 @@ const ManHinhDangNhap = ({ navigation, route }) => {
     }
     setDangXuLy(true);
     const tkChuan = tk.toLowerCase();
+
+    if (cauHinhHeThong) {
+      try {
+        const ketQua = await dangNhapAdminToiCao(tkChuan, mk);
+        if (!ketQua.ok) {
+          capNhatThongBao(ketQua.loi || 'Đăng nhập thất bại.', 'error');
+          Alert.alert('Từ chối truy cập', ketQua.loi || 'Đăng nhập thất bại.');
+          setDangXuLy(false);
+          return;
+        }
+        capNhatThongBao('Đăng nhập thành công, đang vào Module cấu hình...', 'success');
+        dieuHuongSauDangNhap();
+      } catch (e) {
+        capNhatThongBao(String(e?.message || 'Không thể đăng nhập.'), 'error');
+        Alert.alert('Lỗi', String(e?.message || e));
+      }
+      setDangXuLy(false);
+      return;
+    }
+
     let quyen = 'USER';
     let batBuocDoiMatKhau = false;
 
@@ -94,7 +172,7 @@ const ManHinhDangNhap = ({ navigation, route }) => {
           // Không chặn đăng nhập nếu ghi log thất bại.
         }
         capNhatThongBao('Đăng nhập thành công, đang chuyển vào hệ thống...', 'success');
-        dieuHuongSauDangNhap(tkChuan);
+        dieuHuongSauDangNhap();
         setDangXuLy(false);
       };
 
@@ -177,12 +255,52 @@ const ManHinhDangNhap = ({ navigation, route }) => {
         return;
       }
 
+      const tenantSession = await docTenantSession();
+      const lockSource = tenantSession?.lock_source || 'member_select';
+      const laLuongAdmin = laLuongAdminHeThong(lockSource);
+      const laLuongBv = laLuongThanhVien(lockSource) || lockSource === 'user_select';
+
+      if (!cauHinhHeThong && !laCheDoBuildDonTenant() && laLuongAdmin && !laTaiKhoanAdminToiCao(tkChuan)) {
+        const thongDiep = 'Luồng quản trị hệ thống chỉ dành cho tài khoản admin tối cao. Vui lòng chọn vai trò «Bệnh viện thành viên».';
+        capNhatThongBao(thongDiep, 'error');
+        await ghiNhatKyHeThong({
+          hanhDong: 'DANG_NHAP_THAT_BAI',
+          doiTuong: 'HE_THONG',
+          chiTiet: 'Tai khoan khong duoc phep luong admin he thong',
+          taiKhoan: tkChuan,
+          vaiTro: userHopLe.vaiTro || 'USER',
+        });
+        Alert.alert('Từ chối truy cập', thongDiep);
+        setDangXuLy(false);
+        return;
+      }
+
+      if (!cauHinhHeThong && !laCheDoBuildDonTenant() && laLuongBv && laTaiKhoanAdminToiCao(tkChuan)) {
+        const thongDiep = 'Tài khoản quản trị tối cao phải đăng nhập qua vai trò «Quản trị hệ thống» ở màn hình đầu.';
+        capNhatThongBao(thongDiep, 'error');
+        await ghiNhatKyHeThong({
+          hanhDong: 'DANG_NHAP_THAT_BAI',
+          doiTuong: 'HE_THONG',
+          chiTiet: 'Admin toi cao khong duoc dang nhap luong thanh vien',
+          taiKhoan: tkChuan,
+          vaiTro: 'ADMIN',
+        });
+        Alert.alert('Từ chối truy cập', thongDiep);
+        setDangXuLy(false);
+        return;
+      }
+
       const cfgRbac = await taiRBAC();
       quyen = layVaiTroPhienHieuLuc({
         cfg: cfgRbac,
         email: tkChuan,
         fallbackRole: userHopLe.vaiTro || (tkChuan === ADMIN_EMAIL ? 'ADMIN' : 'USER'),
       });
+      if (cauHinhHeThong && laTaiKhoanAdminToiCao(tkChuan)) {
+        quyen = 'ADMIN';
+      } else if (laLuongAdmin && laTaiKhoanAdminToiCao(tkChuan)) {
+        quyen = 'ADMIN';
+      }
       batBuocDoiMatKhau = Boolean(userHopLe.buocDoiMatKhau);
     } catch (_e) {
       capNhatThongBao('Không thể kết nối cơ sở dữ liệu. Vui lòng thử lại.', 'error');
@@ -215,12 +333,40 @@ const ManHinhDangNhap = ({ navigation, route }) => {
         return;
       }
       capNhatThongBao('Đăng nhập thành công, đang chuyển vào hệ thống...', 'success');
-      await dieuHuongSauDangNhap(tkChuan);
+      dieuHuongSauDangNhap();
     } catch (_e) {
       capNhatThongBao('Không thể khởi tạo phiên làm việc. Vui lòng thử lại.', 'error');
       Alert.alert("Lỗi bộ nhớ", "Không thể khởi tạo phiên làm việc.");
     }
     setDangXuLy(false);
+  };
+
+  const xuLyKhoiPhucMatKhau = async () => {
+    const gateMo = await coGateSessionHopLe();
+    if (!gateMo) {
+      Alert.alert('Cổng đã đóng', 'Mở cổng triển khai trước khi khôi phục mật khẩu.');
+      return;
+    }
+    Alert.alert(
+      'Khôi phục mật khẩu admin',
+      `Đặt lại mật khẩu ${ADMIN_EMAIL} về mật khẩu mặc định?`,
+      [
+        { text: 'Hủy', style: 'cancel' },
+        {
+          text: 'Khôi phục',
+          onPress: async () => {
+            try {
+              const ketQua = await khoiPhucMatKhauAdminToiCao(ADMIN_EMAIL);
+              setMatKhau(ketQua.matKhau || MAT_KHAU_ADMIN_MAC_DINH);
+              capNhatThongBao('Đã khôi phục mật khẩu mặc định. Bấm Đăng nhập để tiếp tục.', 'success');
+              Alert.alert('Thành công', `Mật khẩu đã khôi phục:\n${ketQua.matKhau || MAT_KHAU_ADMIN_MAC_DINH}`);
+            } catch (e) {
+              Alert.alert('Lỗi', String(e?.message || e));
+            }
+          },
+        },
+      ],
+    );
   };
 
   const { width: beRong } = useLayoutMode();
@@ -234,17 +380,10 @@ const ManHinhDangNhap = ({ navigation, route }) => {
         {/* ===== PANEL TRÁI: BRANDING (tablet trở lên) ===== */}
         {dungBoCucHaiCot && (
           <View style={styles.brand_panel}>
-            {/* Vòng trang trí nền */}
-            <View style={styles.deco_circle_1} />
-            <View style={styles.deco_circle_2} />
-            <View style={styles.deco_circle_3} />
+            <AnhHeroTrangDau variant="panel" style={StyleSheet.absoluteFillObject} />
 
-            <View style={styles.brand_content}>
-              {/* Logo / Icon */}
-              <View style={styles.brand_icon_ring}>
-                <Text style={styles.brand_icon_txt}>🏥</Text>
-              </View>
-
+            <View style={styles.brand_content_overlay}>
+              <View style={styles.brand_content}>
               <Text style={styles.brand_name}>CDSS BẢO HIỂM Y TẾ</Text>
               <Text style={styles.brand_subtitle}>HỖ TRỢ GIÁM ĐỊNH & RA QUYẾT ĐỊNH LÂM SÀNG</Text>
 
@@ -253,7 +392,6 @@ const ManHinhDangNhap = ({ navigation, route }) => {
               <Text style={styles.brand_tagline}>Hệ Thống Hỗ Trợ Ra Quyết Định Lâm Sàng</Text>
               <Text style={styles.brand_version}>CDSS · BHYT · QĐ 130 · JCI</Text>
 
-              {/* Stat chips */}
               <View style={styles.stat_row}>
                 <View style={styles.stat_chip}>
                   <Text style={styles.stat_num}>6</Text>
@@ -270,6 +408,7 @@ const ManHinhDangNhap = ({ navigation, route }) => {
               </View>
             </View>
           </View>
+          </View>
         )}
 
         {/* ===== PANEL PHẢI: FORM ĐĂNG NHẬP ===== */}
@@ -283,16 +422,20 @@ const ManHinhDangNhap = ({ navigation, route }) => {
               {/* Header form (mobile) */}
               {!dungBoCucHaiCot && (
                 <View style={styles.mobile_brand}>
-                  <View style={styles.brand_icon_ring_sm}>
-                    <Text style={{ fontSize: 32 }}>🏥</Text>
-                  </View>
+                  <AnhHeroTrangDau variant="banner" />
                   <Text style={styles.mobile_brand_name}>CDSS BẢO HIỂM Y TẾ</Text>
                   <Text style={styles.mobile_brand_sub}>Hệ Thống BHYT & Lâm Sàng</Text>
                 </View>
               )}
 
-              <Text style={styles.form_title}>{dungBoCucHaiCot ? 'Đăng nhập hệ thống' : 'Xác thực tài khoản'}</Text>
-              <Text style={styles.form_sub}>Nhập thông tin xác thực để tiếp tục</Text>
+              <Text style={styles.form_title}>
+                {cauHinhHeThong ? 'Đăng nhập Module cấu hình' : (dungBoCucHaiCot ? 'Đăng nhập hệ thống' : 'Xác thực tài khoản')}
+              </Text>
+              <Text style={styles.form_sub}>
+                {cauHinhHeThong
+                  ? 'Admin tối cao — nhập email và mật khẩu đã cấp sau khi mở cổng triển khai'
+                  : 'Nhập thông tin xác thực để tiếp tục'}
+              </Text>
 
               {/* Input: Tài khoản */}
               <View style={styles.input_group}>
@@ -301,11 +444,12 @@ const ManHinhDangNhap = ({ navigation, route }) => {
                   <Text style={styles.input_icon}>👤</Text>
                   <TextInput
                     style={styles.input_field}
-                    placeholder="Nhập email hoặc mã HIS..."
+                    placeholder={cauHinhHeThong ? ADMIN_EMAIL : 'Nhập email hoặc mã HIS...'}
                     placeholderTextColor="#BDBDBD"
                     value={taiKhoan}
                     onChangeText={setTaiKhoan}
                     autoCapitalize="none"
+                    editable={!cauHinhHeThong}
                     outlineStyle="none"
                   />
                 </View>
@@ -354,6 +498,30 @@ const ManHinhDangNhap = ({ navigation, route }) => {
               )}
 
               {/* Thông tin liên hệ */}
+              {tenantHienTai ? (
+                <Text style={styles.tenant_badge}>
+                  🏥 {tenantHienTai.displayName}
+                  {tenantHienTai.maCskcb ? ` · ${tenantHienTai.maCskcb}` : ''}
+                </Text>
+              ) : null}
+              {hienDoiBenhVien ? (
+                <TouchableOpacity onPress={doiBenhVien} style={styles.nut_doi_bv}>
+                  <Text style={styles.chu_doi_bv}>← Đổi cơ sở KCB</Text>
+                </TouchableOpacity>
+              ) : null}
+              {cauHinhHeThong ? (
+                <TouchableOpacity onPress={xuLyKhoiPhucMatKhau} style={styles.nut_doi_bv}>
+                  <Text style={styles.chu_doi_bv}>🔑 Khôi phục mật khẩu mặc định</Text>
+                </TouchableOpacity>
+              ) : null}
+              {cauHinhHeThong ? (
+                <TouchableOpacity
+                  onPress={() => navigation.reset({ index: 0, routes: [{ name: 'ChonBenhVien' }] })}
+                  style={styles.nut_doi_bv}
+                >
+                  <Text style={styles.chu_doi_bv}>← Quay lại cổng triển khai</Text>
+                </TouchableOpacity>
+              ) : null}
               <View style={styles.contact_box}>
                 <Text style={styles.contact_txt}>🛡️ Hệ thống đóng · Cần tài khoản?</Text>
                 <Text style={styles.contact_email}>Liên hệ Admin: htthinh28@gmail.com</Text>
@@ -393,28 +561,22 @@ const styles = StyleSheet.create({
     padding: 50,
     position: 'relative',
     overflow: 'hidden',
+    backgroundColor: '#0f172a',
   },
-  deco_circle_1: {
-    position: 'absolute', width: 400, height: 400, borderRadius: 200,
-    backgroundColor: 'rgba(255,255,255,0.04)', top: -100, left: -100,
+  brand_content_overlay: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 50,
+    zIndex: 1,
   },
-  deco_circle_2: {
-    position: 'absolute', width: 300, height: 300, borderRadius: 150,
-    backgroundColor: 'rgba(255,255,255,0.06)', bottom: -50, right: -50,
+  brand_content: {
+    alignItems: 'center',
+    paddingHorizontal: 16,
+    ...Platform.select({
+      web: { textShadow: '0 2px 12px rgba(0,0,0,0.55)' },
+    }),
   },
-  deco_circle_3: {
-    position: 'absolute', width: 200, height: 200, borderRadius: 100,
-    backgroundColor: 'rgba(255,255,255,0.03)', top: '40%', left: '60%',
-  },
-  brand_content: { alignItems: 'center', zIndex: 1 },
-  brand_icon_ring: {
-    width: 110, height: 110, borderRadius: 55,
-    backgroundColor: CD.bg.glass_input,
-    borderWidth: 2, borderColor: CD.border.glass_md,
-    justifyContent: 'center', alignItems: 'center', marginBottom: 28,
-    ...Platform.select({ web: { boxShadow: CD.web.shadow_card, backdropFilter: CD.web.blur_card, WebkitBackdropFilter: CD.web.blur_card } }),
-  },
-  brand_icon_txt: { fontSize: 52 },
   brand_name: {
     fontSize: 40, fontWeight: '900', color: CD.text.primary,
     letterSpacing: 0.6, fontFamily: CD.font.family, textAlign: 'center',
@@ -520,6 +682,17 @@ const styles = StyleSheet.create({
   login_feedback_error: { color: '#fecaca' },
   login_feedback_success: { color: '#bbf7d0' },
   login_feedback_warning: { color: '#fde68a' },
+
+  tenant_badge: {
+    fontSize: 14,
+    color: CD.text.secondary,
+    textAlign: 'center',
+    marginBottom: 8,
+    fontFamily: CD.font.family,
+    fontWeight: '600',
+  },
+  nut_doi_bv: { alignSelf: 'center', marginBottom: 16, paddingVertical: 6, paddingHorizontal: 12 },
+  chu_doi_bv: { fontSize: 14, color: CD.brand.mauNhat, fontWeight: '700', fontFamily: CD.font.family },
 
   contact_box: {
     borderTopWidth: 1, borderTopColor: CD.border.divider,

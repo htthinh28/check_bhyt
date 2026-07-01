@@ -1,7 +1,8 @@
 /**
- * Registry tenant bundle (config/tenants/registry.json) + cache tùy chỉnh.
+ * Sổ đăng ký tenant — SPEC v2.0 Phần C.
+ * Nguồn bundle: tenant_registry_data.json (đồng bộ từ config/tenants/registry.json).
  */
-import registryBundle from '../../config/tenants/registry.json';
+import REGISTRY_RAW from './tenant_registry_data.json';
 
 export const chuanHoaTenantRow = (row = {}) => {
   const orgId = String(row.org_id || row.orgId || '').trim().toLowerCase();
@@ -15,51 +16,53 @@ export const chuanHoaTenantRow = (row = {}) => {
     hisProfileRef: row.his_profile_ref || row.hisProfileRef || '',
     branding: row.branding && typeof row.branding === 'object' ? row.branding : {},
     active: row.active !== false,
-    source: row.source === 'custom' ? 'custom' : 'bundle',
+    source: row.source === 'custom' ? 'custom' : (row.source === 'bundle' ? 'bundle' : 'bundle'),
   };
 };
 
-let _cacheMerged = null;
-let _customCache = [];
+const chuanHoaTenant = chuanHoaTenantRow;
 
-export const capNhatCacheTenantTuyChinh = (rows = []) => {
-  _customCache = Array.isArray(rows) ? rows : [];
-  _cacheMerged = null;
+let _cache = null;
+let _customTenants = [];
+
+export const capNhatCacheTenantTuyChinh = (list = []) => {
+  _customTenants = Array.isArray(list) ? list : [];
+  _cache = null;
 };
 
-export const layRegistryRaw = () => registryBundle;
+export const layRegistryRaw = () => REGISTRY_RAW;
 
-export const layDanhSachTenantBundle = () => (
-  (Array.isArray(registryBundle?.tenants) ? registryBundle.tenants : [])
-    .map((row) => chuanHoaTenantRow({ ...row, source: 'bundle' }))
-    .filter(Boolean)
-    .filter((row) => row.active)
-);
+export const layDanhSachTenantBundle = () => {
+  const list = Array.isArray(REGISTRY_RAW?.tenants) ? REGISTRY_RAW.tenants : [];
+  return list.map((row) => chuanHoaTenantRow({ ...row, source: 'bundle' })).filter(Boolean).filter((t) => t.active);
+};
 
 export const layDanhSachTenant = () => {
-  if (_cacheMerged) return _cacheMerged;
-  const map = new Map();
-  layDanhSachTenantBundle().forEach((row) => map.set(row.orgId, row));
-  _customCache.forEach((row) => map.set(row.orgId, row));
-  _cacheMerged = Array.from(map.values()).sort((a, b) => {
+  if (_cache) return _cache;
+  const byId = new Map();
+  layDanhSachTenantBundle().forEach((t) => byId.set(t.orgId, t));
+  _customTenants.forEach((t) => byId.set(t.orgId, t));
+  _cache = Array.from(byId.values()).sort((a, b) => {
     if (a.source !== b.source) return a.source === 'custom' ? -1 : 1;
     return a.displayName.localeCompare(b.displayName, 'vi');
   });
-  return _cacheMerged;
+  return _cache;
 };
 
 export const timTenantTheoOrgId = (orgId) => {
   const token = String(orgId || '').trim().toLowerCase();
-  return (token && layDanhSachTenant().find((row) => row.orgId === token)) || null;
+  if (!token) return null;
+  return layDanhSachTenant().find((t) => t.orgId === token) || null;
 };
 
+/** Buộc đọc lại registry (sau sửa/xóa BV tùy chỉnh). */
 export const lamMoiDanhSachTenant = () => {
-  _cacheMerged = null;
+  _cache = null;
   return layDanhSachTenant();
 };
 
 export const _resetTenantRegistryCache = () => {
-  _cacheMerged = null;
+  _cache = null;
 };
 
 export default {

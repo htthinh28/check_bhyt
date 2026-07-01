@@ -1,16 +1,57 @@
 import {
   anToanArrayTuChuoi as anToanArray,
   docChuoiHeThong,
-  ghiChuoiHeThong as ghiStorage,
+  ghiChuoiHeThong as ghiStorageGlobal,
   gopHaiMangTaiKhoan,
   KHOA_NHAT_KY,
   KHOA_TAI_KHOAN,
   voiKhoaGhiHeThong as voiKhoaGhiTaiKhoan,
 } from './luu_tru_he_thong';
+import { laCheDoBuildDonTenant, resolveOrgId } from './tenant_context';
+import { tenantGetItem, tenantSetItem } from './tenant_storage';
 
 export { gopHaiMangTaiKhoan };
 
 const SO_BAN_GHI_TOI_DA = 2000;
+
+/** Các key lưu theo org khi đã chọn/khóa tenant. */
+const KHOA_THEO_TENANT = new Set([KHOA_TAI_KHOAN, KHOA_NHAT_KY]);
+
+const dungLuuTruTenant = (key) => Boolean(resolveOrgId()) && KHOA_THEO_TENANT.has(key);
+
+/**
+ * Đọc chuỗi hệ thống — global (IndexedDB) khi chưa có tenant;
+ * localStorage/AsyncStorage có prefix CDSS_ORG_{org}_ khi đã khóa BV.
+ */
+export const docChuoiHeThongCoTenant = async (key) => {
+  if (!dungLuuTruTenant(key)) {
+    return docChuoiHeThong(key);
+  }
+  try {
+    const raw = await tenantGetItem(key);
+    if (raw != null && raw !== '') return raw;
+  } catch (e) {
+    console.warn('[nhat_ky] đọc tenant storage:', key, e?.message || e);
+  }
+  if (laCheDoBuildDonTenant()) {
+    const legacy = await docChuoiHeThong(key);
+    if (legacy) {
+      await tenantSetItem(key, legacy).catch(() => {});
+      return legacy;
+    }
+  }
+  return null;
+};
+
+/** Ghi chuỗi hệ thống — đồng bộ với docChuoiHeThongCoTenant. */
+export const ghiChuoiHeThongCoTenant = async (key, value) => {
+  const normalized = String(value ?? '');
+  if (dungLuuTruTenant(key)) {
+    await tenantSetItem(key, normalized);
+    return;
+  }
+  await ghiStorageGlobal(key, normalized);
+};
 
 const nowISO = () => new Date().toISOString();
 
@@ -40,6 +81,7 @@ const chuanHoaTaiKhoan = (taiKhoan, nguoiCapNhat = 'SYSTEM') => {
     capNhatBoi: nguoiCapNhat,
     lanDangNhapCuoi: taiKhoan?.lanDangNhapCuoi || null,
     buocDoiMatKhau: taiKhoan?.buocDoiMatKhau === true,
+    matKhau: String(taiKhoan?.matKhau ?? ''),
   };
 };
 
@@ -55,12 +97,12 @@ export const chuanHoaDanhSachTaiKhoan = (danhSach, nguoiCapNhat = 'SYSTEM') => {
 };
 
 export const docDanhSachTaiKhoan = async () => {
-  const raw = await docChuoiHeThong(KHOA_TAI_KHOAN);
+  const raw = await docChuoiHeThongCoTenant(KHOA_TAI_KHOAN);
   return chuanHoaDanhSachTaiKhoan(anToanArray(raw));
 };
 
 const xacNhanVaTraDanhSachDaLuu = async (dsChuan) => {
-  await ghiStorage(KHOA_TAI_KHOAN, JSON.stringify(dsChuan));
+  await ghiChuoiHeThongCoTenant(KHOA_TAI_KHOAN, JSON.stringify(dsChuan));
   const dsDaLuu = await docDanhSachTaiKhoan();
   const thieuTaiKhoan = dsChuan.some((item) => !dsDaLuu.some((saved) => saved.email === item.email));
   if (thieuTaiKhoan) {
@@ -100,7 +142,7 @@ export const capNhatTaiKhoanTheoEmail = async (email, patch = {}, nguoiCapNhat =
 
 export const ghiNhatKyHeThong = async ({ hanhDong, doiTuong = '', chiTiet = '', taiKhoan = '', vaiTro = 'USER' }) => {
   try {
-    const raw = await docChuoiHeThong(KHOA_NHAT_KY);
+    const raw = await docChuoiHeThongCoTenant(KHOA_NHAT_KY);
     const danhSach = anToanArray(raw);
     const banGhi = {
       id: taoId(),
@@ -113,7 +155,7 @@ export const ghiNhatKyHeThong = async ({ hanhDong, doiTuong = '', chiTiet = '', 
     };
 
     const moiNhat = [banGhi, ...danhSach].slice(0, SO_BAN_GHI_TOI_DA);
-    await ghiStorage(KHOA_NHAT_KY, JSON.stringify(moiNhat));
+    await ghiChuoiHeThongCoTenant(KHOA_NHAT_KY, JSON.stringify(moiNhat));
     return banGhi;
   } catch {
     return null;
@@ -121,7 +163,7 @@ export const ghiNhatKyHeThong = async ({ hanhDong, doiTuong = '', chiTiet = '', 
 };
 
 export const layNhatKyHeThong = async ({ taiKhoan = '', tuKhoa = '', gioiHan = 200 } = {}) => {
-  const raw = await docChuoiHeThong(KHOA_NHAT_KY);
+  const raw = await docChuoiHeThongCoTenant(KHOA_NHAT_KY);
   const danhSach = anToanArray(raw);
 
   const tk = String(taiKhoan || '').trim().toLowerCase();
