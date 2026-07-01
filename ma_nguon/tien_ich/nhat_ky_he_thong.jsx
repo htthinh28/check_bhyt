@@ -7,8 +7,8 @@ import {
   KHOA_TAI_KHOAN,
   voiKhoaGhiHeThong as voiKhoaGhiTaiKhoan,
 } from './luu_tru_he_thong';
-import { laCheDoBuildDonTenant, resolveOrgId } from './tenant_context';
-import { tenantGetItem, tenantSetItem } from './tenant_storage';
+import { laCheDoBuildDonTenant, prefixStorageKey, resolveOrgId } from './tenant_context';
+import { tenantGetItem, tenantRemoveItem } from './tenant_storage';
 
 export { gopHaiMangTaiKhoan };
 
@@ -21,22 +21,33 @@ const dungLuuTruTenant = (key) => Boolean(resolveOrgId()) && KHOA_THEO_TENANT.ha
 
 /**
  * Đọc chuỗi hệ thống — global (IndexedDB) khi chưa có tenant;
- * localStorage/AsyncStorage có prefix CDSS_ORG_{org}_ khi đã khóa BV.
+ * IndexedDB key CDSS_ORG_{org}_* khi đã khóa BV (migrate từ localStorage tenant cũ).
  */
 export const docChuoiHeThongCoTenant = async (key) => {
   if (!dungLuuTruTenant(key)) {
     return docChuoiHeThong(key);
   }
+  const khoaDayDu = prefixStorageKey(key);
   try {
-    const raw = await tenantGetItem(key);
-    if (raw != null && raw !== '') return raw;
+    const tuIdb = await docChuoiHeThong(khoaDayDu);
+    if (tuIdb != null && tuIdb !== '') return tuIdb;
   } catch (e) {
-    console.warn('[nhat_ky] đọc tenant storage:', key, e?.message || e);
+    console.warn('[nhat_ky] đọc tenant IDB:', khoaDayDu, e?.message || e);
+  }
+  try {
+    const legacyTenant = await tenantGetItem(key);
+    if (legacyTenant != null && legacyTenant !== '') {
+      await ghiStorageGlobal(khoaDayDu, legacyTenant);
+      await tenantRemoveItem(key).catch(() => {});
+      return legacyTenant;
+    }
+  } catch (e) {
+    console.warn('[nhat_ky] migrate tenant localStorage:', key, e?.message || e);
   }
   if (laCheDoBuildDonTenant()) {
     const legacy = await docChuoiHeThong(key);
     if (legacy) {
-      await tenantSetItem(key, legacy).catch(() => {});
+      await ghiStorageGlobal(khoaDayDu, legacy);
       return legacy;
     }
   }
@@ -47,7 +58,9 @@ export const docChuoiHeThongCoTenant = async (key) => {
 export const ghiChuoiHeThongCoTenant = async (key, value) => {
   const normalized = String(value ?? '');
   if (dungLuuTruTenant(key)) {
-    await tenantSetItem(key, normalized);
+    const khoaDayDu = prefixStorageKey(key);
+    await ghiStorageGlobal(khoaDayDu, normalized);
+    await tenantRemoveItem(key).catch(() => {});
     return;
   }
   await ghiStorageGlobal(key, normalized);

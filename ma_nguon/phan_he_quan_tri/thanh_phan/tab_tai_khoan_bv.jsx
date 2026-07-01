@@ -66,12 +66,38 @@ export default function TabTaiKhoanBv({
     setModalSua(true);
   };
 
+  const kiemTraFormTao = () => {
+    const email = form.email.trim().toLowerCase();
+    if (!form.hoTen.trim()) {
+      hienThongBaoQuanTri('Thiếu thông tin', 'Họ tên không được trống.');
+      return null;
+    }
+    if (!email) {
+      hienThongBaoQuanTri('Thiếu thông tin', 'Email không được trống.');
+      return null;
+    }
+    if (!KIEM_TRA_EMAIL_CDSS.test(email)) {
+      hienThongBaoQuanTri(
+        'Email không hợp lệ',
+        'Nhập email đầy đủ dạng ten@benhvien.vn (ví dụ: vinh@pccantho.vn).',
+      );
+      return null;
+    }
+    return email;
+  };
+
   const xuLyTao = async () => {
     if (dangLuu) return;
+    const email = kiemTraFormTao();
+    if (!email) return;
     setDangLuu(true);
     try {
       const mk = form.matKhau.trim() || taoMatKhauNgauNhien(12);
-      await onTaoTaiKhoan({ ...form, matKhau: mk });
+      await onTaoTaiKhoan({
+        ...form,
+        email,
+        matKhau: mk,
+      });
       setModalTao(false);
     } catch {
       /* thông báo lỗi tại parent */
@@ -106,10 +132,13 @@ export default function TabTaiKhoanBv({
     }
   };
 
+  const emailChuan = form.email.trim().toLowerCase();
+  const emailKhongHopLe = emailChuan.length > 0 && !KIEM_TRA_EMAIL_CDSS.test(emailChuan);
+
   const FormFields = ({ readOnlyEmail = false }) => (
     <ScrollView style={{ maxHeight: 400 }}>
       {[
-        ['email', 'Email *', 'email@bv.vn', false, readOnlyEmail],
+        ['email', 'Email *', 'ten@benhvien.vn', false, readOnlyEmail],
         ['hoTen', 'Họ tên *', 'Nguyễn Văn A', false, false],
         ['khoa', 'Khoa', 'Khoa Nội', false, false],
         ['phong', 'Phòng', 'Phòng CNTT', false, false],
@@ -120,14 +149,23 @@ export default function TabTaiKhoanBv({
         <View key={key}>
           <Text style={styles.nhan}>{label}</Text>
           <TextInput
-            style={[styles.oNhap, ro && { backgroundColor: '#f1f5f9' }]}
+            style={[
+              styles.oNhap,
+              ro && { backgroundColor: '#f1f5f9' },
+              key === 'email' && emailKhongHopLe && !readOnlyEmail && { borderColor: '#dc2626', borderWidth: 1 },
+            ]}
             value={form[key]}
             onChangeText={(v) => setForm((f) => ({ ...f, [key]: v }))}
             placeholder={ph}
             secureTextEntry={secure}
             editable={!ro}
             autoCapitalize={key === 'email' ? 'none' : 'sentences'}
+            keyboardType={key === 'email' ? 'email-address' : 'default'}
+            autoCorrect={key !== 'email'}
           />
+          {key === 'email' && emailKhongHopLe && !readOnlyEmail ? (
+            <Text style={styles.loi}>Email phải có dạng ten@benhvien.vn</Text>
+          ) : null}
         </View>
       ))}
       <Text style={styles.nhan}>Vai trò hệ thống</Text>
@@ -227,8 +265,8 @@ export default function TabTaiKhoanBv({
               <Text style={styles.chuNutPhu}>Hủy</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={[styles.nutChinh, (!form.email || !form.hoTen || dangLuu) && { opacity: 0.5 }]}
-              disabled={!form.email || !form.hoTen || !KIEM_TRA_EMAIL_CDSS.test(form.email.trim()) || dangLuu}
+              style={[styles.nutChinh, (dangLuu || !form.email.trim() || !form.hoTen.trim()) && { opacity: 0.5 }]}
+              disabled={dangLuu || !form.email.trim() || !form.hoTen.trim()}
               onPress={xuLyTao}
             >
               {dangLuu ? <ActivityIndicator color="#fff" /> : <Text style={styles.chuNutChinh}>Lưu</Text>}

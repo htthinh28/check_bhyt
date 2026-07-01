@@ -12,7 +12,9 @@ import {
   chuanHoaDanhSachTaiKhoan,
   docDanhSachTaiKhoan,
   luuDanhSachTaiKhoan,
+  themTaiKhoanMoi,
 } from '../../tien_ich/nhat_ky_he_thong';
+import { VAI_TRO_TAI_KHOAN_BV } from '../constants/bon_he_thong';
 import {
   RBAC_KEYS,
   luuRBAC,
@@ -24,6 +26,10 @@ import { voiNgungCanTenant } from '../../tien_ich/tenant_context';
 import { ghiAuditQuanTri } from './audit_quan_tri_service';
 
 export const docTaiKhoanTheoOrg = async (orgId) => voiNgungCanTenant(orgId, docDanhSachTaiKhoan);
+
+const chuanHoaVaiTroBv = (vaiTro) => (
+  vaiTro === 'ADMIN' || vaiTro === VAI_TRO_TAI_KHOAN_BV.ADMIN_BV ? 'ADMIN' : 'USER'
+);
 
 export const demAdminBvConLai = (danhSach, emailLoaiTru = '') => {
   const loai = String(emailLoaiTru || '').trim().toLowerCase();
@@ -48,18 +54,14 @@ export const taoTaiKhoanBv = async (orgId, payload, actor = 'ADMIN') => {
   if (!ktMk.ok) throw new Error(ktMk.loi);
 
   return voiNgungCanTenant(orgId, async () => {
-    const hienTai = await docDanhSachTaiKhoan();
-    if (hienTai.some((u) => u.email === email)) {
-      throw new Error(`Email ${email} đã tồn tại tại cơ sở này.`);
-    }
     const banGhi = taoBanGhiTaiKhoanMoi({
       ...payload,
       email,
       matKhau,
-      vaiTro: payload?.vaiTro === 'ADMIN' ? 'ADMIN' : 'USER',
+      vaiTro: chuanHoaVaiTroBv(payload?.vaiTro),
       buocDoiMatKhau: payload?.buocDoiMatKhau !== false,
     });
-    const dsMoi = await luuDanhSachTaiKhoan([...hienTai, banGhi], actor);
+    const dsMoi = await themTaiKhoanMoi(banGhi, actor);
 
     if (payload?.binding) {
       await capNhatBindingTaiKhoan(email, payload.binding);
