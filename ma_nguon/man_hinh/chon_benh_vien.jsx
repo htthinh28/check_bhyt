@@ -29,8 +29,8 @@ import {
   dongGateSession,
   moGateSession,
   xacThucMatKhauGate,
-} from '../tien_ich/gate_session';
-import { dieuHuongSauMoGate } from '../tien_ich/gate_dieu_huong';
+} from '../tien_ich/deploy_gate';
+import { dieuHuongSauMoGate } from '../tien_ich/dieu_huong_admin_he_thong';
 import { laCheDoBuildDonTenant } from '../tien_ich/tenant_context';
 import { damBaoMigrationTenant } from '../tien_ich/tenant_migration';
 import { layDanhSachTenant } from '../tien_ich/tenant_registry';

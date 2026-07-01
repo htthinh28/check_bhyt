@@ -68,11 +68,12 @@ export const laCheDoBuildDonTenant = () => {
   const buildMode = String(extra?.buildMode || getEnv('EXPO_PUBLIC_BUILD_MODE') || '')
     .trim()
     .toLowerCase();
+  // buildMode trong app.json / EXPO_PUBLIC_BUILD_MODE ưu tiên hơn firebase.orgId mặc định
+  if (buildMode === 'multi') return false;
+  if (buildMode === 'single') return true;
   if (chuanHoaOrgId(getEnv('EXPO_PUBLIC_ORG_ID') || getEnv('EXPO_PUBLIC_FIREBASE_ORG_ID'))) {
     return true;
   }
-  if (buildMode === 'multi') return false;
-  if (buildMode === 'single') return true;
   const fromExtra = chuanHoaOrgId(extra?.orgId || extra?.firebase?.orgId);
   if (fromExtra) return true;
   return false;

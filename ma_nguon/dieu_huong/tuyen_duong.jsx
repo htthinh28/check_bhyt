@@ -18,12 +18,12 @@ import {
 import { docDanhSachTaiKhoan } from '../tien_ich/nhat_ky_he_thong';
 import { coPhienDangNhapHopLe, docPhienDangNhap } from '../tien_ich/phien_dang_nhap';
 import { coQuyenManHinh, taiRBAC } from '../tien_ich/rbac_engine';
-import { laTaiKhoanAdminToiCao } from '../tien_ich/admin_toi_cao';
-import { coGateSessionHopLe } from '../tien_ich/gate_session';
+import { laTaiKhoanAdminToiCao } from '../tien_ich/tai_khoan_admin_he_thong';
+import { coGateSessionHopLe } from '../tien_ich/deploy_gate';
 import {
   laManHinhDangNhapCauHinh,
   taoRouteDangNhapCauHinh,
-} from '../tien_ich/gate_dieu_huong';
+} from '../tien_ich/dieu_huong_admin_he_thong';
 import { damBaoKhoiDongTenant } from '../tien_ich/tenant_bootstrap';
 import { laCheDoBuildDonTenant } from '../tien_ich/tenant_context';
 import { coTenantSessionHopLe } from '../tien_ich/tenant_session';

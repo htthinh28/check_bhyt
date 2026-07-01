@@ -31,7 +31,7 @@ import {
   laTaiKhoanAdminToiCao,
 } from '../tien_ich/tai_khoan_admin_he_thong';
 import { currentTenantDescriptor, laCheDoBuildDonTenant, applyLockedOrgId } from '../tien_ich/tenant_context';
-import { docTenantSession, moKhoaTenantSession } from '../tien_ich/tenant_session';
+import { coTenantSessionHopLe, docTenantSession, moKhoaTenantSession } from '../tien_ich/tenant_session';
 import { coGateSessionHopLe } from '../tien_ich/deploy_gate';
 import {
   dieuHuongVaoModuleCauHinh,
@@ -60,19 +60,27 @@ const ManHinhDangNhap = ({ navigation }) => {
   const hienDoiBenhVien = !laCheDoBuildDonTenant() && !cauHinhHeThong;
 
   useEffect(() => {
-    if (cauHinhHeThong) return;
+    if (cauHinhHeThong || laCheDoBuildDonTenant()) return;
     let huy = false;
     (async () => {
       const session = await docTenantSession();
       if (huy) return;
       if (session?.org_id) {
         applyLockedOrgId(session.org_id);
-      } else if (!laCheDoBuildDonTenant()) {
-        capNhatThongBao('Chưa chọn cơ sở KCB. Vui lòng quay lại màn hình đầu.', 'warning');
+        return;
+      }
+      const coTenant = await coTenantSessionHopLe();
+      if (huy || coTenant) return;
+      if (navigation?.reset) {
+        navigation.reset({ index: 0, routes: [{ name: 'ChonBenhVien' }] });
+        return;
+      }
+      if (Platform.OS === 'web' && typeof window !== 'undefined') {
+        window.location.replace('/chon-benh-vien');
       }
     })();
     return () => { huy = true; };
-  }, [cauHinhHeThong]);
+  }, [cauHinhHeThong, navigation]);
 
   useEffect(() => {
     if (!cauHinhHeThong) return;
