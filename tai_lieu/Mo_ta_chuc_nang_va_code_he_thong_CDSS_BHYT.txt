@@ -1,0 +1,343 @@
+================================================================================
+HỆ THỐNG CDSS BHYT — MÔ TẢ CHỨC NĂNG & CODE HIỆN TẠI
+================================================================================
+
+CDSS Bảo hiểm y tế (ung_dung_cdss_bhyt v1.2.1) là hệ thống hỗ trợ ra quyết định
+lâm sàng và giám định hồ sơ BHYT theo QĐ 130, với hơn 130 quy tắc kiểm tra trên
+6 phân hệ XML. Ứng dụng chạy trên web, mobile (Expo) và desktop Windows
+(Electron).
+
+Bản triển khai web dev: https://checkbhytdev.vercel.app
+Repo GitHub: https://github.com/htthinh28/check_bhyt
+Ngày ghi nhận: 2026-06-29
+
+================================================================================
+1. TỔNG QUAN KIẾN TRÚC
+================================================================================
+
+[Môi trường chạy]
+  - Web: Vercel / trình duyệt
+  - Mobile: Expo iOS / Android
+  - Desktop: Electron portable Windows
+
+[Ứng dụng — ma_nguon/]
+  - tuyen_duong.jsx      — điều hướng chính
+  - man_hinh/            — 25+ màn hình UI
+  - dong_co_giam_dinh.jsx — engine giám định
+  - kho_du_lieu          — IndexedDB / AsyncStorage
+  - rbac_engine.jsx      — phân quyền
+
+[Dữ liệu]
+  - du_lieu_luat_*       — bundle seed quy tắc
+  - localStorage / AsyncStorage
+  - Firebase Firestore + Storage
+
+[Dịch vụ ngoài]
+  - python_service       — FastAPI :8000
+  - HIS gateway          — REST/WS/FHIR
+  - /thuvien/            — DVKT & Dược thư
+  - /tai_lieu/           — Thư viện tri thức
+
+Điểm vào ứng dụng: App.jsx → ChuDeProvider → DieuHuongChinh (tuyen_duong.jsx)
+Toàn bộ điều hướng nằm trong ma_nguon/dieu_huong/tuyen_duong.jsx (React
+Navigation stack), KHÔNG dùng Expo Router app/.
+
+================================================================================
+2. CÔNG NGHỆ SỬ DỤNG
+================================================================================
+
+Frontend     : React Native 0.81 + React 19 + Expo SDK 54
+Web          : react-native-web, expo export → dist/
+Điều hướng   : React Navigation 7 (native stack)
+Lưu trữ local: IndexedDB (web), AsyncStorage (mobile)
+Cloud        : Firebase Auth + Firestore + Storage
+Backend phụ  : Python FastAPI (python_service/)
+Thư viện     : Static /thuvien/ (DVKT, Dược thư, QTKT)
+Desktop      : Electron 35 + electron-builder
+Deploy web   : Vercel (vercel.json, npm run vercel:build)
+
+================================================================================
+3. CẤU TRÚC THƯ MỤC CHÍNH
+================================================================================
+
+ma_nguon/                  Mã nguồn chính
+  man_hinh/                Các màn hình UI
+  tien_ich/                Engine, storage, Firebase, RBAC, seed
+  quy_tac/                 Quy tắc cấu trúc XML1–6 (QĐ 130)
+  danh_muc_byt/            13 phụ lục danh mục BYT (QĐ 7603)
+  chuyen_mon/              Phác đồ, tương tác thuốc, quy trình BYT
+  dieu_huong/              Routing + deep link
+  dich_vu/                 Client HIS, Python service
+  thanh_phan/              Component UI tái sử dụng
+
+thuvien/                   Dữ liệu + script DVKT/Dược thư/QTKT
+tai_lieu/                  Kho tri thức huấn luyện (Markdown/HTML/TXT)
+public/                    Artifact build: tai_lieu/, thuvien/
+python_service/            FastAPI — audit batch, chat AI (tuỳ chọn)
+config/tenants/            Cấu hình đa cơ sở (CSKCB)
+scripts/                   Build, QA, audit fixture, catalog
+test_xml/                  XML mẫu và báo cáo regression
+dist/                      Output expo export --platform web
+electron-main.cjs          Shell Electron
+server.js                  Express LAN gateway :8080
+vercel.json                Cấu hình deploy Vercel
+
+================================================================================
+4. CÁC PHÂN HỆ CHỨC NĂNG
+================================================================================
+
+4.1. Xác thực & phân quyền
+---------------------------
+- Đăng nhập (/login): tài khoản lưu local + Firebase Auth cho cloud
+- RBAC (rbac_engine.jsx): vai trò Admin, Doctor, Nurse, Accountant,
+  Quality Manager, Head of Dept
+- Phân quyền màn hình (/permissions): gating theo coQuyenManHinh()
+- Đổi mật khẩu bắt buộc khi tài khoản yêu cầu
+- File: ma_nguon/man_hinh/dang_nhap.jsx, phan_quyen_truy_cap.jsx
+
+4.2. Giám định hồ sơ BHYT (lõi hệ thống)
+-----------------------------------------
+Luồng chính:
+  1. Đọc XML (/auditing) — import XML130/4210 từ file
+  2. Kiểm tra cấu trúc — schema QĐ 130 (XML1–6)
+  3. Engine giám định — dong_co_giam_dinh.jsx chạy 5 lớp quy tắc
+  4. Chi tiết ca (/case-detail/:maLK) — xem cảnh báo, lỗi theo từng XML
+  5. Sửa XML (/auditing/edit/:maLK) — chỉnh và kiểm tra lại
+  6. Kho lưu trữ (/archive) — lưu/truy xuất hồ sơ đã import
+
+5 lớp engine giám định:
+  Lớp 0 : Lọc đối tượng BHYT
+  Lớp 1 : Hành chính XML1 (HC-01…HC-10, quyền lợi, CV302…)
+  Lớp 2 : Danh mục nội bộ ↔ danh mục BYT
+  Lớp 3 : Giá thầu, số lượng, chất lượng DM BV
+  Lớp 4 : Lâm sàng: thuốc, CDHA, giường, PTTT, chuyển tuyến, ICD-10 TT06…
+  Lớp 5 : Quy tắc động (tab), DVKT-OP (VBHN 17), chuyên đề CHUYEN_DE
+
+Validator chuyên biệt: CV302, CV4262, CV3231, CCHN công khám, tương tác thuốc,
+phác đồ CDSS, ICD-10 mã kép.
+
+File lõi:
+  - ma_nguon/tien_ich/dong_co_giam_dinh.jsx
+  - ma_nguon/tien_ich/nhap_file_xml.jsx
+  - ma_nguon/tien_ich/kiem_tra_xml.jsx
+  - ma_nguon/tien_ich/kho_du_lieu.jsx
+  - ma_nguon/tien_ich/dvkt_op_giam_dinh.jsx
+  - ma_nguon/tien_ich/quy_tac_on_off_noi_bo.jsx
+
+4.3. Quản lý quy tắc (ON/OFF)
+------------------------------
+- Quản lý luật (/rules): xem/sửa bộ quy tắc theo mục
+- Quy tắc ON/OFF (/rules/on-off): bật/tắt từng MA_LUAT, ghi đè nội dung
+- Nguồn quy tắc (ưu tiên): seed bundle → local storage → hardcoded fallback
+  → trạng thái ON/OFF người dùng
+
+Seed bundles:
+  - du_lieu_luat_du_lieu_muc1.jsx   + seed_luat_du_lieu_muc1.jsx
+  - du_lieu_luat_hanh_chinh_muc2.jsx + seed_luat_hanh_chinh_muc2.jsx
+  - du_lieu_luat_thuoc_muc8.jsx      + seed_luat_thuoc_muc8.jsx
+  - du_lieu_luat_pttt_muc11.jsx      + seed_luat_pttt_muc11.jsx
+
+Hardcoded fallbacks: luat_*_hardcoded.jsx (9 chủ đề)
+
+4.4. Danh mục
+--------------
+- DM nội bộ (/master-data): nhân sự, thuốc, DVKT, giường, thiết bị (M01–M06)
+- DM Bộ Y tế (/danh-muc-byt): 13 phụ lục QĐ 7603 / QĐ 3276
+- Mapping nghiệp vụ (/mapping-nghiep-vu): khớp mã BV ↔ BYT, import Excel
+- XML chi tiết (/xml/xml1 … /xml/xml6): quản lý từng phân hệ QĐ 130
+
+4.5. Chuyên môn lâm sàng
+-------------------------
+- Quản lý chuyên môn (/clinical-guidelines): phác đồ BV, quy trình BYT
+- Phác đồ CDSS: in ấn, infographic (ma_nguon/chuyen_mon/phac_do_benh_vien/)
+- Tương tác thuốc (ma_nguon/chuyen_mon/tuong_tac_thuoc/)
+- Phạm vi hành nghề: CCHN, chuyên khoa
+
+4.6. Thư viện & tri thức
+-------------------------
+Màn hình          Route                    Chức năng
+Thư viện          /thu-vien                Đọc tài liệu huấn luyện từ tai_lieu/
+Tra cứu DVKT      /tra-cuu-thu-vien-pc     iframe /thuvien/ cùng origin
+Trợ lý RAG        /tro-ly-tri-thuc         Chat AI trên kho tài liệu
+Tri thức giám định /tri-thuc-giam-dinh     Rút kinh nghiệm từ ca đã kiểm tra
+
+Thư viện DVKT (/thuvien/):
+  - Danh mục QĐ 7603, TT23, DM BV
+  - 3160 quy trình kỹ thuật BYT (QTKT)
+  - Dược thư BHYT
+
+4.7. Tích hợp & vận hành
+-------------------------
+- Cổng HIS (/his-gateway): REST/FHIR/GraphQL/SOAP/WebSocket
+- Helper hệ thống (/helper): sao lưu, đồng bộ Firebase, cấu hình
+- Báo cáo & thống kê (/reports): thống kê giám định
+- Tổng quan (/dashboard): hub 16+ module
+
+================================================================================
+5. LỚP DỮ LIỆU & LƯU TRỮ
+================================================================================
+
+Luồng dữ liệu:
+  Seed bundle (du_lieu_luat_*) → seed_luat_*.jsx → AsyncStorage/IndexedDB
+  Hardcoded fallback (luat_*_hardcoded.jsx) → local storage
+  Engine (dong_co_giam_dinh.jsx) đọc từ local
+  Firebase đồng bộ hai chiều (orgs/{orgId}/)
+
+Thành phần              File chính                        Mô tả
+Seed mục 1              du_lieu_luat_du_lieu_muc1.jsx     Quy tắc cấu trúc, tổng chi
+Seed mục 2              du_lieu_luat_hanh_chinh_muc2.jsx  HC-01…HC-10
+Seed mục 8              du_lieu_luat_thuoc_muc8.jsx       Thuốc, tương tác
+Seed mục 11             du_lieu_luat_pttt_muc11.jsx       PTTT
+Kho hồ sơ               kho_du_lieu.jsx                   IndexedDB CDSS_HO_SO_DB__{orgId}
+Tenant storage          tenant_storage.jsx                Key prefix CDSS_ORG_{orgId}_*
+Firebase cloud          firebase_cloud_bhyt.jsx           Upload XML, sync DVKT, audit
+ON/OFF                  quy_tac_on_off_noi_bo.jsx           Bật/tắt quy tắc
+
+Nguyên tắc seed (AGENTS.md):
+  - Bundle seed là nguồn đúng cho MA_LUAT trong seed
+  - Giữ TRANG_THAI OFF nếu người dùng đã tắt
+  - Chỉ ghi storage khi nội dung hoặc migration thực sự lệch
+  - Bump PHIEN_BAN_SEED_* khi đổi nội dung nghiệp vụ
+
+================================================================================
+6. DỊCH VỤ PYTHON (HYBRID MODE)
+================================================================================
+
+File: python_service/app/main.py (FastAPI, port 8000)
+
+Endpoint                      Chức năng
+GET  /health                  Kiểm tra sống
+POST /api/v1/audit/claims     Audit batch (CK_09, CK_42, NS_*…)
+GET  /api/v1/ai/status        LLM/CUDA/mock status
+POST /api/v1/chat             Chat AI (Unsloth Qwen2.5, tuỳ chọn GPU)
+
+Client RN: ma_nguon/dich_vu/python_service_api.jsx
+Kết nối tự động: ma_nguon/tien_ich/hybrid_python_helper.jsx
+
+Khởi chạy:
+  npm run py:install
+  npm run py:start
+
+================================================================================
+7. ĐA TENANT (MULTI-CSKCB)
+================================================================================
+
+Mô hình: một org mỗi build, cấu hình config/tenants/
+
+Tenant                  Mã CSKCB    Ghi chú
+phuongchau_soc_trang    94170       Mặc định
+phuongchau_can_tho      92114
+phuongchau_sa_dec       87189
+
+- org_id từ EXPO_PUBLIC_ORG_ID hoặc app.json
+- Storage cách ly: prefix CDSS_ORG_{orgId}_
+- Firebase: orgs/{orgId}/ trong Firestore
+- Auth custom claims: org_id + role (ADMIN|AUDITOR|OPERATOR|REVIEWER|USER)
+- Build riêng: scripts/build_tenant.mjs → dist-{orgId}/
+
+File: ma_nguon/tien_ich/tenant_context.jsx, tenant_storage.jsx
+
+================================================================================
+8. PIPELINE BUILD & TRIỂN KHAI
+================================================================================
+
+Web / Vercel:
+  npm run vercel:build
+  (= qtkt:reenrich-mapping + tai_lieu:prepare + thuvien:prepare + expo export)
+  npm run vercel:deploy
+
+Dev:
+  npm run start          # Expo :8081
+  npm run web            # Web + thuvien:prepare
+
+Desktop Windows:
+  npm run desktop:export:light
+  npm run desktop:build:win-portable
+
+LAN:
+  npm run desktop:export:light && npm run start:lan   # Express :8080
+
+QA regression (một số lệnh):
+  npm run qa:claim-audit
+  npm run qa:on-off-match
+  npm run qa:rule-schema
+  npm run qa:python-service
+  npm run qa:his-gateway
+  npm run qa:thuvien
+
+Vercel (checkbhytdev.vercel.app):
+  - installCommand: npm install --legacy-peer-deps
+  - buildCommand: npm run vercel:build
+  - outputDirectory: dist/
+  - Rewrite SPA, giữ nguyên /tai_lieu/, /thuvien/
+
+================================================================================
+9. BẢN ĐỒ ROUTE WEB
+================================================================================
+
+Route                    Màn hình              Chức năng
+/login                   Đăng nhập             Xác thực
+/dashboard               Tổng quan             Hub module
+/auditing                Đọc XML               Import & giám định
+/case-detail/:maLK       Chi tiết ca           Xem kết quả
+/auditing/edit/:maLK     Sửa XML               Chỉnh & kiểm tra lại
+/archive                 Kho lưu trữ           Hồ sơ đã lưu
+/rules                   Quản lý luật          Bộ quy tắc
+/rules/on-off            ON/OFF                Bật/tắt quy tắc
+/master-data             DM nội bộ             Catalog BV
+/danh-muc-byt            DM BYT                QĐ 7603
+/mapping-nghiep-vu       Mapping               Khớp mã BV ↔ BYT
+/thu-vien                Thư viện              Tài liệu huấn luyện
+/tra-cuu-thu-vien-pc     Tra cứu               DVKT & Dược thư
+/his-gateway             Cổng HIS              Tích hợp HIS
+/permissions             Phân quyền            RBAC
+/helper                  Helper                Sao lưu, đồng bộ
+/reports                 Báo cáo               Thống kê
+/tro-ly-tri-thuc         Trợ lý RAG            Chat tri thức
+/tri-thuc-giam-dinh      Tri thức giám định    Học từ ca kiểm tra
+/clinical-guidelines     Chuyên môn            Phác đồ, quy trình
+/xml/xml1 … /xml/xml6    XML chi tiết          QĐ 130 từng phân hệ
+/account/password        Đổi mật khẩu          Bảo mật tài khoản
+
+Deep link config: ma_nguon/dieu_huong/cau_hinh_lien_ket.js
+
+================================================================================
+10. FILE THAM CHIẾU QUAN TRỌNG
+================================================================================
+
+Chức năng               File
+Entry                   App.jsx, index.js
+Routing                 ma_nguon/dieu_huong/tuyen_duong.jsx
+Audit engine            ma_nguon/tien_ich/dong_co_giam_dinh.jsx
+XML import              ma_nguon/tien_ich/nhap_file_xml.jsx
+Claim storage           ma_nguon/tien_ich/kho_du_lieu.jsx
+Firebase                ma_nguon/tien_ich/firebase_cloud_bhyt.jsx
+Tenant                  ma_nguon/tien_ich/tenant_context.jsx
+HIS                     ma_nguon/dich_vu/his_api.jsx
+Python client           ma_nguon/dich_vu/python_service_api.jsx
+RBAC                    ma_nguon/tien_ich/rbac_engine.jsx
+Thương hiệu             ma_nguon/tien_ich/thuong_hieu.js
+Đặc tả kỹ thuật         tai_lieu/Dac_ta_he_thong_CDSS_BHYT_20260405.md
+Hướng dẫn sử dụng       tai_lieu/Huong_dan_su_dung_CDSS_BHYT_20260405.md
+Quy tắc đồng bộ seed    AGENTS.md
+
+================================================================================
+11. TÓM TẮT
+================================================================================
+
+Hệ thống CDSS end-to-end cho giám định BHYT:
+  - Import XML130 (6 phân hệ)
+  - Engine 5 lớp với 130+ quy tắc
+  - Quản lý danh mục, mapping BV ↔ BYT
+  - Tra cứu DVKT, Dược thư, 3160 quy trình kỹ thuật BYT
+  - Thư viện tri thức + trợ lý RAG
+  - Tích hợp HIS, Firebase
+  - Đóng gói web / mobile / desktop
+
+Mã nguồn tập trung: ma_nguon/
+Engine lõi: dong_co_giam_dinh.jsx
+Điều hướng: tuyen_duong.jsx
+
+================================================================================
+Hết tài liệu
+================================================================================
