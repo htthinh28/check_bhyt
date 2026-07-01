@@ -4,7 +4,7 @@
  * JCI Standard SQE.1: Kiểm soát truy cập nghiêm ngặt.
  */
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
     Alert,
     KeyboardAvoidingView,
@@ -26,6 +26,7 @@ import { damBaoMigratePhanQuyen, layVaiTroPhienHieuLuc, taiRBAC } from '../tien_
 import { laTaiKhoanAdminToiCao } from '../tien_ich/admin_toi_cao';
 import { coGateSessionHopLe } from '../tien_ich/gate_session';
 import { laManHinhDangNhapCauHinh } from '../tien_ich/gate_dieu_huong';
+import { laCheDoBuildDonTenant } from '../tien_ich/tenant_context';
 import { moKhoaTenantSession, coTenantSessionHopLe } from '../tien_ich/tenant_session';
 
 const ADMIN_EMAIL = 'htthinh28@gmail.com';
@@ -44,6 +45,23 @@ const ManHinhDangNhap = ({ navigation, route }) => {
     setThongBaoDangNhap(String(noiDung || ''));
     setLoaiThongBao(loai);
   };
+
+  useEffect(() => {
+    let huy = false;
+    (async () => {
+      if (laCauHinhHeThong || laCheDoBuildDonTenant()) return;
+      const coTenant = await coTenantSessionHopLe();
+      if (huy || coTenant) return;
+      if (navigation?.reset) {
+        navigation.reset({ index: 0, routes: [{ name: 'ChonBenhVien' }] });
+        return;
+      }
+      if (Platform.OS === 'web' && typeof window !== 'undefined') {
+        window.location.replace('/chon-benh-vien');
+      }
+    })();
+    return () => { huy = true; };
+  }, [laCauHinhHeThong, navigation]);
 
   const dieuHuongSauDangNhap = async (email) => {
     if (laCauHinhHeThong && laTaiKhoanAdminToiCao(email) && (await coGateSessionHopLe())) {
