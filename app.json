@@ -21,6 +21,7 @@
       "favicon": "./tai_nguyen/icon.png"
     },
     "extra": {
+      "buildMode": "multi",
       "firebase": {
         "enabled": true,
         "orgId": "phuongchau",
