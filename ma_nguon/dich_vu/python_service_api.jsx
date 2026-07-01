@@ -45,6 +45,22 @@ const mayAnhLoopbackAndroidGiaLap = (baseUrl) => {
   return trimmed;
 };
 
+const laOriginWebLocal = () => {
+  if (Platform.OS !== 'web' || typeof window === 'undefined') return false;
+  const host = String(window.location?.hostname || '').toLowerCase();
+  return host === 'localhost' || host === '127.0.0.1' || host === '[::1]';
+};
+
+/** Web deploy (Vercel, …) không có Python local — chỉ probe khi có baseUrl rõ hoặc origin localhost. */
+export const coPythonServiceDuocCauHinhKetNoi = () => {
+  const extra = layExtraExpo();
+  if (extra?.pythonService?.enabled === false) return false;
+  const configuredBaseUrl = String(extra?.pythonService?.baseUrl || '').trim();
+  if (configuredBaseUrl) return true;
+  if (Platform.OS === 'web' && !laOriginWebLocal()) return false;
+  return true;
+};
+
 const goiYThemKhiLoiMangPython = (baseUrl) => {
   const buocChay = 'Trên máy chạy service: npm run py:start (uvicorn cổng 8000, --host 0.0.0.0).';
   const urlStr = String(baseUrl || '');

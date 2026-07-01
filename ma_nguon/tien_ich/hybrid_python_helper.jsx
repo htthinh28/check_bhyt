@@ -3,6 +3,7 @@ import Constants from 'expo-constants';
 import { AppState, Platform } from 'react-native';
 import {
   auditClaimsBangPythonService,
+  coPythonServiceDuocCauHinhKetNoi,
   healthCheckPythonService,
   pythonServiceConfig,
 } from '../dich_vu/python_service_api';
@@ -165,8 +166,8 @@ const layExtraPythonService = () => (
   || {}
 );
 
-/** `expo.extra.pythonService.enabled !== false` — mặc định bật. */
-export const laPythonServiceBatTrongCauHinh = () => layExtraPythonService()?.pythonService?.enabled !== false;
+/** `expo.extra.pythonService.enabled !== false` và có endpoint hợp lệ (web deploy không gọi 127.0.0.1 mặc định). */
+export const laPythonServiceBatTrongCauHinh = () => coPythonServiceDuocCauHinhKetNoi();
 
 let thoiDiemKetNoiPythonGanNhat = 0;
 
@@ -186,11 +187,15 @@ const hoan = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
  */
 export const kichHoatKetNoiPythonSauKhoiDongUngDung = async (options = {}) => {
   if (!laPythonServiceBatTrongCauHinh()) {
+    const extra = layExtraPythonService();
+    const chiTiet = extra?.pythonService?.enabled === false
+      ? 'Python service đã tắt trong cấu hình (expo.extra.pythonService.enabled = false).'
+      : 'Python service không khả dụng trên web deploy (chưa cấu hình baseUrl). Dev local: npm run py:start.';
     return {
       ok: false,
       skipped: true,
       trangThai: TRANG_THAI_PYTHON.KHONG_KHA_DUNG,
-      chiTiet: 'Python service đã tắt trong cấu hình (expo.extra.pythonService.enabled = false).',
+      chiTiet,
       baseUrl: pythonServiceConfig().baseUrl || '',
       soLanThu: 0,
     };
