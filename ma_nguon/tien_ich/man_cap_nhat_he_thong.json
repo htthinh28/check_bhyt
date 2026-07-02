@@ -1,0 +1,71 @@
+{
+  "phien_ban_manifest": "2026-07-02-v2",
+  "phien_ban_ung_dung": "1.2.1",
+  "ban_phat_hanh": {
+    "id": "2026-07-02-v2",
+    "ngay": "02/07/2026",
+    "tieu_de": "Cập nhật quy tắc giám định & hệ thống CDSS",
+    "tom_tat": "Bổ sung và chỉnh sửa quy tắc ICD-10, luật hành chính, đăng nhập đa bệnh viện và cải thiện ổn định khi khởi động.",
+    "muc": [
+      {
+        "loai": "quy_tac",
+        "icon": "🏥",
+        "tieu_de": "HC_249 — Nội trú cấp cứu (ICD-10)",
+        "chi_tiet": [
+          "Cảnh báo xuất toán khi nội trú MA_DOITUONG_KCB=2 không khớp danh mục ICD cấp cứu nội bộ.",
+          "Đối chiếu MA_BENH_CHINH, LY_DO_VNT và chẩn đoán với bảng ICD nhập viện cấp cứu (352 dòng).",
+          "Phiên bản seed: 2026-06-30_hc249_noitru_capcuu_xuat_toan."
+        ]
+      },
+      {
+        "loai": "quy_tac",
+        "icon": "📋",
+        "tieu_de": "ICD-10 theo Thông tư 06/2026/TT-BYT",
+        "chi_tiet": [
+          "Kiểm tra cờ danh mục: không làm bệnh chính, mã chi tiết hơn, giới tính, nguyên nhân tử vong.",
+          "Mã kép ICD-10 (†/*): cặp găm–sao bắt buộc, không dùng * làm bệnh chính.",
+          "Bộ lọc vi phạm ICD trên Tổng quan: TT06, mã kép, cấp cứu, thuốc, DVKT."
+        ]
+      },
+      {
+        "loai": "quy_tac",
+        "icon": "🤰",
+        "tieu_de": "ICD-10 sản khoa — cặp mã không được ghi cùng (TT 06)",
+        "chi_tiet": [
+          "37 cặp ICD sản khoa không được đi cùng nhau (O47+O80, Z34+đẻ, nhiều mã đẻ cùng lúc…).",
+          "Cảnh báo: ⚠️ Mã hóa ICD-10 chưa phù hợp TT 06/2026 — mã luật ICD-TT06-SAN-KHOA-CAP.",
+          "Đồng bộ từ JSON/docx: npm run catalog:icd10-san-khoa-tt06."
+        ]
+      },
+      {
+        "loai": "he_thong",
+        "icon": "🔔",
+        "tieu_de": "Popup thông báo cập nhật hệ thống",
+        "chi_tiet": [
+          "Hiện popup chi tiết khi có bản phát hành quy tắc/hệ thống mới trên màn Tổng quan.",
+          "Ghi nhận đã xem theo manifest id; nút Xem quy tắc mở Quản lý ON/OFF."
+        ]
+      },
+      {
+        "loai": "he_thong",
+        "icon": "🏢",
+        "tieu_de": "Đăng nhập đa bệnh viện & quản trị",
+        "chi_tiet": [
+          "Chế độ multi-tenant: chọn bệnh viện trước khi đăng nhập (buildMode multi).",
+          "Màn Quản trị tài khoản BV: RBAC, audit, khởi tạo cơ sở KCB.",
+          "Đồng bộ tenant registry và branding theo từng bệnh viện."
+        ]
+      },
+      {
+        "loai": "he_thong",
+        "icon": "⚙️",
+        "tieu_de": "Ổn định & hiệu năng",
+        "chi_tiet": [
+          "Không gọi /health Python service khi chưa cấu hình baseUrl (tránh lỗi console trên web).",
+          "Đồng bộ seed quy tắc tự động khi mở Tổng quan sau cập nhật phiên bản.",
+          "Popup thông báo này hiển thị mỗi khi có bản phát hành quy tắc/hệ thống mới."
+        ]
+      }
+    ]
+  }
+}

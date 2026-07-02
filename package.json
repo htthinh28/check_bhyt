@@ -93,6 +93,7 @@
     "qa:icd10-loc-vi-pham": "node ./scripts/qa_icd10_loc_vi_pham.mjs",
     "qa:icd10-cap-cuu": "node ./scripts/qa_icd10_cap_cuu.mjs",
     "qa:icd10-san-khoa-tt06": "node ./scripts/qa_icd10_san_khoa_tt06.mjs",
+    "qa:cap-nhat-he-thong": "node ./scripts/qa_cap_nhat_he_thong.mjs",
     "qa:excel-bac-si-loi": "node ./scripts/qa_excel_bac_si_loi.mjs",
     "qa:thong-ke-bs-pc": "node ./scripts/qa_thong_ke_bs_pc_smoke.mjs",
     "qa:dinh-dang-bs-bao-cao": "node ./scripts/qa_dinh_dang_bs_bao_cao.mjs",

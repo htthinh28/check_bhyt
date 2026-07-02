@@ -58,6 +58,17 @@ Khi **sửa đổi hoặc bổ sung bất kỳ quy tắc nào**, phải giữ **
 - Các **`seed_luat_*.jsx`** phải cùng nguyên tắc: ưu tiên nội dung bundle cho MA trong seed, giữ `TRANG_THAI` **OFF** nếu người dùng đã tắt, chỉ ghi AsyncStorage/localStorage khi nội dung (không dựa `id`) hoặc cột/migration thực sự lệch — tránh máy vẫn hiện cảnh báo cũ dù code mới đã đúng.
 - **`dong_co_giam_dinh.jsx`** gọi `damBaoSeed*` cho từng mục (dữ liệu, hành chính, thuốc, PTTT); khi thêm mục seed mới, đảm bảo gọi tương tự và không để lệch với hardcoded fallback (`*_hardcoded.jsx`) nếu màn hình/engine vẫn dùng.
 
+## Sau khi hoàn thành code (Cloud Agent — mặc định, không hỏi lại)
+
+Khi **kết thúc tác vụ có sửa code**, tự động làm đủ chuỗi sau **không cần người dùng nhắc**:
+
+1. **Lint / QA** liên quan (nếu có script cho phần vừa sửa).
+2. Làm việc và **commit trực tiếp trên nhánh `main`** (không tạo nhánh phụ `cursor/*` trừ khi user yêu cầu rõ).
+3. **`git push origin main`** — đây là push mặc định; **không** push nhánh phụ hay mở PR draft trừ khi user chỉ định.
+4. **Vercel:** push `main` lên GitHub đủ để production/preview deploy qua tích hợp repo; không dừng lại chỉ vì chưa chạy `vercel` CLI.
+
+Khi **bump quy tắc / hệ thống** có ý nghĩa với người dùng: cập nhật `ma_nguon/tien_ich/man_cap_nhat_he_thong.json` (id manifest mới + mục `chi_tiet`) để popup cập nhật hiện sau deploy.
+
 ## Red Lines
 
 - Don't exfiltrate private data. Ever.

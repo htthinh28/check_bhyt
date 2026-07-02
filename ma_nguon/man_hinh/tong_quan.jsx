@@ -45,6 +45,11 @@ import {
 import { docPhienDangNhap, xoaPhienDangNhap } from '../tien_ich/phien_dang_nhap';
 import { dieuHuongMoTabMoi } from '../tien_ich/dieu_huong_mo_tab_moi';
 import NutTraCuuThuVienHeader from '../thanh_phan/nut_tra_cuu_thu_vien_header';
+import ModalCapNhatHeThong from '../thanh_phan/modal_cap_nhat_he_thong';
+import {
+  danhDauDaXemCapNhat,
+  kiemTraCapNhatHeThong,
+} from '../tien_ich/cap_nhat_he_thong';
 import { DANH_MUC_QUY_TAC_NOI_BO, khopMaLuatTheoMau, suyRaThongTinQuanTriQuyTac } from '../tien_ich/quy_tac_on_off_noi_bo';
 import { locModuleTheoRBAC, taiRBAC } from '../tien_ich/rbac_engine';
 import {
@@ -418,6 +423,8 @@ const ManHinhTongQuan = ({ navigation }) => {
   const [importCardMoChiTietKt, setImportCardMoChiTietKt] = useState(false);
   const [importCardMoNangCao, setImportCardMoNangCao] = useState(false);
   const [popupTriThucVisible, setPopupTriThucVisible] = useState(false);
+  const [popupCapNhatVisible, setPopupCapNhatVisible] = useState(false);
+  const [noiDungCapNhat, setNoiDungCapNhat] = useState(null);
   /** Ẩn/hiện + ghim thẻ Điều hướng và bộ lọc QPS (lưu AsyncStorage) */
   const [panelUi, setPanelUi] = useState(trangThaiPanelMacDinh);
   const panelUiRef = useRef(panelUi);
@@ -514,6 +521,44 @@ const ManHinhTongQuan = ({ navigation }) => {
     const unsubscribe = navigation.addListener('focus', () => fetchThongTinHeThong());
     return unsubscribe;
   }, [navigation]);
+
+  useEffect(() => {
+    let huy = false;
+    (async () => {
+      try {
+        const kq = await kiemTraCapNhatHeThong();
+        if (huy || !kq?.canh_bao || !kq?.noi_dung) return;
+        setNoiDungCapNhat(kq.noi_dung);
+        setPopupCapNhatVisible(true);
+      } catch (err) {
+        console.warn('[TongQuan] kiemTraCapNhatHeThong:', err);
+      }
+    })();
+    return () => { huy = true; };
+  }, []);
+
+  const dongPopupCapNhat = async () => {
+    const id = noiDungCapNhat?.id;
+    setPopupCapNhatVisible(false);
+    if (id) {
+      try {
+        await danhDauDaXemCapNhat(id);
+      } catch (err) {
+        console.warn('[TongQuan] danhDauDaXemCapNhat:', err);
+      }
+    }
+  };
+
+  const moQuyTacTuPopupCapNhat = async () => {
+    const id = noiDungCapNhat?.id;
+    setPopupCapNhatVisible(false);
+    if (id) {
+      try {
+        await danhDauDaXemCapNhat(id);
+      } catch { /* */ }
+    }
+    dieuHuongMoTabMoi(navigation, 'QuanLyQuyTacOnOff');
+  };
 
   useEffect(() => {
     let huy = false;
@@ -2046,6 +2091,13 @@ ${phanDongKhoi.join('\n')}
           <Text style={styles.tri_thuc_fab_icon}>🤖</Text>
         </TouchableOpacity>
       ) : null}
+
+      <ModalCapNhatHeThong
+        visible={popupCapNhatVisible}
+        noiDung={noiDungCapNhat}
+        onDong={dongPopupCapNhat}
+        onXemQuyTac={moQuyTacTuPopupCapNhat}
+      />
 
       <Modal
         visible={popupTriThucVisible}
