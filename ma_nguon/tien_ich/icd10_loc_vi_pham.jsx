@@ -18,6 +18,7 @@ export const BO_LOC_ICD10_VI_PHAM = Object.freeze([
   { id: BO_LOC_ICD10_VI_PHAM_TAT_CA, label: 'Tất cả', moTa: 'Không lọc theo ICD-10' },
   { id: 'ICD-ALL', label: 'Mọi lỗi ICD', moTa: 'TT06, mã kép, hành chính, thuốc, DVKT…' },
   { id: 'ICD-TT06', label: 'TT06 (tất cả)', moTa: 'Thông tư 06/2026 — mọi cờ mã hóa', nhom: 'TT06' },
+  { id: 'ICD-TT06-SAN-KHOA', label: 'Sản khoa', moTa: 'Cặp ICD-10 sản khoa không được ghi cùng (TT 06)', nhom: 'TT06' },
   ...TT06_CHIP,
   { id: 'ICD-KEP', label: 'Mã kép †/*', moTa: 'Tất cả quy tắc ICD-KEP', nhom: 'KEP' },
   { id: 'ICD-HC-DL', label: 'Hành chính & XML', moTa: 'HC-07, thiếu/trống ICD (XML_14–35)', nhom: 'KHAC' },
@@ -37,6 +38,7 @@ export const laLoiLienQuanIcd10 = (loi = {}) => {
     if (/MA_BENH/.test(truong)) return true;
   }
   if (/^ICD-TT06-/.test(ma)) return true;
+  if (/^ICD-TT06-SAN-KHOA-/.test(ma)) return true;
   if (/^ICD-KEP-/.test(ma)) return true;
   if (/^(HC-07|HC_249)$/.test(ma)) return true;
   if (/^XML_(14|15|34|35)$/.test(ma)) return true;
@@ -72,6 +74,7 @@ export const loiKhopBoLocIcd10ViPham = (loi, filterId) => {
 
   if (id === 'ICD-ALL') return laLoiLienQuanIcd10(loi);
   if (id === 'ICD-TT06') return /^ICD-TT06-/.test(ma);
+  if (id === 'ICD-TT06-SAN-KHOA') return /^ICD-TT06-SAN-KHOA-/.test(ma);
   if (id === 'ICD-KEP') return /^ICD-KEP-/.test(ma);
   if (id === 'ICD-HC-DL') return /^(HC-07|XML_14|XML_15|XML_34|XML_35)$/.test(ma);
   if (id === 'ICD-THUOC') {

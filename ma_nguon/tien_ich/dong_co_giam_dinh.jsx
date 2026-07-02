@@ -22,6 +22,7 @@ import seedIcdDrugContraBhyt from './seed_icd_drug_contra_bhyt.json';
 import { DANH_MUC_ICD10_CAP_CUU } from '../thanh_phan/icd10_nhap_vien_cap_cuu';
 import { BANG_ICD10_TT06, PHIEN_BAN_ICD10_TT06 } from '../thanh_phan/icd10_tt06_bang_ma';
 import { giamDinhIcd10MaKep } from './icd10_ma_kep_giam_dinh';
+import { giamDinhIcd10SanKhoaTT06 } from './giam_dinh_icd10_san_khoa_tt06';
 import { giamDinhCdssDmMatchingUpgrade } from './cdss_dm_matching_upgrade';
 import { CHUOI_TRICH_DAN_TT12_2026_D10_VA_D13 as TT_12_2026_BTC_DIEU10_K1 } from './co_so_phap_ly_tt12_2026';
 import { docDanhMucTuKho } from './kho_du_lieu';
@@ -568,6 +569,7 @@ const CO_SO_PHAP_LY_THEO_PREFIX_MA_LUAT = Object.freeze({
     'CLN-CT-': `${VAN_BAN_HANH_CHINH_HIEN_HANH.TT_01} ${VAN_BAN_HANH_CHINH_HIEN_HANH.ND_188} ${TT_12_2026_BTC_DIEU10_K1}`,
     'CLN-CHI-': `${VAN_BAN_HANH_CHINH_HIEN_HANH.QD_130} ${VAN_BAN_HANH_CHINH_HIEN_HANH.ND_188} ${TT_12_2026_BTC_DIEU10_K1}`,
     'CLN-XDC-': `${VAN_BAN_HANH_CHINH_HIEN_HANH.QD_130} ${VAN_BAN_HANH_CHINH_HIEN_HANH.ND_188} ${TT_12_2026_BTC_DIEU10_K1}`,
+    'ICD-TT06-SAN-KHOA-': `Thông tư 06/2026/TT-BYT: Lưu ý mã hóa ICD-10 sản khoa — cặp mã không được ghi cùng nhau. ${TT_12_2026_BTC_DIEU10_K1}`,
     'ICD-TT06-': `Thông tư 06/2026/TT-BYT: Phụ lục danh mục mã bệnh ICD-10 (hướng dẫn mã hóa — không dùng làm bệnh chính, mã cụ thể hơn, giới tính...). ${TT_12_2026_BTC_DIEU10_K1}`,
     'ICD-KEP-': 'Quy định mã hóa bệnh tật ICD-10: hệ thống mã kép — mã dấu găm (†) và mã dấu sao (*).',
     'CLN-KCB-': CO_SO_PHAP_LY_KCB.CHUYEN_MON,
@@ -621,6 +623,7 @@ export const suyRaTangV15TuCanhBao = (loi = {}, namespaceQuyTacDaSuyRa = '') => 
     if (nguonGd === 'PYTHON_SERVICE') return 'L5';
 
     if (/^ICD-TT06-/.test(maLuat)) return 'L23';
+    if (/^ICD-TT06-SAN-KHOA-/.test(maLuat)) return 'L23';
     if (/^ICD-KEP-/.test(maLuat)) return 'L23';
 
     if (/^(DM-THUOC-|DMBV-THUOC-|DM-DVKT-|DMBV-DVKT-|DM-VTYT-|DMBV-VTYT-|DM-KHOA-)/.test(maLuat)) {
@@ -707,6 +710,8 @@ export const suyRaNamespaceVaNguonQuyTac = (loi = {}) => {
         ganMeta('CDHA_BUILTIN', 'dong_co_giam_dinh', 'XML3 -> built-in CDHA/DVKT', 'LUAT_CDHA');
     } else if (/^CLN-XDC-/.test(maLuat)) {
         ganMeta('XDC_BUILTIN', 'dong_co_giam_dinh', 'XML1↔XML2 đa tầng / đa biến', 'LUAT_DU_LIEU');
+    } else if (/^ICD-TT06-SAN-KHOA-/.test(maLuat)) {
+        ganMeta('ICD10_SAN_KHOA_TT06_BUILTIN', 'giam_dinh_icd10_san_khoa_tt06', 'XML1 MA_BENH — cặp ICD sản khoa TT 06', 'LUAT_DU_LIEU');
     } else if (/^ICD-TT06-/.test(maLuat)) {
         ganMeta('ICD10_TT06_BUILTIN', 'dong_co_giam_dinh', 'XML1 MA_BENH — TT 06/2026/BYT (danh mục ICD-10)', 'LUAT_DU_LIEU');
     } else if (/^ICD-KEP-/.test(maLuat)) {
@@ -6602,6 +6607,7 @@ export const chayGiamDinhToanDienV15 = async (hoSo) => {
     allLỗi = allLỗi.concat(giamDinhChatCheoDaBien(hoSo));
     allLỗi = allLỗi.concat(giamDinhIcd10TheoTT06(hoSo));
     allLỗi = allLỗi.concat(giamDinhIcd10MaKep(hoSo));
+    allLỗi = allLỗi.concat(giamDinhIcd10SanKhoaTT06(hoSo));
 
     // LAYER 5: Luật động theo tab + DVKT-OP
     allLỗi = allLỗi.concat(await chayBoMayGiamDinhV3(hoSo));
