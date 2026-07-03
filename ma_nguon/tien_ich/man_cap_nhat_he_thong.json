@@ -1,9 +1,9 @@
 {
-  "phien_ban_manifest": "2026-07-02-v2",
+  "phien_ban_manifest": "2026-07-03-v1",
   "phien_ban_ung_dung": "1.2.1",
   "ban_phat_hanh": {
-    "id": "2026-07-02-v2",
-    "ngay": "02/07/2026",
+    "id": "2026-07-03-v1",
+    "ngay": "03/07/2026",
     "tieu_de": "Cập nhật quy tắc giám định & hệ thống CDSS",
     "tom_tat": "Bổ sung và chỉnh sửa quy tắc ICD-10, luật hành chính, đăng nhập đa bệnh viện và cải thiện ổn định khi khởi động.",
     "muc": [
@@ -25,6 +25,16 @@
           "Kiểm tra cờ danh mục: không làm bệnh chính, mã chi tiết hơn, giới tính, nguyên nhân tử vong.",
           "Mã kép ICD-10 (†/*): cặp găm–sao bắt buộc, không dùng * làm bệnh chính.",
           "Bộ lọc vi phạm ICD trên Tổng quan: TT06, mã kép, cấp cứu, thuốc, DVKT."
+        ]
+      },
+      {
+        "loai": "quy_tac",
+        "icon": "👨‍⚕️",
+        "tieu_de": "CCHN nhiều bác sỹ — không dư dấu \";\" cuối chuỗi",
+        "chi_tiet": [
+          "Khi trường mã BS/nhân viên y tế có từ 2 người trở lên (phân tách bằng ;), không được kết thúc bằng dấu ; thừa.",
+          "Cảnh báo: ⚠️ Chuỗi mã CCHN dư ký tự cuối, đề nghị điều chỉnh đúng mã đã khai báo — mã luật CCHN-CHUOI-DU-CUOI.",
+          "Áp dụng MA_BAC_SI, NGUOI_THUC_HIEN, MA_TTDV, MA_BS_DOC_KQ trên XML1–XML6."
         ]
       },
       {

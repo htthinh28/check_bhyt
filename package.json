@@ -87,6 +87,7 @@
     "qa:cv4262-thanhtoan": "node ./scripts/qa_cv4262_thanhtoan.mjs",
     "qa:cv3231-phamvi": "node ./scripts/qa_cv3231_phamvi.mjs",
     "qa:ck59-cong-kham-cchn": "node ./scripts/qa_ck59_cong_kham_cchn.mjs",
+    "qa:cchn-chuoi-du-cuoi": "node ./scripts/qa_cchn_chuoi_du_cuoi.mjs",
     "qa:dvkt-staff-lookup": "node ./scripts/qa_dvkt_staff_lookup.mjs",
     "qa:dvkt-phamvi-nguoi-thuc-hien": "node ./scripts/qa_dvkt_phamvi_nguoi_thuc_hien.mjs",
     "qa:icd10-tt26-ke-don-loc": "node ./scripts/qa_icd10_tt26_ke_don_loc.mjs",

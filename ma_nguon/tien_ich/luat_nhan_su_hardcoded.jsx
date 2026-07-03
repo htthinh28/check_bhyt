@@ -24,6 +24,7 @@ const CACHE_RULES_HARDCODED = Object.freeze([
   { id: 'NS-013', MA_LUAT: 'NS_13', TEN_QUY_TAC: `DVKT ngoài DMDC BHYT hoặc ngoài phạm vi CSKCB`, DIEU_KIEN: `XML3.MA_DICH_VU NOT IN DM_DVKT_BHYT.MA_DICH_VU OR XML3.MA_DICH_VU NOT IN DM_CSKCB.DANH_MUC_KT_DUOC_PHEP`, CANH_BAO: `⛔ [XUẤT TOÁN]: DVKT {MA_DICH_VU} không thuộc DMDC BHYT hoặc ngoài phạm vi được cấp phép của CSKCB ({MA_CSKCB}).`, TRANG_THAI: 'OFF' },
   { id: 'NS-014', MA_LUAT: 'NS_14', TEN_QUY_TAC: `BS chỉ định ≠ BS thực hiện - Thiếu y lệnh`, DIEU_KIEN: `XML3.NGUOI_THUC_HIEN != XML1.MA_BAC_SI AND XML3.MA_DICH_VU IN DM_DVKT_CAN_CHI_DINH AND XML3.MA_PTTT_QT IS NULL`, CANH_BAO: `⚠️ [CẢNH BÁO]: DVKT {MA_DICH_VU} do người khác thực hiện nhưng thiếu y lệnh/chỉ định của BS điều trị (Bảng 1).`, TRANG_THAI: 'OFF' },
   { id: 'NS-015', MA_LUAT: 'NS_15', TEN_QUY_TAC: `Nhân sự không đăng ký tại CSKCB hiện tại`, DIEU_KIEN: `XML3.NGUOI_THUC_HIEN IN DM_NHAN_SU.MA_CCHN AND DM_NHAN_SU.MA_CSKCB_DANG_KY != XML1.MA_CSKCB`, CANH_BAO: `⚠️ [CẢNH BÁO]: Người thực hiện ({NGUOI_THUC_HIEN}) có CCHN nhưng không đăng ký hành nghề tại CSKCB {MA_CSKCB}.`, TRANG_THAI: 'OFF' },
+  { id: 'NS-016', MA_LUAT: 'CCHN-CHUOI-DU-CUOI', TEN_QUY_TAC: `Chuỗi mã CCHN nhiều người — dư ký tự cuối`, DIEU_KIEN: `BUILT-IN: giamDinhCchnChuoiNhieuBsDuKyTuCuoi — ≥2 BS phân tách ";" không được kết thúc bằng ";"`, CANH_BAO: `⚠️ Cảnh báo: Chuỗi mã CCHN dư ký tự cuối, đề nghị điều chỉnh đúng mã đã khai báo`, TRANG_THAI: 'ON' },
 ]);
 
 export const layDanhSachLuatNhanSuHardcoded = () => CACHE_RULES_HARDCODED.map((row) => ({ ...row }));

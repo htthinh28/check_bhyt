@@ -56,6 +56,7 @@ import { giamDinhCv302Bhyt } from './giam_dinh_cv302_bhyt';
 import { giamDinhCv4262Bhyt } from './giam_dinh_cv4262_bhyt';
 import { giamDinhCv3231Bhyt } from './giam_dinh_cv3231_bhyt';
 import { giamDinhBsMotCchnNhieuChuyenKhoaCongKham } from './giam_dinh_cong_kham_cchn';
+import { giamDinhCchnChuoiNhieuBsDuKyTuCuoi } from './giam_dinh_cchn_chuoi_nhieu_bs';
 import { buildDmKhamHeThong } from './dm_cong_kham_catalog';
 import { laMotLanKcbDuoi15PhanTramLcs as laMotLanKcbDuoi15PhanTramLCS } from './muc_luong_co_so_bhyt';
 import { tachChuoiNhieuMa } from './catalog_mapping_chuoi_ma';
@@ -6600,6 +6601,7 @@ export const chayGiamDinhToanDienV15 = async (hoSo) => {
     allLỗi = allLỗi.concat(giamDinhCv4262Bhyt(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhCv3231Bhyt(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhBsMotCchnNhieuChuyenKhoaCongKham(hoSo, danhMuc));
+    allLỗi = allLỗi.concat(giamDinhCchnChuoiNhieuBsDuKyTuCuoi(hoSo));
     allLỗi = allLỗi.concat(giamDinhGiuong(hoSo, danhMuc));
     allLỗi = allLỗi.concat(giamDinhPTTT(hoSo));
     allLỗi = allLỗi.concat(giamDinhChuyenTuyen(hoSo));
