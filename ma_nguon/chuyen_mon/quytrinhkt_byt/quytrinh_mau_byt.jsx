@@ -32,7 +32,7 @@ const DULIEU_MAU = [{
   id: '1',
   'MÃ DỊCH VỤ KT': '01.0001.0001',
   'TÊN QUY TRÌNH KỸ THUẬT': 'Thở ô xy qua gọng kính',
-  'M অ্যাক ICD-10 LIÊN QUAN': 'J18.9, J15',
+  'MÃ ICD-10 LIÊN QUAN': 'J18.9, J15',
   '1. ĐẠI CƯƠNG': 'Là kỹ thuật cung cấp khí thở có nồng độ ô xy cao hơn nồng độ ô xy trong khí trời (21%).',
   '2. CHỈ ĐỊNH': 'Giảm ô xy máu động mạch (PaO2 < 60 mmHg, SpO2 < 90%).',
   '3. CHỐNG CHỈ ĐỊNH': 'Không có chống chỉ định tuyệt đối.',
