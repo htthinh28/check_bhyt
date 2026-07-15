@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-06-27T12:34:40.558Z",
+  "generatedAt": "2026-06-29T09:47:55.492Z",
   "items": [
     {
       "id": "txt:_extract_cv266/PL1_plain.txt",
@@ -829,6 +829,12 @@
         "the_tri_thuc",
         "ai_huan_luyen"
       ]
+    },
+    {
+      "id": "txt:Mo_ta_chuc_nang_va_code_he_thong_CDSS_BHYT.txt",
+      "relPath": "Mo_ta_chuc_nang_va_code_he_thong_CDSS_BHYT.txt",
+      "title": "Mo ta chuc nang va code he thong CDSS BHYT",
+      "nguon": "text"
     },
     {
       "id": "md:Phien_lam_viec_chung_Cursor_va_OpenClaw.md",
