@@ -10,7 +10,8 @@ _Learn about the person you're helping. Update this as you go._
 
 ## Context
 
-_(What do they care about? What projects are they working on? What annoys them? What makes them laugh? Build this over time.)_
+- **Deploy mặc định:** Sau mỗi lần sửa code → commit `main` → `git push origin main` → Vercel tự deploy. Không hỏi lại; chỉ giữ local khi họ nói rõ.
+- Dùng CDSS BHYT đa bệnh viện; quan tâm quy tắc giám định, tài khoản admin tối cao, push nhanh lên production.
 
 ---
 
