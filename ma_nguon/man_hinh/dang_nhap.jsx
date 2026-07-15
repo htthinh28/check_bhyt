@@ -22,7 +22,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import AnhHeroTrangDau from '../thanh_phan/anh_hero_trang_dau';
 import ChanTrangUngDung from '../thanh_phan/chan_trang_ung_dung';
 import { CD } from '../tien_ich/chu_de_giao_dien';
-import { laLuongAdminHeThong, laLuongThanhVien } from '../tien_ich/che_do_truy_cap';
+import { laLuongAdminHeThong } from '../tien_ich/che_do_truy_cap';
 import { capNhatTaiKhoanTheoEmail, docDanhSachTaiKhoan, ghiNhatKyHeThong, luuDanhSachTaiKhoan } from '../tien_ich/nhat_ky_he_thong';
 import { luuPhienDangNhap } from '../tien_ich/phien_dang_nhap';
 import { damBaoMigratePhanQuyen, layVaiTroPhienHieuLuc, taiRBAC } from '../tien_ich/rbac_engine';
@@ -39,7 +39,9 @@ import {
 } from '../tien_ich/dieu_huong_admin_he_thong';
 import {
   dangNhapAdminToiCao,
+  dongBoAdminToiCaoTrenTenantHienTai,
   khoiPhucMatKhauAdminToiCao,
+  matKhauAdminToiCaoHopLe,
   MAT_KHAU_ADMIN_MAC_DINH,
 } from '../tien_ich/dang_nhap_admin_toi_cao';
 
@@ -187,6 +189,10 @@ const ManHinhDangNhap = ({ navigation }) => {
       let dsUsers;
       try {
         await damBaoMigratePhanQuyen();
+        // Admin tối cao: seed + đồng bộ mật khẩu/ROLE_ADMIN trên mọi BV thành viên đang chọn.
+        if (laTaiKhoanAdminToiCao(tkChuan)) {
+          await dongBoAdminToiCaoTrenTenantHienTai();
+        }
         dsUsers = await docDanhSachTaiKhoan();
       } catch (storageError) {
         if (tkChuan === ADMIN_EMAIL && mk === ADMIN_LEGACY_PASSWORD) {
@@ -196,7 +202,7 @@ const ManHinhDangNhap = ({ navigation }) => {
         throw storageError;
       }
 
-      // Đảm bảo luôn có tài khoản quản trị mặc định để tránh lockout khi dữ liệu cục bộ bị mất.
+      // Fallback seed nếu chưa đồng bộ được (tránh lockout khi mất dữ liệu cục bộ).
       if (!dsUsers.some((u) => u.email === ADMIN_EMAIL)) {
         dsUsers = await luuDanhSachTaiKhoan([
           ...dsUsers,
@@ -231,7 +237,7 @@ const ManHinhDangNhap = ({ navigation }) => {
         return;
       }
 
-      if (userHopLe.trangThai === 'KHOA') {
+      if (userHopLe.trangThai === 'KHOA' && !laTaiKhoanAdminToiCao(tkChuan)) {
         capNhatThongBao('Tài khoản đang bị khóa. Vui lòng liên hệ Admin.', 'error');
         await ghiNhatKyHeThong({
           hanhDong: 'DANG_NHAP_THAT_BAI',
@@ -245,7 +251,9 @@ const ManHinhDangNhap = ({ navigation }) => {
         return;
       }
 
-      const matKhauDung = userHopLe.matKhau === mk || (tkChuan === ADMIN_EMAIL && mk === ADMIN_LEGACY_PASSWORD);
+      const matKhauDung = laTaiKhoanAdminToiCao(tkChuan)
+        ? matKhauAdminToiCaoHopLe(userHopLe, mk)
+        : userHopLe.matKhau === mk;
       if (!matKhauDung) {
         capNhatThongBao(
           tkChuan === ADMIN_EMAIL ? 'Mật khẩu quản trị viên không chính xác.' : 'Mật khẩu không chính xác.',
@@ -266,7 +274,6 @@ const ManHinhDangNhap = ({ navigation }) => {
       const tenantSession = await docTenantSession();
       const lockSource = tenantSession?.lock_source || 'member_select';
       const laLuongAdmin = laLuongAdminHeThong(lockSource);
-      const laLuongBv = laLuongThanhVien(lockSource) || lockSource === 'user_select';
 
       if (!cauHinhHeThong && !laCheDoBuildDonTenant() && laLuongAdmin && !laTaiKhoanAdminToiCao(tkChuan)) {
         const thongDiep = 'Luồng quản trị hệ thống chỉ dành cho tài khoản admin tối cao. Vui lòng chọn vai trò «Bệnh viện thành viên».';
@@ -283,33 +290,19 @@ const ManHinhDangNhap = ({ navigation }) => {
         return;
       }
 
-      if (!cauHinhHeThong && !laCheDoBuildDonTenant() && laLuongBv && laTaiKhoanAdminToiCao(tkChuan)) {
-        const thongDiep = 'Tài khoản quản trị tối cao phải đăng nhập qua vai trò «Quản trị hệ thống» ở màn hình đầu.';
-        capNhatThongBao(thongDiep, 'error');
-        await ghiNhatKyHeThong({
-          hanhDong: 'DANG_NHAP_THAT_BAI',
-          doiTuong: 'HE_THONG',
-          chiTiet: 'Admin toi cao khong duoc dang nhap luong thanh vien',
-          taiKhoan: tkChuan,
-          vaiTro: 'ADMIN',
-        });
-        Alert.alert('Từ chối truy cập', thongDiep);
-        setDangXuLy(false);
-        return;
-      }
-
       const cfgRbac = await taiRBAC();
       quyen = layVaiTroPhienHieuLuc({
         cfg: cfgRbac,
         email: tkChuan,
         fallbackRole: userHopLe.vaiTro || (tkChuan === ADMIN_EMAIL ? 'ADMIN' : 'USER'),
       });
-      if (cauHinhHeThong && laTaiKhoanAdminToiCao(tkChuan)) {
+      // Admin tối cao luôn ADMIN trên mọi BV thành viên + luồng cấu hình hệ thống.
+      if (laTaiKhoanAdminToiCao(tkChuan)) {
         quyen = 'ADMIN';
-      } else if (laLuongAdmin && laTaiKhoanAdminToiCao(tkChuan)) {
-        quyen = 'ADMIN';
+        batBuocDoiMatKhau = false;
+      } else {
+        batBuocDoiMatKhau = Boolean(userHopLe.buocDoiMatKhau);
       }
-      batBuocDoiMatKhau = Boolean(userHopLe.buocDoiMatKhau);
     } catch (_e) {
       capNhatThongBao('Không thể kết nối cơ sở dữ liệu. Vui lòng thử lại.', 'error');
       Alert.alert('Lỗi hệ thống', 'Không thể kết nối cơ sở dữ liệu.');
